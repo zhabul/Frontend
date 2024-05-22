@@ -1,0 +1,167 @@
+<mat-dialog-content class="edit-add-user-to-project-mat-dialog"  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="container-fluidX px-0X" style="position:relative">
+    <div class="header-wrapp">
+        <div>
+        <div class="blue-text posRel mb-0 fs-18">
+            {{ "Add user" | translate }}
+        </div>
+        </div>
+        <div >
+        <app-close-svg (click)="close(true, 'close')" style="cursor: pointer;">
+        </app-close-svg>
+        </div>
+    </div>
+    <div class="row progres-wrapper">
+        <div class="">
+        <form
+            novalidate
+            autocomplete="off"
+            [formGroup]="createForm"
+            (ngSubmit)="create()"
+            class="form-content"
+            #myform="ngForm"
+        >
+            <div class="form-row" style="gap: 35px;display: grid;grid-template-columns: 1fr 1fr;">
+            <div class="form-group projects-date ">
+                <label for="phone">{{ "Start Date" | translate }}</label>
+                <div class="input-group date">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                    ><svg id="Kalender_tom_icon" data-name="Kalender tom icon" xmlns="http://www.w3.org/2000/svg" width="19.524" height="21.25" viewBox="0 0 19.524 21.25">
+                        <g id="Kalender_tom_icon-2" data-name="Kalender tom icon">
+                        <path id="Path_750" data-name="Path 750" d="M35.223,18.483H32.751v2.034c0,.014,0,.028,0,.042s0,.03,0,.045v.053h0a1.672,1.672,0,0,1-3.331,0h0V20.6c0-.015,0-.03,0-.044s0-.027,0-.041V18.483H22.732V20.5c0,.02,0,.039,0,.06s0,.043,0,.064v.034h0a1.672,1.672,0,0,1-3.331,0h0v-.073c0-.008,0-.017,0-.026s0-.016,0-.024V18.483H16.773a.531.531,0,0,0-.537.523V35.82a.531.531,0,0,0,.537.523h18.45a.531.531,0,0,0,.537-.523V19.006A.531.531,0,0,0,35.223,18.483Zm-1.247,15.6a.531.531,0,0,1-.537.523H18.556a.531.531,0,0,1-.537-.523V23.767a.531.531,0,0,1,.537-.522H33.44a.531.531,0,0,1,.537.522Z" transform="translate(-16.236 -15.093)" fill="#373b40"/>
+                        <path id="Path_751" data-name="Path 751" d="M47.717,21.513a1.142,1.142,0,0,0,1.139-1.145V16.244a1.139,1.139,0,1,0-2.277,0v4.125A1.142,1.142,0,0,0,47.717,21.513Z" transform="translate(-33.046 -15.099)" fill="#373b40"/>
+                        <path id="Path_752" data-name="Path 752" d="M26.029,21.513a1.142,1.142,0,0,0,1.138-1.145V16.244a1.139,1.139,0,1,0-2.277,0v4.125A1.142,1.142,0,0,0,26.029,21.513Z" transform="translate(-21.03 -15.099)" fill="#373b40"/>
+                        </g>
+                    </svg>
+                    </span
+                    >
+                </div>
+                <input
+                    (keydown)="$event.preventDefault()"
+                    id="dateSelectStartDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control project-date"
+                    aria-describedby="basic-addon1"
+                    placeholder="{{ 'Choose Start Date' | translate }}"
+                    #selectedDate
+                />
+                </div>
+                <span
+                class="help-block"
+                *ngIf="
+                    getFilteredUsers().length > 0 &&
+                    myform.submitted &&
+                    this.createForm.get('StartDate').hasError('required')
+                "
+                >
+                <span class="text-danger">
+                    {{ "Choose Start Date" | translate }}.
+                </span>
+                </span>
+            </div>
+            <div class="form-group projects-date ">
+                <label for="phone">{{ "End Date" | translate }}</label>
+                <div class="input-group date">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                    ><svg id="Kalender_tom_icon" data-name="Kalender tom icon" xmlns="http://www.w3.org/2000/svg" width="19.524" height="21.25" viewBox="0 0 19.524 21.25">
+                        <g id="Kalender_tom_icon-2" data-name="Kalender tom icon">
+                        <path id="Path_750" data-name="Path 750" d="M35.223,18.483H32.751v2.034c0,.014,0,.028,0,.042s0,.03,0,.045v.053h0a1.672,1.672,0,0,1-3.331,0h0V20.6c0-.015,0-.03,0-.044s0-.027,0-.041V18.483H22.732V20.5c0,.02,0,.039,0,.06s0,.043,0,.064v.034h0a1.672,1.672,0,0,1-3.331,0h0v-.073c0-.008,0-.017,0-.026s0-.016,0-.024V18.483H16.773a.531.531,0,0,0-.537.523V35.82a.531.531,0,0,0,.537.523h18.45a.531.531,0,0,0,.537-.523V19.006A.531.531,0,0,0,35.223,18.483Zm-1.247,15.6a.531.531,0,0,1-.537.523H18.556a.531.531,0,0,1-.537-.523V23.767a.531.531,0,0,1,.537-.522H33.44a.531.531,0,0,1,.537.522Z" transform="translate(-16.236 -15.093)" fill="#373b40"/>
+                        <path id="Path_751" data-name="Path 751" d="M47.717,21.513a1.142,1.142,0,0,0,1.139-1.145V16.244a1.139,1.139,0,1,0-2.277,0v4.125A1.142,1.142,0,0,0,47.717,21.513Z" transform="translate(-33.046 -15.099)" fill="#373b40"/>
+                        <path id="Path_752" data-name="Path 752" d="M26.029,21.513a1.142,1.142,0,0,0,1.138-1.145V16.244a1.139,1.139,0,1,0-2.277,0v4.125A1.142,1.142,0,0,0,26.029,21.513Z" transform="translate(-21.03 -15.099)" fill="#373b40"/>
+                        </g>
+                    </svg>
+                    </span
+                    >
+                </div>
+                <input
+                    (keydown)="$event.preventDefault()"
+                    id="dateSelectEndDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control project-date"
+                    aria-describedby="basic-addon1"
+                    placeholder="{{ 'Choose End Date' | translate }}"
+                    #selectedDate
+                />
+                </div>
+                <span
+                class="help-block"
+                *ngIf="
+                    getFilteredUsers().length > 0 &&
+                    myform.submitted &&
+                    this.createForm.get('EndDate').hasError('required')
+                "
+                >
+                <span class="text-danger">
+                    {{ "Choose End Date" | translate }}.
+                </span>
+                </span>
+            </div>
+            </div>
+            <div class="form-row select-position">
+            <div class="form-group col-sm-12">
+                <label for="name" class="required">{{
+                "Choose user" | translate
+                }}</label>
+                <div class="input-wrapper6" >
+                <app-counter-dropdown-multiselect
+                    name="Contact Person Permit"
+                    [selectedItem]="users"
+                    [selectedCoworkers]="this.projectUsers"
+                    [PermitActive]="true"
+                    [EnableSearch]="true"
+                    [type]="'Permit'"
+                    [placeholder]="'Select' | translate"
+                    [width]="248"
+                    (SelectedUser)="onItemSelect($event)"
+                    (SelectedUserAll)="onSelectAll($event)"
+                    (OnDeSelectAll)="onDeSelectAll()"
+                    [changed]="checkids(this.selectedUsers, initForm.addedUsersPermit)"
+                >
+                </app-counter-dropdown-multiselect>
+                </div>
+                <span
+                class="help-block"
+                *ngIf="myform.submitted && getFilteredUsers().length < 1"
+                >
+                <span class="text-danger">
+                    {{ "Please select atleast one new user" | translate }}.
+                </span>
+                </span>
+            </div>
+            </div>
+            <div class="row btn-position">
+            <button type="submit" class="btn btn-save">
+                <span class="left-3px posRel">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.456" height="25.456" viewBox="0 0 25.456 25.456">
+                <defs>
+                    <clipPath id="clip-path">
+                    <path id="Path_736" data-name="Path 736" d="M0,11.951H18v-18H0Z" transform="translate(0 6.049)" fill="none"/>
+                    </clipPath>
+                </defs>
+                <g id="X_icon" data-name="X icon" transform="translate(12.728) rotate(45)">
+                    <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                    <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                        <path id="Path_734" data-name="Path 734" d="M11.951,5.975a9,9,0,1,1-9-9,9,9,0,0,1,9,9" transform="translate(6.049 3.024)" fill="#4cb185"/>
+                    </g>
+                    <g id="Group_290" data-name="Group 290" transform="translate(3.727 3.742)">
+                        <path id="Path_735" data-name="Path 735" d="M6.822,5.921,3.135,2.234l3.693-3.7a.708.708,0,0,0,.006-1.039l-.265-.265a.708.708,0,0,0-1.065.06L1.843.943-1.885-2.774a.721.721,0,0,0-1.059.018l-.277.274a.721.721,0,0,0,.036,1.089L.5,2.288S-3.07,5.877-3.192,6A.708.708,0,0,0-3.2,7.034l.265.265a.708.708,0,0,0,1.065-.06L1.79,3.579,5.521,7.3a.722.722,0,0,0,1.062-.018L6.86,7.01a.719.719,0,0,0-.039-1.089" transform="translate(3.453 2.997)" fill="#373b40"/>
+                    </g>
+                    </g>
+                </g>
+                </svg>
+                </span>
+                <span class="posRel ">{{ "Add" | translate }}</span>
+            </button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+    <div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+    </div>
+</mat-dialog-content>

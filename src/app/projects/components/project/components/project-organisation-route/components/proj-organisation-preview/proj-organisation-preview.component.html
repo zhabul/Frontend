@@ -1,0 +1,601 @@
+<link
+  rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+/>
+
+<div class="d-flex justify-content-end mt-3">
+  <button class="btn btn-dark mr-2" (click)="loadMyChildComponent($event, 0)" *ngIf="userDetails.create_project_Organization">
+    {{ "Add new category" | translate }}
+  </button>
+  <button class="btn btn-secondary" (click)="printPage()">
+    {{ "Print" | translate }}
+  </button>
+</div>
+
+<div class="mt-2 text-center text-secondary" *ngIf="registers.length < 1">
+  {{ "No categories created yet." | translate }}
+</div>
+
+<div id="print-section">
+  <div class="tree alert alert-info mt-3">
+    <h4>{{ "Clients" | translate }}</h4>
+    <ul>
+      <li
+        *ngFor="let register of clients; let registerIndex = index"
+        class="mb-4"
+      >
+        <ng-template
+          [ngIf]="register.company.length > 0 || register.workers.length > 0"
+        >
+          <span style="background-color: #4472c4"
+            ><a
+              data-toggle="collapse"
+              href="#Category{{ registerIndex }}"
+              aria-expanded="true"
+            >
+              <i class="collapsed"><i class="fas fa-folder"></i></i>
+              <i class="expanded"><i class="far fa-folder-open"></i></i>
+              {{ register.Name }}</a
+            ></span
+          >
+          <span
+            class="ml-1 add-worker-parent"
+            style="background-color: #5b9bd5"
+            >{{ register.CompanyName }}</span
+          >
+          <b
+            class="add-worker fa fa-trash"
+            (click)="removeReg(register['Id'])"
+          ></b>
+          <div id="Category{{ registerIndex }}" class="collapse show">
+            <ul>
+              <li>
+                <ng-template [ngIf]="register.workers.length > 0">
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                  >
+                    <a
+                      data-toggle="collapse"
+                      href="#Worker{{ registerIndex }}"
+                      aria-expanded="true"
+                    >
+                      <i class="collapsed"><i class="fas fa-folder"></i></i>
+                      <i class="expanded"><i class="far fa-folder-open"></i></i>
+                      {{
+                        "Responsible
+                                            Persons"
+                          | translate
+                      }}
+                    </a>
+                  </span>
+                  <b
+                    class="add-worker"
+                    (click)="openComponent($event, register['Id'], 1)"
+                    >+</b
+                  >
+                  <div id="Worker{{ registerIndex }}" class="collapse show">
+                    <ul>
+                      <li
+                        *ngFor="
+                          let worker of register.workers;
+                          let workerIndex = index
+                        "
+                      >
+                        <span class="mr-1" style="background-color: #5b9bd5">{{
+                          worker.Role | translate
+                        }}</span>
+                        <span
+                          class="add-worker-parent"
+                          style="background-color: #5b9bd5"
+                          ><i class="far fa-user"></i>
+                          {{ worker.FirstName + " " + worker.LastName }}</span
+                        >
+                        <b
+                          class="add-worker fa fa-trash"
+                          (click)="
+                            deleteClientWorker(registerIndex, workerIndex)
+                          "
+                        ></b>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-template>
+                <ng-template [ngIf]="register.workers.length < 1">
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                    >{{
+                      "Responsible
+                                        Persons"
+                        | translate
+                    }}</span
+                  >
+                  <b
+                    class="add-worker"
+                    (click)="openComponent($event, register['Id'], 1)"
+                    >+</b
+                  >
+                </ng-template>
+              </li>
+              <li>
+                <ng-template [ngIf]="register.company.length > 0">
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                    ><a
+                      data-toggle="collapse"
+                      href="#Companies{{ registerIndex }}"
+                      aria-expanded="true"
+                    >
+                      <i class="collapsed"><i class="fas fa-folder"></i></i>
+                      <i class="expanded"><i class="far fa-folder-open"></i></i>
+                      {{ "Contractors" | translate }}</a
+                    ></span
+                  >
+                  <b
+                    class="add-worker"
+                    (click)="openCompanyComponent($event, register['Id'])"
+                    >+</b
+                  >
+                  <div id="Companies{{ registerIndex }}" class="collapse show">
+                    <ul>
+                      <li
+                        *ngFor="
+                          let company of register.company;
+                          let companyIndex = index
+                        "
+                      >
+                        <ng-template [ngIf]="company.Employes.length > 0">
+                          <span
+                            class="add-worker-parent"
+                            style="background-color: #a0c0e4"
+                          >
+                            <a
+                              data-toggle="collapse"
+                              href="#Company{{ companyIndex }}"
+                              aria-expanded="false"
+                              ><i class="collapsed"
+                                ><i class="fas fa-folder"></i
+                              ></i>
+                              <i class="expanded"
+                                ><i class="far fa-folder-open"></i
+                              ></i>
+                              {{ company.Name }}</a
+                            >
+                            <b
+                              class="add-worker fa fa-trash"
+                              (click)="
+                                deleteCompany(registerIndex, companyIndex)
+                              "
+                            ></b>
+                          </span>
+                          <b
+                            class="add-worker"
+                            (click)="
+                              openEmployeeComponent(
+                                $event,
+                                registerIndex + '-' + companyIndex
+                              )
+                            "
+                            >+</b
+                          >
+                          <ul>
+                            <div
+                              id="Company{{ companyIndex }}"
+                              class="collapse show"
+                            >
+                              <li
+                                *ngFor="
+                                  let employee of company.Employes;
+                                  let employeeIndex = index
+                                "
+                              >
+                                <span
+                                  class="mr-1"
+                                  style="background-color: #5b9bd5"
+                                >
+                                  {{ employee.Role | translate }}</span
+                                >
+                                <span
+                                  class="add-worker-parent"
+                                  style="background-color: #5b9bd5"
+                                  ><i class="far fa-user"></i>
+                                  {{
+                                    employee.FirstName + " " + employee.LastName
+                                  }}</span
+                                >
+                                <b
+                                  class="add-worker fa fa-trash"
+                                  (click)="
+                                    deleteWorker(
+                                      registerIndex,
+                                      companyIndex,
+                                      employeeIndex
+                                    )
+                                  "
+                                ></b>
+                              </li>
+                            </div>
+                          </ul>
+                        </ng-template>
+                        <ng-template [ngIf]="company.Employes.length < 1">
+                          <span
+                            class="add-worker-parent"
+                            style="background-color: #5b9bd5"
+                            >{{ company.Name }}</span
+                          >
+                          <b
+                            class="add-worker"
+                            (click)="
+                              openEmployeeComponent($event, register['Id'])
+                            "
+                            >+</b
+                          >
+                          <b
+                            class="add-worker fa fa-trash"
+                            (click)="deleteCompany(registerIndex, companyIndex)"
+                          ></b>
+                        </ng-template>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-template>
+                <ng-template [ngIf]="register.company.length < 1">
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                    >{{ "Contractors" | translate }}</span
+                  >
+                  <b
+                    class="add-worker"
+                    (click)="openCompanyComponent($event, register['Id'])"
+                    >+</b
+                  >
+                </ng-template>
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+        <ng-template
+          [ngIf]="register.company.length < 1 && register.workers.length < 1"
+        >
+          <span class="mr-1" style="background-color: #4472c4"
+            ><a
+              data-toggle="collapse"
+              href="#Category{{ registerIndex }}"
+              aria-expanded="true"
+            >
+              <i class="collapsed"><i class="fas fa-folder"></i></i>
+              <i class="expanded"><i class="far fa-folder-open"></i></i>
+              {{ register.Name }}</a
+            ></span
+          >
+          <span class="add-worker-parent" style="background-color: #5b9bd5">{{
+            register.CompanyName
+          }}</span>
+          <b
+            class="add-worker fa fa-trash"
+            (click)="removeReg(register['Id'])"
+          ></b>
+          <div id="Category{{ registerIndex }}" class="collapse show">
+            <ul>
+              <li>
+                <ng-template [ngIf]="register.workers.length > 0">
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                  >
+                    <a
+                      data-toggle="collapse"
+                      href="#Worker{{ registerIndex }}"
+                      aria-expanded="true"
+                    >
+                      <i class="collapsed"><i class="fas fa-folder"></i></i>
+                      <i class="expanded"><i class="far fa-folder-open"></i></i>
+                      {{
+                        "Responsible
+                                            Persons"
+                          | translate
+                      }}
+                    </a>
+                  </span>
+                  <b
+                    class="add-worker"
+                    (click)="openComponent($event, register['Id'], 1)"
+                    >+</b
+                  >
+                  <div id="Worker{{ registerIndex }}" class="collapse show">
+                    <ul></ul>
+                  </div>
+                </ng-template>
+                <ng-template [ngIf]="register.workers.length < 1">
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                    >{{
+                      "Responsible
+                                        Persons"
+                        | translate
+                    }}</span
+                  >
+                  <b
+                    class="add-worker"
+                    (click)="openComponent($event, register['Id'], 1)"
+                    >+</b
+                  >
+                </ng-template>
+              </li>
+              <li>
+                <ng-template [ngIf]="register.company.length > 0">
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                    ><a
+                      data-toggle="collapse"
+                      href="#Companies{{ registerIndex }}"
+                      aria-expanded="true"
+                    >
+                      <i class="collapsed"><i class="fas fa-folder"></i></i>
+                      <i class="expanded"><i class="far fa-folder-open"></i></i>
+                      {{ "Contractors" | translate }}</a
+                    ></span
+                  >
+                  <b
+                    class="add-worker"
+                    (click)="openCompanyComponent($event, register['Id'])"
+                    >+</b
+                  >
+                  <div id="Companies{{ registerIndex }}" class="collapse show">
+                    <ul></ul>
+                  </div>
+                </ng-template>
+                <ng-template [ngIf]="register.company.length < 1">
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                    >{{ "Contractors" | translate }}</span
+                  >
+                  <b
+                    class="add-worker"
+                    (click)="openCompanyComponent($event, register['Id'])"
+                    >+</b
+                  >
+                </ng-template>
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Suppliers tree -->
+
+  <div class="tree alert alert-secondary">
+    <h4>{{ "Suppliers" | translate }}</h4>
+    <ul>
+      <ng-template #nodeTemplateRef let-suppliers>
+        <li
+          [ngClass]="{ 'mb-4': register.parent == 0 }"
+          *ngFor="let register of suppliers; let registerIndex = index"
+          id="{{
+            register.parent == 0 ? '' : 'Subcategories' + register.parent
+          }}"
+          [ngStyle]="{ 'margin-left': register.parent == 0 ? '0' : '85px' }"
+        >
+          <ng-template
+            [ngIf]="register.company.length > 0 || register.workers.length > 0"
+          >
+            <span class="mr-1" style="background-color: #4472c4"
+              ><a
+                data-toggle="collapse"
+                href="#CategorySupp{{ register.Id }}"
+                aria-expanded="true"
+              >
+                <i class="collapsed"><i class="fas fa-folder"></i></i>
+                <i class="expanded"><i class="far fa-folder-open"></i></i>
+                {{ register.Name }}</a
+              ></span
+            >
+            <span class="add-worker-parent" style="background-color: #5b9bd5">{{
+              register.CompanyName
+            }}</span>
+            <b
+              class="add-worker fa fa-trash"
+              (click)="removeReg(register['Id'])"
+            ></b>
+            <div id="CategorySupp{{ register.Id }}" class="collapse show">
+              <ul>
+                <li>
+                  <ng-template [ngIf]="register.workers.length > 0">
+                    <span
+                      class="add-worker-parent"
+                      style="background-color: #5b9bd5"
+                    >
+                      <a
+                        data-toggle="collapse"
+                        href="#Worker{{ register.Id }}"
+                        aria-expanded="true"
+                      >
+                        <i class="collapsed"><i class="fas fa-folder"></i></i>
+                        <i class="expanded"
+                          ><i class="far fa-folder-open"></i
+                        ></i>
+                        {{ "Responsible Persons" | translate }}
+                      </a>
+                    </span>
+                    <b
+                      class="add-worker"
+                      (click)="openComponent($event, register['Id'], 2)"
+                      >+</b
+                    >
+                    <div id="Worker{{ register.Id }}" class="collapse show">
+                      <ul>
+                        <li
+                          *ngFor="
+                            let worker of register.workers;
+                            let workerIndex = index
+                          "
+                        >
+                          <span
+                            class="mr-1"
+                            style="background-color: #5b9bd5"
+                            >{{ worker.Role | translate }}</span
+                          >
+                          <span
+                            class="add-worker-parent"
+                            style="background-color: #5b9bd5"
+                            ><i class="far fa-user"></i>
+                            {{ worker.FirstName + " " + worker.LastName }}</span
+                          >
+                          <b
+                            class="add-worker fa fa-trash"
+                            (click)="
+                              deleteSupplierWorker(registerIndex, workerIndex)
+                            "
+                          ></b>
+                        </li>
+                      </ul>
+                    </div>
+                  </ng-template>
+                  <ng-template [ngIf]="register.workers.length < 1">
+                    <span
+                      class="add-worker-parent"
+                      style="background-color: #5b9bd5"
+                      >{{ "Responsible Persons" | translate }}</span
+                    >
+                    <b
+                      class="add-worker"
+                      (click)="openComponent($event, register['Id'], 2)"
+                      >+</b
+                    >
+                  </ng-template>
+                </li>
+                <li>
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                    ><a
+                      data-toggle="collapse"
+                      href="#Subcategories{{
+                        register.parent == 0 ? register.Id : register.parent
+                      }}"
+                      aria-expanded="true"
+                    >
+                      <i class="collapsed"><i class="fas fa-folder"></i></i>
+                      <i class="expanded"><i class="far fa-folder-open"></i></i>
+                      {{ "Subcategories" | translate }}</a
+                    ></span
+                  >
+                  <b
+                    class="add-worker"
+                    (click)="loadMyChildComponent($event, register.Id)"
+                    >+</b
+                  >
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+          <ng-template
+            [ngIf]="register.company.length < 1 && register.workers.length < 1"
+          >
+            <span class="mr-1" style="background-color: #4472c4"
+              ><a
+                data-toggle="collapse"
+                href="#CategorySupp{{ register.Id }}"
+                aria-expanded="true"
+              >
+                <i class="collapsed"><i class="fas fa-folder"></i></i>
+                <i class="expanded"><i class="far fa-folder-open"></i></i>
+                {{ register.Name }}</a
+              ></span
+            >
+            <span class="add-worker-parent" style="background-color: #5b9bd5">{{
+              register.CompanyName
+            }}</span>
+            <b
+              class="add-worker fa fa-trash"
+              (click)="removeReg(register['Id'])"
+            ></b>
+            <div id="CategorySupp{{ register.Id }}" class="collapse show">
+              <ul>
+                <li>
+                  <ng-template [ngIf]="register.workers.length > 0">
+                    <span
+                      class="add-worker-parent"
+                      style="background-color: #5b9bd5"
+                    >
+                      <a
+                        data-toggle="collapse"
+                        href="#Worker{{ register.Id }}"
+                        aria-expanded="true"
+                      >
+                        <i class="collapsed"><i class="fas fa-folder"></i></i>
+                        <i class="expanded"
+                          ><i class="far fa-folder-open"></i
+                        ></i>
+                        {{ "Responsible Persons" | translate }}
+                      </a>
+                    </span>
+                    <b
+                      class="add-worker"
+                      (click)="openComponent($event, register['Id'], 2)"
+                      >+</b
+                    >
+                  </ng-template>
+                  <ng-template [ngIf]="register.workers.length < 1">
+                    <span
+                      class="add-worker-parent"
+                      style="background-color: #5b9bd5"
+                      >{{ "Responsible Persons" | translate }}</span
+                    >
+                    <b
+                      class="add-worker"
+                      (click)="openComponent($event, register['Id'], 2)"
+                      >+</b
+                    >
+                  </ng-template>
+                </li>
+                <li>
+                  <span
+                    class="add-worker-parent"
+                    style="background-color: #5b9bd5"
+                    ><a
+                      data-toggle="collapse"
+                      href="#Subcategories{{
+                        register.parent == 0 ? register.Id : register.parent
+                      }}"
+                      aria-expanded="true"
+                    >
+                      <i class="collapsed"><i class="fas fa-folder"></i></i>
+                      <i class="expanded"><i class="far fa-folder-open"></i></i>
+                      {{ "Subcategories" | translate }}</a
+                    ></span
+                  >
+                  <b
+                    class="add-worker"
+                    (click)="loadMyChildComponent($event, register.Id)"
+                    >+</b
+                  >
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+          <ng-template
+            *ngTemplateOutlet="
+              nodeTemplateRef;
+              context: { $implicit: register.childs }
+            "
+          >
+          </ng-template>
+        </li>
+      </ng-template>
+
+      <ng-template
+        *ngTemplateOutlet="nodeTemplateRef; context: { $implicit: suppliers }"
+      >
+      </ng-template>
+    </ul>
+  </div>
+</div>

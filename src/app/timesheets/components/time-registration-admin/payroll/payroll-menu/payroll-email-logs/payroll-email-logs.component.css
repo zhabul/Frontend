@@ -1,0 +1,73 @@
+.log-box {
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+}
+  
+.header-box {
+    position: relative;
+    height: 40px;
+}
+
+.logs {
+    border: 1px solid var(--border-color);
+}
+
+.logs-header {
+    background-color: black;
+    color: white;
+    cursor: default;
+}
+
+.logs-items {
+    background-color: white;
+    color: black;
+    cursor: default;
+}
+
+.logs-items > div {
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-left: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.logs-header > div {
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-left: none;
+}
+
+.logs-container {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.title-box {
+    padding: 0px 10px 0px 10px;
+    margin-bottom: 10px;
+}
+
+.font-medium {
+    font-size: 16px;
+}
+
+.font-large {
+    font-size: 20px;
+}
+
+.logs-grid {
+    display: grid;
+    grid-template-columns: 130px 167px 167px 268px 226px 172px;
+    grid-template-rows: auto;
+}
+
+.spinner-container-payroll { 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

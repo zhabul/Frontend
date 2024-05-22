@@ -1,0 +1,116 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Set work dates" | translate }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="createScheduleDate()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div class="form-row">
+    <div class="form-group col-sm-12">
+      <label for="name" class="required">{{ "Project" | translate }}</label>
+      <select
+        class="project-nav-select form-control"
+        id="project-users"
+        #selectedProject
+        (change)="onChangeSetProjectID($event, selectedProject.value)"
+        formControlName="projectId"
+      >
+        <option
+          *ngFor="let project of projects"
+          value="{{ project.id }}"
+          [attr.data-name]="project.Name"
+        >
+          {{ project.Name }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group projects-date col-md-5">
+      <label for="phone">{{ "Start Date" | translate }}</label>
+      <div class="input-group date">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"
+            ><i class="material-icons">calendar_today</i></span
+          >
+        </div>
+        <input
+          id="dateSelectStartDate"
+          autocomplete="off"
+          type="text"
+          class="form-control project-date"
+          aria-describedby="basic-addon1"
+          placeholder="{{ 'Choose Start Date' | translate }}"
+          #selectedDate
+        />
+      </div>
+      <span class="help-block text-danger" *ngIf="errorMessage">
+        {{ "Please choose start date" | translate }}.
+      </span>
+    </div>
+    <div class="form-group projects-date col-md-5">
+      <label for="phone">{{ "End Date" | translate }}</label>
+      <div class="input-group date">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"
+            ><i class="material-icons">calendar_today</i></span
+          >
+        </div>
+        <input
+          id="dateSelectEndDate"
+          autocomplete="off"
+          type="text"
+          class="form-control project-date"
+          aria-describedby="basic-addon1"
+          placeholder="{{ 'Choose End Date' | translate }}"
+          #selectedDate
+        />
+      </div>
+      <span class="help-block text-danger" *ngIf="errorMessage">
+        {{ "Please choose end date" | translate }}.
+      </span>
+    </div>
+    <div class="col-md-2 btn-wrraper-position">
+      <span class="btn btn-success" (click)="addToArray()">+</span>
+    </div>
+  </div>
+  <div class="form-added-content" *ngIf="hasArrayOfObject">
+    <ul>
+      <li *ngFor="let object of projectUserScheduleDates; let index = index">
+        <div class="project-info-wrapper">
+          <div>
+            Project: <span>{{ object.projectName }}</span>
+          </div>
+        </div>
+        <div class="project-info-wrapper">
+          <div>
+            StartDate: <span>{{ object.StartDate }}</span>
+          </div>
+          <div>
+            EndDate: <span>{{ object.EndDate }}</span>
+          </div>
+          <div>
+            <span (click)="removeFromArray(index)"
+              ><i class="material-icons">delete_forever</i></span
+            >
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="button-group text-center">
+      <button type="submit" class="btn btn-success lh09">
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Save" | translate }}</span>
+      </button>
+    </div>
+  </div>
+</form>

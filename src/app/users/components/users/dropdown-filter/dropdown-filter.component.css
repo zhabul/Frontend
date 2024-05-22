@@ -1,0 +1,111 @@
+.component-wrapper {
+  background-color: #44484c;
+  border: 1px solid white;
+  width: 210px;
+  border-radius: 4px;
+}
+
+.dropdown-header-wrapper {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.component-wrapper:hover .dropdown-header-wrapper {
+  color: var(--orange-dark);
+}
+.component-wrapper:hover .dropdown-header-wrapper svg path {
+  fill: var(--orange-dark);
+}
+.component-wrapper:hover .dropdown-header-wrapper svg {
+  pointer-events: none;
+}
+.component-wrapper:hover {
+  border: 1px solid var(--orange-dark);
+}
+
+.list-item {
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  width: 200px;
+  border: 1px solid white;
+  margin: 1px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.list-item:hover {
+  border: 1px solid var(--orange-dark);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4px;
+  overflow: hidden;
+  transition: height 250ms ease-in-out;
+}
+
+.list-item-text {
+  margin-left: 10px;
+}
+
+.list-item-check {
+  margin-right: 10px;
+}
+
+
+.checkbox-round {
+  width: 28px;
+  height: 28px;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 2px solid #373b40;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.checkbox-round:disabled {
+  border: 2px solid var(--home-title-color);
+}
+
+.checkbox-round:disabled {
+  border: 2px solid var(--home-title-color);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+
+}
+
+.checkbox-round:checked {
+  content: url('/assets/img/checkbox-icon.svg');
+  padding: 2px;
+}
+
+.checkbox-round {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.green-background-color {
+  background-color: #bfe29c !important;
+}
+
+.red-background-color {
+  background-color: #f3cdcd;
+}
+
+.orange-background-color {
+  background-color: #fcb267;
+}

@@ -1,0 +1,287 @@
+<div class="row row1X mb-3">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav class="nav nav-pills nav-justified">
+      <a
+        [routerLink]="['/clients/invoices/', invoice.ClientId]"
+        class="btn btn-dark mr-2 lh09 hideUnder800"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [ngStyle]="{ visibility: tabActive ? 'hidden' : 'visible' }"
+      >
+        <span class="badgeX badge-darkX material-icons top1px posRel"
+          >arrow_back</span
+        >
+      </a>
+      <span class="component-title"
+        >{{ theClient.Number }} - {{ theClient.Name }}</span
+      >
+    </nav>
+  </div>
+</div>
+
+<div class="row row1X tab-content">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70 tab-pane fade show active"
+    id="nav-default"
+    role="tabpanel"
+    aria-labelledby="nav-default-tab"
+  >
+    <div class="card-body">
+      <section class="d-flex justify-content-between">
+        <h1 class="h4">{{ "Invoice" | translate }}</h1>
+        <span *ngIf="status == 1" class="text-warning status-text">{{
+          "Not Sent" | translate
+        }}</span>
+        <span *ngIf="status == 2" class="status-text">{{
+          "In Progress" | translate
+        }}</span>
+        <span *ngIf="status == 4" class="text-success status-text">{{
+          "Paid" | translate
+        }}</span>
+        <span *ngIf="status == 3" class="text-danger status-text">{{
+          "Unpaid due" | translate
+        }}</span>
+        <span *ngIf="status == 5" class="text-secondary status-text">{{
+          "Canceled" | translate
+        }}</span>
+      </section>
+    </div>
+    <form novalidate autocomplete="off" [formGroup]="createForm">
+      <div class="form-wrapper mb-3">
+        <div class="panel panel-default w-100">
+          <fieldset>
+            <legend class="w-auto">{{ "Information" | translate }}</legend>
+            <div class="row row-sm">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="project" class="required">{{
+                    "Project" | translate
+                  }}</label>
+                  <input
+                    id="project"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control"
+                    formControlName="project"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="client" class="required">{{
+                    "Client" | translate
+                  }}</label>
+                  <input
+                    id="client"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control"
+                    formControlName="client"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="reference" class="required">{{
+                    "Our Reference" | translate
+                  }}</label>
+                  <input
+                    class="form-control"
+                    id="reference"
+                    autocomplete="off"
+                    type="text"
+                    formControlName="reference"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row row-sm">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="invoiceDate" class="required">{{
+                    "Invoice Date" | translate
+                  }}</label>
+                  <input
+                    (keydown)="$event.preventDefault()"
+                    id="invoiceDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control"
+                    placeholder="{{ 'Select' | translate }} {{
+                      'Invoice Date' | translate
+                    }}"
+                    formControlName="invoiceDate"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="dueDate">{{ "Due Date" | translate }}</label>
+                  <input
+                    (keydown)="$event.preventDefault()"
+                    id="dueDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control"
+                    placeholder="{{ 'Select' | translate }} {{
+                      'Due Date' | translate
+                    }}"
+                    formControlName="dueDate"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="type" class="required">{{
+                    "Type" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="form-control type-select"
+                    id="type"
+                    formControlName="type"
+                  />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="form-wrapper mb-3">
+        <div class="panel panel-default w-100">
+          <fieldset>
+            <legend class="w-auto">{{ "Note" | translate }}</legend>
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="note-1">{{ "Note" | translate }} Fortnox</label>
+                  <textarea
+                    maxlength="150"
+                    class="form-control"
+                    id="note-1"
+                    rows="3"
+                    formControlName="note1"
+                  ></textarea>
+                  <small style="opacity: 0.75"
+                    >{{ createForm.get("note1").value.length }}/150</small
+                  >
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="note-2">{{ "Note" | translate }} SPS360</label>
+                  <textarea
+                    maxlength="150"
+                    class="form-control"
+                    id="note-2"
+                    rows="3"
+                    formControlName="note2"
+                  ></textarea>
+                  <small style="opacity: 0.75"
+                    >{{ createForm.get("note2").value.length }}/150</small
+                  >
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <table class="table table-sm table-bordered invoice-table">
+        <thead>
+          <tr>
+            <th>{{ "Article" | translate }}</th>
+            <th>{{ "Quantity" | translate }}</th>
+            <th>{{ "Unit" | translate }}</th>
+            <th>{{ "Price per unit" | translate }}</th>
+            <th>{{ "Deduct" | translate }}</th>
+            <th>
+              {{ "Total" | translate }}
+              <small style="letter-spacing: -0.25"
+                >({{
+                  ("Price per unit" | translate) +
+                    " * " +
+                    ("Deduct" | translate)
+                }})</small
+              >
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            formArrayName="articleForm"
+            *ngFor="let job of articleForm.controls; let i = index"
+          >
+            <td formGroupName="{{ i }}">
+              <input type="hidden" formControlName="Id" />
+              <input type="hidden" formControlName="AtaId" />
+              <input type="hidden" formControlName="MaterialId" />
+              <input type="hidden" formControlName="ReportId" />
+              <input
+                class="form-control form-control-sm article-name"
+                type="text"
+                #articleName
+                formControlName="Description"
+                [class.is-invalid]="job.get('Description').invalid"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm width5em"
+                type="number"
+                min="1"
+                #articleQuantity
+                formControlName="DeliveredQuantity"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                type="text"
+                class="form-control form-control-sm width5em"
+                #articleUnit1
+                formControlName="Unit"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm width5em"
+                type="text"
+                min="0"
+                number-format-directive
+                #articlePrice
+                formControlName="Price"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm width5em"
+                type="number"
+                #articleDeduct
+                formControlName="Deduct"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm"
+                readonly
+                type="number"
+                min="0"
+                #articleTotal
+                formControlName="Total"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="total-amount">
+        <div class="row row-sm">
+          <div class="col-9 total-text"><b>Total:</b></div>
+          <div class="col-3 total-number">{{ invoice.Total }}</div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

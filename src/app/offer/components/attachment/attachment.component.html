@@ -1,0 +1,133 @@
+<div class="attachment-header">
+  <button
+    class="btn btn-outline-secondary"
+    type="button"
+    data-toggle="collapse"
+    data-target="#collapseAttachment"
+    aria-expanded="false"
+    aria-controls="collapseAttachment"
+    (click)="buttonNameToggle()"
+  >
+    {{ buttonName }}
+  </button>
+</div>
+<div class="collapse collapse-attachment-wrapper" id="collapseAttachment">
+  <div class="modal-content-wrapper">
+    <h4>{{ "Create New Directory" | translate }}</h4>
+    <button class="btn btn-success" (click)="openModal()">+</button>
+  </div>
+  <form
+    class="p-3"
+    novalidate
+    autocomplete="off"
+    [formGroup]="createForm"
+    (ngSubmit)="uploadAttachment()"
+    #myform="ngForm"
+  >
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="name">{{ "Main Directory" | translate }}</label>
+        <select
+          class="project-nav-select form-control"
+          id="project-status"
+          #selectType
+          required
+          formControlName="Type"
+          (change)="onChangeSetChildren(selectType.value)"
+        >
+          <option value="">{{ "Select Main Directory" | translate }}</option>
+          <option
+            *ngFor="let directory of parentDirectories"
+            value="{{ directory.DirectoryID }}"
+          >
+            {{ directory.Name }}
+          </option>
+        </select>
+        <span
+          class="help-block"
+          *ngIf="
+            (selectType.value == '' && myform.submitted) ||
+            (createForm.get('Type').hasError('required') && myform.submitted)
+          "
+        >
+          <span class="text-danger">
+            {{ "Please select main directory" | translate }}.
+          </span>
+        </span>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="upload-document">{{ "Upload document" | translate }}</label>
+        <input
+          type="file"
+          accept="application/pdf, image/*"
+          class="form-control-file"
+          id="image"
+          (change)="onFileChange($event)"
+          multiple
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            ((createForm.get('Url').touched || createForm.get('Url').dirty) &&
+              createForm.get('Url').errors) ||
+            (createForm.get('Url').hasError('required') && myform.submitted)
+          "
+        >
+          <span
+            *ngIf="createForm.get('Url').errors.required"
+            class="text-danger"
+          >
+            {{ "Please attach file" | translate }}.
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="name">{{ "Subdirectory" | translate }}</label>
+        <select
+          class="project-nav-select form-control"
+          id="project-status"
+          #selectChildrenDirectory
+          formControlName="ChildrenDirectory"
+        >
+          <option value="">{{ "Select subdirectory" | translate }}</option>
+          <option
+            *ngFor="let directory of childrenDirectories"
+            value="{{ directory.DirectoryID }}"
+          >
+            {{ directory.Name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group btn-position text-center">
+      <button type="submit" class="btn btn-outline-dark">
+        {{ "Save" | translate }}
+      </button>
+    </div>
+  </form>
+</div>
+<div class="attachment-content">
+  <div class="row row-attacment-content-wrapper">
+    <div
+      class="col-md-3 card-wrapper"
+      *ngFor="let directory of parentDirectories"
+    >
+      <div
+        class="card bg-light mb-3"
+        style="max-width: 18rem"
+        routerLink="/projects/directory/{{ directory.DirectoryID }}/{{
+          project.id
+        }}"
+      >
+        <div class="card-header">{{ directory.Name }}</div>
+        <div class="card-body">
+          <p class="card-text text-center">
+            <i class="material-icons icon-size">chrome_reader_mode</i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

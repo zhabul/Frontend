@@ -1,0 +1,193 @@
+<div class="header">
+  <!--
+  <div class="pdf-button-wrapp"
+    *ngIf="userDetails.show_timesheets_payroll"
+  >
+    <div
+      class="btn mr-2 lh09 hideUnder800"
+      (click)="redirectToPayroll()" 
+      ><i class="material-icons">picture_as_pdf</i></div> 
+  </div>
+    
+  -->
+
+  <div class="row border-nav d-flex justify-content-between">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <a
+        (click)="back()" 
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        style="cursor: pointer;"
+      >
+        <app-back-button-svg></app-back-button-svg>
+      </a>
+    </div>
+    <div class="d-flex align-items-center px-4 py-2 margin-r">
+      <div class="search-box">
+        <div class="search-icon">
+          <app-search-icon-svg></app-search-icon-svg>
+        </div>
+        <input
+          autocomplete="off"
+          class="search-form"
+          name="search"
+          type="search"
+          [(ngModel)]="searchValue" 
+          (ngModelChange)="searchValueUpdate.next($event)"
+          [placeholder]="'Search' | translate"
+          
+        />
+      </div>
+    </div>
+    <div class="d-flex align-items-center px-4 py-2 margin-r">
+      <form #myform="ngForm">
+        <app-input-autocomplete
+          [control]="headerForm.get('project')"
+          [inputText]="headerForm.get('project_name')"
+          [myform]="myform"
+          [list]="projects"
+          (getEvent)="filterUserList()"
+          id="id"
+          errorText="''"
+          class="input-auto"
+          type="ata"
+          [disableSelect]="false"
+        >
+        </app-input-autocomplete>
+      </form>
+    </div>
+    <div class="d-flex align-items-center px-4 py-3 margin-r table-form">
+      <div class="main-legend-table">
+        <div class="row legend-header">
+          <div class="empty-data"></div>
+          <div class="date-info">{{ "Date" | translate }}</div>
+          <div class="visa-info">{{ "Show" | translate }}</div>
+          <div class="header-info">2V.</div>
+          <div class="header-info">4V.</div>
+          <div class="header-info">6V.</div>
+          <div class="header-info">8V.</div>
+        </div>
+        <div class="row legend-operators">
+          <div class="calendar-icon">
+            <span id="dateSelectStartDate">
+              <app-calendar-icon-svg></app-calendar-icon-svg>
+            </span>
+          </div>
+          <div class="calendar-date-info">
+            <div class="month-date-input">
+              <div (click)="setMonth(-31)" class="left-calendar-arrow arrow">
+                <app-arrow-left-svg></app-arrow-left-svg>
+              </div>
+              <div class="calendar-date-display">
+                <span class="currentDate">{{
+                  currentDate | date: "d-MMM-yyyy"
+                }}</span>
+              </div>
+              <div (click)="setMonth(31)" class="right-calendar-arrow arrow">
+                <app-arrow-right-svg></app-arrow-right-svg>
+              </div>
+            </div>
+          </div>
+          <div class="manad-info">
+            <label class="title pr-2" for="huey35">{{
+              "Month" | translate
+            }}</label>
+            <input
+              type="radio"
+              class="option-input radio"
+              name="month-span"
+              #huey35
+              id="huey35"
+              [(ngModel)]="fetched"
+              [value]="monthCount"
+              (ngModelChange)="setCalendarStyle($event)"
+            />
+          </div>
+          <div class="td-data">
+            <input
+              type="radio"
+              class="option-input radio"
+              name="month-span"
+              #huey14
+              id="huey14"
+              [(ngModel)]="fetched"
+              [value]="14"
+              (ngModelChange)="setCalendarStyle($event)"
+            />
+          </div>
+          <div class="td-data">
+            <input
+              type="radio"
+              class="option-input radio"
+              name="month-span"
+              #huey28
+              id="huey28"
+              [(ngModel)]="fetched"
+              [value]="28.1"
+              (ngModelChange)="setCalendarStyle($event)"
+            />
+          </div>
+          <div class="td-data">
+            <input
+              type="radio"
+              class="option-input radio"
+              name="month-span"
+              #huey42
+              id="huey42"
+              [(ngModel)]="fetched"
+              [value]="42"
+              (ngModelChange)="setCalendarStyle($event)"
+            />
+          </div> 
+          <div class="td-data">
+            <input
+              type="radio"
+              class="option-input radio"
+              name="month-span"
+              #huey56
+              id="huey56"
+              [(ngModel)]="fetched"
+              [value]="56"
+              (ngModelChange)="setCalendarStyle($event)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="options-container">
+      <app-options-menu
+        [calendar]="true"
+        userId="-1"
+        [date]="currentDate"
+        name="" 
+        fromTimeRegistration="1"
+      
+      ></app-options-menu>
+    </div>
+  </div>
+  <div class="legends" *ngIf="absenceTypes.length">
+    <div (click)="toggleFilter('all')">
+      <div class="icon-container">
+        <app-checked-icon
+          [condition]="absenceTypesFilter['all']"
+          [color]="'green'"
+        ></app-checked-icon>
+      </div>
+      <div class="short-name">{{ "TSC_SELECT_ALL" | translate }}</div>
+    </div>
+    <div
+      (click)="toggleFilter(absenceType.AbsenceTypeID)"
+      *ngFor="let absenceType of absenceTypes"
+    >
+      <div class="icon-container">
+        <app-checked-icon
+          [condition]="absenceTypesFilter[absenceType.AbsenceTypeID]"
+          [color]="absenceType.color"
+        ></app-checked-icon>
+      </div>
+      <div class="short-name">{{ absenceType.ShortName | translate }}</div>
+    </div>
+  </div>
+  <div class="deny-edit" *ngIf="spinner"></div>
+  <div class='overlay_' *ngIf="overlayUser"></div>
+</div>

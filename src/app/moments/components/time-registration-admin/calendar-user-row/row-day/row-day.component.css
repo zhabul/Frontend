@@ -1,0 +1,19 @@
+.placeholder-cube {
+  background-color: var(--main-bg);
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 800;
+}
+
+.current-day-line {
+  position: absolute;
+  left: calc(50% - 2px);
+  width: 3px;
+  top: -1px;
+  bottom: 0px;
+  background-color: lightgreen;
+  opacity: 0.5;
+  z-index: 1000;
+  pointer-events: none;
+}

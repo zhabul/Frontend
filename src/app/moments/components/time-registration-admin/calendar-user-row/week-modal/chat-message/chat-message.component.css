@@ -1,0 +1,19 @@
+.seen-block {
+    color: black;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 9px;
+}
+
+.icon-image {
+    cursor: pointer;
+    transition: opacity 250ms ease-in-out;
+}
+
+.icon-image:hover {
+    opacity: 0.5;
+}
+
+.icon-image {
+    color: var(--brand-color);
+}

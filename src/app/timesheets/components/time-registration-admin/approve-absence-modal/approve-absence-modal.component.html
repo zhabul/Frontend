@@ -1,0 +1,87 @@
+<div class="modal-top-wrapper" style="cursor: default">
+  <h5>{{ "Approve Absence" | translate }}</h5>
+
+  <ng-container *ngIf="absence.startDateAbsence != absence.endDateAbsence">
+    <p class="date">
+      {{ absence.startDateAbsence }} : {{ absence.endDateAbsence }}
+    </p>
+  </ng-container>
+  <ng-container *ngIf="absence.startDateAbsence == absence.endDateAbsence">
+    <p class="date">
+      {{ absence.startDateAbsence }}
+      {{ absence.HoursAbsence }}:{{ absence.MinutesAbsence }}
+    </p>
+  </ng-container>
+
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<div style="margin-bottom: 1rem; cursor: default">
+  {{ absence.AbsenceType }}
+</div>
+<div *ngIf="absence.attested_by_full_name" style="cursor: default">
+  <h6>{{ "Attested by" | translate }}: {{ absence.attested_by_full_name }}</h6>
+</div>
+<div class="row row-content">
+  <b></b>
+  <div class="comment" *ngIf="absence.Comment" style="cursor: default">
+    <p>{{ "User comment" | translate }}: {{ absence.Comment }}</p>
+  </div>
+
+  <ng-container
+    *ngIf="
+      (absence.EndDateChngRqst || absence.StartDateChngRqst) &&
+      !(absence.OriginalHoursAbsence || absence.OriginalMinutesAbsence)
+    "
+  >
+    <p style="cursor: default">
+      <b>{{ "Note" | translate }}:</b>
+      {{ "This request was edited. Original absence time was" | translate }}
+      {{ absence.StartDateChngRqst.substring(0, 10) }} -
+      {{ absence.EndDateChngRqst.substring(0, 10) }}
+    </p>
+  </ng-container>
+  <ng-container
+    *ngIf="
+      (absence.EndDateChngRqst || absence.StartDateChngRqst) &&
+      (absence.OriginalHoursAbsence || absence.OriginalMinutesAbsence)
+    "
+  >
+    <p style="cursor: default">
+      <b>{{ "Note" | translate }}:</b>
+      {{ "This request was edited. Original absence time was" | translate }}
+      {{ absence.StartDateChngRqst.substring(0, 10) }}
+      {{ absence.OriginalHoursAbsence }}:{{ absence.OriginalMinutesAbsence }}
+    </p>
+  </ng-container>
+</div>
+<div class="row row-content">
+  <form
+    novalidate
+    autocomplete="off"
+    [formGroup]="createForm"
+    class="form-content"
+    #myform="ngForm"
+  >
+    <div class="form-row select-position">
+      <div class="form-group col-sm-12">
+        <label for="name">{{ "Answer" | translate }}</label>
+        <textarea
+          class="form-control"
+          id="details"
+          rows="3"
+          formControlName="Description"
+        ></textarea>
+      </div>
+    </div>
+    <div class="row row-content">
+      <button class="btn btn-dark" (click)="approveAbsence()">
+        {{ "Approve" | translate }}
+      </button>
+      <button class="btn btn-dark btn-reject" (click)="rejectAbsence()">
+        {{ "Reject" | translate }}
+      </button>
+    </div>
+  </form>
+</div>

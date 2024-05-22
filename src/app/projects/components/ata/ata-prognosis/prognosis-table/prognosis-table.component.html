@@ -1,0 +1,63 @@
+<div class="table-wrapper">
+  <div
+    class="table-header-wrapper"
+    [ngStyle]="{ 'grid-template-columns': setGridLayoutHeader() }"
+  >
+    <div class="table-header-col">Nr</div>
+    <div class="table-header-col">{{ "TSC_Name" | translate | titlecase }}</div>
+    <div class="table-header-col"></div>
+    <div class="table-header-col">Upparbetad kost.</div>
+    <div class="table-header-col">
+      {{ "TSC_Not_send" | translate | titlecase }}
+    </div>
+    <div class="table-header-col">{{ "TSC_SENT" | translate | titlecase }}</div>
+    <div class="table-header-col">{{ "Approved" | translate | titlecase }}</div>
+    <div class="table-header-col">{{ "Invoiced" | translate | titlecase }}</div>
+    <div class="table-header-col" *ngIf="prognosisTableService.hasRiktpris">
+      {{ "TSC_Target_Price" | translate | titlecase }} +/-
+    </div>
+    <div class="table-header-col">{{ "TSC_Forecast" | translate }}</div>
+    <div class="table-header-col">{{ "Account" | translate | titlecase }}</div>
+  </div>
+  <div class="prognosis-property-wrapper">
+    <ng-container
+      *ngFor="let property of prognosis.properties; let index = index"
+    >
+      <app-prognosis-property 
+        [_property]="property"
+        [index]="index"
+        [_isLocked]="prognosis.locked"
+        [activeDuIndex]="activeDuIndex"
+        (findNextDu)="findNextDu($event)"
+      ></app-prognosis-property>
+    </ng-container>
+  </div>
+  <div
+    class="table-bottom-wrapper"
+    [ngStyle]="{ 'grid-template-columns': setGridLayoutFooter() }"
+  >
+    <div class="table-bottom-col">{{ "Total sum" | translate | titlecase }}</div>
+    <div class="table-bottom-col">
+      {{ finalSums.totallyWorkedUp | number : "1.2-2" : "fr" }}
+    </div>
+    <div class="table-bottom-col">
+      {{ finalSums.workedButNotApproved | number : "1.2-2" : "fr" }}
+    </div>
+    <div class="table-bottom-col">
+      {{ finalSums.total_sent | number : "1.2-2" : "fr" }}
+    </div>
+    <div class="table-bottom-col">
+      {{ finalSums.approvedForInvoice | number : "1.2-2" : "fr" }}
+    </div>
+    <div class="table-bottom-col">
+      {{ finalSums.invoicedTotal | number : "1.2-2" : "fr" }}
+    </div>
+    <div class="table-bottom-col" *ngIf="prognosisTableService.hasRiktpris">
+      {{ finalSums.richCostTotal_without_status | number : "1.2-2" : "fr" }}
+    </div>
+    <div class="table-bottom-col">
+      {{ calculateTotalOfAllPrognosis() | number : "1.2-2" : "fr" }}
+    </div>
+    <div class="table-bottom-col"></div>
+  </div>
+</div>

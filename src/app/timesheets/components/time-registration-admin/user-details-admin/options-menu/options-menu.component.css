@@ -1,0 +1,14 @@
+.menu-container {
+    position: absolute;
+    top: 35%;
+    left: 0;
+}
+
+.green-bottom {
+    height: 7.5px;
+    width: 100%;
+    background-color: #BFE29C;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+

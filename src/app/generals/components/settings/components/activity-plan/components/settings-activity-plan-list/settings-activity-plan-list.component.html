@@ -1,0 +1,56 @@
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+<div class="list">
+  <div *ngFor="let activity of activities; let i = index">
+    <div class="list-row" [ngClass]="{ 'next-level': nextLevel }">
+      <div>
+        <p>{{ activity.number }}</p>
+      </div>
+      <div>
+        <p [ngStyle]="{ 'padding-left.px': level * 10 }">
+          {{ activity.description }}
+        </p>
+      </div>
+      <div>
+        <p>{{ (activity.status ? "Active" : "Inactive") | translate }}</p>
+      </div>
+      <div>
+        <img
+          class="icon"
+          src="../../../../assets/img/edit-icon.svg"
+          alt="edit"
+          (click)="editAct(activity)"
+        />
+      </div>
+
+      <div>
+        <img
+          class="icon"
+          src="../../../../assets/img/trashcan.svg"
+          alt="remove"
+          (click)="removeActiv(activities, i)"
+        />
+      </div>
+
+      <div>
+        <i
+          class="material-icons arrow_down"
+          *ngIf="activity.activities.length > 0"
+          (click)="toggleActivity(activity)"
+        >
+          {{ activity.toggle ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+        </i>
+      </div>
+    </div>
+
+    <app-settings-activity-plan-list
+      (openEdModal)="editAct($event)"
+      (deleteActivity)="removeAct($event)"
+      [activities]="activity.activities"
+      [level]="level + 1"
+      *ngIf="activity.toggle"
+    ></app-settings-activity-plan-list>
+  </div>
+</div>

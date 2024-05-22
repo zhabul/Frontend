@@ -1,0 +1,92 @@
+<ejs-schedule
+  [firstDayOfWeek]="1"
+  [selectedDate]="currentDate"
+  timezone="UTC"
+  [currentView]="newViewMode"
+  (actionBegin)="onActionBegin($event)"
+  (dataBound)="onDataBound()"
+  [readonly]="readonly"
+  #scheduleObj
+  locale="sv"
+  [showWeekNumber]="showWeekNumber"
+  timezone="UTC"
+  (actionComplete)="onActionComplete($event)"
+  [weekRule]="wRule"
+>
+  <e-views>
+    <e-view option="Month" [showWeekend]="showWeekend">
+      <ng-template #eventTemplate let-data>
+        <div
+          class="template-wrap"
+          [ngStyle]="{
+            'z-index': selectedDateProjectPreview == data.Id ? '50' : '1'
+          }"
+          *ngFor="let project of filterProjects(data)"
+          (click)="toggleAllProjects($event, data)"
+        >
+          <div
+            class="subject d-flex align-items-center justify-content-between"
+            [ngStyle]="{
+              background: data.isOnlyPreview
+                ? 'rgb(254, 255, 209)'
+                : project.Color
+            }"
+            *ngIf="project.parentProject"
+          >
+            <div>
+              <span
+                style="font-weight: 500"
+                [ngStyle]="{ color: data.isOnlyPreview ? '#8e8e8e' : 'black' }"
+                >{{ project.ProjectName }} </span
+              >&nbsp;&nbsp;
+              <span style="color: black">{{ project.Subject }} </span>
+            </div>
+            <i
+              *ngIf="!project.isAbsence && !data.isOnlyPreview"
+              class="material-icons"
+              style="font-size: 13px"
+              [ngClass]="{
+                'text-danger': project.AtestStatus == '1',
+                'text-success': project.AtestStatus != '1'
+              }"
+              >{{ project.AtestStatus == "1" ? "lock" : "lock_open" }}</i
+            >
+          </div>
+        </div>
+      </ng-template>
+    </e-view>
+    <e-view option="Week" dateFormat="dd-MMM-yyyy">
+      <ng-template #eventTemplate let-data>
+        <div
+          class="template-wrap"
+          [ngStyle]="{ 'background-color': project.Color }"
+          *ngFor="let project of data.projects.slice(0, 3)"
+        >
+          <div
+            class="subject d-flex align-items-center justify-content-between"
+          >
+            <div>
+              <span>{{ project.Subject }}</span
+              >&nbsp;&nbsp;
+              <span
+                style="font-weight: 500; color: black"
+                *ngIf="project.parentProject"
+                >{{ project.ProjectName }}</span
+              >
+            </div>
+            <i
+              *ngIf="!project.isAbsence && !data.isOnlyPreview"
+              class="material-icons"
+              style="font-size: 13px; color: black"
+              [ngClass]="{
+                'text-danger': project.AtestStatus == '1',
+                'text-success': project.AtestStatus != '1'
+              }"
+              >{{ project.AtestStatus == "1" ? "lock" : "lock_open" }}</i
+            >
+          </div>
+        </div>
+      </ng-template>
+    </e-view>
+  </e-views>
+</ejs-schedule>

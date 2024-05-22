@@ -1,0 +1,12 @@
+table tr .delete-icon {
+  padding: 0;
+}
+
+.delete-icon span {
+  margin-top: 3px;
+  font-size: 21px;
+}
+
+.table-disabled {
+  color: #ccc;
+}

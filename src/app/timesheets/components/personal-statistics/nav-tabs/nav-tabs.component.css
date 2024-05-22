@@ -1,0 +1,87 @@
+.tab-navigation {
+  margin-left: 50px;
+}
+
+.tab-navigation > div > ul > li:nth-child(1) > a {
+    z-index: 6;
+}
+
+.nav-item a {
+  cursor: pointer;
+  position: relative;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 6px;
+  padding: 4px 25px 1px 35px;
+  position: relative;
+  width: auto;
+  box-shadow: 1px -1px 0px 1px rgb(0 0 0 / 32%);
+  background-color: var(--home-title-color);
+  text-transform: uppercase;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  height: 30px;
+  color: white;
+  font-size: 12px;
+}
+  
+.nav-tabs {
+  border: none;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  top: 1px;
+}
+  
+.nav-item a.active {
+  color: var(--orange-dark) !important;
+  border-color: var(--border-color);
+  border-bottom-color: var(--main-bg);
+  position: relative;
+  width: auto;
+  margin-left: 0px !important;
+  padding: 5px 18px;
+  background-color: var(--main-bg) !important;
+  text-transform: uppercase;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 6px;
+  z-index: 15 !important;
+  height: 30px;
+}
+
+.nav-item .nav-link {
+  color: var(--text-color);
+  background-color: var(--active-color);
+  border-color: var(--active-color);
+}
+
+.nav-link.active {
+  color: var(--text-color);
+  background-color: var(--active-color);
+  border-color: var(--active-color);
+}
+
+.nav-link.active {
+  z-index: 9;
+}
+
+.nav-link {
+  color: var(--text-color);
+  padding: 0.3rem 1.5rem;
+  border: 2px solid;
+  border-color: var(--active-color);
+  border-top-right-radius: 1rem;
+  margin-right: -15px;
+  border-bottom: none;
+}
+.nav-link {
+  display: block !important;
+}
+
+.nav-link:focus {
+  border-color: var(--active-color);
+}
+.nav-link:hover {
+  border-color: var(--active-color);
+}

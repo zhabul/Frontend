@@ -1,0 +1,253 @@
+
+.response-container{
+  width: 940px;
+  border: 1px solid #858585;
+  margin:20px 40px;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.answer-folder-container{
+  display: flex;
+  flex-direction: column;
+  margin-left: 80px;
+}
+
+.answer-container{
+  padding:10px;
+  margin-bottom: 10px;
+  min-height: 60px;
+  width: 550px;
+  border: 1px solid #858585 ;
+  background-color: white;
+  border-radius: 5px;
+  white-space: pre-line;
+}
+
+.folder-container{
+  display: flex;
+}
+
+.response-container-1{
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.container-box-ata{
+  min-width: 250px;
+  display: flex;
+}
+.container-box{
+  min-width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.declined-line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.box-container{
+    margin:0 280px 0 39px;
+    display: flex;
+    flex-direction: row;
+  }
+  .box-container button{
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  }
+  .box-container button:hover{
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+  }
+  .box-1{
+    margin-right:19px;
+    height: 176px;
+    width: 217px;
+    border:2px solid #50c994;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background-color: #e5f5d5;
+  }
+
+  .box-2{
+    margin-right:19px;
+    height: 176px;
+    width: 217px;
+    border:2px solid #fdc224;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff5ce;
+  }
+ 
+  .box-3{
+    height: 176px;
+    width: 217px;
+    border:2px solid  #ff8787;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffcbcf;
+  }
+ 
+  .box-title-green{
+    width:175px;
+    height: 39px;
+    margin: 15px 21px 0 21px;
+    background-color: #50c994;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+  }
+  .box-title-yellow{
+    width:175px;
+    height: 39px;
+    margin: 15px 21px 0 21px;
+    background-color: #f0e264;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+  .box-title-red{
+    width:175px;
+    height: 39px;
+    margin: 15px 21px 0 21px;
+    background-color: #ff8787;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+  .box-font{
+    font-size: 16px;
+  }
+  .box-p{
+    margin:23px 19px 0;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  .box-p p{
+  margin:0;
+  padding:0;
+  font-size: 15px;
+  text-align: center;
+  }
+  .box-end{
+    height: 30px;
+    margin:0;
+    padding:0;
+    display: flex;
+    justify-content: right;
+    align-content: bottom;
+  }
+  .i-sign-1,.i-sign-2,.i-sign-3{
+    margin:0 5px 5px 0;
+    height: 25px;
+    width: 25px;
+    background-color: #858585;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: top;
+  }
+  .i-sign-1,.i-sign-2,.i-sign-3 p {
+    color:white;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .i-sign-1-clicked{
+    background-color: #03d156;
+    color:black
+  }
+  .i-sign-2-clicked{
+    background-color:   #ff9a3c;
+    color:black
+  }
+  .i-sign-3-clicked{
+    background-color: red;
+    color:black
+  }
+  .accept-clicked{
+    background-color:#e5f5d5;
+  }
+  .question-clicked{
+    background-color:#fff5ce ;
+  }
+  .decline-clicked{
+    background-color:#ffcbcf ;
+  }
+  /*Skyblue element choose file*/
+  .footer{
+    margin:36px 610px 0 40px;
+  }
+  .accept-container{
+    border:1px solid #858585;
+    border-radius: 10px;
+    height: 252px;
+    width: 939px;
+    margin:10px 41px 10px 41px;
+    display: flex;
+   }
+   .accept-container-box{
+    margin:0 0 0 0;
+   }
+   .p-container{
+    height: 49px;
+   }
+   .box-ac-1{
+    background-color: #e5f5d5;
+    margin:0px 0 20px 25px;
+    height: 176px;
+    width: 217px;
+    border:2px solid #858585;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+   }
+   .accept-container-texarea{
+    margin:27px 0px 0px 37px;
+   }
+   .text-area-p p{
+    padding: 0;
+    line-height: 10px;
+   }
+   .client-comment{
+    height: 104px;
+    width: 561px;
+    border: 1px solid #858585;
+    border-radius: 5px;
+    background-color: white;
+    padding:10px;
+    overflow: hidden;
+   }
+   .box-ac-1 button{
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    }
+  .folders{
+    margin:0;
+    padding:5px 0 5px 0;
+    width: 561px;
+    height:60px;
+  }
+
+

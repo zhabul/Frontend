@@ -1,0 +1,438 @@
+<div class="schedRespon card col-md-12X col-lg-6X col-lg-8W mb-4">
+  <div class="row">
+    <div class="card bgGrayBlue card-header">
+      <nav class="nav nav-pills nav-justified nav-style">
+        <div class="nav-links">
+          <a
+            [routerLink]="['/timesheets/schedule-calendar']"
+            class="btn btn-dark mr-2 lh09 hideUnder800"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="nav-title mt-2">
+          <h5>
+            {{ "Name" | translate }}: {{ userDetails.firstname }}
+            {{ userDetails.lastname }}
+          </h5>
+        </div>
+      </nav>
+    </div>
+    <div class="form-wrapper ml-4 mr-4">
+      <form
+        novalidate
+        autocomplete="off"
+        [formGroup]="createForm"
+        (ngSubmit)="createScheduleSemesterDate($event)"
+        class="form-content-timesheet schedule-form"
+        #myform="ngForm"
+        (click)="toggleEdited()"
+      >
+        <div class="row">
+          <div
+            class="form-group col-sm-12"
+            [ngClass]="{
+              'has-error':
+                (createForm.get('AbsenceType').touched ||
+                  createForm.get('AbsenceType').dirty) &&
+                !createForm.get('AbsenceType').valid
+            }"
+          >
+            <label class="required"
+              >{{ "Absence" | translate }} {{ "Type" | translate }}</label
+            >
+            <select
+              class="project-nav-select form-control"
+              id="project-AbsenceType"
+              #AbsenceType
+              formControlName="AbsenceType"
+              (change)="setAbsenceType(AbsenceType.value)"
+            >
+              <option
+                *ngFor="let absence of listOfAbsenceType"
+                [attr.data-user-id]="absence.AbsenceTypeID"
+                value="{{ absence.AbsenceTypeID }}"
+              >
+                {{ absence.Name | translate }}
+              </option>
+            </select>
+            <span
+              class="help-block"
+              *ngIf="
+                myform.submitted &&
+                createForm.get('AbsenceType').hasError('required')
+              "
+            >
+              <span class="text-danger">
+                {{ "Select Absence Type" | translate }}.
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label class="required">{{ "Start Date" | translate }}</label>
+              <div class="input-group date">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="material-icons">calendar_today</i></span
+                  >
+                </div>
+                <input
+                  (keydown)="$event.preventDefault()"
+                  id="startDate"
+                  autocomplete="off"
+                  type="text"
+                  class="form-control project-date start-date"
+                  aria-describedby="basic-addon1"
+                  placeholder="{{ 'Choose Start Date' | translate }}"
+                  #startDate
+                  formControlName="startDate"
+                />
+              </div>
+              <span
+                class="help-block"
+                *ngIf="
+                  ((createForm.get('startDate').touched ||
+                    createForm.get('startDate').dirty) &&
+                    createForm.get('startDate').errors) ||
+                  (createForm.get('startDate').hasError('required') &&
+                    myform.submitted)
+                "
+              >
+                <span
+                  *ngIf="createForm.get('startDate').errors.required"
+                  class="text-danger"
+                >
+                  {{ "Choose Start Date" | translate }}.
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label class="required">{{ "End Date" | translate }}</label>
+              <div class="input-group date">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="material-icons">calendar_today</i></span
+                  >
+                </div>
+                <input
+                  (keydown)="$event.preventDefault()"
+                  id="endDate"
+                  autocomplete="off"
+                  type="text"
+                  class="form-control project-date"
+                  aria-describedby="basic-addon1"
+                  placeholder="{{ 'Choose End Date' | translate }}"
+                  #endDate
+                  formControlName="endDate"
+                  name="Date"
+                />
+              </div>
+              <span
+                class="help-block"
+                *ngIf="
+                  ((createForm.get('endDate').touched ||
+                    createForm.get('endDate').dirty) &&
+                    createForm.get('endDate').errors) ||
+                  (createForm.get('endDate').hasError('required') &&
+                    myform.submitted)
+                "
+              >
+                <span
+                  *ngIf="createForm.get('endDate').errors.required"
+                  class="text-danger"
+                >
+                  {{ "Choose End Date" | translate }}.
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label>{{ "Hours" | translate }}</label>
+              <select
+                class="project-nav-select form-control"
+                id="project-ProjectID"
+                #Hours
+                formControlName="hoursAbsence"
+                (change)="setStatus($event)"
+              >
+                <option value="00">{{ "00" | translate }}</option>
+                <option value="01">{{ "01" | translate }}</option>
+                <option value="02">{{ "02" | translate }}</option>
+                <option value="03">{{ "03" | translate }}</option>
+                <option value="04">{{ "04" | translate }}</option>
+                <option value="05">{{ "05" | translate }}</option>
+                <option value="06">{{ "06" | translate }}</option>
+                <option value="07">{{ "07" | translate }}</option>
+                <option value="08">{{ "08" | translate }}</option>
+              </select>
+              <span
+                class="help-block"
+                *ngIf="
+                  ((createForm.get('hoursAbsence').touched ||
+                    createForm.get('hoursAbsence').dirty) &&
+                    createForm.get('hoursAbsence').errors) ||
+                  (createForm.get('hoursAbsence').hasError('required') &&
+                    myform.submitted)
+                "
+              >
+                <span
+                  *ngIf="createForm.get('hoursAbsence').errors.required"
+                  class="text-danger"
+                >
+                  {{ "Choose Hours" | translate }}.
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label>{{ "Minutes" | translate }}</label>
+              <select
+                class="project-nav-select form-control"
+                id="project-ProjectID"
+                #Minutes
+                formControlName="minutesAbsence"
+              >
+                <option value="00">{{ "00" | translate }}</option>
+                <option value="15">{{ "15" | translate }}</option>
+                <option value="30">{{ "30" | translate }}</option>
+                <option value="45">{{ "45" | translate }}</option>
+              </select>
+              <span
+                class="help-block"
+                *ngIf="
+                  ((createForm.get('minutesAbsence').touched ||
+                    createForm.get('minutesAbsence').dirty) &&
+                    createForm.get('minutesAbsence').errors) ||
+                  (createForm.get('minutesAbsence').hasError('required') &&
+                    myform.submitted)
+                "
+              >
+                <span
+                  *ngIf="createForm.get('minutesAbsence').errors.required"
+                  class="text-danger"
+                >
+                  {{ "Choose Minutes" | translate }}.
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 30px;">
+          <div
+            class="form-group col-md-12 col-sm-12 col-xs-12"
+            [ngClass]="{
+              'has-error':
+                (createForm.get('Comment').touched ||
+                  createForm.get('Comment').dirty) &&
+                !createForm.get('Comment').valid
+            }"
+          >
+            <label for="details"
+              ><small>{{ "Comment" | translate }}</small></label
+            >
+            <textarea
+              class="form-control blu-scroll"
+              id="Comment"
+              #Comment
+              rows="3"
+              maxlength="500"
+              formControlName="Comment"
+              style="max-height: 150px; min-height: 100px;"
+            ></textarea>
+            <span
+              class="help-block"
+              *ngIf="
+                ((createForm.get('Comment').touched ||
+                  createForm.get('Comment').dirty) &&
+                  createForm.get('Comment').errors) ||
+                (createForm.get('Comment').hasError('required') &&
+                  myform.submitted)
+              "
+            >
+              <span
+                *ngIf="createForm.get('Comment').errors.required"
+                class="text-danger"
+              >
+                {{ "Enter Comment" | translate }}.
+              </span>
+            </span>
+          </div>
+          <div>
+            <div class="image-icon-container">
+              <div class="form-group form-group-upload file-container">
+                <label
+                  class="btn btn-outline-info mr-2"
+                  (click)="openImageModal()"
+                  for="image"
+                  style="margin-bottom: 0rem"
+                  >{{ "Choose file" | translate }}</label
+                >
+              </div>
+              <div *ngIf="files.length > 0" class="image-icon-container">
+                <app-file-preview
+
+                  *ngFor="let file of files; let index = index"
+                  type="image"
+                  [file]="file"
+                  [index]="index"
+                  [active]="index"
+                  [canRemove]="true"
+                  [imageModal]="true"
+                  (openSwiper)="openSwiper(index, files)"
+                  (removeFile)="removeFile($event)"
+
+                ></app-file-preview>
+              </div>
+            </div>
+            <div
+              class="time-wrapper-button"
+              *ngIf="!createForm.invalid && !editing" 
+              style="margin-bottom: 1rem; margin-top: 1rem"
+            > 
+              <span class="btn btn-success pb-0 ml-3" (click)="setAbsence()">
+                <span class="posRel top-5px">{{ "Save" | translate }}</span>
+              </span>
+            </div>
+            <div
+              class="time-wrapper-button"
+              *ngIf="!createForm.invalid && editing"
+              style="margin-bottom: 1rem; margin-top: 1rem"
+            >
+              <span class="btn btn-success pb-0 ml-3" (click)="editAbsence()">
+                <span class="posRel top-5px">{{ "Save" | translate }}</span>
+              </span>
+            </div>
+          </div>
+
+        </div>
+        <div class="display-time" *ngIf="haveAbsences">
+          <div
+            class="week-wrapper"
+            *ngFor="let weeks_of_absence of weeks_of_absences"
+          >
+            <div class="abs-conteiner">
+              <div  class="abs-name">{{ "Week" | translate }} {{ weeks_of_absence }}</div>
+              <div
+                class="abs-wrapper" 
+                *ngFor="let absence of absences; let index = index"
+              >
+                <ng-container *ngIf="absence.week == weeks_of_absence">
+                  <div style="text-align: left; margin-bottom: 1rem;">{{ absence?.absenceTypeName }}</div>
+                  <div class="week-container">
+                    <div  class="week-days">
+                      <div
+                      class="day"
+                      *ngFor="
+                        let abs_date of absence.abesnce_dates;
+                        let abs_date_index = index
+                      "
+                      >
+                        <div class="day-number">{{ abs_date.date }}</div>
+                        <div
+                          class="day-absence"
+                          [style.background-color]="absence.Color"
+                        >
+                          <div class="week-circle">{{ abs_date.hours }}h</div>
+                        </div>
+                        <div class="checkbox-container">
+                          <span
+                            ><i
+                              class="material-icons"
+                              *ngIf="abs_date.status == 2"
+                              >done</i
+                            ></span
+                          >
+                          <ng-container *ngIf="abs_date.status == 3">
+                            <span><i class="material-icons">close</i></span>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="settings-field settings-field-first"
+                      *ngIf="absence.isAnswered != '1'" 
+                    >
+                      <span class="btn-delete remove-txt" (click)="removeProperty(index)">
+                        {{ 'Remove' | translate }}
+                      </span>
+                    </div>
+                    <div
+                      class="settings-field settings-field-chat"
+                      *ngIf="
+                        absence.messages &&
+                        absence.messages.messages &&
+                        absence.messages.messages[absence.week] &&
+                        absence.messages.messages[absence.week].length > 0
+                      "
+                    >
+                      <span
+                        class="answer-envelope"
+                        (click)="showMessage(absence, index)"
+                      >
+                        <i class="material-icons">chat_bubble</i
+                        ><span class="number-of-unread-messages" style="cursor: pointer; pointer-events: none;"
+                          >({{
+                            absence.messages.opened_count[absence.week]
+                          }})</span
+                        > 
+                      </span>
+                    </div>
+                    <div>
+                      <div *ngIf="absence.images.length > 0" class="image-icon-container">
+                        <app-file-preview
+                        
+                          *ngFor="let file of absence.images; let index = index"
+                          type="image"
+                          [file]="file"
+                          [index]="index"
+                          [active]="index"
+                          [canRemove]="false"
+                          (openSwiper)="openSwiper(index, absence.images)"
+        
+                        ></app-file-preview>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="weon-button">
+              {{ "Send" | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br />
+</div> 
+
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner [diameter]="50" ></mat-spinner>
+</div>
+
+<app-gallery
+
+  *ngIf="swiper.images.length" 
+  [swiper]="swiper"
+  [canRemove]="false"
+  (closeSwiperEvent)="closeSwiper()"
+  [server]="true"
+
+></app-gallery>

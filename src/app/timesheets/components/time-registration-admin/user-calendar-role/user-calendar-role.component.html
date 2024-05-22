@@ -1,0 +1,160 @@
+<!-- <div class=" form-column-wrapper "> -->
+<!-- <section class="section">
+        <div class="containerX mx-3">
+            <form>
+                <div class="form-row">
+                    <div class="form-group  col-md-12">
+                        <div class="input-group date " hidden>
+                            <input class="form-control" type="number" id="example-number-input" [(ngModel)]="id" [ngModelOptions]="{standalone: true}">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="name">{{'Select Roles' | translate}}</label>
+                        <select class="project-nav-select form-control" id="project-status" [(ngModel)]="roleId" [ngModelOptions]="{standalone: true}">
+                            <option value="">{{'Select Role'|translate}}</option>
+                                  <option *ngFor="let role of userRoles; let i = index" [ngValue]="role.id" ><small>{{role.roles | translate}}</small></option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section> -->
+<!-- <section class="hero is-primary is-bold mt-3">
+        <div class="hero-body ">
+            <div class="containerX mx-3">
+                <form (ngSubmit)="processForm()">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 ">
+                            <label>{{'Number of days before today' | translate}}</label>
+                            <input class="form-control" type="number" id="example-number-input" [(ngModel)]="DaysBeforeToday" [ngModelOptions]="{standalone: true}">
+                               <label>{{'Start Date' | translate}}</label>
+                            <div class="input-group date">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                                    class="material-icons">calendar_today</i></span>
+                                </div>
+                                <input type="hidden" name="StartDateAlt" value="" id="StartDateAlt">
+                                <input id="dateSelectStartDate" autocomplete="off" type="text" class="form-control project-date" aria-describedby="basic-addon1" placeholder="{{'Choose Start Date' | translate}}" #StartDate name="StartDate">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            <label>{{'Number of days after today' | translate}}</label>
+                            <input class="form-control" type="number" id="example-number-input" [(ngModel)]="DaysAfterToday" [ngModelOptions]="{standalone: true}">
+                               <label>{{'End Date' | translate}}</label>
+                            <div class="input-group date">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                                    class="material-icons">calendar_today</i></span>
+                                </div>
+                                <input type="hidden" name="StartDateAlt" value="" id="StartDateAlt">
+                                <input id="dateSelectEndDate" autocomplete="off" type="text" class="form-control project-date" aria-describedby="basic-addon1" placeholder="{{'Choose Start Date' | translate}}" #EndDate name="EndDate">
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group  col-md-6">
+                            <label for="example-number-input">{{'Days' | translate}}</label>
+                            <div class="input-group date ">
+                                <input class="form-control" type="number" id="example-number-input" [(ngModel)]="days" [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div> 
+                        <div class="input-time-wrapper col-md-12" *ngIf="allowSet">
+                            <div class="form-group">
+                                <label for="name">{{'Set Time' | translate}}</label>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend" (click)="openModal()">
+                                        <span class="input-group-text" id="basic-addon1"><i class="material-icons">alarm</i></span>
+                                    </div>
+                                    <input (click)="openModal()" type="text" class="form-control clear-text" id="Hours" placeholder="{{'Set Hours' | translate}}" [(ngModel)]="orderTime" [ngModelOptions]="{standalone: true}">
+                                    <div class="input-group-append">
+                                            <button class="btn btn-secondary py-0"
+                                                (click)="addTime(orderTime)" type="button"><span
+                                                    class="badgeX badge-darkX material-icons posRel"
+                                                    style="top: 3px;">save</span></button>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul>
+                            <li *ngFor="let time of cronTimes">{{time}}</li>
+                        </ul>
+                    </div>
+                    <button [disabled]="cronTimes.length < 1 || roleId == '' || DaysBeforeToday == '' ||  DaysAfterToday == ''" type="submit" class="button is-danger is-large btn btn-dark mb-3">{{'Send' | translate}}</button>
+                </form>
+            </div>
+        </div>
+    </section> -->
+<!-- </div> -->
+<div class="row">
+  <table class="table tab-responsive" style="margin-bottom: 0">
+    <thead>
+      <!-- <th class="employee_id">{{ 'Id' | translate }}</th> -->
+      <th class="roleId">{{ "Role" | translate }}</th>
+      <th class="DaysBeforeToday">{{ "# of days before" | translate }}</th>
+      <th class="DaysAfterToday">{{ "# of days after" | translate }}</th>
+      <th class="Time">{{ "Set Times" | translate }}</th>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let scheduleRole of scheduleRoles; let i = index"
+        style="cursor: pointer"
+      >
+        <td>{{ scheduleRole.role | translate }}</td>
+        <td>
+          <input
+            class="form-control form-control-sm"
+            type="number"
+            id="example-number-input"
+            [(ngModel)]="scheduleRole.DaysBeforeToday"
+          />
+        </td>
+        <td>
+          <input
+            class="form-control form-control-sm"
+            type="number"
+            id="example-number-input"
+            [(ngModel)]="scheduleRole.DaysAfterToday"
+          />
+        </td>
+        <td style="width: 500px">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="material-icons">alarm</i></span
+              >
+            </div>
+            <ul class="d-flex align-items-center">
+              <li
+                *ngFor="let time of scheduleRole.times; let ti = index"
+                (click)="removeTime(i, ti)"
+              >
+                {{ time.time }}
+              </li>
+            </ul>
+            <div class="input-group-append">
+              <button
+                class="btn btn-secondary py-0"
+                (click)="openModal(i)"
+                type="button"
+              >
+                <span
+                  class="badgeX badge-darkX material-icons posRel"
+                  style="top: 3px"
+                  >add</span
+                >
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button
+    type="button"
+    (click)="updateRoles()"
+    class="button is-danger is-large btn btn-dark mt-3"
+  >
+    {{ "Save" | translate }}
+  </button>
+</div>

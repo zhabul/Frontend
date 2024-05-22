@@ -1,0 +1,43 @@
+<div class="reply-container">
+    <app-text-comment
+
+        *ngFor="let row of emailLogs; let i = index"
+        [info]='row'
+        [index]="i"
+        [infoStatus]="infoStatus"
+        [visible]="visibility"
+        [content_type]="content_type"
+        [canAttachFiles]="row.files.length != 0"
+        [canUploadFiles]="false"
+        [canRemoveFiles]="false"
+        [disabledDeleteIcon]="true"
+    ></app-text-comment>
+    <app-text-comment
+        *ngIf="hasAnswer"
+        [info]='replyObject'
+        [index]="item.emailLogs.length"
+        [infoStatus]="infoStatus"
+        [visible]="visibility"
+        [content_type]="content_type"
+        (buttonDisabled)="takeAction($event)"
+        [canAttachFiles]="false"
+        [canRemoveFiles]="false"
+        [disabledDeleteIcon]="true"
+    ></app-text-comment>
+    <div class="send-button-offer" *ngIf="hasAnswer">
+        <button style="align-items: center;" (click)="sendAnswer()" type="button" class="btn btn-create btn-save d-flex pr-5 send-flex">
+          <span>
+            {{  "Send" | translate }}
+          </span>
+          <div>
+            <app-send-icon-svg
+            [color]='color'
+            ></app-send-icon-svg>
+          </div>
+        </button>
+    </div>
+</div>
+
+<div class="spinner2" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

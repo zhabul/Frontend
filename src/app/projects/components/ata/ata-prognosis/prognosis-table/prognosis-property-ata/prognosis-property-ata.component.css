@@ -1,0 +1,41 @@
+.main-wrapper {
+    margin-left: 5px;
+}
+
+.row-wrapper {
+    display: grid;
+    height: 38px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 10px;
+    font-size: 13px;
+    background-color: white;
+    color: #44484C;
+    border-right: 1px solid gray;
+    font-weight: bold;
+}
+
+.item:first-child {
+    background-color: #FFD9BA;
+    justify-content: flex-start;
+    font-weight: normal;
+    gap: 10px;
+    padding-left: 15px;
+    border-left: 1px solid gray;
+}
+
+.item:nth-child(2), .item:nth-child(3) {
+    background-color: #FFD9BA;
+    font-size: 10px;
+    justify-content: flex-start;
+}
+
+.prognosis-property-ata-row-wrapper {
+    overflow: hidden;
+}

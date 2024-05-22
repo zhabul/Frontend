@@ -1,0 +1,25 @@
+<div class="main-wrapper" *ngIf="prognosis">
+  <div class="header-wrapper">
+    <span class="header-title">{{
+      "Contract sum including target price" | translate
+    }}</span>
+    <div class="total-sum">
+      <span>{{ "grand total" | translate | titlecase }}:</span>
+      <span
+        ><strong>{{
+          prognosis.total_project_contract_amount | number : "1.2-2" : "fr"
+        }}</strong></span
+      >
+    </div>
+  </div>
+  <div class="rows-wrapper">
+    <ng-container
+      *ngFor="let property of prognosis.properties; let index = index"
+    >
+      <app-prognosis-layout-blue-table-one-row
+        [_property]="property"
+      ></app-prognosis-layout-blue-table-one-row>
+      <div class="line" *ngIf="index != prognosis.properties.length - 1"></div>
+    </ng-container>
+  </div>
+</div>

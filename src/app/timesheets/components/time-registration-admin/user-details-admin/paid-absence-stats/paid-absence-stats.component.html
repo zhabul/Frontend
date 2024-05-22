@@ -1,0 +1,23 @@
+<div class="paid-absence-table">
+    <div class="paid-absence-header paid-absence-grid">
+        <div>{{ 'Time Balance' | translate }}</div> 
+        <div *ngFor="let year of years">
+            {{ year }}
+        </div>
+        <div>{{ 'Sum' | translate }}</div>
+    </div>
+    <div class="paid-absence-body">
+        <div class="paid-absence-grid" (mouseenter)="showFullName('enter')"  (mouseleave)="showFullName('leave')">
+            <ng-container *ngFor="let stat of stats" > 
+                <div class="name">{{ translate_and_truncate_txt(stat.name, size_of_shown_text) }} :</div>
+                <div><ng-container *ngIf="stat.total_1_sum_display" >{{ stat.total_1 }}h <div class="border-right"></div></ng-container></div>
+                <div><ng-container *ngIf="stat.total_2_sum_display" >{{ stat.total_2 }}h <div class="border-right"></div></ng-container></div>
+                <div><ng-container *ngIf="stat.total_3_sum_display" >{{ stat.total_3 }}h <div class="border-right"></div></ng-container></div>
+                <div>{{  stat.sum_total }}h</div>
+            </ng-container>
+        </div>
+        <div class="spinner-container" *ngIf="spinner">
+            <app-pulse-spinner></app-pulse-spinner>
+        </div>
+    </div>
+</div>

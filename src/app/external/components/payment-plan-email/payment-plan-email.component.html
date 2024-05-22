@@ -1,0 +1,405 @@
+<div class="main-div-email">
+  <div class="header-txt">
+    <p>
+      <span>{{ "TSC_PERFORMANCE_PLAN" | translate }}</span>
+    </p>
+  </div>
+  <div class="content-txt">
+    <p class="content-p1">
+      <span>{{ "TSC_PROJECT_NAME" | translate }}</span>
+    </p>
+    <p class="content-p2">{{ project.CustomName }} - {{ project.name }}</p>
+  </div>
+  <div class="flex-row-1">
+    <div class="kontraktsumma">
+      <p class="kontrakt-p">
+        <span>{{ "TSC_CONTRACT_AMOUNT" | translate }}</span>
+      </p>
+      <div class="inpt-summa">
+        <p class="font-px">
+          {{ userData[selectedPaymentPlan].editContractAmount != 0 ? userData[selectedPaymentPlan].editContractAmount : (project.contractAmount | number: "1.2-2":"fr") }}
+        </p>
+      </div>
+    </div>
+    <!----->
+    <div class="datum">
+      <p class="datum-p">
+        <span>{{ "Date" | translate }}</span>
+      </p>
+      <div
+        class="inpt-summa-date"
+        *ngIf="userData[selectedPaymentPlan] as mail"
+      >
+        <div>
+          <svg
+            class="svg-date"
+            id="Kalender_tom_icon"
+            data-name="Kalender tom icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22.537"
+            viewBox="0 0 22 22.537"
+          >
+            <path
+              id="Path_750"
+              data-name="Path 750"
+              d="M37.631,18.483H34.845v2.322c0,.016,0,.032,0,.048s0,.034,0,.052v.061h0a1.882,1.882,0,0,1-3.754,0h0V20.9c0-.017,0-.034,0-.051s0-.031,0-.047V18.483H23.556v2.3c0,.022,0,.045,0,.068s0,.049,0,.074v.039h0a1.882,1.882,0,0,1-3.754,0h0v-.083c0-.01,0-.019,0-.029s0-.018,0-.027V18.483H16.841a.6.6,0,0,0-.6.6v19.2a.6.6,0,0,0,.6.6h20.79a.6.6,0,0,0,.6-.6V19.08A.6.6,0,0,0,37.631,18.483ZM36.227,36.3a.6.6,0,0,1-.6.6H18.85a.6.6,0,0,1-.6-.6V24.517a.6.6,0,0,1,.6-.6H35.622a.6.6,0,0,1,.6.6Z"
+              transform="translate(-16.236 -16.343)"
+              fill="#858585"
+            />
+            <path
+              id="Path_751"
+              data-name="Path 751"
+              d="M47.717,21.513a1.142,1.142,0,0,0,1.139-1.145V16.244a1.139,1.139,0,1,0-2.277,0v4.125A1.142,1.142,0,0,0,47.717,21.513Z"
+              transform="translate(-31.103 -15.099)"
+              fill="#858585"
+            />
+            <path
+              id="Path_752"
+              data-name="Path 752"
+              d="M26.029,21.513a1.142,1.142,0,0,0,1.138-1.145V16.244a1.139,1.139,0,1,0-2.277,0v4.125A1.142,1.142,0,0,0,26.029,21.513Z"
+              transform="translate(-20.476 -15.099)"
+              fill="#858585"
+            />
+          </svg>
+        </div>
+        <div class="line"></div>
+        <div>
+          <p class="font-px date">{{ mail.created_at }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!---Second input row-->
+  <div class="percentage" *ngIf="userData[selectedPaymentPlan] as perc">
+    <p class="percentage-p">
+      <span>{{ "TSC_PERCENTAGE_OF_FUNDS" | translate }} </span>
+    </p>
+    <div class="flex">
+        <div class="perc-field">
+          <p class="font-px marg-per">{{ perc.percentage }}</p>
+        </div>
+        <div>
+          <p class="per">%</p>
+        </div>
+    </div>
+  </div>
+  <!------>
+  <div class="second-perc" *ngIf="userData[selectedPaymentPlan] as perca">
+    <p class="percentage-p">
+      <span>{{ "TSC_PERC_CONTRACT" | translate }} </span>
+    </p>
+    <div class="flex flex-space-between">
+      <div class="flex">
+        <div class="perc-field">
+          <p class="font-px marg-per bottom-n">{{ perca.percentage_ca }}</p>
+        </div>
+        <div>
+          <p class="per">%</p>
+        </div>
+        <div class="grey-inpt">
+          <p class="font-px bottom-n">
+            {{ perca.amount_by_percentage | number: "1.2-2":"fr" }}
+          </p>
+        </div>
+      </div>
+      <div class="basked-container">
+        {{ "In order to minimize the time," | translate }}
+            {{
+              (
+                "cost consequences and not cause any
+                        obstacles, we need the above order"
+                | translate
+              ).substring(0, 58)
+            }}
+            {{ "message at the latest" | translate }}: <b>{{
+          dueDate }}</b>
+      </div>
+    </div>
+  </div>
+  <!------->
+  <div class="txt-area">
+    <p>
+      <span>{{ "TSC_DESC" | translate }}</span>
+    </p>
+    <div class="area" *ngIf="userData[selectedPaymentPlan] as desc">
+      <p>{{ desc.description }}</p>
+    </div>
+    <img src="/dots-textarea.png" class="dots" alt="" />
+  </div>
+  <!------->
+  <div class="email-table">
+    <div class="email-head">
+      <div>
+        <p class="p-white">
+          <span>{{ "TSC_DESCRIPTION" | translate }}</span>
+        </p>
+      </div>
+      <div class="grey-border">
+        <p class="p-white text-c">
+          <span>{{ "TSC_INVOICE_DAY" | translate }}</span>
+        </p>
+      </div>
+      <div class="grey-border">
+        <p class="p-white text-c">
+          <span>{{ "TSC_AMOUNT" | translate }}</span>
+        </p>
+      </div>
+      <div class="grey-border">
+        <p class="p-white text-c">
+          <span>{{ "TSC_BALANCE" | translate }}</span>
+        </p>
+      </div>
+      <div class="grey-border">
+        <p class="p-white text-c">
+          <span>{{ "TSC_ARREARS" | translate }}</span>
+        </p>
+      </div>
+      <div class="grey-border">
+        <p class="p-white text-c">
+          <span>{{ "TSC_INVOICED" | translate }}</span>
+        </p>
+      </div>
+      <div class="grey-border">
+        <p class="p-white text-c">
+          <span>{{ "TSC_ACTIVITY" | translate }}</span>
+        </p>
+      </div>
+    </div>
+    <div class="email-body">
+      <div *ngFor="let month of userData[selectedPaymentPlan].month_span">
+        <div class="month-div">
+          <div class="dark-border">
+            <p class="bottom-n month-d">{{ month.date }}</p>
+          </div>
+          <div class="dark-border"></div>
+          <div class="dark-border"></div>
+          <div class="dark-border">
+            <p class="bottom-n avst">Avst. {{ month.avst }}</p>
+          </div>
+          <div class="dark-border"></div>
+          <div class="dark-border"></div>
+          <div class="dark-border"></div>
+        </div>
+        <!---Articles--->
+        <div class="content-div">
+          <div class="article-wrapper" *ngFor="let articlegroup of month.articleKeys">
+            <div *ngFor="let article of month.articles[articlegroup]">
+              <div class="dark-border">
+                <p class="beskriv">{{ article.Name }}</p>
+              </div>
+              <div class="dark-border">
+                <p class="table-ar">{{ article.Invoice_day }}</p>
+              </div>
+              <div class="dark-border">
+                <input
+                  number-format-directive
+                  type="text"
+                  class="table-ar mel"
+                  [value]="article.Amount"
+                  disabled
+                />
+              </div>
+              <div class="dark-border">
+                <input
+                  number-format-directive
+                  type="text"
+                  class="table-ar mel"
+                  [value]="article.Balance"
+                  disabled
+                />
+              </div>
+              <div class="dark-border">
+                <input
+                  number-format-directive
+                  type="text"
+                  class="table-ar mel"
+                  [value]="article.Arrears"
+                  disabled
+                />
+              </div>
+              <div class="dark-border">
+                <input
+                  number-format-directive
+                  type="text"
+                  class="table-ar mel"
+                  [value]="article.Invoiced"
+                  disabled
+                />
+              </div>
+              <div class="dark-border">
+                <p class="table-ar">{{ article.Activity }}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!---Total summa-->
+  <div class="total-summa" *ngIf="userData[selectedPaymentPlan] as total">
+    <div class="first-total">
+      <div class="black-total">
+        <p class="slut">
+          <span>{{ "TSC_FINAL_INVOICE" | translate }} </span>
+        </p>
+      </div>
+      <div class="white-background dark-border"></div>
+      <div class="white-background dark-border"></div>
+      <div class="white-background dark-border"></div>
+      <div class="white-background dark-border">
+        <input
+          number-format-directive
+          type="text"
+          class="bottom-n table-ar mel"
+          [value]="total.sumArrears"
+          disabled
+        />
+      </div>
+      <div class="white-background dark-border"></div>
+      <div class="white-background dark-border"></div>
+    </div>
+    <div class="second-total">
+      <div class="black-total">
+        <p class="suma">
+          <span>{{ "TSC_TOTAL" | translate }}</span>
+        </p>
+      </div>
+      <div class="white-background dark-border"></div>
+      <div class="white-background dark-border">
+        <input
+          number-format-directive
+          type="text"
+          class="bottom-n table-ar mel"
+          [value]="total.sumAmount"
+          disabled
+        />
+      </div>
+      <div class="white-background dark-border">
+        <input
+          number-format-directive
+          type="text"
+          class="bottom-n table-ar mel"
+          [value]="total.sumBalance"
+          disabled
+        />
+      </div>
+      <div class="white-background dark-border"></div>
+      <div class="white-background dark-border">
+        <input
+          number-format-directive
+          type="text"
+          class="bottom-n table-ar mel"
+          [value]="total.sumInvoiced"
+          disabled
+        />
+      </div>
+      <div class="white-background dark-border"></div>
+    </div>
+  </div>
+  <!------->
+</div>
+<!----Accept/Decline section-->
+<form [formGroup]="fEmail">
+  <div class="last-div">
+    <div class="header-last flex space-b">
+      <div>
+        <p class="bottom-n beskedd">
+          <span>{{ "TSC_MESSAGE_FROM_CUSTOMER" | translate }}</span>
+        </p>
+      </div>
+      <div class="date-last">
+        <p class="bottom-n">{{ CurrentDate }}</p>
+      </div>
+    </div>
+    <hr />
+    <div class="al">
+      <div class="inputs flex">
+        <div class="accept">
+          <button
+            class="accept-btn"
+            type="button"
+            (click)="postStatus('Accepted')"
+          >
+            <span class="mr-2">{{ "Accept" | translate }}</span>
+          </button>
+        </div>
+        <div class="komentar-div">
+          <p class="bottom-n kom">{{ "Comment" | translate }}</p>
+          <textarea
+
+            class="koment-section blu-scroll"
+            formControlName="clientComment"
+            maxlength="500"
+
+          ></textarea>
+          <div class="comment-count">
+            <small>{{ fEmail.get('clientComment').value.length }} / 500</small>
+          </div>
+        </div>
+
+        <div class="decline">
+          <button
+            class="decline-btn"
+            type="button"
+            (click)="postStatus('Declined')"
+            data-toggle="modal"
+            data-target="#exampleModal"
+          >
+            <span class="mr-2">{{ "Declined" | translate }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="top" *ngIf="userData[selectedPaymentPlan] as due">
+      <p class="txt-c">
+        <span>
+          För att kunna minimera tids-, kostnadskonsekvenserna och inte orsakar
+        </span>
+        <span>
+          hinder behöver vi<b> besked senast: {{ due.dueDate }}</b>
+        </span>
+        <!-- <span class="bold-span"><b> {{ due.dueDate }} </b></span> -->
+      </p>
+    </div>
+  </div>
+</form>
+
+<!---------ERROR Modal-------->
+<!-- <div
+  *ngIf="errorModal"
+  class="modal"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span>{{ "TSC_COMMENT_DECLINE" | translate }}</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <span>{{ "TSC_CLOSE" | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

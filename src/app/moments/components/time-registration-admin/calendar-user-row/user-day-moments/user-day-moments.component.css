@@ -1,0 +1,110 @@
+.moment-cont {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: transparent;
+  background-color: white;
+  /*border-right: 1px solid #707070;*/
+  /*border-bottom: 1px solid #707070;*/
+  cursor: pointer;
+  font-size: 8px;
+  z-index: 600;
+  top: 0px;
+  bottom: 1px;
+  left: 0px;
+  right: 1px;
+}
+
+.red-line {
+  position: absolute;
+  background-color: red;
+  z-index: 1300;
+}
+
+.-left {
+  width: 1px;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.-top {
+  height: 1px;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+}
+
+.-right {
+  width: 1px;
+  top: 1px;
+  bottom: 0px;
+  right: 0px;
+}
+
+.-bottom {
+  height: 1px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.not-accepted {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: red;
+  padding-top: 1px;
+}
+
+.test-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.lock-p-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hours-a-name {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.lock-p-name > div {
+  margin-left: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.right-line {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--main-bg);
+  z-index: 500;
+}
+
+.bottom-line {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--main-bg);
+  z-index: 500;
+}

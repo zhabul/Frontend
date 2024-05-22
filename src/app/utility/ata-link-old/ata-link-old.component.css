@@ -1,0 +1,19 @@
+.column-container {
+    display: flex;
+    flex-direction: row;
+    color: var(--hexagon-color);
+    cursor: default;
+}
+
+.ata-link {
+    margin-left: 0.5rem;
+    color: var(--brand-color);
+    text-decoration: none;
+    opacity: 1;
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
+}
+
+.ara-link:hover {
+    opacity: 0.5 !important;
+}

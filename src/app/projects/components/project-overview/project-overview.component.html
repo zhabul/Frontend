@@ -1,0 +1,237 @@
+<div class="tab-navigation bgGrayBlue">
+  <button class="btn-all active" (click)="setContent('summary')">
+    {{ "TSC_Summary" | translate }}
+  </button>
+  <button class="btn-approved" (click)="setContent('images')">
+    {{ "Images" | translate }}
+  </button>
+</div>
+
+<div *ngIf="!showImages" class="tab-navigation-wrapper mt-2">
+  <div style="height: 730px; overflow: auto">
+    <table
+      class="table tab-responsive table-striped table-hover table-lightX table-sm mt-5"
+      id="momentsOverviewTable"
+    >
+      <thead class="table-bordered">
+        <tr>
+          <th scope="col">{{ "Year" | translate }}</th>
+          <th scope="col">{{ "Name" | translate }}</th>
+          <th scope="col">{{ "Accrued costs" | translate }}</th>
+          <th scope="col">{{ "Last regulate" | translate }}</th>
+          <th scope="col">{{ "Sent" | translate }}</th>
+          <th scope="col">{{ "Approved to invoice" | translate }}</th>
+          <th scope="col">{{ "Invoiced" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody class="table-bordered">
+        <ng-container
+          *ngFor="let report of projectWeeklyReports; let i = index"
+        >
+          <tr style="cursor: pointer" (click)="changeWeek(report)">
+            <td>{{ report["year"] }}</td>
+            <td>{{ report["WrName"] }}</td>
+            <td class="total-text-align">
+              {{ report["totallyWorkedUp"] | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{ report["workedButNotApproved"] | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{ report["total_sent"] | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{ report["approvedForInvoice"] | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{ report["invoicedTotal"] | number: "1.2-2":"fr" }}
+            </td>
+          </tr>
+        </ng-container>
+        <tr class="font-weight-bold">
+          <td>Total</td>
+          <td class="total-text-align"></td>
+          <td class="total-text-align">
+            {{ sumAllTotallyWorkedUp | number: "1.2-2":"fr" }}
+          </td>
+          <td class="total-text-align">
+            {{ sumAllWorkedButNotApproved | number: "1.2-2":"fr" }}
+          </td>
+          <td class="total-text-align">
+            {{ sumAllSentWr | number: "1.2-2":"fr" }}
+          </td>
+          <td class="total-text-align">
+            {{ sumAllApprovedForInvoice | number: "1.2-2":"fr" }}
+          </td>
+          <td class="total-text-align">
+            {{ sumAllInvoicedTotal | number: "1.2-2":"fr" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="showImages">
+  <div *ngIf="documentsImagesKeyList && documentsImagesKeyList.length">
+    <br />
+    <div *ngFor="let key of documentsImagesKeyList">
+      <h5>{{ key }}</h5>
+      <div class="d-flex flex-wrap docImages">
+        <div
+          class="panel panel-default documentImage"
+          *ngFor="
+            let image of documentsImagesList[key].images;
+            let index = index
+          "
+        >
+          <div class="panel-body">
+            <div
+              (click)="openSwiper(index, documentsImagesList[key].images, 0)"
+              class="zoom"
+              data-title="Fotos"
+              data-footer="Fotos"
+              data-type="image"
+              data-toggle="lightbox"
+            >
+              <div *ngIf="image.Url.endsWith('.pdf')" class="pdf-placeholder">
+                <span class="material-icons icon-display">
+                  picture_as_pdf
+                </span>
+              </div>
+              <img
+                *ngIf="!image.Url.endsWith('.pdf')"
+                class="desktop-show-logo"
+                [src]="image.Url"
+              />
+              <span class="overlay"
+                ><i class="glyphicon glyphicon-fullscreen"></i
+              ></span>
+              <p class="imgName">
+                {{
+                  image.name.length < 20
+                    ? image.name
+                    : image.name.substring(0, 20) + "..."
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-wrap docImages">
+        <div
+          class="panel panel-default documentImage"
+          *ngFor="
+            let image of documentsImagesList[key]['pdfs'];
+            let index = index
+          "
+        >
+          <div class="panel-body">
+            <!-- <div
+              (click)="openSwiper(index, documentsImagesList[key]['pdfs'], 0)"
+              class="zoom"
+              data-title="Fotos"
+              data-footer="Fotos"
+              data-type="pdf"
+              data-toggle="lightbox"
+            >
+              <img
+                class="desktop-show-logo"
+                [src]="image.image_path?.split(',')[0]"
+              />
+              <span class="overlay"
+                ><i class="glyphicon glyphicon-fullscreen"></i
+              ></span>
+              <p class="imgName">
+                {{
+                  image.name.length < 20
+                    ? image.name
+                    : image.name.substring(0, 20) + "..."
+                }}
+              </p>
+            </div> -->
+            <div>
+              <app-pdfjs-preview
+                style="display: flex; cursor: pointer; width: 68px;"
+                type="pdf"
+                (click)="openSwiper(index, documentsImagesList[key]['pdfs'], 0)"
+                [pdfUrls]="[image['file_path']]"
+                [deleted]=""
+                [canRemove]="false"
+                [index]="index"
+                [active]="index"
+                [width]="150"
+                [height]="125"
+                [borderRadius]="'0px 0px 0px 0px'"
+                [folder]="false"
+                >
+              </app-pdfjs-preview>
+              <span class="overlay"
+                ><i class="glyphicon glyphicon-fullscreen"></i
+              ></span>
+              <p class="imgName">
+                {{
+                  image.name.length < 20
+                    ? image.name
+                    : image.name.substring(0, 20) + "..."
+                }}
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="showAttachmentImage"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="toggleAttachmentImage($event)"
+>
+  <div class="image-wrapper" *ngIf="!showPdf">
+    <span class="rotate-icon-left" (click)="rotateLeft()"
+      ><i class="material-icons">rotate_left</i></span
+    >
+    <span class="rotate-icon" (click)="rotateRight()"
+      ><i class="material-icons">rotate_right</i></span
+    >
+    <span
+      class="close-icon-right material-icons"
+      (click)="showAttachmentImage = !showAttachmentImage"
+      >clear</span
+    >
+    <!-- <img id="preview-image" style="max-height:85vh;" src="{{currentAttachmentImage}}" alt="attachment-image"> -->
+  </div>
+  <div id="image-gallery" *ngIf="!showPdf">
+    <div class="image-container"></div>
+  </div>
+  <iframe
+    style="max-height: 85vh; width: 50%; height: 100%"
+    [src]="currentAttachmentPdf"
+    *ngIf="showPdf"
+  ></iframe>
+</div>
+
+<ng-template #otherComponent>
+  <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="true"
+  ></app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="true"
+  ></app-pdfjs-viewer>
+</ng-container>
+

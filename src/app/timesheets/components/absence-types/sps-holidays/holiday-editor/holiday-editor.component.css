@@ -1,0 +1,28 @@
+.rel {
+    position: relative;
+}
+
+.cal-icon {
+    position: absolute;
+    left: 20px;
+    bottom: 5px;
+}
+
+.date-input {
+    padding-left: 70px !important;
+}
+
+#spara-btn {
+    border: none;
+    background-color: #E37831;
+    color: white;
+    padding: 5px 20px 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+#inputs-footer-end {
+    display: flex;
+    justify-content: flex-end;
+}

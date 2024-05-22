@@ -1,0 +1,98 @@
+<div class="height-field-cal moment-wrraper" #userrow>
+  <ng-container *ngFor="let object of calendar; let index = index">
+    <ng-container *ngFor="let month of object.months; let index2 = index">
+      <ng-container *ngFor="let day of month.days">
+        <ng-container *ngIf="visible">
+          <div [ngStyle]="setStyle(user, day)">
+            <div
+              class="calendar-content-field-box-cal calendar-content-box-cal-lgreen {{
+                day.date
+              }}"
+              [ngStyle]="{
+                'background-color':
+                  day.dayName === 'Sat' || day.dayName === 'Sun'
+                    ? '#efefef'
+                    : 'transparent'
+              }"
+              (click)="goToUserMomentDetail(user, day.date)"
+            >
+              <ng-container
+                *ngIf="
+                  (user.moments[day.date] &&
+                    user.moments[day.date].Type == 'userRaportStatus') ||
+                  (user.moments[day.date] &&
+                    user.moments[day.date].time != '00:00' &&
+                    user.moments[day.date].raportedDayHaveMomentsAndLocked)
+                "
+              >
+                <i class="material-icons calendar-lock-style">lock</i>
+              </ng-container>
+              <div class="calendar-text-field">
+                {{ setValue(user, day)["ProjectName"] }}
+              </div>
+              <div class="calendar-text-field" *ngIf="user.moments[day.date]">
+                <i
+                  class="material-icons icon-small"
+                  *ngIf="
+                    user.moments[day.date] &&
+                    user.moments[day.date].time != '00:00'
+                  "
+                  >access_time</i
+                >
+                {{ setTimeValue(user, day) | translate }}
+              </div>
+              <div
+                class="calendar-text-field"
+                *ngIf="
+                  user.absences[day.date] &&
+                  user.absences[day.date].length > 0 &&
+                  user.absences[day.date][0].Approved == 1 &&
+                  day.dayName !== 'Sat' &&
+                  day.dayName !== 'Sun'
+                "
+              >
+                <i class="material-icons icon-small">free_breakfast</i
+                >{{ setAbsenceValue(user, day) }}
+              </div>
+              <div
+                class="calendar-mileage-field mileage-style"
+                *ngIf="setValue(user, day).mileage"
+              >
+                <i
+                  [ngClass]="{
+                    'material-icons calendar-icon': true,
+                    blue: user.moments[day.date]?.mileageType == '2',
+                    black: user.moments[day.date]?.mileageType != '2'
+                  }"
+                >
+                  directions_car</i
+                >
+                {{ setValue(user, day)["mileage"] }}
+              </div>
+
+              <div
+                (click)="openApproveAbsenceModal(day.date, user)"
+                *ngIf="
+                  user.notApprovedAbsences[day.date]?.length &&
+                  day.dayName !== 'Sat' &&
+                  day.dayName !== 'Sun'
+                "
+                class="approve-absence-area"
+                [title]="user.notApprovedAbsences[day.date][0].AbsenceType"
+              >
+                <span
+                  *ngIf="user.notApprovedAbsences[day.date][0].attested == 0"
+                >
+                  {{ "Need attest" | translate }}
+                </span>
+                <span class="approve-absence-text">
+                  {{ user.notApprovedAbsences[day.date][0].ShortName }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

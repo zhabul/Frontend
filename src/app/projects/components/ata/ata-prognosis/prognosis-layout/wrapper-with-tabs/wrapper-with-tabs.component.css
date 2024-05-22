@@ -1,0 +1,36 @@
+.content-wrapper {
+  width: 1414px;
+  min-height: 100px;
+  border: 2px solid #858585;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+.tabs-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 37px;
+}
+
+.left-tabs-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.left-tab:not(:last-child) {
+  margin-left: -10px;
+}
+
+.right-tab:not(:last-child) {
+  margin-right: -10px;
+}
+
+.fake-side-line {
+  width: 2px;
+  background-color: grey;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}

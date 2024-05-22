@@ -1,0 +1,8 @@
+#amount {
+  color:black
+}
+
+input#amount::placeholder {
+  color: #bbb6b6  !important;
+
+}

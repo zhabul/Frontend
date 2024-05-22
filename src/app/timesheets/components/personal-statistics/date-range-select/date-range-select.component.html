@@ -1,0 +1,38 @@
+<div style="display: flex;">
+    <div class="date-input-container">
+        <div (click)="previousStartDate()" class="calendar-button-container calendar-button-left">
+          <span class="badgeX badge-darkX material-icons top1px posRel"
+            >navigate_before</span>
+        </div> 
+        <div class="input-group-prepend">
+          <span class="input-group-text calendar-icon" id="dateSelectStartDate">
+            <app-calendar-icon-svg></app-calendar-icon-svg>
+          </span>
+        </div>
+        <div class="form-control project-date date-input">
+            {{ startDate.display }}
+        </div>
+        <div (click)="nextStartDate()" class="calendar-button-container calendar-button-right">
+          <span class="badgeX badge-darkX material-icons top1px posRel">navigate_next</span>
+        </div>
+        <div class="floating-title">{{ 'CUD_From' | translate }}</div>
+    </div>
+    <div class="date-input-container no-left-margin">
+        <div (click)="previousEndDate()" class="calendar-button-container calendar-button-left">
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+            >navigate_before</span>
+        </div> 
+        <div class="input-group-prepend">
+            <span class="input-group-text calendar-icon" id="dateSelectEndDate">
+            <app-calendar-icon-svg></app-calendar-icon-svg>
+            </span>
+        </div>
+        <div class="form-control project-date date-input">
+            {{ endDate.display }}
+        </div>
+        <div (click)="nextEndDate()" class="calendar-button-container calendar-button-right">
+            <span class="badgeX badge-darkX material-icons top1px posRel">navigate_next</span>
+        </div>
+        <div class="floating-title">{{ 'CUD_To' | translate }}</div>
+    </div>
+</div>

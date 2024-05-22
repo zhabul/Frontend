@@ -1,0 +1,90 @@
+
+<div #dropdown>
+    <div (click)="toogleMultiselect()" (click)="showSearch()" [style.width.px]="width" class="name-of-multselect"
+        [ngStyle]="{
+            'border': (isHovered && toggle == false) ? borderHoverColor : border,
+            'border-radius': toggle ? radius :'4px 4px 4px 4px',
+            'border-bottom':toggle ? border4 : border
+        }">
+        <input
+         style="padding: -1px 0 7px 0;"
+         *ngIf="show && EnableSearch"
+         [ngStyle]="{'color': color }"
+         [ngClass]="{'input-color': SelectedValueInDropdown >= 1, 'input-color-dropdown-close': SelectedValueInDropdown === 0 }"
+         class="input-box"
+         type1="text"
+         #search
+         id="input"
+         [(ngModel)]="filterText"
+         placeholder="{{SelectedValueInDropdown > 1 ? '' : ref}}"
+        >
+        <div style="padding: 3px 6px" [ngStyle]="{'color': fill}" [style.font-size.px]="fontsize" [ngClass]="{'TitleName': true, 'disabledTitleName':show && EnableSearch}">{{(SelectedValueInDropdown > 1) ? '' : ref}}</div>
+        <div class="search counter" style="padding: 3px 6px;" [ngStyle]="{'color': fill }" *ngIf="SelectedValueInDropdown > 1" >{{SelectedValueInDropdown}}</div>
+        <div class="arrow">
+            <app-arrow-for-dropdown
+                [fill]="fill"
+                [rotate]="rotate"
+            >
+            </app-arrow-for-dropdown>
+        </div>
+      <div class="border-on-scroll" *ngIf="toggle && showborder" ></div>
+    </div>
+    <div style="position:relative">
+    <div id="openDiv" *ngIf="toggle && showborder"
+        [ngStyle]="{
+          'border-bottom': border1,
+          'border-right': border1,
+          'border-left': border1,
+          'border-top': border2,
+          'border-radius': toggle ?'0px 0px 4px 4px': '4px 4px 0px 0px'}"
+        class="dropdown-scroll">
+
+        <div class="dropdown-checkbox" *ngIf="chooseAll && showDiv">
+            <div>{{ ref1 | translate }}</div>
+            <div class="check-button-wrapp">
+                <input type="checkbox" (click)="selectAll()" class="check">
+                <app-checkin-svg
+                *ngIf="allselected"
+                [width]="26"
+                [height]="26"
+                [color]="'FF7000'"
+                [hatched]="'white'"
+              ></app-checkin-svg>
+              <app-checkout-svg
+              *ngIf="!allselected"
+                  [width]="26"
+                  [height]="26"
+                  [color]="'FF7000'"
+                  [hatched]="'white'"
+              ></app-checkout-svg>
+            </div>
+        </div>
+        <div *ngFor="let item of filteredClient; let i=index; trackBy: trackByFn" [name]="item.id" >
+            <div class="users-list" (click)="getSelectedItem(item,i)">
+              <div *ngIf="type == 'AddSupplier'" [ngStyle]="{'color': setColorDropDownSelect(item)}" class="users" title="{{item.Name | translate}}"> {{item.Name | translate}}</div>
+                <div *ngIf="type == 'SupplierInvoice'" [ngStyle]="{'color': setColorDropDownSelect(item)}" class="users" title="{{item.CustomName + ' ' + item.Name}}"> {{item.CustomName + ' '  + item.Name}}</div>
+                <div *ngIf="!PermitActive && type != 'SupplierInvoice' && type != 'AddSupplier'" [ngStyle]="{'color': setColorDropDownSelect(item)}" class="users" title="{{item.Name | translate}}"> {{item.Name | translate}}</div>
+                <div *ngIf="PermitActive && type != 'SupplierInvoice' && type != 'AddSupplier'" [ngStyle]="{'color': setColorDropDownSelect(item)}" class="users"  title="{{item.fullname}}"> {{item.fullname}}</div>
+                <div class="check-button-wrapp-one">
+                  <input type="checkbox" class="check">
+                    <app-checkin-svg
+                        *ngIf="item?.checked"
+                        [width]="18"
+                        [height]="18"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                    ></app-checkin-svg>
+                    <app-checkout-svg
+                    *ngIf="!item?.checked"
+                        [width]="18"
+                        [height]="18"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                    ></app-checkout-svg>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

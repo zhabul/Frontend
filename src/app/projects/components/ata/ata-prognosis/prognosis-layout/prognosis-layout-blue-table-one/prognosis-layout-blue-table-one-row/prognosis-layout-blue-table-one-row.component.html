@@ -1,0 +1,17 @@
+<div class="main-wrapper" *ngIf="property">
+  <div class="row">
+    <span>{{ property.project_name }}</span>
+    <span>{{
+      property.project_contract_amount | number : "1.2-2" : "fr"
+    }}</span>
+  </div>
+  <div
+    class="row"
+    [ngStyle]="{
+      visibility: property.project_debit == '4' ? 'visible' : 'hidden'
+    }"
+  >
+    <span>Rikt +/-</span>
+    <span>{{ property.riktTotal | number : "1.2-2" : "fr" }}</span>
+  </div>
+</div>

@@ -1,0 +1,321 @@
+<div class="main-div">
+  <div class="container pdf-div">
+    <div class="row">
+      <div class="col-md-4 logo-img">
+        <img
+          src="../../../../../../../../../assets/img/CMAX-text-logo-RGB_512.png"
+          class="logo"
+          alt=""
+        />
+      </div>
+      <div class="col-md-8 header-text" *ngIf="userData[selectedPaymentPlan] as projectDate">
+        <p class="align-text-right header-p1">
+          {{ "TSC_PERFORMANCE_BASED_PAYMENT_PLAN" | translate }}
+        </p>
+        <p class="skapat-p align-text-right">
+          Dat: <span class="date-p">{{ projectDate.date }}</span>
+        </p>
+        <div *ngIf="projectDate.revisionDate">
+          <p class="skapat-p align-text-right">
+            Rev: {{ projectDate.revisionDate }}
+          </p>
+        </div>
+        <p class="reminder">
+          <span class="f-14 bold"  *ngIf="projectDate.status == 1 && userData[selectedPaymentPlan].timesReminderSent > 0 ">
+              {{
+                (userData[selectedPaymentPlan].timesReminderSent <= 1 ) ?
+                     "Påminnelse" :
+                     "Påminnelse - " +  userData[selectedPaymentPlan].timesReminderSent
+              }}
+          </span>
+          <!-- <span class="f-14 bold" *ngIf="userData[selectedPaymentPlan].timesReminderSent > 1">
+            Påminnelse - {{ userData[selectedPaymentPlan].timesReminderSent }}
+          </span> -->
+        </p>
+      </div>
+    </div>
+    <div class="row second-row">
+      <div class="col-md-6">
+        <p class="project-tip">
+          {{ "TSC_PROJECT" | translate }}:
+          <span class="project-tip-span"
+            >{{ project?.data.CustomName }} {{ project?.data.name }}</span
+          >
+        </p>
+      </div>
+      <div class="col-md-6">
+        <div class="div-align-right display-flex">
+          <span class="bestallare"
+            >{{ "TSC_CUSTOMER" | translate }}:&nbsp;&nbsp;
+          </span>
+          <div>
+            <p class="second-div-p">
+              {{ project?.data.clientName }}<br />
+              {{ project?.data.clientCity }}<br />
+              {{ project?.data.clientStreet }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grey-div">
+      <span class="grey-span">{{ "TSC_SHORT_DESC" | translate }}</span>
+      <div class="grey" *ngIf="userData[selectedPaymentPlan] as projectD">
+        <p
+          class="grey-p"
+          aria-placeholder="Provisoriska väggar plan 4-8, Bifogat, röd markerad väggar"
+        >
+          {{ projectD.description }}
+        </p>
+      </div>
+    </div>
+    <div class="table-div">
+      <div class="thead">
+        <div class="thead-font">{{ "TSC_DESCRIPTION" | translate }}</div>
+        <div class="thead-font ndam">{{ "TSC_INVOICE_DAY" | translate }}</div>
+        <div class="thead-font align-rightt">
+          {{ "TSC_AMOUNT" | translate }}
+        </div>
+        <div class="thead-font align-rightt">
+          {{ "TSC_BALANCE" | translate }}
+        </div>
+        <div class="thead-font align-rightt">
+          {{ "TSC_ARREARS" | translate }}
+        </div>
+        <div class="thead-font align-rightt">
+          {{ "TSC_INVOICED" | translate }}
+        </div>
+      </div>
+      <div>
+        <div
+          class="tbody"
+          *ngFor="
+            let data of userData[selectedPaymentPlan].month_span;
+            let divIndex = index
+          "
+          [ngStyle]="returnColorBasedOnIndex(divIndex)"
+        >
+          <div class="month-font" lang="en">
+            {{ data.month | translate }}-{{ data.year }}
+          </div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <ng-container  *ngFor="let key of data.articleKeys">
+            <ng-container *ngFor="let article of data.articles[key]">
+              <ng-container *ngIf="article.id != -1">
+                <div class="article-font wrap_name">{{ article.Name }}</div>
+                <div class="article-font">{{ article.Invoice_day }}</div>
+                <div class="article-font align-right">
+                  <ng-container
+                    *ngIf="!article.Amount.toString().includes(',')"
+                    >{{ article.Amount | number: "1.2-2":"fr" }}</ng-container
+                  >
+                  <ng-container *ngIf="article.Amount.toString().includes(',')">{{
+                    article.Amount
+                  }}</ng-container>
+                </div>
+                <div class="article-font align-right">
+                  <ng-container
+                    *ngIf="!article.Amount.toString().includes(',')"
+                    >{{ article.Amount | number: "1.2-2":"fr" }}</ng-container
+                  >
+                  <ng-container *ngIf="article.Amount.toString().includes(',')">{{
+                    article.Amount
+                  }}</ng-container>
+                </div>
+                <div class="article-font align-right">
+                  <ng-container
+                    *ngIf="!article.Arrears.toString().includes(',')"
+                    >{{ article.Arrears | number: "1.2-2":"fr" }}</ng-container
+                  >
+                  <ng-container
+                    *ngIf="article.Arrears.toString().includes(',')"
+                    >{{ article.Arrears }}</ng-container
+                  >
+                </div>
+                <div class="article-font align-right">
+                  <ng-container
+                    *ngIf="!article.Invoiced.toString().includes(',')"
+                    >{{ article.Invoiced | number: "1.2-2":"fr" }}</ng-container
+                  >
+                  <ng-container
+                    *ngIf="article.Invoiced.toString().includes(',')"
+                    >{{ article.Invoiced }}</ng-container
+                  >
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="main-summa-body" *ngIf="userData[selectedPaymentPlan] as total">
+      <div class="total-body">
+        <div class="article-font">{{ "TSC_FINAL_INVOICE" | translate }}</div>
+        <div class="article-font"></div>
+        <div class="article-font"></div>
+        <div class="article-font align-right mmn">
+          <ng-container>
+          {{ total.sumArrears }}
+          </ng-container>
+        </div>
+        <div class="article-font"></div>
+      </div>
+      <div class="summa-div">
+        <div class="article-font summa">{{ "TSC_TOTAL" | translate }}:</div>
+        <div class="article-font align-right">
+          <ng-container>
+            {{ total.sumAmount }}
+          </ng-container>
+        </div>
+        <div class="article-font align-right">
+          <ng-container>
+            {{ total.sumAmount}}
+          </ng-container>
+        </div>
+        <div class="article-font"></div>
+        <div class="article-font align-right">
+          <ng-container>
+            {{ total.sumInvoiced}}
+          </ng-container>
+        </div>
+      </div>
+      <div class="third-div-summa">
+        <div class="article-font"></div>
+        <div class="article-font"></div>
+        <div class="article-font"></div>
+        <div class="article-font"></div>
+        <div class="article-font">{{ "TSC_PRICE_PDV" | translate }}</div>
+      </div>
+    </div>
+    <ng-container
+      *ngIf="userData[selectedPaymentPlan].clientResponses.length > 0"
+    >
+      <div class="row two-divs">
+        <div class="col-md-6 six first-6">
+          <div class="first-col-6">
+            <p class="p-margin besked-p">
+              {{ "TSC_MESSAGE_FROM_CUSTOMER" | translate }}
+            </p>
+            <!----->
+            <ng-container
+              *ngFor="let btns of userData[selectedPaymentPlan].clientResponses"
+            >
+              <div class="row mt-2 row-style">
+                <div class="col-6-p">
+                  <p>
+                    <ng-container>
+                      <div>
+                        <span>
+                          {{ btns.answerDate }}
+                        </span>
+                        <span
+                          *ngIf="btns?.manualReply == 1 && btns?.Status == 2"
+                        >
+                          - {{ "Manually accepted by" | translate }}
+                        </span>
+                        <span
+                          *ngIf="btns?.manualReply == 1 && btns?.Status == 3"
+                        >
+                          - {{ "Manually rejected by" | translate }}
+                        </span>
+                        <span
+                          *ngIf="btns?.manualReply == 1 && btns?.Status == 4"
+                        >
+                          - {{ "Manually canceled by" | translate }}
+                        </span>
+                        <span
+                          *ngIf="btns?.manualReply == 1 && btns?.Status == 6"
+                        >
+                          - {{ "Edited by" | translate }}
+                        </span>
+                      </div>
+                      <div>{{ btns.answerEmail }} <br /></div>
+                    </ng-container>
+                  </p>
+                  <!-- <p class="p-margin two-divs-p">{{btns.answerDate}}</p>
+                <p class="p-margin two-divs-p">{{btns.answerEmail}}</p> -->
+                </div>
+                <div class="accept-div">
+                  <button
+                    [ngClass]="{
+                      'btn-color-accept': btns.Status == 2 || btns.Status == 6,
+                      'btn-color-decline': btns.Status == 3,
+                      'btn-color-cancel': btns.Status == 4
+                    }"
+                    disabled
+                    class="accept-btn first-accept-btn"
+                  >
+                    <ng-container *ngFor="let status of statuses">
+                      <ng-container *ngIf="btns.Status == status.Status">
+                        <p class="acc-text">{{ status.Name | translate }}</p>
+                      </ng-container>
+                    </ng-container>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+
+            <!----
+            <div class="row" id="margin-roww">
+              <div class="col-6-p">
+                <p class="p-margin two-divs-p">2020-08-05 10:55:21</p>
+                <p class="p-margin two-divs-p">robert.copalovjohansson@peab.se</p>
+              </div>
+              <div class="accept-div">
+                <button disabled class="accept-btn" id="second-acc" >
+                  <p class="acc-text">{{'TSC_ACCEPTED' | translate}}</p>
+                </button>
+                <button disabled class="dec-btn second-dec-btn" >
+                  <p class="dec-text">{{'TSC_NOT_ACCEPTED' | translate}}</p>
+                </button>
+              </div>
+            </div>
+            ---->
+          </div>
+        </div>
+
+        <div class="col-md-6 six second-6" [ngStyle]="commentSectionStyle">
+          <p class="p-margin"><small>Komentar</small></p>
+          <ng-container
+            *ngFor="
+              let comments of userData[selectedPaymentPlan].clientResponses
+            "
+          >
+            <div *ngIf="comments?.client_message">
+              <div>{{ comments.answerEmail }} <br /></div>
+              <div>{{ comments.client_message }} <br /></div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row footer-div">
+      <div class="col-md-3">
+        <p class="footer-p">{{ "Postadress" | translate }}</p>
+        <p class="footer-p">{{ generalKeys['Company_Name'] }} </p>
+        <p class="footer-p">{{ generalKeys['Company_Address'] }}</p>
+        <p class="footer-p">{{ generalKeys['Company_Zip'] }} {{  generalKeys['Company_City'] }}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="footer-p">{{ "Telefon" | translate }}</p>
+        <p class="footer-p">{{ generalKeys['Company_Phone'] }}</p>
+        <p class="footer-p">{{ "Momsreg.nr" | translate }}</p>
+        <p class="footer-p">{{ generalKeys['Company_VAT_number'] }}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="footer-p">{{ "Approved for F tax" | translate }}</p>
+        <p></p>
+        <p class="footer-p">{{ "Betalplan" | translate }} {{ "skapad" | translate }} i </p>
+        <p class="footer-p">SPS360</p>
+      </div>
+      <div class="col-md-3 sida-div">
+        <p class="sida-p">{{ "Page" | translate }} 1/1/</p>
+      </div>
+    </div>
+  </div>
+</div>

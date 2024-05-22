@@ -1,0 +1,53 @@
+.floating-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.worker-chat{
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+    text-transform: none !important;
+    /* padding: 5px; */
+    border-bottom: 1px solid;
+    border-color: var(--main-bg);
+    position: relative;
+    padding: 2px 6px 2px 6px !important;
+}
+
+.worker-container{
+    padding-bottom: 1px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.worker-chat:last-child {
+    margin-bottom: 6px;
+}
+
+.workers-position {
+    margin-left: -2px;
+    padding-top: 5px;
+    position: absolute;
+    background-color: var(--main-bg);
+    z-index: 20;
+}
+
+.fs-10 {
+    font-size: 12px;
+    align-self: center;
+}
+
+.send-text {
+    text-transform: uppercase;
+}

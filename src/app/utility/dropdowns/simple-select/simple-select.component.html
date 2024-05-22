@@ -1,0 +1,41 @@
+
+<div (click)="onToggleMenu()" #dropdown [style.width.px]="width" class="name-of-multselect"
+  [ngStyle]="{
+    'border':border,
+    'border-radius': toggle ? radius :'4px 4px 4px 4px',
+    'border-bottom':toggle ? border4 : border,
+    'padding': padding,
+    'pointer-events': 'auto'
+    }">
+    <input [ngStyle]="{'color': color }" (keyup.enter)="onChangeSelect(filteredClient[0], 0)" #search type1="text" class="search" placeholder="{{ ref }}" [(ngModel)]="filterText" *ngIf="show && EnableSearch" [style.font-size.px]="fontSize">
+    <div *ngIf="ref !== placeholder" [ngStyle]="{'color': color }" [ngClass]="{'TitleName': true, 'disabledTitleName': show && EnableSearch}" [style.font-size.px]="fontSize">{{ ref | translate }}</div>
+    <div *ngIf="ref === placeholder" [ngStyle]="{'color': 'var(--border-color)' }" [ngClass]="{'TitleName': true, 'disabledTitleName': show && EnableSearch}" [style.font-size.px]="14">{{ ref | translate }}</div>
+    <div class="arrow">
+        <app-arrow-for-dropdown
+            [fill]="fill"
+            [rotate]="rotate"
+        >
+        </app-arrow-for-dropdown>
+    </div>
+</div>
+<div [style.width.px]="width - 5" class="shadow" *ngIf="toggle && havedata"></div>
+<div>
+  <div [ngStyle]="{
+    'border-bottom': border1,
+    'border-right': border1,
+    'border-left': border1,
+    'border-top': border2,
+    'border-radius': toggle ?'0px 0px 4px 4px': '4px 4px 0px 0px'
+    }" *ngIf="toggle" class="dropdown-scroll">
+    <div class="users" [disabled]="disabled" [value]="selectedValue" (change)="onChange($event.target.value)" >
+      <div class="users-list" *ngFor="let option of filteredClient; let index = index" [value]="option.id" (click)="onChangeSelect(option, index)" [style.font-size.px]="fontSize" [ngClass]="{ 'disabled': (option.moment_number + ' ' + option.Description) === '6 Tjänsteman' }" >
+        <div class="users" *ngIf="!AttestActive && !AttestMoment && !AttestHours && !AttestMillage">{{ option.Name | translate }}</div>
+        <div class="users" *ngIf="AttestActive && !AttestMoment && !AttestHours && !AttestMillage">{{ option.finalName | translate }}</div>
+        <div class="users" *ngIf="AttestMoment && !AttestHours && !AttestMillage" >{{ option.moment_number + ' ' + option.Description}}</div>
+        <div class="users" *ngIf="AttestHours || MinutesAtt && !AttestMillage" >{{ option.value | translate }}</div>
+        <div class="users" *ngIf="AttestMillage" >{{ option.type | translate }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+

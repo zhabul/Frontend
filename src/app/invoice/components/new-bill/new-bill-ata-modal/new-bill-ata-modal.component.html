@@ -1,0 +1,113 @@
+<mat-dialog-content class="edit-new-bill-ata-mat-dialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="modal-wrapper">
+        <div class="modal-title">
+            {{ "Fakturera" | translate }}
+        </div>
+        <div class="modal-close" (click)="onClose()">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" viewBox="0 0 25 25">
+                <defs>
+                <clipPath id="clip-path">
+                    <path id="Path_782" data-name="Path 782" d="M0,9.757H25v-25H0Z" transform="translate(0 15.243)" fill="none"/>
+                </clipPath>
+                </defs>
+                <g id="Stäng_Close_" data-name="Stäng (Close)" transform="translate(0 0)">
+                <g id="Group_6898" data-name="Group 6898">
+                    <g id="Group_341" data-name="Group 341" clip-path="url(#clip-path)">
+                    <g id="Group_340" data-name="Group 340" transform="translate(0 0.001)">
+                        <path id="Path_781" data-name="Path 781" d="M4.878,9.114A10.752,10.752,0,0,1-5.878-1.723,10.752,10.752,0,0,1,4.878-12.561,10.752,10.752,0,0,1,15.633-1.723,10.752,10.752,0,0,1,4.878,9.114m0,1.647a12.534,12.534,0,0,0,12.5-12.5,12.533,12.533,0,0,0-12.5-12.5,12.533,12.533,0,0,0-12.5,12.5,12.534,12.534,0,0,0,12.5,12.5" transform="translate(7.621 14.239)" fill="#b8b8b8"/>
+                    </g>
+                    </g>
+                    <path id="Path_783" data-name="Path 783" d="M1.478,1.782l-5.1,5.108,1.057,1.069L2.548,2.851,7.661,7.959,8.718,6.89,3.605,1.782,8.718-3.313,7.648-4.369,2.548.726-2.565-4.382-3.622-3.313Z" transform="translate(9.952 10.712)" fill="#b8b8b8"/>
+                </g>
+                </g>
+            </svg>
+        </div>
+        <div class="table">
+            <div class="table-header">
+                <div class="header-item">NR</div>
+                <div class="header-item">Namn</div>
+                <div class="header-item">Kostnadssammanställning</div>
+                <div class="header-item">Märkningskrav</div>
+                <div class="header-item">Kommentar</div>
+                <div class="header-item">
+                    <input type="checkbox" [checked]="allChecked" class="checkbox-round-all" (click)="onCheckAllItems($event)">
+                </div>
+            </div>
+            <div class="table-body">
+
+                <div class="table-row" *ngFor="let a of data; let i = index">
+                    <div class="row-item">{{"ÄTA" + a.ataNumber}}</div>
+                    <div class="row-item">{{a.ataName}}</div>
+                    <div class="row-item">
+                        <span *ngIf="a.PaymentType != 2 && a.PaymentType != 3">
+                            <app-ata-modal-dropdown
+                                [items]="a.weeklyReports"
+                                (selectedWREvent)="selectedWREmited($event)"
+                                [isEdit]="isEdit"
+                                [ata]="a"
+                            ></app-ata-modal-dropdown>
+                        </span>
+                        <span class="format-number-and-position" *ngIf="a.PaymentType == 2 || a.PaymentType == 3">
+                            {{a.total | number: '1.2-2':'fr'}}
+                        </span>
+                    </div>
+                    <div class="row-item">{{(a.labeling_requirements == '-' && a.weeklyReports[0].labeling_requirements_number > 1) ? "+"+a.weeklyReports[0].labeling_requirements_number : a.labeling_requirements}}</div>
+                    <div class="row-item">
+                        <svg id="Component_72_50" data-name="Component 72 – 50" xmlns="http://www.w3.org/2000/svg" width="23.595" height="20.89" viewBox="0 0 23.595 20.89">
+                            <path id="Path_771" data-name="Path 771" d="M32.156,16.736H19.84a5.048,5.048,0,0,0-5.26,4.792v7.481a9.643,9.643,0,0,0,.379,2.493c.627,2.005-.706,5.09-1.121,5.9a.147.147,0,0,0,.067.2.187.187,0,0,0,.089.023.175.175,0,0,0,.136-.063c.532-.634,3.182-2.827,5.71-2.827H32.156a5.048,5.048,0,0,0,5.26-4.792V21.528A5.048,5.048,0,0,0,32.156,16.736Z" transform="translate(-13.821 -16.736)" fill="#858585"/>
+                        </svg>
+                    </div>
+                    <div class="row-item">
+                        <input type="checkbox" [checked]="a.checked" class="checkbox-round" (click)="onCheckItem(a)">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+        class="btn-wrapper-ata"
+        (click)="onSave()"
+        [ngClass]="{'btn-wrapper-green': addGreenBorder}"
+        >
+            <div>
+                <svg *ngIf="!addGreenBorder" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.456" height="25.456" viewBox="0 0 25.456 25.456">
+                    <defs>
+                    <clipPath id="clip-path">
+                        <path id="Path_736" data-name="Path 736" d="M0,11.951H18v-18H0Z" transform="translate(0 6.049)" fill="none"/>
+                    </clipPath>
+                    </defs>
+                    <g id="X_icon" data-name="X icon" transform="translate(12.728) rotate(45)">
+                    <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                        <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                        <path id="Path_734" data-name="Path 734" d="M11.951,5.975a9,9,0,1,1-9-9,9,9,0,0,1,9,9" transform="translate(6.049 3.024)" fill="#858585"/>
+                        </g>
+                        <g id="Group_290" data-name="Group 290" transform="translate(3.727 3.742)">
+                        <path id="Path_735" data-name="Path 735" d="M6.822,5.921,3.135,2.234l3.693-3.7a.708.708,0,0,0,.006-1.039l-.265-.265a.708.708,0,0,0-1.065.06L1.843.943-1.885-2.774a.721.721,0,0,0-1.059.018l-.277.274a.721.721,0,0,0,.036,1.089L.5,2.288S-3.07,5.877-3.192,6A.708.708,0,0,0-3.2,7.034l.265.265a.708.708,0,0,0,1.065-.06L1.79,3.579,5.521,7.3a.722.722,0,0,0,1.062-.018L6.86,7.01a.719.719,0,0,0-.039-1.089" transform="translate(3.453 2.997)" fill="#373b40"/>
+                        </g>
+                    </g>
+                    </g>
+                </svg>
+                <svg *ngIf="addGreenBorder" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.456" height="25.456" viewBox="0 0 25.456 25.456">
+                    <defs>
+                    <clipPath id="clip-path">
+                        <path id="Path_736" data-name="Path 736" d="M0,11.951H18v-18H0Z" transform="translate(0 6.049)" fill="none"/>
+                    </clipPath>
+                    </defs>
+                    <g id="X_icon" data-name="X icon" transform="translate(12.728) rotate(45)">
+                    <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                        <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                        <path id="Path_734" data-name="Path 734" d="M11.951,5.975a9,9,0,1,1-9-9,9,9,0,0,1,9,9" transform="translate(6.049 3.024)" fill="#4cb185"/>
+                        </g>
+                        <g id="Group_290" data-name="Group 290" transform="translate(3.727 3.742)">
+                        <path id="Path_735" data-name="Path 735" d="M6.822,5.921,3.135,2.234l3.693-3.7a.708.708,0,0,0,.006-1.039l-.265-.265a.708.708,0,0,0-1.065.06L1.843.943-1.885-2.774a.721.721,0,0,0-1.059.018l-.277.274a.721.721,0,0,0,.036,1.089L.5,2.288S-3.07,5.877-3.192,6A.708.708,0,0,0-3.2,7.034l.265.265a.708.708,0,0,0,1.065-.06L1.79,3.579,5.521,7.3a.722.722,0,0,0,1.062-.018L6.86,7.01a.719.719,0,0,0-.039-1.089" transform="translate(3.453 2.997)" fill="#373b40"/>
+                        </g>
+                    </g>
+                    </g>
+                </svg>
+            </div>
+            <div>
+                {{ "LÄGG TILL"  | translate }}
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

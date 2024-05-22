@@ -1,0 +1,44 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Set Time" | translate }}: {{ hour }}:{{ minute }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<div class="time-wrapper">
+  <div class="hours-wrapper">
+    <table>
+      <tr>
+        <td>{{ "Hours" | translate }}</td>
+      </tr>
+      <tr *ngFor="let hour of hours; let index = index" class="hour-row">
+        <td
+          (click)="setHour(hour, index)"
+          [ngClass]="{ activeHour: hourIndex == index }"
+        >
+          {{ hour }}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="minutes-wrapper">
+    <table>
+      <tr>
+        <td>{{ "Minutes" | translate }}</td>
+      </tr>
+      <tr *ngFor="let minute of minutes; let index = index" class="hour-row">
+        <td
+          (click)="setMinute(minute, index)"
+          [ngClass]="{ activeHour: minuteIndex == index }"
+        >
+          {{ minute }}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="form-group btn-position text-center">
+  <button type="submit" class="btn btn-success lh09" (click)="setTime()">
+    <span class="material-icons left-3px top1px posRel">save</span>
+    <span class="posRel top-5px">{{ "Save" | translate }}</span>
+  </button>
+</div>

@@ -1,0 +1,56 @@
+.table-wrapper {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.table-header-wrapper {
+  background-color: black;
+  height: 24px;
+  display: grid;
+  position: sticky;
+  top: 0;
+}
+
+.table-header-col {
+  color: white;
+  font-size: 10px;
+  border-left: 1px solid grey;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.table-header-col:first-child {
+  padding: 0;
+  justify-content: center;
+}
+
+.table-bottom-wrapper {
+  height: 38px;
+  display: grid;
+  background-color: white;
+  color: black;
+  border: 1px solid gray;
+  position: sticky;
+  bottom: 0;
+}
+
+.table-bottom-col {
+  display: flex;
+  padding-right: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 13px;
+  border-left: 1px solid gray;
+  font-weight: bold;
+}
+
+.table-bottom-col:first-child {
+  background-color: black;
+  color: white;
+  font-weight: normal;
+}
+
+.prognosis-property-wrapper {
+  background-color: #A0C4FA;
+}

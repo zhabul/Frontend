@@ -1,0 +1,72 @@
+<!-- <div class="main-wrapper" *ngIf="prognosis">
+  <div class="item header-item"></div>
+  <div class="item header-item">{{ "TSC_Ordered" | translate }}:</div>
+  <div class="item header-item">{{ "TSC_Invoiced" | translate }}:</div>
+
+  <ng-container
+    *ngFor="let property of prognosis.properties; let index = index"
+  >
+  <div class="item first-col">{{ property.project_name }}</div>
+  <div class="item">
+    {{
+      property["project_du_totals"].totallyWorkedUp | number : "1.2-2" : "fr"
+    }}
+  </div>
+  <div class="item">
+    {{
+      property["project_du_totals"].invoicedTotal | number : "1.2-2" : "fr"
+    }}
+  </div>
+  <div class="item first-col">{{ property.project_name }} ÄTA</div>
+  <div class="item">
+    {{ property["ata_totals"].totallyWorkedUp | number : "1.2-2" : "fr" }}
+  </div>
+  <div class="item">
+    {{ property["ata_totals"].invoicedTotal | number : "1.2-2" : "fr" }}
+  </div>
+  <div
+    class="line"
+    colspan="3"
+    *ngIf="index !== prognosis.properties.length - 1"
+  ></div>
+  </ng-container>
+</div> -->
+
+<div class="main-wrapper">
+  <div class="row">
+    <div class="row-item"></div>
+    <div class="row-item title">{{ "TSC_Ordered" | translate }}:</div>
+    <div class="row-item title">{{ "TSC_Invoiced" | translate }}:</div>
+  </div>
+  <ng-container
+    *ngFor="let property of prognosis.properties; let index = index"
+  >
+    <div class="big-row">
+      <div class="row">
+        <div class="row-item">{{ property.project_name }}</div>
+        <div class="row-item">
+          {{
+            property["project_du_totals"].totallyWorkedUp
+              | number : "1.2-2" : "fr"
+          }}
+        </div>
+        <div class="row-item">
+          {{
+            property["project_du_totals"].invoicedTotal
+              | number : "1.2-2" : "fr"
+          }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="row-item">{{ property.project_name }} ÄTA</div>
+        <div class="row-item">
+          {{ property["ata_totals"].invoicedTotal | number : "1.2-2" : "fr" }}
+        </div>
+        <div class="row-item">
+          {{ property["ata_totals"].invoicedTotal | number : "1.2-2" : "fr" }}
+        </div>
+      </div>
+    </div>
+    <div class="line" *ngIf="index !== prognosis.properties.length - 1"></div>
+  </ng-container>
+</div>

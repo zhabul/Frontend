@@ -1,0 +1,30 @@
+<ng-container *ngIf="type === 'weeks'">
+  <div class="week-td" [ngStyle]="calendarColumnWidth">
+    <ng-container *ngIf="calendarSpan[index]">
+      <div [ngStyle]="calendarColumnWidth">
+        <div
+          class="day-field-black text-center"
+          [ngStyle]="computedStyles.weekStyle"
+        >
+          <span>{{ week }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="type === 'days'">
+  <div
+    [ngStyle]="computedStyles.dateDayStyle"
+    class="calendar-content-field-day"
+  >
+    <ng-container *ngIf="calendarSpan[index]">
+      <div
+        class="day-field text-center day-field-box-cal"
+        [ngStyle]="computedStyles.dateDayStyle"
+      >
+        {{ day.dateDay }}
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

@@ -1,0 +1,143 @@
+<div style="margin-top: -10px;margin-left: 30px;">
+<div class="">
+  <div class="row border-nav d-flex">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <a class="home" 
+      (click)="goBack()"
+  
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="34.604"
+          height="29.342"
+          viewBox="0 0 34.604 29.342"
+        >
+          <defs>
+            <clipPath id="clip-path">
+              <rect
+                id="Rectangle_15829"
+                data-name="Rectangle 15829"
+                width="34.604"
+                height="29.342"
+                fill="none"
+              />
+            </clipPath>
+          </defs>
+          <g id="Group_4372" data-name="Group 4372" transform="translate(0 0)">
+            <g
+              id="Group_4371"
+              data-name="Group 4371"
+              transform="translate(0 0)"
+              clip-path="url(#clip-path)"
+            >
+              <path
+                id="Path_1822"
+                data-name="Path 1822"
+                d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7"
+                transform="translate(0 0)"
+                fill="#82a7e2"
+              />
+            </g>
+          </g>
+        </svg>
+      </a>
+      <span class="icon-badge icon-badge--default text-dark"
+        >{{ "Items" | translate }}:
+        <input
+          type="text"
+          maxlength="3"
+          size="1"
+          style="border: 0; background: transparent;color:white;"
+          readonly
+          [(ngModel)]="total"
+      /></span>
+    </div>
+  </div>
+  <!-- <div class="card col-6 col-lg-8W bgGrayBlue bg-warningX nav-wrapperX">
+    <nav class="nav nav-pills nav-justified align-items-center">
+      <button (click)="goBack()" class="btn btn-dark mr-2 lh09 hideUnder800">
+        <span class="badgeX badge-darkX material-icons top1px posRel"
+          >arrow_back</span
+        >
+      </button>
+      <span class="icon-badge icon-badge--default text-dark"
+        >{{ "Items" | translate }}:
+        <input
+          type="text"
+          maxlength="3"
+          size="1"
+          style="border: 0; background: transparent"
+          readonly
+          [(ngModel)]="total"
+      /></span>
+    </nav>
+  </div> -->
+</div>
+<br>
+<div class="blu-scroll-wrapp">
+<div class="blu-scroll">
+  <div
+    class=""
+    style="overflow-y: auto; overflow-x: hidden;padding: 10px 35px 10px 25px;"
+  >
+    <div class="theGrid2 ml-3X js-grid">
+      <div
+        class="card col-sm-4X mr-1X ml-1X mb-3 cursor-pointer custom-edit-bg minw240pxX grid-item"
+        *ngFor="let material of materials"
+        routerLink="/orders/materials/{{ material.id }}"
+      >
+        <img
+          class="card-img-top"
+          src="{{
+            material.image ? material.image : 'assets/img/no-image-icon-1.jpg'
+          }}"
+        />
+        <div class="card-body d-flex flex-column pb-0">
+          <h4 class="h6 mt-auto text-center text-secondary">
+            {{ material.name }}
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="materials.length < 1" class="text-center my-3">
+      <p class="material-icons mb-0" style="font-size: 3em">error_outline</p>
+      <p class="mb-0">
+        {{ "There are no categories created yet" | translate }}.
+      </p>
+    </div>
+  </div>
+  <div
+    class="pdf-wrapper bg-transparent"
+    [ngClass]="{ 'hide-pdf-mobile': state === 'Cart' }"
+  >
+    <div
+      class="pdf-btn hideUnder800"
+      [ngClass]="{
+        'pos-btn': state === 'Cart',
+        'pos-btn1': !(state === 'Cart'),
+        'en-lan': language === 'en'
+      }"
+    >
+      <button
+        type="button"
+        (click)="animateMe()"
+        class="rotated-button font-weight-bold"
+      >
+        {{ state | translate }}
+      </button>
+    </div>
+    <div
+      [@myfirstanimation]="state"
+      class="pdf-inner sidebar-is height100vhX box-shadow"
+      [ngClass]="{ 'hide-pdf': state === 'Cart', hideDate: state === 'Cart' }"
+    >
+      <app-cart [orderData]="orderData" [delivery]="delivery"></app-cart>
+    </div>
+  </div>
+</div>
+<div class="horizontal-line-scroll"></div>
+<div class="vertical-line-scroll"></div>
+</div>
+</div>

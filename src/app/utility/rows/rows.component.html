@@ -1,0 +1,68 @@
+<div class="add-section">
+  <div>
+    <button
+      type="button"
+      class="add-btn"
+      (click)="toggleNewLineModal()"
+    >
+      <div class="add-img">
+        <app-new-card-plus-svg></app-new-card-plus-svg>
+      </div>
+      <div>
+        <p class="add-txt-orange">{{ "TSC_NEW_CARD" | translate }}</p>
+      </div>
+    </button>
+  </div>
+</div>
+
+<div class="lines-container">
+  <form
+
+    [formGroup]="lineForm"
+
+    (keydown)="setSaveEnabled()"
+    (change)="setSaveEnabled()"
+
+  >
+    <app-row-line
+
+      *ngFor="let line of linesArray; let index = index;"
+      [index]="index"
+      [line]="line"
+      [units]="units"
+      [type]="type"
+      [service]="service"
+      (deleteRow)="deleteRow($event)"
+      (enableSave)="setSaveEnabled()"
+
+    ></app-row-line>
+    <div class="spara-div" *ngIf="linesArray.length" >
+      <button
+
+        type="button"
+        class="spara-btn"
+        [disabled]="saveDisabled"
+        [ngStyle]="saveStyle"
+        (click)="saveForm()"
+      >
+        <div class="spara-txt" >
+          <p [ngStyle]="saveStyle">{{ "TSC_SAVE" | translate }}</p>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="spinner2" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<app-add-name-modal
+
+  *ngIf="newLineModalOpen"
+  (close)="toggleNewLineModal()"
+  (save)="addLine($event)"
+
+></app-add-name-modal>
+
+<img style="display: none;" src="../../../../../../../assets/img/green-add.png" alt="" />

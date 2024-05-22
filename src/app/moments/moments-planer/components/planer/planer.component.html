@@ -1,0 +1,269 @@
+<div class="card">
+  <div class="row form-heading bgGrayBlue py-1 d-flex">
+    <div class="header-btn-psotion">
+      <div class="btn-group-left">
+        <button
+          (click)="goBack()"
+          class="btn btn-dark mr-2 lh09 hideUnder800"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="badgeX badge-darkX material-icons top1px posRel"
+            >arrow_back</span
+          >
+        </button>
+        <button
+          class="btn btn-dark mt-2 mb-2 ml-3 lh09 float-left hideUnder800 btn-more"
+          (click)="loadPreviousYear()"
+        >
+          {{ "Previous period" | translate }}
+        </button>
+      </div>
+      <button
+        class="btn btn-dark mt-2 mb-2 ml-3 lh09 float-left hideUnder800 btn-more"
+        (click)="loadMore()"
+      >
+        {{ "Next period" | translate }}
+      </button>
+    </div>
+  </div>
+  <div>
+    <div class="planner-moments-wrapper" [ngStyle]="calculateStyles()">
+      <div class="header-planner-moments-wrapper"></div>
+      <div class="body-planner-moments-wrapper">
+        <div class="project-moments-menu">
+          <div class="project-moments-menu-header">
+            <table
+              class="table table-striped table-dark table-header"
+              *ngIf="activeMoment"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">Start</th>
+                  <th scope="col">End</th>
+                  <th scope="col">Days</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ activeMoment["StartDate"] }}</td>
+                  <td>{{ activeMoment["EndDate"] }}</td>
+                  <td>{{ activeMoment["Days"] }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="button-zoom-wrapper">
+              <span (click)="zoomIn()" *ngIf="allowZoomIn()"
+                ><i
+                  class="material-icons"
+                  [ngStyle]="{ 'font-size': fontSize + 'px' }"
+                  >zoom_in</i
+                ></span
+              >
+              <span (click)="zoomOut()" *ngIf="allowZoomOut()"
+                ><i
+                  class="material-icons"
+                  [ngStyle]="{ 'font-size': fontSize + 'px' }"
+                  >zoom_out</i
+                ></span
+              >
+              <span class="allowMoveEl"
+                ><i
+                  class="material-icons"
+                  [ngStyle]="{ 'font-size': fontSize + 'px' }"
+                  >move_to_inbox</i
+                ></span
+              >
+            </div>
+          </div>
+          <ul class="projects-ul-wrapper">
+            <li
+              *ngFor="let project of projects"
+              [ngStyle]="{ 'background-color': project.Color }"
+            >
+              <div class="project-name-wrapper">
+                <span>{{ project.Name }}</span>
+              </div>
+              <ul class="moments-ul-wrapper">
+                <ng-container
+                  *ngFor="let moment of project.moments; let i = index"
+                >
+                  <li
+                    class="height-field-ul"
+                    *ngIf="moment.visible"
+                    [ngClass]="setChildClass(moment)"
+                  >
+                    <div class="moments-ul-li-left">
+                      <span
+                        (click)="showChildren(moment, project, i, null)"
+                        class="btn-parent"
+                        *ngIf="momentHaveChildren(moment)"
+                      >
+                        <span>{{ moment.btnText }}</span>
+                      </span>
+                      <span>{{ moment.Description }}</span>
+                    </div>
+                  </li>
+                </ng-container>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="planner-content-wrapper">
+          <div class="calendar-content-row">
+            <div
+              class="calendar-content-row-year"
+              *ngFor="let object of calendar; let index = index"
+              [ngClass]="setYearClass(index, object)"
+            >
+              <div
+                class="calendar-content-row-month"
+                *ngFor="let month of object.months; let index = index"
+                [ngClass]="setMonthClass(index, month)"
+              >
+                <div class="text-center calendar-content-row-month-border">
+                  <h5>{{ month.name | translate }} - {{ month.year }}</h5>
+                </div>
+                <div class="calendar-content-row-week-wrapper">
+                  <div
+                    *ngFor="let day of month.days; let index = index"
+                    class="week-field"
+                  >
+                    <div
+                      [ngClass]="setWeekClass(index, day)"
+                      [ngStyle]="setBorder(day.isoWeek, index)"
+                    >
+                      <div class="day-field text-center">
+                        {{ printWeek(day.isoWeek, index) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="calendar-content-row-day-wrapper">
+                  <div
+                    class="calendar-content-row-day"
+                    [ngStyle]="{
+                      'background-color':
+                        day.dayName === 'Sat' || day.dayName === 'Sun'
+                          ? '#efefef'
+                          : 'transparent'
+                    }"
+                    *ngFor="let day of month.days"
+                    [ngClass]="setDayClass(index, day)"
+                  >
+                    <div class="day-field text-center day-field-box">
+                      {{ day.dateDay }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="timline-body-wrapper overflowHidden"
+            [ngStyle]="setWrapperWidth()"
+          >
+            <ng-container *ngFor="let project of projects">
+              <div class="height-field project-wrapper">
+                <div
+                  class="project-timeline"
+                  [ngStyle]="setProjectLineDuration(project)"
+                  [routerLink]="['/moments/planner/', project.id]"
+                ></div>
+              </div>
+              <ng-container
+                *ngFor="let moment of project.moments; let momentIndex = index"
+              >
+                <div class="height-field moment-wrraper" *ngIf="moment.visible">
+                  <ng-container
+                    *ngFor="let object of calendar; let index = index"
+                  >
+                    <ng-container
+                      *ngFor="let month of object.months; let index = index"
+                    >
+                      <div class="calendar-content-box">
+                        <div
+                          class="calendar-content-day-box"
+                          [ngStyle]="{
+                            'background-color':
+                              day.dayName === 'Sat' || day.dayName === 'Sun'
+                                ? '#efefef'
+                                : 'transparent'
+                          }"
+                          *ngFor="let day of month.days"
+                          [ngClass]="setDayClass(index, day)"
+                        ></div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <div
+                    class="moment-timeline"
+                    [ngStyle]="setMomentData(moment, momentIndex)"
+                    [routerLink]="['/moments/planner/', project.id]"
+                  >
+                    <div
+                      class="moment-timeline-percent"
+                      *ngIf="moment.childCount < 1"
+                      [ngStyle]="{ width: moment.percentage + '%' }"
+                    ></div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+          <div class="footer-calendar">
+            <div class="calendar-content-row">
+              <div
+                class="calendar-content-row-year-footer"
+                *ngFor="let object of calendar; let index = index"
+                [ngClass]="setYearClass(index, object)"
+              >
+                <div
+                  class="calendar-content-row-month"
+                  *ngFor="let month of object.months; let index = index"
+                  [ngClass]="setMonthClass(index, month)"
+                >
+                  <div class="text-center calendar-content-row-month-border">
+                    <h5>{{ month.name }} - {{ month.year }}</h5>
+                  </div>
+                  <div class="calendar-content-row-week-wrapper">
+                    <div
+                      *ngFor="let day of month.days; let index = index"
+                      class="week-field"
+                    >
+                      <div
+                        [ngClass]="setWeekClass(index, day)"
+                        [ngStyle]="setBorder(day.isoWeek, index)"
+                      >
+                        <div class="day-field text-center">
+                          {{ printWeek(day.isoWeek, index) }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="calendar-content-row-day-wrapper">
+                    <div
+                      class="calendar-content-row-day"
+                      [ngStyle]="{
+                        'background-color':
+                          day.dayName === 'Sat' || day.dayName === 'Sun'
+                            ? '#efefef'
+                            : 'transparent'
+                      }"
+                      *ngFor="let day of month.days"
+                      [ngClass]="setDayClass(index, day)"
+                    >
+                      <div class="day-field text-center day-field-box">
+                        {{ day.dateDay }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

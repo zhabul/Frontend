@@ -1,0 +1,41 @@
+.activate-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.bg-transparent {
+	background-color: transparent;
+}
+
+.choose-file {
+	margin-top: 27px;
+	left: 356px;
+	align-self: left;
+}
+
+.btn-buton {
+
+	all: unset;
+    height: 28px;
+    border: 1px solid #82a7e2;
+    background-color: #373b40;
+    border-radius: 5px;
+    color: #82a7e2;
+    padding: 1px 7px;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+
+.btn-buton:disabled {
+	color: #858585;
+	border: 1px #858585 solid;
+}
+
+label {
+  color: white;
+}

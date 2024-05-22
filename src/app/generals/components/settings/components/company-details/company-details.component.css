@@ -1,0 +1,166 @@
+* {
+  font-family: "PT-Sans-Pro-Regular";
+  margin: 0px;
+}
+
+.role-list-container {
+  height: calc(100vh - 262px);
+  /* height: auto;
+  max-height: 800px; */
+  overflow: scroll;
+}
+
+.spinner {
+  position: absolute;
+  top: 40%;
+  left: 45%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 1012px;
+  justify-items: center;
+  position: relative;
+}
+
+.form-grid > div {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin-bottom: 20px;
+  width: 300px;
+  height: 33px;
+  font-size: 14px;
+  border-radius: 7px;
+  padding-left: 5px;
+}
+
+span {
+  font-size: 14px;
+  margin-bottom: 6px;
+  margin-left: 3px;
+  color: white;
+}
+
+.logo-label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  margin-left: 3px;
+  color: white;
+}
+
+span::after {
+  content: " *";
+  color: red;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  all: unset;
+  height: 28px;
+  border: 1px solid #82a7e2;
+  background-color: #373b40;
+  border-radius: 5px;
+  color: #82a7e2;
+  padding: 1px 7px;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.choose-file {
+  margin-top: 27px;
+  position: absolute;
+  left: 356px;
+  align-self: left;
+}
+
+button:hover {
+  border: 1px solid #ff7000;
+  color: #ff7000;
+}
+
+.refuse-logo {
+  font-size: 18px;
+  position: absolute;
+  color: red;
+  top: 30px;
+  left: 323px;
+  cursor: pointer;
+}
+
+.update {
+  stroke: #82a7e2;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.update:hover {
+  stroke: #ff7000;
+}
+
+.update > p {
+  margin-left: 5px;
+}
+
+.ng-invalid > .update {
+  color: #aaa;
+  stroke: #aaa;
+  border-color: #aaa;
+  cursor: not-allowed;
+}
+
+.thin-red-line-bottom {
+  bottom: 15px;
+  left: 0px;
+  right: 0px;
+  background-color: var(--border-color);
+  height: 1px;
+  position: absolute;
+}
+
+.logo-container {
+  width: 325px;
+  height: 150px;
+  margin-left: 19px;
+  margin-bottom: 20px;
+  position: relative;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  border: solid 1px var(--border-color);
+  transition: all 250ms ease-in-out;
+}
+
+.red_border {
+  border: 2px solid red;
+}
+
+.form-control-default-height {
+  margin-top: 5px !important;
+  height: 33px !important;
+}
+
+.form-control-language-height {
+  height: 32px !important;
+}
+
+.form-group-div {
+  width: 295px !important;
+}
+
+.btn-dt:disabled {
+    border-color: #cccc !important;
+    color: #cccc !important;
+    opacity: 0.5 !important;
+    pointer-events: none !important;
+}

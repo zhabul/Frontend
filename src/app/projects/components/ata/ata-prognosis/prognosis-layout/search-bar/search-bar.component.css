@@ -1,0 +1,28 @@
+.main-wrapper {
+  min-width: 207px;
+  min-height: 28px;
+  border: 1px solid #858585;
+  background-color: #1a1a1a;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  gap: 0.3rem;
+}
+
+input {
+  border: none;
+  color: white;
+  background-color: #1a1a1a;
+}
+
+input:focus {
+  outline: none;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}

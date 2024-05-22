@@ -1,0 +1,53 @@
+<div class="holiday-type-table-grid border-top-stats " [ngStyle]="holidayTypeTableGrid" >
+    <div class="name-container">
+        <div class="holiday-type-table-search-bar">
+            <div class="search-container">
+                <app-input-text-filter (emitValue)="setSearchValue($event)" [width]="329"></app-input-text-filter>
+                <div class="add-holiday-button" (click)="openNewHolidayModal()">
+                    <div>{{ 'Add' | translate }}</div>
+                    <div class="absolute-icon"><app-plus-icon-svg></app-plus-icon-svg></div>
+                </div> 
+            </div> 
+            <div class="holiday-type-grid blck-bckg ">
+                <div class="holiday-type-box blck-bckg on-top"><div></div></div>
+                <div class="holiday-type-box" id="description" >{{ 'Description' | translate }}</div> 
+                <div class="holiday-type-grid-2" [ngStyle]="headerGrid">
+                    <div class="holiday-type-box">{{ "Start Date" | translate }}</div>
+                    <div class="holiday-type-box">{{ "End Date" | translate }}</div>
+                    <div class="holiday-type-box">{{ "Edit" | translate }}</div>
+                    <div class="holiday-type-box"><app-trash-can-icon-svg></app-trash-can-icon-svg></div>
+                </div>
+            </div> 
+        </div>
+    </div> 
+</div> 
+<div class="relative">
+    <div         
+    
+        appScrollDetector 
+        (emitScrollLeft)="setTranslateXForHeader($event)"
+        class="body-planner-moments-wrapper no-border-top blu-scroll blu-scroll4 dynamic-height-335 no-b-left" 
+    
+    >
+        <div #wrapper > 
+            <app-holiday
+
+                *ngFor="let holiday of holidays; let nr = index;"
+                [holiday]="holiday"
+                [nr]="nr"
+                (removeListener)="removeHoliday($event)"
+                [disabled]="inputDisabled"
+
+            ></app-holiday>
+            <div class="spinner-container-absolute" *ngIf="spinner">
+                <app-pulse-spinner></app-pulse-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="grey-filler-long"></div>
+    <div class="thin-right-line thin-right-line-2" [ngStyle]="rightLineStyles"></div>
+    <div class="thin-left-line" ></div>
+    <div class="thin-bottom-line" ></div>
+    <div class="thin-top-line" ></div>
+    <div class="thin-bottom-left-scroll-line" ></div>
+</div>

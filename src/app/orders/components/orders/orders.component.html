@@ -1,0 +1,89 @@
+<div class="row mx-1" style="display: block !important">
+  <div class="card bgGrayBlue col-12 col-lg-6">
+    <nav class="nav nav-pills nav-justified">
+      <div class="nav-links">
+        <a
+          class="btn btn-dark"
+          routerLinkActive="active"
+          routerLink="/orders/new/"
+          >{{ "New Order" | translate }}</a
+        >
+      </div>
+    </nav>
+  </div>
+</div>
+<br />
+<div class="row mx-1" style="display: block !important">
+  <div class="card col-12 col-lg-6">
+    <div class="empty">
+      <table class="table-responsive">
+        <thead>
+          <th>{{ "Order number" | translate }}</th>
+          <th>{{ "Project Name" | translate }}</th>
+          <th>{{ "Delivery" | translate }}</th>
+          <th>{{ "Status" | translate }}</th>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let order of orders"
+            routerLink="/orders/order/{{ order.id }}"
+            style="cursor: pointer"
+          >
+            <td style="color: #666">{{ order.id }}</td>
+            <td style="color: #666">{{ order.name }}</td>
+            <td style="color: #666">
+              {{ order.date == 1 ? ("Immediate" | translate) : order.date }}
+              {{ order.time }}
+              <span
+                class="warning"
+                *ngIf="order.status == 2"
+                routerLink="/orders/change-order-date/{{ order.id }}"
+                ><a
+                  ><img
+                    src="assets/img/exclamation mark.png"
+                    width="15"
+                    height="15"
+                /></a>
+              </span>
+              <span
+                class="fork-lift"
+                *ngIf="order.status == 1"
+                routerLink="/orders/delivery-order/{{ order.id }}"
+                ><a
+                  ><img
+                    src="assets/img/clipart2717191.png"
+                    width="25"
+                    height="15"
+                /></a>
+              </span>
+            </td>
+            <td
+              class="status"
+              style="color: rgb(53, 48, 48)"
+              [ngStyle]="{
+                'background-color':
+                  order.status == 1
+                    ? 'hsl(108, 29%, 37%)'
+                    : order.status == 2
+                    ? 'hsl(207, 27%, 37%)'
+                    : order.status == -1
+                    ? 'rgb(171, 173, 94)' 
+                    : 'hsl(354, 54%, 43%)'
+              }"
+            >
+              {{
+                order.status == 1
+                  ? ("Accepted" | translate)
+                  : order.status == 2
+                  ? ("New Date" | translate)
+                  : order.status == -1
+                  ? ("Pending" | translate)
+                  : ("Declined" | translate)
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

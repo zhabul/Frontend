@@ -1,0 +1,5 @@
+<ng-container *ngFor="let option of templateOptions; let index = index;">
+    <div *ngIf="option.visible" (click)="resolveOption(option.status)" class="item">
+        <span  class="text-uppercase pos">{{ option.txt }}</span>
+    </div>
+</ng-container>

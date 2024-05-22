@@ -1,0 +1,68 @@
+.form-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.form-column-wrapper {
+  background: #faf9fa;
+  border: 3px solid #f0eff1;
+  border-radius: 5px;
+  /* margin-bottom: 10px; */
+  width: 100%;
+}
+
+.input-group .material-icons {
+  font-size: 17px;
+}
+
+.input-group ul {
+  margin: 0px;
+  background: white;
+  border: 1px solid #ced4da;
+  flex: 1;
+  padding-left: 0.25em;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.input-group ul::-webkit-scrollbar {
+  display: none;
+}
+
+.input-group ul li {
+  --display: none;
+  padding: 0.1em 0.3em;
+  margin: 0 0.15em;
+  border-radius: 3px;
+  background-color: hsl(207, 27%, 22%);
+  color: white;
+  position: relative;
+}
+
+.input-group ul li::before {
+  content: "\2613";
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.35);
+  color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  display: var(--display);
+}
+
+.input-group ul li:hover {
+  --display: block;
+}
+
+@media (max-width: 500px) {
+  .tab-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+}

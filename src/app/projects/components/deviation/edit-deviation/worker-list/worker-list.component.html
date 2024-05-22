@@ -1,0 +1,38 @@
+<div class="workers-position blu-scroll" [ngStyle]="containerStyle" style="border-bottom-left-radius: 4px;border-bottom-right-radius: 4px;">
+  <div class="worker-container blu-scroll">
+    <!-- <div class="worker-chat" [ngStyle]="sendButtonStyle" (click)="sendDeviationMessage(false)">
+      <div [ngStyle]="sendTextStyle" class="send-text">
+        {{ 'Send' | translate }}
+      </div>
+      <div class="send-icon-cont">
+        <app-send-svg-icon  [color]="!contacts.length ? '#1a1a1a' : 'var(--brand-color)'" ></app-send-svg-icon>
+      </div>
+    </div> -->
+    <div class="worker-chat" [ngStyle]="sendButtonStyle" (click)="generatePdf()" (mouseenter)="onMouseEnter()" (mouseleave)="OnMouseLeave()" style="margin-bottom: 3px;">
+      <div class="send-text fs-10 " [ngStyle]="{'color': color}">
+        {{ 'TSC_PRINT' | translate }}
+      </div>
+      <div class="send-icon-cont">
+        <app-pdf-icon-svg size="small" [color]="color"></app-pdf-icon-svg>
+      </div>
+    </div>
+    <div class="worker-chat" [ngStyle]="sendButtonStyle" (click)="sendDeviationMessage(false)">
+      <div [ngStyle]="sendTextStyle" class="send-text fs-10 ">
+        {{ 'Send' | translate }}
+      </div>
+      <div class="send-icon-cont">
+        <app-send-svg-icon  [color]="!contacts.length ? '#1a1a1a' : 'var(--brand-color)'" ></app-send-svg-icon>
+      </div>
+    </div>
+    <div [style.display]="worker.Id != user_id ? 'flex' : 'none'" class="worker-chat" *ngFor="let worker of activeCompanyWorkers"
+    (click)="buttonNameSummary(worker)">
+        <div class="fs-10">{{ worker.Name }}</div>
+        <div class="" *ngIf="checkIfContactSelected(worker)==false">
+          <app-circle-icon-svg></app-circle-icon-svg>
+        </div>
+        <div class="" *ngIf="checkIfContactSelected(worker)">
+          <app-checked-circle-icon-svg></app-checked-circle-icon-svg>
+        </div>
+    </div>
+  </div>
+</div>

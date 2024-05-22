@@ -1,0 +1,23 @@
+.activity .activity {
+  margin-left: 3em;
+}
+
+.activity .activity .activity-header {
+  border-left: 1px solid #222;
+}
+
+.activity-header {
+  min-height: 44px;
+  padding-left: 0.5em;
+  background-color: #efefef;
+  border-bottom: 1px solid #222;
+}
+
+.activity-buttons i {
+  padding: 0.4em;
+  cursor: pointer;
+}
+
+.activity-buttons i:hover {
+  background-color: #dedede;
+}

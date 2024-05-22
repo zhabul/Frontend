@@ -1,0 +1,576 @@
+<div class="weekly-report-pdf blu-scroll">
+  <div class="main-section">
+    <div class="buton-wrapper">
+      <div class="left-side-row">
+        <!-- <div class="cursos-move" >
+          <div class="rotate-right-hovered"  (click)="zoomBy(10)">
+            <app-zoom-in-svg></app-zoom-in-svg>
+          </div>
+        </div>
+        <div class="cursos-move" (click)="zoomBy(-10)">
+          <div class="rotate-right-hovered">
+            <app-zoom-out-svg></app-zoom-out-svg>
+          </div>
+        </div> -->
+      </div>
+      <div class="right-side-row">
+        <div (click)="generatePdf('Save')">
+          <app-download-svg-icon></app-download-svg-icon>
+        </div>
+        <div (click)="generatePdf('Print')">
+          <app-print-svg-icon></app-print-svg-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid no-pad-left">
+      <div class="row">
+        <div class="col-4 no-pad-left">
+          <img class="img" src="{{ generalImage }}" alt="logo" />
+        </div>
+        <div class="col-8 no-pad-right">
+          <h4 class="hed">{{ "Change & additional work" | translate }}</h4>
+          <div class="row">
+            <div class="col-8 no-pad-left">
+              <h6 style="font-weight: bold">
+                Art:
+                {{ getAtaType(formValues.AtaType) }} -
+                {{
+                  formValues.paymentType == "1"
+                    ? "Löpande räkning"
+                    : formValues.paymentType == "2"
+                    ? "Fastpris"
+                    : formValues.paymentType == "4"
+                    ? "Riktpris"
+                    : "Enl. á-prislista"
+                }}
+              </h6>
+
+              <span
+                ><b>{{
+                  currentWeeklyReport ? checkDisplayText() : ""
+                }}</b></span
+              >
+            </div>
+            <div class="col-4 ata-nub leetsp">
+              <p>
+                <b
+                  >{{ "Nr" | translate }}: {{ project.CustomName }}-{{
+                    formValues.Type == "internal" ? "INTERN" : ""
+                  }}ÄTA{{ formValues?.AtaNumber }}</b
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2 mb-3">
+      <div class="marg-inl-end" style="line-height: 1.45em">
+        <div class="section">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="align-right">
+                  <small>{{ "Project" | translate }}:</small>
+                </td>
+                <td>{{ project.CustomName }} {{ project.name }}</td>
+              </tr>
+              <tr>
+                <td class="align-right" style="padding-top: 2%">
+                  <small
+                    >{{
+                      "Created by" | translate
+                    }}:</small
+                  >
+                </td>
+                <td style="padding-top: 2%">
+                  {{
+                    get_last_email_log_but_first_client_wr?.from_user === ""
+                      ? current_user_full_name
+                      : get_last_email_log_but_first_client_wr?.from_user
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <td class="align-right">
+                  <small>{{ "Sent" | translate }}:</small>
+                </td>
+                <td class="leetsp">
+                  {{ get_last_email_log_but_first_client_wr?.EMAIL_LOG_DATE }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section marg-inl-end" style="line-height: initial">
+        <table class="table">
+          <thead></thead>
+          <tbody>
+            <tr>
+              <td class="align-right no-pad-left">
+                <small>{{ "Application made to" | translate }}:</small>
+              </td>
+              <td class="no-pad-left">
+                {{
+                  get_last_email_log_but_first_client_wr.email_log_client_worker
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="no-pad-top no-pad-left">
+                {{ formValues.clientName }} <br />
+                {{ formValues.street }}
+              </td>
+            </tr>
+            <tr>
+              <td class="no-pad-top"></td>
+              <td class="no-pad-left">
+                {{ formValues.zip }} {{ formValues.city }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 mb-3">
+      <div style="padding-left: 5px">
+        <div class="section">
+          <p>
+            <small>{{ "Heading" | translate }}:</small>
+          </p>
+          <p>
+            <b
+              >{{ project.CustomName }}-{{
+                formValues.Type == "internal" ? "INTERN" : ""
+              }}ÄTA-{{ formValues?.AtaNumber }}-{{
+                formatWNumber2(currentWeeklyReport?.name)
+              }}</b
+            >
+            <br />
+            <b>{{ formValues.Name }}</b>
+          </p>
+        </div>
+      </div>
+      <div class="marg-left-5">
+        <div class="section">
+          <br />
+          <p>
+            {{ "In order to minimize the time," | translate }}
+            {{
+              (
+                "cost consequences and not cause any
+                        obstacles, we need the above order"
+                | translate
+              ).substring(0, 58)
+            }}
+            {{ "message at the latest" | translate }}:
+            <b>
+              {{
+                currentWeeklyReport?.WeeklyReportDueDate?.substring(0, 10)
+              }}</b
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="brief" *ngIf="formValues.briefDescription && formValues.briefDescription.length > 0">
+      <small>{{ "Brief description of the change" | translate }}:</small> <br />
+      <p class="brife-2">{{ formValues.briefDescription }}</p>
+    </div>
+
+    <div class="table-wrapper">
+      <ng-template
+        [ngIf]="(getArticlesAdditionalWork ||
+        getArticlesMaterial ||
+        getArticleOther) &&
+         ( getArticlesAdditionalWork.length > 0 ||
+          getArticlesMaterial.length > 0 ||
+          getArticleOther.length > 0)
+        "
+      >
+        <table class="article-table">
+          <thead>
+            <tr>
+              <th class="border-table beskriving">
+                {{ "Name/Title" | translate }}
+              </th>
+              <th class="border-table align-right">
+                {{ "Quantity" | translate }}
+              </th>
+              <th class="border-table aligin-left">{{ "Unit" | translate }}</th>
+              <th class="border-table align-right">
+                {{ "Price per unit" | translate }}
+              </th>
+              <th class="border-table aligin-left">
+                <img
+                  class="img-p-m-sign"
+                  src="/assets/img/plus-minus-percent-sign.png"
+                  alt="plus-minus-percent-sign"
+                />
+              </th>
+              <th class="border-table align-right">{{ "Sum" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-template [ngIf]="getArticlesAdditionalWork && getArticlesAdditionalWork.length > 0">
+                <ng-container *ngFor="let article of getArticlesAdditionalWork">
+                    <tr *ngIf="article.Name.length > 0">
+                        <td class="article-name">
+                            {{ article.Name }}
+                            {{ article.additionalWorkStatus ? "- " : "" }}
+                            {{
+                                (article.additionalWorkStatus
+                                ? capitalizeFirstLetter(article.additionalWorkStatus)
+                                : ""
+                                ) | translate
+                            }}
+                        </td>
+                        <td class="align-right">
+                            <ng-container *ngIf="article.Quantity != 0">
+                                {{ article.Quantity.toString().replace(",", ".") | timeDisplay }}
+                            </ng-container>
+                            <ng-container *ngIf="article.Quantity == 0">
+                                &nbsp;
+                            </ng-container>
+                        </td>
+                        <td class="aligin-left">
+                            {{ article.Unit | translate }}
+                        </td>
+                        <td class="align-right">
+                            <ng-container *ngIf="article.Price != 0">
+                                {{ article.Price.toString().replace(",", ".") | number: "1.2-2":"fr" }}
+                            </ng-container>
+                            <ng-container *ngIf="article.Quantity == 0">
+                                &nbsp;
+                            </ng-container>
+                        </td>
+                        <td class="aligin-left">
+                            <ng-container *ngIf="article.Deduct > 0">
+                                {{ article.Deduct != "0" ? article.Deduct : "" }}
+                            </ng-container>
+                            <ng-container *ngIf="article.Quantity == 0">
+                                &nbsp;
+                            </ng-container>
+                        </td>
+                        <td class="align-right">
+                            <ng-container *ngIf="article.Total != 0">
+                                {{ article.Total | number: "1.2-2":"fr" }}
+                            </ng-container>
+                            <ng-container *ngIf="article.Total == 0">
+                                &nbsp;
+                            </ng-container>
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-template>
+            <ng-template [ngIf]="getArticlesMaterial && getArticlesMaterial.length > 0">
+              <tr>
+                <td class="article-name">
+                  {{ currentWeeklyReport?.date?.substring(0, 4) }}
+                  {{ "Material" | translate }}
+
+                  {{
+                    currentWeeklyReport.status == 0 ||
+                    currentWeeklyReport.status == 1
+                      ? ""
+                      : "- "
+                  }}
+
+                  {{ check_wr_status() | translate }}
+                </td>
+                <td class="align-right">1</td>
+                <td class="aligin-left">{{ "pieces" | translate }}</td>
+                <td></td>
+                <td></td>
+                <td class="align-right">
+                  {{
+                    calcAllTotal([getArticlesMaterial]) | number: "1.2-2":"fr"
+                  }}
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="getDeclinedArticlesMaterial && getDeclinedArticlesMaterial.length > 0">
+              <tr>
+                <td class="article-name">
+                  {{ currentWeeklyReport?.date?.substring(0, 4) }}
+                  {{ "Material" | translate }} - {{ "Declined" | translate }}
+                </td>
+                <td class="align-right">1</td>
+                <td class="aligin-left">{{ "pieces" | translate }}</td>
+                <td></td>
+                <td></td>
+                <td class="align-right">
+                  {{
+                    calcAllTotal([getDeclinedArticlesMaterial])
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="getArticleOther && getArticleOther.length > 0">
+              <tr>
+                <td class="article-name">
+                  {{ currentWeeklyReport?.date?.substring(0, 4) }}
+                  {{ "UE/Other" | translate }}
+
+                  {{
+                    currentWeeklyReport.status == 0 ||
+                    currentWeeklyReport.status == 1
+                      ? ""
+                      : "- "
+                  }}
+
+                  {{ check_wr_status() | translate }}
+                </td>
+                <td class="align-right">1</td>
+                <td class="aligin-left">{{ "pieces" | translate }}</td>
+                <td></td>
+                <td></td>
+                <td class="align-right">
+                  {{ calcAllTotal([getArticleOther]) | number: "1.2-2":"fr" }}
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template [ngIf]="getDeclinedArticleOther && getDeclinedArticleOther.length > 0">
+              <tr>
+                <td class="article-name">
+                  {{ currentWeeklyReport?.date?.substring(0, 4) }}
+                  {{ "UE/Other" | translate }} - {{ "Declined" | translate }}
+                </td>
+                <td class="align-right">1</td>
+                <td class="aligin-left">{{ "pieces" | translate }}</td>
+                <td></td>
+                <td></td>
+                <td class="align-right">
+                  {{
+                    calcAllTotal([getDeclinedArticleOther])
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="footer-section mt-2 pt-2">
+    <div
+      class="labeling-requierments"
+      *ngIf="currentWeeklyReport.wr_labeling_requirements"
+    >
+      {{ "Labeling requirements" | translate }}
+      {{ currentWeeklyReport.wr_labeling_requirements }}
+    </div>
+
+    <div>
+      <p class="total-sum border-tot-sum">
+        {{ "Total" | translate }}:
+        {{
+          calcApprovedTotal([
+            getArticlesAdditionalWork,
+            getArticlesMaterial,
+            getArticleOther
+          ]) | number: "1.2-2":"fr"
+        }}
+        {{currency}}
+      </p>
+      <p class="alla-priser">
+        {{ "All prices are excluding VAT" | translate }}
+      </p>
+    </div>
+
+    <div class="foot">
+      <div class="container no-pad-right no-pad-left">
+        <div class="row">
+          <div class="col-6" style="padding-left: 5px">
+            <ng-container
+              *ngIf="
+                !currentWeeklyReport?.comment?.trim() &&
+                currentWeeklyReport?.clientResponses?.length == 0
+              "
+            >
+              <div class="footer">
+                <p class="title">{{ "The above is approved" | translate }}</p>
+                <p class="signature-field">
+                  {{ "city" | translate }}, {{ "date" | translate }}
+                </p>
+                <p class="signature-field">{{ "Signature" | translate }}</p>
+                <p class="signature-field">
+                  {{ "All prices are excluding VAT" | translate }}
+                </p>
+              </div>
+            </ng-container>
+          </div>
+          <div class="col-6 no-pad-right">
+            <table class="table-total">
+              <tr>
+                <td>{{ "Totally worked up" | translate }}:</td>
+                <td>
+                  {{
+                    currentWeeklyReport?.totalWorkedUp | number: "1.2-2":"fr"
+                  }}
+                  {{currency}}
+                </td>
+              </tr>
+
+              <tr>
+                <td>{{ "Previously billed" | translate }}:</td>
+                <td>
+                  {{
+                    currentWeeklyReport?.invoicedTotal | number: "1.2-2":"fr"
+                  }}
+                  {{currency}}
+                </td>
+              </tr>
+
+              <tr>
+                <td>{{ "Remains to bill" | translate }}:</td>
+                <td>
+                  {{
+                    calcRemainingToBill("totalWorkedUp") | number: "1.2-2":"fr"
+                  }}
+                  {{currency}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-grid-2">
+      <div>
+        <div class="section">
+          <div
+            class="digital-answer"
+            *ngIf="currentWeeklyReport?.clientResponses?.length > 0"
+          >
+            <div class="answer-wrapper">
+              <h5 style="font-weight: bold">
+                {{ "Message from Client" | translate }}
+              </h5>
+
+              <p
+                style="margin-bottom: 0"
+                *ngFor="
+                  let clientResponse of currentWeeklyReport?.clientResponses
+                "
+              >
+                <ng-container *ngIf="clientResponse?.manualReply == 1">
+                  {{ clientResponse.answerDate }} -
+                  {{
+                    clientResponse?.Status == 3
+                      ? ("Manually declined by" | translate)
+                      : ("Manually
+                                    accepted by"
+                        | translate)
+                  }}
+                  {{ clientResponse.answerEmail }}
+
+                  <div
+                    class="answ-accepted"
+                    *ngIf="clientResponse?.Status == 2"
+                  >
+                    {{ "Accepted" | translate }}
+                  </div>
+
+                  <div
+                    class="answ-delinced"
+                    *ngIf="clientResponse?.Status == 3"
+                  >
+                    {{ "Declined" | translate }}
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="clientResponse?.manualReply == 0">
+                  <div class="container no-pad-left no-pad-right">
+                    <div class="row">
+                      <div>{{ clientResponse.answerDate }}</div>
+
+                      <div
+                        class="answ-accepted"
+                        *ngIf="
+                          clientResponse?.Status == 2 ||
+                          clientResponse?.Status == 4
+                        "
+                      >
+                        {{ "Accepted" | translate }}
+                      </div>
+
+                      <div
+                        class="answ-delinced"
+                        *ngIf="clientResponse?.Status == 3"
+                      >
+                        {{ "Declined" | translate }}
+                      </div>
+
+                      <div
+                        class="answ-question"
+                        *ngIf="clientResponse?.Status == 0"
+                      >
+                        {{ "Question" | translate }}
+                      </div>
+                    </div>
+
+                    <div>{{ clientResponse.answerEmail }}</div>
+                  </div>
+                </ng-container>
+                <br /><span
+                  *ngIf="clientResponse?.client_message"
+                  class="client-message"
+                  >{{ clientResponse?.client_message }}</span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="hr" />
+    <div class="grid footer-data" *ngIf="generals">
+      <div>
+        <div class="section">
+          <p>
+            <b>{{ "Postadress" | translate }}</b>
+          </p>
+          <p>{{ generals['Company_Name'].value }}</p>
+          <p>{{ generals['Company_Address'].value }}</p>
+          <p>{{ generals['Company_Email'].value }} {{ generals['Company_Site'].value }}</p>
+        </div>
+      </div>
+      <div class="marg-inl marg-right-16">
+        <div class="section">
+          <p>
+            <b>{{ "Telefon" | translate }}</b>
+          </p>
+          <p>{{ generals['Company_Phone'].value }}</p>
+          <p>
+            <b>{{ "Momsreg.nr" | translate }}</b>
+          </p>
+          <p>{{ generals['Company_Bank_Account'].value }}</p>
+        </div>
+      </div>
+      <div class="marg-inl marg-right-m16">
+        <div class="section">
+          <p>{{ "Approved for F tax" | translate }}</p>
+          <br />
+          <p>{{ "Kostnadssammanställning " | translate }} {{ "skapad" | translate }} i</p>
+          <p>SPS360</p>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="section">
+          <br />
+          <br />
+          <p style="font-weight: bold">{{ "Page" | translate }} 1/1</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

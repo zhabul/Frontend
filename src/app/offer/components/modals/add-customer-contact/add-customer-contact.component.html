@@ -1,0 +1,114 @@
+<div class="wrapper">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+    >
+  <div class="head-wrapper">
+    <div class="text-name">{{ "Lägg till ny kontaktperson" | translate }}</div>
+    <div class="close-modal" (click)="close(true)">X</div>
+  </div>
+  <div class="inputs-wrapper">
+    <div class="form-wrapp">
+      <div class="pos">
+        <label class="required" for="" >{{ "Titel" | translate }}</label>
+        <input
+          type="text"
+          formControlName="Title"
+          spellcheck="false"
+          tabIndex="1"
+        />
+        <p class="invalid-message"*ngIf="!form.controls['Title'].valid&&formSubmitted">{{"Enter title"|translate}}</p>
+      </div>
+      <div class="pos">
+        <label class="required" for="">{{ "Namn" | translate }}</label>
+        <input
+          type="text"
+          formControlName="FirstName"
+          spellcheck="false"
+          tabIndex="2"
+        />
+        <p class="invalid-message"*ngIf="!form.controls['FirstName'].valid&&formSubmitted">{{"Enter name"|translate}}</p>
+      </div>
+      <div class="pos">
+        <label class="required" for="">{{ "Efternamn" | translate }}</label>
+        <input
+          type="text"
+          formControlName="LastName"
+          spellcheck="false"
+          tabIndex="3"
+        />
+        <p class="invalid-message"*ngIf="!form.controls['LastName'].valid&&formSubmitted">{{"Enter surname"|translate}}</p>
+      </div>
+    </div>
+    <div class="form-wrapp">
+      <div class="pos">
+        <label class="required" for="">{{ "Mobiltelefon" | translate }}</label>
+        <input
+          type="text"
+          type="number"
+          formControlName="Mobile"
+          spellcheck="false"
+          tabIndex="4"
+        />
+        <p class="invalid-message"*ngIf="!form.controls['Mobile'].valid&&formSubmitted">{{"Enter mobile number"|translate}}</p>
+      </div>
+      <div class="pos2">
+        <label class="required" for="">{{ "E-post" | translate }}</label>
+        <input
+          type="text"
+          formControlName="email"
+          spellcheck="false"
+          tabIndex="5"
+        />
+        <p class="invalid-message"*ngIf="!form.controls['email'].valid&&formSubmitted">{{"Enter a valid e-mail address"|translate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="check-wrapper">
+    <div>{{ "Status" | translate }}:</div>
+    <div class="activity">
+      <div class="check-button-wrapp">
+        <app-checkout-svg
+          (click)="setTrueStatus()"
+          *ngIf="!status"
+          [width]="17"
+          [height]="17"
+        ></app-checkout-svg>
+        <app-checkin-svg
+          *ngIf="status"
+          [width]="17"
+          [height]="17"
+          [color]="'FF7000'"
+          [hatched]="'white'"
+        ></app-checkin-svg>
+      </div>
+      <div>{{ "Active" | translate }}</div>
+    </div>
+    <div class="activity">
+      <div class="check-button-wrapp">
+        <app-checkout-svg
+          (click)="setFalseStatus()"
+          *ngIf="status"
+          [width]="17"
+          [height]="17"
+        ></app-checkout-svg>
+        <app-checkin-svg
+          *ngIf="!status"
+          [width]="17"
+          [height]="17"
+          [color]="'FF7000'"
+          [hatched]="'white'"
+        ></app-checkin-svg>
+      </div>
+      <div>{{ "Inactive" | translate }}</div>
+    </div>
+  </div>
+  <div class="save-wrapper">
+    <div>
+      <div class="button-save-custom" (click)="onSubmit()">
+        {{ "Save" | translate }}
+      </div>
+    </div>
+  </div>
+</form>
+</div>

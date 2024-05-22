@@ -1,0 +1,278 @@
+.pdf-wrapp {
+    padding: 20px 40px 20px 40px;
+}
+
+body{
+  line-height: 0;
+}
+
+.container {
+    /* margin-bottom: 80px; */
+}
+
+.f-small {
+    font-size: 12px;
+}
+
+.bottom-flex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    flex-direction: column;
+}
+
+.top-flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: end;
+  flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 45px;
+}
+
+#offer-title {
+    text-transform: uppercase;
+    font-size: 30px;
+    margin-left: 1rem;
+}
+
+.logo-title-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.intro-container {
+    /* margin-bottom: 1rem; */
+}
+
+.comment-title {
+    font-size: 18px;
+    padding-top: 20px;
+    padding-bottom: 6px;
+    line-height: normal;
+}
+
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-right: 233px;
+    padding-bottom: 20px;
+}
+
+.reference{
+    font-size: 16px;
+}
+
+.project-name-header {
+    /* padding-bottom: 30px; */
+    font-size: 28px;
+    line-height: normal;
+    font-weight: bold;
+  }
+
+.sps-loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.lines-grid {
+    display: grid;
+    grid-template-columns: 325px 50px 50px 120px 80px auto max-content;
+    grid-template-rows: auto;
+    padding-bottom: 4px;
+    font-size: 16px;
+    line-height: normal;
+}
+
+.lines-total {
+  /* margin-top: 5px; */
+  font-size: 18px;
+  font-weight: 700;
+  display: grid;
+  grid-template-columns: auto max-content;
+  border-top: 1px solid #7a7e7f;
+  padding-top: 10px;
+}
+
+.line-title {
+    padding-top: 35px;
+    font-size: 18px;
+}
+
+.lines-container {
+    /* margin-bottom: 1rem; */
+}
+
+.grid-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2px;
+    color: #373B40;
+    font-size: 11px;
+    line-height: 1;
+}
+
+.additional-info {
+    font-size: 18px;
+    /* margin-bottom: 400px; */
+    padding-top: 20px;
+}
+
+.info-value {
+    margin-bottom: 30px;
+}
+
+.additional-info > div:first-child {
+    font-size: 20px;
+    padding-bottom: 30px;
+}
+
+.info-title {
+    font-weight: bold;
+}
+
+.container-body {
+    min-height: 500px;
+}
+
+.signature {
+    display: grid;
+    grid-template-columns: 0.3fr 0.7fr;
+    grid-template-rows: auto;
+    margin-bottom: 125px;
+}
+
+.accept-offer {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.signature-info {
+
+}
+
+.signature-flex {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 70px;
+}
+
+.border-dots {
+    width: 100%;
+    border-bottom: 1px dotted var(--border-color);
+    margin-left: 20px;
+    margin-right: 100px;
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+    line-height: normal;
+}
+
+.sps-flex {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: end;
+}
+
+.footer-flex-between {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.answer {
+    font-size: 18px;
+}
+
+.answer-button {
+    width: 270px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    color: white;
+}
+
+.description {
+    font-size: 16px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: lightgray;
+    padding: 10px;
+    border-width: 1px;
+}
+
+.description span {
+    font-weight: bolder !important;
+}
+
+.logs {
+    cursor: default;
+    margin-bottom: 125px;
+}
+
+.logs-grid {
+    display: grid;
+    grid-template-columns: 370px auto;
+    grid-template-rows: auto;
+    padding: 15px;
+}
+
+.logs-container {
+    margin-bottom: 20px;
+}
+
+.border-style {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: lightgray;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.svar-container {
+    margin: 10px;
+    padding: 10px;
+    margin-right: 170px;
+}
+
+.price {
+  text-align: right;
+  padding-right: 10px;
+  min-width: 60px;
+}
+
+.percentage {
+  text-align: center;
+}

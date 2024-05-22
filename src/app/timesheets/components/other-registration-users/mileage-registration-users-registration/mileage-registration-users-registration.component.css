@@ -1,0 +1,55 @@
+.input-group-text {
+  padding: 0;
+}
+
+.button-position {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.card-header {
+  width: 100%;
+  /* padding: 40px; */
+}
+
+.form-row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.time-wrapper {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+@media screen and (max-width: 500px) {
+  ::ng-deep .cdk-overlay-pane {
+    width: 100% !important;
+  }
+  .schedule-form {
+    margin-bottom: 100px;
+  }
+}
+
+.progress-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.schedule-form {
+  position: relative;
+}
+
+.pb-0 {
+  padding-bottom: 0px;
+}
+
+.btn-success {
+  color: #fff !important;
+}
+
+.btn-delete {
+  color: #a9323e;
+}

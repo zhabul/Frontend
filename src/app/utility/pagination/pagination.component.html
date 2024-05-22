@@ -1,0 +1,46 @@
+<div class="paginate-wrapp">
+  <div class="pagination">
+    <div class="page-num-main-wrapp">
+      <ul class="pagination page-num-wrapp">
+        <li class="page-item first-item">
+          <a (click)="generatePageArray(1, true)" class="page-link-main">{{
+            "First" | translate
+          }}</a>
+        </li>
+        <li class="page-item previous-item">
+          <a
+            (click)="generatePageArray(selectedPage - 1, true)"
+            class="page-link-main"
+            >{{ "Previous" | translate }}</a
+          >
+        </li>
+        <ng-container *ngFor="let page of pages; let index = index">
+          <li
+            class="page-item number-item"
+            [ngClass]="{
+              active: page === selectedPage,
+              'active-fnt': page === selectedPage
+            }"
+          >
+            <a class="page-link" (click)="generatePageArray(page, true)">
+              {{ page }}
+            </a>
+          </li>
+        </ng-container>
+        <li
+          class="page-item next-item"
+          (click)="generatePageArray(selectedPage + 1, true)"
+        >
+          <a class="page-link-main">{{ "Next" | translate }}</a>
+        </li>
+        <li class="page-item last-item">
+          <a
+            (click)="generatePageArray(maxPage, true)"
+            class="page-link-main"
+            >{{ "Last" | translate }}</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="pdf-wrapp">
+  <div class="row row1X mb-3">
+    <div
+      class="card col-12X bgDarkBlueX bgGrayBlue nav-wrapp"
+      id="topFeeder"
+      style="padding: 10px"
+    >
+      <nav class="nav nav-pills nav-justified nav-wrapp">
+        <a
+          (click)="goToPreviousPage()"
+          class="btn btn-dark mr-2 lh09 hideUnder800"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="badgeX badge-darkX material-icons top1px posRel btn-pdf"
+            >arrow_back</span
+          >
+        </a>
+        <a
+          class="btn btn-dark mr-2 lh09 hideUnder800"
+          (click)="generatePdf()"
+          *ngIf="!spinner && userDetails.create_timesheets_payroll"
+          ><i class="material-icons pdf-icon">picture_as_pdf</i></a
+        >
+      </nav>
+    </div>
+  </div>
+  <div class="row row1X tab-content">
+    <div
+      class="card col-12 mb70 tab-pane fade show active"
+      id="nav-default"
+      role="tabpanel"
+      aria-labelledby="nav-default-tab"
+    >
+      <table
+        class="table table-striped table-responsiveX table-responsive-under800 user-pdf"
+      >
+        <thead>
+          <tr>
+            <th>{{ "First Name" | translate }}</th>
+            <th>{{ "Last  Name" | translate }}</th>
+            <th>{{ "Role" | translate }}</th>
+            <th>
+              <input
+                type="checkbox"
+                value=""
+                (change)="allCheckChange($event)"
+                style="width: 100%"
+                [checked]="checked"
+                [attr.disabled]="!userDetails.create_timesheets_payroll ? true : null"
+              />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let index = index">
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.roleName }}</td>
+            <td>
+              <input
+                type="checkbox"
+                [(ngModel)]="user['checked']"
+                [ngModelOptions]="{ standalone: true }"
+                [id]="'userCheck' + user['id']"
+                style="width: 100%"
+                [attr.disabled]="!userDetails.create_timesheets_payroll ? true : null"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="progress-loader-wrapp" *ngIf="spinner"></div>
+  <div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

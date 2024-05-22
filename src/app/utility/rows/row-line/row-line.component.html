@@ -1,0 +1,55 @@
+<div class="box-shadow-line"></div>
+<div class="line-container">
+    <div class="container" [ngStyle]="translateX">
+        <div class="title-card" (click)="toggleShow()">
+            <div>{{ title | translate }}:</div>
+            <app-arrow-icon-svg [show]="show"></app-arrow-icon-svg>
+        </div>
+        <div class="delete-card" *ngIf="canDelete" (click)="confirmDeleteRow()">
+            <app-delete-icon-svg color="white" *ngIf="!loading"></app-delete-icon-svg>
+        </div>
+    </div>
+</div>
+
+<div class="articles-container" >
+    <ng-container *ngIf="show">
+        <div class="header-grid">
+            <div><span class="left-aligment">{{'Article' | translate}}</span></div>
+            <div><span class="left-aligment">{{'Description' | translate}}</span></div>
+            <div><span class="right-aligment">{{'Quantity' | translate}}</span></div>
+            <div><span class="left-aligment">{{'Unit' | translate}}</span></div>
+            <div><span class="right-aligment">{{'Price per unit' | translate}}</span></div>
+            <div><span class="right-aligment">{{'%±' | translate}}</span></div>
+            <div><span class="left-aligment">{{'Subtotal' | translate}}</span></div>
+            <div></div>
+            <div><app-delete-icon-svg color="white"></app-delete-icon-svg></div>
+            <div></div>
+        </div>
+        <div cdkDropList (cdkDropListDropped)="drop($event)">
+            <app-line-article
+
+                *ngFor="let article of articles; let index = index;"
+                [index]="index"
+                [article]="article"
+                [articles]="articles"
+                [units]="units"
+                [service]="service"
+                [properties]="properties"
+                [nextTotal]="boundNextTotal"
+                (filterArticle)="filterArticle($event)"
+                (addRow)="addRow($event)"
+                cdkDrag
+
+            >
+                <div class="white-flex-container move-pointer" cdkDragHandle>
+                    <app-move-icon-svg></app-move-icon-svg>
+                </div>
+            </app-line-article>
+        </div>
+        <div class="table-footer">
+            <div class="total-container"><span class="total-container-text">{{ 'Total sum' | translate }}</span></div>
+            <div class="total-summa"><span class="right-aligment">{{ total | number:'1.2-2':'fr' }}</span></div>
+            <div class="total-summa"></div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,316 @@
+<div class="arrow" [ngStyle]="computedStyles.arrowGeometry" #arrow>
+  <app-arrow-svg></app-arrow-svg>
+</div>
+<div
+
+  class="modal-container blu-scroll"
+  [ngStyle]="computedStyles.modalGeometry"
+  #modalContainer
+
+>
+<div class="progress-loader2" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>
+  <div class="close" >
+    <div class="close-click-overlay" (click)="closeModalFunc()"></div>
+    <app-close-svg></app-close-svg>
+  </div>
+  <div>
+    <div class="modal-header2">
+      <div class="absence-box">
+        <div
+          class="triangle"
+          *ngIf="weekAbsencesKeys.length"
+          [ngStyle]="computedStyles.createAbsences"
+        ></div>
+        <div class="circle">
+          <app-question-svg *ngIf="weekApproved == 0"></app-question-svg>
+          <app-lock-icons
+            location="modal"
+            *ngIf="weekApproved == 1 && user.absences[clickedDay.date] && user.absences[clickedDay.date][0]"
+            [size]="'large'"
+            [day]="clickedDay"
+            [user]="user"
+          ></app-lock-icons>
+        </div>
+      </div>
+      <div class="week-info">
+        <div>
+          <span>{{ user.firstName }} {{ user.lastName }}</span>
+        </div>
+        <div *ngIf="!currentDayAbsences" class="tid-weeek-date">
+          {{ "Week" | translate }} {{ week }},
+          {{ clickedDay.dayNameLong | translate }}, {{ clickedDay.date }}
+        </div>
+        <div class="small-week-list" *ngIf="currentDayAbsences">
+          <div [style.color]="dayAbsences[key].color" *ngFor="let key of weekAbsencesKeys">
+            {{ "Week" | translate }} {{ week }}:
+            {{ dayAbsences[key]["shortName"] }} {{ dayAbsences[key]["total"] }}
+            {{ "hour" | translate }}
+          </div>
+          <div class="work-color" *ngIf="momentTotal > 0">
+            {{ "Week" | translate }} {{ week }}:
+            {{ "TSC_WRKING_HOURS" | translate }} {{ momentTotal }}
+            {{ "hour" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      [style.max-height.px]="innerMaxHeight"
+      class="absences-body blu-scroll"
+      *ngIf="currentDayAbsences"
+    >
+      <div
+        class="absence-weeks"
+        *ngFor="let key of weekAbsencesKeys"
+      >
+        <div class="week-title" [style.color]="dayAbsences[key].color">
+          {{ "Week" | translate }} {{ week }}
+        </div>
+        <div class="week-days">
+          <div
+            (click)="toggleAbsence(key, day.date, $event)"
+            class="day"
+            *ngFor="let day of weekDays; let index = index"
+          >
+            <div class="day-info">
+              <div
+                *ngIf="dayAbsences[key][day.date] as absenceList"
+                [style.background-color]="
+                  absenceList[0].status == 2 &&
+                  absenceList[0].raportedDayHaveMomentsAndLocked
+                    ? absenceList[0].Color
+                    : 'transparent'
+                "
+                class="day-number"
+                [class.number-height]="!dayAbsences[key][day.date]"
+              >
+                <div style="margin-right: 5px;">
+                  {{ day.d }}
+                </div>
+                <div>
+                    <app-lock-icons [size]="'small'" [day]="day" [user]="user"></app-lock-icons>
+                </div>
+              </div>
+              <div
+                *ngIf="!dayAbsences[key][day.date]"
+                class="day-number"
+                [class.number-height]="!dayAbsences[key][day.date]"
+              >
+                  {{ day.d }}
+              </div>
+              <div
+                [title]="
+                  absenceList[0].Comment !== null ? absenceList[0].Comment : ''
+                "
+                class="day-absence"
+                *ngIf="dayAbsences[key][day.date] as absenceList"
+                [style.background-color]="absenceList[0].Color"
+              >
+                <div class="week-circle">
+                  {{ absenceList[0].absenceHours_decimal }}h
+                </div>
+              </div>
+            </div>
+            <div class="checkbox-container">
+              <ng-container *ngIf="index <= 4">
+                <ng-container *ngIf="dayAbsences[key][day.date] as absenceList">
+
+                    <ng-container *ngIf="absenceList[0].status != 2 && userDetails.create_timesheets_time_report_management">
+                      <ng-container *ngIf="!absenceList[0].Approved">
+                        <app-dot2-svg></app-dot2-svg>
+                      </ng-container>
+                      <ng-container *ngIf="absenceList[0].Approved">
+                        <app-dot-svg></app-dot-svg>
+                      </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="absenceList[0].status == 2 && userDetails.create_timesheets_time_report_management">
+                      <ng-container *ngIf="!absenceList[0].Approved">
+                        <app-dot2-svg></app-dot2-svg>
+                      </ng-container>
+                      <ng-container *ngIf="absenceList[0].Approved">
+                        <app-dot-svg></app-dot-svg>
+                      </ng-container>
+                    </ng-container>
+
+                </ng-container>
+
+                <ng-container *ngIf="!dayAbsences[key][day.date] && userDetails.create_timesheets_time_report_management">
+                  <label *ngIf="" [for]="key + day.date">
+                    <app-dot-svg></app-dot-svg>
+                  </label>
+                </ng-container>
+
+              </ng-container>
+
+              <ng-container *ngIf="index > 4">
+                <div style="cursor: default">
+                  <app-close-x-svg></app-close-x-svg>
+                </div>
+              </ng-container>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="absence-weeks" *ngIf="momentTotal > 0">
+        <div class="week-title work-color">
+          {{ "Week" | translate }} {{ week }}
+        </div>
+        <div class="week-days">
+          <div class="day" *ngFor="let day of weekDays; let index = index">
+            <div class="day-info">
+              <div
+
+                class="day-number"
+                [style.background-color]="!userMoments[day.date] ? 'white' : '#E2E1DF'"
+                [class.number-height]="!userMoments[day.date]"
+                style="cursor: default"
+
+              >
+                {{ day.d }}
+              </div>
+              <div class="day-moment grey-background" *ngIf="userMoments[day.date] as moment">
+                <div class="lock-p-name">
+                  <app-lock-icons [size]="'small'" [day]="day" [user]="user"></app-lock-icons>
+                  <div>{{ getMomentKey(moment, "ProjectName") }}</div>
+                </div>
+                <div *ngIf="getMomentKey(moment, 'time_qty') != 0">{{ getMomentKey(moment, "time_qty") }}</div>
+              </div>
+            </div>
+            <div class="checkbox-container">
+              <div style="cursor: default">
+                <app-close-x-svg></app-close-x-svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div [style.max-height.px]="innerMaxHeight" class="arbet-tid-container blu-scroll" *ngIf="!currentDayAbsences">
+      <div *ngIf="summary.length">
+        <div class="tid-title">{{ "Working Hours" | translate }}</div>
+        <div class="summary-container">
+          <div class="summary-item summary-item-head">
+            <div>{{ "Project" | translate }}</div>
+            <div>{{ "Hours" | translate }}</div>
+            <div>{{ "Moment" | translate }}</div>
+          </div>
+          <div class="summary-item" *ngFor="let moment of summary">
+            <div>{{ moment.projectName }}</div>
+            <div>{{ moment.time }}</div>
+            <div>{{ moment.work | translate }}</div>
+          </div>
+          <div class="summary-item summary-item-footer">
+            <div>{{ "Sum" | translate }}</div>
+            <div>{{ summaryTotal }}</div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="mileageKeys.length"> 
+        <div class="tid-title">{{ "Mileage" | translate }}</div>
+        <div class="summary-container">
+          <div class="summary-item summary-item-head text-center">
+            <div>{{ "Project" | translate }}</div>
+          </div> 
+          <div class="summary-item flex-column" *ngIf="mileageKeys.length > 0">
+            <div class="project-name">{{ mileageKeys[0] }}</div>
+            <div class="mileage-type-flex" *ngFor="let mileageName of mileageTypeKeys">
+              <div>{{ mileageName }}</div>
+              <div>{{ mileages[mileageKeys[0]][mileageName] ? mileages[mileageKeys[0]][mileageName] : 0 }} {{ mileageTypeUnits[mileageName] }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-window-container">
+    <div (scroll)="getMoreWeeks($event)" #chatScroll class="chat-textarea blu-scroll">
+      <mat-progress-bar *ngIf="chat.sending" class="example-margin" [color]="color" [mode]="mode">
+      </mat-progress-bar>
+      <div class="chat-window">
+        <ng-container *ngIf="chatWeekKeys.length">
+          <div class="right-line" style="bottom: -3px"></div>
+          <div class="chat-week" *ngFor="let key of chatWeekKeys; let index = index">
+            <div [style.color]="key == clickedDay.isoWeek ? firstAbsenceColor_ : 'black'" class="week-title padding-left">
+              {{ "Week" | translate }} {{ key }}
+            </div>
+            <app-chat-message
+
+              *ngFor="let data of filteredMessages[key]; let index = index;"
+              [data]="data"
+              [index]="index"
+              [user]="user"
+              [messagesLength]="filteredMessages[key].length"
+
+            >
+            </app-chat-message>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div *ngIf="userDetails.create_timesheets_time_report_management" class="div-txt-area" contenteditable [(contenteditableModel)]="modalComment" (click)="clearPlaceholder()" (blur)="setPlaceholder()"></div>
+    <div class="window-line w-top"></div>
+    <div class="window-line w-left"></div>
+    <div class="window-line w-right"></div>
+  </div>
+
+  <div class="footer-container">
+    <ng-container *ngIf="currentDayAbsences && (attestedBy || attestedByDate)">
+      <div class="attested-by">{{ "Attested by" | translate }}:</div>
+      <div class="attested-by-info">
+        <div *ngIf="attestedBy" class="attested-by-name">{{ attestedBy }}</div>
+        <div *ngIf="attestedByDate" class="attested-by-date">
+          {{ attestedByDate }}
+        </div>
+      </div>
+    </ng-container>
+    <div class="button-footer" *ngIf="userDetails.create_timesheets_time_report_management">
+      <div class="avisa-approve" *ngIf="weekApproved == 0 && currentDayAbsences && spinner === false">
+        <div (click)="handleAbsenceStatus(3)" class="avisa-button footer-button">
+          {{ "Reject" | translate }}
+        </div>
+        <div (click)="handleAbsenceStatus(2)" class="godkan-button footer-button">
+          {{ "Approve" | translate }}
+        </div>
+        <div *ngIf="desideNextBtn.hasNextBtn" type="button" (click)="handleNextAbsenc()" class="godkan-button footer-button next-btn">
+          {{ "Next >" | translate }}
+        </div>
+      </div>
+      <div class="avisa-approve" *ngIf="switchButtonText !== '' && weekApproved == 1 && currentDayAbsences && spinner === false">
+        <div (click)="callHandleApprovedAbsences('switch')" class="avisa-button footer-button">
+          {{ switchButtonText | translate }}
+        </div>
+        <div (click)="callHandleApprovedAbsences('delete')" class="delete-button footer-button">
+          {{ "Delete" | translate }}
+        </div>
+      </div>
+      <div class="avisa-approve" *ngIf="!currentDayAbsences && currentDayMoment">
+        <div *ngIf="lockIconStatus && spinner === false" (click)="callLockUserDay(clickedDay.date, true)" class="las-button footer-button">
+          {{ "Lock" | translate }}
+        </div>
+        <div *ngIf="!lockIconStatus && spinner === false" (click)="callUnlockUserDay(clickedDay.date, false)" class="godkan-button footer-button">
+          {{ "Unlock" | translate }}
+        </div>
+      </div>
+      <div>
+        <div (click)="sendNotification()" class="skicka-button footer-button" *ngIf="modalComment.trim().length > 0 && modalComment !== placeholder">
+          <div>{{ "Send" | translate }}</div>
+          <div>
+            <app-send-svg></app-send-svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-cal-confirmation-modal
+    *ngIf="modalInfo"
+    [modalInfo]="modalInfo"
+    (confirm)="confirm($event)"
+    (reject)="reject()"
+  >
+  </app-cal-confirmation-modal>
+</div>

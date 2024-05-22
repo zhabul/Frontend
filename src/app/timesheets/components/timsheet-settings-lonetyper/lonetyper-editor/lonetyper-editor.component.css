@@ -1,0 +1,16 @@
+.lonetype-editor {
+    border: 1px solid var(--border-color);
+    min-height: 441px;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 555px 237px auto;
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+.time-section {
+    width: 220px;
+}
+.time-section > div {
+    margin-bottom: 15px;
+}

@@ -1,0 +1,153 @@
+<div class="schedRespon card col-md-12X col-lg-6X col-lg-8W mb-4">
+  <div class="row">
+    <div class="card bgGrayBlue card-header">
+      <nav class="nav nav-pills nav-justified nav-style">
+        <div class="nav-links">
+          <a
+            [routerLink]="['/timesheets/schedule-calendar']"
+            class="btn btn-dark mr-2 lh09 hideUnder800"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="nav-title mt-2">
+          <h5>
+            {{ "Name:" | translate }} {{ userDetails.firstname }}
+            {{ userDetails.lastname }}
+          </h5>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <br />
+  <div>
+    <form
+      novalidate
+      autocomplete="off"
+      [formGroup]="mileageForm"
+      (ngSubmit)="createMileage()"
+      class="form-content schedule-form"
+      #myform="ngForm"
+    >
+      <div class="form-row-wrapper row">
+        <div class="form-group col-md-4 col-sm-12">
+          <label class="required" for="data">{{ "Date" | translate }}</label>
+          <input
+            (keydown)="$event.preventDefault()"
+            type="text"
+            class="form-control clear-text"
+            id="date"
+            formControlName="Date"
+            #Date
+            [class.is-invalid]="
+              (mileageForm.get('Date').touched ||
+                mileageForm.get('Date').dirty) &&
+              mileageForm.get('Date').invalid
+            "
+          />
+        </div>
+        <div class="form-group col-md-4 col-sm-12">
+          <label for="project">{{ "Project" | translate }}</label>
+          <select
+            class="form-control project-select"
+            formControlName="Project"
+            (change)="getProject(mileageForm.get('Project').value)"
+            id="project"
+          >
+            <option *ngFor="let project of projects" value="{{ project.id }}">
+              {{ project.CustomName }} - {{ project.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-4 col-sm-12">
+          <label for="atas">{{ "ATA" | translate }}</label>
+          <select
+            class="form-control project-select"
+            formControlName="Ata"
+            id="atas"
+          >
+            <option *ngFor="let ata of atas" value="{{ ata.id }}">
+              ATA-{{ ata.id }} - {{ ata.Name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-12 col-sm-12">
+          <label for="comment"
+            ><small>{{ "Comment" | translate }}</small></label
+          >
+          <textarea
+            class="form-control"
+            id="comment"
+            rows="3"
+            formControlName="Comment"
+          ></textarea>
+        </div>
+      </div>
+      <div class="time-wrapper form-row">
+        <div class="form-group col-md-6 date-work">
+          <label class="required" for="type">{{
+            "Select Type" | translate
+          }}</label>
+          <select
+            class="project-nav-select form-control"
+            #type
+            formControlName="Type"
+            [class.is-invalid]="
+              (mileageForm.get('Type').touched ||
+                mileageForm.get('Type').dirty) &&
+              mileageForm.get('Type').invalid
+            "
+            id="type"
+          >
+            <option
+              value="{{ type.id }}"
+              *ngFor="let type of types; let i = index"
+            >
+              {{ type.type | translate }}
+            </option>
+          </select>
+        </div>
+        <div class="input-time-wrapper col-md-6">
+          <div class="form-group">
+            <label for="mileage" class="required">{{
+              "Set Mileage" | translate
+            }}</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="material-icons">commute</i></span
+                >
+              </div>
+              <input
+                type="number"
+                class="form-control clear-text"
+                id="mileage"
+                formControlName="Mileage"
+                #Mileage
+                [class.is-invalid]="
+                  (mileageForm.get('Mileage').touched ||
+                    mileageForm.get('Mileage').dirty) &&
+                  mileageForm.get('Mileage').invalid
+                "
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group text-center">
+        <button
+          type="submit"
+          class="btn btn-success lh09"
+          [disabled]="mileageForm.invalid"
+        >
+          <span class="material-icons left-3px top1px posRel">save</span>
+          <span class="posRel top-5px">{{ "Save" | translate }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

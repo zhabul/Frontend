@@ -1,0 +1,273 @@
+.modal-top-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-top-wrapper .btn-outline-dark {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-group {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.dialogBtn {
+  margin: 5px;
+  background-color: var(--brand-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  color: white;
+  transition: opacity 250ms ease-in-out;
+}
+
+.dialogBtn:hover {
+  opacity: 0.5;
+}
+
+.messages-wrapper {
+  position: relative;
+  height: 500px;
+  overflow-x: auto;
+  border: 3px solid #ccc;
+  /* border-radius: 5px; */
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.message {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.message-body {
+  padding: 5px;
+  background: #dddddd;
+  border-radius: 5px;
+}
+
+.guest {
+  margin-right: 50% !important;
+  border-radius: 5px;
+  background: #a6b7b9;
+  width: 50%;
+}
+
+.current_user {
+  margin-left: 50% !important;
+  background: #c7dbc7;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.message-header span {
+  font-size: 10px;
+}
+
+.chat-window {
+  min-height: 85%;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-right: 15px;
+  padding-left: 15px;
+  cursor: default;
+  position: relative;
+  border-radius: 8px;
+  border-style: none;
+}
+
+.user-chat {
+  background-color: #e2e1df;
+  color: black;
+  border-radius: 5px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-size: 11px;
+  margin-bottom: 5px;
+  width: 90%;
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  border-radius: 8px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.admin-chat {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-style: solid;
+  border-color: #e2e1df;
+  border-width: 1px;
+  font-size: 11px;
+  margin-bottom: 5px;
+  width: 90%;
+  display: flex;
+  justify-content: right;
+  flex-direction: column;
+  border-radius: 8px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.chat-week {
+  /* margin-bottom: 20px;*/
+  min-height: 100%;
+}
+
+.chat-cont {
+  display: flex;
+  position: relative;
+}
+
+.text-justify-right {
+  position: absolute;
+  text-align: right;
+  color: black;
+  font-size: 9px;
+  right: 0;
+  top: -12px;
+  color: black;
+  font-size: 9px;
+}
+
+.text-justify-left {
+  position: absolute;
+  text-align: right;
+  color: black;
+  font-size: 9px;
+  left: 0;
+  top: -12px;
+  color: black;
+  font-size: 9px;
+}
+
+.first-week-line {
+  height: 1px;
+  width: 100%;
+  background-color: black;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.textarea-container {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+}
+
+.right-line {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  width: 1px;
+  background-color: #ccc;
+  z-index: 1000;
+  border: 1px solid #ccc;
+}
+
+.bottom-line {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 1px;
+  background-color: #ccc;
+  z-index: 1000;
+}
+
+.top-line {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 1px;
+  background-color: #ccc;
+  z-index: 1000;
+}
+
+.left-line {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  width: 1px;
+  background-color: #ccc;
+  z-index: 1000;
+}
+
+.text-area::placeholder {
+  color: black;
+  font-size: 11px;
+}
+
+.txt-area::-webkit-resizer {
+  display: none;
+}
+
+.txt-area {
+  resize: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  resize: vertical;
+  border-style: none;
+  border-top: 1px solid #ccc;
+  max-height: 150px;
+  min-height: 75px;
+  background-repeat: no-repeat;
+  background-position: right 5px bottom 5px;
+  background-image: url("data:image/svg+xml,%3Csvg id='Group_5268' data-name='Group 5268' xmlns='http://www.w3.org/2000/svg' width='27.373' height='27.373' viewBox='0 0 27.373 27.373'%3E%3Cg id='Lager_136_kopia' data-name='Lager 136 kopia'%3E%3Cg id='Group_414' data-name='Group 414'%3E%3Cg id='Group_359' data-name='Group 359' transform='translate(22.069 3.013)'%3E%3Cpath id='Path_806' data-name='Path 806' d='M56.958 21.6A1.142 1.142 0 1 0 58.1 22.745 1.143 1.143 0 0 0 56.958 21.6Z' transform='translate(-55.815 -21.603)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_360' data-name='Group 360' transform='translate(22.069 5.629)'%3E%3Cpath id='Path_807' data-name='Path 807' d='M56.958 26.473A1.142 1.142 0 1 0 58.1 27.615 1.143 1.143 0 0 0 56.958 26.473Z' transform='translate(-55.815 -26.473)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_361' data-name='Group 361' transform='translate(22.069 8.388)'%3E%3Cpath id='Path_808' data-name='Path 808' d='M56.958 31.343A1.142 1.142 0 1 0 58.1 32.486 1.144 1.144 0 0 0 56.958 31.343Z' transform='translate(-55.815 -31.343)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_362' data-name='Group 362' transform='translate(22.069 11.148)'%3E%3Cpath id='Path_809' data-name='Path 809' d='M56.958 36.214A1.142 1.142 0 1 0 58.1 37.356 1.143 1.143 0 0 0 56.958 36.214Z' transform='translate(-55.815 -36.214)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_363' data-name='Group 363' transform='translate(22.069 13.908)'%3E%3Cpath id='Path_810' data-name='Path 810' d='M56.958 41.085A1.142 1.142 0 1 0 58.1 42.227 1.143 1.143 0 0 0 56.958 41.085Z' transform='translate(-55.815 -41.085)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_364' data-name='Group 364' transform='translate(22.069 16.667)'%3E%3Cpath id='Path_811' data-name='Path 811' d='M56.958 45.955A1.142 1.142 0 1 0 58.1 47.1 1.143 1.143 0 0 0 56.958 45.955Z' transform='translate(-55.815 -45.955)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_365' data-name='Group 365' transform='translate(22.069 19.427)'%3E%3Cpath id='Path_812' data-name='Path 812' d='M56.958 50.825A1.142 1.142 0 1 0 58.1 51.967 1.143 1.143 0 0 0 56.958 50.825Z' transform='translate(-55.815 -50.825)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_366' data-name='Group 366' transform='translate(22.069 22.041)'%3E%3Cpath id='Path_813' data-name='Path 813' d='M56.958 55.7A1.142 1.142 0 1 0 58.1 56.838 1.143 1.143 0 0 0 56.958 55.7Z' transform='translate(-55.815 -55.696)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_367' data-name='Group 367' transform='translate(19.571 5.754)'%3E%3Cpath id='Path_814' data-name='Path 814' d='M52.161 26.689a1.024 1.024 0 1 0 1.024 1.024A1.025 1.025 0 0 0 52.161 26.689Z' transform='translate(-51.137 -26.689)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_368' data-name='Group 368' transform='translate(19.571 8.518)'%3E%3Cpath id='Path_815' data-name='Path 815' d='M52.161 31.565a1.024 1.024 0 1 0 1.024 1.024A1.025 1.025 0 0 0 52.161 31.565Z' transform='translate(-51.137 -31.565)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_369' data-name='Group 369' transform='translate(19.571 11.282)'%3E%3Cpath id='Path_816' data-name='Path 816' d='M52.161 36.442a1.024 1.024 0 1 0 1.024 1.024A1.025 1.025 0 0 0 52.161 36.442Z' transform='translate(-51.137 -36.442)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_370' data-name='Group 370' transform='translate(19.571 14.046)'%3E%3Cpath id='Path_817' data-name='Path 817' d='M52.161 41.318a1.024 1.024 0 1 0 1.024 1.024A1.025 1.025 0 0 0 52.161 41.318Z' transform='translate(-51.137 -41.318)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_371' data-name='Group 371' transform='translate(19.571 16.81)'%3E%3Cpath id='Path_818' data-name='Path 818' d='M52.161 46.194a1.024 1.024 0 1 0 1.024 1.024A1.025 1.025 0 0 0 52.161 46.194Z' transform='translate(-51.137 -46.194)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_372' data-name='Group 372' transform='translate(19.571 19.575)'%3E%3Cpath id='Path_819' data-name='Path 819' d='M52.161 51.071A1.024 1.024 0 1 0 53.185 52.1 1.025 1.025 0 0 0 52.161 51.071Z' transform='translate(-51.137 -51.071)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_373' data-name='Group 373' transform='translate(16.928 8.625)'%3E%3Cpath id='Path_820' data-name='Path 820' d='M47.366 31.747a.906.906 0 1 0 .906.906A.908.908 0 0 0 47.366 31.747Z' transform='translate(-46.46 -31.747)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_374' data-name='Group 374' transform='translate(16.928 11.389)'%3E%3Cpath id='Path_821' data-name='Path 821' d='M47.366 36.621a.906.906 0 1 0 .906.906A.907.907 0 0 0 47.366 36.621Z' transform='translate(-46.46 -36.621)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_375' data-name='Group 375' transform='translate(16.928 14.152)'%3E%3Cpath id='Path_822' data-name='Path 822' d='M47.366 41.493a.906.906 0 1 0 .906.906A.907.907 0 0 0 47.366 41.493Z' transform='translate(-46.46 -41.493)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_376' data-name='Group 376' transform='translate(16.928 16.915)'%3E%3Cpath id='Path_823' data-name='Path 823' d='M47.366 46.365a.906.906 0 1 0 .906.906A.907.907 0 0 0 47.366 46.365Z' transform='translate(-46.46 -46.365)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_377' data-name='Group 377' transform='translate(14.281 11.519)'%3E%3Cpath id='Path_824' data-name='Path 824' d='M42.571 36.842a.788.788 0 1 0 .788.788A.789.789 0 0 0 42.571 36.842Z' transform='translate(-41.783 -36.842)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_378' data-name='Group 378' transform='translate(14.281 14.287)'%3E%3Cpath id='Path_825' data-name='Path 825' d='M42.571 41.72a.788.788 0 1 0 .788.788A.788.788 0 0 0 42.571 41.72Z' transform='translate(-41.783 -41.72)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_379' data-name='Group 379' transform='translate(19.451 22.044)'%3E%3Cpath id='Path_826' data-name='Path 826' d='M52.082 55.7a1.142 1.142 0 1 0 1.142 1.142A1.143 1.143 0 0 0 52.082 55.7Z' transform='translate(-50.939 -55.701)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_380' data-name='Group 380' transform='translate(16.688 22.048)'%3E%3Cpath id='Path_827' data-name='Path 827' d='M47.206 55.707a1.142 1.142 0 1 0 1.142 1.142A1.143 1.143 0 0 0 47.206 55.707Z' transform='translate(-46.063 -55.707)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_381' data-name='Group 381' transform='translate(13.926 22.051)'%3E%3Cpath id='Path_828' data-name='Path 828' d='M42.33 55.712a1.142 1.142 0 1 0 1.143 1.142A1.143 1.143 0 0 0 42.33 55.712Z' transform='translate(-41.188 -55.712)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_382' data-name='Group 382' transform='translate(11.163 22.054)'%3E%3Cpath id='Path_829' data-name='Path 829' d='M37.454 55.718A1.142 1.142 0 1 0 38.6 56.86 1.143 1.143 0 0 0 37.454 55.718Z' transform='translate(-36.312 -55.718)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_383' data-name='Group 383' transform='translate(8.4 22.057)'%3E%3Cpath id='Path_830' data-name='Path 830' d='M32.578 55.723a1.142 1.142 0 1 0 1.142 1.142A1.143 1.143 0 0 0 32.578 55.723Z' transform='translate(-31.436 -55.723)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_384' data-name='Group 384' transform='translate(5.637 22.06)'%3E%3Cpath id='Path_831' data-name='Path 831' d='M27.7 55.728a1.142 1.142 0 1 0 1.142 1.142A1.143 1.143 0 0 0 27.7 55.728Z' transform='translate(-26.56 -55.728)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_385' data-name='Group 385' transform='translate(3.019 22.063)'%3E%3Cpath id='Path_832' data-name='Path 832' d='M22.827 55.733a1.142 1.142 0 1 0 1.142 1.142A1.143 1.143 0 0 0 22.827 55.733Z' transform='translate(-21.684 -55.733)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_386' data-name='Group 386' transform='translate(16.807 19.574)'%3E%3Cpath id='Path_833' data-name='Path 833' d='M47.286 51.07a1.024 1.024 0 1 0 1.024 1.024A1.026 1.026 0 0 0 47.286 51.07Z' transform='translate(-46.261 -51.07)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_387' data-name='Group 387' transform='translate(14.044 19.574)'%3E%3Cpath id='Path_834' data-name='Path 834' d='M42.41 51.07a1.024 1.024 0 1 0 1.024 1.024A1.025 1.025 0 0 0 42.41 51.07Z' transform='translate(-41.386 -51.07)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_388' data-name='Group 388' transform='translate(11.28 19.574)'%3E%3Cpath id='Path_835' data-name='Path 835' d='M37.534 51.069a1.024 1.024 0 1 0 1.024 1.024A1.025 1.025 0 0 0 37.534 51.069Z' transform='translate(-36.51 -51.069)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_389' data-name='Group 389' transform='translate(8.516 19.574)'%3E%3Cpath id='Path_836' data-name='Path 836' d='M32.658 51.069a1.024 1.024 0 1 0 1.024 1.024A1.025 1.025 0 0 0 32.658 51.069Z' transform='translate(-31.634 -51.069)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_390' data-name='Group 390' transform='translate(5.752 19.573)'%3E%3Cpath id='Path_837' data-name='Path 837' d='M27.782 51.068a1.024 1.024 0 1 0 1.024 1.024A1.025 1.025 0 0 0 27.782 51.068Z' transform='translate(-26.758 -51.068)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_391' data-name='Group 391' transform='translate(14.162 16.916)'%3E%3Cpath id='Path_838' data-name='Path 838' d='M42.49 46.368a.906.906 0 1 0 .906.907A.908.908 0 0 0 42.49 46.368Z' transform='translate(-41.584 -46.368)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_392' data-name='Group 392' transform='translate(11.398 16.919)'%3E%3Cpath id='Path_839' data-name='Path 839' d='M37.615 46.372a.906.906 0 1 0 .906.906A.907.907 0 0 0 37.615 46.372Z' transform='translate(-36.709 -46.372)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_393' data-name='Group 393' transform='translate(8.632 16.92)'%3E%3Cpath id='Path_840' data-name='Path 840' d='M32.738 46.375a.906.906 0 1 0 .906.906A.908.908 0 0 0 32.738 46.375Z' transform='translate(-31.832 -46.375)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_394' data-name='Group 394' transform='translate(11.515 14.286)'%3E%3Cpath id='Path_841' data-name='Path 841' d='M37.695 41.719a.788.788 0 1 0 .788.788A.788.788 0 0 0 37.695 41.719Z' transform='translate(-36.907 -41.719)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_395' data-name='Group 395' transform='translate(0 24.853)'%3E%3Cpath id='Path_842' data-name='Path 842' d='M17.871 60.422a1.26 1.26 0 1 0 1.26 1.26A1.261 1.261 0 0 0 17.871 60.422Z' transform='translate(-16.611 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_396' data-name='Group 396' transform='translate(2.902 24.853)'%3E%3Cpath id='Path_843' data-name='Path 843' d='M22.747 60.422a1.26 1.26 0 1 0 1.26 1.26A1.261 1.261 0 0 0 22.747 60.422Z' transform='translate(-21.487 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_397' data-name='Group 397' transform='translate(5.523 24.853)'%3E%3Cpath id='Path_844' data-name='Path 844' d='M27.622 60.422a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 27.622 60.422Z' transform='translate(-26.362 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_398' data-name='Group 398' transform='translate(8.284 24.853)'%3E%3Cpath id='Path_845' data-name='Path 845' d='M32.5 60.422a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 32.5 60.422Z' transform='translate(-31.238 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_399' data-name='Group 399' transform='translate(11.046 24.853)'%3E%3Cpath id='Path_846' data-name='Path 846' d='M37.374 60.422a1.26 1.26 0 1 0 1.26 1.26A1.261 1.261 0 0 0 37.374 60.422Z' transform='translate(-36.114 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_400' data-name='Group 400' transform='translate(13.807 24.853)'%3E%3Cpath id='Path_847' data-name='Path 847' d='M42.25 60.422a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 42.25 60.422Z' transform='translate(-40.99 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_401' data-name='Group 401' transform='translate(16.569 24.853)'%3E%3Cpath id='Path_848' data-name='Path 848' d='M47.126 60.422a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 47.126 60.422Z' transform='translate(-45.866 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_402' data-name='Group 402' transform='translate(19.33 24.853)'%3E%3Cpath id='Path_849' data-name='Path 849' d='M52 60.422a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 52 60.422Z' transform='translate(-50.742 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_403' data-name='Group 403' transform='translate(21.951 24.853)'%3E%3Cpath id='Path_850' data-name='Path 850' d='M56.877 60.422a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 56.877 60.422Z' transform='translate(-55.617 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_404' data-name='Group 404' transform='translate(24.853)'%3E%3Cpath id='Path_851' data-name='Path 851' d='M61.754 16.539a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 61.754 16.539Z' transform='translate(-60.494 -16.539)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_405' data-name='Group 405' transform='translate(24.853 2.902)'%3E%3Cpath id='Path_852' data-name='Path 852' d='M61.754 21.415a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 61.754 21.415Z' transform='translate(-60.494 -21.415)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_406' data-name='Group 406' transform='translate(24.853 5.523)'%3E%3Cpath id='Path_853' data-name='Path 853' d='M61.754 26.291a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 61.754 26.291Z' transform='translate(-60.494 -26.291)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_407' data-name='Group 407' transform='translate(24.853 8.285)'%3E%3Cpath id='Path_854' data-name='Path 854' d='M61.754 31.167a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 61.754 31.167Z' transform='translate(-60.494 -31.167)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_408' data-name='Group 408' transform='translate(24.853 11.046)'%3E%3Cpath id='Path_855' data-name='Path 855' d='M61.754 36.042a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 61.754 36.042Z' transform='translate(-60.494 -36.042)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_409' data-name='Group 409' transform='translate(24.853 13.808)'%3E%3Cpath id='Path_856' data-name='Path 856' d='M61.754 40.919a1.26 1.26 0 1 0 1.26 1.26A1.261 1.261 0 0 0 61.754 40.919Z' transform='translate(-60.494 -40.919)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_410' data-name='Group 410' transform='translate(24.853 16.569)'%3E%3Cpath id='Path_857' data-name='Path 857' d='M61.754 45.794a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 61.754 45.794Z' transform='translate(-60.494 -45.794)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_411' data-name='Group 411' transform='translate(24.853 19.331)'%3E%3Cpath id='Path_858' data-name='Path 858' d='M61.754 50.671a1.26 1.26 0 1 0 1.26 1.26A1.261 1.261 0 0 0 61.754 50.671Z' transform='translate(-60.494 -50.671)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_412' data-name='Group 412' transform='translate(24.853 21.952)'%3E%3Cpath id='Path_859' data-name='Path 859' d='M61.754 55.546a1.26 1.26 0 1 0 1.26 1.26A1.261 1.261 0 0 0 61.754 55.546Z' transform='translate(-60.494 -55.546)' fill='%23c7c6c4'/%3E%3C/g%3E%3Cg id='Group_413' data-name='Group 413' transform='translate(24.853 24.853)'%3E%3Cpath id='Path_860' data-name='Path 860' d='M61.754 60.422a1.26 1.26 0 1 0 1.26 1.26A1.262 1.262 0 0 0 61.754 60.422Z' transform='translate(-60.494 -60.422)' fill='%23c7c6c4'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.msg {
+  white-space: pre-line;
+  display: grid;
+  grid-template-columns: 90% auto;
+  grid-template-rows: auto;
+}
+
+.blu-scroll {
+  z-index: 9999;
+}
+
+.icon-image {
+  cursor: pointer;
+  transition: opacity 250ms ease-in-out;
+}
+
+.icon-image:hover {
+  opacity: 0.5;
+}
+
+.icon-image {
+  color: var(--brand-color);
+}

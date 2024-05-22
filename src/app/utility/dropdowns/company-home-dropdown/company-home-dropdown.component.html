@@ -1,0 +1,50 @@
+<div #dropdown>
+  <div (click)="toogleMultiselect()" class="name-of-multselect" (mouseover)="mouseOver()" (mouseleave)="mouseleave()"
+  [ngStyle]="{
+    'border':border,
+    'border-radius': toggle ?'4px 4px 0px 0px':'4px 4px 4px 4px',
+    'border-bottom':toggle ? '0px':border
+}">
+    <div [ngStyle]="{'color': color}" class="refname">{{ ref }}</div>
+      <div class="arrow">
+        <app-arrow-for-dropdown
+          [fill]="fill"
+          [rotate]="rotate">
+        </app-arrow-for-dropdown>
+      </div>
+    <div class="border-on-scroll" *ngIf="toggle" ></div>
+  </div>
+  <div class="shadow" *ngIf="toggle"></div>
+  <div style="position:relative">
+    <div *ngIf="toggle" class="dropdown-scroll">
+      <ng-container>
+        <div>
+          <div *ngFor="let status of localSelectedItem; let i=index" >
+            <div class="users-list" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)" (click)="getSelectedItem(status)">
+              <div  class="users" title="{{status.name}}">{{status.name}}</div>
+              <div class="check-button-wrapp-one">
+                <app-checkin-svg style="position: relative;bottom:3px;"
+                    *ngIf="status?.checked"
+                    [width]="18"
+                    [height]="18"
+                    [color]="'FF7000'"
+                    [hatched]="'white'"
+                ></app-checkin-svg>
+                <app-checkout-svg style="position: relative;bottom:3px;"
+                *ngIf="!status?.checked"
+
+                    [width]="18"
+                    [height]="18"
+                    [color]="'FF7000'"
+                    [hatched]="'white'"
+                ></app-checkout-svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+

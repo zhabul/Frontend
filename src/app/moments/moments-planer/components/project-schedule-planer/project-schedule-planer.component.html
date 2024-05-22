@@ -1,0 +1,484 @@
+<div class="card col-md-12X col-lg-6X col-lg-8WX mb-4">
+  <div class="row form-heading bgGrayBlue py-1 d-flex">
+    <div class="header-btn-psotion">
+      <div class="btn-group-left">
+        <button
+          (click)="goBack()"
+          class="btn btn-dark mt-2 mb-2 ml-3 lh09 float-left hideUnder800"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          id="topFeeder"
+        >
+          <span class="badgeX badge-darkX material-icons top1px posRelX"
+            >arrow_back</span
+          >
+        </button>
+        <button
+          class="btn btn-dark mt-2 mb-2 ml-3 lh09 float-left hideUnder800 btn-more"
+          (click)="loadPreviousYear()"
+        >
+          {{ "Previous period" | translate }}
+        </button>
+      </div>
+      <button
+        class="btn btn-dark mt-2 mb-2 ml-3 lh09 float-left hideUnder800 btn-more"
+        (click)="loadMore()"
+      >
+        {{ "Next period" | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="planner-moments-wrapper" (mouseup)="resetCanvasPosition()">
+    <div class="header-planner-moments-wrapper">
+      <div class="header-button-zoom-wrapper">
+        <span (click)="zoomInCalendar()" *ngIf="allowCalendarZoomIn()"
+          ><i
+            class="material-icons"
+            [ngStyle]="{ 'font-size': fontSize + 'px' }"
+            >zoom_in</i
+          ></span
+        >
+        <span (click)="zoomOutCalendar()" *ngIf="allowCalendarZoomOut()"
+          ><i
+            class="material-icons"
+            [ngStyle]="{ 'font-size': fontSize + 'px' }"
+            >zoom_out</i
+          ></span
+        >
+        <span
+          class="allowMoveEl"
+          [ngClass]="setActiveClassToMoveEelemnt()"
+          (click)="allowMoveElement()"
+          ><i
+            class="material-icons"
+            [ngStyle]="{ 'font-size': fontSize + 'px' }"
+            >move_to_inbox</i
+          ></span
+        >
+        <span
+          class="allowMoveEl"
+          [ngClass]="setActiveClassToConnectEelemnt()"
+          (click)="allowConnectElement()"
+          ><i
+            class="material-icons"
+            [ngStyle]="{ 'font-size': fontSize + 'px' }"
+            >device_hub</i
+          ></span
+        >
+        <span
+          class="allowMoveEl"
+          [ngClass]="setActiveSelectClass()"
+          (click)="allowSelectElements()"
+          ><i
+            class="material-icons"
+            [ngStyle]="{ 'font-size': fontSize + 'px' }"
+            >select_all</i
+          ></span
+        >
+        <span
+          class="allowMoveEl"
+          [ngClass]="setActiveClassToGroupButton()"
+          (click)="openModalGroup()"
+          *ngIf="allowSelect"
+          ><i
+            class="material-icons"
+            [ngStyle]="{ 'font-size': fontSize + 'px' }"
+            >group_work</i
+          ></span
+        >
+        <span
+          class="allowMoveEl allowResize"
+          [ngClass]="setActiveClassToResizeEelemnt()"
+          (click)="allowChangeSizeOfLine()"
+          ><i
+            class="material-icons"
+            [ngStyle]="{ 'font-size': fontSize + 'px' }"
+            >unfold_more</i
+          ></span
+        >
+      </div>
+    </div>
+    <div class="body-planner-moments-wrapper">
+      <div class="project-moments-menu" [ngStyle]="calculateStylesCalendar()">
+        <div class="project-moments-menu-header">
+          <table
+            class="table table-striped table-dark table-header"
+            *ngIf="activeMoment"
+          >
+            <thead>
+              <tr>
+                <th scope="col">{{ "Start Date" | translate }}</th>
+                <th scope="col">{{ "End Date" | translate }}</th>
+                <th scope="col">{{ "Days" | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ activeMoment["StartDate"] }}</td>
+                <td>{{ activeMoment["EndDate"] }}</td>
+                <td>{{ activeMoment["Days"] }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="button-zoom-wrapper"></div>
+        </div>
+        <ul class="projects-ul-wrapper">
+          <li>
+            <div
+              class="project-name-wrapper"
+              [ngStyle]="{ 'background-color': project.Color }"
+            >
+              <span>{{ "Project" | translate }}: {{ project.name }}</span>
+              <div>
+                <span (click)="openModal(0, null)"
+                  ><i class="material-icons">add</i></span
+                >
+              </div>
+            </div>
+            <ul
+              class="moments-ul-wrapper"
+              cdkDropList
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div *ngFor="let moment of moments; let index = index" cdkDrag>
+                <li
+                  class="height-field-ul"
+                  *ngIf="moment.visible"
+                  [ngClass]="setChildClass(moment)"
+                >
+                  <div
+                    class="moments-ul-li-left"
+                    (click)="setMomentToArray(moment)"
+                  >
+                    <span
+                      (click)="showChildren(moment, index, null)"
+                      class="btn-parent"
+                      *ngIf="momentHaveChildren(moment)"
+                      [ngClass]="addClassForGroup(moment)"
+                    >
+                      <span>{{ moment.btnText }}</span>
+                    </span>
+                    <span>{{ moment.Description }}</span>
+                  </div>
+                  <div class="moments-ul-li-right">
+                    <span
+                      class="edit-btn"
+                      (click)="editMomentModal(moment, index)"
+                      ><i class="material-icons">edit</i></span
+                    >
+                    <span
+                      class="delete-btn"
+                      (click)="deleteProjectPlan(moment, index)"
+                      ><i class="material-icons">delete</i></span
+                    >
+                    <span class="btn-add" (click)="openModal(moment.id, index)"
+                      ><i class="material-icons">add</i></span
+                    >
+                  </div>
+                </li>
+              </div>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="planner-content-wrapper"
+        [ngStyle]="calculateStylesCalendar()"
+      >
+        <div class="calendar-content-row">
+          <div
+            class="calendar-content-row-year"
+            *ngFor="let object of calendar; let index = index"
+            [ngClass]="setYearClass(index, object)"
+          >
+            <div
+              class="calendar-content-row-month"
+              *ngFor="let month of object.months; let index = index"
+              [ngClass]="setMonthClass(index, month)"
+            >
+              <div class="text-center calendar-content-row-month-border">
+                <h5>{{ month.name | translate }} - {{ month.year }}</h5>
+              </div>
+              <div class="calendar-content-row-week-wrapper">
+                <div
+                  *ngFor="let day of month.days; let index = index"
+                  class="week-field"
+                >
+                  <div
+                    [ngClass]="setWeekClass(index, day)"
+                    [ngStyle]="setBorder(day.isoWeek, index)"
+                  >
+                    <div class="day-field text-center">
+                      {{ printWeek(day.isoWeek, index) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="calendar-content-row-day-wrapper">
+                <div
+                  class="calendar-content-row-day"
+                  [ngStyle]="{
+                    'background-color':
+                      day.dayName === 'Sat' || day.dayName === 'Sun'
+                        ? '#efefef'
+                        : 'transparent'
+                  }"
+                  *ngFor="let day of month.days"
+                  [ngClass]="setDayClass(index, day)"
+                >
+                  <div class="day-field text-center day-field-box">
+                    {{ day.dateDay }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="timline-body-wrapper overflowHidden"
+          [ngStyle]="setWrapperWidth()"
+        >
+          <div class="project-body-wrapper">
+            <div class="height-field project-wrapper">
+              <div
+                class="project-timeline"
+                [ngStyle]="setProjectLineDuration()"
+                (click)="openModalScheduleCoworkers($event)"
+              >
+                <div class="moment-coworkers-wrapper">
+                  <ng-container
+                    *ngFor="
+                      let object of project.Coworkers;
+                      let projectMomentIndex = index
+                    "
+                  >
+                    <div
+                      class="moment-coworker"
+                      [ngStyle]="setPositionAndWIdthProjectPlanCoworker(object)"
+                      (click)="openProjectModal(projectMomentIndex)"
+                    >
+                      <span
+                        ><input
+                          class="moment-coworker-input"
+                          type="text"
+                          value="{{ object.NumberOfCoworkers }}"
+                          (keyup.enter)="updateData(object, numberOfCoworkers)"
+                          #numberOfCoworkers
+                          (click)="selectText(numberOfCoworkers)"
+                      /></span>
+                      <div
+                        class="modal-info-wrapper"
+                        [ngStyle]="setBackgroundOnProjectModal(object)"
+                        *ngIf="
+                          projectModal &&
+                          projectModalMomentIndex == projectMomentIndex
+                        "
+                      >
+                        <div class="modal-info-wrapper-header">
+                          <span
+                            (click)="
+                              openEditModalScheduleCoworkers(
+                                projectMomentIndex,
+                                object
+                              )
+                            "
+                            ><i class="material-icons">edit</i></span
+                          >
+                          <span
+                            (click)="
+                              deleteModalScheduleCoworkers(
+                                projectMomentIndex,
+                                object
+                              )
+                            "
+                            ><i class="material-icons">clear</i></span
+                          >
+                        </div>
+                        <div class="modal-info-wrapper-footer">
+                          <div>
+                            {{ "Start Date" | translate }}:
+                            {{ object.StartDate }}
+                          </div>
+                          <div>
+                            {{ "End Date" | translate }}: {{ object.EndDate }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <ng-container
+              *ngFor="let moment of moments; let momentIndex = index"
+            >
+              <div
+                class="height-field moment-wrraper"
+                *ngIf="moment.visible"
+                (mousemove)="moveElement($event, moment)"
+                (mouseenter)="disableMove()"
+                (mouseup)="resetCanvasPosition()"
+              >
+                <ng-container *ngFor="let line of lines; let index = index">
+                  <div class="linew-wrapper" *ngIf="showLines">
+                    <span
+                      class="line start-horizontal-line line-1"
+                      *ngIf="moment.id == line.ProjectPlanIdFirst"
+                      [ngStyle]="{
+                        left: startPosition(line) + 'px',
+                        width: startedWidth(line) + 'px'
+                      }"
+                      [ngClass]="setLineClass(line, moment)"
+                      (mouseenter)="showDeleteButton(line, index, moment)"
+                    ></span>
+
+                    <span
+                      class="line end-horizonal-line line-1"
+                      *ngIf="moment.id == line.ProjectPlanIdFirst"
+                      [ngStyle]="{
+                        left: endPosition(line) + 'px',
+                        width: endPositionWidth(line) + 'px',
+                        top: endLineTopPosition(line) + 'px'
+                      }"
+                      (mouseenter)="showDeleteButton(line, index, moment)"
+                      [ngClass]="setLineClass(line, moment)"
+                    >
+                      <i
+                        class="material-icons clear-icon hide clear-icon-distance-from-carret-1"
+                        (click)="removeLine(line, index)"
+                        [ngClass]="setClassOnClear(line.id)"
+                        >clear</i
+                      >
+                      <i
+                        class="material-icons"
+                        [ngStyle]="setLeftPositionOfArrow(line)"
+                        >arrow_left</i
+                      >
+                    </span>
+
+                    <span
+                      class="line vertical-line"
+                      *ngIf="moment.id == line.ProjectPlanIdFirst"
+                      [ngClass]="setVerticalClass(moment, line, index)"
+                      [ngStyle]="
+                        setVerticalLine(
+                          line,
+                          startPosition(line),
+                          endPosition(line),
+                          moment
+                        )
+                      "
+                      (mouseenter)="showDeleteButton(line, index, moment)"
+                    ></span>
+                  </div>
+                </ng-container>
+                <ng-container
+                  *ngFor="let object of calendar; let index = index"
+                >
+                  <ng-container
+                    *ngFor="let month of object.months; let index = index"
+                  >
+                    <div class="calendar-content-box">
+                      <div
+                        class="calendar-content-day-box"
+                        [ngStyle]="{
+                          'background-color':
+                            day.dayName === 'Sat' || day.dayName === 'Sun'
+                              ? '#efefef'
+                              : 'transparent'
+                        }"
+                        *ngFor="let day of month.days"
+                        [ngClass]="setDayClass(index, day)"
+                        (mouseenter)="setStartedPoint(event, day)"
+                      ></div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+                <div
+                  class="moment-timeline"
+                  [ngStyle]="setMomentData(moment, momentIndex)"
+                  (mousemove)="setMomentsLength($event)"
+                  contenteditable="false"
+                  (mousedown)="setMoment($event, moment, momentIndex)"
+                  [ngClass]="whatClassIsIt(moment)"
+                >
+                  <div
+                    class="move-wrapper"
+                    (mousedown)="allowMove()"
+                    *ngIf="largeWidth(moment) && allowMoveEl"
+                    (mouseup)="updateMovePosition(moment)"
+                  ></div>
+                  <div
+                    *ngIf="
+                      allowConnectEl &&
+                      moment['Group'] == '0' &&
+                      moment['parent'] == '0'
+                    "
+                    class="schedule-conection-left"
+                    (mousedown)="setStartCanvasPosition($event, moment, 'left')"
+                    (mouseup)="setEndCanvasPosition($event, moment, 'left')"
+                  ></div>
+                  <span
+                    class="number-of-days"
+                    *ngIf="daysNumber && activeMomentIndex == momentIndex"
+                  ></span>
+                  <div class="right-wrapper">
+                    <div
+                      *ngIf="
+                        allowConnectEl &&
+                        moment['Group'] == '0' &&
+                        moment['parent'] == '0'
+                      "
+                      class="schedule-conection-right"
+                      (mousedown)="
+                        setStartCanvasPosition($event, moment, 'right')
+                      "
+                      (mouseup)="setEndCanvasPosition($event, moment, 'right')"
+                    ></div>
+                    <div
+                      class="grabber"
+                      (mouseup)="disableResize(moment)"
+                      (mousedown)="allowResize()"
+                      *ngIf="
+                        allowChangeSizeOfMomentLine && moment['Group'] == '0'
+                      "
+                    >
+                      <div class="grabber-visibility"></div>
+                      <div
+                        class="modal-transparent"
+                        *ngIf="
+                          showModalInformation &&
+                          activeMomentIndex == momentIndex
+                        "
+                      ></div>
+                      <div
+                        class="modal-information"
+                        *ngIf="
+                          showModalInformation &&
+                          activeMomentIndex == momentIndex
+                        "
+                        [ngStyle]="{ 'background-color': moment.Color }"
+                      >
+                        <div class="modal-header">
+                          <h5>{{ moment.Description }}</h5>
+                        </div>
+                        <div class="modal-body">
+                          <p>Start: {{ startedDay }}</p>
+                          <p>End: {{ EndDate }}</p>
+                          <p>Days: {{ daysNumber }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showCanvas">
+    <span id="myCanvas" class="canvas" [ngStyle]="setCanvasStyle()"></span>
+  </div>
+</div>

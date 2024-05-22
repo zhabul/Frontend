@@ -1,0 +1,205 @@
+<div class="master-border">
+  <div class="row border-nav d-flex">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <span class="back-icon-postion">
+        <a
+          routerLink="/register"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <app-back-icon-svg></app-back-icon-svg>
+        </a>
+      </span>
+      <button
+        hidden
+        class="btn btn-dark mr-2 active"
+        type="button"
+        routerLinkActive="active"
+      >
+        {{ "All Suppliers" | translate }}
+      </button>
+      <span class="ml-3 mt-2 h2 font-weight-normal title-project">{{
+        "Register" | translate
+      }}</span>
+    </div>
+  </div>
+  <div
+    class="container-fluidW px-0W l0 hideUnder1400 mt-3 pl-25 project-container"
+  >
+    <h1 class="h4 title-table">{{ "Clients" | translate }}</h1>
+    <div class="px-0 d-flex">
+      <div class="searchdiv">
+        <div class="input-group mb-3" class="responsiveInput1">
+          <span class="search-icon">
+            <app-search-icon-with-params-svg
+              [width]="13"
+              [height]="13.06"
+              [color]="'fcf4ec'"
+            ></app-search-icon-with-params-svg>
+          </span>
+          <input
+            (input)="onSearch(filterInput.value)"
+            #filterInput
+            class="search-form form-control mr-sm-2"
+            type="text"
+            placeholder="{{ 'Search for customers' | translate }}"
+            aria-label="Search"
+            id="filterInput"
+          />
+          <span class="clear-icon" (click)="clearInput()">
+            <app-clean-search-input-icon-svg
+              [width]="10.189"
+              [height]="10.189"
+              [color]="'fcf4ec'"
+            ></app-clean-search-input-icon-svg>
+          </span>
+        </div>
+      </div>
+      <form class="buttons-form">
+        <div class="group-status" (click)="onStatusChangeExternal('0')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg
+              *ngIf="statusClient[0] == false"
+            ></app-not-selected-icon-svg>
+            <app-selected-icon-svg
+              color="#03D156"
+              *ngIf="statusClient[0] == true"
+            ></app-selected-icon-svg>
+          </div>
+          <div class="filter-name">{{ "Active" | translate }}</div>
+        </div>
+        <div class="group-status" (click)="onStatusChangeExternal('1')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg
+              *ngIf="statusClient[1] == false"
+            ></app-not-selected-icon-svg>
+            <app-selected-icon-svg
+              color="#FD4444"
+              *ngIf="statusClient[1] == true"
+            ></app-selected-icon-svg>
+          </div>
+          <div class="filter-name">{{ "EJ AKTIVA" | translate }}</div>
+        </div>
+        <div class="group-status" (click)="onStatusChangeExternal('all')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg
+              *ngIf="statusClient['all'] == false"
+            ></app-not-selected-icon-svg>
+            <app-selected-icon-svg
+              color="#FCF4EC"
+              *ngIf="statusClient['all'] == true"
+            ></app-selected-icon-svg>
+          </div>
+          <div class="filter-name">{{ "Select All" | translate }}</div>
+        </div>
+      </form>
+      <div>
+        <button
+          class="btn btn-dark btn-new-client"
+          type="button"
+          *ngIf="userDetails.create_register_customers"
+          routerLinkActive="active"
+          routerLink="/clients/new"
+          (mouseenter)="onMouseEnter(); changeTextColor('#FF7000')"
+          (mouseleave)="onMouseLeave(); changeTextColor('')"
+        >
+          <span class="add-icon-position">
+            <app-add-icon-with-params-svg
+              #childComponentAddIcon
+              [width]="16"
+              [height]="16"
+              [fill]="fillColor"
+              [fillPuls]="'373b40'"
+            >
+            </app-add-icon-with-params-svg>
+          </span>
+          <span
+            class="ml-2 mr-2 new-client text-uppercase"
+            [ngClass]="currentClass"
+            >{{ "New Client" | translate }}</span
+          >
+        </button>
+      </div>
+    </div>
+    <div class="blu-scroll-wrapp">
+      <div class="blu-scroll skrollbar">
+        <table
+          class="table tab-responsive table-striped table-hover table-lightX table-sm"
+          id="theTable"
+        >
+          <thead class="">
+            <th class="nr-w">
+              {{ "Client Number" | translate }}
+            </th>
+            <th class="name-w">
+              {{ "Company" | translate }}
+            </th>
+            <th class="org-nr-w">
+              {{ "ORG ID" | translate }}
+            </th>
+            <th class="e-post-w">
+              {{ "Invoice Address" | translate }}
+            </th>
+            <th class="status-w">
+              {{ "Status" | translate }}
+            </th>
+            <th
+              class="delete-w"
+              style="white-space: nowrap; padding-left: 20px"
+            >
+              <app-delete-icon
+                [width]="10"
+                [height]="15"
+                [color]="'E3DBD3'"
+              ></app-delete-icon>
+            </th>
+          </thead>
+          <tbody class="table-bordered" *ngIf="!spinner">
+            <tr
+              routerLink="/clients/details/{{ client.Id }}"
+              class="cursor-pointer"
+              *ngFor="let client of clients; let i = index"
+              [ngClass]="{ 'from-fortnox': client.FromFortnox == '1' }"
+            >
+              <td>{{ client.Number | translate }}</td>
+              <td>{{ client.Company | translate }}</td>
+              <td>{{ client.CompanyId | translate }}</td>
+              <td>{{ client.InvoiceAddressStreetAndNo }}</td>
+              <td
+                [ngClass]="[
+                  client.Active === '1' ? 'bg-active' : 'bg-inactive'
+                ]"
+                class="text-center"
+              >
+                <span>
+                  {{
+                    (client.Active === "1" ? "Active" : "Inactive") | translate
+                  }}
+                </span>
+              </td>
+              <td
+                class="text-center align-middle"
+              >
+                <i
+                  *ngIf="userDetails.create_register_customers && client.allow_delete"
+                  (click)="removeClient(i, $event)"
+                  class="material-icons text-danger cursor-pointer"
+                  ><app-delete-icon
+                    [width]="10"
+                    [height]="15"
+                    [color]="'858585'"
+                  ></app-delete-icon>
+                </i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="vertical-line"></div>
+      <div class="horizontal-line"></div>
+    </div>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

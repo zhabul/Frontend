@@ -1,0 +1,35 @@
+<div
+  [ngStyle]="computedStyles.weekStyle"
+  class="calendar-content-row-week-wrapper"
+>
+  <app-week-column
+    *ngFor="let day of calendar; let index = index"
+    [day]="day"
+    [calendarBoundaries]="calendarBoundaries"
+    [index]="index"
+    [calendar]="calendar"
+    [calendarColumnWidth]="computedStyles.calendarColumnWidth"
+    [calendarStyle]="calendarStyle"
+    [calendarSpan]="calendarSpan"
+    [type]="'weeks'"
+  ></app-week-column>
+  <div class='overlay' *ngIf="overlayUser"></div>
+</div>
+
+<div
+  [ngStyle]="computedStyles.weekStyle"
+  class="calendar-content-row-day-wrapp"
+>
+  <app-week-column
+    *ngFor="let day of calendar; let index = index"
+    [day]="day"
+    [calendarBoundaries]="calendarBoundaries"
+    [index]="index"
+    [calendar]="calendar"
+    [calendarColumnWidth]="computedStyles.calendarColumnWidth"
+    [calendarStyle]="calendarStyle"
+    [calendarSpan]="calendarSpan"
+    [type]="'days'"
+  ></app-week-column>
+  <div class='overlay' *ngIf="overlayUser"></div>
+</div>

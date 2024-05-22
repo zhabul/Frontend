@@ -1,0 +1,22 @@
+.wraper-column {
+  flex-direction: column;
+}
+
+.btn-pos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* .nav-tabs li:last-child {
+    margin-left: auto;
+  } */
+
+@media (min-width: 800px) {
+  .b-28 {
+    bottom: 28px;
+  }
+  .l-15 {
+    left: 15px;
+  }
+}

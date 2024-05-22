@@ -1,0 +1,237 @@
+<mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="modal-top-wrapper">
+    <span style="margin-left: 10px" class="d-flex">
+        <h5>{{ "Support" | translate }}</h5>
+        <h6 class="ml-3 p-1">{{ version }}</h6>
+    </span>
+    <span class="position-close-svg">
+    <button class="btn btn-outline-dark" [mat-dialog-close]>
+        <div class="circle-container">
+        <i class="material-icons">close</i>
+        </div>
+    </button>
+    </span>
+    </div>
+    <form
+    *ngIf="supportForm"
+    novalidate
+    autocomplete="off"
+    [formGroup]="supportForm"
+    (ngSubmit)="send()"
+    class="form-content bg-form"
+    #myform="ngForm"
+    >
+    <div
+        class="form-group col-xs-12"
+        [ngClass]="{
+        'has-error':
+            (supportForm.get('text').touched || supportForm.get('text').dirty) &&
+            !supportForm.get('text').valid
+        }"
+    >
+        <label class="col-white master-margin">{{ "Please, describe the issue you have!" | translate }}</label>
+        <editor
+        formControlName="text"
+        apiKey="ax2wjk08u3z9xbhe9evtxcvn0anzrdbsdrztus135wiqa4ez"
+        [init]="{
+            height: 300,
+            menubar: false,
+            plugins: [
+            'searchreplace',
+            'visualblocks',
+            'code',
+            'fullscreen',
+            'insertdatetime',
+            'media',
+            'table',
+            'help',
+            'wordcount',
+            'autolink',
+            'lists',
+            'image',
+            'charmap',
+            'preview',
+            'anchor',
+            'advlist',
+            'checklist',
+            'autoresize',
+
+            ],
+            toolbar:
+            'undo redo | formatselect | bold italic underline strikethrough | \
+            alignleft aligncenter alignright alignjustify | \
+            bullist numlist outdent indent'
+        }"
+        [ngClass]="{'editor-margin': true}"
+        (onKeyDown)="textEditorKeyDown($event)"
+        (onPaste)="textEditorOnPaste($event)"
+        ></editor>
+
+        <!--Stari Plugin za Tiny plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table paste code help wordcount'
+    ], -->
+
+        <small class="col-white master-margin " style="opacity: 0.75"
+        >{{ supportForm.get("text").value.length }}/500</small
+        >
+    </div>
+    <div class="form-group row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+        <label style="margin-left: 5px;" class="mr-2 col-white">
+            {{ "Important implementation" | translate }}:
+        </label>
+        <div style="margin-left: 5px;" class="d-flex">
+            <ng-container *ngFor="let option of priorityOptions; let i = index">
+            <div class="flex-row mr-1 wemax-radio">
+                <input
+                [id]="'priority-' + i"
+                [value]="i + 1"
+                formControlName="priority"
+                class="mr-1 cursor-pointer d-none"
+                type="radio"
+                />
+                <label
+                [for]="'priority-' + i"
+                class="cursor-pointer"
+                [ngClass]="getRadioBg(option, 'priority')"
+                >{{ option }}</label
+                >
+            </div>
+            </ng-container>
+        </div>
+        <!-- <select class="form-control" formControlName="priority">
+                    <option *ngFor="let option of priorityOptions" [value]="option">{{ option }}</option>
+                </select> -->
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+        <label class="mr-2 col-white"> {{ "Quick action" | translate }}: </label>
+        <div class="d-flex">
+            <ng-container *ngFor="let option of urgencyOptions; let i = index">
+            <div class="flex-row mr-1 wemax-radio">
+                <input
+                [id]="'urgency-' + i"
+                [value]="i + 1"
+                formControlName="urgency"
+                class="mr-1 cursor-pointer d-none"
+                type="radio"
+                />
+                <label
+                [for]="'urgency-' + i"
+                class="cursor-pointer"
+                [ngClass]="getRadioBg(option, 'urgency')"
+                >{{ option }}</label
+                >
+            </div>
+            </ng-container>
+        </div>
+        </div>
+    </div>
+
+    <div style="position: relative">
+        <div style="margin-top: 3rem" class="revisited-dnd">
+        <div class="attachment-container-transition-fix">
+            <div
+            class="attachment-dot-container"
+            appDnd
+            (fileDropped)="onFileDropped($event)"
+            >
+            <div class="container-dots"></div>
+            <div class="attachment-container">
+                <div
+                class="btn btn-outline-info mr-2 choose-file-button"
+                (click)="fileDropRef.click()"
+                for="image"
+                >
+                {{ "Choose file" | translate }}
+                </div>
+                <input
+                type="file"
+                [accept]="fileType"
+                class="form-control-file hide"
+                id="document"
+                (change)="documentsOnChange($event)"
+                #fileDropRef
+                multiple="true"
+                />
+                <div class="dropzone fileover upload-files">
+                <div></div>
+                <div class="attach-text" for="document">
+                    {{ "Attach or drop files here" | translate }}
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div
+        *ngIf="uploadImages.length"
+        style="margin-top: 2rem"
+        class="form-group-upload form-group-upload2"
+        >
+        <div *ngIf="uploadImages.length" class="preview-image-new-container">
+            <app-file-preview
+            *ngFor="let file of uploadImages; let index = index"
+            type="image"
+            [file]="file"
+            [index]="index"
+            [canRemove]="true"
+            imageModal="true"
+            (removeFile)="removeFile(0, $event, 'images')"
+            (openSwiper)="openSwiper(index, uploadImages, 0)"
+            ></app-file-preview>
+        </div>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end;position: relative;margin-right: 20px;">
+        <!-- <button
+        type="submit"
+        class="btn btn-success mt-4"
+        style="margin-top: 0rem !important"
+        >
+        <span class="material-icons left-3px top1px posRel">send</span>
+        <span class="posRel top-5px">{{ "Send" | translate }}</span>
+        </button> -->
+        <span style="margin-left: 15px; margin-top: 25px;padding-bottom:10px">
+        <button
+
+            type="submit"
+            class="save-button"
+
+        >
+            <div class="button-icon">
+            <app-folder-icon-with-params-svg
+            [width]="23.5"
+            [height]="18.548"
+            [strokeWidthParams]="1.5"
+            [color]="'373b40'"
+            [strokeColor]="'ff7000'"
+            [opacityVal]="0.973"
+            ></app-folder-icon-with-params-svg>
+            </div>
+
+            <div>
+            {{ "Send" | translate }}
+            </div>
+        </button>
+        </span>
+    </div>
+    </form>
+    <div class="progress-loader" *ngIf="sending">
+    <mat-spinner mode="determinate" [value]="progress"></mat-spinner>
+    <div *ngIf="progress > 0" class="progress-percentage">
+        {{ progress + "%" }}
+    </div>
+    </div>
+    <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="true"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="false"
+    ></app-gallery>
+</mat-dialog-content>

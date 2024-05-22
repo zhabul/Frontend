@@ -1,0 +1,68 @@
+.pdf-preview-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.pdf-embed {
+  border: 1px solid #ccc;
+  /* border-radius: 5px; */
+}
+
+.pdf-embed-folder{
+  position: absolute;
+ /* left: 0;
+  top: 11px;*/
+  border: 1px solid #ccc;
+}
+
+.delete-icon {
+  position: absolute;
+  left: 42px;
+  height: 30px;
+  width: 25px;
+}
+
+.delete-path{
+  z-index: 12;
+}
+
+.absolute-position{
+  left: 51px;
+}
+
+.preview-image-new-xi-absolute-input{
+  transform: scale(1);
+  position: absolute;
+  right: 0rem;
+  color: red;
+  cursor: pointer;
+  z-index: 500;
+  -webkit-appearance: auto !important;
+  height: 15px;
+  width: 15px;
+  top: 10px;
+}
+
+.pdf-embed-folder.clicked {
+  border-color: red;
+}
+
+.pdf-empty-message {
+  position: absolute;
+  top: 10px;
+  left: 2px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px 3px;
+  font-size: 14px;
+  color: red;
+  font-size: 9px;
+}
+
+.pdf-message{
+  position: relative;
+  top: 7px;
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+  margin: 0 auto;
+}

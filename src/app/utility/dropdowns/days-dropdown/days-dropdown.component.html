@@ -1,0 +1,30 @@
+<div>
+  <div (click)="toogleMultiselect()" class="name-of-multselect"
+      [ngStyle]="{
+          'border':border,
+          'border-radius': toggle ?'4px 4px 0px 0px':'4px 4px 4px 4px',
+          'border-bottom':toggle ? '0px':border
+      }">
+
+      <div [ngStyle]="{'color': color}" class="refname" > {{ ref }} </div>
+      <div class="arrow">
+          <app-arrow-for-dropdown
+              [fill]="fill"
+              [rotate]="rotate"
+          >
+          </app-arrow-for-dropdown>
+      </div>
+      <div class="border-on-scroll" *ngIf="toggle" ></div>
+  </div>
+  <div style="position:relative">
+  <div *ngIf="toggle" class="dropdown-scroll">
+      <div *ngFor="let item of localSelectedItem; let i=index" >
+          <div class="users-list" (click)="Select(item.Name)">
+              <div  class="users" title="{{item.Name}}"> {{item.Name}}</div>
+          </div>
+      </div>
+  </div>
+  <div class="line-scroll"></div>
+  </div>
+</div>
+

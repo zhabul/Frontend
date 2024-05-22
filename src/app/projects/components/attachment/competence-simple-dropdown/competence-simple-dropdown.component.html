@@ -1,0 +1,38 @@
+<div
+  class="dropdown-wrapper"
+  *ngIf="!isOpen"
+  (click)="onOpenDropdown()"
+  [ngStyle]="{ 'background-color': disable ? '#bfbfbf' : 'none' }"
+>
+  <div>Företag / Leverantör</div>
+  <div>
+    <app-down-arrow></app-down-arrow>
+  </div>
+</div>
+
+<div class="input-wrapper" *ngIf="isOpen">
+  <div>
+    <input type="text" #userInput (input)="filterList($event)" />
+  </div>
+  <div (click)="onOpenDropdown()">
+    <app-up-arrow></app-up-arrow>
+  </div>
+</div>
+
+<div class="dropdown-list-wrapper orange-scroll" *ngIf="isOpen">
+  <ng-container *ngFor="let item of copyOfAllItems">
+    <div class="item-wrapper">
+      <div>{{ item[loopThrough] }}</div>
+      <div>
+        <app-checkbox-uncheck
+          *ngIf="!item.checked"
+          (click)="onItemCheck(item)"
+        ></app-checkbox-uncheck>
+        <app-checkbox-check
+          *ngIf="item.checked"
+          (click)="onItemCheck(item)"
+        ></app-checkbox-check>
+      </div>
+    </div>
+  </ng-container>
+</div>

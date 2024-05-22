@@ -1,0 +1,84 @@
+<div class="row px-2 mb-2" style="display: block !important">
+  <div class="card bgGrayBlue col-12X col-lg-6X col-lg-8W" id="topFeeder">
+    <nav class="nav nav-pills nav-justified">
+      <div class="nav-links d-flex w-100">
+        <a routerLink="/home" class="btn btn-dark mr-2 lh09 hideUnder800">
+          <span class="badgeX badge-darkX material-icons top1px posRel"
+            >arrow_back</span
+          >
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="row px-2 mb-4">
+  <div class="card col-12X col-lg-6X col-lg-8W">
+    <div class="mb-3">
+      <section class="d-flex justify-content-between">
+        <h3>{{ "Contacts" | translate }}</h3>
+        <button
+          hidden
+          class="btn btn-sm btn-light border p-0 h34px material-icons"
+        >
+          more_vert
+        </button>
+      </section>
+      <div class="select-toggle">
+        <input
+          type="text"
+          class="form-control"
+          #searchInput
+          (input)="onChange(searchInput)"
+          placeholder="{{ 'Search' | translate }}"
+          style="width: 250px"
+        />
+      </div>
+    </div>
+    <div class="empty mb-3">
+      <table
+        class="table table-striped table-responsiveX table-responsive-under800"
+        style="margin-bottom: 0"
+      >
+        <thead>
+          <th
+            (click)="setOrder('employeeNumber')"
+            class="first_name cursor-pointer"
+          >
+            {{ "Number" | translate }}
+          </th>
+          <th (click)="setOrder('firstname')" class="first_name cursor-pointer">
+            {{ "First Name" | translate }}
+          </th>
+          <th (click)="setOrder('lastname')" class="surname cursor-pointer">
+            {{ "Last Name" | translate }}
+          </th>
+          <th (click)="setOrder('mobile')" class="mobile cursor-pointer">
+            {{ "Mobile" | translate }}
+          </th>
+          <th (click)="setOrder('email')" class="email cursor-pointer">
+            {{ "Email" | translate }}
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of allUsers">
+            <td>{{ user.employeeNumber }}</td>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.shareMobilePhoneNumber ? user.mobile : "" }}</td>
+            <td>{{ user.shareEmail ? user.email : "" }}</td>
+          </tr>
+          <td colspan="5" style="text-align: right" *ngIf="showPaginate">
+            <app-pagination
+              itemsPerPage="20"
+              maxPage="10"
+              [selectedPage]="p"
+              [itemsSize]="allUsersCopy.length"
+              (pageChange)="onPageChange($event)"
+            ></app-pagination>
+          </td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,154 @@
+.number-text {
+  font-size: 20px;
+}
+
+.card-icon {
+  font-size: 60px;
+}
+
+.tab-navigation {
+  width: 100%;
+}
+
+.project-row {
+  background-color: rgb(157 152 241 / 46%) !important;
+}
+
+.project-total-row {
+  background-color: rgb(127 120 241 / 46%) !important;
+}
+
+.item-card-1 {
+  min-width: 239px;
+  width: 65%;
+  margin: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  align-items: top;
+  justify-content: space-between;
+}
+
+.table-without-border tr td {
+  border: 0 !important;
+  text-align: right !important;
+}
+
+.card-top {
+  margin-bottom: 20px;
+}
+
+.card-average {
+  margin-top: 20px;
+}
+
+.item-card-2 {
+  min-width: 239px;
+  width: 35%;
+  margin: 10px;
+  padding: 20px;
+}
+
+.item-card-2 p {
+  text-align: left;
+}
+
+.simple-card-wrapp {
+  text-align: left;
+  flex-grow: 1;
+}
+
+.card-wrapper {
+  display: flex;
+}
+
+.supplier-invoices {
+  color: hsla(43, 55%, 59%, 1);
+}
+
+.supplier-invoices-bg {
+  background-color: hsla(43, 55%, 59%, 1);
+}
+
+.invoices {
+  color: hsla(351, 55%, 69%, 1);
+}
+
+.invoices-bg {
+  background-color: hsla(351, 55%, 69%, 1);
+}
+
+.materials {
+  color: hsla(74, 25%, 54%, 1);
+}
+
+.materials-bg {
+  background-color: hsla(74, 25%, 54%, 1);
+}
+
+.hours {
+  color: hsla(200, 55%, 56%, 1);
+}
+
+.hours-bg {
+  background-color: hsla(200, 55%, 56%, 1);
+}
+
+.btn-all,
+.btn-approved {
+  border: 1px solid transparent !important;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px 50px;
+}
+
+.btn-all:hover,
+.btn-approved:hover {
+  border: 1px solid hsl(207, 27%, 37%) !important;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.btn-approved:visited,
+.btn-all:visited,
+.btn-all:focus,
+.btn-approved:focus {
+  border: 1px solid transparent !important;
+  border-radius: 0;
+}
+
+.btn-all.active,
+.btn-approved.active {
+  background-color: hsl(207, 27%, 37%) !important;
+  border: 1px solid hsl(207, 27%, 37%) !important;
+  border-radius: 0;
+  color: #ffffff !important;
+}
+
+.table-bordered tr th {
+  text-align: center;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 25%;
+}
+
+.table-wrapper {
+  margin-bottom: 50px;
+}
+
+.menu-wrapp {
+  display: flex;
+  flex-direction: column;
+}
+
+.warring-data {
+  color: red;
+}
+
+.table-statistic tr th {
+  font-size: 12px !important;
+}

@@ -1,0 +1,90 @@
+.default-moment-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.custom-dialog-container .mat-dialog-container {
+  padding: 24px !important;
+}
+
+.btn-delete span {
+  color: red;
+  cursor: pointer;
+}
+
+.btn-delete {
+  text-align: center;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  background-color: white;
+  display: table;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.5;
+  background-color: grey;
+}
+
+.btn-edit {
+  text-align: center;
+}
+
+.btn-edit span {
+  cursor: pointer;
+}
+
+.btn-add span {
+  cursor: pointer;
+}
+
+.default-moment-wrapper {
+  width: 100%;
+}
+
+.table-moments {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table-moments caption {
+  font-size: 1.5em;
+  margin: 0.5em 0 0.75em;
+}
+
+.table-moments tr {
+  border: 1px solid #ddd;
+  padding: 0.35em;
+}
+
+.table-moments tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.table-moments tr td.text_postion_parent {
+  text-align: left;
+}
+
+.table-moments tr td.text_postion_child {
+  text-align: left;
+  padding-left: 30px;
+}
+
+.table-moments th,
+.table-moments td {
+  padding: 0.625em;
+  text-align: center;
+}
+
+.table-moments td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

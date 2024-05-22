@@ -1,0 +1,217 @@
+<div class="blue-top-nav">
+    <div class="blue-top-nav-text">
+        {{
+          type == "internal"
+            ? ("Internal ata" | translate)
+            : ("External ata" | translate)
+        }}
+      </div>
+    <div class="row" style="justify-content: space-between; position: relative;height: 48px;">
+        <div class="column-container">
+            <div class="flex-center-all">
+                <app-svg-statuses [iconColor]="iconColor" *ngIf="(activeComponent == 'ata' && selectedAta?.Status != 4) || (activeComponent == 'weekly_report' && weekly_report?.status != 1)"></app-svg-statuses>
+                <app-svg-sent-only *ngIf="(activeComponent == 'ata' && selectedAta?.Status == 4) || (activeComponent == 'weekly_report' && weekly_report?.status == 1)"></app-svg-sent-only>
+                <p [ngStyle]="{'color': iconColor}" style="font-size:15px ;margin-bottom: -15px;
+                        margin-left: 10px;">{{iconStatusName | translate}}</p>
+            </div>
+            <div class="line-between">
+            </div>
+            <div class="icon-txt" >
+            <p >{{ 'ÄTA -' | translate }} <span >{{selectedAta.AtaNumber}}: {{selectedAta.Name}}</span> </p>
+            </div>
+        </div>
+    <div class="new-options">
+        <div style="align-self: center; position:relative" *ngIf="allowNewKS" >
+            <button
+                type="button"
+                class="btn ata-btn ata-btn__color"
+                (click)="manuallyCreateWeeklyReport()"
+                *ngIf="selectedAta.Status == 2 && selectedAta.PaymentType == 1 && type == 'external' && !newWRDisabled && allowEditAta()"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22.627" height="22.627" viewBox="0 0 22.627 22.627">
+                    <defs>
+                    <clipPath id="clip-path">
+                        <path id="Path_736" data-name="Path 736" d="M0,9.951H16v-16H0Z" transform="translate(0 6.049)" fill="none"/>
+                    </clipPath>
+                    </defs>
+                    <g id="X_icon" data-name="X icon" transform="translate(11.314) rotate(45)">
+                    <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                        <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                        <path id="Path_734" data-name="Path 734" d="M9.951,4.975a8,8,0,1,1-8-8,8,8,0,0,1,8,8" transform="translate(6.049 3.024)" fill="#ff7000"/>
+                        </g>
+                        <g id="Group_290" data-name="Group 290" transform="translate(3.313 3.326)">
+                        <path id="Path_735" data-name="Path 735" d="M5.68,4.93,2.4,1.653l3.283-3.29a.63.63,0,0,0,.005-.923L5.455-2.8a.629.629,0,0,0-.947.053L1.255.505-2.059-2.8A.641.641,0,0,0-3-2.783l-.246.243a.641.641,0,0,0,.032.968L.062,1.7S-3.112,4.891-3.221,5a.63.63,0,0,0-.005.923l.235.235A.629.629,0,0,0-2.044,6.1L1.207,2.849,4.524,6.158a.642.642,0,0,0,.944-.016L5.714,5.9A.639.639,0,0,0,5.68,4.93" transform="translate(3.453 2.997)" fill="#44484c"/>
+                        </g>
+                    </g>
+                    </g>
+                </svg>
+                <div>{{ "KS" | translate }}</div>
+                <span class="exclamation-mark-worring"></span>
+            </button>
+            <div class="num-invoice" *ngIf="number_of_supp_inv > 0 && selectedAta.Status == 2 && selectedAta.Status == 2 && selectedAta.PaymentType == 1 && type == 'external' && !newWRDisabled && allowEditAta()"><div  style="margin-top: 1px; margin-right: 1px;"> {{number_of_supp_inv}} </div></div>
+        </div>
+        <div class="dropdown-div" *ngIf="type == 'external'">
+          <div class="input-wrapper5" *ngIf="(allowSendWeeklyReport() && activeComponent == 'weekly_report' && allowEditAta() && selectedTab == 0) || (activeComponent == 'ata' && allowEditAta()) || (selectedTab == 6 && selectedAta.PaymentType != 2)">
+            <app-send-print-dropdown-ata
+            [SendPrintUT1] = "client_workers"
+            [placeholder]="'TSC_SEND_PRINT' | translate"
+            [Print]="'Print' | translate"
+            [Send]="'Send' | translate"
+            (selected)="SelectedUser($event)"
+            (PrintButton)="updateAndPrint()"
+            (SendButton)="updateAndSend()"
+            [HaveSend]="1"
+            [disableSelect]="false"
+            >
+            </app-send-print-dropdown-ata>
+          </div>
+          <div
+            class="dropdown-menu show"
+            id="first-drop"
+            [ngClass]="buttonToggle ? '' : 'd-none'"
+          >
+            <div  class="border-summary print-div" (click)="updateAndPrint()">
+              <p>
+                {{ "TSC_PRINT" | translate }}
+              </p>
+              <div class="svg-p">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="pdf-p-icon"
+                  width="18.953"
+                  height="17.216"
+                  viewBox="0 0 18.953 17.216"
+                >
+                  <g
+                    id="Group_4091"
+                    data-name="Group 4091"
+                    transform="translate(0 0)"
+                  >
+                    <g
+                      id="Group_3988"
+                      data-name="Group 3988"
+                      transform="translate(5.984 4.613)"
+                    >
+                      <rect
+                        id="Rectangle_15585"
+                        data-name="Rectangle 15585"
+                        width="6.934"
+                        height="0.803"
+                        transform="translate(0 1.992)"
+                        fill="#44484c"
+                      />
+                      <rect
+                        id="Rectangle_15586"
+                        data-name="Rectangle 15586"
+                        width="6.934"
+                        height="0.803"
+                        fill="#44484c"
+                      />
+                    </g>
+                    <path
+                      id="Path_1752"
+                      data-name="Path 1752"
+                      d="M33.834,19.925a.955.955,0,0,0-.953-.957H15.833a.955.955,0,0,0-.952.957v8.132h3.6v.718l7.369,7.409H30.2V28.1h3.636Zm-17.1,6.567v-3.8H18.48v3.8Zm8.806,7.864L20.3,29.089h5.238Zm1.066.757v-7.1H19.546V22.694h9.587V35.113Zm5.38-8.575H30.2V22.694h1.786Z"
+                      transform="translate(-14.881 -18.968)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <div class="p-1">
+              <div class="text-icon-align sle"
+             (click)="updateAndSend()"
+             [ngStyle]="{'cursor':contacts.length < 1? 'not-allowed':''}"
+              >
+                <span class="mt-1 ml-2 send" [ngStyle]="{'color': contacts.length > 0 ? 'var(--orange-dark)':'', 'font-weight':contacts.length > 0 ? '800':'' }">
+                <span *ngIf="reminder != 0">{{ "TSC_SEND_REMINDER" | translate }}</span>
+                <span *ngIf="reminder == 0">{{ "TSC_SEND" | translate }}</span></span>
+                <img
+                  src="../../../../assets/img/disabled-icon.svg"
+                  class="send-svg"
+                  *ngIf="contacts.length == 0"
+                />
+                <img
+                  src="../../../../assets/img/enabled-icon.svg"
+                  class="send-svg"
+                  *ngIf="contacts.length > 0"
+                />
+              </div>
+            </div>
+            <div  *ngIf="type == 'external'">
+             <div
+                class="workers d-flex justify-content-start  workers-border "
+                *ngFor="let worker of client_workers; let index = index"
+                (click)="buttonNameSummary($event, worker, 'sent')">
+                <span class="ml-1" [ngStyle]="{'color': worker.selected ? 'var(--orange-dark)': ''}">{{ worker.Name }}</span>
+                <span class="span-check"
+                  *ngIf="worker.selected == false">
+                  <img
+                    style="padding: 0px 0px 0px 3px"
+                    src="../../../../assets/img/uncheck.svg"
+                    alt=""
+                  />
+                </span>
+                <span class="span-check" *ngIf="worker.selected">
+                  <img
+                    style="padding: 0px 0px 0px 3px"
+                    src="../../../../assets/img/check_orange.svg"
+                    alt=""
+                  />
+                </span>
+              </div>
+            </div>
+
+          </div>
+          <div *ngIf="buttonToggle" (click)="closeToggle(1)" class="hide-data">
+          </div>
+        </div>
+          <div class="options-div">
+            <div class="input-wrapper4" *ngIf="(!overview && allowEditAta() && activeTab == 'ata') || (!overview && allowSendWeeklyReport() && activeTab == 'ks')">
+                <app-ata-status-dropdown
+                    [ATAStatus]="selectedAta.ata_statuses"
+                    [allowOrDisable]="allowOrDisable()"
+                    [Disabled]="selectedAta.Status != 0 && selectedAta.Status != 4 && activeComponent == 'ata' && type == 'external' && selectedAta.ATAID == atas[atas.length - 1].ATAID"
+                    [Uvjet]="(selectedAta.Status == 0 && selectedAta.exist_above_ata_whose_status_has_been_changed) || (!selectedAta.allowRemoveAta && selectedAta.Status == 0)"
+                    [SelectedAta]="selectedAta.Status"
+                    [Uvjet1]="(selectedAta.Status == 3 || selectedAta.Status == 3) && type == 'external' && selectedAta.ATAID == atas[atas.length - 1].ATAID"
+                    [Uvjet2]="selectedAta.Status !== '3' && selectedAta.Status !== '5' && type != 'external' && externalDevToInternalAta()"
+                    [Uvjet3]="selectedAta.Status == 0 || selectedAta.Status == 4 || activeComponent == 'weekly_report'"
+                    [Uvjet4]="selectedAta.Status == 4"
+                    [AtaStatus]="'ÄTA STATUS' | translate"
+                    (Selected)="setAtaStatus($event)"
+                    (Decline)="ManuallyDecline()"
+                    (Accepted)="ManuallyAccept()"
+                    (Revision)="ManuallyRevision()"
+                    (Transfer)="ManuallyTransfer()"
+                    (Aborted)="ManuallyAborted()"
+                    [disableSelect]="false"
+                >
+                </app-ata-status-dropdown>
+            </div>
+          </div>
+          <div *ngIf="buttonToggleDots" (click)="closeToggle(2)" class="hide-data"></div>
+      </div>
+    </div>
+  </div>
+<img
+  style="display: none;"
+  src="../../../../assets/img/check_orange.svg"
+  alt=""
+/>
+<img
+  style="display: none;"
+  src="../../../../assets/img/uncheck.svg"
+  alt=""
+/>
+
+<img
+  style="display:none;"
+  class="send-svg"
+/>
+<img
+  style="display:none;"
+  class="send-svg"
+/>

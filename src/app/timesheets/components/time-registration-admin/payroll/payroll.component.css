@@ -1,0 +1,44 @@
+.select-container-200 {
+    width: 200px;
+    height: 25px;
+    position: relative;
+}
+  
+.select-container-220 {
+    width: 220px;
+    position: relative;
+}
+
+.margin-right {
+    margin-right: 32px;
+}
+
+.calendar-header-payroll {
+    display: grid;
+    grid-template-columns: 110px 950px auto;
+    grid-template-rows: 90px;
+    margin-top: 50px;
+    border: 1px solid var(--border-color);
+    border-top-left-radius: 0.6rem;
+    border-right-style: none;
+    position: relative;
+  }
+
+.lone-title {
+    font-size: 26px;
+    color: white;
+    padding: 20px;
+    cursor: default;
+}
+
+.tab-content2 {
+    grid-template-rows: 140px auto !important;
+}
+  
+.floating-title {
+    position: absolute;
+    font-weight: normal;
+    top: -55px;
+    left: 20px;
+    color: lightgray;
+}

@@ -1,0 +1,1771 @@
+<div class="box-message" *ngIf="!editAta && fullName">
+  <h5>{{ "Editing by" | translate }}: {{ fullName }}</h5>
+</div>
+<form
+  id="createForm"
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="save()"
+  class="form-content"
+  #myform="ngForm"
+  (click)="enableUpdate()"
+>
+  {{ detectChanges() }}
+  <div class="form-wrapper form-inputs">
+    <div class="panel panel-default w-100">
+      <fieldset class="fieldset shadow-top-div">
+        <div class="form-column-wrapper-position">
+          <div class="form-column2 panel panel-default p-8">
+            <div class="form-row2">
+              <div class="heading">
+                <label for="heading" class="required custom-label">{{
+                  "Heading" | translate
+                }}</label>
+                <input
+                  type="text"
+                  class="form-control fs-18"
+                  id="heading"
+                  [ngClass]="{
+                    'is-invalid':
+                      (createForm.get('Name').touched || myform.submitted) &&
+                      createForm.get('Name').invalid
+                  }"
+                  placeholder="{{ 'Enter name' | translate }}"
+                  formControlName="Name"
+                  maxlength="55"
+                />
+                <small style="opacity: 0.75; color: #fcf4ec"
+                  >{{ createForm.get("Name").value.length }}/55</small
+                >
+                <span
+                  class="help-block"
+                  *ngIf="
+                    (createForm.get('Name').touched || myform.submitted) &&
+                    createForm.get('Name').invalid
+                  "
+                >
+                  <span
+                    *ngIf="createForm.get('Name').errors.required"
+                    class="text-danger"
+                  >
+                    {{ "Enter Heading" | translate }}
+                  </span>
+                  <span
+                    class="text-danger"
+                    *ngIf="createForm.get('Name').errors.maxlength"
+                  >
+                    {{ "Maximum length of characters is" | translate }}
+                    {{ createForm.get("Name").errors.maxlength.requiredLength }}
+                  </span>
+                </span>
+              </div>
+              <div class="status">
+                <label class="custom-label" for="ata-status">
+                  {{ "TSC_Invoice_labeling_requirements" | translate }}
+                </label>
+
+                <input
+                  class="ata-status form-control select-property toogle-enable fs-18"
+                  id="ata-status"
+                  style="appearance: none"
+                  formControlName="labeling_requirements"
+                  (keyup)="allowUpdateAta()"
+                />
+
+                <span class="help-block"> </span>
+              </div>
+            </div>
+            <div class="form-row2">
+              <div class="status">
+                <div class="form-group">
+                  <label for="typeata" class="required custom-label">{{
+                    "ÄTA type" | translate
+                  }}</label>
+
+                    <!--Dropdown ÄTA type-->
+                    <div class="input-wrapper2" #selectAtaType>
+                      <app-simple-select
+                        [ataStatus]="ataStatus"
+                        [ClientItem]= "AtaTypes"
+                        [control]="createForm.get('AtaType')"
+                        [defaultValue]="{
+                          id: '1',
+                          Name: 'Tillaggsarbeten'
+                        }"
+                        [fontSize]="18"
+                        formControlName="AtaType"
+                        [width]="302"
+                        [type1]="'AtAType'"
+                        [disableSelect]="ata.Status != 0 || !allowEditAta()"
+                        (SelctedData)="setSelectedAtaType($event)"
+                      >
+                      </app-simple-select>
+                    </div>
+                  <!--End Dropdown ÄTA type-->
+
+                  <!-- <select
+                    class="selectpicker project-nav-select form-control select-property fs-18"
+                    id="typeata"
+                    #selectAtatype
+                    formControlName="AtaType"
+                    [ngClass]="{
+                      'is-invalid':
+                        (createForm.get('AtaType').touched ||
+                          myform.submitted) &&
+                        createForm.get('AtaType').invalid
+                    }"
+                  >
+                    <option *ngFor="let type of AtaTypes" value="{{ type.id }}">
+                      {{ type.Name }}
+                    </option>
+                  </select> -->
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('AtaType').touched || myform.submitted) &&
+                      createForm.get('AtaType').invalid
+                    "
+                  >
+                    <span class="text-danger">
+                      {{ "Please select type atas" | translate }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="status">
+                <div class="form-group">
+                  <label for="paymentType" class="required custom-label">{{
+                    "Payment type" | translate
+                  }}</label>
+                      <!--Dropdown Payment type-->
+                      <div class="input-wrapper2" >
+                        <app-simple-select
+                          [ataStatus]="ataStatus"
+                          [ClientItem]= "getDebitForms"
+                          [defaultValue]="{
+                            id: '1',
+                            Name: 'Löpande räkning'
+                          }"
+                          [fontSize]="18"
+                          #paymentType
+                          formControlName="paymentType"
+                          [width]="302"
+                          [type1]="'PayType'"
+                          (PayTypeChange)="paymentTypeChanged()"
+                          [disableSelect]="ata.Status != 0 || !allowEditAta()"
+                        >
+                        </app-simple-select>
+                      </div>
+                    <!--End Dropdown Payment type-->
+
+                  <!-- <select
+                    class="project-nav-select form-control select-property toogle-enable fs-18"
+                    id="paymentType"
+                    #paymentType
+                    [ngClass]="{
+                      'is-invalid':
+                        (createForm.get('paymentType').touched ||
+                          myform.submitted) &&
+                        createForm.get('paymentType').invalid
+                    }"
+                    formControlName="paymentType"
+                  >
+                    <option
+                      *ngFor="let getDebitForm of getDebitForms"
+                      value="{{ getDebitForm.Id }}"
+                    >
+                      {{ getDebitForm.Name }}
+                    </option>
+                  </select> -->
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('paymentType').touched ||
+                        myform.submitted) &&
+                      createForm.get('paymentType').invalid
+                    "
+                  >
+                    <span class="text-danger">
+                      {{ "Please select payment type" | translate }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-row2">
+              <div class="form-group projects-date status">
+                <label class="required custom-label" for="startDate">{{
+                  "Created" | translate
+                }}</label>
+                <div class="input-group date">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="material-icons">calendar_today</i></span
+                    >
+                  </div>
+                  <input
+                    (keydown)="$event.preventDefault()"
+                    id="startDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control project-date fs-18"
+                    aria-describedby="basic-addon1"
+                    placeholder="{{ 'Choose Start Date' | translate }}"
+                    formControlName="StartDate"
+                    name="StartDate"
+                    [ngClass]="{
+                      'is-invalid':
+                        (createForm.get('StartDate').touched ||
+                          myform.submitted) &&
+                        createForm.get('StartDate').invalid
+                    }"
+                  />
+                </div>
+                <span
+                  class="help-block"
+                  *ngIf="
+                    (createForm.get('StartDate').touched || myform.submitted) &&
+                    createForm.get('StartDate').invalid
+                  "
+                >
+                  <span class="text-danger">
+                    {{ "Please enter start date" | translate }}
+                  </span>
+                </span>
+              </div>
+              <div class="form-group projects-date status">
+                <label class="required custom-label" for="dueDate">{{
+                  "Due Date" | translate
+                }}</label>
+                <div class="input-group date">
+                  <div class="pominalse" *ngIf="ata.Status == 4 && allowEditAta()">
+                    <div>
+                      <div
+                        style="display: flex; gap: 5px"
+                        (click)="pominalseCheck()"
+                      >
+                        <img
+                          src="/assets/img/modify-ata/check-orange.svg"
+                          *ngIf="pominalse"
+                        />
+                        <img
+                          src="/assets/img/modify-ata/uncheck.svg"
+                          *ngIf="!pominalse"
+                        />
+                        <div
+                          [ngStyle]="{
+                            color: pominalse ? 'var(--orange-dark)' : ''
+                          }"
+                          style="text-transform: uppercase"
+                        >
+                          {{ "Reminder" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="material-icons">calendar_today</i></span
+                    >
+                  </div>
+                  <input
+                    (keydown)="$event.preventDefault()"
+                    id="dueDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control project-date fs-18"
+                    [ngClass]="{
+                      'is-invalid':
+                        (createForm.get('DueDate').touched ||
+                          myform.submitted) &&
+                        createForm.get('DueDate').invalid
+                    }"
+                    aria-describedby="basic-addon1"
+                    placeholder="{{ 'Choose Due Date' | translate }}"
+                    formControlName="DueDate"
+                  />
+                </div>
+                <span
+                  class="help-block"
+                  *ngIf="
+                    (createForm.get('DueDate').touched || myform.submitted) &&
+                    createForm.get('DueDate').invalid
+                  "
+                >
+                  <span class="text-danger">
+                    {{ "Please enter start date" | translate }}
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="form-wrapper form-inputs margins">
+              <div class="panel panel-default w-100">
+                <label
+                  for="briefDescription"
+                  class="custom-label brief-description"
+                >
+                  {{ "Brief Description" | translate }}
+                </label>
+                <div class="form-column-wrapper-position">
+                  <div class="form-group" *ngIf="ata.Status == 0">
+                    <textarea
+                      [ngClass]="{
+                        'is-invalid':
+                          (createForm.get('briefDescription').touched ||
+                            createForm.get('briefDescription').dirty) &&
+                          !createForm.get('briefDescription').valid
+                      }"
+                      maxlength="500"
+                      class="form-control fs-18"
+                      id="briefDescription"
+                      rows="3"
+                      formControlName="briefDescription"
+                      (keyup)="autogrow()"
+                    ></textarea>
+                    <small style="opacity: 0.75; color: #fcf4ec"
+                      >{{
+                        createForm.get("briefDescription").value.length
+                      }}/500</small
+                    >
+                  </div>
+                  <!---- ubaceno zbog validacije ATA, neke ATA description prelaze preko 500 karaktera !---->
+                  <div class="form-group" *ngIf="ata.Status != 0">
+                    <textarea
+                      [ngClass]="{
+                        'is-invalid':
+                          (createForm.get('briefDescription').touched ||
+                            createForm.get('briefDescription').dirty) &&
+                          !createForm.get('briefDescription').valid
+                      }"
+                      maxlength="500"
+                      class="form-control"
+                      id="briefDescription"
+                      rows="3"
+                      formControlName="briefDescription"
+                      (keyup)="autogrow()"
+                    ></textarea>
+                    <small style="opacity: 0.75; color: #fcf4ec"
+                      >{{
+                        createForm.get("briefDescription").value.length
+                      }}/500</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row form-wrapper form-inputs">
+    <div class="panel panel-default w-100">
+      <div>
+        <div
+          class="fake-image-modal-container2"
+          *ngIf="ata.Status == 0 && editAta && allowEditAta()"
+        >
+          <app-image-modal
+            (updateAlbums)="updateAlbumsAta($event)"
+            [infoObject]="infoObjectAta"
+            fileType="application/pdf, image/*"
+            type="edit-ata"
+            [key]="getAlbumKeys()[0]"
+            [clearFiles]="$_clearFiles.asObservable()"
+          ></app-image-modal>
+        </div>
+      </div>
+      <fieldset
+        class="fieldset shadow-top-div"
+        style="padding: 1rem; margin-top: 1rem"
+        *ngIf="getAlbumKeys().length > 0"
+      >
+        <span class="title-options__image" (click)="openImgData()">
+          <span> {{ "Bilagor" | translate }}</span>
+          <img
+            src="/assets/img/modify-ata/arrow-down.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="imagesShow"
+          />
+          <img
+            src="/assets/img/modify-ata/arrow-up.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="!imagesShow"
+          />
+        </span>
+        <div *ngIf="imagesShow">
+          <div
+            class="fake-image-modal-container"
+            *ngFor="let albumKey of getAlbumKeys()"
+          >
+            <div class="form-group-upload form-group-upload2">
+              <app-file-preview
+                *ngFor="
+                  let file of getAlbumFiles(albumKey, 'images');
+                  let index = index
+                "
+                type="image"
+                [file]="file"
+                [index]="index"
+                [active]="index"
+                (openSwiper)="
+                  openSwiper(index, getAlbumFiles(albumKey, 'images'), albumKey)
+                "
+                [canRemove]="ata.Status == 0 && userDetails.create_project_Ata"
+                (removeFile)="toggleAttachment(albumKey, $event, 'images')"
+              ></app-file-preview>
+              <!-- <app-file-preview
+                *ngFor="
+                  let file of getAlbumFiles(albumKey, 'pdfs');
+                  let index = index
+                "
+                type="image"
+                [file]="file"
+                [index]="index"
+                [active]="index"
+                (openSwiper)="
+                  openSwiper(index, getAlbumFiles(albumKey, 'pdfs'), albumKey)
+                "
+                [canRemove]="ata.Status == 0"
+                (removeFile)="toggleAttachment(albumKey, $event, 'pdfs')"
+              ></app-file-preview> -->
+              <app-pdfjs-preview
+              *ngFor="let file of getAlbumFiles(albumKey, 'pdfs');let index = index"
+              style="display: flex; cursor: pointer; width: 68px;"
+              type="pdf"
+              (click)=" openSwiper(index,getAlbumFiles(albumKey, 'pdfs'),albumKey)"
+              [pdfUrls]="[file]"
+              [deleted]="file.deleted"
+              [canRemove]="ata.Status == 0 && userDetails.create_project_Ata"
+              [showcheckbox]="true"
+              [index]="index"
+              [active]="index"
+              [width]="68"
+              [height]="43"
+              [borderRadius]="'0px 0px 0px 0px'"
+              [folder]="true"
+              (removeFile)="toggleAttachment(albumKey, $event, 'pdfs')"
+            >
+          </app-pdfjs-preview>
+            </div>
+            <div [innerHTML]="getAlbumDescription(albumKey)"></div>
+        <!--    <div>
+              {{ getAlbumDescription(albumKey) }}
+            </div>-->
+          </div>
+          <div class="image-delete-button-container" *ngIf="editAta">
+            <button
+              type="button"
+              (click)="removeSelectedDocumentsAta($event)"
+              *ngIf="deletedDocumentsAta.length > 0 && userDetails.create_project_Ata"
+              class="btn btn-danger lh09"
+            >
+              <span class="material-icons left-3px top1px posRel">delete</span>
+              <span class="posRel top-5px">
+                {{ "Delete" | translate }}
+              </span>
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="mt-4 ml-20"></div>
+  </div>
+  <div class="form-wrapper mb-3">
+    <div class="panel panel-default w-100">
+      <fieldset class="fieldset shadow-top-div">
+        <span class="title-options first" (click)="toggleMenu('aditionalWork')">
+          <span class="cursor-pointer">
+            {{ "Working hours" | translate }}
+          </span>
+          <img
+            src="/assets/img/modify-ata/arrow-down.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="this.toggle['aditionalWork']"
+          />
+          <img
+            src="/assets/img/modify-ata/arrow-up.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="!this.toggle['aditionalWork']"
+          />
+        </span>
+        <fieldset
+          class="fieldset shadow-top-div no-border"
+          *ngIf="this.toggle['aditionalWork']"
+        >
+          <div class="">
+            <table class="table invoice-table table-bordered additional_work">
+              <thead>
+                <tr>
+                  <th scope="col" class="desc">
+                    {{ "Description" | translate }}
+                  </th>
+                  <th scope="col" clss="quantity">
+                    {{ "Quantity" | translate }}
+                  </th>
+                  <th scope="col" class="unit">{{ "Unit" | translate }}</th>
+                  <th scope="col" class="price">
+                    {{ "Price per unit" | translate }}
+                  </th>
+                  <th scope="col" class="percent">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="17.275"
+                      height="10.458"
+                      viewBox="0 0 17.275 10.458"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_15721"
+                            data-name="Rectangle 15721"
+                            width="17.275"
+                            height="10.458"
+                            fill="#fff"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Group_4226"
+                        data-name="Group 4226"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_1791"
+                          data-name="Path 1791"
+                          d="M47.312,6.918a.379.379,0,0,1-.1-.262V4.788H45.5a.3.3,0,0,1-.235-.106.377.377,0,0,1-.1-.262V4.094a.376.376,0,0,1,.1-.262.3.3,0,0,1,.235-.106h1.715V1.858a.379.379,0,0,1,.1-.262.3.3,0,0,1,.235-.106h.368a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262V3.726h1.7a.3.3,0,0,1,.235.106.377.377,0,0,1,.1.262V4.42a.378.378,0,0,1-.1.262.3.3,0,0,1-.235.106h-1.7V6.656a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106h-.368a.3.3,0,0,1-.235-.106"
+                          transform="translate(-33.004 -1.089)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1792"
+                          data-name="Path 1792"
+                          d="M47.129,29.891a.377.377,0,0,1-.1-.262V29.3a.378.378,0,0,1,.1-.262.3.3,0,0,1,.235-.106h3.469a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262v.326a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106H47.364a.3.3,0,0,1-.235-.106"
+                          transform="translate(-34.365 -21.142)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1793"
+                          data-name="Path 1793"
+                          d="M4.112,4.752a2.2,2.2,0,0,1-1.723.731,2.323,2.323,0,0,1-.978-.2A2.246,2.246,0,0,1,.66,4.729a2.47,2.47,0,0,1-.489-.866A3.527,3.527,0,0,1,0,2.734,2.908,2.908,0,0,1,.652.739,2.185,2.185,0,0,1,2.374,0a2.342,2.342,0,0,1,.97.2A2.226,2.226,0,0,1,4.1.755a2.458,2.458,0,0,1,.489.874,3.607,3.607,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987m-2.568-.66a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653A2.69,2.69,0,0,0,3.22,1.391.959.959,0,0,0,2.374,1a.926.926,0,0,0-.838.405A2.366,2.366,0,0,0,1.272,2.67a2.649,2.649,0,0,0,.272,1.422m.683,6.08a.212.212,0,0,1,.008-.238L7.79.525A.706.706,0,0,1,8.046.27.682.682,0,0,1,8.4.175h.388a.232.232,0,0,1,.21.111.212.212,0,0,1-.008.239L3.43,9.934a.7.7,0,0,1-.256.254.679.679,0,0,1-.349.1H2.436a.232.232,0,0,1-.21-.111m8.341-.445a2.195,2.195,0,0,1-1.722.731,2.325,2.325,0,0,1-.978-.2A2.248,2.248,0,0,1,7.115,9.7a2.464,2.464,0,0,1-.489-.866,3.528,3.528,0,0,1-.171-1.129,2.908,2.908,0,0,1,.652-1.995A2.184,2.184,0,0,1,8.83,4.975a2.338,2.338,0,0,1,.97.2,2.225,2.225,0,0,1,.76.556,2.454,2.454,0,0,1,.489.874,3.608,3.608,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987M8,9.068a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653a2.691,2.691,0,0,0-.272-1.438.96.96,0,0,0-.846-.39.927.927,0,0,0-.838.405,2.368,2.368,0,0,0-.264,1.264A2.651,2.651,0,0,0,8,9.068"
+                          transform="translate(0 0)"
+                          fill="#fff"
+                        />
+                      </g>
+                    </svg>
+                  </th>
+                  <th scope="col" class="summa">{{ "Total" | translate }}</th>
+                  <th scope="col" class="konto">{{ "Account" | translate }}</th>
+                  <th class="revert text-center">
+                    <svg
+                      id="Group_4156"
+                      data-name="Group 4156"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10.742"
+                      height="15.696"
+                      viewBox="0 0 10.742 15.696"
+                    >
+                      <path
+                        id="Path_800"
+                        data-name="Path 800"
+                        d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                        transform="translate(-21.973 -15.119)"
+                        fill="#fcf4ec"
+                      />
+                      <path
+                        id="Path_801"
+                        data-name="Path 801"
+                        d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                        transform="translate(-21.973 -20.489)"
+                        fill="#fcf4ec"
+                      />
+                    </svg>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  [ngStyle]="{
+                    'background-color':
+                      this.ata.Status == 0 ? 'white' : 'transparent'
+                  }"
+                  formArrayName="articlesAdditionalWork"
+                  *ngFor="
+                    let article of articlesAdditionalWork?.controls;
+                    let i = index
+                  "
+                  [ngClass]="
+                    article.value.isEdited
+                      ? 'edited-or-removed-intern-article'
+                      : ''
+                  "
+                >
+                  <td formGroupName="{{ i }}">
+                    <input type="hidden" />
+                    <input
+                      class="form-control form-control-sm article-name-border"
+                      type="text"
+                      #articleName1
+                      formControlName="Name"
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      (blur)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      [attr.data-selected_article]="'additional-work'"
+                      [class.is-invalid]="article.get('Name').invalid"
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="1"
+                      #articleQuantity1
+                      formControlName="Quantity"
+                      (change)="updateTotal(i, articlesAdditionalWork, true)"
+                      [class.is-invalid]="article.get('Quantity').invalid"
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      [attr.data-selected_article]="'additional-work'"
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <select
+                      (mouseenter)="
+                        showDataOnHover(articleUnit1.value, i, 'AdditionalWork')
+                      "
+                      (mouseleave)="notShowDataOnHover(articleUnit1.value, i)"
+                      class="form-control form-control-sm width5em select-property"
+                      #articleUnit1
+                      formControlName="Unit"
+                      (change)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                    >
+                      <option
+                        *ngFor="let unit of units['AdditionalWork']"
+                        value="{{ unit }}"
+                      >
+                        {{ unit }}
+                      </option>
+                    </select>
+                    <div
+                      class="clip"
+                      *ngIf="
+                        overedData &&
+                        overedData.length > 0 &&
+                        i == indexHovered &&
+                        overedType == 'AdditionalWork'
+                      "
+                    ></div>
+                    <div
+                      class="overed-units"
+                      *ngIf="
+                        overedData &&
+                        overedData.length > 0 &&
+                        i == indexHovered &&
+                        overedType == 'AdditionalWork'
+                      "
+                    >
+                      {{ overedData }}
+                    </div>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="0"
+                      [ngStyle]="setPriceError(i, articlesAdditionalWork)"
+                      formControlName="Price"
+                      (change)="updateTotal(i, articlesAdditionalWork, true)"
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      [attr.data-selected_article]="'additional-work'"
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      *ngIf="article.get('Quantity').value > 0"
+                      class="form-control form-control-sm width5em articlesAdditionalWork-{{
+                        i
+                      }}"
+                      type="text"
+                      formControlName="Deduct"
+                      (change)="updateTotal(i, articlesAdditionalWork, true)"
+                      (click)="
+                        updateValue(
+                          article.value.Deduct,
+                          'articlesAdditionalWork',
+                          i
+                        )
+                      "
+                      (blur)="
+                        returnNullIFNotSetedSamoeValue(
+                          article.value.Deduct,
+                          'articlesAdditionalWork',
+                          i
+                        )
+                      "
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      [attr.data-selected_article]="'additional-work'"
+                      number-format-directive-du
+                    />
+                    <span class="white-span" *ngIf="article.get('Quantity').value == 0"></span>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      [attr.data-selected_article]="'additional-work'"
+                      class="form-control form-control-sm total-text-align"
+                      type="text"
+                      #articleTotal1
+                      [value]="
+                        article.get('Total').value | number : '1.2-2' : 'fr'
+                      "
+                      readonly
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <select
+                      class="form-control form-control-sm width5em select-property"
+                      style="max-width: 125px"
+                      #articleAccount1
+                      formControlName="Account"
+                      (change)="
+                        setAccount('additionalWork', articleAccount1.value, i)
+                      "
+                      (change)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      [attr.data-selected_article]="'additional-work'"
+                    >
+                      <option
+                        *ngFor="let account of enabledAccounts"
+                        [value]="account.Number"
+                      >
+                        {{ account.Number }} {{ account.Description }}
+                      </option>
+                    </select>
+                  </td>
+                  <td class="text-center">
+                    <img
+                      *ngIf="ata.Status == 0"
+                      (click)="removeRow(i, articlesAdditionalWork, 1)"
+                      src="/assets/img/gray-trash.svg"
+                      alt=""
+                      class=""
+                    />
+
+                    <div *ngIf="ata.Status != 0">
+                      <svg
+                        id="Group_4157"
+                        data-name="Group 4157"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10.742"
+                        height="15.696"
+                        viewBox="0 0 10.742 15.696"
+                      >
+                        <path
+                          id="Path_800"
+                          data-name="Path 800"
+                          d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                          transform="translate(-21.973 -15.119)"
+                          fill="#858585"
+                        />
+                        <path
+                          id="Path_801"
+                          data-name="Path 801"
+                          d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                          transform="translate(-21.973 -20.489)"
+                          fill="#858585"
+                        />
+                      </svg>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td scope="col" class="total-text-align">
+                    <strong>{{
+                      calcAllTotal([getArticleAdditionalWork])
+                        | number : "1.2-2" : "fr"
+                    }}</strong>
+                  </td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!---->
+        </fieldset>
+      </fieldset>
+    </div>
+  </div>
+  <div class="form-wrapper mb-3">
+    <div class="panel panel-default w-100">
+      <fieldset class="fieldset shadow-top-div">
+        <span
+          class="title-options second"
+          (click)="toggleMenu('material')"
+        >
+          <span class="cursor-pointer">
+            {{ "Material" | translate }}
+          </span>
+
+          <img
+            src="/assets/img/modify-ata/arrow-down.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="this.toggle['material']"
+          />
+          <img
+            src="/assets/img/modify-ata/arrow-up.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="!this.toggle['material']"
+          />
+        </span>
+        <fieldset
+          class="fieldset shadow-top-div no-border"
+          *ngIf="this.toggle['material']"
+        >
+          <div class="">
+            <table class="table invoice-table table-bordered additional_work">
+              <thead>
+                <tr>
+                  <th scope="col" class="desc">
+                    {{ "Description" | translate }}
+                  </th>
+                  <th scope="col" clss="quantity">
+                    {{ "Quantity" | translate }}
+                  </th>
+                  <th scope="col" class="unit">{{ "Unit" | translate }}</th>
+                  <th scope="col" class="price">
+                    {{ "Price per unit" | translate }}
+                  </th>
+                  <th scope="col" class="percent">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="17.275"
+                      height="10.458"
+                      viewBox="0 0 17.275 10.458"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_15721"
+                            data-name="Rectangle 15721"
+                            width="17.275"
+                            height="10.458"
+                            fill="#fff"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Group_4226"
+                        data-name="Group 4226"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_1791"
+                          data-name="Path 1791"
+                          d="M47.312,6.918a.379.379,0,0,1-.1-.262V4.788H45.5a.3.3,0,0,1-.235-.106.377.377,0,0,1-.1-.262V4.094a.376.376,0,0,1,.1-.262.3.3,0,0,1,.235-.106h1.715V1.858a.379.379,0,0,1,.1-.262.3.3,0,0,1,.235-.106h.368a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262V3.726h1.7a.3.3,0,0,1,.235.106.377.377,0,0,1,.1.262V4.42a.378.378,0,0,1-.1.262.3.3,0,0,1-.235.106h-1.7V6.656a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106h-.368a.3.3,0,0,1-.235-.106"
+                          transform="translate(-33.004 -1.089)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1792"
+                          data-name="Path 1792"
+                          d="M47.129,29.891a.377.377,0,0,1-.1-.262V29.3a.378.378,0,0,1,.1-.262.3.3,0,0,1,.235-.106h3.469a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262v.326a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106H47.364a.3.3,0,0,1-.235-.106"
+                          transform="translate(-34.365 -21.142)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1793"
+                          data-name="Path 1793"
+                          d="M4.112,4.752a2.2,2.2,0,0,1-1.723.731,2.323,2.323,0,0,1-.978-.2A2.246,2.246,0,0,1,.66,4.729a2.47,2.47,0,0,1-.489-.866A3.527,3.527,0,0,1,0,2.734,2.908,2.908,0,0,1,.652.739,2.185,2.185,0,0,1,2.374,0a2.342,2.342,0,0,1,.97.2A2.226,2.226,0,0,1,4.1.755a2.458,2.458,0,0,1,.489.874,3.607,3.607,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987m-2.568-.66a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653A2.69,2.69,0,0,0,3.22,1.391.959.959,0,0,0,2.374,1a.926.926,0,0,0-.838.405A2.366,2.366,0,0,0,1.272,2.67a2.649,2.649,0,0,0,.272,1.422m.683,6.08a.212.212,0,0,1,.008-.238L7.79.525A.706.706,0,0,1,8.046.27.682.682,0,0,1,8.4.175h.388a.232.232,0,0,1,.21.111.212.212,0,0,1-.008.239L3.43,9.934a.7.7,0,0,1-.256.254.679.679,0,0,1-.349.1H2.436a.232.232,0,0,1-.21-.111m8.341-.445a2.195,2.195,0,0,1-1.722.731,2.325,2.325,0,0,1-.978-.2A2.248,2.248,0,0,1,7.115,9.7a2.464,2.464,0,0,1-.489-.866,3.528,3.528,0,0,1-.171-1.129,2.908,2.908,0,0,1,.652-1.995A2.184,2.184,0,0,1,8.83,4.975a2.338,2.338,0,0,1,.97.2,2.225,2.225,0,0,1,.76.556,2.454,2.454,0,0,1,.489.874,3.608,3.608,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987M8,9.068a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653a2.691,2.691,0,0,0-.272-1.438.96.96,0,0,0-.846-.39.927.927,0,0,0-.838.405,2.368,2.368,0,0,0-.264,1.264A2.651,2.651,0,0,0,8,9.068"
+                          transform="translate(0 0)"
+                          fill="#fff"
+                        />
+                      </g>
+                    </svg>
+                  </th>
+                  <th scope="col" class="summa">{{ "Total" | translate }}</th>
+                  <th scope="col" class="konto">{{ "Account" | translate }}</th>
+                  <th class="revert text-center">
+                    <svg
+                      id="Group_4156"
+                      data-name="Group 4156"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10.742"
+                      height="15.696"
+                      viewBox="0 0 10.742 15.696"
+                    >
+                      <path
+                        id="Path_800"
+                        data-name="Path 800"
+                        d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                        transform="translate(-21.973 -15.119)"
+                        fill="#fcf4ec"
+                      />
+                      <path
+                        id="Path_801"
+                        data-name="Path 801"
+                        d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                        transform="translate(-21.973 -20.489)"
+                        fill="#fcf4ec"
+                      />
+                    </svg>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  [ngStyle]="{
+                    'background-color':
+                      this.ata.Status == 0 ? 'white' : 'transparent'
+                  }"
+                  formArrayName="articlesMaterial"
+                  *ngFor="
+                    let article of articlesMaterial.controls;
+                    let i = index
+                  "
+                  [ngClass]="
+                    article.value.isEdited
+                      ? 'edited-or-removed-intern-article'
+                      : ''
+                  "
+                >
+                  <td formGroupName="{{ i }}" classs="">
+                    <input type="hidden" formControlName="id" />
+                    <input
+                      class="form-control form-control-sm article-name-border"
+                      list="properties"
+                      #articleName2
+                      formControlName="Name"
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      (change)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      [class.is-invalid]="article.get('Name').invalid"
+                      [attr.data-selected_article]="'article-material'"
+                    />
+                    <span
+                      *ngIf="
+                        article['value'].SupplierInvoiceId &&
+                        article['value'].SupplierInvoiceId != 'NULL' &&
+                        article['value'].SupplierInvoiceId != '0'
+                      "
+                    >
+                      <mat-icon
+                        (click)="
+                          openSwiperSupplierInvoice(null, article['value'])
+                        "
+                        >picture_as_pdf</mat-icon
+                      >
+                    </span>
+                    <datalist id="properties">
+                      <option
+                        *ngFor="let property of materialProperties"
+                        value="{{ property }}"
+                      >
+                        {{ property }}
+                      </option>
+                    </datalist>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="1"
+                      #articleQuantity2
+                      formControlName="Quantity"
+                      (change)="updateTotal(i, articlesMaterial)"
+                      [class.is-invalid]="article.get('Quantity').invalid"
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      [attr.data-selected_article]="'article-material'"
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <select
+                      (mouseenter)="
+                        showDataOnHover(articleUnit2.value, i, 'Material')
+                      "
+                      (mouseleave)="notShowDataOnHover(articleUnit2.value, i)"
+                      class="form-control form-control-sm width5em select-property"
+                      #articleUnit2
+                      formControlName="Unit"
+                      (change)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                    >
+                      <option
+                        *ngFor="let unit of units['Material']"
+                        value="{{ unit }}"
+                      >
+                        {{ unit }}
+                      </option>
+                    </select>
+                    <div
+                      class="clip"
+                      *ngIf="
+                        overedData &&
+                        overedData.length > 0 &&
+                        i == indexHovered &&
+                        overedType == 'Material'
+                      "
+                    ></div>
+                    <div
+                      class="overed-units"
+                      *ngIf="
+                        overedData &&
+                        overedData.length > 0 &&
+                        i == indexHovered &&
+                        overedType == 'Material'
+                      "
+                    >
+                      {{ overedData }}
+                    </div>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="0"
+                      formControlName="Price"
+                      [ngStyle]="setPriceError(i, articlesMaterial)"
+                      (change)="updateTotal(i, articlesMaterial)"
+                      number-format-directive-du
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      [attr.data-selected_article]="'article-material'"
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      *ngIf="article.get('Quantity').value > 0"
+                      class="form-control form-control-sm width5em articlesMaterial-{{
+                        i
+                      }}"
+                      type="text"
+                      formControlName="Deduct"
+                      (change)="updateTotal(i, articlesMaterial)"
+                      (click)="
+                        updateValue(article.value.Deduct, 'articlesMaterial', i)
+                      "
+                      (blur)="
+                        returnNullIFNotSetedSamoeValue(
+                          article.value.Deduct,
+                          'articlesMaterial',
+                          i
+                        )
+                      "
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      [attr.data-selected_article]="'article-material'"
+                      number-format-directive-du
+                    />
+                    <span class="white-span" *ngIf="article.get('Quantity').value == 0"></span>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      class="form-control form-control-sm total-text-align"
+                      type="text"
+                      #articleTotal2
+                      [value]="
+                        article.get('Total').value | number : '1.2-2' : 'fr'
+                      "
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      [attr.data-selected_article]="'article-material'"
+                      readonly
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <select
+                      class="form-control form-control-sm width5em select-property"
+                      style="max-width: 125px"
+                      #articleAccount2
+                      formControlName="Account"
+                      (change)="
+                        setAccount('material', articleAccount2.value, i)
+                      "
+                      (change)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                    >
+                      <option
+                        *ngFor="let account of enabledAccounts"
+                        [value]="account.Number"
+                      >
+                        {{ account.Number }} {{ account.Description }}
+                      </option>
+                    </select>
+                  </td>
+                  <td formGroupName="{{ i }}" class="text-center">
+                    <img
+                      *ngIf="ata.Status == 0"
+                      (click)="removeRow(i, articlesMaterial, 2)"
+                      src="/assets/img/gray-trash.svg"
+                      alt=""
+                      class=""
+                    />
+
+                    <div *ngIf="ata.Status != 0">
+                      <svg
+                        id="Group_4157"
+                        data-name="Group 4157"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10.742"
+                        height="15.696"
+                        viewBox="0 0 10.742 15.696"
+                      >
+                        <path
+                          id="Path_800"
+                          data-name="Path 800"
+                          d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                          transform="translate(-21.973 -15.119)"
+                          fill="#858585"
+                        />
+                        <path
+                          id="Path_801"
+                          data-name="Path 801"
+                          d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                          transform="translate(-21.973 -20.489)"
+                          fill="#858585"
+                        />
+                      </svg>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td scope="col" class="total-text-align">
+                    <strong>
+                      {{
+                        calcAllTotal([getArticleMaterial])
+                          | number : "1.2-2" : "fr"
+                      }}
+                    </strong>
+                  </td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!---->
+        </fieldset>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-wrapper mb-3">
+    <div class="panel panel-default w-100">
+      <fieldset class="fieldset shadow-top-div">
+        <span class="title-options third" (click)="toggleMenu('ui')">
+          <span class="cursor-pointer">
+            {{ "UE/Other" | translate }}
+          </span>
+
+          <img
+            src="/assets/img/modify-ata/arrow-down.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="this.toggle['ui']"
+          />
+          <img
+            src="/assets/img/modify-ata/arrow-up.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="!this.toggle['ui']"
+          />
+        </span>
+        <fieldset
+          class="fieldset shadow-top-div no-border"
+          *ngIf="this.toggle['ui']"
+        >
+          <div class="">
+            <table class="table invoice-table table-bordered additional_work">
+              <thead>
+                <tr>
+                  <th scope="col" class="desc">
+                    {{ "Description" | translate }}
+                  </th>
+                  <th scope="col" clss="quantity">
+                    {{ "Quantity" | translate }}
+                  </th>
+                  <th scope="col" class="unit">{{ "Unit" | translate }}</th>
+                  <th scope="col" class="price">
+                    {{ "Price per unit" | translate }}
+                  </th>
+                  <th scope="col" class="percent">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="17.275"
+                      height="10.458"
+                      viewBox="0 0 17.275 10.458"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_15721"
+                            data-name="Rectangle 15721"
+                            width="17.275"
+                            height="10.458"
+                            fill="#fff"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Group_4226"
+                        data-name="Group 4226"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_1791"
+                          data-name="Path 1791"
+                          d="M47.312,6.918a.379.379,0,0,1-.1-.262V4.788H45.5a.3.3,0,0,1-.235-.106.377.377,0,0,1-.1-.262V4.094a.376.376,0,0,1,.1-.262.3.3,0,0,1,.235-.106h1.715V1.858a.379.379,0,0,1,.1-.262.3.3,0,0,1,.235-.106h.368a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262V3.726h1.7a.3.3,0,0,1,.235.106.377.377,0,0,1,.1.262V4.42a.378.378,0,0,1-.1.262.3.3,0,0,1-.235.106h-1.7V6.656a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106h-.368a.3.3,0,0,1-.235-.106"
+                          transform="translate(-33.004 -1.089)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1792"
+                          data-name="Path 1792"
+                          d="M47.129,29.891a.377.377,0,0,1-.1-.262V29.3a.378.378,0,0,1,.1-.262.3.3,0,0,1,.235-.106h3.469a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262v.326a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106H47.364a.3.3,0,0,1-.235-.106"
+                          transform="translate(-34.365 -21.142)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1793"
+                          data-name="Path 1793"
+                          d="M4.112,4.752a2.2,2.2,0,0,1-1.723.731,2.323,2.323,0,0,1-.978-.2A2.246,2.246,0,0,1,.66,4.729a2.47,2.47,0,0,1-.489-.866A3.527,3.527,0,0,1,0,2.734,2.908,2.908,0,0,1,.652.739,2.185,2.185,0,0,1,2.374,0a2.342,2.342,0,0,1,.97.2A2.226,2.226,0,0,1,4.1.755a2.458,2.458,0,0,1,.489.874,3.607,3.607,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987m-2.568-.66a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653A2.69,2.69,0,0,0,3.22,1.391.959.959,0,0,0,2.374,1a.926.926,0,0,0-.838.405A2.366,2.366,0,0,0,1.272,2.67a2.649,2.649,0,0,0,.272,1.422m.683,6.08a.212.212,0,0,1,.008-.238L7.79.525A.706.706,0,0,1,8.046.27.682.682,0,0,1,8.4.175h.388a.232.232,0,0,1,.21.111.212.212,0,0,1-.008.239L3.43,9.934a.7.7,0,0,1-.256.254.679.679,0,0,1-.349.1H2.436a.232.232,0,0,1-.21-.111m8.341-.445a2.195,2.195,0,0,1-1.722.731,2.325,2.325,0,0,1-.978-.2A2.248,2.248,0,0,1,7.115,9.7a2.464,2.464,0,0,1-.489-.866,3.528,3.528,0,0,1-.171-1.129,2.908,2.908,0,0,1,.652-1.995A2.184,2.184,0,0,1,8.83,4.975a2.338,2.338,0,0,1,.97.2,2.225,2.225,0,0,1,.76.556,2.454,2.454,0,0,1,.489.874,3.608,3.608,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987M8,9.068a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653a2.691,2.691,0,0,0-.272-1.438.96.96,0,0,0-.846-.39.927.927,0,0,0-.838.405,2.368,2.368,0,0,0-.264,1.264A2.651,2.651,0,0,0,8,9.068"
+                          transform="translate(0 0)"
+                          fill="#fff"
+                        />
+                      </g>
+                    </svg>
+                  </th>
+                  <th scope="col" class="summa">{{ "Total" | translate }}</th>
+                  <th scope="col" class="konto">{{ "Account" | translate }}</th>
+                  <th class="revert text-center">
+                    <svg
+                      id="Group_4156"
+                      data-name="Group 4156"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10.742"
+                      height="15.696"
+                      viewBox="0 0 10.742 15.696"
+                    >
+                      <path
+                        id="Path_800"
+                        data-name="Path 800"
+                        d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                        transform="translate(-21.973 -15.119)"
+                        fill="#fcf4ec"
+                      />
+                      <path
+                        id="Path_801"
+                        data-name="Path 801"
+                        d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                        transform="translate(-21.973 -20.489)"
+                        fill="#fcf4ec"
+                      />
+                    </svg>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  [ngStyle]="{
+                    'background-color':
+                      this.ata.Status == 0 ? 'white' : 'transparent'
+                  }"
+                  formArrayName="articlesOther"
+                  *ngFor="let article of articlesOther.controls; let i = index"
+                  [ngClass]="
+                    article.value.isEdited
+                      ? 'edited-or-removed-intern-article'
+                      : ''
+                  "
+                >
+                  <td formGroupName="{{ i }}" class="">
+                    <input type="hidden" formControlName="id" />
+                    <input
+                      class="form-control form-control-sm article-name-border"
+                      type="text"
+                      #articleName3
+                      formControlName="Name"
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                      (blur)="addRow(articlesOther, 'articlesOther', i)"
+                      [class.is-invalid]="article.get('Name').invalid"
+                      [attr.data-selected_article]="'article-other'"
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="1"
+                      #articleQuantity3
+                      formControlName="Quantity"
+                      (change)="updateTotal(i, articlesOther)"
+                      [class.is-invalid]="article.get('Quantity').invalid"
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                      [attr.data-selected_article]="'article-other'"
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <select
+                      (mouseenter)="
+                        showDataOnHover(articleUnit3.value, i, 'Other')
+                      "
+                      (mouseleave)="notShowDataOnHover(articleUnit3.value)"
+                      class="form-control form-control-sm width5em select-property"
+                      #articleUnit3
+                      formControlName="Unit"
+                      (change)="addRow(articlesOther, 'articlesOther', i)"
+                      [attr.data-selected_article]="'article-other'"
+                    >
+                      <option
+                        *ngFor="let unit of units['Other']"
+                        value="{{ unit }}"
+                      >
+                        {{ unit }}
+                      </option>
+                    </select>
+                    <div
+                      class="clip"
+                      *ngIf="
+                        overedData &&
+                        overedData.length > 0 &&
+                        i == indexHovered &&
+                        overedType == 'Other'
+                      "
+                    ></div>
+                    <div
+                      class="overed-units"
+                      *ngIf="
+                        overedData &&
+                        overedData.length > 0 &&
+                        i == indexHovered &&
+                        overedType == 'Other'
+                      "
+                    >
+                      {{ overedData }}
+                    </div>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="0"
+                      formControlName="Price"
+                      [ngStyle]="setPriceError(i, articlesOther)"
+                      (change)="updateTotal(i, articlesOther)"
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                      [attr.data-selected_article]="'article-other'"
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      *ngIf="article.get('Quantity').value > 0"
+                      class="form-control form-control-sm width5em articlesOther-{{
+                        i
+                      }}"
+                      type="text"
+                      formControlName="Deduct"
+                      (change)="updateTotal(i, articlesOther)"
+                      (click)="
+                        updateValue(article.value.Deduct, 'articlesOther', i)
+                      "
+                      (blur)="
+                        returnNullIFNotSetedSamoeValue(
+                          article.value.Deduct,
+                          'articlesOther',
+                          i
+                        )
+                      "
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                      [attr.data-selected_article]="'article-other'"
+                      number-format-directive-du
+                    />
+                    <span class="white-span" *ngIf="article.get('Quantity').value == 0"></span>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      class="form-control form-control-sm total-text-align"
+                      type="text"
+                      #articleTotal3
+                      [value]="
+                        article.get('Total').value | number : '1.2-2' : 'fr'
+                      "
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                      [attr.data-selected_article]="'article-other'"
+                      readonly
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <select
+                      class="form-control form-control-sm width5em select-property"
+                      style="max-width: 125px"
+                      #articleAccount3
+                      formControlName="Account"
+                      (change)="setAccount('other', articleAccount3.value, i)"
+                      (change)="addRow(articlesOther, 'articlesOther', i)"
+                      [attr.data-selected_article]="'article-other'"
+                    >
+                      <option
+                        *ngFor="let account of enabledAccounts"
+                        [value]="account.Number"
+                        [selected]="account.Number == enabledAccounts[0].Number"
+                      >
+                        {{ account.Number }} {{ account.Description }}
+                      </option>
+                    </select>
+                  </td>
+                  <td class="text-center">
+                    <img
+                      *ngIf="ata.Status == 0"
+                      (click)="removeRow(i, articlesOther, 3)"
+                      src="/assets/img/gray-trash.svg"
+                      alt=""
+                      class=""
+                    />
+                    <div *ngIf="ata.Status != 0">
+                      <svg
+                        id="Group_4157"
+                        data-name="Group 4157"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10.742"
+                        height="15.696"
+                        viewBox="0 0 10.742 15.696"
+                      >
+                        <path
+                          id="Path_800"
+                          data-name="Path 800"
+                          d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                          transform="translate(-21.973 -15.119)"
+                          fill="#858585"
+                        />
+                        <path
+                          id="Path_801"
+                          data-name="Path 801"
+                          d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                          transform="translate(-21.973 -20.489)"
+                          fill="#858585"
+                        />
+                      </svg>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td scope="col" class="total-text-align">
+                    <strong>
+                      {{
+                        calcAllTotal([getArticleOther])
+                          | number : "1.2-2" : "fr"
+                      }}
+                    </strong>
+                  </td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!---->
+        </fieldset>
+      </fieldset>
+    </div>
+  </div>
+  <div class="form-wrapper mb-3">
+    <div class="panel panel-default w-100">
+      <div class="">
+        <table class="table table-sm invoice-table table-bordered">
+          <tbody>
+            <tr>
+              <td scope="col" class="total-text-align black">
+                <strong>{{ "Total" | translate }}</strong>
+              </td>
+              <td colspan="3" class="total-text-align" scope="col">
+                <strong>
+                  {{
+                    calcAllTotal([
+                      getArticleAdditionalWork,
+                      getArticleMaterial,
+                      getArticleOther
+                    ]) | number : "1.2-2" : "fr"
+                  }}
+                </strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="buttons-container">
+      <div class="form-group mt-2">
+        <button
+          type="submit"
+          class="save-button-weon"
+          *ngIf="(ata.Status == 0 && allowEditAta()) || (allow_save && allowEditAta())"
+          [attr.disabled]="(!createForm.dirty || !createForm.valid) ? true : null"
+        >
+        <div class="button-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="23.5"
+              height="18.548"
+              viewBox="0 0 23.5 18.548"
+            >
+                <g
+                    id="Skapad_mapp"
+                    data-name="Skapad mapp"
+                    transform="translate(0.75 0.75)"
+                >
+                    <path
+                        id="Path_754"
+                        data-name="Path 754"
+                        d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                        transform="translate(-14.993 -19.629)"
+                        fill="#373b40"
+                    />
+                    <ng-container *ngIf="!createForm.dirty || !createForm.valid">
+                        <path
+                            id="Path_755"
+                            data-name="Path 755"
+                            d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                            transform="translate(-14.993 -19.629)"
+                            fill="none"
+                            stroke="#cccccc"
+                            stroke-width="1.5"
+                            opacity="0.973"
+                        />
+                    </ng-container>
+                    <ng-container *ngIf="createForm.dirty && createForm.valid">
+                        <path
+                            id="Path_755"
+                            data-name="Path 755"
+                            d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                            transform="translate(-14.993 -19.629)"
+                            fill="none"
+                            stroke="#ff7000"
+                            stroke-width="1.5"
+                            opacity="0.973"
+                        />
+                    </ng-container>
+                </g>
+            </svg>
+        </div>
+          <div>
+            {{ "Save" | translate }}
+          </div>
+        </button>
+      </div>
+      <div
+        class="form-group mt-2"
+        *ngIf="
+            ata.Status == '0' &&
+            ata.allowRemoveAta &&
+            ata.BecomeExternalAtaFromInternal == 0 &&
+            ata.Deviation == 0 &&
+            atas.length == 1 &&
+            editAta &&
+            allowEditAta() &&
+            userDetails.create_project_Ata
+        "
+      >
+        <button
+            type="button"
+            class="delete-button-weon"
+            (click)="removeATA()"
+            [disabled]="spinner || !createForm.valid"
+        >
+          <div class="button-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="11"
+              height="16.073"
+              viewBox="0 0 11 16.073"
+            >
+              <g
+                id="Group_4075"
+                data-name="Group 4075"
+                transform="translate(0 0)"
+              >
+                <path
+                  id="Path_800"
+                  data-name="Path 800"
+                  d="M32.964,16.5a.3.3,0,0,0-.286-.313H29.712v-.749a.3.3,0,0,0-.286-.314h-3.89a.3.3,0,0,0-.286.314v.749H22.259a.3.3,0,0,0-.286.313v.922H32.964Z"
+                  transform="translate(-21.973 -15.119)"
+                  fill="#fd4444"
+                />
+                <path
+                  id="Path_801"
+                  data-name="Path 801"
+                  d="M21.973,23.209l1.344,12.638c.034.187.128.282.286.282h7.739c.158,0,.252-.1.286-.282l1.344-12.638Zm2.524,12L23.566,25.7h1.241l.5,9.508Zm3.575,0h-1.3L26.585,25.7H28.23Zm2.27,0h-.808l.5-9.508h1.241Z"
+                  transform="translate(-21.973 -20.056)"
+                  fill="#fd4444"
+                />
+              </g>
+            </svg>
+          </div>
+          <div>
+            {{ "Delete" | translate }}
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+<div
+  class="answerToClient shadow-top-div"
+  style="background-color: #1a1a1a; padding-bottom: 30px"
+  *ngIf="ata?.clientResponses.length > 0"
+>
+  <div
+    class="answer-title"
+    style="
+      background-color: #1a1a1a;
+      margin-left: 82px;
+      text-transform: uppercase;
+    "
+  >
+    {{ "TSC_EDIT_MESS" | translate }}
+  </div>
+  <div
+    style="margin-top: -11px"
+    class="form-column-wrapper-position client-answers rounded"
+    *ngFor="let answer of ata?.clientResponses"
+  >
+    <div class="form-column panel panel-default">
+      <div class="answerFromClient">
+        <div class="" style="margin-top: 30px; position: relative">
+          <div class="form-group">
+            <div style="position: relative; display: flex; width: 489px">
+              <input
+                type="text"
+                class="form-control answer-mail"
+                id="sender"
+                [value]="answer.answerEmail"
+                readonly
+              />
+              <div
+                class="answer-status"
+                [ngStyle]="{
+                  background: setEmailLogData(answer.Status)?.background
+                }"
+              >
+                {{ setEmailLogData(answer.Status)?.name | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="" style="flex-flow: column">
+          <ng-container *ngIf="answer.client_message">
+            <label for="sender">{{ "Comment" | translate }}</label>
+            <textarea class="form-control answer" rows="3" readonly>{{
+              answer.client_message
+            }}</textarea>
+          </ng-container>
+        </div>
+      </div>
+      <div style="margin-left: 36px; margin-top: 10px" *ngFor="let file of answer.files; let index = index">
+        <ng-container *ngIf="file.document_type === 'Pdf'">
+          <!-- <app-file-preview
+            type="pdf"
+            [file]="generateAttachmentImageArray(file)"
+            [index]="'0'"
+            [active]="'0'"
+            [canRemove]="false"
+            (removeFile)="(false)"
+            (openSwiper)="openAttachmentSwiper2(file, answer.files, index)"
+          ></app-file-preview> -->
+            <app-pdfjs-preview
+            style="display: flex; cursor: pointer; width: 68px;"
+            type="pdf"
+            (click)="openAttachmentSwiper2(file, answer.files, index)"
+            [pdfUrls]="[file['file_path']]"
+            [deleted]="file.deleted"
+            [canRemove]="this.userDetails.create_project_Ata"
+            [index]="'0'"
+            [active]="'0'"
+            [width]="68"
+            [height]="43"
+            [borderRadius]="'0px 0px 0px 0px'"
+            [folder]="true"
+            >
+          </app-pdfjs-preview>
+        </ng-container>
+        <ng-container *ngIf="file.document_type === 'Image'">
+          <app-file-preview
+            type="image"
+            [file]="generateAttachmentFileArray(file)"
+            [index]="'0'"
+            [active]="'0'"
+            (openSwiper)="openAttachmentSwiper2(file, answer.files, index)"
+            [canRemove]="this.userDetails.create_project_Ata"
+            (removeFile)="(false)"
+          ></app-file-preview>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<img style="display: none" src="/assets/img/modify-ata/check-orange.svg" />
+<img style="display: none" src="/assets/img/modify-ata/uncheck.svg" />
+<img style="display: none" src="/assets/img/modify-ata/check-orange.svg" />
+<img style="display: none" src="/assets/img/modify-ata/uncheck.svg" />
+<ng-template #otherComponent>
+  <app-gallery
+  *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="true"
+  ></app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    [server]="true"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper()"
+  ></app-pdfjs-viewer>
+</ng-container>

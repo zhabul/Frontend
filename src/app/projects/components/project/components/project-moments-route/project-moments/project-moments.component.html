@@ -1,0 +1,126 @@
+<div class="row">
+  <div class="card bgGrayBlue card-header">
+    <nav class="nav nav-pills nav-justified nav-style">
+      <div class="nav-links">
+        <a
+          [routerLink]="['/timesheets/schedule-calendar']"
+          class="btn btn-dark mr-2 lh09 hideUnder800"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="badgeX badge-darkX material-icons top1px posRel"
+            >arrow_back</span
+          >
+        </a>
+      </div>
+      <div class="nav-title">
+        <h5></h5>
+      </div>
+    </nav>
+  </div>
+  <div class="form-wrapper">
+    <form
+      novalidate
+      autocomplete="off"
+      [formGroup]="createForm"
+      class="form-content-timesheet schedule-form"
+      #myform="ngForm"
+    >
+      <div
+        class="form-group"
+        [ngClass]="{
+          'has-error':
+            (createForm.get('moments').touched ||
+              createForm.get('moments').dirty) &&
+            !createForm.get('moments').valid
+        }"
+      >
+        <label for="moments" class="required">{{
+          "Project Name" | translate
+        }}</label>
+        <input
+          [attr.disabled]="
+            !userDetails.create_project_Settings ? 'disabled' : null
+          "
+          type="text"
+          class="form-control"
+          id="moments"
+          placeholder="{{ 'Enter project moments' | translate }}"
+          formControlName="name"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            (createForm.get('moments').touched ||
+              createForm.get('moments').dirty) &&
+            createForm.get('moments').errors
+          "
+        >
+          <span
+            *ngIf="createForm.get('moments').errors.required"
+            class="text-danger"
+          >
+            {{ "Please enter project moments" | translate }}.
+          </span>
+        </span>
+      </div>
+      <div class="input-time-wrapper col-md-4" *ngIf="allowSet">
+        <div class="form-group">
+          <label for="name">{{ "Set Time" | translate }}</label>
+
+          <div class="input-group mb-3" (click)="openModal()">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="material-icons">alarm</i></span
+              >
+            </div>
+            <input
+              type="text"
+              class="form-control clear-text"
+              id="Hours"
+              placeholder="{{ 'Set Hours' | translate }}"
+              value="{{ modalHour }}"
+              disabled="true"
+              formControlName="Hours"
+              #Hours
+            />
+            <span class="help-block" *ngIf="timeValidator && myform.submitted">
+              <span class="text-danger">
+                {{ "Please set Hours" | translate }}.
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="display-time">
+        <table class="table">
+          <thead class="thead-white">
+            <tr>
+              <th scope="col">Moments</th>
+              <th scope="col">Time</th>
+              <th scope="col">X</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let absence of absences; let index = index">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <span class="btn-delete" (click)="removeProperty(index)"
+                  ><i class="material-icons">clear</i></span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-success lh09">
+            <span class="material-icons left-3px top1px posRel">save</span>
+            <span class="posRel top-5px">{{ "Save" | translate }}</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

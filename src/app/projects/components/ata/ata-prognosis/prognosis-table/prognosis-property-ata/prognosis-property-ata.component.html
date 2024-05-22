@@ -1,0 +1,67 @@
+<div class="main-wrapper">
+  <div
+    class="row-wrapper"
+    [ngStyle]="{ 'grid-template-columns': setGridLayout() }"
+  >
+    <div class="item">
+      <app-prognosis-property-up-arrow
+        *ngIf="areAtasOpen"
+        (click)="onOpenAtas()"
+      ></app-prognosis-property-up-arrow>
+      <app-prognosis-property-down-arrow
+        *ngIf="!areAtasOpen"
+        (click)="onOpenAtas()"
+      ></app-prognosis-property-down-arrow>
+      {{ "TSC_CHANGE" | translate | titlecase }}
+    </div>
+    <div class="item">U</div>
+    <div class="item">{{ "TSC_Debit_form" | translate | titlecase }}</div>
+    <div class="item">
+      <strong>
+        {{
+          ataTotals.totallyWorkedUp_without_status | number : "1.2-2" : "fr"
+        }}</strong
+      >
+    </div>
+    <div class="item">
+      <strong>{{
+        ataTotals.workedButNotApproved_without_status | number : "1.2-2" : "fr"
+      }}</strong>
+    </div>
+    <div class="item">
+      <strong>{{
+        ataTotals.total_sent_wr_without_status | number : "1.2-2" : "fr"
+      }}</strong>
+    </div>
+    <div class="item">
+      <strong>{{
+        ataTotals.approvedForInvoice_without_status | number : "1.2-2" : "fr"
+      }}</strong>
+    </div>
+    <div class="item">
+      <strong>{{
+        ataTotals.invoicedTotal_without_status | number : "1.2-2" : "fr"
+      }}</strong>
+    </div>
+    <div class="item" *ngIf="prognosisTableService.hasRiktpris">
+      <strong>{{
+        ataTotals.richCostTotal_without_status | number : "1.2-2" : "fr"
+      }}</strong>
+    </div>
+    <div class="item">{{ totalOfAtas | number : "1.2-2" : "fr" }}</div>
+    <div class="item"></div>
+  </div>
+  <div class="prognosis-property-ata-row-wrapper" *ngIf="areAtasOpen">
+    <ng-container *ngFor="let ata of atas; let ataIndex = index">
+      <app-prognosis-property-ata-row
+        [activeAtaIndex]="activeAtaIndex"
+        (findNewActiveIndex)="activeIndexListener($event)"
+        [projectIndex]="index"
+        [ataIndex]="ataIndex"
+        [_ata]="ata"
+        [_projectDebit]="projectDebit"
+        [isLocked]="isLocked"
+      ></app-prognosis-property-ata-row>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,921 @@
+<div class="ata-pdf blu-scroll" id="pdfPreview">
+  <ng-container *ngIf="showContainer">
+    <div id="allforheader" class="container-fluid row row-break">
+      <div class="row">
+        <div class="col-4 no-pad-left">
+          <img
+            class="img"
+            src="{{ generalImage }}"
+            alt="logo"
+            style="width: 100%; position: relative; left: -27px"
+          />
+        </div>
+        <div class="col-8 no-pad-right" style="width: 455px">
+          <h4 class="first-letter-up hed">{{ "Deviation" | translate }}</h4>
+          <span class="position-for-page-number">
+            {{ "Page" | translate }} {{ 1 }} {{ "by" | translate }}
+            {{ this.pageTotal }}
+          </span>
+          <div class="row">
+            <div class="col-8 no-pad-left">
+              <h6 class="first-letter-up mb-0">
+                {{ 'Art' | translate }}: {{ getDeviationType(formValues.DeviationType) | translate  }}
+              </h6>
+              <b
+                >{{
+                  formValues?.timesReminderSent > 0
+                    ? formValues?.timesReminderSent > 1
+                      ? ("Reminder" | translate) +
+                        " " +
+                        formValues?.timesReminderSent
+                      : ("Reminder" | translate)
+                    : ""
+                }}
+              </b>
+            </div>
+            <div class="col-4 ata-nub mb-0">
+              <p>
+                <b style="position: relative; left: 34px">
+                  {{ "Nr" | translate }}: {{ project.CustomName }}-U-{{nextDeviationNumber}}
+                </b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-section">
+      <div class="row-break" style="border-bottom: 2px solid #e3e3e3; padding: 5px 0px; margin-bottom: 15px;">
+        <div class="grid-2 row" id="header2">
+          <div class="marg-inl-end">
+            <div class="section">
+              <table class="table">
+                <thead></thead>
+                <tbody>
+                  <tr>
+                    <td class="align-right">
+                      <small>{{ "Project" | translate }}:</small>
+                    </td>
+                    <td>{{ project.CustomName }} {{ project.name }}</td>
+                  </tr>
+                  <tr>
+                    <td class="align-right" style="padding-top: 2%">
+                      <small>
+                        {{"Created by" | translate}}:
+                      </small>
+                    </td>
+                    <td style="padding-top: 2%">
+                      {{
+                        formValues.AuthorName
+                          ? formValues.AuthorName
+                          : userDetails.firstname + " " + userDetails.lastname
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="align-right">
+                      <small>{{ "Sent" | translate }}:</small>
+                    </td>
+                    <td class="leetsp">{{ formValues.email_log_date }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="section marg-inl-end" style="line-height: initial">
+            <table class="table">
+              <thead></thead>
+              <tbody>
+                <tr>
+                  <td class="align-right no-pad-left">
+                    <small>{{ "Application made to" | translate }}:</small>
+                  </td>
+                  <td class="no-pad-left">{{ formValues.client_worker }}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td class="no-pad-top no-pad-left">
+                    {{ formValues.clientName }} <br />
+                    {{ formValues.street }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="no-pad-top"></td>
+                  <td class="no-pad-left">
+                    {{ formValues.zip }} {{ formValues.city }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid-2 row" id="header3">
+          <div style="padding-left: 5px">
+            <div class="section">
+              <p>
+                <small>{{ "Heading" | translate }}:</small>
+              </p>
+              <p>
+                <b>{{ project.CustomName }}-U-{{ nextDeviationNumber }}</b> <br />
+                <b>{{ formValues.Title }}</b>
+              </p>
+            </div>
+          </div>
+          <div class="marg-left-9">
+            <div class="section">
+              <br/>
+              <p style="font-family: 'Arial Narrow' !important; font-size: 12px !important; color: #040404 !important;">
+                {{ "In order to minimize the time," | translate }}
+                {{
+                  ("cost consequences and not cause any obstacles, we need the above order" | translate).substring(0, 58)
+                }}
+                {{ "message at the latest" | translate }}:
+                <b> {{ formValues.DueDate.substring(0, 10) }}</b>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- <span class="row-break"><hr style="margin-top: 1px!important;" class="hr"></span> -->
+      </div>
+
+      <div *ngIf="formValues.Description?.trim()">
+        <span class="row-break">
+          <p class="input-section-label" style="margin-left: 3px">
+            {{ "Description" | translate | uppercase }}
+          </p>
+        </span>
+
+        <div *ngFor="let description of desc">
+          <div style="height: 18px !important" class="row row-break paddingfordata">
+            {{ description }}
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="formValues.Reason?.trim()">
+        <span class="row-break">
+          <p class="input-section-label" style="margin-left: 3px; padding-top: 10px">
+            {{ "Reason" | translate | uppercase }}
+          </p>
+        </span>
+
+        <div class="" *ngFor="let reason of res">
+          <div *ngIf="reason == '\n'"></div>
+          <div style="height: 18px !important" class="row row-break paddingfordata">
+            {{ reason }}
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="formValues.State?.trim()">
+        <span class="row-break">
+          <p class="input-section-label" style="margin-left: 3px; padding-top: 10px">
+            {{ "State" | translate | uppercase }}
+          </p>
+        </span>
+        <div class="" *ngFor="let state of stat">
+          <div *ngIf="reason == '\n'"></div>
+          <div style="height: 18px !important" class="row row-break paddingfordata">
+            {{ state }}
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="formValues.Suggestion?.trim()">
+        <span class="row-break">
+          <p class="input-section-label" style="margin-left: 3px; padding-top: 10px">
+            {{ "Suggestion" | translate | uppercase }}
+          </p>
+        </span>
+
+        <div class="" *ngFor="let suggestion of sugg">
+          <div *ngIf="suggestion == '\n'"></div>
+          <div style="height: 18px !important" class="row row-break paddingfordata">
+            {{ suggestion }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row-width  row-break" *ngIf="formValues?.clientResponses?.length < 1 && internalDeviationChat?.length < 1 && clientResponses?.length < 1">
+        <div class="footer">
+          <p class="title">{{ "The above is approved" | translate }}</p>
+          <p class="signature-field">
+            {{ "city" | translate }}, {{ "date" | translate }}
+          </p>
+          <p class="signature-field">{{ "Signature" | translate }}</p>
+          <p class="signature-field">
+            {{ "All prices are excluding VAT" | translate }}
+          </p>
+        </div>
+      </div>
+
+      <span class="row-break" *ngIf="type == 'external'">
+        <div class="footer-section mt-2 pt-2">
+          <div class="footer-text">
+            <p class="reject-footer">
+              {{ "P_U_MSG_6" | translate }}
+            </p>
+          </div>
+
+          <div id="prefooterbox" class="my-grid-2 heightforfooter" *ngIf="clientResponses?.length > 0">
+            <div [ngClass]="clientResponses?.length > 0 ? 'digital-answer' : ''"  style="line-height: normal">
+              <div style="margin-bottom: 0.5rem" *ngIf="clientResponses?.length">
+                <b class="message-client">
+                  {{ "Message from Client" | translate }}:
+                </b>
+              </div>
+              <div class="section" style="padding-left: 5px">
+
+                <div *ngIf="clientResponses?.length > 0">
+                  <div class="">
+                    <div
+                      class="responses-container"
+                      style="align-items: center"
+                      *ngFor="
+                        let clientResponse of clientResponses;
+                        let index = index;
+                        let last = last;
+                        let first = first
+                      "
+                    >
+                      <div style="padding: unset">
+                        <div>
+                          <span style="font-size: smaller">{{
+                            clientResponse.answerDate
+                          }}</span>
+                          <ng-container *ngIf="clientResponse?.manualReply == 1">
+                            <div style="font-size: smaller">
+                              <span *ngIf="clientResponse?.Status == 2">
+                                - {{ "Manually accepted by" | translate }}
+                                <span class="for-accept">
+                                <button class="acceptbtn-mannualy border-0">
+                                  {{ "Accepterad" | translate }}
+                                </button>
+                              </span>
+                              </span>
+                              <span *ngIf="clientResponse?.Status == 3">
+                                - {{ "Manually rejected by" | translate }}
+                              </span>
+                              <span *ngIf="clientResponse?.Status == 0">
+                                - {{ "Manually revisioned by" | translate }}
+                              </span>
+                            </div>
+                          </ng-container>
+                          <div style="font-size: smaller">
+                            <ng-container
+                              *ngIf="clientResponse.answerEmail.length >= 30; else elseTemplate"
+                            >
+                              <ng-container>
+                                {{ clientResponse.answerEmail.split("@")[0] }}
+                                <br />
+                                {{ clientResponse.answerEmail.split("@")[1] }}
+                              </ng-container>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                              {{ clientResponse.answerEmail }}
+                              <br/>
+                              <div
+                                *ngIf="(first || mainContact && mainContact.email != clientResponse.answerEmail) &&
+                                  clientResponse?.Status == 4 &&
+                                  this.deviationDeclined == false
+                                "
+                                class="for-accept"
+                              >
+                                <div class="accept-first-message">
+                                  {{ "P_U_MSG_5" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                                *ngIf="
+                                  clientResponse?.Status == 4 &&
+                                  this.deviationDeclined == true
+                                "
+                                class="for-decline"
+                              >
+                                <div class="reject-first-message">
+                                  {{ "P_U_MSG_5" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                              *ngIf="(first || mainContact && mainContact.email != clientResponse.answerEmail) && clientResponse?.manualReply != 1 &&
+                                  clientResponse?.Status == 2 &&
+                                  this.deviationDeclined == false
+                                "
+                                class="for-accept"
+                              >
+                                <div class="accept-first-message">
+                                  {{ "TSC_BTN_SUCCESS" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                                *ngIf="
+                                  clientResponse?.Status == 2 &&
+                                  this.deviationDeclined == true
+                                "
+                                class="for-decline"
+                              >
+                                <div class="reject-first-message-sec-status">
+                                    {{ "TSC_BTN_SUCCESS" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                                *ngIf="clientResponse?.Status == 1 && clientResponse?.client_message"
+                                class="for-accept"
+                              >
+                              <div [ngClass]="this.deviationDeclined ? 'reject-first-message' : 'questiontmessage'">
+                                {{  "Question" | translate }}
+                              </div>
+                              </div>
+                            <div *ngIf="clientResponse?.Status == 6" class="for-accept">
+                              <div [ngClass]="this.deviationDeclined ? 'reject-first-message' : 'answaremessage'">{{ "Respond" | translate }}</div>
+                          </div>
+
+                            <div *ngIf="clientResponse?.Status == 9" class="for-accept">
+                              <div [ngClass]="this.deviationDeclined ? 'reject-first-message' : 'svarmessage'">{{ "Client Answer" | translate }}</div>
+                            </div>
+
+                              <span
+                                *ngIf="(mainContact && mainContact.email == clientResponse.answerEmail && index!='0') &&
+                                  (clientResponse?.Status == 4 ||
+                                    clientResponse?.Status == 2)
+                                "
+                                class="for-accept"
+                              >
+                                <button class="acceptbtn border-0">
+                                  {{ "Accepterad" | translate }}
+                                </button>
+                              </span>
+                            </ng-template>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="accepted-answ justify-flex"
+                        *ngIf=" clientResponse?.Status == 2 || clientResponse?.Status == 4"
+                      ></div>
+                      <div class="answ-delinced justify-flex"*ngIf="clientResponse?.Status == 3"></div>
+                      <div
+                        class="answ-question justify-flex"
+                        *ngIf="clientResponse?.Status == 0 || clientResponse?.Status == 1"
+                      ></div>
+                      <div
+                        class="answ-answ justify-flex"
+                        *ngIf="clientResponse?.Status == 6|| clientResponse?.Status == 9"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="reject-size" *ngIf="this.deviationDeclined == true">
+                <div class="reject-message">
+                  {{ "INGEN ÅTGÄRD" | translate }} <br />
+                  {{ "TSC_VI_VALJER" | translate }}
+                </div>
+              </div>
+            </div>
+            <div
+              [ngClass]="
+                checkClientResponse(clientResponses) ? 'beskriving-class' : ''
+              "
+              style="cursor: default"
+            >
+              <div
+                id="heightemailbox"
+                [ngClass]="
+                  (formValues?.Status == 3 ||
+                    formValues?.Status == 2 ||
+                    formValues?.Status == 4 ||
+                    formValues?.Status == 1 || formValues?.Status == 9  || formValues?.Status == 0) &&
+                  checkClientResponse(clientResponses)
+                    ? 'digital-accepterar-message'
+                    : ''
+                "
+                *ngIf="clientResponses?.length > 0"
+              >
+                <div
+                  class="test12"
+                  style="display: contents"
+                  *ngFor="
+                    let clientResponse of clientResponses;
+                    let index = index;
+                    let last = last;
+                    let first = first
+                  "
+                >
+                  <span
+                    *ngIf="
+                      clientResponse?.client_message ||
+                      !clientResponse?.client_message
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        clientResponse?.client_message ||
+                        (last && !clientResponse?.client_message)
+                      "
+                    >
+                      <div
+                        *ngIf="clientResponse?.client_message && first == true"
+                        [ngStyle]="shouldCrossover(index)"
+                        style="font-size: smaller"
+                      >
+                        <div
+                          style="margin-left: 0px; margin-top: -10px"
+                          *ngIf="!first == true"
+                        >
+                          <hr />
+                        </div>
+                        {{ clientResponse.answerEmail }}
+                      </div>
+                      <div
+                        *ngIf="clientResponse?.client_message && first == false"
+                        [ngStyle]="shouldCrossover(index)"
+                        style="font-size: smaller; margin-left: 24px"
+                      >
+                        <div
+                          style="margin-left: 0px; margin-top: -10px"
+                          *ngIf="!first == true"
+                        >
+                          <hr class="hrforansware" />
+                        </div>
+                        {{ clientResponse.answerEmail }}
+                      </div>
+
+                      <div
+                        [ngStyle]="shouldCrossover(index)"
+                        class="firstansweremessage"
+                        *ngIf="clientResponse?.client_message && first == true"
+                      >
+                        {{ clientResponse?.client_message }}<br />
+                      </div>
+                      <div
+                        [ngStyle]="shouldCrossover(index)"
+                        class="client-answere paddinganswer"
+                        *ngIf="clientResponse?.client_message && first == false"
+                      >
+                        {{ clientResponse?.client_message }}<br />
+                      </div>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr *ngIf="formValues?.Status == 0" cass="hr break-row" />
+      </span>
+
+      <span class="row-break" *ngIf="type == 'internal'">
+        <div class="footer-section mt-2 pt-2">
+          <div class="footer-text">
+            <p class="reject-footer">
+              {{ "P_U_MSG_6" | translate }}
+            </p>
+          </div>
+
+          <div id="prefooterbox" class="my-grid-2 heightforfooter" *ngIf="(internalDeviationChat?.length > 0 && internalDeviationChat[0].InternalDevReplayStatus !== null) || filteredClientResponses.length > 0">
+            <div [ngClass]="((internalDeviationChat?.length > 0 && internalDeviationChat[0].InternalDevReplayStatus !== null) || filteredClientResponses.length > 0) ? 'digital-answer' : ''"  style="line-height: normal">
+              <div style="margin-bottom: 0.5rem" *ngIf="internalDeviationChat?.length">
+                <b class="message-client">
+                  {{ "Message from Client" | translate }}:
+                </b>
+              </div>
+              <div class="section" style="padding-left: 5px">
+
+                <div *ngIf="internalDeviationChat?.length > 0">
+                  <div class="">
+                    <div
+                      class="responses-container"
+                      style="align-items: center"
+                      *ngFor="
+                        let internalDeviationChat of internalDeviationChat;
+                        let index = index;
+                        let last = last;
+                        let first = first
+                      "
+                    >
+                      <div style="padding: unset">
+                        <div *ngIf="internalDeviationChat?.InternalDevReplayStatus !== null">
+                          <span style="font-size: smaller">{{
+                            internalDeviationChat.updated_at
+                          }}</span>
+                          <ng-container *ngIf="internalDeviationChat?.replay == 1">
+                            <div style="font-size: smaller">
+                              <span *ngIf="internalDeviationChat?.InternalDevReplayStatus == 2">
+                                - {{ "Manually accepted by" | translate }}
+                                <span class="for-accept">
+                                <button class="acceptbtn-mannualy border-0">
+                                  {{ "Svarade" | translate }}
+                                </button>
+                              </span>
+                              </span>
+                              <span *ngIf="internalDeviationChat?.InternalDevReplayStatus == 3">
+                                - {{ "Manually rejected by" | translate }}
+                              </span>
+                              <span *ngIf="internalDeviationChat?.InternalDevReplayStatus == 0">
+                                - {{ "Manually revisioned by" | translate }}
+                              </span>
+                            </div>
+                          </ng-container>
+                          <div style="font-size: smaller">
+                            <ng-container
+                              *ngIf="internalDeviationChat.user_email.length >= 30; else elseTemplate"
+                            >
+                              <ng-container>
+                                {{ internalDeviationChat.user_email.split("@")[0] }}
+                                <br />
+                                {{ internalDeviationChat.user_email.split("@")[1] }}
+                              </ng-container>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                              {{ internalDeviationChat.user_email }}
+                              <br/>
+                              <div
+                                *ngIf="(first || mainContact && mainContact.email != internalDeviationChat.user_email) &&
+                                  internalDeviationChat?.InternalDevReplayStatus == 4 &&
+                                  this.deviationDeclined == false &&
+                                  internalDeviationChat?.message
+                                "
+                                class="for-accept"
+                              >
+                                <div class="accept-first-message">
+                                  {{ "P_U_MSG_5" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                                *ngIf="
+                                  internalDeviationChat?.InternalDevReplayStatus == 4 &&
+                                  this.deviationDeclined == true &&
+                                  internalDeviationChat?.message
+                                "
+                                class="for-decline"
+                              >
+                                <div class="reject-first-message">
+                                  {{ "P_U_MSG_5" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                              *ngIf="(first || mainContact && mainContact.email != internalDeviationChat.updated_at ) && internalDeviationChat?.replay != 1 &&
+                                  internalDeviationChat?.InternalDevReplayStatus == 2 &&
+                                  this.deviationDeclined == false
+                                "
+                                class="for-accept"
+                              >
+                                <div class="accept-first-message">
+                                  {{ "TSC_BTN_SUCCESS" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                                *ngIf="
+                                  internalDeviationChat?.InternalDevReplayStatus == 2 &&
+                                  this.deviationDeclined == true
+                                "
+                                class="for-decline"
+                              >
+                                <div class="reject-first-message-sec-status">
+                                    {{ "TSC_BTN_SUCCESS" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                                *ngIf="internalDeviationChat?.InternalDevReplayStatus == 1 && internalDeviationChat?.message"
+                                class="for-accept"
+                              >
+                              <div [ngClass]="this.deviationDeclined ? 'reject-first-message' : 'questiontmessage'">
+                                {{  "Question" | translate }}
+                              </div>
+                              </div>
+                            <div *ngIf="internalDeviationChat?.InternalDevReplayStatus == 6" class="for-accept">
+                              <div [ngClass]="this.deviationDeclined ? 'reject-first-message' : 'answaremessage'">{{ "Respond" | translate }}</div>
+                            </div>
+
+                            <div *ngIf="internalDeviationChat?.InternalDevReplayStatus == 9" class="for-accept">
+                              <div [ngClass]="this.deviationDeclined ? 'reject-first-message' : 'svarmessage'">{{ "Client Answer" | translate }}</div>
+                            </div>
+
+                              <span
+                                *ngIf="(mainContact && mainContact.email == internalDeviationChat.updated_atndex!='0') &&
+                                  (internalDeviationChat?.InternalDevReplayStatus == 4 ||
+                                  internalDeviationChat?.InternalDevReplayStatus == 2)
+                                "
+                                class="for-accept"
+                              >
+                                <button class="acceptbtn border-0">
+                                  {{ "Svarad" | translate }}
+                                </button>
+                              </span>
+                            </ng-template>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="accepted-answ justify-flex"
+                        *ngIf=" internalDeviationChat?.InternalDevReplayStatus == 2 || internalDeviationChat?.InternalDevReplayStatus == 4"
+                      ></div>
+                      <div class="answ-delinced justify-flex"*ngIf="internalDeviationChat?.InternalDevReplayStatus == 3"></div>
+                      <div
+                        class="answ-question justify-flex"
+                        *ngIf="internalDeviationChat?.InternalDevReplayStatus == 0 || internalDeviationChat?.InternalDevReplayStatus == 1"
+                      ></div>
+                      <div
+                        class="answ-answ justify-flex"
+                        *ngIf="internalDeviationChat?.InternalDevReplayStatus == 6|| internalDeviationChat?.InternalDevReplayStatus == 9"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="filteredClientResponses?.length > 0">
+                  <div class="">
+                    <div
+                      class="responses-container"
+                      style="align-items: center"
+                      *ngFor="
+                        let clientResponses of clientResponses;
+                        let index = index;
+                        let last = last;
+                        let first = first
+                      "
+                    >
+                      <div style="padding: unset">
+                        <div *ngIf="clientResponses?.Status !== null">
+                          <span style="font-size: smaller">{{
+                            clientResponses.answerDate
+                          }}</span>
+                          <ng-container *ngIf="clientResponses?.manualReply == 1">
+                            <div style="font-size: smaller">
+                              <span *ngIf="clientResponses?.Status == 2">
+                                - {{ "Manually accepted by" | translate }}
+                                <span class="for-accept">
+                                <button class="acceptbtn-mannualy border-0">
+                                  {{ "Svarade" | translate }}
+                                </button>
+                              </span>
+                              </span>
+                              <span *ngIf="clientResponses?.Status == 3">
+                                - {{ "Manually rejected by" | translate }}
+                              </span>
+                              <span *ngIf="clientResponses?.Status == 0">
+                                - {{ "Manually revisioned by" | translate }}
+                              </span>
+                            </div>
+                          </ng-container>
+                          <div style="font-size: smaller">
+                            <ng-container
+                              *ngIf="clientResponses.answerEmail.length >= 30; else elseTemplate"
+                            >
+                              <ng-container>
+                                {{ clientResponses.answerEmail.split("@")[0] }}
+                                <br />
+                                {{ clientResponses.answerEmail.split("@")[1] }}
+                              </ng-container>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                              {{ clientResponses.answerEmail }}
+                              <br/>
+                              <div
+                                *ngIf="(first || mainContact && mainContact.email != clientResponses.answerEmail) &&
+                                  clientResponses?.Status == 4 &&
+                                  this.deviationDeclined == false &&
+                                  clientResponses?.client_message
+                                "
+                                class="for-accept"
+                              >
+                                <div class="accept-first-message">
+                                  {{ "P_U_MSG_5" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                                *ngIf="
+                                  clientResponses?.Status == 4 &&
+                                  this.deviationDeclined == true &&
+                                  clientResponses?.client_message
+                                "
+                                class="for-decline"
+                              >
+                                <div class="reject-first-message">
+                                  {{ "P_U_MSG_5" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                              *ngIf="(first || mainContact && mainContact.email != clientResponses.answerDate ) && clientResponses?.manualReply != 1 &&
+                                  clientResponses?.Status == 2 &&
+                                  this.deviationDeclined == false
+                                "
+                                class="for-accept"
+                              >
+                                <div class="accept-first-message">
+                                  {{ "TSC_BTN_SUCCESS" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                                *ngIf="
+                                  clientResponses?.Status == 2 &&
+                                  this.deviationDeclined == true
+                                "
+                                class="for-decline"
+                              >
+                                <div class="reject-first-message-sec-status">
+                                    {{ "TSC_BTN_SUCCESS" | translate }}
+                                </div>
+                              </div>
+
+                              <div
+                                *ngIf="clientResponses?.Status == 1 && clientResponses?.client_message"
+                                class="for-accept"
+                              >
+                              <div [ngClass]="this.deviationDeclined ? 'reject-first-message' : 'questiontmessage'">
+                                {{  "Question" | translate }}
+                              </div>
+                              </div>
+                            <div *ngIf="clientResponses?.Status == 6" class="for-accept">
+                              <div [ngClass]="this.deviationDeclined ? 'reject-first-message' : 'answaremessage'">{{ "Respond" | translate }}</div>
+                            </div>
+
+                            <div *ngIf="clientResponses?.Status == 9" class="for-accept">
+                              <div [ngClass]="this.deviationDeclined ? 'reject-first-message' : 'svarmessage'">{{ "Client Answer" | translate }}</div>
+                            </div>
+
+                              <span
+                                *ngIf="(mainContact && mainContact.email == clientResponses.updated_atndex!='0') &&
+                                  (clientResponses?.Status == 4 ||
+                                  clientResponses?.Status == 2)
+                                "
+                                class="for-accept"
+                              >
+                                <button class="acceptbtn border-0">
+                                  {{ "Svarad" | translate }}
+                                </button>
+                              </span>
+                            </ng-template>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="accepted-answ justify-flex"
+                        *ngIf=" clientResponses?.Status == 2 || clientResponses?.Status == 4"
+                      ></div>
+                      <div class="answ-delinced justify-flex"*ngIf="clientResponses?.Status == 3"></div>
+                      <div
+                        class="answ-question justify-flex"
+                        *ngIf="clientResponses?.Status == 0 || clientResponses?.Status == 1"
+                      ></div>
+                      <div
+                        class="answ-answ justify-flex"
+                        *ngIf="clientResponses?.Status == 6|| clientResponses?.Status == 9"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="reject-size" *ngIf="this.deviationDeclined == true">
+                <div class="reject-message">
+                  {{ "INGEN ÅTGÄRD" | translate }} <br />
+                  {{ "TSC_VI_VALJER" | translate }}
+                </div>
+              </div>
+            </div>
+            <div
+              class="beskriving-class"
+              style="cursor: default"
+            >
+              <div
+                id="heightemailbox"
+                [ngClass]="{
+                  'digital-accepterar-message': checkMessage(internalDeviationChat)
+                }"
+                *ngIf="internalDeviationChat?.length > 0"
+              >
+                <div
+                  class="test12"
+                  style="display: contents"
+                  *ngFor="
+                    let internalDeviationChat of internalDeviationChat;
+                    let index = index;
+                    let last = last;
+                    let first = first
+                  "
+                >
+                  <span
+                    *ngIf="
+                      internalDeviationChat?.message ||
+                      !internalDeviationChat?.message
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        internalDeviationChat?.message ||
+                        (last && !internalDeviationChat?.message)
+                      "
+                    >
+                      <div
+                        *ngIf="internalDeviationChat?.message && first == true"
+                        [ngStyle]="shouldCrossover(index)"
+                        style="font-size: smaller"
+                      >
+                        <div
+                          style="margin-left: 0px; margin-top: -10px"
+                          *ngIf="!first == true"
+                        >
+                          <hr />
+                        </div>
+                        {{ internalDeviationChat.user_email }}
+                      </div>
+                      <div
+                        *ngIf="internalDeviationChat?.message && first == false"
+                        [ngStyle]="shouldCrossover(index)"
+                        style="font-size: smaller; margin-left: 24px"
+                      >
+                        <div
+                          style="margin-left: 0px; margin-top: -10px"
+                          *ngIf="!first == true"
+                        >
+                          <hr class="hrforansware" />
+                        </div>
+                        {{ internalDeviationChat.user_email }}
+                      </div>
+
+                      <div
+                        [ngStyle]="shouldCrossover(index)"
+                        class="firstansweremessage"
+                        *ngIf="internalDeviationChat?.message && first == true"
+                      >
+                        {{ internalDeviationChat?.message }}<br />
+                      </div>
+                      <div
+                        [ngStyle]="shouldCrossover(index)"
+                        class="client-answere paddinganswer"
+                        *ngIf="internalDeviationChat?.message && first == false"
+                      >
+                        {{ internalDeviationChat?.message }}<br />
+                      </div>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr *ngIf="formValues?.Status == 0" cass="hr break-row" />
+      </span>
+
+      <div
+        id="forfooter"
+        style="line-height: normal !important"
+        class="grid footer-data"
+        *ngIf="generals && generals.length > 0"
+      >
+        <div>
+          <div class="section">
+            <p>
+              <b>{{ "Postadress" | translate }}</b>
+            </p>
+            <p>{{ generalKeys["Company_Name"] }}</p>
+            <p>{{ generalKeys["Company_Address"] }}</p>
+            <p>
+              {{ generalKeys["Company_Zip"] }} {{ generalKeys["Company_City"] }}
+            </p>
+          </div>
+        </div>
+        <div class="marg-inl marg-right-16">
+          <div class="section">
+            <p>
+              <b>{{ "Telefon" | translate }}</b>
+            </p>
+            <p>{{ generalKeys["Company_Phone"] }}</p>
+            <p>
+              <b>{{ "Momsreg.nr" | translate }}</b>
+            </p>
+            <p>{{ generalKeys["Company_VAT_number"] }}</p>
+          </div>
+        </div>
+        <div class="marg-inl marg-right-m16">
+          <div class="section">
+            <p>{{ "Approved for F tax" | translate }}</p>
+            <br />
+            <p>{{ "Deviation" | translate }} {{ "skapad" | translate }} i</p>
+            <p>SPS360</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

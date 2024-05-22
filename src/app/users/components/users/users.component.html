@@ -1,0 +1,493 @@
+<div class="row menu-container" style="display: block !important">
+  <div class="user-menu" id="topFeeder">
+    <nav class="nav nav-pills nav-justified">
+      <div class="nav-links d-flex w-100">
+        <a routerLink="/home" class="btn mr-2 lh09 hideUnder800 back-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <img src="/assets/img/arrow_back.svg" alt="">
+          <span class="back-button">{{'Home' | translate}}</span>
+        </a>
+        <a routerLink="/my-account" class="btn mr-2 lh09 hideUnder800 account-link" routerLinkActive="active">
+          <img src="/assets/img/user-icon.svg" alt="">
+          <div class="account-button text-uppercase">{{ "My Account" | translate }}</div>
+        </a>
+        <div class="menu-section row w-100">
+          <div class="btn-wrapper">
+            <a routerLink="/users/new" class="btn mr-2 pt-1 new-user-button" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              *ngIf="userDetails.create_users_Global"
+            >
+              {{ "New User" | translate }}
+            </a>
+            <form class="form-inline my-2X my-lg-0" style="margin:0 20px;">
+                <div class="input-search-wrapper">
+                    <span class="material-icons search-icon">
+                    search
+                    </span>
+                    <input type="text" id="searchInput" class="form-control search-form" style="background-color: #44484c;" #searchInput (input)="onChange(searchInput)"
+                    placeholder="{{ 'Search' | translate }}">
+                    <span class="clear-icon" (click)="clearSearchText($event)" *ngIf="existString">
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10.189"
+                        height="10.189"
+                        viewBox="0 0 10.189 10.189"
+                        >
+                        <path
+                            id="Path_783"
+                            data-name="Path 783"
+                            d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z"
+                            transform="translate(3.622 4.382)"
+                            fill="#fcf4ec"
+                        />
+                        </svg>
+                    </span>
+                </div>
+            </form>
+            <div style="width: 210px" *ngIf="getAllTypes().length > 0">
+              <app-dropdown-filter
+              style="position: relative; z-index: 100;"
+              [placeholder]="'ANSTALLNINGTYP'"
+              [items]="getAllTypes()"
+              (sendToParentComponent)="filterUsersByTypes($event)"
+              (triggerParentFunction)="finalSelectedUsers()"
+              [disableSelect]="false"
+            ></app-dropdown-filter>
+            </div>
+
+            <div style="width: 210px; margin-left: 20px;" *ngIf="getAllRoles().length > 0">
+              <app-dropdown-filter
+              style="position: relative; z-index: 100;"
+              [placeholder]="'ARBETESROLL'"
+              [items]="getAllRoles()"
+              (sendToParentComponent)="filterUsersByRoles($event)"
+              (triggerParentFunction)="finalSelectedUsers()"
+              [disableSelect]="false"
+            ></app-dropdown-filter>
+            </div>
+
+            <div style="width: 210px; margin-left: 20px;" *ngIf="getAllStatus().length > 0">
+              <app-dropdown-filter
+              style="position: relative; z-index: 100;"
+              [placeholder]="'ARBETESTATUS'"
+              [items]="getAllStatus()"
+              [isStatus]="true"
+              (sendToParentComponent)="filterUsersByStatus($event)"
+              (triggerParentFunction)="finalSelectedUsers()"
+              [disableSelect]="false"
+            ></app-dropdown-filter>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<!-- <div class="row mb-5 filters">
+  <div class="first-select col-4">
+    <div class="button-container" [class.container-open]="buttonToggle">
+
+      <button [class.button-open]="buttonToggle" class="btn btn-dropdown" (click)="buttonNameSummary($event, type)">
+
+        <span style="text-align: left;">{{'ANSTÄLLNINGTYP'|translate}}</span>
+
+        <svg [ngClass]="buttonToggle == false ? '': 'd-none'" class="arrow-down-icon" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="8" viewBox="0 0 15 8">
+          <defs>
+            <clipPath id="clip-path">
+              <path id="Path_758" data-name="Path 758" d="M0,.274H15v-8H0Z" transform="translate(0 7.726)"
+                fill="#858585" />
+            </clipPath>
+          </defs>
+          <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+            <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+              <path id="Path_757" data-name="Path 757"
+                d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5"
+                transform="translate(0.136 1.156)" fill="#858585" />
+            </g>
+          </g>
+        </svg>
+        <img style="justify-self: right;" [ngClass]="buttonToggle == true ? '': 'd-none'" class="dropdown-icon"
+          src="../../../../assets/img/arrow-up.svg">
+      </button>
+      <div class="summary-dropdown" [ngClass]="buttonToggle ? '' : 'd-none' ">
+        <div class="border-summary">
+          <div class="dropdown-list" (click)="filterByType('Own Personal')">
+            <span class="ml-2 ">{{ "Own Personal" | translate }}</span>
+            <span *ngIf="typeObjectUsers['Own Personal'] == false">
+              <img src="assets/img/circle-icon.svg" class="list-icon">
+            </span>
+            <span>
+              <img class="list-icon" src="assets/img/check-icon.svg" alt=""
+                [ngClass]="typeObjectUsers['Own Personal'] == true ? '': 'd-none'">
+            </span>
+          </div>
+
+          <div class="dropdown-list" (click)="filterByType('Inhyrd personal')">
+            <span class="ml-2 ">Inhyrd personal</span>
+            <span *ngIf="typeObjectUsers['Inhyrd personal'] == false">
+              <img src="assets/img/circle-icon.svg" class="list-icon">
+            </span>
+            <span>
+              <img class="list-icon" src="assets/img/check-icon.svg" alt=""
+                [ngClass]="typeObjectUsers['Inhyrd personal'] == true ? '': 'd-none'">
+            </span>
+          </div>
+
+          <div class="dropdown-list" (click)="filterByType('Subcontractor')">
+            <span class="ml-2 ">{{ "Subcontractor" | translate }}</span>
+            <span *ngIf="typeObjectUsers['Subcontractor'] == false">
+              <img src="assets/img/circle-icon.svg" class="list-icon">
+            </span>
+            <span>
+              <img class="list-icon" src="assets/img/check-icon.svg" alt=""
+                [ngClass]="typeObjectUsers['Subcontractor'] == true ? '': 'd-none'">
+            </span>
+          </div>
+
+          <div class="dropdown-list" (click)="filterByType('Konslult')">
+            <span class="ml-2 ">Konslult</span>
+            <span *ngIf="typeObjectUsers['Konslult'] == false">
+              <img src="assets/img/circle-icon.svg" class="list-icon">
+            </span>
+            <span>
+              <img class="list-icon" src="assets/img/check-icon.svg" alt=""
+                [ngClass]="typeObjectUsers['Konslult'] == true ? '': 'd-none'">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class=" second-select form-select col-4">
+
+    <div class="button-container" [class.container-open]="buttonToggle1">
+
+      <button [class.button-open]="buttonToggle1" class="btn btn-dropdown" (click)="buttonNameSummary1($event, type)">
+
+        <span style="text-align: left;">{{'ARBETESROLL'|translate}}</span>
+
+        <svg [ngClass]="buttonToggle1 == false ? '': 'd-none'" class="arrow-down-icon"
+          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="8"
+          viewBox="0 0 15 8">
+          <defs>
+            <clipPath id="clip-path">
+              <path id="Path_758" data-name="Path 758" d="M0,.274H15v-8H0Z" transform="translate(0 7.726)"
+                fill="#858585" />
+            </clipPath>
+          </defs>
+          <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+            <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+              <path id="Path_757" data-name="Path 757"
+                d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5"
+                transform="translate(0.136 1.156)" fill="#858585" />
+            </g>
+          </g>
+        </svg>
+
+        <img style="justify-self: right;" [ngClass]="buttonToggle1 == true ? '': 'd-none'" class="dropdown-icon"
+          src="../../../../assets/img/arrow-up.svg">
+      </button>
+      <div class="summary-dropdown" [ngClass]="buttonToggle1 ? '' : 'd-none' " style="width: 211px;">
+        <div class="border-summary">
+          <div class="dropdown-list" (click)="filterByRole('Arbetsledare')">
+            <span class="ml-2 ">Arbetsledare</span>
+            <span *ngIf="roleObjectUsers['Arbetsledare'] == false">
+              <img src="assets/img/circle-icon.svg" class="list-icon">
+            </span>
+            <span>
+              <img class="list-icon" src="assets/img/check-icon.svg" alt=""
+                [ngClass]="roleObjectUsers['Arbetsledare'] == true ? '': 'd-none'">
+            </span>
+          </div>
+
+          <div class="dropdown-list" (click)="filterByRole('Ledande montör')">
+            <span class="ml-2 ">Ledande Montör</span>
+            <span *ngIf="roleObjectUsers['Ledande montör']==false">
+              <img src="assets/img/circle-icon.svg" class="list-icon">
+            </span>
+            <span>
+              <img class="list-icon" src="assets/img/check-icon.svg" alt=""
+                [ngClass]="roleObjectUsers['Ledande montör'] == true ? '': 'd-none'">
+            </span>
+          </div>
+
+          <div class="dropdown-list" (click)="filterByRole('Montör')">
+            <span class="ml-2 ">Montör</span>
+            <span *ngIf="roleObjectUsers['Montör']==false">
+              <img src="assets/img/circle-icon.svg" class="list-icon">
+            </span>
+            <span>
+              <img class="list-icon" src="assets/img/check-icon.svg" alt=""
+                [ngClass]="roleObjectUsers['Montör'] == true ? '': 'd-none'">
+            </span>
+          </div>
+
+          <div class="dropdown-list" (click)="filterByRole('Diverse')">
+            <span class="ml-2 ">Diverse</span>
+            <span *ngIf="roleObjectUsers['Diverse']==false">
+              <img src="assets/img/circle-icon.svg" class="list-icon">
+            </span>
+            <span>
+              <img class="list-icon" src="assets/img/check-icon.svg" alt=""
+                [ngClass]="roleObjectUsers['Diverse'] == true ? '': 'd-none'">
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="third-select col-4">
+    <div class="button-container" [class.container-open]="buttonToggle2">
+
+      <button [class.button-open]="buttonToggle2" class="btn btn-dropdown" (click)="buttonNameSummary2($event, type)">
+
+        <span style="text-align: left;">{{'ARBETESTATUS'|translate}}</span>
+
+        <svg [ngClass]="buttonToggle2 == false ? '': 'd-none'" class="arrow-down-icon"
+          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="8"
+          viewBox="0 0 15 8">
+          <defs>
+            <clipPath id="clip-path">
+              <path id="Path_758" data-name="Path 758" d="M0,.274H15v-8H0Z" transform="translate(0 7.726)"
+                fill="#858585" />
+            </clipPath>
+          </defs>
+          <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+            <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+              <path id="Path_757" data-name="Path 757"
+                d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5"
+                transform="translate(0.136 1.156)" fill="#858585" />
+            </g>
+          </g>
+        </svg>
+
+        <img style="justify-self: right;" [ngClass]="buttonToggle2 == true ? '': 'd-none'" class="dropdown-icon"
+          src="../../../../assets/img/arrow-up.svg">
+      </button>
+      <div class="summary-dropdown" [ngClass]="buttonToggle2 ? '' : 'd-none' " style="width: 211px;">
+        <div class="border-summary">
+          <div class="dropdown-list" (click)="filterByStatus('Active')">
+            <div class="ml-2 text-uppercase">{{"Active" | translate}}</div>
+            <span *ngIf="statusObjectUsers['Active']==false">
+              <img src="assets/img/green-circle-icon.svg" class="list-icon">
+            </span>
+            <span>
+              <img class="list-icon" src="assets/img/green-check-icon.svg" alt=""
+                [ngClass]="statusObjectUsers['Active'] == true ? '': 'd-none'">
+            </span>
+          </div>
+
+          <div class="dropdown-list" (click)="filterByStatus('Inactive')">
+            <span class="ml-2 text-uppercase">{{"Inactive" | translate}}</span>
+            <span *ngIf="statusObjectUsers['Inactive']==false">
+              <img src="assets/img/pink-circle-icon.svg" class="list-icon">
+            </span>
+            <span *ngIf="statusObjectUsers['Inactive']==true">
+              <img class="list-icon" src="assets/img/pink-check-icon.svg" alt="">
+            </span>
+          </div>
+
+          <div class="dropdown-list" (click)="filterByStatus('Incoming')">
+            <span class="ml-2 text-uppercase">{{ "Incoming" | translate }}</span>
+            <span *ngIf="statusObjectUsers['Incoming']==false">
+              <img src="assets/img/orange-circle-icon.svg" class="list-icon">
+            </span>
+            <span *ngIf="statusObjectUsers['Incoming']==true">
+              <img class="list-icon" src="assets/img/orange-check-icon.svg" alt="">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+<!-- Ispod dodati one potrebne buttone -->
+
+<!-- <div class="btn-wrapper">
+  <div style="width: 210px">
+    <app-dropdown-filter
+    style="position: relative; z-index: 1;"
+    [placeholder]="'ANSTALLNINGTYP'"
+    [items]="getAllTypes()"
+    (sendToParentComponent)="filterUsersByTypes($event)"
+    (triggerParentFunction)="finalSelectedUsers()"
+  ></app-dropdown-filter>
+  </div>
+
+  <div style="width: 210px; margin-left: 40px;">
+    <app-dropdown-filter
+    style="position: relative; z-index: 1;"
+    [placeholder]="'ARBETESROLL'"
+    [items]="getAllRoles()"
+    (sendToParentComponent)="filterUsersByRoles($event)"
+    (triggerParentFunction)="finalSelectedUsers()"
+  ></app-dropdown-filter>
+  </div>
+
+  <div style="width: 210px; margin-left: 40px;">
+    <app-dropdown-filter
+    style="position: relative; z-index: 1;"
+    [placeholder]="'ARBETESTATUS'"
+    [items]="getAllStatus()"
+    [isStatus]="true"
+    (sendToParentComponent)="filterUsersByStatus($event)"
+    (triggerParentFunction)="finalSelectedUsers()"
+  ></app-dropdown-filter>
+  </div>
+
+</div>
+ -->
+
+
+
+
+<div class="row mb-4 users-block" style="user-select: none;">
+  <div class="card col-12X users-table">
+    <div class="empty">
+      <div class="users-header">
+        <div class="header-item first-two">{{"Nr" | translate}}</div>
+        <div class="header-item first-two" (click)="setOrder('employeeNumber')">Anställnings Nr</div>
+        <div class="header-item rest" (click)="setOrder('firstname')">{{ "First Name" | translate }}</div>
+        <div class="header-item rest" (click)="setOrder('lastname')">{{ "Last Name" | translate }}</div>
+        <div class="header-item rest" (click)="setOrder('mobile')">{{ "Mobile" | translate }}</div>
+        <div class="header-item rest" (click)="setOrder('type')">Anställningstyp</div>
+        <div class="header-item rest" (click)="setOrder('email')">{{ "Email" | translate }}</div>
+        <div class="header-item rest" (click)="setOrder('role')">Arbetsroll</div>
+        <div class="header-item first-two" (click)="setOrder('status')">{{ "Status" | translate }}</div>
+      </div>
+      <div [class.skrollbar-hide]="users?.length < 1" class="table-wrapper" id="skrollbar">
+        <div class="border-div"></div>
+        <div class="border-div1"></div>
+
+
+        <div class="users-table-body" *ngFor="let user of allUsersCopy; let i = index;" routerLink="{{ '/users/edit/' + user.id }}">
+          <div class="users-table-row">
+            <div style="
+            background-color: black;
+            color: white;
+          " class="table-body-items first-two">{{ i + 1 }}</div>
+          <div [ngClass]="{'table-body-items-darker': i%2!=0}" class="table-body-items rest orange-border orange-border-left">{{ user.employeeNumber }}</div>
+          <div [ngClass]="{'table-body-items-darker': i%2!=0}" class="table-body-items rest orange-border">{{ user.firstname }}</div>
+          <div [ngClass]="{'table-body-items-darker': i%2!=0}" class="table-body-items rest orange-border">{{ user.lastname }}</div>
+          <div [ngClass]="{'table-body-items-darker': i%2!=0}" class="table-body-items rest orange-border">{{ user.mobile }}</div>
+          <div [ngClass]="{'table-body-items-darker': i%2!=0}" class="table-body-items rest orange-border">{{ user.type | translate }}</div>
+          <div [ngClass]="{'table-body-items-darker': i%2!=0}" class="table-body-items rest orange-border">{{ user.email }}</div>
+          <div [ngClass]="{'table-body-items-darker': i%2!=0}" class="table-body-items rest orange-border">{{ user.role | translate }}</div>
+          <div class="table-body-items first-two orange-border orange-border-right" [ngClass]="{
+            'cursor-default': state != 'small',
+            'cursor-pointer': state == 'small',
+            'badge-primary': user.status.toLowerCase() === 'active',
+            'badge-secondary': user.status.toLowerCase() == 'inactive',
+            'badge-three': user.status.toLowerCase() == 'incoming',
+            'badge-locked': user.status.toLowerCase() == 'locked'
+          }"
+            style="font-weight: bold;">{{
+            user.status == "Active" || user.status =="active"
+            ? ("Active" | translate)
+            : user.status == "Inactive"
+            ? ("Inactive" | translate)
+            : user.status == "Locked"
+            ? ("Locked" | translate )
+            : ("Incoming" | translate )
+            }}</div>
+          </div>
+        </div>
+
+
+<!--         <table class="table table-striped table-responsiveX table-responsive-under800" style="margin-bottom: 0">
+          <thead class="table-header">
+            <th class="nr-row" style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            ">
+              {{ "Nr" | translate }}
+            </th>
+            <th (click)="setOrder('employeeNumber')" class="emp-number">
+              Anställnings Nr
+            </th>
+            <th (click)="setOrder('firstname')" class="first_name cursor-pointer">
+              {{ "First Name" | translate }}
+            </th>
+            <th (click)="setOrder('lastname')" class="surname cursor-pointer">
+              {{ "Last Name" | translate }}
+            </th>
+            <th (click)="setOrder('mobile')" class="mobile cursor-pointer">
+              {{ "Mobile" | translate }}
+            </th>
+            <th (click)="setOrder('type')" class="employee cursor-pointer">
+              Anställningstyp
+            </th>
+            <th (click)="setOrder('email')" class="email cursor-pointer">
+              {{ "Email" | translate }}
+            </th>
+            <th (click)="setOrder('role')" class="role cursor-pointer">
+              Arbetsroll
+            </th>
+
+            <th (click)="setOrder('status')" class="status cursor-pointer">
+              {{ "Status" | translate }}
+            </th>
+          </thead>
+          <tbody class="table-body">
+            <tr *ngFor="
+              let user of allUsers; let i = index
+            " routerLink="{{ '/users/edit/' + user.id }}" style="cursor: pointer">
+              <td style="background: black; " class="nr-row">{{ i+1 }}</td>
+              <td>{{ user.employeeNumber }}</td>
+              <td>{{ user.firstname }}</td>
+              <td>{{ user.lastname }}</td>
+              <td>{{ user.mobile }}</td>
+              <td>{{ user.type | translate }}</td>
+              <td>{{ user.email }}</td>
+              <td style="white-space: nowrap">{{ user.role | translate }}</td>
+
+              <td class="text-center" [ngClass]="{
+              'cursor-default': state != 'small',
+              'cursor-pointer': state == 'small',
+              'badge-primary': user.status.toLowerCase() === 'active',
+              'badge-secondary': user.status.toLowerCase() == 'inactive',
+              'badge-three': user.status.toLowerCase() == 'kommande'
+            }">
+                <span class="badge" [ngClass]="{
+                  'cursor-default': state != 'small',
+                  'cursor-pointer': state == 'small',
+                  'badge-primary': user.status.toLowerCase() === 'active',
+                  'badge-secondary': user.status.toLowerCase() == 'inactive',
+                  'badge-three': user.status.toLowerCase() == 'kommande'
+                }">
+                  <span>{{
+                    user.status == "Active" || user.status =="active"
+                    ? ("Active" | translate)
+                    : user.status == "Inactive"
+                    ? ("Inactive" | translate)
+                    : ("Incoming" | translate )
+                    }}</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table> -->
+
+        <!-- <div style="width: 100px; height: 100px; background-color: red;"></div> -->
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

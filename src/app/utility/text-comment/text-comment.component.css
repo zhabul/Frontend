@@ -1,0 +1,543 @@
+/* .quill-container {
+  padding-left: 100px;
+  padding-right: 100px;
+}*/
+
+.color-div{
+  display: flex;
+
+}
+
+.answer-bordered {
+  border-style: solid;
+  border-width: 4px;
+  border-radius: 10px;
+}
+
+.content-div{
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.imagesWrapper{
+  /* margin-left: 25px; */
+  /* border: 1px solid #858585; */
+}
+
+.blu-scroll{
+  border: 1px solid var(--border-color);
+}
+
+.scroll-wrapp{
+  position: relative;
+}
+
+.blu-scroll-width{
+  width: 248px;
+}
+.border-class{
+  border: 1px solid #858585;
+}
+
+.thin-red-line-right {
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  right: 1px;
+  background-color: var(--border-color);
+  width: 1px;
+}
+
+.comment-border{
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.fake-image-modal-container {
+  /* margin-top: 0.5rem; */
+  position: relative;
+  /* min-height: 80px; */
+  color:#ffffff;
+}
+/* .new-border-class{
+  border:1px solid #858585;
+} */
+
+.custom-toolbar{
+  display: flex;
+  justify-content: space-evenly;
+  margin: -34px 0px 0px 15px;
+  width: 700px;
+}
+
+.mright{
+  margin-right: 135px;
+  visibility: hidden;
+}
+
+.pointtt{
+  z-index: 3;
+  cursor: pointer;
+}
+
+.bullet, .txt-style, .text-head, .color-div{
+  width: 100%;
+}
+
+.bullet, .txt-style, .text-head{
+ border-right: 1px solid grey;
+}
+
+.alooo{
+  display: flex;
+  justify-content: end;
+  margin-right: 15px;
+}
+
+.ql-editor p {
+  text-indent: 30px;
+  margin-top: 10px;
+}
+
+p.linebreak-true {
+  text-indent: 0px;
+  margin-top: 0px;
+}
+
+.lalaa{
+  margin-left: 25px;
+}
+
+::ng-deep .ql-picker-label{
+  border-color:#fff !important;
+}
+
+::ng-deep .ql-picker-label svg {
+  right: 12px !important;
+}
+
+::ng-deep .ql-picker-options {
+  top: 34px;
+}
+
+.color_box{
+  margin-left: 20px;
+  margin-top: 3px;
+  margin-right: 5px;
+
+}
+
+::ng-deep .ql-snow {
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 6px !important;
+}
+
+::ng-deep quill-editor {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+::ng-deep .ql-editor{
+  min-height: 324px;
+}
+
+.quill-container-offer {
+  width: 914px;
+}
+
+::ng-deep .ql-list{
+  position: relative;
+  left: 250px;
+}
+
+::ng-deep .ql-align{
+  position: relative;
+  left: 155px;
+}
+
+::ng-deep .ql-background {
+  position: relative;
+  left: 295px;
+}
+
+::ng-deep .ql-color {
+  position: relative;
+  left: 150px;
+}
+
+
+::ng-deep .ql-picker.ql-font{
+  display: none;
+}
+
+::ng-deep .ql-container {
+  font-size: 16px;
+	line-height: 1;
+	/* font-family: 'PT Sans'; */
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.ql-font{
+  display: none;
+}
+
+.text-head{
+  background: white;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.comment-btn-drop{
+  box-shadow: 0 -7px 10px rgb(0 0 0 / 40%);
+  cursor: pointer;
+  padding: 0 20px;
+  outline: none;
+  position: relative;
+  z-index: 8;
+  height: 30px;
+  margin-left: 70px;
+  color: #FFFFFF;
+  background: #373b40;
+  border: 2px #808080 solid;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-bottom: -2px;
+  margin-top: 30px;
+  border-bottom: none;
+}
+
+.koment-section-type{
+  margin-top: -10px;
+  margin-right: 1px;
+}
+
+.card-body{
+  border-top-left-radius: 10px;
+  /* border-top-right-radius: 10px; */
+  border: 2px #808080 solid;
+  background: #373b40;
+  display: flex;
+  /* justify-self: center;
+  align-items: center; */
+  border-bottom: none;
+  margin-bottom: 30px;
+  border-left: none;
+  border-right: none;
+  /* padding-right: 12px; */
+}
+
+.rotate-icon{
+  transform: scale3d(1, -1, 1);
+  transition: ease-in-out 0.5s;
+}
+
+.aligns{
+  position: absolute;
+  left:787px;
+  z-index: 999;
+  cursor: pointer;
+  opacity: 0;
+}
+.line{
+  width: 100%;
+  height: 10px;
+  border: 2px #808080 solid;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: none;
+  box-shadow: 0 -6px 5px -2px rgb(0 0 0 / 32%);
+}
+
+.add-section{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: -45px;
+}
+
+.add-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 20px;
+  border: 2px #FF7000 solid;
+  border-radius: 10px;
+  background: #373b40;
+  margin-right: 50px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.5s;
+}
+
+.add-btn:hover{
+  transform: scale(1.1, 1.1);
+}
+
+.flex{
+  display: flex;
+}
+
+.add-img{
+  margin-right: 15px;
+}
+
+.add-txt-orange{
+  margin: 0;
+  color: #FF7000;
+  text-transform: uppercase;
+}
+
+.delete-div{
+  position: relative;
+}
+
+.font-fam{
+  width: 45px;
+  opacity: 0;
+  position: absolute;
+  right: 4px;
+  cursor: pointer;
+}
+
+.delete-btn{
+  position: absolute;
+  bottom: -7px;
+  left: -25px;
+  cursor: pointer;
+  transition: all  0.3s;
+}
+
+.delete-btn:hover{
+  transform: scale(1.2, 1.1);
+
+}
+
+.text-area-comment{
+  position: relative;
+  margin-top: 20px;
+  width: 1044px;
+  height: 324px;
+  border-radius: 1px;
+  background: #FFFFFF;
+}
+
+.txtarea-c{
+  resize: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 250px;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 8px;
+}
+
+.edits-comment{
+  position: absolute;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 300px repeat(2, 1fr) 300px;
+  width: 100%;
+  bottom: 0;
+}
+
+.edit-1,
+.edit-2,
+.edit-3,
+.edit-4{
+  display: flex;
+  border: 1px #808080 solid;
+}
+
+.edit-1{
+  /*border-bottom-left-radius: 10px;*/
+  justify-content: end;
+  position: relative;
+}
+
+.edit-4{
+  justify-content: space-evenly;
+  border-bottom-right-radius: 10px;
+}
+
+.edit-2 p{
+margin: 0;
+font-size: 18px;
+cursor: pointer;
+}
+
+.edit-2{
+  justify-content: space-evenly;
+}
+
+.edit-3{
+  justify-content: center;
+}
+
+.aaa{
+  text-decoration: none;
+  color: black;
+}
+
+.edit-b{
+  font-weight: 700;
+}
+
+.edit-i{
+  font-size: 18px;
+  font-style: italic;
+  font-family: none;
+}
+
+.edit-u{
+  font-size: 18px;
+  text-decoration: underline;
+}
+
+.edit-s{
+  font-size: 18px;
+  text-decoration: line-through;
+}
+
+.margin-top-3{
+  margin-top: 3px;
+}
+
+.point{
+  cursor: pointer;
+}
+
+.spara-btn{
+  display: flex;
+  justify-content: space-evenly;
+  background: #373b40;
+  border: 1px #FF7000 solid;
+  border-radius: 6px;
+  height: 30px;
+  width: 100px;
+  margin-left: 128px;
+  cursor: pointer;
+  transition: all .5s;
+  margin-top: 50px;
+}
+
+.spara-btn:hover{
+  transform: scale(1.1, 1.1);
+}
+
+.modal-header{
+  border-bottom: none;
+}
+
+.modal-footer{
+  border-top: none;
+}
+
+.modal-dialog{
+  display: flex;
+  justify-content: center;
+}
+
+.orange-txt{
+  color: #FF7000;
+}
+
+.modal-content{
+  width: 120px;
+  height: 140px;
+  /* -moz-box-shadow: 0 0 3px #ccc;
+  -webkit-box-shadow: 0 0 3px #ccc;
+  box-shadow: 0 0 40px #ccc; */
+  background: #373b40;
+  color: white;
+  border-radius: 8px;
+  border: 3px solid #FF7000;
+}
+
+.modal-body{
+  text-align: center;
+  font-size: 13px;
+}
+
+.modal-footer{
+  justify-content: center;
+}
+
+.modal-btn{
+  width: 80px;
+  border: 1.5px solid white !important;
+  border-radius: 6px!important;
+}
+
+.spara-txt p{
+  color: #FF7000;
+  margin: 0;
+  font-size: 15px;
+  margin-top: 2px;
+}
+
+.bg-c{
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  border: 1px grey solid;
+}
+
+
+::ng-deep .ql-header{
+  position: relative;
+  left: -100px;
+  border: white;
+  color: white;
+  transition: none;
+
+}
+
+::ng-deep .ql-picker.ql-expanded{
+  border-color: #fff;
+}
+
+
+::ng-deep .ql-picker.ql-header{
+
+  border: white;
+  transition: none;
+  border-color: #fff;
+}
+
+::ng-deep .ql-strike {
+  position: relative;
+  left: 210px;
+}
+
+::ng-deep .ql-underline {
+  position: relative;
+  left: 205px;
+  top:1px;
+}
+
+::ng-deep .ql-italic {
+  position: relative;
+  left: 200px;
+}
+
+::ng-deep .ql-bold {
+  position: relative;
+  left: 200px;
+}
+
+::ng-deep ul {
+  white-space: pre-wrap !important;
+}
+
+::ng-deep ol {
+  white-space: pre-wrap !important;
+}
+
+::ng-deep li {
+  white-space: pre-wrap !important;
+}

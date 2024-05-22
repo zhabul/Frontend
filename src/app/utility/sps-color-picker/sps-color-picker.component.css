@@ -1,0 +1,17 @@
+.color-picker-box {
+    cursor: pointer;
+    position: relative;
+}
+
+.sps-color-picker {
+    position: absolute;
+    left: -8px;
+    top: 4px;
+    z-index: 1;
+    transform: scale(0.55);
+}
+
+.sps-color-picker-icon {
+    position: relative;
+    z-index: 2;
+}

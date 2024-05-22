@@ -1,0 +1,54 @@
+<div class="simple-select-wrapper">
+  <div 
+  class="custom-select-title disable-select form-group"
+  (click)="onShowItems()"
+  [ngClass]="{'custom-select-shadow': showItems, 'custom-select-title-open': showItems, 'make-border-orange': makeBorderOrange}"
+  [ngStyle]="{
+    'background-color': isMyAccount ? 'transparent' : 'white',
+    'color': isMyAccount ? 'white' : '#373b40',
+    'pointer-events': isMyAccount ? 'none' : ''
+  }"
+  >
+    <div class="smaller-height">
+      <div>
+        <ng-container *ngIf="!hasSmallerContainer">
+          <p [ngClass]="{'custom-title-select-selected': isSelectedFont, 'custom-title-select-placeholder': !isSelectedFont}" style="display: inline-block;">{{ (placeholder | translate).length>25? (placeholder | translate | slice:0:25)+'...' : (placeholder | translate)}}</p>
+        </ng-container>
+        <ng-container *ngIf="hasSmallerContainer">
+          <p [ngClass]="{'custom-title-select-selected': isSelectedFont, 'custom-title-select-placeholder': !isSelectedFont}" style="display: inline-block;">{{ (placeholder | translate).length>16? (placeholder | translate | slice:0:16)+'...' : (placeholder | translate)}}</p>
+        </ng-container>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" class="svg-custom-down" *ngIf="!showItems"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" class="svg-custom-up" *ngIf="showItems" [ngClass]="{'svg-custom-up-open': showItems}"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-select-list" *ngIf="showItems"
+       [ngClass]="{'custom-select-list-form': isForm}"
+    >
+
+    <div [ngClass]="{'skroller-bigger': needBigger, 'skroller-smaller': !needBigger}">
+      <div class="custom-select-list-item disable-select" (click)="onSelectEmpty()" *ngIf="hasFirstMinusLine">
+        -
+      </div>
+
+      <ng-container *ngIf="!hasSecondLabel">
+        <div class="custom-select-list-item disable-select" *ngFor="let item of items" (click)="onSelect(item)">
+          {{ item[label] | translate }}
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="hasSecondLabel">
+        <div class="custom-select-list-item disable-select" *ngFor="let item of items" (click)="onSelect(item)">
+          {{ item[label] + " " + item[secondLabel] | translate }}
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div class="custom-select-list-bottom-border" *ngIf="showItems"></div>
+
+  </div>
+
+
+</div>

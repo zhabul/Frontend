@@ -1,0 +1,257 @@
+.minw200 {
+  min-width: 200px;
+  border: none;
+  height: 39px;
+}
+
+.maxw60 {
+  /* max-width: 60px; */
+  height: 100%;
+    border: 0px;
+    border-radius: 0px;
+}
+
+.w50 {
+  width: 50px;
+}
+
+.ng-invalid:not(td).ng-touched {
+  border: 1px solid red;
+}
+
+#looksLikeModal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: hsla(0, 0%, 0%, 0.4);
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.choose-file-button {
+  color: #17a2b8;
+  border-color: #17a2b8;
+  cursor: pointer;
+  width: 200px;
+}
+
+.choose-file-button:hover {
+  color: white;
+  background-color: #17a2b8;
+  cursor: pointer;
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .w-100W {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .tab-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+}
+
+.modal-backgroud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal-box {
+  padding-top: 20px;
+}
+
+.modal-box-content {
+  width: 800px;
+  background: white;
+  border-radius: 5px;
+}
+
+.modal-close {
+  cursor: pointer;
+}
+
+
+
+
+/***header****/
+.border-nav {
+  border: 1.5px solid;
+  border-right: none;
+  margin-right: -1150px;
+  border-color: var(--border-color);
+  height: 61px;
+}
+.border-h-project {
+  /* border-right: 1.5px solid; */
+  border-color: var(--border-color);
+  height: 59px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.nyProject {
+  padding-left: 55px !important;
+}
+
+a.home {
+  margin-left: 30px;
+}
+
+.title-project {
+  color: var(--project-color);
+  margin-left: 30px !important;
+  margin-right: 55px !important;
+  font-size: 25px !important;
+  font-family: "PT-Sans-Pro-Regular";
+}
+
+.title-new-project {
+  color: var(--project-color);
+  font-size: 25px !important;
+  font-family: "PT-Sans-Pro-Regular";
+}
+/*******end*********/
+
+.blu-scroll{
+  height: calc(100vh - 84px - 0px);
+  background-color: var(--main-bg);
+  overflow: auto;
+  border: 1px solid var(--border-color);
+  position: relative;
+  width: 1042px;
+  overflow: scroll;
+}
+
+@media (max-width: 7680px)
+{
+    .blu-scroll{
+      max-width: 1042px !important;
+      width: calc(100vw - 0px - 125px);
+      height: calc(100vh - 84px - 0px);
+  }
+  .blu-scroll-wrapp{
+    max-width: 1042px !important;
+    width: calc(100vw - 0px - 125px);
+    height: calc(100vh - 84px - 0px);
+    position: relative;
+}
+}
+
+.card{
+  background-color: transparent!important;
+  border: none!important;
+}
+
+table {
+  border-collapse: collapse;
+  min-width:  1024px;
+}
+
+.thead {
+  position: sticky;
+  top: -1px;
+  z-index: 500;
+  font-size: 12px !important;
+  font-family: "PT-Sans-Pro-Regular" !important;
+  height: 30px;
+}
+
+thead{
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+tbody{
+  font-size: 14px;
+  font-family: "PT-Sans-Pro-Regular";
+  height: 30px;
+}
+
+thead tr{
+  background-color: var(--black-light);
+  border-bottom: 1px solid;
+  height: 30px;
+}
+tbody tr {
+  height: 40px;
+}
+
+table thead tr th {
+  border-bottom: 1px solid #222222;
+  border-right: 1px solid #7a7e7f;
+  font-weight: normal !important;
+  border-top: 1px solid var(--black-light);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.horizontal-line-scroll{
+  position: absolute;
+  bottom: 16px;
+  left: 0px;
+  right: 0px;
+  height: 1px;
+  background-color: var(--border-color);
+}
+.vertical-line-scroll{
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 16px;
+  width: 1px;
+  background-color: var(--border-color);
+}
+
+.mt-4, .justify-content-between{
+  padding: 0px 35px 0px 25px;
+}
+
+.mt-4{
+  color: white;
+}
+
+
+table tbody tr td{
+  position: relative;
+  vertical-align: middle;
+  color: var(--black-ligh);
+}
+
+input, select{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+input:focus, textarea:focus{
+  box-shadow: none;
+  border: 1px solid var(--orange-dark);
+}
+
+.input-td{
+  padding: 0px!important;
+}
+
+
+.checked-input{
+  z-index: 999;
+}

@@ -1,0 +1,60 @@
+<div class="row row1X tab-content tab-content-stats">
+  <div class="calendar-header-container">
+      <div class="calendar-header header-personal-stats">
+        <div class="header-back-button">
+          <div>
+            <div
+
+              (click)="redirectToUserDetails()"
+              class="btn mr-2 lh09 hideUnder800 "
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              
+            >
+              <app-back-button-svg-ud></app-back-button-svg-ud>
+            </div>
+          </div>
+        </div>
+        <div class="header-filters">
+          <app-date-range-select (emitRange)="setDateRange($event)"></app-date-range-select>
+          <div class="select-container-220 margin-right">
+            <app-company-select ></app-company-select>
+          </div> 
+          <div class="select-container-220 margin-right">
+            <app-user-type-select (emitActiveType)="onItemSelect($event)"></app-user-type-select>
+            <div class="floating-title">{{ 'Select the type of staff' | translate }}</div>
+          </div>
+          <div class="select-container-220 margin-right">
+            <app-active-status-select (emitActiveType)="onActiveStatusSelect($event)"></app-active-status-select>
+            <div class="floating-title">{{ 'Select status' | translate }}</div>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <div>
+            <!--
+              <div class="green-button pdf-button">
+                Skapa PDF
+              </div>
+            -->
+          </div> 
+          <div class="center-content">
+            <app-options-menu [stats]="true" [userId]="puserid" [date]="pdate"></app-options-menu>
+          </div>
+        </div>
+      </div>
+  </div>
+  <app-nav-tabs [tabs]="tabs" (emitValue)="setSelectedTab($event)"></app-nav-tabs>
+  <div class="tab-container">
+    <app-input-text-filter (emitValue)="setSearchValue($event)" prefix="psc"></app-input-text-filter>
+    <app-personal-statistics-table
+  
+      [searchValue]="searchValue"
+      [startDate]="startDate"
+      [endDate]="endDate"
+      [selectedTypes]="selectedTypes"
+      [activeStatus]="activeStatus"
+  
+    > 
+    </app-personal-statistics-table>
+  </div>
+</div>

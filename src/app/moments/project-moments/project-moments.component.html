@@ -1,0 +1,541 @@
+<img class="canvas-img" id="grid-cell" src="/assets/img/grid-cell.png" alt="" />
+<img
+  class="canvas-img"
+  id="grid-cell-weekend"
+  src="/assets/img/grid-cell-weekend.png"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="public-holiday-cell"
+  src="/assets/img/public-holiday-cell.png"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="current-day-cell"
+  src="/assets/img/current-day-cell.png"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="worker-threshold-cell"
+  src="/assets/img/worker-threshold-cell.png"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="worker-threshold-week"
+  src="/assets/img/worker-threshold-week.jpg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="undo"
+  src="/assets/img/canvas-img/undo.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="redo"
+  src="/assets/img/canvas-img/redo.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="add-column-button"
+  src="/assets/img/add-column-button.png"
+  alt=""
+/>
+<img class="canvas-img" id="publish" src="/assets/img/publish.png" alt="" />
+<img
+  class="canvas-img"
+  id="split-segment-icon"
+  src="/assets/img/split-segment-icon.png"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="bucket-white"
+  src="/assets/img/canvas-img/bucket-white.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="arrow-white"
+  src="/assets/img/canvas-img/arrow-white.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="logo"
+  src="/assets/img/canvas-img/logo.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="scroll-arrow-down"
+  src="/assets/img/canvas-img/scroll-arrow-down.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="scroll-arrow-up"
+  src="/assets/img/canvas-img/scroll-arrow-up.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="scroll-arrow-left"
+  src="/assets/img/canvas-img/scroll-arrow-left.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="scroll-arrow-right"
+  src="/assets/img/canvas-img/scroll-arrow-right.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="add-new"
+  src="/assets/img/canvas-img/add-new.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="go-back"
+  src="/assets/img/canvas-img/go-back.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="resources-close"
+  src="/assets/img/canvas-img/resources-close.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="resources-open"
+  src="/assets/img/canvas-img/resources-open.svg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="expand-more"
+  src="/assets/img/canvas-img/expand_more.png"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="expand-more-hover"
+  src="/assets/img/canvas-img/expand_more_orange.png"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="expand-less"
+  src="/assets/img/canvas-img/expand_less_orange.png"
+  alt=""
+/>
+
+<img
+  class="canvas-img"
+  id="grid-cell-week"
+  src="/assets/img/grid-cell-week.jpg"
+  alt=""
+/>
+<img
+  class="canvas-img"
+  id="grid-cell-absence"
+  src="/assets/img/grid-cell-absence.png"
+  alt=""
+/>
+
+<canvas id="mainCanvas" class="canvas"></canvas>
+<canvas id="secondCanvas" class="canvas"></canvas>
+<canvas id="offscreenCanvas" class="canvas"></canvas>
+
+<div
+  [hidden]="!addUserModalShowing"
+  id="add-user-modal"
+  class="modal"
+  (mousedown)="closeAddUserModalWithBackground($event)"
+>
+  <div class="modal-box" id="add-user-modal-box">
+    <div class="modal-box-header">
+      <h4>{{ allDisplayProjects[projectIndex]?.name }}</h4>
+      <span (click)="closeAddUserModal()" class="material-icons modal-box-close"
+        >clear</span
+      >
+    </div>
+    <div class="modal-box-content">
+      <div>
+        <div class="modal-input-group modal-radio-group">
+          <div>
+            <input
+              type="radio"
+              id="show-resource-users-radio"
+              name="whichOfUsersToShow"
+              [(ngModel)]="whichOfUsersToShow"
+              (change)="filterUsersWhichCanBeAdded()"
+              value="resource"
+            />
+            <label for="show-resource-users-radio">{{
+              "Resource users" | translate
+            }}</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="show-all-users-radio"
+              name="whichOfUsersToShow"
+              [(ngModel)]="whichOfUsersToShow"
+              (change)="filterUsersWhichCanBeAdded()"
+              value="all"
+            />
+            <label for="show-all-users-radio">{{
+              "All Users" | translate
+            }}</label>
+          </div>
+        </div>
+        <div class="modal-input-group">
+          <label for="startDate">{{ "Start date" | translate }}</label>
+          <input
+            type="text"
+            id="startDate"
+            [(ngModel)]="selectedDateSegmentStartDate"
+            [disabled]="selectedUsers.length > 0"
+          />
+        </div>
+        <div class="modal-input-group">
+          <label for="endDate">{{ "End date" | translate }}</label>
+          <input
+            type="text"
+            id="endDate"
+            [(ngModel)]="selectedDateSegmentEndDate"
+            [disabled]="selectedUsers.length > 0"
+          />
+        </div>
+        <div class="modal-input-group">
+          <label for="selectedUserIndex">{{ "Select user" | translate }}</label>
+          <ng-multiselect-dropdown
+            [settings]="dropdownSettings"
+            [data]="filteredAllUsers"
+            id="users-list"
+            [(ngModel)]="selectedUsers"
+            placeholder="{{ 'Select' | translate }}"
+          ></ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="modal-button"
+          (click)="addUserToProject(projectIndex)"
+        >
+          {{ "Add user" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  [hidden]="!plannedVacationModalShowing"
+  id="planned-vacation-modal"
+  class="modal"
+  (mousedown)="closePlannedVacationModalWithBackground($event)"
+>
+  <div class="modal-box modal-box-overide" id="planned-vacation-modal-box">
+    <div class="modal-box-header modal-box-header-overide">
+      <h4>{{ "Add" | translate | uppercase }}</h4>
+      <span
+        (click)="closePlannedVacationModal()"
+        class="material-icons modal-box-close"
+        >clear</span
+      >
+    </div>
+    <div class="modal-box-content">
+      <div class="table">
+        <div class="header">
+          <div class="column">
+            <span>&nbsp;</span>
+          </div>
+          <div class="column">
+            <span>{{ "Name" | translate | uppercase }}</span>
+          </div>
+          <div class="column">
+            <span>{{ "Start date" | translate | uppercase }}</span>
+          </div>
+          <div class="column">
+            <span>{{ "End date" | translate | uppercase }}</span>
+          </div>
+          <div class="column">
+            <span>&nbsp;</span>
+          </div>
+        </div>
+        <div class="body" *ngIf="planedAbsences.length">
+          <div *ngFor="let absence of planedAbsences" class="row">
+            <div class="column">
+              <span>&nbsp;</span>
+            </div>
+            <div class="column">
+              <span>{{ absence.name }}</span>
+            </div>
+            <div class="column">
+              <span>{{ absence.startDate | week }}</span>
+            </div>
+            <div class="column">
+              <span>{{ absence.endDate | week }}</span>
+            </div>
+            <div class="column" (click)="deletePlannedVacation(absence.id)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="11"
+                height="14"
+                viewBox="0 0 11 14"
+              >
+                <g transform="translate(0.003 0.001)">
+                  <path
+                    d="M222.714,154.7a.316.316,0,0,0-.316.316V161a.316.316,0,0,0,.633,0v-5.98A.316.316,0,0,0,222.714,154.7Zm0,0"
+                    transform="translate(-215.346 -149.319)"
+                  />
+                  <path
+                    d="M104.714,154.7a.316.316,0,0,0-.316.316V161a.316.316,0,0,0,.633,0v-5.98A.316.316,0,0,0,104.714,154.7Zm0,0"
+                    transform="translate(-101.089 -149.319)"
+                  />
+                  <path
+                    d="M.9,4.166v8.078a1.843,1.843,0,0,0,.465,1.248A1.538,1.538,0,0,0,2.5,14h6a1.538,1.538,0,0,0,1.133-.507,1.843,1.843,0,0,0,.465-1.248V4.166a1.252,1.252,0,0,0,.891-1.373,1.226,1.226,0,0,0-1.2-1.09H8.161v-.41A1.311,1.311,0,0,0,7.8.375,1.226,1.226,0,0,0,6.9,0H4.088A1.226,1.226,0,0,0,3.2.375a1.311,1.311,0,0,0-.366.919V1.7H1.208a1.226,1.226,0,0,0-1.2,1.09A1.252,1.252,0,0,0,.9,4.166Zm7.6,9.176h-6a1.025,1.025,0,0,1-.964-1.1V4.2h7.93v8.049a1.025,1.025,0,0,1-.964,1.1ZM3.467,1.294a.642.642,0,0,1,.18-.456A.6.6,0,0,1,4.088.654H6.9a.6.6,0,0,1,.442.184.642.642,0,0,1,.18.456V1.7H3.467ZM1.208,2.359H9.785a.59.59,0,0,1,0,1.18H1.208a.59.59,0,0,1,0-1.18Zm0,0"
+                    transform="translate(0 0)"
+                  />
+                  <path
+                    d="M163.714,154.7a.316.316,0,0,0-.316.316V161a.316.316,0,1,0,.633,0v-5.98A.316.316,0,0,0,163.714,154.7Zm0,0"
+                    transform="translate(-158.218 -149.319)"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-new-container">
+        <h4>{{ "RPC_New_Absence" | translate | uppercase }}</h4>
+        <div class="inputs">
+          <div class="group">
+            <span>{{ "Name" | translate | uppercase }}</span>
+            <input type="text" [(ngModel)]="selectedVacationDateName" />
+          </div>
+          <div class="group">
+            <span>{{ "Start date" | translate | uppercase }}</span>
+            <input
+              type="text"
+              id="startDateVacation"
+              [(ngModel)]="selectedVacationDateStartDate"
+              [attr.data-date]="trimWeek(selectedVacationDateStartDate)"
+            />
+          </div>
+          <div class="group">
+            <span>{{ "End date" | translate | uppercase }}</span>
+            <input
+              type="text"
+              id="endDateVacation"
+              [(ngModel)]="selectedVacationDateEndDate"
+              [attr.data-date]="trimWeek(selectedVacationDateEndDate)"
+              data-date-format="yyyy-mm-dd"
+              data-date-viewmode="days"
+            />
+          </div>
+          <div>
+            <button type="button" (click)="updatePlannedVacation()">
+              {{ "Save" | translate | uppercase }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  [hidden]="!addResourceWeeksModalShowing"
+  id="add-resource-weeks-modal"
+  class="modal"
+  (mousedown)="closeAddResourceWeeksModalWithBackground($event)"
+>
+  <div class="modal-box" id="add-resource-weeks-modal-box">
+    <div class="modal-box-header">
+      <h3>{{ "Add resource weeks" | translate }}</h3>
+      <span
+        (click)="closeAddResourceWeeksModal()"
+        class="material-icons modal-box-close"
+        >clear</span
+      >
+    </div>
+    <div class="modal-box-content">
+      <div>
+        <div class="input-group">
+          <label for="resourceWeeksToAdd">{{
+            "Resources to add" | translate
+          }}</label>
+          <input
+            type="number"
+            id="resourceWeeksToAdd"
+            [(ngModel)]="resourceWeeksToAdd"
+            min="0"
+          />
+        </div>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="modal-button"
+          (click)="addResourceWeeksToProject()"
+        >
+          {{ "Add resource weeks" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-spinner" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<input
+  class="user-search-input"
+  id="user-search-input"
+  type="text"
+  placeholder="{{ 'Search' | translate }}"
+  [(ngModel)]="searchValue"
+  (ngModelChange)="searchUsers()"
+/>
+
+<input
+  type="number"
+  class="input"
+  id="resourceWeekEditInput"
+  min="0"
+  (keyup.enter)="updateResourceWeek($event)"
+  (blur)="updateResourceWeek($event)"
+/>
+<input
+  type="text"
+  class="input"
+  id="columnEditInput"
+  (keyup.enter)="updateColumn($event)"
+  (blur)="updateColumn($event)"
+/>
+<input
+  type="text"
+  class="input"
+  id="columnValueEditInput"
+  (keyup.enter)="updateColumnValue($event)"
+  (blur)="updateColumnValue($event)"
+/>
+<input
+  type="number"
+  class="input"
+  id="columnNumberOfDaysInput"
+  min="1"
+  (keyup.enter)="updateNumberOfDaysColumnValue($event)"
+  (blur)="updateNumberOfDaysColumnValue($event)"
+/>
+<input type="text" class="datepicker-input" id="columnStartDateInput" />
+<input type="text" class="datepicker-input" id="columnEndDateInput" />
+
+<div>
+  <select
+    class="toolbox-input"
+    id="change-font-family-input"
+    [(ngModel)]="changeFontFamilyInputValue"
+    (change)="fontFamilyInputValueChanged($event)"
+    [ngStyle]="{'pointer-events': isInEditMode ? 'auto' : 'none'}"
+  >
+    <option value="Arial">Arial</option>
+    <option value="Calibri">Calibri</option>
+    <option value="Geneva">Geneva</option>
+    <option value="Verdana">Verdana</option>
+  </select>
+</div>
+<div>
+  <select
+    class="toolbox-input"
+    id="change-font-size-input"
+    [(ngModel)]="changeFontSizeInputValue"
+    (change)="fontSizeInputValueChanged($event)"
+    [ngStyle]="{'pointer-events': isInEditMode ? 'auto' : 'none'}"
+  >
+    <option value="10">10</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="16">16</option>
+    <option value="18">18</option>
+    <option value="20">20</option>
+  </select>
+</div>
+<div>
+  <label
+    [ngStyle]="{
+      color: changeFontWeightInputValue == false ? '#858585' : 'white',
+      'pointer-events': isInEditMode ? 'auto' : 'none'
+    }"
+    (click)="fontWeightInputValueChanged('bold')"
+    class="toolbox-input label-text text-bold"
+    >{{ "B" | translate }}</label
+  >
+</div>
+<div
+(click)="fontStyleInputValueChanged('italic')"
+[ngStyle]="{'pointer-events': isInEditMode ? 'auto' : 'none'}">
+  <label
+    [ngStyle]="{
+      color: changeFontStyleInputValue == false ? '#858585' : 'white'
+    }"
+    class="toolbox-input label-text text-italic"
+    >{{ "I" | translate }}</label
+  >
+</div>
+<div
+(click)="fontDecorationInputValueChanged('underline')"
+[ngStyle]="{'pointer-events': isInEditMode ? 'auto' : 'none'}">
+  <label
+    [ngStyle]="{
+      color: changeFontDecorationInputValue == false ? '#858585' : 'white'
+    }"
+    class="label-text text-underline"
+    >U</label
+  >
+</div>
+<div
+  [ngStyle]="{'pointer-events': isInEditMode ? 'auto' : 'none'}"
+  class="toolbox-input background-color-change"
+  [(colorPicker)]="changeBackgroundColorInputValue"
+  (colorPickerClose)="backgroundColorInputValueChanged($event)"
+>
+  <input
+    class="toolbox-input change-color-input"
+    id="change-background-color-input"
+    [style.background]="changeBackgroundColorInputValue"
+  />
+</div>
+<div
+  [ngStyle]="{'pointer-events': isInEditMode ? 'auto' : 'none'}"
+  class="toolbox-input text-color-grid"
+  [(colorPicker)]="changeTextColorInputValue"
+  (colorPickerClose)="textColorInputValueChanged($event)"
+>
+  <div>
+    <label class="toolbox-input l-text" for="change-text-color-input">A</label>
+  </div>
+  <div class="text-color-box">
+    <input
+      class="toolbox-input change-color-input"
+      id="change-text-color-input"
+      [style.background]="changeTextColorInputValue"
+    />
+  </div>
+</div>

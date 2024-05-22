@@ -1,0 +1,39 @@
+.border-item {
+  background-color: var(--main-bg) !important;
+  border: 1px solid #e3dbd3;
+  border-radius: 4px;
+  height: 20px;
+  margin-top: 24px;
+  font-size: 14px;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: space-between;
+  padding: 0px 10px 0px 4px;
+  display: flex;
+  color: #e3dbd3;
+}
+
+.cursor-pointer {
+  height: 20px;
+  padding-left: 50px;
+  font-size: 10px;
+  font-family: "PT-Sans-Pro-Regular";
+}
+
+.align-button-title{
+    padding-left: 7px;
+    user-select: none;
+}
+
+.status-filters{
+    display: flex;
+    justify-content: left;
+}
+
+.spinner{
+  position: absolute;
+  top: 400px;
+  left:706px;
+  z-index: 10;
+}

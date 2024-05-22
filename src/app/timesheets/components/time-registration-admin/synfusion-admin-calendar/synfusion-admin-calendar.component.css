@@ -1,0 +1,91 @@
+.e-event-popup {
+  display: none !important;
+}
+
+::ng-deep .e-schedule .e-schedule-toolbar .e-toolbar-items.e-tbar-pos {
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column-reverse !important;
+  padding-top: 10px;
+  align-items: center;
+  padding-bottom: 20px;
+  justify-content: space-between;
+  margin-top: -10px;
+}
+
+::ng-deep .e-toolbar .e-toolbar-items.e-tbar-pos .e-toolbar-right,
+::ng-deep .e-toolbar .e-toolbar-items.e-tbar-pos .e-toolbar-left {
+  position: static !important;
+}
+
+::ng-deep .e-schedule .e-timeline-view .e-appointment .e-appointment-details,
+::ng-deep
+  .e-schedule
+  .e-timeline-month-view
+  .e-appointment
+  .e-appointment-details,
+::ng-deep .e-appointment-details {
+  padding: 0 !important;
+}
+
+::ng-deep .e-schedule .e-vertical-view .e-day-wrapper .e-appointment {
+  margin-top: -10px !important;
+}
+
+::ng-deep .template-wrap {
+  width: 100% !important;
+}
+
+.header-legend {
+  padding: 10px 0;
+  display: flex;
+}
+
+.header-legend .btn-postion {
+  width: 50%;
+}
+
+.header-legend .table-position {
+  width: 50%;
+}
+
+.table-first-td {
+  width: 50px;
+}
+
+.content-wrapper {
+  padding: 20px;
+}
+
+::ng-deep .e-header-cells .e-date-header {
+  width: 20px !important;
+}
+
+.calendar-content-wrapper {
+  padding: 10px;
+}
+
+.resource-custom {
+  position: absolute;
+  z-index: 999;
+  /* top: 91px; */
+}
+
+.resource-custom-item {
+  min-width: 198px;
+  cursor: pointer;
+}
+
+.resource-custom-item:hover {
+  background-color: rgba(200, 200, 200, 0.2);
+}
+
+.e-schedule .e-timeline-view .e-appointment,
+.e-schedule .e-timeline-month-view .e-appointment {
+  height: 55px;
+}
+.e-schedule .e-timeline-view .e-appointment,
+.e-schedule .e-timeline-month-view .e-appointment span {
+  margin-left: 3px;
+}

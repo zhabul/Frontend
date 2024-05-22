@@ -1,0 +1,23 @@
+.day-field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.day-field-black {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: var(--main-bg);
+  pointer-events: none;
+  z-index: 500;
+  opacity: 0.7;
+}

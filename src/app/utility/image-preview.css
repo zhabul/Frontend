@@ -1,0 +1,146 @@
+.preview-image-new-container {
+
+    display: flex;
+    width: 100%;
+}
+
+.preview-image-new {
+
+    display: inline-block;
+    height: 58.67px;
+    width: 67.7px;
+    /* height: 22.67px;
+    width: 31.7px; */
+    margin-bottom: 0.25rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    white-space: nowrap;
+    margin-right: 0.5rem;
+    position: relative;
+    border-style: none;
+    transition: opacity 250ms ease-in-out;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.preview-image-new-comment {
+  display: inline-block;
+  height: 22.67px;
+  width: 31.7px;
+  margin-bottom: 0.25rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  white-space: nowrap;
+  margin-right: 0.5rem;
+  /* position: relative; */
+  border-style: none;
+  transition: opacity 250ms ease-in-out;
+  cursor: pointer;
+  /* z-index: 10; */
+  overflow: hidden;
+  position: absolute;
+  z-index: 3;
+}
+
+.preview-image-new-xi-absolute {
+
+    transform: scale(0.8);
+    position: absolute;
+    right: 0rem;
+    color: red;
+    cursor: pointer;
+    z-index: 100;
+
+}
+.white-bordered{
+    border: 2px solid white;
+}
+
+.preview-image-new-xi-absolute-input {
+
+    transform: scale(1);
+    position: absolute;
+    right: 0rem;
+    color: red;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.preview-image-new-xi-document {
+
+    transform: scale(0.7);
+    color: red;
+    cursor: pointer;
+    position: absolute;
+    right: -7px;
+    top: 5px;
+    z-index: 200;
+}
+
+.form-new-row {
+
+    display: block;
+
+}
+
+.preview-new-title {
+
+    margin-bottom: 0.5rem;
+    cursor: default;
+
+}
+
+.preview-new-document {
+    display: inline-block;
+    position: relative;
+    width: 65px;
+    height: 58.6px;
+    margin-right: 10px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.preview-new-document-name {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+    z-index: 100;
+    position: relative;
+    font-size: 8px;
+    margin-top: 7px;
+    word-break: break-all;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+}
+
+.preview-new-document-name-pdf-viwer {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+    z-index: 100;
+    position: relative;
+    font-size: 8px;
+    margin-top: 10px;
+    margin-left: 5px;
+    word-break: break-all;
+    cursor: pointer;
+    height: 67px;
+    width: 85px;
+}
+
+.preview-new-document-name-comment {
+  width: 100%;
+  text-decoration: none;
+  color: black;
+  z-index: 100;
+  position: relative;
+  font-size: 8px;
+  word-break: break-all;
+  cursor: pointer;
+  height: 40px;
+  width: 47px;
+  overflow: hidden;
+}

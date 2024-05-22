@@ -1,0 +1,1900 @@
+<div class="container-fluidW px-0W l0" style="margin-top: -11px">
+  <div class="card col-md-12X col-lg-6X col-lg-8W">
+    <div class="form-heading">
+      <div class="d-flex align-items-center border-h-project">
+        <div
+            [routerLink]="['/projects/view/', project.id]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            id="topFeeder"
+        >
+            <svg
+                _ngcontent-dfb-c33=""
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                height="29.342"
+                viewBox="0 0 34.604 29.342"
+                width="34.604"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <defs _ngcontent-dfb-c33="">
+                <clipPath _ngcontent-dfb-c33="" id="clip-path">
+                    <rect
+                    _ngcontent-dfb-c33=""
+                    data-name="Rectangle 15829"
+                    fill="none"
+                    height="29.342"
+                    id="Rectangle_15829"
+                    width="34.604"
+                    ></rect>
+                </clipPath>
+                </defs>
+                <g
+                    _ngcontent-dfb-c33=""
+                    data-name="Group 4372"
+                    id="Group_4372"
+                    transform="translate(0 0)"
+                >
+                <g
+                    _ngcontent-dfb-c33=""
+                    clip-path="url(#clip-path)"
+                    data-name="Group 4371"
+                    id="Group_4371"
+                    transform="translate(0 0)"
+                    >
+                    <path
+                    _ngcontent-dfb-c33=""
+                    d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7"
+                    data-name="Path 1822"
+                    fill="#82a7e2"
+                    id="Path_1822"
+                    transform="translate(0 0)"
+                    ></path>
+                </g>
+                </g>
+            </svg>
+        </div>
+        <div class="project text-muted">
+          <div [ngClass]="projects_for_select.length > 1 && selectOpen  ? 'toggle-project':'none-toggle-project'">
+
+
+            <h4 class="posRel fs-18 title-project-color title-head-wrapp"
+              (click)="toggleselectOpen($event)">
+              <div class="project-name-len"> {{ project.CustomName }} {{ project.name }} </div>
+              <i class="material-icons email" *ngIf="projects_for_select.length > 1">
+                expand_more
+              </i>
+            </h4>
+            <div
+              class="custom-select-for-project"
+              *ngIf="projects_for_select.length > 1 && selectOpen"
+              style="background-color:#C2D8FA">
+
+              <div>
+                <ng-template #recursiveList let-projects>
+                  <div *ngFor="let item of projects">
+                    <div style="display:grid; grid-template-columns: 178px 1fr 1fr;color:black"
+                      (click)="selectProject(item.id)">
+
+                      <div  [ngStyle]="{'padding-left': (item.level * 7.5) + 'px'}" style="margin-top: -1px;cursor: pointer;" >
+                        <div >
+                          <div  [ngStyle]="{
+                                'background-color': project_id == item.id? hover : '#E3E9DD',
+                                'border-bottom': item.level == 0? 'none':'1px solid var(--border-color)',
+                                'border-left': item.level == 0? 'none':'1px solid var(--border-color)'}"
+                                style="border-left: 1px solid var(--border-color);
+                                      border-bottom:1px solid var(--border-color);
+                                      position:relative;
+                                      border-top:1px solid var(--border-color);
+                                      padding-left: 10px;"
+                                      [class.active]="project_id == item.id"
+                                  >
+                                {{item.name}}
+                                {{item.id}}
+
+                          </div>
+                        </div>
+                      </div>
+                      <div [ngStyle]="{'background-color': project_id == item.id? hover : '#E3E9DD'}"
+                           style="border-bottom:1px solid var(--border-color);
+                                  padding-left: 10px;cursor: pointer;"
+                                       [class.active]="project_id == item.id">
+                                  {{item.CustomName}}
+                      </div>
+                      <div  [ngStyle]="{'background-color': project_id == item.id? hover : '#E3E9DD'}"
+                            style="border-bottom:1px solid var(--border-color);
+                            padding-left: 10px;cursor: pointer;"
+                                 [class.active]="project_id == item.id" >
+                            {{item.CustomName}}
+                      </div>
+                    </div>
+                    <div *ngIf="item.activities.length > 0">
+                      <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.activities }"></ng-container>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: projects }"></ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="triangle project-management" (click)="buttonNameToggle($event)">
+        <a
+          [class.border-brand-press]="buttonToggle == true"
+          class="btn border-brand projekt btn-icon-postion ml-4"
+          (mouseenter)="enter()"
+          (mouseleave)="leave()"
+          *ngIf="buttonName == 'Project Management' && userDetails?.show_project_Management"
+        >
+          <div class="project-content">
+            <button
+              [class.button-press]="buttonToggle == true"
+              [ngClass]="currentClass"
+              class="btn project-button bg-transparent"
+            >
+              {{ buttonName | translate }}
+            </button>
+            <svg
+              [ngClass]="currentClass"
+              id="Group_306"
+              *ngIf="buttonToggle == false"
+              data-name="Group 306"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="15"
+              height="8"
+              viewBox="0 0 15 8"
+            >
+              <defs>
+                <clipPath id="clip-path">
+                  <path
+                    id="Path_758"
+                    data-name="Path 758"
+                    d="M0,.274H15v-8H0Z"
+                    transform="translate(0 7.726)"
+                    fill="#82a7e2"
+                  />
+                </clipPath>
+              </defs>
+              <g
+                id="Group_305"
+                data-name="Group 305"
+                clip-path="url(#clip-path)"
+              >
+                <g
+                  id="Group_304"
+                  data-name="Group 304"
+                  transform="translate(0 0)"
+                >
+                  <path
+                    id="Path_757"
+                    data-name="Path 757"
+                    d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5"
+                    transform="translate(0.136 1.156)"
+                    fill="currentColor"
+                  />
+                </g>
+              </g>
+            </svg>
+
+            <svg
+              transform="rotate(180)"
+              id="Group_306"
+              *ngIf="buttonToggle == true"
+              data-name="Group 306"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="15"
+              height="8"
+              viewBox="0 0 15 8"
+            >
+              <defs>
+                <clipPath id="clip-path">
+                  <path
+                    id="Path_758"
+                    data-name="Path 758"
+                    d="M0,.274H15v-8H0Z"
+                    transform="translate(0 7.726)"
+                    fill="#82a7e2"
+                  />
+                </clipPath>
+              </defs>
+              <g
+                id="Group_305"
+                data-name="Group 305"
+                clip-path="url(#clip-path)"
+              >
+                <g
+                  id="Group_304"
+                  data-name="Group 304"
+                  transform="translate(0 0)"
+                >
+                  <path
+                    id="Path_757"
+                    data-name="Path 757"
+                    d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5"
+                    transform="translate(0.136 1.156)"
+                    fill="#FF7F00"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </a>
+
+        <ng-container *ngIf="buttonToggle == true && showSubProject">
+          <a
+            class="btn sub-project-button btn-icon-postion text-uppercase"
+            routerLinkActive="active"
+            [routerLink]="['/projects/newSubProject', project.id]"
+            (mouseenter)="enterSub()"
+            (mouseleave)="leaveSub()"
+            [ngClass]="subsClass"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="add-icon"
+              width="30"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            {{ "New sub project/activity" | translate }}</a
+          >
+        </ng-container>
+      </div>
+    </div>
+    <div hiddenX class="whatevs" *ngIf="buttonToggle == true"
+      [ngClass]="buttonName == 'Project Management' ? 'animatedShow' : 'd-none'"
+      id="collapseExampleX">
+
+      <menu-bar [project]="project" [project_id]="project.id" ></menu-bar>
+
+      <div class="form-wrapper-project">
+        <div class="form-column-wrapper-project form-column-wrapper-position-project">
+          <div class="form-column-project">
+            <div class="form-group">
+              <label for="projectName">{{ "Project" | translate }}</label>
+              <input
+                type="text"
+                class="form-control project-hentering-input"
+                id="projectName"
+                [value]="project.CustomName + ' ' + project.name"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="contactPerson">{{
+                "Contact person" | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control project-hentering-input"
+                id="contactPerson"
+                [value]="project.deliveryFullName"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="contactPerson">{{ "Telephone" | translate }}</label>
+              <input
+                type="text"
+                class="form-control project-hentering-input"
+                id="telephone"
+                [value]="project.deliveryMobileNumber"
+                readonly
+              />
+            </div>
+          </div>
+          <div class="form-column-project">
+            <div class="form-group">
+              <label for="street">{{
+                "Street and Number" | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control project-hentering-input"
+                id="street"
+                [value]="project.street"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="zip">{{ "Zip code" | translate }}</label>
+              <input
+                type="text"
+                class="form-control project-hentering-input"
+                id="zip"
+                [value]="project.zip"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="name">{{ "City" | translate }}</label>
+              <input
+                type="text"
+                class="form-control project-hentering-input"
+                id="name"
+                [value]="project.city"
+                readonly
+              />
+            </div>
+          </div>
+          <div class="form-column-project">
+            <div class="form-group">
+              <label for="client">{{ "Client" | translate }}</label>
+              <input
+                type="text"
+                class="form-control project-hentering-input"
+                id="client"
+                [value]="project.clientName"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="clientContactPerson">{{
+                "Contact person" | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control project-hentering-input"
+                id="clientContactPerson"
+                [value]="project.attestWorkerFullName"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="clientContactPerson">{{
+                "Telephone" | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control project-hentering-input"
+                id="clientContactPerson"
+                [value]="project.clientMobileNumber"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" style="position: absolute; padding: 30px 0px 0px 42px;">
+      <div class="tab-navigation">
+        <ul class="nav2 nav-tabs2 nav-pills">
+          <li class="nav-item approveItem">
+            <a class="nav-link active"
+              [ngClass]="{ active: selectedTab == 0 }"
+              id="approveItem">
+              {{ 'ÄTA - ' | translate }} {{ nextNumber }} <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 0, 'bottom-shadow-button': selectedTab !== 0 }"></div>
+            </a>
+          </li>
+          <li class="nav-item align-l" >
+            <a style="margin-bottom:-5px" class="nav-link attest "
+              [ngClass]="{ active: selectedTab == 1 }"
+              style="z-index: 3;
+              margin-left: -20px;
+              "
+              >
+              {{ "Permit" | translate }}
+                <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 1, 'bottom-shadow-button': selectedTab !== 1 }">
+                </div>
+            </a>
+          </li>
+          <li class="nav-item align-l">
+            <a style="margin-bottom:-5px; z-index: 2; margin-left: -16px;" class="nav-link attest"
+              [ngClass]="{ active: selectedTab == 2 }" >
+              {{ "Email Logs" | translate }}<div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 2, 'bottom-shadow-button': selectedTab !== 2 }"></div>
+            </a>
+          </li>
+          <li class="nav-item align-l">
+            <a style="margin-bottom:-5px; z-index: 1; margin-left: -16px;" class="nav-link attest"
+              [ngClass]="{ active: selectedTab == 3 } " >
+              {{ "Comment" | translate }}<div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 3, 'bottom-shadow-button': selectedTab !== 3 }"></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="row progres-wrapper"
+        [hidden]="showSupplierInvoiceModal">
+
+        <div style="position: relative;" [ngStyle]="{'height':setHeight.height}">
+          <div #bluScroll class="ata-border new-ata-form shadow-top-div blu-scroll blu-scroll-width" [ngStyle]="{'height':setHeight.height}">
+            <div class="blue-top-nav">
+              <div class="blue-top-nav-text">
+                {{
+                  type == "1"
+                    ? ("Internal ata" | translate)
+                    : ("External ata" | translate)
+                }}
+              </div>
+              <div class="row" style="justify-content: space-between;
+              position: relative;
+              height: 48px;">
+                <div class="column-container">
+                  <div class="flex-center-all">
+                    <app-hex-status-icon iconColor="yellow" ></app-hex-status-icon>
+                  </div>
+                  <div class="ata-status">
+                    {{ 'Under pricing' | translate }}
+                  </div>
+                  <div class="icon-txt" >
+                    <p>{{ "ATA" | translate }} -  <span> {{ nextNumber }} : {{ createForm.get('Name').value }}</span> </p>
+                  </div>
+                </div>
+                <div class="send-status">
+                  <div class="dropdown-div">
+                   <!-- <button
+                      type="button"
+                      (click)="dropSend()"
+                      class="btn-options"
+                      id="first-btn-drop"
+                      [class.btn-options-collapse]="buttonToggleSend"
+                      >
+                      <span *ngIf="type == 0">{{ "TSC_SEND_PRINT" | translate }}</span>
+                      <span *ngIf="type == 1">{{ "TSC_PRINT" | translate }}</span>
+
+                      <app-arrow-up-svg color="var(--project-color)" *ngIf="!buttonToggleSend"></app-arrow-up-svg>
+                      <app-arrow-down-svg color="var(--orange-dark)" *ngIf="buttonToggleSend"></app-arrow-down-svg>
+                    </button>
+                      -->
+
+                      <!-- Dropdown SEND/PRINT ATA external-->
+                      <div class="input-wrapper5"  *ngIf="type == 0">
+                        <app-send-print-dropdown-ata
+                        [SendPrintUT1] = "client_workers"
+                        [placeholder]="'TSC_SEND_PRINT' | translate"
+                        [Print]="'Print' | translate"
+                        [Send]="'Send' | translate"
+                        (selected)="buttonNameSummary($event)"
+                        (PrintButton)="printAta()"
+                        (SendButton)="createAta(true)"
+                        [HaveSend]="0"
+                        [disableSelect]="false"
+                        >
+                        </app-send-print-dropdown-ata>
+                      </div>
+                      <!-- End Dropdown SEND/PRINT ATA -->
+
+                      <!-- Dropdown SEND/PRINT ATA internal-->
+                      <div class="input-wrapper5"  *ngIf="type == 1">
+                        <app-send-print-dropdown-ata
+                        [SendPrintUT1] = "client_workers"
+                        [placeholder]="'TSC_PRINT' | translate"
+                        [Print]="'Print' | translate"
+                        [Send]="'Send' | translate"
+                        (selected)="SelectedUser($event)"
+                        (PrintButton)="printAta()"
+                        (SendButton)="SendClick()"
+                        [HaveSend]="1"
+                        [disableSelect]="false"
+                        >
+                        </app-send-print-dropdown-ata>
+                      </div>
+                      <!-- End Dropdown SEND/PRINT ATA -->
+
+                    <!-- collapse -->
+                    <div class="dropdown-menu show" id="first-drop"
+                      [ngClass]="buttonToggleSend ? '' : 'd-none'">
+                      <div class="border-summary print-div" (click)="printAta()">
+                        <p>
+                          {{ "TSC_PRINT" | translate }}
+                        </p>
+                        <div class="svg-p">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="pdf-p-icon"
+                            width="18.953"
+                            height="17.216"
+                            viewBox="0 0 18.953 17.216"
+                          >
+                            <g
+                              id="Group_4091"
+                              data-name="Group 4091"
+                              transform="translate(0 0)"
+                            >
+                              <g
+                                id="Group_3988"
+                                data-name="Group 3988"
+                                transform="translate(5.984 4.613)"
+                              >
+                                <rect
+                                  id="Rectangle_15585"
+                                  data-name="Rectangle 15585"
+                                  width="6.934"
+                                  height="0.803"
+                                  transform="translate(0 1.992)"
+                                  fill="#44484c"
+                                />
+                                <rect
+                                  id="Rectangle_15586"
+                                  data-name="Rectangle 15586"
+                                  width="6.934"
+                                  height="0.803"
+                                  fill="#44484c"
+                                />
+                              </g>
+                              <path
+                                id="Path_1752"
+                                data-name="Path 1752"
+                                d="M33.834,19.925a.955.955,0,0,0-.953-.957H15.833a.955.955,0,0,0-.952.957v8.132h3.6v.718l7.369,7.409H30.2V28.1h3.636Zm-17.1,6.567v-3.8H18.48v3.8Zm8.806,7.864L20.3,29.089h5.238Zm1.066.757v-7.1H19.546V22.694h9.587V35.113Zm5.38-8.575H30.2V22.694h1.786Z"
+                                transform="translate(-14.881 -18.968)"
+                                fill="#44484c"
+                              />
+                            </g>
+                          </svg>
+                        </div>
+                      </div>
+
+                      <div *ngIf="type == 0" [ngClass]="contacts.length == 0 ? 'disabled-icon' : 'enabled-icon'"
+                        class="p-1" (click)="shutDown()">
+                        <div (click)="createAta(true)"
+                          class="text-icon-align sle">
+                          <span class="mt-1 ml-2 send">{{ "TSC_SEND_REMINDER" | translate }}</span>
+                          <img src="../../../../assets/img/disabled-icon.svg"
+                            class="send-svg" *ngIf="contacts.length == 0"/>
+                          <img src="../../../../assets/img/enabled-icon.svg"
+                            class="send-svg" *ngIf="contacts.length > 0" />
+                        </div>
+                      </div>
+                      <!-- <div *ngIf="type == 0">
+                        <div
+                          [ngClass]="
+                            contacts.length == 0 ? 'disabled-icon' : 'enabled-icon'
+                          "
+                          class="p-1"
+                          (click)="shutDownKS()"
+                        >
+                          <div
+                            (click)="handlePriceZero('sendMail', atas[selectedAta])"
+                            class="text-icon-align sle"
+                          >
+                            <span class="mt-1 ml-2 send">{{
+                              "TSC_SEND_REMINDER" | translate
+                            }}</span>
+                            <img
+                              src="../../../../assets/img/disabled-icon.svg"
+                              class="send-svg"
+                              *ngIf="contacts.length == 0"
+                            />
+                            <img
+                              src="../../../../assets/img/enabled-icon.svg"
+                              class="send-svg"
+                              *ngIf="contacts.length > 0"
+                            />
+                          </div>
+                        </div>
+                      </div> -->
+                      <div  *ngIf="type == 0">
+                        <div class="workers d-flex justify-content-start pl-3 workers-border p-1"
+                          *ngFor="let worker of client_workers"
+                          (click)="buttonNameSummary($event, worker)">
+                          <span class="ml-1">{{ worker.Name }}</span>
+                          <!-- <span class="span-check"
+                            *ngIf="checkIfContactSelected(worker) == false">
+                            <img
+                              style="padding: 0px 0px 0px 3px"
+                              src="../../../../assets/img/uncheck.svg"
+                              alt=""
+                            />
+                          </span>
+                          <span class="span-check" *ngIf="checkIfContactSelected(worker)">
+                            <img
+                              style="padding: 0px 0px 0px 3px"
+                              src="assets/img/check_orange.svg"
+                              alt=""
+                            />
+                          </span> -->
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="hide-data"  *ngIf="buttonToggleSend" (click)="closeToggle(1)">
+
+                    </div>
+                    <!-- end collapse -->
+                  </div>
+                  <div class="options-div">
+                    <!--<button
+                    type="button"
+                    class="btn-options"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    (click)="optionsDownDiv()"
+                    [class.btn-options-collapse]="buttonToggleDots"
+                    id="second-btn-drop">
+                      <div class="dots-div row">
+                        {{ 'ÄTA STATUS' | translate }}
+                      </div>
+                      <app-arrow-up-svg color="var(--project-color)" *ngIf="!buttonToggleDots"></app-arrow-up-svg>
+                      <app-arrow-down-svg color="var(--orange-dark)" *ngIf="buttonToggleDots"></app-arrow-down-svg>
+
+                    </button> -->
+
+                    <!--DropDown ATA Status-->
+                    <div class="input-wrapper4" >
+                      <app-ata-status-in-new-ata
+                      [AtaStatus]="'ÄTA STATUS' | translate"
+                      (Decline)="createAta(false, 'decline')"
+                      (Accepted)="createAta(false, 'accept')"
+                      [disableSelect]="false"
+                      >
+                      </app-ata-status-in-new-ata>
+
+                    </div>
+                    <!--End DropDown ATA Status-->
+
+                   <!-- <div class="dropdown-menu opt-dd show" id="dropdown-the-items" [ngClass]="buttonToggleDots ? '' : 'd-none' ">
+                      <div style="border-radius: 4px;">
+                        <!-- <a class="dropdownList">{{ 'TSC_CANCEL_FLOW' | translate }}</a> -->
+                       <!-- <a class="dropdownList" (click)="createAta(false, 'accept')">
+                          {{ 'Accept' | translate }}
+                        </a>
+                        <a class="dropdownList" (click)="createAta(false, 'decline')">
+                          {{ 'Decline' | translate }}
+                        </a>
+                      </div>
+                    </div>-->
+                    <div class="hide-data"  *ngIf="buttonToggleDots" (click)="closeToggle(2)">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form
+            novalidate
+            autocomplete="off"
+            [formGroup]="createForm"
+            (ngSubmit)="createAta(false)"
+            #myform="ngForm"
+            >
+            <!-- <div class="form-row ml-2 my-2">
+              <label class="radio-inline"
+                ><input
+                  class="mr-1"
+                  type="radio"
+                  formControlName="Type"
+                  value="1"
+                />{{ "External ata" | translate }}</label
+              >
+              <label class="radio-inline ml-2"
+                ><input
+                  class="mr-1"
+                  type="radio"
+                  formControlName="Type"
+                  value="0"
+                />{{ "Internal ata" | translate }}</label
+              >
+            </div> -->
+            <div class="row form-wrapper mb-3 form-inputs">
+              <div class="panel panel-default w-100">
+                <fieldset class="fieldset shadow-top-div">
+                  <legend class="w-auto information active ">{{ "Äta - " | translate }} {{ nextNumber }}</legend>
+                  <div class="form-column-wrapper-position">
+                    <div class="form-column col-12 panel panel-default p-8 custom-form-field">
+                      <div class="form-row2">
+                        <div class="" style="width: 620px;">
+                          <label for="heading" class="required custom-label">{{
+                            "Heading" | translate
+                          }}</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="heading"
+                            maxlength="55"
+                            placeholder="{{ 'Enter name' | translate }}"
+                            formControlName="Name"
+                            [ngClass]="{
+                              'is-invalid':
+                                (createForm.get('Name').touched ||
+                                  myform.submitted) &&
+                                createForm.get('Name').invalid
+                            }"
+                          />
+                          <div>
+                            <small style="opacity: 0.75"
+                              >{{ createForm.get("Name").value.length }}/55</small
+                            >
+                            <span
+                            class="help-block"
+                            *ngIf="
+                              (createForm.get('Name').touched ||
+                                myform.submitted) &&
+                              createForm.get('Name').invalid
+                            "
+                          >
+                            <span
+                              class="text-danger"
+                              *ngIf="createForm.get('Name').errors.required"
+                            >
+                              {{ "Enter Heading" | translate }}
+                            </span>
+                            <span
+                              class="text-danger"
+                              *ngIf="createForm.get('Name').errors.maxlength"
+                            >
+                              {{ "Maximum length of characters is" | translate }}
+                              {{
+                                createForm.get("Name").errors.maxlength
+                                  .requiredLength
+                              }}
+                            </span>
+                          </span>
+                          </div>
+
+                        </div>
+                        <div class="" style="width: 301.5px;">
+                          <div class="form-group">
+                              <label for="labeling_requirements"
+                                class="input-label">{{'TSC_Invoice_labeling_requirements' | translate}}
+                              </label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="labeling_requirements"
+                                formControlName="labeling_requirements"
+
+                              />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row2">
+                        <div class="status">
+                          <div class="form-group">
+                            <label for="typeata" class="required custom-label">{{
+                              "ÄTA type" | translate
+                            }}</label>
+                            <!--
+                            <select
+                              class="project-nav-select form-control"
+                              id="typeata"
+                              [ngClass]="{
+                                'is-invalid':
+                                  (createForm.get('AtaType').touched ||
+                                    myform.submitted) &&
+                                  createForm.get('AtaType').invalid
+                              }"
+                              #selectAtaType
+                              formControlName="AtaType"
+                            >
+                              <option
+                                *ngFor="let type of AtaTypes"
+                                value="{{ type.id }}"
+                              >
+                                {{ type.Name }}
+                              </option>
+                            </select>
+                          -->
+
+                          <!--Dropdown ÄTA type-->
+                         <div class="input-wrapper2" #selectAtaType>
+                            <app-simple-select
+                            [ClientItem]= "AtaTypes"
+                            [defaultValue]="{
+                              id: '1',
+                              Name: 'Tillaggsarbeten'
+                            }"
+                            [fontSize]="18"
+                            formControlName="AtaType"
+                            [width]="302"
+                            [type1]="'AtAType'"
+                            [disableSelect]="false"
+                            >
+                            </app-simple-select>
+                          </div>
+                        <!--End Dropdown ÄTA type-->
+
+                            <span
+                              class="help-block"
+                              *ngIf="
+                                (createForm.get('AtaType').touched ||
+                                  myform.submitted) &&
+                                createForm.get('AtaType').invalid
+                              "
+                            >
+                              <span class="text-danger">
+                                {{ "Please select type atas" | translate }}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="status">
+                          <div class="form-group">
+                            <label for="paymentType" class="required custom-label">{{
+                              "Payment type" | translate
+                            }}</label>
+
+                          <!--Dropdown Payment type-->
+                            <div class="input-wrapper2" >
+                              <app-simple-select
+                              [ClientItem]= "getDebitForms"
+                              [defaultValue]="{
+                                id: '1',
+                                Name: 'Löpande räkning'
+                              }"
+                              [fontSize]="18"
+                              #paymentType
+                              formControlName="paymentType"
+                              [width]="302"
+                              [type1]="'PayType'"
+                              (PayTypeChange)="paymentTypeChanged()"
+                              [disableSelect]="false"
+                              >
+                              </app-simple-select>
+                            </div>
+                          <!--End Dropdown Payment type-->
+
+<!--
+                            <select
+                              class="project-nav-select form-control"
+                              id="paymentType"
+                              [ngClass]="{
+                                'is-invalid':
+                                  (createForm.get('paymentType').touched ||
+                                    myform.submitted) &&
+                                  createForm.get('paymentType').invalid
+                              }"
+                              #paymentType
+                              formControlName="paymentType"
+                              (change)="paymentTypeChanged()"
+                            >
+                              <option
+                                *ngFor="let getDebitForm of getDebitForms"
+                                value="{{ getDebitForm.Id }}"
+                              >
+                                {{ getDebitForm.Name }}
+                              </option>
+                            </select>
+-->
+                            <span
+                              class="help-block"
+                              *ngIf="
+                                (createForm.get('paymentType').touched ||
+                                  myform.submitted) &&
+                                createForm.get('paymentType').invalid
+                              "
+                            >
+                              <span class="text-danger">
+                                {{ "Please select payment type" | translate }}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row2">
+                        <div class="status">
+                          <div class="form-group projects-date">
+                            <label for="startDate" class="required custom-label">{{
+                              "Created" | translate
+                            }}</label>
+                            <div class="input-group date">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"
+                                  ><i class="material-icons"
+                                    >calendar_today</i
+                                  ></span
+                                >
+                              </div>
+                              <input
+                                (keydown)="$event.preventDefault()"
+                                id="startDate"
+                                autocomplete="off"
+                                type="text"
+                                [ngClass]="{
+                                  'is-invalid':
+                                    (createForm.get('StartDate').touched ||
+                                      myform.submitted) &&
+                                    createForm.get('StartDate').invalid
+                                }"
+                                class="form-control project-date"
+                                aria-describedby="basic-addon1"
+                                placeholder="{{ 'Choose Start Date' | translate }}"
+                                formControlName="StartDate"
+                                #startDate
+                              />
+                            </div>
+                            <span
+                              class="help-block"
+                              *ngIf="
+                                (createForm.get('StartDate').touched ||
+                                  myform.submitted) &&
+                                createForm.get('StartDate').invalid
+                              "
+                            >
+                              <span class="text-danger">
+                                {{ "Please enter start date" | translate }}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="status">
+                          <div class="form-group projects-date">
+                            <label for="dueDate" class="required custom-label">{{
+                              "Due Date" | translate
+                            }}</label>
+                            <div class="input-group date">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"
+                                  ><i class="material-icons"
+                                    >calendar_today</i
+                                  ></span
+                                >
+                              </div>
+                              <input
+                                (keydown)="$event.preventDefault()"
+                                id="dueDate"
+                                autocomplete="off"
+                                type="text"
+                                [ngClass]="{
+                                  'is-invalid':
+                                    (createForm.get('DueDate').touched ||
+                                      myform.submitted) &&
+                                    createForm.get('DueDate').invalid
+                                }"
+                                class="form-control project-date"
+                                aria-describedby="basic-addon1"
+                                placeholder="{{ 'Choose Due Date' | translate }}"
+                                formControlName="DueDate"
+                                #lastreplyDate
+                              />
+                            </div>
+                            <span
+                              class="help-block"
+                              *ngIf="
+                                (createForm.get('DueDate').touched ||
+                                  myform.submitted) &&
+                                createForm.get('DueDate').invalid
+                              "
+                            >
+                              <span class="text-danger">
+                                {{ "Please enter due date" | translate }}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel panel-default w-100">
+                        <label for="briefDescription" class="custom-label brief-description">
+                          {{ "Brief Description" | translate }}
+                        </label>
+
+                          <div class="form-column-wrapper-position">
+                            <div class="form-column2 col-md-12 panel panel-default no-padding">
+                              <div class="form-group">
+                                <textarea
+                                (keyup)="autoGrowTextZone($event)"
+                                  [ngClass]="{
+                                    'is-invalid':
+                                      (createForm.get('briefDescription').touched ||
+                                        createForm.get('briefDescription').dirty) &&
+                                      !createForm.get('briefDescription').valid
+                                  }"
+                                  maxlength="500"
+                                  class="form-control"
+                                  id="briefDescription"
+
+                                  formControlName="briefDescription"
+                                ></textarea>
+
+                                <small style="opacity: 0.75; color: #fcf4ec"
+                                  >{{
+                                    createForm.get("briefDescription").value.length
+                                  }}/500</small
+                                >
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-wrapper">
+                    <div class="panel panel-default w-100">
+                      <div class="form-new-row">
+                        <div class="fake-image-modal-container">
+                          <app-image-modal
+                            (updateAlbums)="updateAlbums($event)"
+                            [infoObject]="infoObject"
+                            fileType="application/pdf, image/*"
+                            [key]="key"
+                            type="add-ata"
+                          ></app-image-modal>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <!-- <div class="form-wrapper mb-3">
+              <div class="panel panel-default w-100">
+                <fieldset>
+                  <legend class="w-auto">
+                    {{ "Brief Description" | translate }}
+                  </legend>
+                  <div class="form-column-wrapper-position">
+                    <div class="form-column col-md-12 panel panel-default p-8">
+                      <div class="form-group">
+                        <textarea
+                          [ngClass]="{
+                            'is-invalid':
+                              (createForm.get('briefDescription').touched ||
+                                createForm.get('briefDescription').dirty) &&
+                              !createForm.get('briefDescription').valid
+                          }"
+                          maxlength="500"
+                          class="form-control"
+                          id="briefDescription"
+                          rows="3"
+                          formControlName="briefDescription"
+                        ></textarea>
+                        <small style="opacity: 0.75"
+                          >{{
+                            createForm.get("briefDescription").value.length
+                          }}/500</small
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-new-row">
+                    <div class="fake-image-modal-container">
+                      <app-image-modal
+                        (updateAlbums)="updateAlbums($event)"
+                        [infoObject]="infoObject"
+                        fileType="application/pdf, image/*"
+                        [key]="key"
+                      ></app-image-modal>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div> -->
+
+            <div class="form-wrapper mb-3">
+              <div class="panel panel-default w-100">
+                <fieldset class="fieldset shadow-top-div">
+                  <span class="title-options">
+                    <span (click)="toggleTable('showAdditionalWorkTable')" style="z-index:99">
+                      {{ "Working hours" | translate }}
+                    </span>
+                    <span
+                      (click)="toggleTable('showAdditionalWorkTable')"
+                      class="material-icons custom-icon" style="z-index:99">
+                      {{ showAdditionalWorkTable
+                        ? "keyboard_arrow_up"
+                        : "keyboard_arrow_down"
+                      }}
+                    </span>
+                    <div class="hidde-zoom-line"></div>
+                  </span>
+                  <fieldset class="fieldset shadow-top-div no-border" *ngIf="showAdditionalWorkTable">
+                    <div class="">
+                      <table class="table invoice-table table-bordered">
+                        <thead>
+                          <tr>
+
+                              <th scope="col" class="desc">{{ "Description" | translate }}</th>
+                              <th scope="col" clss="quantity text-right" style="text-align: right!important;">{{ "Quantity" | translate }}</th>
+                              <th scope="col" class="unit">{{ "Unit" | translate }}</th>
+                              <th scope="col" class="price text-right">
+                                {{ "Price per unit" | translate }}
+                              </th>
+                              <th scope="col" class="percent" >
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17.275" height="10.458" viewBox="0 0 17.275 10.458">
+                                    <defs>
+                                      <clipPath id="clip-path">
+                                        <rect id="Rectangle_15721" data-name="Rectangle 15721" width="17.275" height="10.458" fill="#fff"/>
+                                      </clipPath>
+                                    </defs>
+                                    <g id="Group_4226" data-name="Group 4226" clip-path="url(#clip-path)">
+                                      <path id="Path_1791" data-name="Path 1791" d="M47.312,6.918a.379.379,0,0,1-.1-.262V4.788H45.5a.3.3,0,0,1-.235-.106.377.377,0,0,1-.1-.262V4.094a.376.376,0,0,1,.1-.262.3.3,0,0,1,.235-.106h1.715V1.858a.379.379,0,0,1,.1-.262.3.3,0,0,1,.235-.106h.368a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262V3.726h1.7a.3.3,0,0,1,.235.106.377.377,0,0,1,.1.262V4.42a.378.378,0,0,1-.1.262.3.3,0,0,1-.235.106h-1.7V6.656a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106h-.368a.3.3,0,0,1-.235-.106" transform="translate(-33.004 -1.089)" fill="#fff"/>
+                                      <path id="Path_1792" data-name="Path 1792" d="M47.129,29.891a.377.377,0,0,1-.1-.262V29.3a.378.378,0,0,1,.1-.262.3.3,0,0,1,.235-.106h3.469a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262v.326a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106H47.364a.3.3,0,0,1-.235-.106" transform="translate(-34.365 -21.142)" fill="#fff"/>
+                                      <path id="Path_1793" data-name="Path 1793" d="M4.112,4.752a2.2,2.2,0,0,1-1.723.731,2.323,2.323,0,0,1-.978-.2A2.246,2.246,0,0,1,.66,4.729a2.47,2.47,0,0,1-.489-.866A3.527,3.527,0,0,1,0,2.734,2.908,2.908,0,0,1,.652.739,2.185,2.185,0,0,1,2.374,0a2.342,2.342,0,0,1,.97.2A2.226,2.226,0,0,1,4.1.755a2.458,2.458,0,0,1,.489.874,3.607,3.607,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987m-2.568-.66a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653A2.69,2.69,0,0,0,3.22,1.391.959.959,0,0,0,2.374,1a.926.926,0,0,0-.838.405A2.366,2.366,0,0,0,1.272,2.67a2.649,2.649,0,0,0,.272,1.422m.683,6.08a.212.212,0,0,1,.008-.238L7.79.525A.706.706,0,0,1,8.046.27.682.682,0,0,1,8.4.175h.388a.232.232,0,0,1,.21.111.212.212,0,0,1-.008.239L3.43,9.934a.7.7,0,0,1-.256.254.679.679,0,0,1-.349.1H2.436a.232.232,0,0,1-.21-.111m8.341-.445a2.195,2.195,0,0,1-1.722.731,2.325,2.325,0,0,1-.978-.2A2.248,2.248,0,0,1,7.115,9.7a2.464,2.464,0,0,1-.489-.866,3.528,3.528,0,0,1-.171-1.129,2.908,2.908,0,0,1,.652-1.995A2.184,2.184,0,0,1,8.83,4.975a2.338,2.338,0,0,1,.97.2,2.225,2.225,0,0,1,.76.556,2.454,2.454,0,0,1,.489.874,3.608,3.608,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987M8,9.068a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653a2.691,2.691,0,0,0-.272-1.438.96.96,0,0,0-.846-.39.927.927,0,0,0-.838.405,2.368,2.368,0,0,0-.264,1.264A2.651,2.651,0,0,0,8,9.068" transform="translate(0 0)" fill="#fff"/>
+                                    </g>
+                                  </svg>
+                              </th>
+                              <th scope="col" class="summa text-right">{{ "TSC_TOTAL" | translate }}</th>
+                              <th scope="col" class="konto">{{ "Account" | translate }}</th>
+                              <th class="revert  center-tresh">
+                                <svg _ngcontent-jkv-c446="" id="Group_4156" data-name="Group 4156" xmlns="http://www.w3.org/2000/svg" width="10.742" height="15.696" viewBox="0 0 10.742 15.696"><path _ngcontent-jkv-c446="" id="Path_800" data-name="Path 800" d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z" transform="translate(-21.973 -15.119)" fill="#fcf4ec"></path><path _ngcontent-jkv-c446="" id="Path_801" data-name="Path 801" d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z" transform="translate(-21.973 -20.489)" fill="#fcf4ec"></path></svg>
+                              </th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr formArrayName="articlesAdditionalWork"
+                              *ngFor="let article of articlesAdditionalWork.controls; let i = index" >
+                              <td formGroupName="{{ i }}">
+                                <input  type="hidden" formControlName="id" />
+                                <input
+                                  class="form-control form-control-sm article-name"
+                                  type="text"
+                                  #articleName1
+                                  formControlName="Name"
+                                  (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                  [attr.data-selected_article]="'additional-work'"
+                                  [class.is-invalid]="article.get('Name').invalid"
+                                />
+                              </td>
+                              <td formGroupName="{{ i }}">
+                                <input
+                                  class="form-control form-control-sm width5em"
+                                  type="text"
+                                  min="1"
+                                  #articleQuantity1
+                                  formControlName="Quantity"
+                                  (change)="
+                                    updateTotal(i, articlesAdditionalWork, true)
+                                  "
+                                  (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                  [attr.data-selected_article]="'additional-work'"
+                                  number-format-directive
+                                />
+                              </td>
+                              <td formGroupName="{{ i }}">
+
+                            <!--Dropdown Unit-->
+                              <div class="input-wrapper3">
+                                <select
+                                  class="form-control form-control-sm width5em select-property"
+                                  #articleUnit1
+                                  formControlName="Unit"
+                                >
+                                  <option
+                                    *ngFor="let unit of units['AdditionalWork']"
+                                    value="{{ unit }}"
+                                  >
+                                    {{ unit }}
+                                  </option>
+                                </select>
+                              </div>
+                            <!--End Dropdown Unit-->
+<!--
+                                <select
+                                  class="form-control form-control-sm width5em"
+                                  #articleUnit1
+                                  formControlName="Unit"
+                                  (change)="addRow(articlesAdditionalWork, 'articlesAdditionalWork')"
+                                  [attr.data-selected_article]="'additional-work'"
+                                >
+                                  <option
+                                    *ngFor="let unit of units['AdditionalWork']"
+                                    value="{{ unit }}"
+                                  >
+                                    {{ unit }}
+                                  </option>
+                                </select>
+
+-->
+                              </td>
+                              <td formGroupName="{{ i }}">
+                                <input
+                                  class="form-control form-control-sm width5em"
+                                  type="text"
+                                  min="0"
+                                  formControlName="Price"
+                                  (change)="
+                                    updateTotal(i, articlesAdditionalWork, true)
+                                  "
+                                  (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                  [attr.data-selected_article]="'additional-work'"
+                                  number-format-directive
+                                />
+                              </td>
+                              <td formGroupName="{{ i }}">
+                                <input
+                                  class="form-control form-control-sm width5em"
+                                  type="text"
+                                  formControlName="Deduct"
+                                  (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                  [attr.data-selected_article]="'additional-work'"
+                                  (change)="
+                                    updateTotal(i, articlesAdditionalWork, true)
+                                  "
+                                  number-format-directive
+                                />
+                              </td>
+                              <td formGroupName="{{ i }}">
+                                <input
+                                  class="form-control form-control-sm total-text-align"
+                                  readonly
+                                  type="text"
+                                  (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                  [attr.data-selected_article]="'additional-work'"
+                                  #articleTotal1
+                                  [value]="
+                                    article.get('Total').value | number: '1.2-2':'fr'
+                                  "
+                                  readonly
+                                />
+                              </td>
+                              <td formGroupName="{{ i }}">
+
+                          <!--Dropdown Account-->
+                            <div class="input-wrapper1">
+                              <app-simple-select-in-table
+                              [ClientItem]= "enabledAccounts"
+                              [fontSize]="14"
+                              formControlName="Account"
+                              [width]="120"
+                              [type1]="'Account'"
+                              [AccountActive]="true"
+                              >
+                              </app-simple-select-in-table>
+                            </div>
+                          <!--End Dropdown Account-->
+<!--
+                                <select
+                                  class="form-control form-control-sm width5em select-property"
+                                  style="max-width: 125px"
+                                  #articleAccount1
+                                  formControlName="Account"
+                                  (change)="setAccount('additionalWork', articleAccount1.value, i)"
+                                  (change)="addRow(articlesAdditionalWork, 'articlesAdditionalWork')"
+                                  [attr.data-selected_article]="'additional-work'"
+                                >
+                                    <option
+                                        *ngFor="let account of enabledAccounts"
+                                        [value]="account.Number"
+                                    >
+                                        {{ account.Number }} {{ account.Description }}
+                                    </option>
+                                </select>
+-->
+                              </td>
+                              <td class="text-center">
+
+                                <img style="cursor: pointer;margin-top: 9px;" (click)="removeRow(i, articlesAdditionalWork, 1)" src="/assets/img/gray-trash.svg" alt="">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="5" scope="col"></td>
+                              <td scope="col" class="total-text-align">
+                                <strong>{{
+                                  calcAllTotal([getArticlesAdditionalWork])
+                                    | number: "1.2-2":"fr"
+                                }}</strong>
+                              </td>
+                              <td colspan="2" scope="col"></td>
+                            </tr>
+                          </tbody>
+                      </table>
+                    </div>
+                  </fieldset>
+                </fieldset>
+              </div>
+            </div>
+            <div class="form-wrapper mb-3">
+              <div class="panel panel-default w-100">
+              <fieldset class="fieldset shadow-top-div">
+                  <span class="title-options__material">
+                    <span (click)="toggleTable('showMaterialTable')" style="z-index:99">
+                      {{ "Material" | translate  }}
+                    </span>
+                    <span
+                      (click)="toggleTable('showMaterialTable')"
+                      class="material-icons custom-icon" style="z-index:99">
+                      {{ showMaterialTable
+                        ? "keyboard_arrow_up"
+                        : "keyboard_arrow_down"
+                      }}
+                    </span>
+                    <div class="hidde-zoom-line"></div>
+                  </span>
+                  <fieldset  class="fieldset shadow-top-div no-border" *ngIf="showMaterialTable">
+                    <div class="">
+                      <table class="table invoice-table table-bordered">
+                        <thead>
+
+                            <tr>
+
+                              <th scope="col" class="desc">{{ "Description" | translate }}</th>
+                              <th scope="col" clss="quantity text-right" style="text-align: right!important;">{{ "Quantity" | translate }}</th>
+                              <th scope="col" class="unit">{{ "Unit" | translate }}</th>
+                              <th scope="col" class="price text-right">
+                                {{ "Price per unit" | translate }}
+                              </th>
+                              <th scope="col" class="percent" >
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17.275" height="10.458" viewBox="0 0 17.275 10.458">
+                                    <defs>
+                                      <clipPath id="clip-path">
+                                        <rect id="Rectangle_15721" data-name="Rectangle 15721" width="17.275" height="10.458" fill="#fff"/>
+                                      </clipPath>
+                                    </defs>
+                                    <g id="Group_4226" data-name="Group 4226" clip-path="url(#clip-path)">
+                                      <path id="Path_1791" data-name="Path 1791" d="M47.312,6.918a.379.379,0,0,1-.1-.262V4.788H45.5a.3.3,0,0,1-.235-.106.377.377,0,0,1-.1-.262V4.094a.376.376,0,0,1,.1-.262.3.3,0,0,1,.235-.106h1.715V1.858a.379.379,0,0,1,.1-.262.3.3,0,0,1,.235-.106h.368a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262V3.726h1.7a.3.3,0,0,1,.235.106.377.377,0,0,1,.1.262V4.42a.378.378,0,0,1-.1.262.3.3,0,0,1-.235.106h-1.7V6.656a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106h-.368a.3.3,0,0,1-.235-.106" transform="translate(-33.004 -1.089)" fill="#fff"/>
+                                      <path id="Path_1792" data-name="Path 1792" d="M47.129,29.891a.377.377,0,0,1-.1-.262V29.3a.378.378,0,0,1,.1-.262.3.3,0,0,1,.235-.106h3.469a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262v.326a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106H47.364a.3.3,0,0,1-.235-.106" transform="translate(-34.365 -21.142)" fill="#fff"/>
+                                      <path id="Path_1793" data-name="Path 1793" d="M4.112,4.752a2.2,2.2,0,0,1-1.723.731,2.323,2.323,0,0,1-.978-.2A2.246,2.246,0,0,1,.66,4.729a2.47,2.47,0,0,1-.489-.866A3.527,3.527,0,0,1,0,2.734,2.908,2.908,0,0,1,.652.739,2.185,2.185,0,0,1,2.374,0a2.342,2.342,0,0,1,.97.2A2.226,2.226,0,0,1,4.1.755a2.458,2.458,0,0,1,.489.874,3.607,3.607,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987m-2.568-.66a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653A2.69,2.69,0,0,0,3.22,1.391.959.959,0,0,0,2.374,1a.926.926,0,0,0-.838.405A2.366,2.366,0,0,0,1.272,2.67a2.649,2.649,0,0,0,.272,1.422m.683,6.08a.212.212,0,0,1,.008-.238L7.79.525A.706.706,0,0,1,8.046.27.682.682,0,0,1,8.4.175h.388a.232.232,0,0,1,.21.111.212.212,0,0,1-.008.239L3.43,9.934a.7.7,0,0,1-.256.254.679.679,0,0,1-.349.1H2.436a.232.232,0,0,1-.21-.111m8.341-.445a2.195,2.195,0,0,1-1.722.731,2.325,2.325,0,0,1-.978-.2A2.248,2.248,0,0,1,7.115,9.7a2.464,2.464,0,0,1-.489-.866,3.528,3.528,0,0,1-.171-1.129,2.908,2.908,0,0,1,.652-1.995A2.184,2.184,0,0,1,8.83,4.975a2.338,2.338,0,0,1,.97.2,2.225,2.225,0,0,1,.76.556,2.454,2.454,0,0,1,.489.874,3.608,3.608,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987M8,9.068a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653a2.691,2.691,0,0,0-.272-1.438.96.96,0,0,0-.846-.39.927.927,0,0,0-.838.405,2.368,2.368,0,0,0-.264,1.264A2.651,2.651,0,0,0,8,9.068" transform="translate(0 0)" fill="#fff"/>
+                                    </g>
+                                  </svg>
+                              </th>
+                              <th scope="col" class="summa text-right">{{ "TSC_TOTAL" | translate }}</th>
+                              <th scope="col" class="konto">{{ "Account" | translate }}</th>
+                              <th class="revert  center-tresh">
+                                <svg _ngcontent-jkv-c446="" id="Group_4156" data-name="Group 4156" xmlns="http://www.w3.org/2000/svg" width="10.742" height="15.696" viewBox="0 0 10.742 15.696"><path _ngcontent-jkv-c446="" id="Path_800" data-name="Path 800" d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z" transform="translate(-21.973 -15.119)" fill="#fcf4ec"></path><path _ngcontent-jkv-c446="" id="Path_801" data-name="Path 801" d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z" transform="translate(-21.973 -20.489)" fill="#fcf4ec"></path></svg>
+                              </th>
+
+                          </tr>
+
+                        </thead>
+                        <tbody>
+                          <tr
+                            formArrayName="articlesMaterial"
+                            *ngFor="
+                              let material of articlesMaterial.controls;
+                              let i = index
+                            "
+                          >
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm article-name"
+                                list="properties"
+                                #articleName2
+                                formControlName="Name"
+                                (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                (change)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                (blur)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                [attr.data-selected_article]="'article-material'"
+                                [class.is-invalid]="material.get('Name').invalid"
+                              />
+                              <datalist id="properties">
+                                <option
+                                  *ngFor="let property of materialProperties"
+                                  value="{{ property }}"
+                                >
+                                  {{ property }}
+                                </option>
+                              </datalist>
+                            </td>
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm width5em"
+                                type="text"
+                                min="1"
+                                #articleQuantity2
+                                formControlName="Quantity"
+                                (change)="updateTotal(i, articlesMaterial)"
+                                (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                [attr.data-selected_article]="'article-material'"
+                                number-format-directive
+                              />
+                            </td>
+                            <td formGroupName="{{ i }}">
+
+                            <!--Dropdown Unit-->
+                                <div class="input-wrapper3">
+                                  <select
+                                    class="form-control form-control-sm width5em select-property"
+                                    #articleUnit1
+                                    formControlName="Unit"
+                                  >
+                                    <option
+                                      *ngFor="let unit of units['Material']"
+                                      value="{{ unit }}"
+                                    >
+                                      {{ unit }}
+                                    </option>
+                                  </select>
+                              </div>
+                            <!--End Dropdown Unit-->
+<!--
+                              <select
+                                class="form-control form-control-sm width5em"
+                                #articleUnit2
+                                formControlName="Unit"
+                                (change)="addRow(articlesMaterial, 'articlesMaterial')"
+                                [attr.data-selected_article]="'article-material'"
+                              >
+                                <option
+                                  *ngFor="let unit of units['Material']"
+                                  value="{{ unit }}"
+                                >
+                                  {{ unit }}
+                                </option>
+                              </select>
+-->
+                            </td>
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm width5em"
+                                type="text"
+                                min="0"
+                                #articlePrice2
+                                formControlName="Price"
+                                (change)="updateTotal(i, articlesMaterial)"
+                                (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                [attr.data-selected_article]="'article-material'"
+                                number-format-directive
+                              />
+                            </td>
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm width5em"
+                                type="text"
+                                #articleDeduct2
+                                formControlName="Deduct"
+                                (change)="updateTotal(i, articlesMaterial)"
+                                (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                [attr.data-selected_article]="'article-material'"
+                                number-format-directive
+                              />
+                            </td>
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm total-text-align"
+                                readonly
+                                type="text"
+                                #articleTotal2
+                                [value]="
+                                  material.get('Total').value | number: '1.2-2':'fr'
+                                "
+                                (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                [attr.data-selected_article]="'article-material'"
+                                readonly
+                              />
+                            </td>
+                            <td formGroupName="{{ i }}">
+
+                          <!--Dropdown Account-->
+                            <div class="input-wrapper1">
+                              <app-simple-select-in-table
+                              [ClientItem]= "enabledAccounts"
+                              [fontSize]="14"
+                              formControlName="Account"
+                              [width]="120"
+                              [type1]="'Account'"
+                              [AccountActive]="true"
+                              >
+                              </app-simple-select-in-table>
+                            </div>
+                          <!--End Dropdown Account-->
+
+<!--
+                                <select
+                                    class="form-control form-control-sm width5em select-property"
+                                    style="max-width: 125px"
+                                    #articleAccount2
+                                    formControlName="Account"
+                                    (change)="setAccount('material', articleAccount2.value, i)"
+                                    (change)="addRow(articlesMaterial, 'articlesMaterial')"
+                                    [attr.data-selected_article]="'article-material'"
+                                >
+                                    <option
+                                        *ngFor="let account of enabledAccounts"
+                                        [value]="account.Number"
+                                    >
+                                        {{ account.Number }} {{ account.Description }}
+                                    </option>
+                                </select>
+-->
+                            </td>
+                            <td class="text-center">
+
+                              <img style="cursor: pointer;margin-top: 9px;"  (click)="removeRow(i, articlesMaterial, 'articlesMaterial')" src="/assets/img/gray-trash.svg" alt="">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="5" scope="col"></td>
+                            <td scope="col" class="total-text-align">
+                              <strong>{{
+                                calcAllTotal([getArticlesMaterial])
+                                  | number: "1.2-2":"fr"
+                              }}</strong>
+                            </td>
+                            <td colspan="2" scope="col"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </fieldset>
+                </fieldset>
+              </div>
+            </div>
+            <div class="form-wrapper">
+              <div class="panel panel-default w-100">
+                <fieldset class="fieldset shadow-top-div">
+                  <span class="title-options__other">
+                    <span (click)="toggleTable('showOtherTable')" style="z-index:99">
+                      {{ "UE/Other" | translate }}
+                    </span>
+                    <span
+                      (click)="toggleTable('showOtherTable')"
+                      class="material-icons custom-icon" style="z-index:99">
+                      {{
+                        showOtherTable ? "keyboard_arrow_up" : "keyboard_arrow_down"
+                      }}
+                    </span>
+                    <div class="hidde-zoom-line"></div>
+                  </span>
+                  <fieldset  class="fieldset shadow-top-div no-border" *ngIf="showOtherTable">
+                    <div class="">
+                      <table class="table invoice-table table-bordered">
+                        <thead>
+
+                            <tr>
+
+                              <th scope="col" class="desc">{{ "Description" | translate }}</th>
+                              <th scope="col" clss="quantity text-right" style="text-align: right!important;">{{ "Quantity" | translate }}</th>
+                              <th scope="col" class="unit">{{ "Unit" | translate }}</th>
+                              <th scope="col" class="price text-right">
+                                {{ "Price per unit" | translate }}
+                              </th>
+                              <th scope="col" class="percent" >
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17.275" height="10.458" viewBox="0 0 17.275 10.458">
+                                    <defs>
+                                      <clipPath id="clip-path">
+                                        <rect id="Rectangle_15721" data-name="Rectangle 15721" width="17.275" height="10.458" fill="#fff"/>
+                                      </clipPath>
+                                    </defs>
+                                    <g id="Group_4226" data-name="Group 4226" clip-path="url(#clip-path)">
+                                      <path id="Path_1791" data-name="Path 1791" d="M47.312,6.918a.379.379,0,0,1-.1-.262V4.788H45.5a.3.3,0,0,1-.235-.106.377.377,0,0,1-.1-.262V4.094a.376.376,0,0,1,.1-.262.3.3,0,0,1,.235-.106h1.715V1.858a.379.379,0,0,1,.1-.262.3.3,0,0,1,.235-.106h.368a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262V3.726h1.7a.3.3,0,0,1,.235.106.377.377,0,0,1,.1.262V4.42a.378.378,0,0,1-.1.262.3.3,0,0,1-.235.106h-1.7V6.656a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106h-.368a.3.3,0,0,1-.235-.106" transform="translate(-33.004 -1.089)" fill="#fff"/>
+                                      <path id="Path_1792" data-name="Path 1792" d="M47.129,29.891a.377.377,0,0,1-.1-.262V29.3a.378.378,0,0,1,.1-.262.3.3,0,0,1,.235-.106h3.469a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262v.326a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106H47.364a.3.3,0,0,1-.235-.106" transform="translate(-34.365 -21.142)" fill="#fff"/>
+                                      <path id="Path_1793" data-name="Path 1793" d="M4.112,4.752a2.2,2.2,0,0,1-1.723.731,2.323,2.323,0,0,1-.978-.2A2.246,2.246,0,0,1,.66,4.729a2.47,2.47,0,0,1-.489-.866A3.527,3.527,0,0,1,0,2.734,2.908,2.908,0,0,1,.652.739,2.185,2.185,0,0,1,2.374,0a2.342,2.342,0,0,1,.97.2A2.226,2.226,0,0,1,4.1.755a2.458,2.458,0,0,1,.489.874,3.607,3.607,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987m-2.568-.66a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653A2.69,2.69,0,0,0,3.22,1.391.959.959,0,0,0,2.374,1a.926.926,0,0,0-.838.405A2.366,2.366,0,0,0,1.272,2.67a2.649,2.649,0,0,0,.272,1.422m.683,6.08a.212.212,0,0,1,.008-.238L7.79.525A.706.706,0,0,1,8.046.27.682.682,0,0,1,8.4.175h.388a.232.232,0,0,1,.21.111.212.212,0,0,1-.008.239L3.43,9.934a.7.7,0,0,1-.256.254.679.679,0,0,1-.349.1H2.436a.232.232,0,0,1-.21-.111m8.341-.445a2.195,2.195,0,0,1-1.722.731,2.325,2.325,0,0,1-.978-.2A2.248,2.248,0,0,1,7.115,9.7a2.464,2.464,0,0,1-.489-.866,3.528,3.528,0,0,1-.171-1.129,2.908,2.908,0,0,1,.652-1.995A2.184,2.184,0,0,1,8.83,4.975a2.338,2.338,0,0,1,.97.2,2.225,2.225,0,0,1,.76.556,2.454,2.454,0,0,1,.489.874,3.608,3.608,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987M8,9.068a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653a2.691,2.691,0,0,0-.272-1.438.96.96,0,0,0-.846-.39.927.927,0,0,0-.838.405,2.368,2.368,0,0,0-.264,1.264A2.651,2.651,0,0,0,8,9.068" transform="translate(0 0)" fill="#fff"/>
+                                    </g>
+                                  </svg>
+                              </th>
+                              <th scope="col" class="summa text-right">{{ "TSC_TOTAL" | translate }}</th>
+                              <th scope="col" class="konto">{{ "Account" | translate }}</th>
+                              <th class="revert center-tresh">
+                                <svg _ngcontent-jkv-c446="" id="Group_4156" data-name="Group 4156" xmlns="http://www.w3.org/2000/svg" width="10.742" height="15.696" viewBox="0 0 10.742 15.696"><path _ngcontent-jkv-c446="" id="Path_800" data-name="Path 800" d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z" transform="translate(-21.973 -15.119)" fill="#fcf4ec"></path><path _ngcontent-jkv-c446="" id="Path_801" data-name="Path 801" d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z" transform="translate(-21.973 -20.489)" fill="#fcf4ec"></path></svg>
+                              </th>
+
+                          </tr>
+
+                        </thead>
+                        <tbody>
+                          <tr
+                            formArrayName="articlesOther"
+                            *ngFor="
+                              let other of articlesOther.controls;
+                              let i = index
+                            "
+                          >
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm article-name"
+                                type="text"
+                                #articleName3
+                                formControlName="Name"
+                                (change)="addRow(articlesOther, 'articlesOther', i)"
+                                (blur)="addRow(articlesOther, 'articlesOther', i)"
+                                (click)="addRow(articlesOther, 'articlesOther', i)"
+                                [attr.data-selected_article]="'article-other'"
+                                [class.is-invalid]="other.get('Name').invalid"
+                              />
+                            </td>
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm width5em"
+                                type="text"
+                                min="1"
+                                #articleQuantity3
+                                formControlName="Quantity"
+                                (change)="updateTotal(i, articlesOther)"
+                                (click)="addRow(articlesOther, 'articlesOther', i)"
+                                [attr.data-selected_article]="'article-other'"
+                                number-format-directive
+                              />
+                            </td>
+                            <td formGroupName="{{ i }}">
+
+                            <!--Dropdown Unit-->
+                            <div class="input-wrapper3">
+                              <select
+                                class="form-control form-control-sm width5em select-property"
+                                #articleUnit1
+                                formControlName="Unit"
+                              >
+                                <option
+                                  *ngFor="let unit of units['Other']"
+                                  value="{{ unit }}"
+                                >
+                                  {{ unit }}
+                                </option>
+                              </select>
+                            </div>
+                          <!--End Dropdown Unit-->
+<!--
+                              <select
+                                class="form-control form-control-sm width5em"
+                                #articleUnit3
+                                formControlName="Unit"
+                                (change)="addRow(articlesOther, 'articlesOther')"
+                                [attr.data-selected_article]="'article-other'"
+                              >
+                                <option
+                                  *ngFor="let unit of units['Other']"
+                                  value="{{ unit }}"
+                                >
+                                  {{ unit }}
+                                </option>
+                              </select>
+-->
+                            </td>
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm width5em"
+                                type="text"
+                                min="0"
+                                type="text"
+                                step="any"
+                                lang="fr"
+                                #articlePrice3
+                                formControlName="Price"
+                                (change)="updateTotal(i, articlesOther)"
+                                (click)="addRow(articlesOther, 'articlesOther', i)"
+                                [attr.data-selected_article]="'article-other'"
+                                number-format-directive
+                              />
+                            </td>
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm width5em"
+                                type="text"
+                                #articleDeduct3
+                                formControlName="Deduct"
+                                (click)="addRow(articlesOther, 'articlesOther', i)"
+                                [attr.data-selected_article]="'article-other'"
+                                (change)="updateTotal(i, articlesOther)"
+                                number-format-directive
+                              />
+                            </td>
+                            <td formGroupName="{{ i }}">
+                              <input
+                                class="form-control form-control-sm total-text-align"
+                                readonly
+                                type="text"
+                                #articleTotal3
+                                [value]="
+                                  other.get('Total').value | number: '1.2-2':'fr'
+                                "
+                                (click)="addRow(articlesOther, 'articlesOther', i)"
+                                [attr.data-selected_article]="'article-other'"
+                                readonly
+                              />
+                            </td>
+                            <td formGroupName="{{ i }}">
+
+                            <!--Dropdown Account-->
+                            <div class="input-wrapper1">
+                              <app-simple-select-in-table
+                              [ClientItem]= "enabledAccounts"
+                              [fontSize]="14"
+                              formControlName="Account"
+                              [width]="120"
+                              [type1]="'Account'"
+                              [AccountActive]="true"
+                              >
+                              </app-simple-select-in-table>
+                            </div>
+                          <!--End Dropdown Account-->
+
+<!--
+                                <select
+                                    class="form-control form-control-sm width5em select-property"
+                                    style="max-width: 125px"
+                                    #articleAccount3
+                                    formControlName="Account"
+                                    (change)="setAccount('other', articleAccount3.value, i)"
+                                    (change)="addRow(articlesOther, 'articlesOther')"
+                                    [attr.data-selected_article]="'article-other'"
+                                >
+                                    <option
+                                        *ngFor="let account of enabledAccounts"
+                                        [value]="account.Number"
+                                        [selected]="
+                                        account.Number == enabledAccounts[0].Number
+                                        "
+                                    >
+                                        {{ account.Number }} {{ account.Description }}
+                                    </option>
+                                </select>
+-->
+                            </td>
+                            <td class="text-center">
+
+                              <img style="cursor: pointer;margin-top: 9px;" (click)="removeRow(i, articlesOther, 'articlesOther')" src="/assets/img/gray-trash.svg" alt="">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="5" scope="col"></td>
+                            <td scope="col" class="total-text-align">
+                              <strong>{{
+                                calcAllTotal([getArticleOther]) | number: "1.2-2":"fr"
+                              }}</strong>
+                            </td>
+                            <td colspan="2" scope="col"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </fieldset>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="form-wrapper mb-3">
+              <div class="panel panel-default w-100">
+                  <div class="">
+                    <table class="table invoice-table table-bordered">
+                      <tbody>
+                        <tr>
+                          <td scope="col" class="w-75" class="total-text-align black">
+                            <strong> {{ "Total" | translate }}</strong>
+                          </td>
+                          <td colspan="2" class="total-text-align" scope="col" style="width:25%">
+                            <strong>
+                              {{
+                                calcAllTotal([
+                                  getArticlesAdditionalWork,
+                                  getArticlesMaterial,
+                                  getArticleOther
+                                ]) | number: "1.2-2":"fr"
+                              }}
+                            </strong>
+                          </td>
+                          <!-- <td style="border-right-style: hidden;">
+                          </td>
+                          <td>
+                          </td> -->
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+            </div>
+            <div class="form-group text-center" style="margin-left: 50px;">
+              <button
+                type="submit"
+                class="save-button"
+                [disabled]="spinner || !createForm.valid"
+              >
+                <div class="button-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="23.5" height="18.548" viewBox="0 0 23.5 18.548">
+                    <g id="Skapad_mapp" data-name="Skapad mapp" transform="translate(0.75 0.75)">
+                      <path id="Path_754" data-name="Path 754" d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z" transform="translate(-14.993 -19.629)" fill="#373b40"/>
+                      <ng-container *ngIf="spinner || !createForm.valid">
+                        <path id="Path_755" data-name="Path 755" d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z" transform="translate(-14.993 -19.629)" fill="none" stroke="#cccccc" stroke-width="1.5" opacity="0.973"/>
+                      </ng-container>
+                      <ng-container *ngIf="createForm.valid && !spinner">
+                        <path id="Path_755" data-name="Path 755" d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z" transform="translate(-14.993 -19.629)" fill="none" stroke="#ff7000" stroke-width="1.5" opacity="0.973"/>
+                      </ng-container>
+                    </g>
+                  </svg>
+                </div>
+                <!-- <span class="material-icons left-3px top1px posRel">save</span>
+                <span class="posRel top-5px">{{ "Save" | translate }}</span> -->
+                <div>
+                  {{ "Save" | translate }}
+                </div>
+              </button>
+            </div>
+            </form>
+          </div>
+          <div class="thin-red-line-bottom" ></div>
+          <div  class="thin-red-line-right" ></div>
+        </div>
+
+      </div>
+      <div
+        class="card card-form col-sm-5X col-md-6X col-lg-8W"
+        [hidden]="!showSupplierInvoiceModal"
+      >
+        <div>
+          <section class="d-flex justify-content-between mb-2">
+            <h1 class="h4">{{ "Supplier Invoices" | translate }}</h1>
+            <button class="btn btn-dark" (click)="closeSupplierInvoiceModal()">
+              <i class="material-icons posRel top5px">arrow_back</i
+              >{{ "Back to ata" | translate }}
+            </button>
+          </section>
+          <div>
+            <table
+              class="table tab-responsive table-striped table-hover table-lightX"
+              id="theTable"
+            >
+              <thead class="table-bordered">
+                <tr>
+                  <th scope="col">{{ "Order NR" | translate }}</th>
+                  <th scope="col">{{ "Supplier Name" | translate }}</th>
+                  <th scope="col">{{ "Invoice Date" | translate }}</th>
+                  <th scope="col">{{ "Due Date" | translate }}</th>
+                  <th scope="col">{{ "Total" | translate }}</th>
+                  <th scope="col">{{ "Added" | translate }}</th>
+                </tr>
+              </thead>
+              <tbody class="table-bordered">
+                <tr *ngFor="let invoice of supplierInvoices; let i = index">
+                  <td>{{ invoice.OrderNR }}</td>
+                  <td>{{ invoice.SupplierName }}</td>
+                  <td>{{ invoice.InvoiceDate }}</td>
+                  <td>{{ invoice.DueDate }}</td>
+                  <td class="total-text-align">
+                    {{ invoice.Total | number: "1.2-2":"fr" }}
+                  </td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      #addedCheckbox
+                      [checked]="invoice.isChecked"
+                      (click)="supplierInvoiceChecked(addedCheckbox.checked, i)"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+<div
+  *ngIf="showAttachmentImage"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="toggleAttachmentImage($event)"
+>
+  <div class="image-wrapper" *ngIf="!showPdf">
+    <span class="rotate-icon-left" (click)="rotateLeft()"
+      ><i class="material-icons">rotate_left</i></span
+    >
+    <span class="rotate-icon" (click)="rotateRight()"
+      ><i class="material-icons">rotate_right</i></span
+    >
+    <span
+      class="close-icon-right material-icons"
+      (click)="showAttachmentImage = !showAttachmentImage"
+      >clear</span
+    >
+  </div>
+  <div id="image-gallery" *ngIf="!showPdf">
+    <div class="image-container"></div>
+  </div>
+  <iframe
+    style="max-height: 85vh; width: 50%; height: 100%"
+    [src]="currentAttachmentPdf"
+    *ngIf="showPdf"
+  ></iframe>
+</div>
+
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner mode="determinate" [value]="progress"></mat-spinner>
+  <div *ngIf="progress > 0" class="progress-percentage">
+    {{ progress + "%" }}
+  </div>
+</div>
+<div class="aside" [ngClass]="{ 'aside-show': showPdfPreview }">
+  <div class="buttons">
+    <button type="button" (click)="togglePdfPreview()">
+      {{ (showPdfPreview ? "Close Preview" : "Preview") | translate }}
+    </button>
+
+  </div>
+  <ata-pdf
+    [formValues]="createForm.value"
+    [articlesAdditionalWork]="articlesAdditionalWork.value"
+    [articlesMaterial]="articlesMaterial.value"
+    [articlesOther]="articlesOther.value"
+    [project]="project"
+    [nextAtaNumber]="nextAtaNumber"
+    [generalImage]="generalImage"
+    [get_last_email_log_but_first_client]="get_last_email_log_but_first_client"
+  >
+  </ata-pdf>
+</div>
+<div class="hide-data" *ngIf="showPdfPreview" (click)="togglePdfPreview()"></div>
+
+
+<img style="display:none" src="/assets/img/gray-trash.svg" alt="">

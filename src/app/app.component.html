@@ -1,0 +1,454 @@
+<div *ngIf="siteIsDown && userDetails && userDetails.create_offer_Global" class="site-is-down">
+  <i class="material-icons">settings</i>
+  <h3>
+      {{
+      "The site is undergoing maintenance, please come back later." | translate
+      }}
+  </h3>
+</div>
+<ng-container *ngIf="!siteIsDown">
+  <div *ngIf="initProvider.isLoggedIn">
+      <app-nav-bar></app-nav-bar>
+      <h1 class="postition-of-warrings" *ngIf="countdown">
+          <span>{{ "Logout out in" | translate }}</span>{{ formatCountDown(countdown) }} {{ covert_type | translate }}
+      </h1>
+
+          <div id="sidebar-wrapper" [attr.hidden]="hideSidebar ? true : null">
+
+              <li class="sidebar-brand" style="padding-top: 12px">
+                  <img class="main-img mt-4 pb-3 w-75" src="assets/img/sidebar-menu-icons/sps360.svg" />
+              </li>
+              <ul class="sidebar-nav" *ngIf="userDetails">
+                  <div class="one pt-5">
+                      <li class="pt-60">
+                        &nbsp;
+                      </li>
+                      <li *ngIf="userDetails.show_home_Global">
+                          <a routerLink="/home" (click)="clearStatusObjects()" routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/home.svg" alt="" width="43" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/home-active.svg" alt="" />
+                                  <span class="text">{{ "Home" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li></li>
+                     <li *ngIf="userDetails.show_offer_Global && initProvider.hasComponentAccess('offer')">
+                          <a routerLink="/offer"  (click)="clearStatusObjects()" routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/projects.svg" alt="" width="43" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/projects-active.svg" alt="" />
+
+                                  <span class="text">{{ "Offer" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li routerLinkActive="active" *ngIf="
+            (
+              (userDetails.show_planning_Global && initProvider.hasComponentAccess('planning'))
+            )
+          ">
+                          <a routerLink="/planning" (click)="clearStatusObjects()" routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/planing.svg" alt="" width="43" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/planing-active.svg" alt="" />
+
+                                  <span class="text">{{ "Planning" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li routerLinkActive="active" *ngIf="
+            userDetails.show_project_Global &&
+            initProvider.hasComponentAccess('projects')
+          ">
+                          <a routerLink="/projects" (click)="clearStatusObjects()" routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/projects-new-svg.svg" alt="" width="39" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/projects-active-new.svg" alt="" />
+                                  <span class="text">{{ "Projects" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li routerLinkActive="active" *ngIf="
+            userDetails.show_timesheets_Global &&
+            initProvider.hasComponentAccess('timesheets')
+          ">
+                          <a style="position: 'relative'" routerLink="/timesheets/schedule-calendar" (click)="clearStatusObjects()" routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/timesheets.svg" alt="" width="43" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/timesheets-active.svg" alt="" />
+                                  <span class="text">{{ "Timesheets" | translate }}</span>
+                              </div>
+                              <div class="nr-of-messages" *ngIf="messageCount">
+                                  <span>{{ messageCount }}</span>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li _ngcontent-fdj-c0="" style="min-height: 30px"></li>
+
+                      <li class="border-topX cursor-pointer" *ngIf="
+            userDetails.show_project_analyzing &&
+            initProvider.hasComponentAccess('analysing')
+          ">
+                          <a routerLink="/project_overview" (click)="clearStatusObjects()" routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/analys-new.svg" alt="" width="43" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/analysis-active.svg" alt="" />
+                                  <span class="text">{{ "Project overview" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+                      <li routerLinkActive="active" *ngIf="
+            userDetails.show_invoices_Global &&
+            initProvider.hasComponentAccess('invoices')
+          ">
+                          <a routerLink="/invoices" (click)="clearStatusObjects()">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/invoices.svg" alt="" width="43" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/invoices-active.svg" alt="" />
+                                  <span class="text">{{ "Invoices" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li *ngIf="
+            userDetails.show_register_Global ||
+            (initProvider.hasComponentAccess('products') ||
+              initProvider.hasComponentAccess('customer_records') ||
+              initProvider.hasComponentAccess('suppliers')) &&
+            (userDetails.create_register_customers ||
+              userDetails.show_register_products ||
+              userDetails.show_register_suppliers)
+          ">
+                          <a routerLink="/register" (click)="clearStatusObjects()" routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/clients.svg" alt="" width="43" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/clients-active.svg" alt="" />
+                                  <span class="text">{{ "Register" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+                      <li class="pb-3" routerLinkActive="active" *ngIf="
+            !userDetails.show_users_Manageusers &&
+            initProvider.hasComponentAccess('settings')
+          ">
+                          <a routerLink="/my-account" routerLinkActive="active-item" (click)="clearStatusObjects()">
+                              <div class="hexagon">
+                                  <img class="ikona" src="../../../assets/img/sidebar-menu-icons/my-account.svg" alt="" width="40" />
+                                  <img class="ikona-active" src="../../../assets/img/sidebar-menu-icons/my-account-active.svg" alt="" />
+                                  <span class="text">{{ "My Account" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+                      <li routerLinkActive="active" *ngIf="
+            userDetails.show_users_Manageusers &&
+            initProvider.hasComponentAccess('users')
+          ">
+                          <a routerLink="/users" (click)="clearStatusObjects()" routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/users.svg" alt="" width="43" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/users-active.svg" alt="" />
+                                  <span class="text">{{ "Users" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+                  </div>
+                  <div class="two">
+                      <li class="border-topX cursor-pointer" (click)="toggleAllNotifications()" [attr.disabled]="notifications.length == 0  ? true : null" *ngIf="userDetails.show_notice_Global">
+                          <a [class.active-item]="showNotifications && notifications.length > 0">
+                              <div class="notification-section">
+                                  <div class="hexagon">
+                                      <img class="ikona" src="assets/img/sidebar-menu-icons/notifications.svg" alt="" width="43" />
+                                      <img class="ikona-active" src="assets/img/sidebar-menu-icons/notifications-active.svg" alt="" />
+
+                                      <div *ngIf="notifications.length == 0" class="hidden">
+                                          {{ "No notification" | translate }}
+                                      </div>
+
+                                      <span class="text">{{ "Notifications" | translate }}</span>
+
+                                      <div *ngIf="unseenNotifications > 0" class="notification-number">
+                                          <span>{{ unseenNotifications }}</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li class="cursor-pointer" *ngIf="initProvider.hasComponentAccess('help') && userDetails.show_help_Global">
+                          <a routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/help.svg" alt="" width="43" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/help-active.svg" alt="" />
+                                  <span class="text">{{ "Help" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li routerLinkActive="active" *ngIf="userDetails.show_settings_Global &&initProvider.hasComponentAccess('settings')">
+                          <a routerLink="/generals" (click)="clearStatusObjects()" routerLinkActive="active-item">
+                              <div class="hexagon">
+                                  <img class="ikona" src="../../../assets/img/sidebar-menu-icons/settings-new.svg" alt="" width="40" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/settings-active.svg" alt="" />
+                                  <span class="text">{{ "Settings" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li class="pb-3 cursor-pointer" style="margin-bottom: 68px; padding-top: 2px" *ngIf="userDetails.show_feedback_Global">
+                          <a (click)="openModal()">
+                              <div class="hexagon">
+                                  <img class="ikona" src="assets/img/sidebar-menu-icons/support-new.svg" alt="" width="40" />
+                                  <img class="ikona-active" src="assets/img/sidebar-menu-icons/support-active-new.svg" alt="" />
+                                  <span class="text">{{ "Support" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+
+                      <li class="border-top border-secondary" style="margin-bottom: -51px; position: relative">
+                          <a class="mt-3" (click)="logout()">
+                              <div style="display: flex; margin-left: 6px">
+                                  <img alt="" class="ikona" id="logoutsvg" src="assets/img/sidebar-menu-icons/logout.svg" width="40" />
+                                  <span style="position: absolute; left: 55px; bottom: -6px" class="text">{{ "Logout" | translate }}</span>
+                              </div>
+                          </a>
+                      </li>
+                  </div>
+              </ul>
+          </div>
+
+
+          <!-- <div class="line-left-scroll"></div> -->
+
+  </div>
+  <div>
+      <!--
+        <div *ngIf="showNotifications" class="all-notifications">
+          <div>
+            <header class="d-flex justify-content-between align-items-center p-2">
+              <h5>{{ "All Notifications" | translate }}</h5>
+              <span (click)="markAllNotificationsAsOpened()">{{ "Mark all" }}</span>
+            </header>
+            <ul>
+              <ng-container *ngFor="let notification of notifications">
+                <li class="note-li">
+                  <div
+                    class="mess-status-wrapp"
+                    [ngClass]="{
+                      'notification-opened': notification.opened == 1,
+                      'notification-unseen': notification.seen == 0
+                    }"
+                  >
+                    <div (click)="visitLink(notification)" class="">
+                      {{ notification.message }}
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="mess-status"
+                        [ngStyle]="setStatusColor(notification.status)"
+                      ></div>
+                    </div>
+                  </div>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </div>
+      -->
+
+      <!-- Notifikacije pocetak -->
+
+      <div *ngIf="showNotifications" class="all-notifications blu-scroll">
+          <div class="bord">
+              <div _ngcontent-lts-c2="" class="thin-orange-line-top"></div>
+              <table class="table-options">
+                  <thead>
+                      <tr class="th-data">
+                          <th class="px-4 w-250">{{ "TSC_PROJECT_NAME" | translate }}</th>
+                          <th class="px-4 w-134">{{ "Name" | translate }}</th>
+                          <th class="px-4 w-108">{{ "Status" | translate }}</th>
+                          <th class="px-4 w-108">{{ "Date" | translate }}</th>
+                          <th class="px-4 w-61">{{ "TSC_Retain" | translate }}</th>
+                          <th class="px-4 disp-grid w-37">
+                              <img class="delete-some" (click)="deleteChosenNotification()" src="assets/img/time-attest-icons/delete.svg" alt="delete-red" />
+                              <div class="delete-all" (click)="deleteAllNotification()">
+                                  {{ "Delete All" | translate }}!
+                              </div>
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody class="tbody-data">
+                      <ng-container *ngFor="let notification of notifications">
+                          <tr class="td-data" [ngClass]="[
+                  notification.opened == 0 ? 'orange-class' : 'white-class'
+                ]">
+                              <ng-container *ngIf="notification.type !='resource_planning_change'">
+                                  <td style="cursor:pointer;" class="px-4 w-250" [title]="notification.type == 'absence' ? notification.message : notification.project" (click)="visitLink(notification)">{{ notification.type == "absence" ? notification.message : notification.project }}</td>
+                                  <td style="cursor:pointer;" [title]="notification.message" class="px-4 w-134" (click)="visitLink(notification)">
+                                      <span class="name">
+                                          {{ notification.type == "absence" ? '' : notification.message }}
+                                      </span>
+                                  </td>
+                              </ng-container>
+                              <ng-container *ngIf="notification.type =='resource_planning_change'">
+                                  <td style="cursor:pointer;" [title]="notification.message" colspan="2" class="px-4 w-250" (click)="visitLink(notification)">{{ notification.message }}</td>
+                              </ng-container>
+                              <td class="px-4 w-108">
+                                  <div *ngIf="(notification.status == 0 && notification.type =='ata') ||
+                                              (notification.status == 0 && notification.type =='deviation')  " class="pt-2">
+                                      {{ "TSC_QUESTION" | translate }}
+                                  </div>
+                                  <div *ngIf="(notification.status == 9 && notification.type =='deviation')  " class="pt-2">
+                                        {{ "Client Answer" | translate }}
+                                  </div>
+                                  <div *ngIf="(notification.status == 1 && notification.type =='deviation') ||
+                                              (notification.status == 1 && notification.type =='order') ||
+                                              (notification.status == 1 && notification.type =='weekly_report') ||
+                                              (notification.status == 1 && notification.type =='absence')"  class="pt-2">
+                                      {{ "Approved" | translate }}
+                                  </div>
+                                  <div *ngIf="notification.status == 2" class="pt-2">
+                                      {{ "Approved" | translate }}
+                                  </div>
+                                  <div *ngIf="(notification.status == 0 && notification.type =='order') || notification.status == 3" class="pt-2">
+                                      {{ "TSC_DENIED" | translate }}
+                                  </div>
+                                  <div *ngIf="notification.status == 4" class="pt-2">
+                                      {{ "Sent" | translate }}
+                                  </div>
+                                  <div *ngIf="notification.status == 5" class="pt-2">
+                                      {{ "Date_changed" | translate }}
+                                  </div>
+                                  <div *ngIf="notification.status == 6" class="pt-2">
+                                      {{ "Attested" | translate }}
+                                  </div>
+                                  <div *ngIf="notification.status == 7" class="pt-2">
+                                      {{ "Deleted" | translate }}
+                                  </div>
+                                  <div *ngIf="notification.status == 8" class="pt-2">
+                                      {{ "TSC_DENIED" | translate }}
+                                  </div>
+                                  <span class="mr-2" *ngIf="notification.status == 5" style="position: relative;top: 25%;right: -8px;">
+                                      <img *ngIf="notification.status == 5" style="transform: rotate(180deg)" src="assets/img/notification-icons/approved-half.svg" alt="approved-half" class="no-right" />
+                                  </span>
+                                  <span [ngClass]="[ notification.type =='resource_planning_change' || notification.type == 'tidrapport' || notification.type == 'Tidrapport' || (notification.type == 'absence' && notification.status == 0) || (notification.type == 'deviation' && notification.status == 10) ? 'center-span' : 'no-right-span']" *ngIf="notification.status !== 5">
+                                      <img *ngIf="notification.type == 'absence' && notification.status == 0" src="assets/img/notification-icons/chat-notification_new.svg" alt="change" class="center" />
+                                      <img *ngIf="notification.type == 'absence' && notification.status == 8" src="assets/img/notification-icons/denied.svg" alt="denied" class="no-right" />
+
+                                      <img *ngIf="notification.type == 'deviation' && notification.status == 10" src="assets/img/notification-icons/chat-notification_new.svg" alt="chat" class="center" />
+
+                                      <img *ngIf="(notification.type == 'resource_planning_change' || notification.type == 'tidrapport' || notification.type == 'Tidrapport' ) && notification.status == 0" src="assets/img/notification-icons/chat-notification_new.svg" alt="chat" class="center" />
+                                      <img *ngIf="(notification.status == 0 && notification.type =='order' )|| notification.status == 3 || notification.status == 7" src="assets/img/notification-icons/denied.svg" alt="denied" class="no-right" />
+                                      <img *ngIf="(notification.status == 1 && notification.type =='order' ) || (notification.status == 1 && notification.type =='absence' ) || (notification.status == 1 && notification.type =='deviation' ) || notification.status == 2 || notification.status == 6 " src="assets/img/notification-icons/approved-completely.svg" alt="approved-completely" class="no-right" />
+                                      <img *ngIf="
+                        notification.status == 0 && ( notification.type =='ata' || notification.type =='deviation' ) ||
+                        notification.status == 1 && ( notification.type =='weekly_report' || notification.type =='weeklyreport' )
+                      " style="transform: rotate(180deg)" src="assets/img/notification-icons/approved-half.svg" alt="approved-half" class="no-right" />
+                                      <span class="send no-right" *ngIf="notification.status == 4">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 13.5 13.5">
+                                              <g id="Group_7299" data-name="Group 7299" transform="translate(-1671 -618)">
+                                                  <path id="Path_1754" data-name="Path 1754" d="M6.75,0A6.75,6.75,0,1,1,0,6.75,6.75,6.75,0,0,1,6.75,0Z" transform="translate(1671 618)" fill="#82a7e2" />
+                                                  <g id="Group_4013" data-name="Group 4013" transform="translate(1671.253 618.8)">
+                                                      <path id="send" d="M8.383-.084-.049,4.823,2.6,5.77,6.783,1.792,3.571,6.12h0L3.524,8.443,5.054,6.65l1.878.673Z" transform="matrix(0.927, 0.375, -0.375, 0.927, 3.256, 0)" fill="#fff" />
+                                                  </g>
+                                              </g>
+                                          </svg>
+                                      </span>
+                                  </span>
+                              </td>
+                              <td class="px-4 w-108" [ngClass]="[ notification.type =='resource_planning_change' ? 'position-class' : '']">
+                                  {{ notification.date }}
+                              </td>
+                              <td class="px-4 text-position w-61">
+                                  <span style="position: relative" (click)="checkNotificationChange(notification.Id, notification.checked )">
+                                      <label class="label-view">
+                                          <div class="icon-pos" *ngIf="notification.checked == 1">
+                                              <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 0 22 22" width="22px" fill="#017A32">
+                                                  <path d="M0 0h24v24H0V0z" fill="none" />
+                                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z" />
+                                              </svg>
+                                          </div>
+
+                                          <div *ngIf="notification.checked == 0" class="icon-pos-green">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                                  <g id="Ellipse_664" data-name="Ellipse 664" fill="#fff" stroke="#707070" stroke-width="2">
+                                                      <circle cx="10" cy="10" r="10" stroke="none" />
+                                                      <circle cx="10" cy="10" r="9" fill="none" />
+                                                  </g>
+                                              </svg>
+                                          </div>
+                                      </label>
+                                  </span>
+                                  <!-- Puna zelena kuglica -->
+                                  <!-- <svg id="Group_3917" data-name="Group 3917" xmlns="http://www.w3.org/2000/svg" width="21.398"
+                    height="21.398" viewBox="0 0 21.398 21.398"
+                    [ngStyle]="{'visibility' : (notification.status == 0) ? 'hidden' : 'visible'}">
+                    <g id="Path_792" data-name="Path 792" fill="#017a32">
+                      <path
+                        d="M 10.69921875 20.39843940734863 C 5.351048946380615 20.39843940734863 0.9999987483024597 16.04738807678223 0.9999987483024597 10.69921875 C 0.9999987483024597 5.351048946380615 5.351048946380615 0.9999987483024597 10.69921875 0.9999987483024597 C 16.04738807678223 0.9999987483024597 20.39843940734863 5.351048946380615 20.39843940734863 10.69921875 C 20.39843940734863 16.04738807678223 16.04738807678223 20.39843940734863 10.69921875 20.39843940734863 Z"
+                        stroke="none" />
+                      <path
+                        d="M 10.69921875 1.999998092651367 C 5.902448654174805 1.999998092651367 1.999998092651367 5.902448654174805 1.999998092651367 10.69921875 C 1.999998092651367 15.4959888458252 5.902448654174805 19.39843940734863 10.69921875 19.39843940734863 C 15.4959888458252 19.39843940734863 19.39843940734863 15.4959888458252 19.39843940734863 10.69921875 C 19.39843940734863 5.902448654174805 15.4959888458252 1.999998092651367 10.69921875 1.999998092651367 M 10.69921875 -1.9073486328125e-06 C 16.60822868347168 -1.9073486328125e-06 21.39843940734863 4.790199279785156 21.39843940734863 10.69921875 C 21.39843940734863 16.60822868347168 16.60822868347168 21.39843940734863 10.69921875 21.39843940734863 C 4.790199279785156 21.39843940734863 -1.9073486328125e-06 16.60822868347168 -1.9073486328125e-06 10.69921875 C -1.9073486328125e-06 4.790199279785156 4.790199279785156 -1.9073486328125e-06 10.69921875 -1.9073486328125e-06 Z"
+                        stroke="none" fill="#017a32" />
+                    </g>
+                    <path id="Path_793" data-name="Path 793"
+                      d="M25.725,20.623l-.187-.189a.494.494,0,0,0-.746.031l-.344.345h0l-5.512,5.552-2.308-2.342h0l-.2-.206-.114-.115h0l-.056-.056a.487.487,0,0,0-.723.007l-.187.188a.5.5,0,0,0,.03.75l.344.346h0l3.229,3.236,6.429-6.464.355-.356A.494.494,0,0,0,25.725,20.623Z"
+                      transform="translate(-9.839 -13.205)" fill="#fff" stroke="#fff" stroke-width="1.5" />
+                  </svg> -->
+                              </td>
+                              <td disabled="notification.checked == 1" class="px-4 icon-hover w-37" [ngClass]="[ changeRed == true && notification.checked === '0' ? 'change-delete' : 'icon-hover']" [ngClass]="[ notification.checked === '1' ? 'disabled' : '']" [ngStyle]="{ 'background-color': changeRed == true && notification.checked === '0'? '#f23835' : '#fff'}" (click)="deleteSelectedNotification(notification.Id)">
+                                  <!-- <img
+                      src="assets/img/notification-icons/delete-gray.svg"
+                      alt="delete-gray"/> -->
+                              </td>
+                          </tr>
+                      </ng-container>
+                  </tbody>
+              </table>
+              <div ngcontent-lts-c2="" class="thin-orange-line-bottom"></div>
+          </div>
+          <!-- <img class="foot" src="assets/img/icon.svg" alt="home-icon"> -->
+      </div>
+
+      <!-- Popup for info change, delete or not all notifications -->
+      <div *ngIf="changeRed" id="deleteNotification" class="notif-modal">
+          <div class="notif-animate-opacity notif-card-4 modal-background">
+              <div class="text-center">
+                  <label>{{ "TSC_CLEAN_QUESTION" | translate }}</label>
+              </div>
+              <div class="display">
+                  <button class="btn btn-green" (click)="onDeleteAllNotifications()">
+                      {{ "TSC_YES" | translate }}
+                  </button>
+                  <button class="btn btn-red" (click)="onQuitDeleteNotifications()">
+                      {{ "TSC_NO" | translate }}
+                  </button>
+              </div>
+          </div>
+      </div>
+      <div *ngIf="changeRed" id="arrow" class="arrow-down"></div>
+
+      <!-- Notifikacije kraj -->
+
+      <div [ngClass]="{ 'main bgCustom1 ml-50': initProvider.isLoggedIn }" class="ml211X pt-4X pt-3X pr-5X pl-5X narrow80pX mb-75 t25 .l0 eRmAll" (click)="hideAllNotifications()">
+          <router-outlet></router-outlet>
+          <div class="spinner-container" *ngIf="loading">
+              <div class="spinner">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+              </div>
+          </div>
+      </div>
+  </div>
+</ng-container>
+
+<div *ngIf="maintenance_info" class="maintenance_info">
+  {{ maintenance_info.text + ":" }}
+  {{ maintenance_info.date ? maintenance_info.date : "" }}
+  {{ maintenance_info.time }}
+</div>

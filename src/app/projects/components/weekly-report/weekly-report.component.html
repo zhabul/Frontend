@@ -1,0 +1,1005 @@
+<div
+  class="bgGrayBlue mb-3"
+  style="margin-top: 10px; padding: 10px; display: flex"
+>
+  <div
+    style="min-width: 160px; display: flex; align-items: flex-start; flex: 1"
+  >
+    <div
+      class="select-container justify-content-between w-100"
+      *ngIf="!spinner"
+    >
+      <div class="d-flex align-items-center">
+        <ul>
+          <div class="div-wrapp">
+            <li class="list-format" (click)="toggleselectOpen()">
+              <div>{{ selectStartedValue | translate }}</div>
+              <span
+                class="material-icons"
+                *ngIf="
+                  (!selectOpen && selectStartedValue == 'Not Invoiced') ||
+                  (!selectOpen && selectStartedValue == 'Choose')
+                "
+                >keyboard_arrow_down</span
+              >
+              <span
+                class="material-icons"
+                *ngIf="
+                  (selectOpen && selectStartedValue == 'Not Invoiced') ||
+                  (selectOpen && selectStartedValue == 'Choose')
+                "
+                >keyboard_arrow_up</span
+              >
+              <span *ngIf="selectStartedValue != 'Not Invoiced'">
+                <img
+                  src="{{ selectStartedImage }}"
+                  style="width: 15px !important"
+                />
+              </span>
+            </li>
+            <div class="list-format-position" *ngIf="selectOpen">
+              <li
+                class="list-format list-format-hover"
+                (click)="getWeeksThatHaveWeeklyReport(1)"
+              >
+                <div>{{ "Not Invoiced" | translate }}</div>
+              </li>
+              <ng-container *ngFor="let week of weeks; let i = index">
+                <li
+                  class="list-format list-format-hover"
+                  (click)="onWeekChange(week, 'notInvoiced')"
+                >
+                  V{{ week?.week }} {{ week?.year }}
+                  <img
+                    src="{{ setIcon(week) }}"
+                    style="width: 15px !important; max-height: 20px !important"
+                  />
+                </li>
+              </ng-container>
+            </div>
+          </div>
+        </ul>
+        <ul>
+          <div class="div-wrapp">
+            <li class="list-format" (click)="toggleselectOpenInvoiced()">
+              <div>{{ selectStartedValueInvoiced | translate }}</div>
+              <span class="material-icons" *ngIf="!selectOpenInvoiced"
+                >keyboard_arrow_down</span
+              >
+              <span class="material-icons" *ngIf="selectOpenInvoiced"
+                >keyboard_arrow_up</span
+              >
+            </li>
+            <div class="list-format-position" *ngIf="selectOpenInvoiced">
+              <ng-container *ngFor="let week of weeksInvoiced; let i = index">
+                <li
+                  class="list-format list-format-hover"
+                  (click)="onWeekChange(week, 'Invoiced')"
+                >
+                  V{{ week?.week }} {{ week?.year }}
+                  <img
+                    src="{{ setIcon(week) }}"
+                    style="width: 15px !important"
+                  />
+                </li>
+              </ng-container>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <div>
+        <button *ngIf="allowNewWR && allowEditWeeklyReport()"
+          class="btn btn-dark btn-md"
+          [disabled]="newWRDisabled"
+          [hidden]="project.status == 3"
+          style="line-height: 1.9em"
+          (click)="manuallyCreateWeeklyReport()"
+        >
+          {{ "New WR" | translate }}
+          <span
+            *ngIf="supplierInvoices && supplierInvoices.length > 0"
+            class="exclamation-mark-worring"
+            >!</span
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+  <div style="margin-left: 0.5em; display: flex">
+
+
+    <ng-multiselect-dropdown
+      *ngIf="
+        weeklyReportHasAnyTotals() && getActiveDU()?.status != 3 && !spinner && allowEditWeeklyReport()
+      "
+      name="client_workers"
+      [settings]="dropdownSettings"
+      [data]="client_workers"
+      id="client_workers"
+      placeholder="{{ 'Choose recipients' | translate }}"
+      [(ngModel)]="contacts"
+      [ngModelOptions]="{ standalone: true }"
+      (onSelect)="onItemSelect($event)"
+      style="min-width: 160px"
+    >
+    </ng-multiselect-dropdown>
+    <button
+      class="btn btn-dark ml-2"
+      *ngIf="(project.status == 3 || project.status == 4)"
+      [disabled]="
+        spinner
+      "
+      (click)="sendExportedDocuments()"
+    >
+      <i class="material-icons email">email</i>
+      {{ "Export Documents" | translate }}
+    </button>
+    <button
+      class="btn btn-dark ml-2"
+      *ngIf="weeklyReportHasAnyTotals() && getActiveDU()?.status != 3 && allowEditWeeklyReport() && project.payment_type == 'WEEKLY_REPORT'"
+      [disabled]="
+        project.status == 3 ||
+        getActiveDU()?.status == 3 ||
+        getActiveDU()?.status == 4 ||
+        sendBtnDisabled ||
+        spinner ||
+        !allowEditWeeklyReport()
+      "
+      (click)="handlePriceZero('sendValidatedWeeklyReport')"
+    >
+      <i class="material-icons email">email</i>
+      {{ "Send WR" | translate }}
+    </button>
+    <button
+      class="btn btn-dark ml-2"
+      (click)="printWeeklyReport()"
+      [disabled]="spinner"
+    >
+      <i class="material-icons email">print</i>{{ "Print WR" | translate }}
+    </button>
+  </div>
+</div>
+
+<ul class="nav nav-tabs bg-beige mobileGrid">
+  <li
+    class="nav-link txt-color cursor-pointer"
+    [ngClass]="{ active: selectedTab == 0 }"
+    (click)="changeSelectedTab(0)"
+  >
+    {{ "Weekly Report" | translate }}
+  </li>
+  <li
+    class="nav-link txt-color cursor-pointer"
+    [ngClass]="{ active: selectedTab == 1 }"
+    (click)="changeSelectedTab(1)"
+  >
+    {{ "Email Logs" | translate }}
+  </li>
+  <li
+    class="nav-link txt-color cursor-pointer"
+    [ngClass]="{ active: selectedTab == 2 }"
+    (click)="changeSelectedTab(2)"
+  >
+    {{ "Client Attest History" | translate }}
+  </li>
+  <li
+    *ngIf="project.debit_Id == 1 || project.debit_Id == 4"
+    class="nav-link txt-color cursor-pointer"
+    [ngClass]="{ active: selectedTab == 3 }"
+    (click)="changeSelectedTab(3)"
+  >
+    {{ "TSC_Overview" | translate }}
+  </li>
+  <li
+     class="nav-link txt-color cursor-pointer"
+    (click)="openWeeklyReportsModal()"
+    *ngIf="userDetails.create_project_WeeklyReport && project.payment_type == 'WEEKLY_REPORT'"
+  >
+    {{ "Skicka debiteringsunderlags" | translate }}
+  </li>
+</ul>
+<div
+  class="tab-navigation bgGrayBlue"
+  style="margin-top: 10px"
+  *ngIf="reports.length"
+>
+  <ul class="nav mobileGrid px-2 py-1 ata-tabs d-flex">
+    <ng-container *ngFor="let report of reports; let i = index">
+      <li class="nav-item my-1">
+        <button
+          class="btn btn-dark btn-position-icon"
+          [ngClass]="{
+            active: activeReportIndex === i && activeReportRevisionIndex == -1
+          }"
+          (click)="setActiveDu(i)"
+        >
+          <img
+            *ngIf="setButtonIcon(report)"
+            src="{{ setButtonIcon(report) }}"
+            style="width: 15px !important; max-height: 20px !important"
+          />
+          <span *ngIf="setButtonIcon(report)">&nbsp;&nbsp;</span>
+          <span class="b-1">{{ report.name }}</span>
+        </button>
+      </li>
+      <ng-container *ngIf="activeReportIndex === i">
+        <li
+          class="nav-item my-1"
+          *ngFor="let report of reports[i].revisions; let ri = index"
+        >
+          <button
+            class="btn btn-dark btn-position-icon"
+            [ngClass]="{ active: activeReportRevisionIndex === ri }"
+            (click)="setActiveDuRevision(ri)"
+          >
+            <img
+              *ngIf="setButtonIcon(report)"
+              src="{{ setButtonIcon(report) }}"
+              style="width: 15px !important; max-height: 20px !important"
+            />
+            <span *ngIf="setButtonIcon(report)">&nbsp;&nbsp;</span>
+            <span class="b-1"> {{ report.name }}</span>
+          </button>
+        </li>
+      </ng-container>
+    </ng-container>
+  </ul>
+</div>
+
+<div
+  class="row"
+  [hidden]="showSupplierInvoiceModal || !reports.length || selectedTab != 0"
+>
+  <div class="row" style="width: 100%">
+    <div class="form-group projects-date col-md-8 my-3">
+      <label for="weeklyReportDueDate">{{
+        "Weekly Report Due Date" | translate
+      }}</label>
+      <div class="input-group date w-50">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"
+            ><i class="material-icons">calendar_today</i></span
+          >
+        </div>
+        <input
+          (keydown)="$event.preventDefault()"
+          id="weeklyReportDueDate"
+          autocomplete="off"
+          type="text"
+          class="form-control project-date w-25"
+          aria-describedby="basic-addon1"
+          placeholder="{{ 'Choose Due Date' | translate }}"
+          [value]="getActiveDU()?.WeeklyReportDueDate"
+          [disabled]="getActiveDU()?.status != 0"
+        />
+      </div>
+    </div>
+    <div class="form-group col-md-8">
+      <div
+        class="form-control reminder-wrapp d-inline-block w-auto mr-1"
+        *ngIf="getActiveDU()?.status == 1"
+      >
+        <input
+          [value]="false"
+          (change)="toggleReminderAndCopyCheckbox($event, 'sendReminder')"
+          style="position: relative; top: 1.5px; cursor: pointer"
+          type="checkbox"
+          id="reminder-checkbox"
+        />
+        <label class="ml-2" style="cursor: pointer" for="reminder-checkbox">{{
+          "Reminder" | translate
+        }}</label>
+      </div>
+    </div>
+    <div class="col-md-4 my-3 text-right" *ngIf="!getActiveDU()?.rowDeleted">
+      <button
+        [disabled]="
+          (getActiveDU()?.status != 0 && getActiveDU()?.status != 1) ||
+          spinner ||
+          !weeklyReportHasAnyTotals() ||
+          !allowEditWeeklyReport()
+        "
+        class="btn btn-dark btn-md mt-4 mr-3"
+        [hidden]="project.status == 3"
+        (click)="handlePriceZero('acceptWeeklyReport')"
+        *ngIf="project.payment_type == 'WEEKLY_REPORT'"
+      >
+        {{ "Accept" | translate }}
+      </button>
+      <button
+        [disabled]="
+          (getActiveDU()?.status != 0 && getActiveDU()?.status != 1) ||
+          spinner ||
+          !weeklyReportHasAnyTotals() ||
+          !allowEditWeeklyReport()
+        "
+        class="btn btn-dark btn-md mt-4"
+        [hidden]="project.status == 3"
+        (click)="declineWeeklyReport()"
+        *ngIf="project.payment_type == 'WEEKLY_REPORT'"
+      >
+        {{ "Decline" | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="form-wrapper mb-3 w-100"
+    *ngFor="let articleType of articles; let aIndex = index"
+  >
+    <div class="panel panel-default w-100">
+      <span class="d-flex">
+        <span
+          (click)="toggleTable('show' + articleType + 'Table')"
+          class="material-icons cursor-pointer"
+        >
+          {{
+            getTable("show" + articleType + "Table")
+              ? "keyboard_arrow_up"
+              : "keyboard_arrow_down"
+          }}</span
+        >
+        <span
+          (click)="toggleTable('show' + articleType + 'Table')"
+          class="cursor-pointer"
+          >{{ articleNames[aIndex] | translate }}</span
+        >
+      </span>
+      <fieldset *ngIf="getTable('show' + articleType + 'Table')">
+        <div
+          *ngIf="
+            articleType == 'Material' &&
+            supplierInvoices &&
+            supplierInvoices.length > 0 &&
+            allowAddInvoiceOnWeeklyReportIfNotRevision() &&
+            getActiveDU()?.status == 0
+          "
+          class="d-flex justify-content-end"
+        >
+          <button
+            class="btn btn-dark btn-sm mb-2 d-flex align-items-center"
+            (click)="toggleSupplierInvoiceModal()"
+            type="button"
+            [disabled]="spinner"
+            *ngIf="numberOfInvoices != 0 && allowEditWeeklyReport()"
+            style="text-transform: uppercase;"
+          >
+            <span class="supplier-invoice-notifications">
+              <i class="material-icons">notifications</i>
+              <span class="number-visible">{{ numberOfInvoices }}</span>
+            </span>
+            {{ "Bifoga Leverantörsfakturor" | translate }}
+          </button>
+        </div>
+        <table class="table table-sm invoice-table table-bordered font-color">
+          <thead>
+            <tr>
+              <th scope="col">{{ "Description" | translate }}</th>
+              <th scope="col">{{ "Quantity" | translate }}</th>
+              <th scope="col">{{ "Unit" | translate }}</th>
+              <th scope="col">{{ "Price per unit" | translate }}</th>
+              <th scope="col">
+                <img
+                  style="height: 12px"
+                  src="/assets/img/plus-minus-percent-sign.png"
+                  alt="plus-minus-percent-sign"
+                />
+              </th>
+              <th scope="col">{{ "Total" | translate }}</th>
+              <th scope="col">{{ "Konto" | translate }}</th>
+              <th>{{ "Remove" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let article of getTableItems(articleType); let i = index"
+            >
+              <td *ngIf="articleType != 'Material'" class="article-content">
+                <input
+                  (keyup.enter)="onEnterPress($event)"
+                  class="form-control form-control-sm article-name-border"
+                  type="text"
+                  (blur)="addRow(articleType)"
+                  [(ngModel)]="article['Name']"
+                  [ngModelOptions]="{ standalone: true }"
+                  [disabled]="
+                    isReadonly() ||
+                    (articleType == 'AdditionalWork' &&
+                      !article.is_manual_added &&
+                      !isReadonly()) ||
+                    (articleType != 'AdditionalWork' &&
+                      article.ClientStatus == 1)
+                  "
+                  [class.is-invalid]="
+                    (article['Name'] == '' || article['Name'] == 0) &&
+                    i != getTableItems(articleType, null, true).length - 1
+                  "
+                />
+                <span
+                  *ngIf="article.additionalWorkStatus"
+                  class="form-control form-control-sm span-article-name status-span-border"
+                >
+                  {{
+                    capitalizeFirstLetter(article.additionalWorkStatus)
+                      | translate
+                  }}
+                </span>
+              </td>
+              <td *ngIf="articleType == 'Material'" class="article-content">
+                <datalist id="properties">
+                  <option
+                    *ngFor="let property of materialProperties"
+                    value="{{ property }}"
+                  >
+                    {{ property }}
+                  </option>
+                </datalist>
+                <input
+                  (keyup.enter)="onEnterPress($event)"
+                  class="form-control form-control-sm article-name-border"
+                  list="properties"
+                  [(ngModel)]="article['Name']"
+                  (blur)="addRow(articleType)"
+                  [ngModelOptions]="{ standalone: true }"
+                  [disabled]="isReadonly() || article.ClientStatus == 1"
+                  [class.is-invalid]="
+                    (article['Name'] == '' || article['Name'] == 0) &&
+                    i != getTableItems(articleType, null, true).length - 1
+                  "
+                />
+                <span *ngIf="(article.SupplierInvoiceId && articleSupplierInvoiceId != 'NULL') || ( pdf_doc && pdf_doc.length > 0 )">
+                    <mat-icon (click)="openSwiperSupplierInvoice(null, article)">picture_as_pdf</mat-icon>
+                </span>
+                <span
+                  *ngIf="article.additionalWorkStatus"
+                  class="form-control form-control-sm span-article-name status-span-border"
+                >
+                  {{
+                    capitalizeFirstLetter(article.additionalWorkStatus)
+                      | translate
+                  }}
+                </span>
+              </td>
+              <td>
+                <input
+                (onClick)="this.select()"
+                  (keyup.enter)="onEnterPress($event)"
+                  class="form-control form-control-sm width5em"
+                  type="text"
+                  number-format-directive
+                  (change)="updateTotal(i, articleType)"
+                  [(ngModel)]="article['Quantity']"
+                  [ngModelOptions]="{ standalone: true }"
+                  [disabled]="
+                    isReadonly() ||
+                    (articleType == 'AdditionalWork' &&
+                      !article.is_manual_added &&
+                      !isReadonly()) ||
+                    (articleType != 'AdditionalWork' &&
+                      article.ClientStatus == 1)
+                  "
+                  [class.is-invalid]="
+                    (article['Quantity'] == '' ||
+                      article['Quantity'] == 0 ||
+                      !isValidQuantityFormat(article['Quantity'])) &&
+                    i != getTableItems(articleType, null, true).length - 1
+                  "
+                />
+              </td>
+              <td>
+                <select
+                  (keydown.enter)="$event.preventDefault()"
+                  (keyup.enter)="onEnterPress($event)"
+                  class="form-control form-control-sm width5em"
+                  [disabled]="
+                    isReadonly() ||
+                    (articleType == 'AdditionalWork' && false) ||
+                    (articleType != 'AdditionalWork' &&
+                      article.ClientStatus == 1) || !userDetails.create_project_WeeklyReport
+                    || !userDetails.create_project_WeeklyReport || !userDetails.create_project_WeeklyReport
+                  "
+                  [(ngModel)]="article['Unit']"
+                  [ngModelOptions]="{ standalone: true }"
+
+                >
+                  <option
+                    *ngFor="
+                      let unit of getUnitsByType(articleType);
+                      let units_i = index
+                    "
+                    [value]="unit"
+                  >
+                    {{ unit | translate }}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <input
+
+                  (keydown.enter)="$event.preventDefault()"
+                  (keyup.enter)="onEnterPress($event)"
+                  class="form-control form-control-sm width5em"
+                  number-format-directive
+                  type="text"
+                  min="0"
+                  (change)="updateTotal(i, articleType)"
+                  [ngModel]="article['Price']"
+                  (ngModelChange)="priceChange(article, $event)"
+                  [ngModelOptions]="{ updateOn: 'blur' }"
+                  [disabled]="
+                    isReadonly() ||
+                    (articleType == 'AdditionalWork' &&
+                      false &&
+                      !isReadonly()) ||
+                    isArticleAccepted(articleType, article)
+                  "
+                  [class.border-error]="article.PriceError"
+
+                />
+              </td>
+              <td>
+                <input
+
+                  (keydown.enter)="$event.preventDefault()"
+                  (keyup.enter)="onEnterPress($event, 'deduct')"
+                  class="form-control form-control-sm width5em"
+                  (change)="updateTotal(i, articleType)"
+                  [(ngModel)]="article['Deduct']"
+                  [ngModelOptions]="{ standalone: true }"
+                  [disabled]="
+                    isReadonly() ||
+                    (articleType == 'AdditionalWork' &&
+                      false &&
+                      !isReadonly()) ||
+                    isArticleAccepted(articleType, article)
+                  "
+                  number-format-directive
+                  type="text"
+
+                />
+              </td>
+              <td>
+                <span
+                  class="form-control form-control-sm width9em total-text-align"
+                  *ngIf="article['Total'] != 'NaN'"
+                >
+                  {{ article["Total"] | number: "1.2-2":"fr" }}
+                </span>
+              </td>
+              <td>
+                <select
+                  (keydown.enter)="$event.preventDefault()"
+                  (keyup.enter)="
+                    onEnterPress(
+                      $event,
+                      'account',
+                      article['Name'],
+                      articleType
+                    )
+                  "
+                  class="form-control form-control-sm width5em"
+                  style="max-width: 125px"
+                  [(ngModel)]="article['Account']"
+                  [ngModelOptions]="{ standalone: true }"
+                  [disabled]="
+                    isReadonly() ||
+                    (articleType == 'AdditionalWork' &&
+                      !article.is_manual_added &&
+                      !isReadonly()) ||
+                    articleType == 'AdditionalWork'
+                  "
+                >
+                  <option
+                    *ngFor="let account of enabledAccounts"
+                    [value]="account.Number"
+                    [selected]="article['Account'] == account.Number"
+                  >
+                    {{ account.Number }} {{ account.Description }}
+                  </option>
+                </select>
+              </td>
+              <td class="text-center">
+                <span *ngIf="article.Quantity != 0 && allowEditWeeklyReport()">
+                  <span
+                    class="text-danger material-icons top1px posRel"
+                    [hidden]="
+                      getActiveDU()?.status != 0 ||
+                      isReadonly() ||
+                      additionalWorkCheck(articleType, article)
+                    "
+                    style="cursor: pointer"
+                    (click)="removeRow(i, articleType)"
+                  >
+                    <i class="material-icons">undo</i></span
+                  >
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="5"></td>
+              <td>
+                <strong class="total-text-align"
+                  >TOTAL:
+                  {{
+                    calculateTotal(getTableItems(articleType, null, true))
+                      | number: "1.2-2":"fr"
+                  }}</strong
+                >
+              </td>
+              <td colspan="2"></td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-wrapper mb-3 w-100">
+    <span class="d-flex">
+      <span class="list-wrappeer-right" (click)="toggleTable('showWrImages')">
+        <i class="material-icons cursor-pointer">
+          {{ "keyboard_arrow_up" }}
+        </i>
+        {{ "Documents" | translate }}
+      </span>
+    </span>
+
+    <fieldset
+      *ngIf="getActiveDU()"
+      class="documents-wrapper"
+      style="padding: 1rem"
+    >
+      <div
+        class="fake-image-modal-container2"
+        *ngIf="getActiveDU() && getActiveDU().status == 0 && allowEditWeeklyReport()"
+      >
+        <app-image-modal
+
+          (updateAlbums)="updateAlbumsAta($event)"
+          [infoObject]="infoObjectDU"
+          fileType="application/pdf, image/*"
+          [key]="getAlbumKeys()[0]"
+          [clearFiles]="$_clearFiles.asObservable()"
+
+        ></app-image-modal>
+      </div>
+      <div
+        class="fake-image-modal-container"
+        *ngFor="let albumKey of getAlbumKeys()"
+      >
+        <div class="form-group-upload form-group-upload2">
+          <div style="display: inline-block; margin-right: 1.5rem;"
+          *ngFor="
+          let file of getAlbumFiles(albumKey, 'images');
+          let index = index
+        "
+        >
+            <app-file-preview
+                type="image"
+                [file]="file"
+                [index]="index"
+                [active]="index"
+                (removeFile)="toggleAttachment(albumKey, $event, 'images')"
+                (openSwiper)="
+                    openSwiper(index, getAlbumFiles(albumKey, 'images'), albumKey)
+                "
+                [canRemove]="(getActiveDU() && getActiveDU().status == 0) || file.Category == '0' "
+            ></app-file-preview>
+          </div>
+          <div style="display: inline-block; margin-right: 1.5rem;"
+          *ngFor="let file of getAlbumFiles(albumKey, 'pdfs');let index = index">
+            <!-- <app-file-preview
+                type="pdf"
+                [file]="file"
+                [index]="index"
+                [active]="index"
+                (openSwiper)="
+                    openSwiper(index, getAlbumFiles(albumKey, 'pdfs'), albumKey)
+                "
+                [canRemove]="(getActiveDU() && getActiveDU().status == 0) || file.Category == '0'"
+                (removeFile)="toggleAttachment(albumKey, $event, 'pdfs')"
+           ></app-file-preview> -->
+            <app-pdfjs-preview
+              style="display: flex; cursor: pointer; width: 68px;"
+              type="pdf"
+              (click)="openSwiper(index, getAlbumFiles(albumKey, 'pdfs'), albumKey)"
+              [pdfUrls]="[file['file_path']]"
+              [deleted]=""
+              [canRemove]="(getActiveDU() && getActiveDU().status == 0) || file.Category == '0'"
+              (removeFile)="toggleAttachment(albumKey, $event, 'pdfs')"
+              [index]="index"
+              [active]="index"
+              [width]="68"
+              [height]="43"
+              [borderRadius]="'0px 0px 0px 0px'"
+              [folder]="true"
+              [showcheckbox]="true"
+              >
+            </app-pdfjs-preview>
+          </div>
+        </div>
+        <div
+          *ngIf="
+            getAlbumFiles(albumKey, 'images').length > 0 ||
+            getAlbumFiles(albumKey, 'pdfs').length > 0
+          "
+        >
+          {{ getAlbumDescription(albumKey) }}
+        </div>
+      </div>
+
+      <div class="image-delete-button-container">
+        <button
+          type="button"
+          (click)="removeSelectedDocumentsDU($event)"
+          *ngIf="
+            reports[activeReportIndex].removed_documents &&
+            reports[activeReportIndex].removed_documents.length &&
+            allowEditWeeklyReport()
+          "
+          class="btn btn-danger lh09"
+        >
+          <span class="material-icons left-3px top1px posRel">delete</span>
+          <span class="posRel top-5px">{{ "Delete" | translate }}</span>
+        </button>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="d-flex justify-content-between w-100">
+    <div
+      class="form-group mt-2"
+      *ngIf="
+        (getActiveDU()?.status != 2 &&
+          getActiveDU()?.status != 3 &&
+          getActiveDU()?.status != 1) ||
+        isInvalid() ||
+        spinner
+      "
+    >
+      <button
+        type="submit"
+        [hidden]="project.status == 3 || !allowEditWeeklyReport()"
+        class="btn btn-success lh09"
+        (click)="save()"
+      >
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Save" | translate }}</span>
+      </button>
+    </div>
+    <div class="form-group mt-2" *ngIf="!weeklyReportHasAnyTotals() && allowEditWeeklyReport()">
+      <button
+        type="button"
+        [hidden]="project.status == 3"
+        class="btn btn-danger lh09"
+        (click)="deleteWeeklyReport()"
+      >
+        <span class="material-icons left-3px top1px posRel">delete</span>
+        <span class="posRel top-5px">{{ "Delete" | translate }}</span>
+      </button>
+    </div>
+  </div>
+  <div class="aside aside-show" [ngClass]="{ 'aside-show': showPdfPreview }">
+    <div class="buttons d-flex">
+      <button
+        type="button"
+        *ngIf="filterArticles(getActiveDU()?.articles.Other).length > 0"
+        (click)="togglePdfPreview('other')"
+      >
+        {{
+          (showPdfPreview && whichPdfPreview === "other"
+            ? "Close UE/Other"
+            : "UE/Other"
+          ) | translate
+        }}
+      </button>
+      <button
+        type="button"
+        *ngIf="filterArticles(getActiveDU()?.articles.Material).length > 0"
+        (click)="togglePdfPreview('material')"
+      >
+        {{
+          (showPdfPreview && whichPdfPreview === "material"
+            ? "Close Material"
+            : "Material"
+          ) | translate
+        }}
+      </button>
+      <button
+        type="button"
+        *ngIf="additionalWorkMoments.length > 0"
+        (click)="togglePdfPreview('work')"
+      >
+        {{
+          (showPdfPreview && whichPdfPreview === "work" ? "Close Time" : "Time")
+            | translate
+        }}
+      </button>
+      <button type="button" (click)="togglePdfPreview('weeklyreport')">
+        {{
+          (showPdfPreview && whichPdfPreview === "weeklyreport"
+            ? "Close Preview"
+            : "Preview"
+          ) | translate
+        }}
+      </button>
+    </div>
+    <weekly-report-pdf
+      *ngIf="whichPdfPreview === 'weeklyreport'"
+      [generalImage]="generalImage"
+      [formValues]="formValues"
+      [currentWeeklyReport]="getActiveDU()"
+      [project]="project"
+      [get_last_email_log_but_first_client_wr]="
+        get_last_email_log_but_first_client_wr
+      "
+      (emitNewAtaChanged)="generatePdf($event)"
+    >
+    </weekly-report-pdf>
+    <additional-work-pdf
+      *ngIf="whichPdfPreview === 'work'"
+      [moments]="additionalWorkMoments"
+      [typeKSorDU]="'DU'"
+      [generalImage]="generalImage"
+      [formValues]="formValues"
+      [currentWeeklyReport]="getActiveDU()"
+      [project]="project"
+      [get_last_email_log_but_first_client_wr]="
+        get_last_email_log_but_first_client_wr
+      "
+      (emitNewAtaChanged)="generatePdf($event)"
+    >
+      ></additional-work-pdf
+    >
+    <material-pdf
+      *ngIf="whichPdfPreview === 'material'"
+      [type]="'material'"
+      [typeKSorDU]="'DU'"
+      [materials]="filterArticles(getActiveDU()?.articles.Material)"
+      [generalImage]="generalImage"
+      [formValues]="formValues"
+      [currentWeeklyReport]="getActiveDU()"
+      [project]="project"
+      [get_last_email_log_but_first_client_wr]="
+        get_last_email_log_but_first_client_wr
+      "
+      (emitNewAtaChanged)="generatePdf($event)"
+    ></material-pdf>
+    <material-pdf
+      *ngIf="whichPdfPreview === 'other'"
+      [type]="'other'"
+      [typeKSorDU]="'DU'"
+      [materials]="filterArticles(getActiveDU()?.articles.Other)"
+      [generalImage]="generalImage"
+      [formValues]="formValues"
+      [currentWeeklyReport]="getActiveDU()"
+      [project]="project"
+      [get_last_email_log_but_first_client_wr]="
+        get_last_email_log_but_first_client_wr
+      "
+      (emitNewAtaChanged)="generatePdf($event)"
+    ></material-pdf>
+    <app-pdf-preview [pdfs_preview]="pdfs_preview"></app-pdf-preview>
+  </div>
+</div>
+
+<div *ngIf="selectedTab == 1">
+  <email-log
+    [projectId]="projectId"
+    [ItemName]="'Name'"
+    [logs]="logs"
+    [appPart]="'other'"
+    [haveQuestionStatus]="false"
+  ></email-log>
+</div>
+
+<div *ngIf="selectedTab == 2">
+  <client-attest-history
+    [clientAttestHistory]="clientAttestHistory"
+  ></client-attest-history>
+</div>
+
+<div *ngIf="selectedTab == 3">
+  <app-project-overview
+    *ngIf="project.debit_Id == 1 || project.debit_Id == 4"
+    [project]="project"
+    (onWeekChange)="onWeekChangeInit($event)"
+  ></app-project-overview>
+</div>
+
+<div
+  class="card card-form"
+  style="width: 100%; padding: 10px"
+  [hidden]="!showSupplierInvoiceModal"
+>
+  <div>
+    <h4>{{ "Supplier Invoices" | translate }}</h4>
+    <table
+      class="table tab-responsive table-striped table-hover table-lightX table-sm"
+      id="theTable"
+    >
+      <thead class="table-bordered">
+        <tr>
+          <th scope="col">{{ "Order NR" | translate }}</th>
+          <th scope="col">{{ "Supplier Name" | translate }}</th>
+          <th scope="col">{{ "Invoice Date" | translate }}</th>
+          <th scope="col">{{ "Due Date" | translate }}</th>
+          <th scope="col">{{ "Total" | translate }}</th>
+          <th scope="col">{{ "PDF" | translate }}</th>
+          <th scope="col">
+            <input type="checkbox" (click)="checkAll($event)" />
+            {{ "Added" | translate }}
+          </th>
+        </tr>
+      </thead>
+      <tbody class="table-bordered">
+        <tr *ngFor="let invoice of supplierInvoices; let i = index">
+          <td>{{ invoice.OrderNR }}</td>
+          <td>{{ invoice.SupplierName }}</td>
+          <td>{{ invoice.InvoiceDate }}</td>
+          <td>{{ invoice.DueDate }}</td>
+          <td style="text-align: end">
+              {{ invoice.Total | number: "1.2-2":"fr" }}
+          </td>
+          <td class="pdf-preview" (click)="openSwiperSupplierInvoice(invoice, null)"><mat-icon>picture_as_pdf</mat-icon></td>
+          <td>
+            <input
+              type="checkbox"
+              #addedCheckbox
+              class="supplier-invoice-checkbox"
+              [checked]="invoice.isChecked"
+              (click)="supplierInvoiceChecked(addedCheckbox.checked, i)"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button
+      class="btn btn-dark mt-3"
+      (click)="toggleSupplierInvoiceModal('back')"
+    >
+      <i class="material-icons posRel top5px">arrow_back</i>
+      {{ "Back" | translate }}
+    </button>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner || spinner_from_print">
+  <mat-spinner></mat-spinner>
+</div>
+
+<ng-template #otherComponent>
+  <app-gallery
+  *ngIf="swiper.images.length"
+  [swiper]="swiper"
+  [canRemove]="false"
+  (removeImageEvent)="removeSwiperImage($event)"
+  (closeSwiperEvent)="closeSwiper()"
+  [server]="true"
+></app-gallery>
+<app-gallery
+  *ngIf="swiperSupplierInvoice.images.length"
+  [swiper]="swiperSupplierInvoice"
+  [canRemove]="false"
+  (closeSwiperEvent)="closeSwiperSupplierInvoice($event)"
+  [server]="true"
+>
+</app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    [server]="true"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper()"
+  ></app-pdfjs-viewer>
+  <app-pdfjs-viewer
+  *ngIf="swiperSupplierInvoice.images.length"
+  [swiper]="swiperSupplierInvoice"
+  [canRemove]="false"
+  [server]="true"
+  (closeSwiperEvent)="closeSwiperSupplierInvoice($event)"
+></app-pdfjs-viewer>
+</ng-container>
+

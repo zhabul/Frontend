@@ -1,0 +1,175 @@
+<div>
+    <div class="header-wrapp">
+        <div class="invoice-text" *ngIf="typeOpenModal == 'ata-ks'">
+            {{"Fakturera" | translate}}
+        </div>
+        <div class="invoice-text" *ngIf="typeOpenModal == 'wr'">
+            {{"Weekly Report" | translate}}
+        </div>
+        <div class="invoice-text" *ngIf="typeOpenModal == 'payment'">
+            {{"TSC_PAYMENT_PLAN" | translate}}
+        </div>
+
+
+        <div (click)="close(false)" class="close-btn"><app-close-svg></app-close-svg></div>
+    </div>
+    <div class="table-wrapp">
+        <table *ngIf="typeOpenModal == 'ata-ks'">
+            <thead>
+                <tr>
+                    <th style="text-transform: uppercase;" class="no-w">
+                        {{"TSC_No" | translate}}
+                    </th>
+                    <th class="Name-w">
+                        {{"Name" | translate}}
+                    </th>
+                    <th class="Cost-w">
+                        {{"Cost Summary" | translate}}
+                    </th>
+                    <th class="Labeling-w">
+                        {{"Labeling requirements" | translate}}
+                    </th>
+                    <th class="Comment-w">
+                        {{"Comment" | translate}}
+                    </th>
+                    <th class="input-w">
+                        dsdsa
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <table *ngIf="typeOpenModal == 'wr'">
+            <thead>
+                <tr>
+                    <th style="text-transform: uppercase;" class="Balance-w">
+                        {{"TSC_No" | translate}}
+                    </th>
+                    <th class="Invoice-w">
+                        <!-- {{"Invoice" | translate}} -->
+                    </th>
+                    <th class="Amount-w">
+                        {{"Accepted" | translate}}
+                    </th>
+                    <th class="Arrears-w">
+                        {{"Total" | translate}}
+                    </th>
+                    <th class="input-w" style="position:relative;text-align: center;padding: 0px;">
+                        <input type="checkbox" class="checkbox-type" #checkProject (click)="checkAll()">
+                        <app-checkin-svg *ngIf="allIsChecked" [width]="18" [height]="18" [color]="'FF7000'" [hatched]="'white'"></app-checkin-svg>
+                        <app-checkout-svg *ngIf="!allIsChecked" [width]="18" [height]="18"></app-checkout-svg>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let wr of checkedToTable;let i = index">
+                    <td style="padding-left:15px">{{wr.name}}</td>
+                    <td></td>
+                    <td style="text-align:center">{{wr.created}}</td>
+                    <td style="padding-right:15px;text-align:right">{{wr.total | number: "1.2-2":"fr"}}</td>
+                    <td  style="position:relative;text-align: center;padding: 0px;">
+                        <input type="checkbox" class="checkbox-type" #check (click)="checkWr(wr, i)">
+                        <app-checkin-svg *ngIf="wr.checked"[width]="18" [height]="18" [color]="'FF7000'" [hatched]="'white'"></app-checkin-svg>
+                        <app-checkout-svg *ngIf="!wr.checked" [width]="18" [height]="18"></app-checkout-svg>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <table *ngIf="typeOpenModal == 'payment'">
+            <thead>
+                <tr>
+                    <th style="text-transform: uppercase;" class="Balance-w">
+                        {{"Balance" | translate}}
+                    </th>
+                    <th class="Invoice-w">
+                        {{"Invoice" | translate}}
+                    </th>
+                    <th class="Amount-w">
+                        {{"Amount" | translate}}
+                    </th>
+                    <th class="Arrears-w">
+                        {{"Arrears" | translate}}
+                    </th>
+                    <th class="input-w">
+                        dsdsa
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="footer-wrapp">
+        <div>
+
+
+            <div class="btn-add"  (click)="add()">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.456" height="25.456" viewBox="0 0 25.456 25.456">
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path id="Path_736" data-name="Path 736" d="M0,11.951H18v-18H0Z" transform="translate(0 6.049)" fill="none"/>
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon" data-name="X icon" transform="translate(12.728) rotate(45)">
+                    <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                      <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                        <path id="Path_734" data-name="Path 734" d="M11.951,5.975a9,9,0,1,1-9-9,9,9,0,0,1,9,9" transform="translate(6.049 3.024)" fill="#4cb185"/>
+                      </g>
+                      <g id="Group_290" data-name="Group 290" transform="translate(3.727 3.742)">
+                        <path id="Path_735" data-name="Path 735" d="M6.822,5.921,3.135,2.234l3.693-3.7a.708.708,0,0,0,.006-1.039l-.265-.265a.708.708,0,0,0-1.065.06L1.843.943-1.885-2.774a.721.721,0,0,0-1.059.018l-.277.274a.721.721,0,0,0,.036,1.089L.5,2.288S-3.07,5.877-3.192,6A.708.708,0,0,0-3.2,7.034l.265.265a.708.708,0,0,0,1.065-.06L1.79,3.579,5.521,7.3a.722.722,0,0,0,1.062-.018L6.86,7.01a.719.719,0,0,0-.039-1.089" transform="translate(3.453 2.997)" fill="#373b40"/>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+
+              <div style="color: #4CB185;">{{ "ADD" | translate }}</div>
+            </div>
+
+            <!-- <button class="btn-add" role="button">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.456" height="25.456" viewBox="0 0 25.456 25.456">
+                        <defs>
+                        <clipPath id="clip-path">
+                            <path id="Path_736" data-name="Path 736" d="M0,11.951H18v-18H0Z" transform="translate(0 6.049)" fill="none"/>
+                        </clipPath>
+                        </defs>
+                        <g id="X_icon" data-name="X icon" transform="translate(12.728) rotate(45)">
+                        <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                            <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                            <path id="Path_734" data-name="Path 734" d="M11.951,5.975a9,9,0,1,1-9-9,9,9,0,0,1,9,9" transform="translate(6.049 3.024)" fill="#4cb185"/>
+                            </g>
+                            <g id="Group_290" data-name="Group 290" transform="translate(3.727 3.742)">
+                            <path id="Path_735" data-name="Path 735" d="M6.822,5.921,3.135,2.234l3.693-3.7a.708.708,0,0,0,.006-1.039l-.265-.265a.708.708,0,0,0-1.065.06L1.843.943-1.885-2.774a.721.721,0,0,0-1.059.018l-.277.274a.721.721,0,0,0,.036,1.089L.5,2.288S-3.07,5.877-3.192,6A.708.708,0,0,0-3.2,7.034l.265.265a.708.708,0,0,0,1.065-.06L1.79,3.579,5.521,7.3a.722.722,0,0,0,1.062-.018L6.86,7.01a.719.719,0,0,0-.039-1.089" transform="translate(3.453 2.997)" fill="#373b40"/>
+                            </g>
+                        </g>
+                        </g>
+                    </svg>
+                </div>
+                <div class="text-add" (click)="add()">
+                    {{"Add" | translate}}
+                </div>
+            </button> -->
+        </div>
+    </div>
+</div>

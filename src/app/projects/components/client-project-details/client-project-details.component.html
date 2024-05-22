@@ -1,0 +1,196 @@
+<div class="card cont">
+  <form
+    class="p-4 form-column-wrapper"
+    novalidate
+    autocomplete="off"
+    [formGroup]="createFormNewEmployee"
+    (ngSubmit)="addOneWorker()"
+    #myformnewemployee="ngForm"
+  >
+  <div class="header">
+    <div><h2 class="h5 text-secondary text-secondary-2">{{ "Add New Employee" | translate }}</h2></div>
+    <div class="close-icon" [mat-dialog-close]>
+      <app-close-svg-client></app-close-svg-client>
+    </div>
+  </div>
+    <div class="form-group row pb-4 mb-2">
+      <div class="col-lg-4">
+        <!-- Title -->
+        <label for="validationNewEmployee01" class="mb-0 mt-1 required"
+          ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+            "Title" | translate
+          }}</small></label
+        >
+        <!-- OK -->
+        <input
+          type="text"
+          class="form-control form-control-custom"
+          id="validationNewEmployee01"
+          spellcheck="false"
+          focusIndex="1"
+          formControlName="Title"
+          [ngClass]="{
+            'is-invalid': createFormNewEmployee.get('Title').touched && createFormNewEmployee.get('Title').invalid
+          }"
+        />
+      </div>
+      <div class="col-lg-4">
+        <!-- First name -->
+        <label for="validationNewEmployee01" class="mb-0 mt-1 required"
+          ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+            "First Name" | translate
+          }}</small></label
+        >
+        <!-- OK -->
+        <input
+          type="text"
+          class="form-control form-control-custom"
+          id="validationNewEmployee01"
+          required
+          spellcheck="false"
+          focusIndex="2"
+          formControlName="FirstName"
+          [ngClass]="{
+            'is-invalid': createFormNewEmployee.get('FirstName').touched && createFormNewEmployee.get('FirstName').invalid
+          }"
+        />
+      </div>
+      <div class="col-lg-4">
+        <!-- Last name -->
+        <label for="validationNewEmployee02" class="mb-0 mt-1 required"
+          ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+            "Last Name" | translate
+          }}</small></label
+        >
+        <!-- OK -->
+        <input
+          type="text"
+          class="form-control form-control-custom"
+          id="validationNewEmployee02"
+          required
+          spellcheck="false"
+          focusIndex="3"
+          formControlName="LastName"
+          [ngClass]="{
+            'is-invalid': createFormNewEmployee.get('LastName').touched && createFormNewEmployee.get('LastName').invalid
+          }"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-4">
+          <!-- Mobile -->
+          <label for="validationNewEmployee04" class="mb-0 mt-1 required"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Mobile" | translate
+            }}</small></label
+          >
+          <!-- OK -->
+          <input
+            type="text"
+            class="form-control form-control-custom"
+            id="validationNewEmployee04"
+            spellcheck="false"
+            focusIndex="4"
+            formControlName="Mobile"
+            #mobileNumber
+            [value]="mobile_number"
+            (keyup)="formtMobileNumber(mobileNumber.value)"
+            [ngClass]="{
+              'is-invalid': createFormNewEmployee.get('Mobile').touched && createFormNewEmployee.get('Mobile').invalid
+            }"
+          />
+          <!-- <app-mobile-format
+            [mobile_number]="createFormNewEmployee.get('Mobile').value"
+            (phone_number)="replacePhoneNumber($event, 'Mobile')"
+            [width]="200"
+            [fontSize]="16"
+        >
+        </app-mobile-format> -->
+        </div>
+        <div class="col-lg-4">
+          <!-- Email -->
+          <label for="validationNewEmployee05" class="mb-0 mt-1 required"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Email" | translate
+            }}</small></label
+          >
+          <!-- OK -->
+          <input
+            type="text"
+            class="form-control form-control-custom"
+            id="validationNewEmployee05"
+            required
+            focusIndex="5"
+            spellcheck="false"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid': createFormNewEmployee.get('email').touched && createFormNewEmployee.get('email').invalid
+            }"
+          />
+        </div>
+      </div>
+      <!--`Status` new -->
+      <div class="check-wrapper">
+        <div>{{ 'Status' | translate }}:</div>
+        <div class="activity">
+            <div for="active" class="check-button-wrapp">
+                <input
+                    type="checkbox"
+                    class="check"
+                    value="Active"
+                    id="'active"
+                    (click)="setActive()"
+                    >
+                <app-checkout-svg
+                    *ngIf="createFormNewEmployee.get('status').value === 'Inactive'"
+                    [width]="17"
+                    [height]="17"
+                ></app-checkout-svg>
+                <app-checkin-svg
+                    *ngIf="createFormNewEmployee.get('status').value === 'Active'"
+                    [width]="17"
+                    [height]="17"
+                    [color]="'FF7000'"
+                    [hatched]="'white'"
+                ></app-checkin-svg>
+            </div>
+            <label for="active">{{ 'Active' | translate }}</label>
+        </div>
+        <div class="activity">
+            <div for="inactive" class="check-button-wrapp">
+                <input
+                    type="checkbox"
+                    class="check"
+                    id="'inactive"
+                    value="Inactive"
+                    (click)="setInactive()"
+                    >
+                <app-checkout-svg
+                    *ngIf="createFormNewEmployee.get('status').value === 'Active'"
+                    [width]="17"
+                    [height]="17"
+                ></app-checkout-svg>
+                <app-checkin-svg
+                    *ngIf="createFormNewEmployee.get('status').value === 'Inactive'"
+                    [width]="17"
+                    [height]="17"
+                    [color]="'FF7000'"
+                    [hatched]="'white'"
+                ></app-checkin-svg>
+            </div>
+            <label for="inactive">{{ 'Inactive' | translate }}</label>
+        </div>
+
+    </div>
+    </div>
+    <div class="save-wrapper">
+      <div>
+          <button type="submit" class="button-save-custom" >
+              {{'Save' | translate}}
+          </button>
+      </div>
+    </div>
+  </form>
+</div>

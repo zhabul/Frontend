@@ -1,0 +1,93 @@
+<div class="form-box" >
+    <form *ngIf="editErstTypeForm" [formGroup]="editErstTypeForm" (submit)="submit()">
+        <div class="header-box">
+            <div id="name"></div>
+            <div class="close" [mat-dialog-close]>
+                <app-grey-close-svg></app-grey-close-svg>
+            </div>
+        </div>
+        <div id="inputs">
+            <div class="double-input-group">
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'Name' | translate }}</div>
+                    <div>
+                        <input type="text" class="input name-input" formControlName="name" />
+                    </div>
+                    <ng-container *ngIf="editErstTypeForm.controls['name'].invalid && (editErstTypeForm.controls['name'].dirty || editErstTypeForm.controls['name'].touched)" class="alert">
+                        <div class="error" *ngIf="editErstTypeForm.controls['name'].errors.required">
+                         {{ 'Description is required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'Quantity' | translate }}</div>
+                    <div>
+                        <input formControlName="quantity" number-format-directive type="text" class="input input-quantity"/>
+                    </div>
+                    <ng-container *ngIf="editErstTypeForm.controls['quantity'].invalid && (editErstTypeForm.controls['quantity'].dirty || editErstTypeForm.controls['quantity'].touched)" class="alert">
+                        <div class="error" *ngIf="editErstTypeForm.controls['quantity'].errors.required">
+                         {{ 'Quantity is required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'Unit' | translate }}</div>
+                    <div>
+                        <select class="sps-select" formControlName="unit">
+                            <ng-container *ngFor="let unit of units;">
+                                <option  [value]="unit.ID">{{ unit.Unit | translate }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <ng-container *ngIf="editErstTypeForm.controls['unit'].invalid && (editErstTypeForm.controls['unit'].dirty || editErstTypeForm.controls['unit'].touched)" class="alert">
+                        <div class="error" *ngIf="editErstTypeForm.controls['unit'].errors.required">
+                         {{ 'Unit is required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="double-input-group">
+                <div class="input-group-2">
+                    <div class="input-title">{{ 'Timecode' | translate }} {{ 'Salary System' | translate }}</div>
+                    <div>
+                        <input formControlName="timecode_visma" type="text" class="input"/>
+                    </div>
+                    <ng-container *ngIf="editErstTypeForm.controls['timecode_visma'].invalid && (editErstTypeForm.controls['timecode_visma'].dirty || editErstTypeForm.controls['timecode_visma'].touched)" class="alert">
+                        <div class="error" *ngIf="editErstTypeForm.controls['timecode_visma'].errors.required">
+                         {{ 'Timecode for VISMA is required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'Timecode' | translate }} SPS360</div>
+                    <div>
+                        <input type="text" class="input" formControlName="timecode"/>
+                    </div>
+                    <ng-container *ngIf="editErstTypeForm.controls['timecode'].invalid && (editErstTypeForm.controls['timecode'].dirty || editErstTypeForm.controls['timecode'].touched)" class="alert">
+                        <div class="error" *ngIf="editErstTypeForm.controls['timecode'].errors.required">
+                         {{ 'Timecode is required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div id="inputs-footer">
+                <div>
+                    <app-white-select
+
+                        text='Active'
+                        [control]="activeControl"
+
+                    ></app-white-select>
+                </div>
+                <div>
+                    <button id='spara-btn' type="submit">
+                        {{ 'Save' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="spinner-container-absolute" *ngIf="spinner">
+        <app-pulse-spinner></app-pulse-spinner>
+    </div>
+</div>

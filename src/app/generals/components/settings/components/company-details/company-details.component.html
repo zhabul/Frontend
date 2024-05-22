@@ -1,0 +1,383 @@
+<div class="role-list-container blu-scroll">
+  <form action="" (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-grid" style="margin-top: 30px">
+      <div>
+        <span>{{ "Company Name" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyName.invalid && companyName.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyName }}"
+          name="companyName"
+          #companyName="ngModel"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Company City" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyCity.invalid && companyCity.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyCity }}"
+          name="companyCity"
+          #companyCity="ngModel"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Company Mobile" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border:
+              companyMobileNumber.invalid && companyMobileNumber.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyMobileNumber }}"
+          name="companyMobileNumber"
+          #companyMobileNumber="ngModel"
+          (blur)="formtMobileNumber(companyMobileNumber.value,'mobile')"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Company Email" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyEmail.invalid && companyEmail.touched
+          }"
+          type="text"
+          required
+          email
+          ngModel="{{ companyDetails.companyEmail }}"
+          name="companyEmail"
+          #companyEmail="ngModel"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Company Zip" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyZip.invalid && companyZip.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyZip }}"
+          name="companyZip"
+          #companyZip="ngModel"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Company Phone" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyPhone.invalid && companyPhone.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyPhone }}"
+          name="companyPhone"
+          #companyPhone="ngModel"
+          (blur)="formtMobileNumber(companyPhone.value,'phone')"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Company Web Site" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyWebsite.invalid && companyWebsite.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyWebsite }}"
+          name="companyWebsite"
+          #companyWebsite="ngModel"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Company Address" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyAddress.invalid && companyAddress.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyAddress }}"
+          name="companyAddress"
+          #companyAddress="ngModel"
+        />
+      </div>
+    </div>
+    <div class="form-grid" style="margin-top: 55px">
+      <div>
+        <span>{{ "Company Bank Account" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyBankAccount.invalid && companyBankAccount.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyBankAccount }}"
+          name="companyBankAccount"
+          #companyBankAccount="ngModel"
+        />
+      </div>
+      <div>
+        <span>{{ "Company VAT number" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyVatNumber.invalid && companyVatNumber.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyVatNumber }}"
+          name="companyVatNumber"
+          #companyVatNumber="ngModel"
+        />
+      </div>
+      <div>
+        <span>{{ "VAT" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: companyVat.invalid && companyVat.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.companyVat }}"
+          name="companyVat"
+          #companyVat="ngModel"
+        />
+      </div>
+      <div>
+        <span style="font-size: 12px"
+          >{{
+            "Multiplication constant for social security contributions"
+              | translate
+          }}:</span
+        >
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border:
+              multiplicationConstant.invalid && multiplicationConstant.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.multiplicationConstant }}"
+          name="multiplicationConstant"
+          #multiplicationConstant="ngModel"
+        />
+      </div>
+      <div>
+        <span style="font-size: 12px"
+          >{{
+            "Internal costs"
+              | translate
+          }}:</span
+        >
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border:
+              Internal_costs.invalid && Internal_costs.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.Internal_costs }}"
+          name="Internal_costs"
+          #Internal_costs="ngModel"
+        />
+      </div>
+    </div>
+<!--
+    <div class="form-grid" style="margin-top: 55px">
+      <div>
+        <span>{{ "Working hours" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: workingHours.invalid && workingHours.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.workingHours }}"
+          name="workingHours"
+          #workingHours="ngModel"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Worker Attest Time" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: workerAttestTime.invalid && workerAttestTime.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.workerAttestTime }}"
+          name="workerAttestTime"
+          #workerAttestTime="ngModel"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Project Manager Attest Time" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: managerAttestTime.invalid && managerAttestTime.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.managerAttestTime }}"
+          name="managerAttestTime"
+          #managerAttestTime="ngModel"
+        />
+      </div>
+    </div>
+!-->
+<!--
+    <div class="form-grid" style="margin-top: 55px">
+      <div>
+        <span>{{ "Fortnox Api Key" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: fortnoxApiKey.invalid && fortnoxApiKey.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.fortnoxApiKey }}"
+          name="fortnoxApiKey"
+          #fortnoxApiKey="ngModel"
+        />
+      </div>
+
+      <div>
+        <span>{{ "Fortnox Secret Key" | translate }}:</span>
+        <input
+          spellcheck="false"
+          [ngClass]="{
+            red_border: fortnoxSecretKey.invalid && fortnoxSecretKey.touched
+          }"
+          type="text"
+          required
+          ngModel="{{ companyDetails.fortnoxSecretKey }}"
+          name="fortnoxSecretKey"
+          #fortnoxSecretKey="ngModel"
+        />
+      </div>
+    </div>
+!-->
+    <div class="form-grid" style="margin-top: 55px">
+      <div class="form-group form-group-div">
+        <span>{{ "Language" | translate }}:</span>
+        <select name="Language" ngModel="{{ companyDetails.Language | translate}}" class="form-control form-control-language-height" >
+          <option *ngFor="let language of sps_languages;let languageIndex = index;" [selected]="language.name == companyDetails.Language" (click)="setLanguage(languageIndex)">{{language.name | translate}}</option>
+        </select>
+      </div>
+      <div>
+        <div class="row-wrapper" style="width: 288px;">
+          <span>{{'Currency' | translate}}:</span>
+          <select name="Currency" ngModel="{{ companyDetails.Currency }}" class="form-control form-control-language-height" #selectedCurrency id="selectedCurrency" (change)="setCurrency(selectedCurrency.value)">
+            <option *ngFor="let currency of sps_currencies" [selected]="currency.name == companyDetails.Currency" >{{currency.name | translate}}</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <div class="row-wrapper" style="width: 288px;">
+            <span>{{'Salary system' | translate}}:</span>
+            <select name="SalarySystem" ngModel="{{ companyDetails.SalarySystem }}" class="form-control form-control-default-height" #selectedPayment id="selectedPayment" (change)="setPayment(selectedPayment.value)">
+                <option *ngFor="let payment of payment_systems" [selected]="payment.name == companyDetails.SalarySystem" >{{payment.name | translate}}</option>
+            </select>
+        </div>
+    </div>
+    </div>
+    <div class="form-grid" style="margin-top: 55px" *ngIf="userDetails.create_settings_Global">
+      <div>
+        <p class="logo-label">{{ "Logo" | translate }}:</p>
+        <input type="text" ngModel="{{ logoName }}" name="logo" disabled />
+        <p class="refuse-logo" (click)="removeLogo()">X</p>
+      </div>
+      <button
+        class="choose-file"
+        type="button"
+        (click)="openFileExplorer(fileInput)"
+      >
+        <p>{{ "Choose file" | translate | uppercase }}</p>
+      </button>
+      <input
+        style="display: none !important"
+        type="file"
+        id="image"
+        (change)="changeLogo($event)"
+        #fileInput
+      />
+    </div>
+    <div
+      *ngIf="showLogo"
+      class="logo-container"
+      [ngStyle]="{ 'background-image': 'url(' + companyDetails.logo + ')' }"
+    ></div>
+    <button
+        class="update btn-dt"
+        type="submit"
+        [disabled]="
+            !f.dirty ||
+            !f.valid
+        "
+        *ngIf="userDetails.create_settings_Global"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="23.5"
+            height="18.548"
+            viewBox="0 0 23.5 18.548"
+        >
+            <g transform="translate(0.75 0.75)">
+                <path
+                    id="Path_754"
+                    data-name="Path 754"
+                    d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                    transform="translate(-14.993 -19.629)"
+                    fill="#44484c"
+                />
+                <path
+                    id="Path_755"
+                    class="Path_755"
+                    data-name="Path 755"
+                    d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                    transform="translate(-14.993 -19.629)"
+                    fill="none"
+                    stroke-width="1.5"
+                    opacity="0.973"
+                />
+            </g>
+        </svg>
+        <p>{{ "Update" | translate | uppercase }}</p>
+    </button>
+  </form>
+  <div class="thin-red-line-bottom"></div>
+  <mat-spinner class="spinner" *ngIf="loading"></mat-spinner>
+</div>

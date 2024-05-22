@@ -1,0 +1,1380 @@
+<div class="border-wrapper" >
+  <!-- <div class="row top-of-prognosis mb-3" *ngIf="
+      prognosis.length > 0 &&
+      prognosis[activePrognosis] &&
+      prognosis[activePrognosis]?.id &&
+      prognosis[activePrognosis]?.locked
+    "> -->
+    <div class="row top-of-prognosis mb-3" >
+    <div class="search">
+        <span class="search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13.06" viewBox="0 0 13 13.06">
+                <path id="Path_737" data-name="Path 737" d="M30.923,28.9l-.078-.079h0l-3.134-3.151a5.185,5.185,0,0,0-4.425-7.777h-.034a5.18,5.18,0,0,0-.032,10.36h.034a5.106,5.106,0,0,0,2.595-.706l3.131,3.149h0l.078.079a.6.6,0,0,0,.858,0l1.007-1.013A.612.612,0,0,0,30.923,28.9Zm-7.695-1.968a3.859,3.859,0,0,1,.024-7.718h.026a3.8,3.8,0,0,1,2.707,1.148,3.874,3.874,0,0,1-.027,5.449,3.8,3.8,0,0,1-2.7,1.121Z" transform="translate(-18.101 -17.89)" fill="#fcf4ec"/>
+            </svg>
+        </span>
+        <input type="text" id="searchInput" class="form-control form-control-search" placeholder="{{ 'Search' | translate }}" #filterInput (input)="onSearch(filterInput.value)" style="width: 250px" />
+        <span class="clear-icon" (click)="clearSearchText($event)" *ngIf="existString">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.189" height="10.189" viewBox="0 0 10.189 10.189">
+              <path id="Path_783" data-name="Path 783" d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z" transform="translate(3.622 4.382)" fill="#fcf4ec"/>
+            </svg>
+        </span>
+    </div>
+    <div class="row">
+      <form class="buttons-form" style="justify-content: inherit">
+        <div class="d-flex border-item p-1 mr-4 cursor-pointer" (click)="onStatusChangePrognosis('all')">
+          <div class="margin-svg-buttons">
+            <svg *ngIf="statusObjectPrognosis['all'] == false" id="X_icon" data-name="X icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <path id="Path_736" data-name="Path 736" d="M0,5.951H12v-12H0Z" transform="translate(0 6.049)"
+                    fill="#fff" />
+                </clipPath>
+              </defs>
+              <g id="X_icon-2" data-name="X icon">
+                <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                  <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                    <path id="Path_734" data-name="Path 734"
+                      d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                      transform="translate(6.049 3.024)" fill="#fcf4ec" />
+                  </g>
+                  <g id="Group_290" data-name="Group 290" transform="translate(2.484 2.494)">
+                    <path id="Path_735" data-name="Path 735"
+                      d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                      transform="translate(3.453 2.997)" fill="#44484c" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <svg *ngIf="statusObjectPrognosis['all'] == true" id="Bocka_av_icon" data-name="Bocka av icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <rect id="Rectangle_60" data-name="Rectangle 60" width="15" height="15" fill="none" />
+                </clipPath>
+              </defs>
+              <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+                <path id="Path_745" data-name="Path 745"
+                  d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                  transform="translate(0.056 0.053)" fill="#ff7000" />
+                <path id="Path_746" data-name="Path 746"
+                  d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                  transform="translate(-8.669 -15.967)" fill="#44484c" />
+              </g>
+            </svg>
+          </div>
+          <div class="align-button-title">
+            <span class="text-uppercase mr-1">{{ "All" | translate }}</span>
+          </div>
+        </div>
+        <div class="d-flex border-item p-1 mr-4 cursor-pointer" (click)="onStatusChangePrognosis('0')">
+          <div class="margin-svg-buttons">
+            <svg *ngIf="statusObjectPrognosis['0'] == false" id="X_icon" data-name="X icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <path id="Path_736" data-name="Path 736" d="M0,5.951H12v-12H0Z" transform="translate(0 6.049)"
+                    fill="#fff" />
+                </clipPath>
+              </defs>
+              <g id="X_icon-2" data-name="X icon">
+                <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                  <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                    <path id="Path_734" data-name="Path 734"
+                      d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                      transform="translate(6.049 3.024)" fill="#fcf4ec" />
+                  </g>
+                  <g id="Group_290" data-name="Group 290" transform="translate(2.484 2.494)">
+                    <path id="Path_735" data-name="Path 735"
+                      d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                      transform="translate(3.453 2.997)" fill="#44484c" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <svg *ngIf="statusObjectPrognosis['0'] == true" id="Bocka_av_icon" data-name="Bocka av icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <rect id="Rectangle_60" data-name="Rectangle 60" width="15" height="15" fill="none" />
+                </clipPath>
+              </defs>
+              <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+                <path id="Path_745" data-name="Path 745"
+                  d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                  transform="translate(0.056 0.053)" fill="#f0e264" />
+                <path id="Path_746" data-name="Path 746"
+                  d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                  transform="translate(-8.669 -15.967)" fill="#44484c" />
+              </g>
+            </svg>
+          </div>
+          <div class="align-button-title">
+            <span class="text-uppercase mr-1">{{
+              "Under pricing" | translate
+              }}</span>
+          </div>
+        </div>
+        <div class="d-flex border-item p-1 mr-4 cursor-pointer" (click)="onStatusChangePrognosis('4')">
+          <div class="margin-svg-buttons">
+            <svg *ngIf="statusObjectPrognosis['4'] == false" id="X_icon" data-name="X icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <path id="Path_736" data-name="Path 736" d="M0,5.951H12v-12H0Z" transform="translate(0 6.049)"
+                    fill="#fff" />
+                </clipPath>
+              </defs>
+              <g id="X_icon-2" data-name="X icon">
+                <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                  <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                    <path id="Path_734" data-name="Path 734"
+                      d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                      transform="translate(6.049 3.024)" fill="#fcf4ec" />
+                  </g>
+                  <g id="Group_290" data-name="Group 290" transform="translate(2.484 2.494)">
+                    <path id="Path_735" data-name="Path 735"
+                      d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                      transform="translate(3.453 2.997)" fill="#44484c" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <svg *ngIf="statusObjectPrognosis['4'] == true" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13" viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <rect id="Rectangle_60" data-name="Rectangle 60" width="15" height="15" fill="none" />
+                </clipPath>
+              </defs>
+              <g id="Group_4503" data-name="Group 4503" transform="translate(-262 115)">
+                <g id="Bocka_av_icon" data-name="Bocka av icon" transform="translate(262 -115)">
+                  <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+                    <path id="Path_745" data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)" fill="#94effd" />
+                    <path id="Path_746" data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)" fill="#44484c" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="align-button-title">
+            <span class="text-uppercase mr-1">{{ "Sent" | translate }}</span>
+          </div>
+        </div>
+        <div class="d-flex border-item p-1 mr-4 cursor-pointer" (click)="onStatusChangePrognosis('2')">
+          <div class="margin-svg-buttons">
+            <svg *ngIf="statusObjectPrognosis['2'] == false" id="X_icon" data-name="X icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <path id="Path_736" data-name="Path 736" d="M0,5.951H12v-12H0Z" transform="translate(0 6.049)"
+                    fill="#fff" />
+                </clipPath>
+              </defs>
+              <g id="X_icon-2" data-name="X icon">
+                <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                  <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                    <path id="Path_734" data-name="Path 734"
+                      d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                      transform="translate(6.049 3.024)" fill="#fcf4ec" />
+                  </g>
+                  <g id="Group_290" data-name="Group 290" transform="translate(2.484 2.494)">
+                    <path id="Path_735" data-name="Path 735"
+                      d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                      transform="translate(3.453 2.997)" fill="#44484c" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <svg *ngIf="statusObjectPrognosis['2'] == true" id="Bocka_av_icon" data-name="Bocka av icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <rect id="Rectangle_60" data-name="Rectangle 60" width="15" height="15" fill="none" />
+                </clipPath>
+              </defs>
+              <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+                <path id="Path_745" data-name="Path 745"
+                  d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                  transform="translate(0.056 0.053)" fill="#03d156" />
+                <path id="Path_746" data-name="Path 746"
+                  d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                  transform="translate(-8.669 -15.967)" fill="#44484c" />
+              </g>
+            </svg>
+          </div>
+          <div class="align-button-title">
+            <span class="text-uppercase mr-1">{{
+              "In Progress" | translate
+              }}</span>
+          </div>
+        </div>
+        <div class="d-flex border-item p-1 mr-4 cursor-pointer" (click)="onStatusChangePrognosis('7')">
+          <div class="margin-svg-buttons">
+            <svg *ngIf="statusObjectPrognosis['7'] == false" id="X_icon" data-name="X icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <path id="Path_736" data-name="Path 736" d="M0,5.951H12v-12H0Z" transform="translate(0 6.049)"
+                    fill="#fff" />
+                </clipPath>
+              </defs>
+              <g id="X_icon-2" data-name="X icon">
+                <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                  <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                    <path id="Path_734" data-name="Path 734"
+                      d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                      transform="translate(6.049 3.024)" fill="#fcf4ec" />
+                  </g>
+                  <g id="Group_290" data-name="Group 290" transform="translate(2.484 2.494)">
+                    <path id="Path_735" data-name="Path 735"
+                      d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                      transform="translate(3.453 2.997)" fill="#44484c" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <svg *ngIf="statusObjectPrognosis['7'] == true" id="Bocka_av_icon" data-name="Bocka av icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <rect id="Rectangle_60" data-name="Rectangle 60" width="15" height="15" fill="none" />
+                </clipPath>
+              </defs>
+              <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+                <path id="Path_745" data-name="Path 745"
+                  d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                  transform="translate(0.056 0.053)" fill="#e7a0fc" />
+                <path id="Path_746" data-name="Path 746"
+                  d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                  transform="translate(-8.669 -15.967)" fill="#44484c" />
+              </g>
+            </svg>
+          </div>
+          <div class="align-button-title">
+            <span class="text-uppercase mr-1">{{ "Clear" | translate }}</span>
+          </div>
+        </div>
+        <div class="d-flex border-item p-1 mr-4 cursor-pointer" (click)="onStatusChangePrognosis('5')">
+          <div class="margin-svg-buttons">
+            <svg *ngIf="statusObjectPrognosis['5'] == false" id="X_icon" data-name="X icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <path id="Path_736" data-name="Path 736" d="M0,5.951H12v-12H0Z" transform="translate(0 6.049)"
+                    fill="#fff" />
+                </clipPath>
+              </defs>
+              <g id="X_icon-2" data-name="X icon">
+                <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                  <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                    <path id="Path_734" data-name="Path 734"
+                      d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                      transform="translate(6.049 3.024)" fill="#fcf4ec" />
+                  </g>
+                  <g id="Group_290" data-name="Group 290" transform="translate(2.484 2.494)">
+                    <path id="Path_735" data-name="Path 735"
+                      d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                      transform="translate(3.453 2.997)" fill="#44484c" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <svg *ngIf="statusObjectPrognosis['5'] == true" id="Bocka_av_icon" data-name="Bocka av icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <rect id="Rectangle_60" data-name="Rectangle 60" width="15" height="15" fill="none" />
+                </clipPath>
+              </defs>
+              <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+                <path id="Path_745" data-name="Path 745"
+                  d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                  transform="translate(0.056 0.053)" fill="#fff" />
+                <path id="Path_746" data-name="Path 746"
+                  d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                  transform="translate(-8.669 -15.967)" fill="#44484c" />
+              </g>
+            </svg>
+          </div>
+          <div class="align-button-title">
+            <span class="text-uppercase mr-1">{{ "Completed" | translate }}</span>
+          </div>
+        </div>
+        <div class="d-flex border-item p-1 mr-4 cursor-pointer" (click)="onStatusChangePrognosis('3')">
+          <div class="margin-svg-buttons">
+            <svg *ngIf="statusObjectPrognosis['3'] == false" id="X_icon" data-name="X icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <path id="Path_736" data-name="Path 736" d="M0,5.951H12v-12H0Z" transform="translate(0 6.049)"
+                    fill="#fff" />
+                </clipPath>
+              </defs>
+              <g id="X_icon-2" data-name="X icon">
+                <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                  <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                    <path id="Path_734" data-name="Path 734"
+                      d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                      transform="translate(6.049 3.024)" fill="#fcf4ec" />
+                  </g>
+                  <g id="Group_290" data-name="Group 290" transform="translate(2.484 2.494)">
+                    <path id="Path_735" data-name="Path 735"
+                      d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                      transform="translate(3.453 2.997)" fill="#44484c" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <svg *ngIf="statusObjectPrognosis['3'] == true" id="Bocka_av_icon" data-name="Bocka av icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <rect id="Rectangle_60" data-name="Rectangle 60" width="15" height="15" fill="none" />
+                </clipPath>
+              </defs>
+              <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+                <path id="Path_745" data-name="Path 745"
+                  d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                  transform="translate(0.056 0.053)" fill="#fd4444" />
+                <path id="Path_746" data-name="Path 746"
+                  d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                  transform="translate(-8.669 -15.967)" fill="#44484c" />
+              </g>
+            </svg>
+          </div>
+          <div class="align-button-title">
+            <span class="text-uppercase mr-1">{{ "Declined" | translate }}</span>
+          </div>
+        </div>
+        <div class="d-flex border-item p-1 mr-4 cursor-pointer" (click)="onStatusChangePrognosis('6')">
+          <div class="margin-svg-buttons">
+            <svg *ngIf="statusObjectPrognosis['6'] == false" id="X_icon" data-name="X icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <path id="Path_736" data-name="Path 736" d="M0,5.951H12v-12H0Z" transform="translate(0 6.049)"
+                    fill="#fff" />
+                </clipPath>
+              </defs>
+              <g id="X_icon-2" data-name="X icon">
+                <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                  <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                    <path id="Path_734" data-name="Path 734"
+                      d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                      transform="translate(6.049 3.024)" fill="#fcf4ec" />
+                  </g>
+                  <g id="Group_290" data-name="Group 290" transform="translate(2.484 2.494)">
+                    <path id="Path_735" data-name="Path 735"
+                      d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                      transform="translate(3.453 2.997)" fill="#44484c" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <svg *ngIf="statusObjectPrognosis['6'] == true" id="Bocka_av_icon" data-name="Bocka av icon"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"
+              viewBox="0 0 12 12">
+              <defs>
+                <clipPath id="clip-path">
+                  <path id="Path_1891" data-name="Path 1891" d="M0,0H12V12H0Z" fill="none" />
+                </clipPath>
+              </defs>
+              <g id="Mask_Group_302" data-name="Mask Group 302" clip-path="url(#clip-path)">
+                <path id="Path_745" data-name="Path 745"
+                  d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                  transform="translate(0.056 0.053)" fill="#b8b8b8" />
+                <path id="Path_746" data-name="Path 746"
+                  d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                  transform="translate(-8.669 -15.967)" fill="#44484c" />
+              </g>
+            </svg>
+          </div>
+          <div class="align-button-title">
+            <span class="text-uppercase mr-1">{{ "Aborted" | translate }}</span>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="top-link" *ngIf="
+      prognosis.length > 0 &&
+      prognosis[activePrognosis] &&
+      prognosis[activePrognosis]?.id &&
+      prognosis[activePrognosis]?.locked
+    ">
+      <div class="button-container">
+
+          <!-- Dropdown SEND/PRINT SUMM -->
+          <div class="input-wrapper4"  >
+            <app-samm-dropdown
+            [Samm] = "client_workers"
+            [placeholder]="'TSC_Summary' | translate"
+            [Print]="'Print' | translate"
+            [Send]="'Send' | translate"
+            [width]="185"
+            [HaveExport]="false"
+            (PrintButton)="printSamastalingForPrognosisToClient()"
+            (SendButton)="sendSamastalingForPrognosisToClient($event)"
+            >
+            </app-samm-dropdown>
+          </div>
+          <!-- End Dropdown SEND/PRINT SUMM -->
+
+       <!-- <button [class.button-open]="buttonToggle" class="btn ata-btn-summary d-flex"
+          (click)="buttonNameSummary()">
+          <span class="mt-1 ml-2" style="text-align: left">{{
+            "TSC_Summary" | translate
+            }}</span>
+
+
+
+        </button>
+      -->
+        <div class="summary-dropdown" [ngClass]="buttonToggle ? '' : 'd-none'">
+          <div class="p-1 border-summary" (click)="printSamastalingForPrognosisToClient()">
+            <div>
+              <span class="mt-1 ml-2 fs-10">{{ "Print Prognosis" | translate }}</span>
+            </div>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18.953" height="17.216" viewBox="0 0 18.953 17.216">
+                <g id="Group_4091" data-name="Group 4091" transform="translate(0 0)">
+                  <g id="Group_3988" data-name="Group 3988" transform="translate(5.984 4.613)">
+                    <rect id="Rectangle_15585" data-name="Rectangle 15585" width="6.934" height="0.803"
+                      transform="translate(0 1.992)" fill="#44484c" />
+                    <rect id="Rectangle_15586" data-name="Rectangle 15586" width="6.934" height="0.803"
+                      fill="#44484c" />
+                  </g>
+                  <path id="Path_1752" data-name="Path 1752"
+                    d="M33.834,19.925a.955.955,0,0,0-.953-.957H15.833a.955.955,0,0,0-.952.957v8.132h3.6v.718l7.369,7.409H30.2V28.1h3.636Zm-17.1,6.567v-3.8H18.48v3.8Zm8.806,7.864L20.3,29.089h5.238Zm1.066.757v-7.1H19.546V22.694h9.587V35.113Zm5.38-8.575H30.2V22.694h1.786Z"
+                    transform="translate(-14.881 -18.968)" fill="#44484c" />
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div [ngClass]="contacts.length == 0 ? 'disabled-icon' : 'enabled-icon'" class="p-1">
+            <div (click)="sendSamastalingForPrognosisToClient()" class="text-icon-align">
+              <span class="mt-1 ml-2 fs-10">{{ "Send to" | translate }}</span>
+              <img src="../../../../assets/img/disabled-icon.svg" *ngIf="contacts.length == 0" />
+              <img src="../../../../assets/img/enabled-icon.svg" *ngIf="contacts.length > 0" />
+            </div>
+          </div>
+          <div class="workers d-flex justify-content-start pl-3 workers-border p-1"
+            *ngFor="let worker of client_workers" (click)="buttonNameSummary(worker)">
+            <span class="ml-1 fs-10">{{ worker.Name }}</span>
+            <span *ngIf="checkIfContactSelected(worker) == false">
+              <img style="padding: 0px 0px 0px 3px" src="../../../../assets/img/uncheck.svg" alt="" />
+            </span>
+            <span *ngIf="checkIfContactSelected(worker)">
+              <img style="padding: 0px 0px 0px 3px" src="../../../../assets/img/check_orange.svg" alt="" />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="middle-div mt-3" style="margin-bottom: -25px;">
+    <div class="parent-btn">
+      <button (click)="setMenuHeight('36px', 'result_overview')" class="collapsing-btn" type="button"
+        data-toggle="collapse" data-target="#collapseExample1" aria-expanded="true" aria-controls="collapseExample1">
+        <p>{{ "TSC_RESULT_OVERVIEW" | translate | uppercase }}</p>
+        <img *ngIf="iconDropdown == true" class="result-img" src="../../../../../assets/img/Group 305.png" alt="" />
+        <img *ngIf="iconDropdown == false" class="result-img" src="../../../../../assets/img/Group 4455.svg" alt="" />
+        <div class="hidden-border-button"></div>
+      </button>
+    </div>
+    <div [ngStyle]="{ height: menuHeight.result_overview }" class="collapse show height-transition shadow-top-div"
+      style="position: relative">
+      <div class="card card-body collapse-down">
+        <div class="row resultat-cont-wrapper">
+          <div class="col-md-2 result-first" *ngIf="!isShown">
+            <div class="bordered-sum">
+              <div style="font-size: 11px; color: white; padding-left: 5px;">{{'Contract_sum_including_Rikt' | translate}}</div>
+              <div style="display: grid;grid-template-columns: 1fr 1fr;">
+                <div scope="col" class="blue-txt" style="padding-left: 5px;">{{ "TCS_Contract_Sum" | translate }}:</div>
+                <div class="white-txt" style="text-align: right; padding-right: 5px;">{{prognosis[activePrognosis].total_project_contract_amount | number: "1.2-2":"fr"}}</div>
+              </div>
+            </div>
+            <div class="first-table-wrapper">
+              <table class="table table-borderless" id="bottom-first-distance" style="margin-bottom: 0px!important;">
+
+              <tbody>
+
+                <ng-container *ngFor="
+                    let prognos of prognosis[activePrognosis].properties;
+                    let index = index
+                  ">
+                  <tr>
+                    <th scope="col" class="blue-txt" style="padding-left: 13px;">
+                      {{ prognos.project_name }} :
+                    </th>
+                    <td class="white-txt" style="text-align: -webkit-right;padding-right: 11px;">
+                      {{
+                      prognos.project_contract_amount | number: "1.2-2":"fr"
+                      }}
+                    </td>
+                  </tr>
+                  <tr [ngStyle]="{
+                            visibility:
+                              prognos.project_debit == '4'
+                                ? 'visible'
+                                : 'hidden'
+                          }">
+                    <th scope="col" class="blue-txt" style="padding-left: 13px;">
+                      {{ 'Rikt +/-' }} :
+                    </th>
+                    <td class="white-txt" style="text-align: -webkit-right;padding-right: 11px;">
+                      {{printTotal(prognos, "rikt") | number: "1.2-2":"fr" }}
+                    </td>
+                  </tr>
+                  <!-- <tr class="project-tr">
+                    <th scope="row" class="yellow-txt"></th>
+                    <td class="white-txt"></td>
+                  </tr> -->
+                  <tr style="height: 14px; position: relative;" *ngIf="
+                      prognosis[activePrognosis].properties.length > 1 &&
+                      index !== prognosis[activePrognosis].properties.length - 1
+                    ">
+                    <div class="line1"></div>
+                    <th scope="row" class="yellow-txt"></th>
+                    <td class="white-txt"></td>
+                  </tr>
+                </ng-container>
+              </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-md-6 result-second">
+            <table class="table table-borderless" id="bottom-second-distance">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col" class="blue-txt">
+                    {{ "TSC_Ordered" | translate }}:
+                  </th>
+                  <th scope="col" class="blue-txt">
+                    {{ "TSC_Invoiced" | translate }}:
+                  </th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <ng-container *ngFor="
+                    let prognos of prognosis[activePrognosis].properties;
+                    let index = index
+                  " style="position: relative;">
+                  <tr>
+                    <th scope="row" class="blue-txt second-result">
+                      {{ prognos.project_name }}
+                    </th>
+                    <td class="white-txt second-result">
+                      {{prognos['project_du_totals'].totallyWorkedUp | number: "1.2-2":"fr"}}
+                    </td>
+                    <td class="white-txt second-result">
+                      {{prognos['project_du_totals'].invoicedTotal | number: "1.2-2":"fr"}}
+                    </td>
+                  </tr>
+                  <tr style="position: relative;">
+                    <th scope="row" class="blue-txt second-result">
+                      {{ prognos.project_name }} ÄTA:
+                    </th>
+                    <td class="white-txt second-result">
+                      {{
+                      prognos["ata_totals"].totallyWorkedUp
+                      | number: "1.2-2":"fr"
+                      }}
+                    </td>
+                    <td class="white-txt second-result">
+                      {{
+                      prognos["ata_totals"].invoicedTotal
+                      | number: "1.2-2":"fr"
+                      }}
+                    </td>
+
+
+                  </tr>
+                  <tr style="position: relative; height: 14px;">
+                    <div style="height: 13px;" class="line2" [ngStyle]="{'visibility': index == (this.lengthPrognos-1)? 'hidden': ''}">
+
+                    </div>
+                  </tr>
+                  <!-- <div style="height: 13px" ></div> -->
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 result-third" *ngIf="!isShown">
+            <div class="yellow-area-div">
+              <div class="row" style="flex-wrap: nowrap !important">
+                <div class="vertical-text">
+                  <h5 class="vr-txt">{{ "TSC_Forecast" | translate }}</h5>
+                </div>
+
+                <div class="prognosis-two-table">
+                  <div class="line3"></div>
+                  <div class="yellow-table yellow-table-1" style="padding: 44px 0px 0px 0px;margin-left: 15px;">
+                    <table class="table table-borderless" id="prognosis-table">
+                    <tbody class="prognosis-tbody" style="position: relative; left: -40px">
+                        <ng-container *ngFor="
+                            let prognos of prognosis[activePrognosis]
+                              .properties;
+                            let index = index
+                          ">
+                          <tr class="project-tr">
+                            <th scope="row" class="yellow-txt">
+                              {{ prognos.project_name }} :
+                            </th>
+                            <td class="white-txt">
+                                {{
+                                    prognos['project_du_totals'].prognosis
+                                    | number: "1.2-2":"fr"
+                                }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="yellow-txt">
+                                {{ prognos.project_name }} ÄTA:
+                            </th>
+                            <td class="white-txt">
+                                {{
+                                    printTotal(prognos, "ata")
+                                    | number: "1.2-2":"fr"
+                                }}
+                            </td>
+                          </tr>
+                          <div style="height: 13px"></div>
+                        </ng-container>
+                            <tr style="height: 30px">
+                                <th scope="row" class="c-work" style="
+                                  font-family: 'PT-Sans-Pro-Bold';
+                                  vertical-align: bottom;
+                                ">
+                                    {{ "TCS_Prognossumma" | translate | uppercase }}:
+                                </th>
+                                <td style="vertical-align: bottom">
+                                    {{
+                                    prognosis[activePrognosis]["total"]
+                                    | number: "1.2-2":"fr"
+                                    }}
+                                </td>
+                            </tr>
+                    </tbody>
+                    </table>
+                  </div>
+                  <div class="yellow-table yellow-table-1">
+                    <div style="margin-left: -27px;width: 284px;margin-top: 5px;" >
+                      <div style=" text-align: center;">
+                        <div style="font-size: 11px; color: white">{{'Contract_sum_including_Rikt' | translate}}</div>
+                      </div>
+                      <div style="display: grid;grid-template-columns: 166px 1fr;">
+                        <div scope="col" class="blue-txt" style="justify-self: right;">
+                          {{ "TCS_Contract_Sum" | translate }}:
+                        </div>
+                        <div class="white-txt"  style="justify-self: right;">
+                          {{
+                          prognosis[activePrognosis].total_project_contract_amount
+                          | number: "1.2-2":"fr"
+                          }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <table class="table table-borderless" id="prognosis-table">
+                      <tbody class="prognosis-tbody" style="position: relative; left: -15px">
+                        <tr>
+                          <!-- <th scope="col" class="blue-txt">
+                            {{ "TCS_Contract_Sum" | translate }}:
+                          </th>
+                          <td class="white-txt">
+                            {{
+                            prognosis[activePrognosis].total_project_contract_amount
+                            | number: "1.2-2":"fr"
+                            }}
+                          </td> -->
+                        </tr>
+                        <tr class="project-tr">
+                            <th scope="row" class="yellow-txt">
+                              {{ "TCS_Contract_prognos" | translate }}:
+                            </th>
+                            <td class="white-txt">
+                                {{
+                                    prognosis[activePrognosis].projects_total_prognos
+                                    | number: "1.2-2":"fr"
+                                }}
+                            </td>
+                        </tr>
+                        <tr class="project-tr">
+                            <th scope="row" class="yellow-txt">
+                              {{ "TCS_Diferens" | translate }}:
+                            </th>
+                            <td class="white-txt">
+                         {{
+                            ( prognosis[activePrognosis].total_project_contract_amount - prognosis[activePrognosis].projects_total_prognos )
+                            | number: "1.2-2":"fr"
+                            }}
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div
+                      *ngIf="userDetails.create_project_Forecast"
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        margin-top: 35px;
+                        bottom: 20px;
+                        position: absolute;
+                      ">
+                      <div style="left: -55px; position: relative">
+                        <button class="yellow-btn first-yellow-btn lock-prognos" (click)="savePrognosis('Saved')"
+                          [disabled]="
+                            prognosis[activePrognosis].locked ||
+                            prognosis[activePrognosis].saved ||
+                            disabeButtons ||
+                            spinner ||
+                            !userDetails.create_project_Forecast
+                          ">
+                          {{ "TSC_save_prognosis" | translate | uppercase }}
+                        </button>
+                      </div>
+                      <div style="left: -38px; position: relative">
+                        <button class="yellow-btn lock-prognos" (click)="savePrognosis('locked')" [disabled]="
+                            prognosis[activePrognosis].locked ||
+                            !prognosis[activePrognosis].saved ||
+                            disabeButtons ||
+                            spinner ||
+                            !userDetails.create_project_Forecast
+                          " style="text-transform: uppercase">
+                          {{ "TSC_lock_forecast" | translate }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-bordered"  style="
+      position: absolute;
+      top: 0;
+      z-index: 1;
+
+      margin-left: 0px;
+      display: none !important;
+    " #floatingHeader></table>
+  <ng-container *ngFor="
+      let prognos of prognosis[activePrognosis].properties;
+      let index = index
+    ">
+    <div class="second-middle-div mt-3" style="position: relative;" *ngIf="prognosis[activePrognosis]['properties'][index].project_debit == 1 ||prognosis[activePrognosis]['properties'][index].project_debit == 4">
+      <!-- <div [ngClass]="{'thin-red-line-bottom': index === prognosis[activePrognosis].properties.length - 1}"></div> -->
+
+      <a (click)="changePropertyHeight(prognos, 'du')" [ngStyle]="changePropertyMarginLeft(prognos.margin_left)"
+        class="second-md-btn" type="button" style="position: relative;">
+        <span style="color: #E3DBD3; position: relative; top: 2px;">
+          DU {{ prognos.project_name }}</span>
+        <img *ngIf="prognos.duheight == 'auto'" src="../../../../../assets/img/Group 305.png" alt=""
+          style="margin-left: 10px;" />
+        <img *ngIf="prognos.duheight != 'auto'" src="../../../../../assets/img/Group 4455.svg" alt=""
+          style="margin-left: 10px;" />
+      </a>
+
+      <div class="panel-collapse collapse show height-transition shadow-top-div">
+        <div class="card card-body collapse-down table-div" [ngClass]="{
+          'table-div-bottom':
+            index === prognosis[activePrognosis].properties.length - 1
+        }">
+          <table class="table table-bordered" id="table-t" >
+            <ng-container *ngIf="prognos.duheight == 'auto'">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col"  title="{{ 'TSC_Name' | translate }}" [ngClass]="prognos.project_debit == 4 ? 'bea-width12': 'bea-width1'">
+                  {{ "TSC_Name" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="" title="{{ 'Debit Form' | translate }}"  [ngClass]="prognos.project_debit == 4 ? 'debit-width12': 'debit-width1'">
+                  {{ "TSC_Debit_form" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="" title="{{ 'TSC_Accumulated_cost_title' | translate }}"  [ngClass]="prognos.project_debit == 4 ? 'upparbetade-width12': 'upparbetade-width1'">
+                  {{ "TSC_Accumulated_cost" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" title="{{ 'TSC_Not_send' | translate }}" [ngClass]="prognos.project_debit == 4 ? 'reglerad-width1': 'reglerad-width12'">
+                  {{ "TSC_Not_send" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col"  title="{{ 'TSC_Sent' | translate }}" [ngClass]="prognos.project_debit == 4 ? 'reglerad-width1': 'reglerad-width12'">
+                  {{ "TSC_Sent" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="" title="{{ 'Approved to invoice' | translate }}">
+                  {{ "TSC_Approved_to_invoice" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="fakturerat-width1" title="{{ 'TSC_Invoiced' | translate }}" [ngClass]="prognos.project_debit == 4 ? 'class1': 'class2'">
+                  {{ "TSC_Invoiced" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" title="{{ 'TSC_Forecast' | translate }}"  [ngClass]="prognos.project_debit == 4 ? 'prognos-width12': 'prognos-width1'">
+                  {{ "TSC_Forecast" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="table-body ata-oversikt">
+              <ng-container>
+                <tr  (mouseenter)="onMouseEnter(index)" (mouseleave)="onMouseLeave(index)" [ngClass]="'project-wrapp' + index" class="start-bg-color">
+                  <!-- [style.background-color]="colorTable" -->
+                  <td scope="row" class="" (click)="allowSeen()">
+                    <span class="table-title">
+                        <mat-icon *ngIf="allowToBeSee" style="margin-left: -10px; color: black;">expand_more</mat-icon>
+                        <mat-icon *ngIf="!allowToBeSee" style="margin-left: -10px; color: black;">expand_less</mat-icon>
+                        {{ "Debiteringsunderlag" | translate }}
+                    </span>
+                  </td>
+                  <td clas="" style="text-align: right;padding-right:6px">
+                    <input
+                      class="form-control form-control-sm width5em input-prognos"
+                      type="text"
+                      #projectDUVal
+                      [ngClass]="'tot-prog1-' + index"
+                      (click)="selectProjectPrognosVal1('complete_prognosis1', index);"
+                      [value]="prognos['project_du_totals'].total "
+                      (keyup)="
+                        setProjectTotal(
+                            'complete_prognosis1',
+                            projectDUVal.value,
+                            index
+                        )
+                      "
+                      [disabled]="
+                          prognosis[activePrognosis].locked ||
+                          prognosis[activePrognosis]['properties'][index].project_debit == 2 ||
+                          prognosis[activePrognosis]['properties'][index].project_status != 2 ||
+                          !userDetails.create_project_Forecast
+                      "
+                      number-format-prognosis-directive />
+                  </td>
+                  <td class="max-number-character-U" style="text-align: right;padding-right:6px">
+                    {{prognos['project_du_totals'].totallyWorkedUp | number: "1.2-2":"fr"}}
+                  </td>
+                  <td class="td-debit-width" style="text-align: right;padding-right:6px">{{prognos['project_du_totals'].workedButNotApproved | number: "1.2-2":"fr"}}</td>
+                  <td class="">{{prognos['project_du_totals'].total_sent | number: "1.2-2":"fr"}}</td>
+                  <td class="">{{prognos['project_du_totals'].approvedForInvoice | number: "1.2-2":"fr"}}</td>
+                  <td class="">{{prognos['project_du_totals'].invoicedTotal | number: "1.2-2":"fr"}}</td>
+                  <td class="project-td" [ngClass]="setProjectClass(index, 'complete_prognosis', prognos['project_du_totals'].opacity)" (click)="setProjectBorder(index, 'totals')" (keydown)="setProjectBorder(index, 'totals')">
+                    <input
+                      class="form-control form-control-sm width5em input-prognos" [ngClass]="'tot-prog-' + index"  type="text" [value]="prognos['project_du_totals'].prognosis"
+                      #projectPrognosisiVal
+                        (focus)="myTabProjectFocusChange(index, 'totals')"
+                        (keyup)="setProjectPrognos(
+                            'complete_prognosis',
+                            projectPrognosisiVal.value,
+                            index
+                        )"
+                        (click)="selectProjectPrognosVal('complete_prognosis', index); setBlured(prognos, 'totals')"
+                        (blur)="onBlur(prognos, 'totals')"
+                        [disabled]="
+                            prognosis[activePrognosis].locked ||
+                            prognosis[activePrognosis]['properties'][index].project_debit == 2 ||
+                            prognosis[activePrognosis]['properties'][index].project_status != 2 ||
+                            !userDetails.create_project_Forecast
+                        "
+                      number-format-prognosis-directive />
+                    </td>
+                </tr>
+                <tr *ngIf="allowToBeSee"  [ngClass]="'project-wrapp' + index" class="start-bg-color">
+                    <td class="borderstyle" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">
+                      <div class="line-border-child">{{'Additional work' | translate}}</div>
+                    </td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">
+                      <div style="position: absolute; top: 0;left: 0;right: 0;bottom:0;border-left: 1px solid var(--border-color);text-align: right;padding-right:6px"></div>
+                        <input
+                          class="form-control form-control-sm width5em input-prognos"
+                          [ngClass]="'adw-prog1-' + index"
+                          type="text"
+                          [value]="prognos['project_du_totals']['additional_work']"
+                          #projectADWPrognosisiVal2
+                            (keyup)="
+                            setProjectTotal(
+                                'adw_prognosis1',
+                                projectADWPrognosisiVal2.value,
+                                index
+                            )"
+                            (click)="selectProjectPrognosVal1('additionalWork', index);"
+                            [disabled]="
+                                prognosis[activePrognosis].locked ||
+                                prognosis[activePrognosis]['properties'][index].project_debit == 2 ||
+                                prognosis[activePrognosis]['properties'][index].project_status != 2 ||
+                                !userDetails.create_project_Forecast
+                            "
+                          number-format-prognosis-directive />
+                    </td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}" style="text-align: right;padding-right:6px">{{ prognos['project_du_totals_by_type']['project_du_totals_additional_work'].totallyWorkedUp | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}" style="text-align: right;padding-right:6px">{{ prognos['project_du_totals_by_type']['project_du_totals_additional_work'].workedButNotApproved | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">{{ prognos['project_du_totals_by_type']['project_du_totals_additional_work'].total_sent | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">{{ prognos['project_du_totals_by_type']['project_du_totals_additional_work'].approvedForInvoice | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">{{ prognos['project_du_totals_by_type']['project_du_totals_additional_work'].invoicedTotal | number: "1.2-2":"fr"}}</td>
+                    <td class="project-td" [ngClass]="setProjectClass(index, 'additionalWork', prognos['project_du_totals_by_type']['project_du_totals_additional_work'].opacity)" (click)="setProjectBorder(index, 'additionalWork')" (keydown)="setProjectBorder(index, 'additionalWork')">
+                        <input
+                          class="form-control form-control-sm width5em input-prognos" [ngClass]="'adw-prog-' + index" type="text" [value]="prognos['project_du_totals_by_type']['project_du_totals_additional_work'].prognosis"
+                          #projectADWPrognosisiVal
+                            (focus)="myTabProjectFocusChange(index, 'additionalWork')"
+                            (keyup)="
+                            setProjectPrognos(
+                                'adw_prognosis',
+                                projectADWPrognosisiVal.value,
+                                index
+                            )"
+                            (click)="selectProjectPrognosVal('additionalWork', index); setBlured(prognos, 'additionalWork')"
+                            (blur)="onBlur(prognos, 'additionalWork')"
+                            [disabled]="
+                                prognosis[activePrognosis].locked ||
+                                prognosis[activePrognosis]['properties'][index].project_debit == 2 ||
+                                prognosis[activePrognosis]['properties'][index].project_status != 2 ||
+                                !userDetails.create_project_Forecast
+                            "
+                          number-format-prognosis-directive />
+                    </td>
+                </tr>
+                <tr *ngIf="allowToBeSee" [ngClass]="'project-wrapp' + index" class="start-bg-color">
+                    <td class="borderstyle" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">
+                      <div class="line-border-child"> {{'Material' | translate}}</div>
+                    </td>
+                    <td class="max-number-character-U" style="text-align: right;padding-right:6px" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">
+                      <div style="position: absolute; top: 0;left: 0;right: 0;bottom:0;border-left: 1px solid var(--border-color);"></div>
+                        <input
+                          class="form-control form-control-sm width5em input-prognos"
+                          [ngClass]="'material_prognosis1-' + index"
+                          type="text"
+                          [value]="prognos['project_du_totals']['material']"
+                          #projectMaterialPrognosisiVal2
+                            (keyup)="
+                            setProjectTotal(
+                                'material_prognosis1',
+                                projectMaterialPrognosisiVal2.value,
+                                index
+                            )"
+                            (click)="selectProjectPrognosVal1('material', index);"
+                            [disabled]="
+                                prognosis[activePrognosis].locked ||
+                                prognosis[activePrognosis]['properties'][index].project_debit == 2 ||
+                                prognosis[activePrognosis]['properties'][index].project_status != 2 ||
+                                !userDetails.create_project_Forecast
+                            "
+                          number-format-prognosis-directive />
+                    </td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}" style="text-align: right;padding-right:6px">{{ prognos['project_du_totals_by_type']['project_du_totals_materials'].totallyWorkedUp | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}" style="text-align: right;padding-right:6px">{{ prognos['project_du_totals_by_type']['project_du_totals_materials'].workedButNotApproved | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">{{ prognos['project_du_totals_by_type']['project_du_totals_materials'].total_sent | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">{{ prognos['project_du_totals_by_type']['project_du_totals_materials'].approvedForInvoice | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">{{ prognos['project_du_totals_by_type']['project_du_totals_materials'].invoicedTotal | number: "1.2-2":"fr"}}</td>
+                    <td class="project-td" [ngClass]="setProjectClass(index, 'material', prognos['project_du_totals_by_type']['project_du_totals_materials'].opacity)" (keydown)="setProjectBorder(index, 'material')" (click)="setProjectBorder(index, 'material')">
+                        <input
+                          class="form-control form-control-sm width5em input-prognos" [ngClass]="'m-prog-' + index" type="text" [value]="prognos['project_du_totals_by_type']['project_du_totals_materials'].prognosis"
+                          #projectMaterialPrognosisiVal
+                            (focus)="myTabProjectFocusChange(index, 'material')"
+                            (keyup)="
+                            setProjectPrognos(
+                                'material_prognosis',
+                                projectMaterialPrognosisiVal.value,
+                                index
+                            )
+                          " (click)="selectProjectPrognosVal('material', index); setBlured(prognos, 'material')"
+                          (blur)="onBlur(prognos, 'material')"
+                            [disabled]="
+                                prognosis[activePrognosis].locked ||
+                                prognosis[activePrognosis]['properties'][index].project_debit == 2 ||
+                                prognosis[activePrognosis]['properties'][index].project_status != 2 ||
+                                !userDetails.create_project_Forecast
+                            "
+                          number-format-prognosis-directive />
+                    </td>
+                </tr>
+                <tr *ngIf="allowToBeSee" [ngClass]="'project-wrapp' + index" class="start-bg-color">
+                    <td class="borderstyle" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">
+                      <div class="line-border-child">{{'UE/Other' | translate}}</div>
+                    </td>
+                    <td class="max-number-character-U" style="text-align: right;padding-right:6px" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">
+                      <div style="position: absolute; top: 0;left: 0;right: 0;bottom:0;border-left: 1px solid var(--border-color);"></div>
+                        <input
+                          class="form-control form-control-sm width5em input-prognos"
+                          [ngClass]="'other_prognosis1-' + index"
+                          type="text"
+                          [value]="prognos['project_du_totals']['other']"
+                          #projectOtherPrognosisiVal2
+                            (keyup)="
+                            setProjectTotal(
+                                'other_prognosis1',
+                                projectOtherPrognosisiVal2.value,
+                                index
+                            )"
+                            (click)="selectProjectPrognosVal1('other', index);"
+                            [disabled]="
+                                prognosis[activePrognosis].locked ||
+                                prognosis[activePrognosis]['properties'][index].project_debit == 2 ||
+                                prognosis[activePrognosis]['properties'][index].project_status != 2 ||
+                                !userDetails.create_project_Forecast
+                            "
+                          number-format-prognosis-directive />
+                    </td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}" style="text-align: right;padding-right:6px">{{ prognos['project_du_totals_by_type']['project_du_totals_other_work'].totallyWorkedUp | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}" style="text-align: right;padding-right:6px">{{ prognos['project_du_totals_by_type']['project_du_totals_other_work'].workedButNotApproved | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">{{ prognos['project_du_totals_by_type']['project_du_totals_other_work'].total_sent | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">{{ prognos['project_du_totals_by_type']['project_du_totals_other_work'].approvedForInvoice | number: "1.2-2":"fr"}}</td>
+                    <td class="max-number-character-U" [ngStyle]="{'background': prognos.color ? prognos.color : '#e3e9dd'}">{{ prognos['project_du_totals_by_type']['project_du_totals_other_work'].invoicedTotal | number: "1.2-2":"fr" }}</td>
+                    <td class="project-td" [ngClass]="setProjectClass(index, 'other', prognos['project_du_totals_by_type']['project_du_totals_other_work'].opacity)" (keydown)="setProjectBorder(index, 'other')"
+                    (click)="setProjectBorder(index, 'other')">
+                        <input
+                          class="form-control form-control-sm width5em input-prognos" [ngClass]="'o-prog-' + index" type="text" [value]="prognos['project_du_totals_by_type']['project_du_totals_other_work'].prognosis"
+                          #projectOtherPrognosisiVal
+                          (blur)="
+                            setProjectPrognos(
+                                'other_prognosis',
+                                projectOtherPrognosisiVal.value,
+                                index
+                            )
+                          " (change)="
+                            setProjectPrognos(
+                                'other_prognosis',
+                                projectOtherPrognosisiVal.value,
+                                index
+                            )
+                          " (keyup.enter)="
+                            setProjectPrognos(
+                                'other_prognosis',
+                                projectOtherPrognosisiVal.value,
+                                index
+                            )
+                          " (click)="selectProjectPrognosVal('other', index); setBlured(prognos, 'other')"
+                          (blur)="onBlur(prognos, 'other')"
+                            [disabled]="
+                                prognosis[activePrognosis].locked ||
+                                prognosis[activePrognosis]['properties'][index].project_debit == 2 ||
+                                prognosis[activePrognosis]['properties'][index].project_status != 2 ||
+                                !userDetails.create_project_Forecast
+                            "
+                          number-format-prognosis-directive />
+                    </td>
+                </tr>
+              </ng-container>
+              <tr class="sticky-total" [ngStyle]="
+                prognos.duheight == 'auto'
+                  ? {
+                      'box-shadow': '-1px -2px 5px 0px rgb(0 0 0 / 55%)',
+                      visibility: 'visible'
+                    }
+                  : { 'box-shadow': 'none', visibility: 'hidden' }
+              " style="top: 0;z-index:99">
+
+                <td class="total total-first" colspan="2">
+                  <strong
+                    style="background-color: #1A1A1A;font-size: 16px;font-family: 'PT-Sans-Pro-Regular'; padding-right: 9px; font-weight: 400;">Summa</strong>
+                </td>
+                <td class="total total-second" style="padding-right:6px">
+                  <strong>{{prognos['project_du_totals'].totallyWorkedUp | number: "1.2-2":"fr"}}</strong>
+                </td>
+                <td class="total total-second" style="padding-right:6px">
+                  <strong>{{prognos['project_du_totals'].workedButNotApproved | number: "1.2-2":"fr"}}</strong>
+                </td>
+                <td class="total total-second">
+                  <strong>{{prognos['project_du_totals'].total_sent | number: "1.2-2":"fr"}}</strong>
+                </td>
+                <td class="total total-second">
+                  <strong>{{prognos['project_du_totals'].approvedForInvoice | number: "1.2-2":"fr"}}</strong>
+                </td>
+                <td class="total total-second">
+                  <strong>{{prognos['project_du_totals'].invoicedTotal | number: "1.2-2":"fr"}}</strong>
+                </td>
+                <td class="total total-second"><strong>{{prognos['project_du_totals'].prognosis | number: "1.2-2":"fr"}}</strong></td>
+              </tr>
+            </tbody>
+          </ng-container>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="second-middle-div mt-3" style="position: relative" >
+      <a (click)="changePropertyHeight(prognos, 'ata')" [ngStyle]="changePropertyMarginLeft(prognos.margin_left)"
+        class="second-md-btn" type="button" style="position: relative">
+        <span style="color: #e3dbd3; position: relative; top: 2px">
+          ATA OVERSIKT {{ prognos.project_name }}</span>
+        <img *ngIf="prognos.ataheight == 'auto'" src="../../../../../assets/img/Group 305.png" alt=""
+          style="margin-left: 10px" />
+        <img *ngIf="prognos.ataheight != 'auto'" src="../../../../../assets/img/Group 4455.svg" alt=""
+          style="margin-left: 10px" />
+      </a>
+      <a type="button" style="position: relative" class="table-resizing-up" [routerLinkActive]="['active']"
+        [routerLink]="['/external/ata-prognosis/tableFullScreen/', project_id]" [queryParams]="{
+          activePrognosis: activePrognosis,
+          property_index: index
+        }" target="_blank">
+        <span style="color: #e3dbd3">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13.828"
+            height="13.923" viewBox="0 0 13.828 13.923">
+            <defs>
+              <clipPath id="clip-path">
+                <rect id="Rectangle_15882" data-name="Rectangle 15882" width="13.828" height="13.923" fill="#fff"
+                  stroke="#fff" stroke-width="0.25" />
+              </clipPath>
+            </defs>
+            <g id="Group_4520" data-name="Group 4520" clip-path="url(#clip-path)">
+              <path id="Path_1899" data-name="Path 1899"
+                d="M12.22,11.175V13a1.664,1.664,0,0,1-1.662,1.662H2.841A1.663,1.663,0,0,1,1.179,13V5.285A1.664,1.664,0,0,1,2.841,3.623h1.9V2.444h-1.9A2.844,2.844,0,0,0,0,5.285V13a2.844,2.844,0,0,0,2.841,2.841h7.718A2.844,2.844,0,0,0,13.4,13V11.175Z"
+                transform="translate(0 -1.92)" fill="#fff" stroke="#fff" stroke-width="0.25" />
+              <path id="Path_1900" data-name="Path 1900"
+                d="M33.633.155A.518.518,0,0,0,33.256,0L27.207.014l-.029,0A.453.453,0,0,0,26.9.124a.445.445,0,0,0-.1.354l.011.339,0,.027a.518.518,0,0,0,.119.255.537.537,0,0,0,.425.113c2.09-.031,3.591-.072,4.461-.124l.036,0-.025.025c-.965.949-2.97,2.954-6.291,6.276a.415.415,0,0,0,.012.621l.238.238a.425.425,0,0,0,.237.131.389.389,0,0,0,.059,0,.506.506,0,0,0,.354-.173C29.76,4.89,31.763,2.887,32.68,1.94l.024-.025v.047c-.014.485-.048,1.621-.1,4.63a.4.4,0,0,0,.122.321.431.431,0,0,0,.283.1l.395.025a.379.379,0,0,0,.289-.1.4.4,0,0,0,.092-.3s0-6.111,0-6.114a.528.528,0,0,0-.155-.372"
+                transform="translate(-19.961 0)" fill="#fff" stroke="#fff" stroke-width="0.25" />
+            </g>
+          </svg>
+        </span>
+      </a>
+      <div class="panel-collapse collapse show height-transition shadow-top-div">
+        <div class="card card-body collapse-down table-div" [ngClass]="{
+            'table-div-bottom':
+              index === prognosis[activePrognosis].properties.length - 1
+          }">
+          <table class="table table-bordered" id="table-t" >
+            <ng-container *ngIf="prognos.ataheight == 'auto'">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" class="nr-width" [ngClass]="prognos.project_debit == 4? '':'nr-width4'" title="{{ 'TSC_Number' | translate }}">
+                  {{ "TSC_No" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="bea-width" title="{{ 'TSC_Name' | translate }}">
+                  {{ "TSC_Name" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="u-width" [ngClass]="prognos.project_debit == 4? '':'u-width4'"title="{{ 'Deviation' | translate }}">
+                  {{ "TSC_D" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="debit-width" title="{{ 'Debit Form' | translate }}">
+                  {{ "TSC_Debit_form" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="upparbetade-width" title="{{ 'TSC_Accumulated_cost_title' | translate }}" [ngClass]="prognos.project_debit == 4? '':'upparbetade-width4'">
+                  {{ "TSC_Accumulated_cost" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="reglerad-width" title="{{ 'TSC_Not_send' | translate }}">
+                  {{ "TSC_Not_send" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="skickat-width" title="{{ 'TSC_Sent' | translate }}">
+                  {{ "TSC_Sent" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="godkant-width" title="{{ 'Approved to invoice' | translate }}">
+                  {{ "TSC_Approved_to_invoice" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="fakturerat-width" title="{{ 'TSC_Invoiced' | translate }}"  [ngClass]="prognos.project_debit == 4? '':'fakturerat-width4'">
+                  {{ "TSC_Invoiced" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="riktpris-width" title="Riktpris +/-" *ngIf="prognos.project_debit == 4">
+                  Riktpris +/-
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="prognos-width" title="{{ 'TSC_Forecast' | translate }}">
+                  {{ "TSC_Forecast" | translate }}
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+                <th scope="col" class="konto-width" title="Konto">
+                  Konto
+                  <div class="bottom-shadow-thead"></div>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="table-body ata-oversikt">
+              <ng-container *ngFor="let ata of prognos.fil_atas; let ata_index = index">
+                <tr [ngClass]="getAtaStatusClass(ata.Status, index)">
+                  <td scope="row" clas="" (click)="edit(ata)">
+                    {{ "ATA" | translate }}-{{ ata.AtaNumber }}
+                  </td>
+                  <td clas="" (click)="edit(ata)">
+                    {{ ata.Name | translate }}
+                  </td>
+                  <td class="max-number-character-U" (click)="edit(ata)">
+                    <a href="javascript:void(0)">{{
+                      renderName(ata) | translate
+                      }}</a>
+                  </td>
+                  <td class="td-debit-width" (click)="edit(ata)">
+                    {{ ata.PaymentTypeName }}
+                  </td>
+                  <td class="" (click)="edit(ata)">
+                    {{
+                    ata.Status == 3
+                    ? "0,00"
+                    : (ata.totallyWorkedUp | number: "1.2-2":"fr")
+                    }}
+                  </td>
+                  <td class="" (click)="edit(ata)">
+                    {{
+                    ata.Status == 3
+                    ? "0,00"
+                    : (ata.workedButNotApproved | number: "1.2-2":"fr")
+                    }}
+                  </td>
+                  <td class="" (click)="edit(ata)">
+                    {{
+                    ata.Status == 3
+                    ? "0,00"
+                    : (ata.total_sent_wr | number: "1.2-2":"fr")
+                    }}
+                  </td>
+                  <td class="" (click)="edit(ata)">
+                    {{
+                    ata.Status == 3
+                    ? "0,00"
+                    : (ata.approvedForInvoice | number: "1.2-2":"fr")
+                    }}
+                  </td>
+                  <td class="" (click)="edit(ata)">
+                    {{
+                    ata.Status == 3
+                    ? "0,00"
+                    : (ata.invoicedTotal | number: "1.2-2":"fr")
+                    }}
+                  </td>
+                  <td *ngIf="prognos.project_debit == 4" (click)="edit(ata)">
+                    {{ ata.ata_total | number: "1.2-2":"fr" }}
+                  </td>
+
+                  <td [ngClass]="setClass(ata, index, ata_index)" (click)="setBorder(index, ata_index)" >
+                    <input id="{{ 'sibling-' + index + '-' + ata_index }}"
+                      class="form-control form-control-sm width5em input-prognos" type="text" [value]="printValue(ata)"
+                      #ataPrognosisiVal
+
+                      (focus)="myTabFocusChange(index, ata_index)"
+                      (blur)="
+                        onFocusEvent(
+                          ata,
+                          ataPrognosisiVal.value,
+                          index,
+                          ata_index
+                        )
+                      " (change)="
+                        updateAtaPrognosis(
+                          ata,
+                          ataPrognosisiVal.value,
+                          index,
+                          ata_index,
+                          'on_change'
+                        )
+                      " (keyup.enter)="
+                        updateAtaPrognosis(
+                          ata,
+                          ataPrognosisiVal.value,
+                          index,
+                          ata_index,
+                          'on_enter'
+                        )
+                      " (click)="ataPrognosisiVal.select()" [disabled]="
+                        prognosis[activePrognosis].locked ||
+                        ata.Status != 2 ||
+                        ata.PaymentType != 1 ||
+                        !userDetails.create_project_Forecast
+                      " number-format-prognosis-directive />
+                  </td>
+                  <td (click)="edit(ata)">
+                    {{ ata.labeling_requirements }}
+                  </td>
+                </tr>
+              </ng-container>
+              <tr class="sticky-total" [ngStyle]="
+                  prognos.ataheight == 'auto'
+                    ? {
+                        'box-shadow': '-1px -2px 5px 0px rgb(0 0 0 / 55%)',
+                        visibility: 'visible'
+                      }
+                    : { 'box-shadow': 'none', visibility: 'hidden' }
+                " style="top: 0; z-index:99">
+                <td class="total total-first" colspan="4">
+                  <strong style="
+                      background-color: #1a1a1a;
+                      font-size: 16px;
+                      font-family: 'PT-Sans-Pro-Regular';
+                      padding-right: 9px;
+                      font-weight: 400;
+                    ">Summa</strong>
+                </td>
+                <td class="total total-second" style="padding-right:6px">
+                  <strong>
+                    {{
+                    prognos.ata_totals.totallyWorkedUp_without_status
+                    | number: "1.2-2":"fr"
+                    }}</strong>
+                </td>
+                <td class="total total-second" style="padding-right:6px">
+                  <strong>{{
+                    prognos.ata_totals.workedButNotApproved_without_status
+                    | number: "1.2-2":"fr"
+                    }}</strong>
+                </td>
+                <td class="total total-second">
+                  <strong>{{
+                    prognos.ata_totals.total_sent_wr_without_status
+                    | number: "1.2-2":"fr"
+                    }}</strong>
+                </td>
+                <td class="total total-second">
+                  <strong>{{
+                    prognos.ata_totals.approvedForInvoice_without_status
+                    | number: "1.2-2":"fr"
+                    }}</strong>
+                </td>
+                <td class="total total-second">
+                  <strong>{{
+                    prognos.ata_totals.invoicedTotal_without_status
+                    | number: "1.2-2":"fr"
+                    }}</strong>
+                </td>
+                <td class="total total-second" *ngIf="prognos.project_debit == 4">
+                  <strong>{{
+                    prognos.ata_totals.richCostTotal_without_status
+                    | number: "1.2-2":"fr"
+                    }}</strong>
+                </td>
+                <td class="total total-second">
+                  {{ printTotal(prognos) | number: "1.2-2":"fr" }}
+                </td>
+                <td class="total total-second"></td>
+              </tr>
+            </tbody>
+          </ng-container>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+  </div>

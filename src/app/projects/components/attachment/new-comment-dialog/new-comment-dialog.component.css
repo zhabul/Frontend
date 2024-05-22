@@ -1,0 +1,61 @@
+.dialog-wrapper {
+  width: 490px;
+  height: 180px;
+  background-color: #373b40;
+  margin: -24px;
+  border: 2px solid #82a7e2;
+  border-radius: 9px;
+  padding: 20px;
+  user-select: none;
+  position: relative;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 280px;
+  color: white;
+}
+
+.name-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 20px;
+  color: #82a7e2;
+}
+
+.name-wrapper label {
+  color: #f6ecdd;
+  font-size: 11px;
+}
+
+.name-wrapper input {
+  border-radius: 4px;
+  height: 30px;
+  outline: none;
+  border: 2px solid grey;
+  padding-left: 10px;
+}
+
+.btn-wrapper {
+  width: 70px;
+  height: 30px;
+  border: 1px solid #ff7000;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ff7000;
+  cursor: pointer;
+}
+
+.close-svg {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}

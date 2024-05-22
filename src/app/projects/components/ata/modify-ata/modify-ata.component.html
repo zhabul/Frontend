@@ -1,0 +1,286 @@
+<div class="ata-modify-wrapper">
+<!--Start header -->
+    <div class="ata-modify-header">
+        <app-ata-modify-header
+        [project]="project"
+        (emitValueToggleProject)="buttonNameToggle($event)"
+        ></app-ata-modify-header>
+    </div>
+<!--End header -->
+<!-- Start the others data -->
+    <div class="data-modify-wrapper">
+        <!-- Start Navigate tabs on scroll container -->
+        <div class="tab-navigation">
+            <ul class="nav2 nav-tabs2 nav-pills">
+
+                <li class="nav-item approveItem">
+                  <a class="nav-link active"
+                    [ngClass]="{ active: selectedTab == 0 }"
+                    (click)="changeSelectedTab(0)"
+                    id="approveItem"
+                    style=" z-index: 6; padding:0px 25px 0px 15px" >
+                    {{ 'ÄTA - ' | translate }} <span *ngFor="let ata of atas | slice: 0:1;">{{ata.AtaNumber}}</span>
+                    <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 0, 'bottom-shadow-button': selectedTab !== 0 }"></div>
+                  </a>
+                </li>
+                <li class="nav-item align-l" *ngIf="checkAtaPermission('read')">
+                  <a  style=" z-index: 5;margin-left: -19px;" class="nav-link attest "
+                      [ngClass]="{ active: selectedTab == 1 }"
+                      (click)="changeSelectedTab(1)">
+                      {{ "Permit" | translate }}
+                    <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 1, 'bottom-shadow-button': selectedTab !== 1 }"></div>
+                  </a>
+                </li>
+                <li class="nav-item align-l" *ngIf="selectedAta?.PaymentType != 5 && checkAtaPermission('create')">
+                  <a  style=" z-index: 4;margin-left: -19px;" class="nav-link attest "
+                      [ngClass]="{ active: selectedTab == 6 }"
+                      (click)="changeSelectedTab(6)"
+                      [ngClass]="{ active: selectedTab == 6 }"
+                                >
+                                {{ "ATA_Overview" | translate }}
+                    <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 6, 'bottom-shadow-button': selectedTab !== 6 }"></div>
+                  </a>
+                </li>
+
+                <li class="nav-item align-l" *ngIf="checkAtaPermission('create')">
+                  <a style=" z-index: 3; margin-left: -16px;" class="nav-link attest"
+                  [ngClass]="{ active: selectedTab == 2 }"
+                  (click)="changeSelectedTab(2)">
+                    <span>{{ "Email Logs" | translate }}</span>
+
+                    <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 2, 'bottom-shadow-button': selectedTab !== 2 }"></div>
+                  </a>
+                </li>
+                <!-- <li class="nav-item align-l">
+                    <a style=" z-index: 2; margin-left: -16px;" class="nav-link attest"
+                      [ngClass]="{ active: selectedTab == 3 }"
+                       (click)="changeSelectedTab(3)">
+                        {{ "Client Attest History" | translate }}
+                        <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 3, 'bottom-shadow-button': selectedTab !== 3 }"></div>
+                    </a>
+
+                </li> -->
+                <li class="nav-item align-l" style="display:flex" *ngIf="checkAtaPermission('read')">
+                    <a style=" z-index: 1; margin-left: -16px;" class="nav-link attest"
+                      [ngClass]="{ active: selectedTab == 4 }"
+                      (click)="changeSelectedTab(4)">
+                      {{ "Comment" | translate }}
+                      <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 4, 'bottom-shadow-button': selectedTab !== 4 }"></div>
+                    </a>
+                    <span
+                       *ngIf="selectedAta.number_of_comments > 0"
+                    class="exclamation-mark-worring"
+                    >!</span>
+                </li>
+              </ul>
+        </div>
+        <!-- End Navigate tabs on scroll container -->
+        <!-- Start data in scroll container -->
+        <div style="position: relative;" class="ata-border-wrapper" [ngStyle]="{'height':setHeight.height}">
+            <div class="ata-border shadow-top-div blu-scroll blu-scroll-width" [ngStyle]="{'height':setHeight.height}">
+                <div  [ngClass]= "selectedTab == 0 ? '' : 'hidden'"  style="    z-index: 99;
+                position: relative;">
+                    <app-ata-info
+                    >
+                    </app-ata-info> <!--First Tab is activ(ATA)-->
+                </div>
+                <div *ngIf="selectedTab == 1" style="z-index: 99; position:relative;">
+                  <app-permit-ata
+                  [atas]="atas"
+                  [ata_permission]="checkAtaPermission('write')"
+                  ><!--Second Tab is activ(Permit)-->
+
+                  </app-permit-ata>
+                </div>
+                <div *ngIf="selectedTab == 2" style="z-index: 99; position:relative;">
+                    <email-log
+                        [ataid]="selectedAta.ATAID"
+                        [projectId]="selectedAta.ProjectID"
+                        [client_workers]="client_workers"
+                        [ItemName]="'selectedAta Number'"
+                        [appPart]="'other'"
+                        [logs]="logs1"
+                    ></email-log>
+                </div>
+                <div *ngIf="selectedTab == 3">
+                <client-attest-history
+                    [clientAttestHistory]="clientAttestHistory"
+                    [showingKS]="true"
+                ></client-attest-history>
+                </div>
+                <div *ngIf="selectedTab == 6 && selectedAta?.PaymentType != 5" style="z-index: 99; position:relative;">
+
+                    <div class="ata-info-wrapper">
+                        <div>
+                            <app-ata-info-nav
+                             [overview]="true"
+                             >
+                            </app-ata-info-nav>
+                        </div>
+                        <app-ata-overview
+                          [ataDocuments]="atas[atas.length - 1]['Documents']"
+                          [ata]="atas[getLastAtaIndex()]"
+                          (onWeekChange)="changeSelectedReportFromOverview($event)"
+                          [getArticlesAdditionalWork]="atas[getLastAtaIndex()]['articlesAdditionalWork']"
+                          [getArticlesMaterial]="atas[getLastAtaIndex()]['articlesMaterial']"
+                          [getArticleOther]="atas[getLastAtaIndex()]['articlesOther']">
+                        </app-ata-overview>
+                    </div>
+                </div>
+
+                <div *ngIf="selectedTab == 4" style="z-index: 99; position:relative;">
+                  <app-comment-section
+                  content_type="ata"
+                  [parentId]="atas[0].ATAID"
+                  [disabled]="!checkAtaPermission('write')"
+                  >
+                </app-comment-section>
+              </div>
+
+            </div>
+
+            <!-- Start Scroll added lines -->
+            <div class="vertical-line"></div>
+            <div class="horizontal-line"></div>
+            <!-- Start Scroll added lines -->
+        </div>
+        <!-- Start data in scroll container -->
+    </div>
+<!-- End the others data -->
+<div (click)="closeAllPdfPrew()" class="hide-prew" *ngIf="this.showPdfPreview"></div>
+<div class="aside" [ngClass]="{ 'aside-show': showPdfPreview }" *ngIf="!spinner">
+    <div class="buttons" *ngIf="activeComponent == 'weekly_report' && !spinner">
+        <button
+            class="articles-material btn-prev"
+            type="button"
+            *ngIf="articlesOther.value?.length > 0"
+            (click)="togglePdfPreview('other')"
+            [ngClass]="{ 'active-show-button': showPdfPreview && whichPdfPreview === 'other' }"
+            style="z-index: 10"
+        >
+            {{
+                (showPdfPreview && whichPdfPreview === "other"
+                ? "Close UE/Other"
+                : "UE/Other"
+                ) | translate
+            }}
+        </button>
+        <button type="button" class="articles-material btn-prev"
+          *ngIf=" articlesMaterial.value?.length> 0"
+          (click)="togglePdfPreview('material')"
+          [ngClass]="{ 'active-show-button': showPdfPreview && whichPdfPreview === 'material' }"
+          style="z-index: 9"
+        >
+            {{
+                (showPdfPreview && whichPdfPreview === "material"
+                ? "Close Material"
+                : "Material"
+                ) | translate
+            }}
+        </button>
+        <button
+            type="button"
+            class="additional-work btn-prev"
+            *ngIf="articlesAdditionalWork.value?.length > 0 && additionalWorkMoments.length > 0 "
+            (click)="togglePdfPreview('work')"
+            [ngClass]="{ 'active-show-button': showPdfPreview && whichPdfPreview === 'work' }"
+            style="z-index: 8"
+        >
+            {{
+              (showPdfPreview && whichPdfPreview === "work" ? "Close Time" : "Time")
+                | translate
+            }}
+        </button>
+        <button type="button" (click)="togglePdfPreview('ata')" class="pdf-preview btn-prev"
+                *ngIf="weekly_report"
+                [ngClass]="{ 'active-show-button': showPdfPreview && whichPdfPreview === 'ata' }"
+                style="z-index: 7"
+        >
+          {{
+            (showPdfPreview && whichPdfPreview === "ata"
+              ? "Close Preview"
+              : "Preview"
+            ) | translate
+          }}
+        </button>
+    </div>
+    <div class="buttons" *ngIf="activeComponent == 'ata' && !spinner">
+        <button type="button" (click)="togglePdfPreview('ata')" class="articles-material btn-prev">
+            {{ (showPdfPreview ? "Close Preview" : "Preview") | translate }}
+        </button>
+    </div>
+     <ata-pdf
+        *ngIf="selectedAta.ATAID !== -1 && activeComponent == 'ata' && visible && !spinner && showPdfPreview"
+        [formValues]="selectedAta"
+        [articlesAdditionalWork]="selectedAta.articlesAdditionalWork"
+        [articlesMaterial]="selectedAta.articlesMaterial"
+        [articlesOther]="selectedAta.articlesOther"
+        [project]="project"
+        [nextAtaNumber]="selectedAta.AtaNumber"
+        [selectedAta]="selectedAta"
+        [deviationNumber]="null"
+        [generalImage]="generalImage"
+        [get_last_email_log_but_first_client]="get_last_email_log_but_first_client"
+    ></ata-pdf>
+
+    <!--ForKS PDFs-->
+    <ng-container *ngIf="!spinner" >
+    <ata-weekly-report-pdf
+        *ngIf="whichPdfPreview === 'ata' && weekly_report && activeComponent == 'weekly_report' && visible && !spinner"
+        [formValues]="weekly_report"
+        [currentWeeklyReport]="weekly_report"
+        [project]="project"
+        [articlesAdditionalWork]="articlesAdditionalWork"
+        [articlesMaterial]="articlesMaterial"
+        [articlesOther]="articlesOther"
+        [get_last_email_log_but_first_client_wr]="
+        get_last_email_log_but_first_client_wr
+        "
+        [generalImage]="generalImage"
+        (emitNewAtaChanged)="generatePdf($event)"
+    >
+        </ata-weekly-report-pdf>
+        <additional-work-pdf
+            *ngIf="whichPdfPreview === 'work' && articlesAdditionalWork.value?.length > 0 && activeComponent == 'weekly_report' && visible && !spinner"
+            [moments]="additionalWorkMoments"
+            [generalImage]="generalImage"
+            [formValues]="weekly_report"
+            [currentWeeklyReport]="weekly_report"
+            [project]="project"
+            [get_last_email_log_but_first_client_wr]="
+            get_last_email_log_but_first_client_wr"
+            (emitNewAtaChanged)="generatePdf($event)"
+            [typeKSorDU]="'KS'"
+    ></additional-work-pdf>
+        <material-pdf
+            *ngIf="whichPdfPreview === 'material' && articlesMaterial.value?.length> 0 && activeComponent == 'weekly_report' && visible && !spinner"
+            [type]="'material'"
+            [typeKSorDU]="'KS'"
+            [materials]="filterArticles(articlesMaterial.value)"
+            [generalImage]="generalImage"
+            [formValues]="weekly_report"
+            [currentWeeklyReport]="weekly_report"
+            [project]="project"
+            [get_last_email_log_but_first_client_wr]="
+            get_last_email_log_but_first_client_wr"
+            (emitNewAtaChanged)="generatePdf($event)"
+    ></material-pdf>
+    <material-pdf
+        *ngIf="whichPdfPreview === 'other' &&  articlesOther.value?.length > 0 && activeComponent == 'weekly_report' && visible && !spinner"
+        [type]="'other'"
+        [typeKSorDU]="'KS'"
+        [materials]="filterArticles(articlesOther.value)"
+        [generalImage]="generalImage"
+        [formValues]="weekly_report"
+        [currentWeeklyReport]="weekly_report"
+        [project]="project"
+        [get_last_email_log_but_first_client_wr]="
+        get_last_email_log_but_first_client_wr"
+        (emitNewAtaChanged)="generatePdf($event)"
+    ></material-pdf>
+    </ng-container>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+    <mat-spinner [diameter]="50" ></mat-spinner>
+</div>

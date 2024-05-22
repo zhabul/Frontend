@@ -1,0 +1,85 @@
+<div class="container-fluidX px-0X mb-5 w-100W" style="position: absolute">
+  <div class="row">
+    <div class="card col-md-12X col-lg-6X col-lg-8W">
+      <div class="form-heading bgGrayBlue">
+        <div class="float-left">
+          <a
+            routerLink="/projects/view/{{ project.id }}"
+            class="btn btn-dark mr-2 lh09 hideUnder800"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="project text-uppercase text-muted" style="font-size: 0.9em">
+          {{ "Project Organisation" | translate }}
+          <br />
+          <span class="h4 textDarkBlue fs-18"
+            >{{ project.CustomName }} {{ project.name }}</span
+          >
+        </div>
+      </div>
+      <div class="tab-navigation-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <div
+      class="card col-md-12X col-lg-6X col-lg-8W popup-card"
+      style="
+        background-color: #eff3f6;
+        border: 0;
+        z-index: 5;
+        position: absolute;
+        height: 100%;
+        padding: 0;
+      "
+      *ngIf="componentVisibility > 0"
+    >
+      <div class="pdfX">
+        <button
+          style="position: absolute; top: 25px; right: 35px; z-index: 100"
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="onCloseClick()"
+        >
+          <span aria-hidden="true">x</span>
+        </button>
+        <new-category
+          [projectId]="projectId"
+          *ngIf="componentVisibility == 1"
+        ></new-category>
+        <project-new-client
+          [returnToAfterSave]="1"
+          *ngIf="componentVisibility == 2"
+        ></project-new-client>
+        <proj-organisation-new-supplier
+          *ngIf="componentVisibility == 3"
+        ></proj-organisation-new-supplier>
+        <add-proj-client-worker
+          [projectId]="projectId"
+          [roles_t]="roles"
+          [clients_workers]="client_workers"
+          *ngIf="componentVisibility == 4"
+        ></add-proj-client-worker>
+        <new-proj-subcategory
+          [parent_id]="projectId"
+          *ngIf="componentVisibility == 5"
+        ></new-proj-subcategory>
+        <add-proj-company
+          [registers]="registers"
+          [projectId]="projectId"
+          *ngIf="componentVisibility == 6"
+        ></add-proj-company>
+        <add-company-employee
+          [registers]="registers"
+          [projectId]="projectId"
+          *ngIf="componentVisibility == 7"
+        ></add-company-employee>
+      </div>
+    </div>
+  </div>
+</div>

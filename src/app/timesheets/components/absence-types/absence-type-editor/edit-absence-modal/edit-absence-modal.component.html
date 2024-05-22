@@ -1,0 +1,90 @@
+<div class="form-box">
+    <form [formGroup]="editAbsenceForm" (submit)="submit()">
+        <div class="header-box">
+            <div id="name">Absence Type Name</div>
+            <div class="close" [mat-dialog-close]>
+                <app-grey-close-svg></app-grey-close-svg>
+            </div>
+        </div>
+        <div id="inputs">
+            <div class="input-group-2">
+                <div class="input-title required">{{ 'Description' | translate }}</div>
+                <div>
+                    <input type="text" class="input" formControlName="Name" />
+                </div>
+                <ng-container *ngIf="editAbsenceForm.controls['Name'].invalid && (editAbsenceForm.controls['Name'].dirty || editAbsenceForm.controls['Name'].touched)" class="alert">
+                    <div class="error" *ngIf="editAbsenceForm.controls['Name'].errors.required">
+                     {{ 'Description is required.' | translate }}
+                    </div>
+                </ng-container>
+            </div>
+            <div class="input-group-2">
+                <div class="input-title required">{{ 'Short Name' | translate }}</div>
+                <div>
+                    <input type="text" class="input" formControlName="ShortName"/>
+                </div>
+                <ng-container *ngIf="editAbsenceForm.controls['ShortName'].invalid && (editAbsenceForm.controls['ShortName'].dirty || editAbsenceForm.controls['ShortName'].touched)" class="alert">
+                    <div class="error" *ngIf="editAbsenceForm.controls['ShortName'].errors.required">
+                     {{ 'Short Name is required.' | translate }}
+                    </div>
+                </ng-container>
+            </div>
+            <div class="double-input-group">
+                <div class="input-group-2">
+                    <div class="input-title">{{ 'Timecode' | translate }} {{ 'Salary System' | translate }}</div>
+                    <div>
+                        <input formControlName="timeCodeVisma" type="text" class="input"/>
+                    </div>
+                </div>
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'Timecode' | translate }} SPS360</div>
+                    <div>
+                        <input type="text" class="input" formControlName="timeCode"/>
+                    </div>
+                    <ng-container *ngIf="editAbsenceForm.controls['timeCode'].invalid && (editAbsenceForm.controls['timeCode'].dirty || editAbsenceForm.controls['timeCode'].touched)" class="alert">
+                        <div class="error" *ngIf="editAbsenceForm.controls['timeCode'].errors.required">
+                         {{ 'Timecode is required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div id="inputs-footer">
+                <div>
+                    <app-white-select
+                    
+                        text='Active'
+                        [control]="activeControl"
+                    
+                    ></app-white-select>
+                </div>
+                <div>
+                    <app-white-select
+                    
+                        text='Paid'
+                        [control]="paidControl"
+                    
+                    ></app-white-select>
+                </div>
+                <div *ngIf="showFlex">
+                    <app-white-select
+                    
+                        text='Flex'
+                        [control]="flexControl"
+                    
+                    ></app-white-select>
+                </div>
+                <div>
+                    <app-sps-color-picker [control]="colorControl"></app-sps-color-picker>
+                </div>
+                <div>
+                    <button id='spara-btn' type="submit">
+                        {{ 'Save' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="spinner-container-absolute" *ngIf="spinner">
+        <app-pulse-spinner></app-pulse-spinner>
+    </div>
+</div>

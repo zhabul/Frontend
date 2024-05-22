@@ -1,0 +1,22 @@
+
+<div class="component-wrapp">
+    <div class="modal-top-wrapper">
+        <div class="card-header">
+            {{'Comments' | translate}}
+        </div>
+    <button class="btn btn-outline-dark" [mat-dialog-close]>
+        <i class="material-icons">close</i>
+    </button>
+    </div>
+    <div class="container-wrapper blu-scroll">
+        <div class="card text-center">
+            
+            <ng-container *ngFor="let comment of comments; let index = index">
+                <div class="card-body">
+                    <h5 class="card-title">{{comment.title}}</h5>
+                    <p class="card-text" [innerHtml]="comment.description"></p>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

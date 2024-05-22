@@ -1,0 +1,911 @@
+<div
+  class="container-fluidW px-0W l0 hideUnder1400 mt-3 pl-5 project-container"
+>
+  <div class="border-nav">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <a class="home" routerLink="/home">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="34.604"
+          height="29.342"
+          viewBox="0 0 34.604 29.342"
+        >
+          <defs>
+            <clipPath id="clip-path">
+              <rect
+                id="Rectangle_15829"
+                data-name="Rectangle 15829"
+                width="34.604"
+                height="29.342"
+                fill="none"
+              />
+            </clipPath>
+          </defs>
+          <g id="Group_4372" data-name="Group 4372" transform="translate(0 0)">
+            <g
+              id="Group_4371"
+              data-name="Group 4371"
+              transform="translate(0 0)"
+              clip-path="url(#clip-path)"
+            >
+              <path
+                id="Path_1822"
+                data-name="Path 1822"
+                d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7"
+                transform="translate(0 0)"
+                fill="#82a7e2"
+              />
+            </g>
+          </g>
+        </svg>
+      </a>
+      <span class="ml-3 mt-2 h2 font-weight-normal title-project">
+        {{ "Project overview" | translate }}
+      </span>
+    </div>
+    <div (click)="onStatusChange1('1')">
+      <div [ngClass]="toggle2 == true ? 'input-wrapper3' : 'input-wrapper4'">
+        <app-dropdown-for-select-all
+          [User]="ongoingProjects"
+          (toggle1)="setToggle2($event)"
+          (Selected)="selectProjects($event)"
+          (allSelected)="selectAllProjects($event)"
+          [events]="resetProjectsDropdown.asObservable()"
+          [disableSelect]="false"
+        >
+        </app-dropdown-for-select-all>
+      </div>
+    </div>
+    <div class="triangle project-management" (click)="buttonNameToggle()"></div>
+  </div>
+  <div class="tab-navigation-wrapper mt-2">
+    <div class="tab-navigation">
+      <div class="nav-tabs tab-navigation">
+        <ul class="nav nav-tabs nav-pills" role="tablist">
+          <li class="nav-item approveItem">
+            <a
+              class="nav-link active"
+              [ngClass]="{ active: selectedTab == 0 }"
+              (click)="setSelectedTab(0)"
+              id="approveItem"
+            >
+              {{ "Overview" | translate }}
+              <div
+                [ngClass]="{
+                  'hide-bottom-box-shadow': selectedTab == 0,
+                  'bottom-shadow-button': selectedTab !== 0
+                }"
+              ></div>
+            </a>
+          </li>
+          <li class="nav-item align-l">
+            <a
+              class="nav-link attest"
+              [ngClass]="{ active: selectedTab == 1 }"
+              (click)="setSelectedTab(1)"
+              style="z-index: 1"
+            >
+              {{ "Results" | translate }}
+              <div
+                [ngClass]="{
+                  'hide-bottom-box-shadow': selectedTab == 1,
+                  'bottom-shadow-button': selectedTab !== 1
+                }"
+              ></div>
+            </a>
+          </li>
+          <li class="nav-item align-l">
+            <div class="exclamation-mark-container" *ngIf="showCommentsNumber">
+              <p class="exclamation-mark">{{commentsNumber}}</p>
+            </div>
+            <a
+              class="nav-link forecast"
+              [ngClass]="{ active: selectedTab == 2 }"
+              (click)="setSelectedTab(2)"
+            >
+              {{ "Comment" | translate }}
+              <div
+                [ngClass]="{
+                  'hide-bottom-box-shadow': selectedTab == 2,
+                  'bottom-shadow-button': selectedTab !== 2
+                }"
+              ></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="selectedTab == 1 ? 'blu-scroll-wrapp2' : 'blu-scroll-wrapp'">
+    <div
+      [ngClass]="
+        selectedTab == 1
+          ? 'card-project2 w-1002 blu-scroll skrollbar2'
+          : 'card-project w-100 blu-scroll skrollbar'
+      "
+    >
+      <ng-container>
+        <div class="d-flex mt-4 buttons-cont" *ngIf="selectedTab != 2">
+        <div class="row ml-2 searchdiv">
+            <span class="search-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="13"
+                height="13.06"
+                viewBox="0 0 13 13.06"
+              >
+                <path
+                  id="Path_737"
+                  data-name="Path 737"
+                  d="M30.923,28.9l-.078-.079h0l-3.134-3.151a5.185,5.185,0,0,0-4.425-7.777h-.034a5.18,5.18,0,0,0-.032,10.36h.034a5.106,5.106,0,0,0,2.595-.706l3.131,3.149h0l.078.079a.6.6,0,0,0,.858,0l1.007-1.013A.612.612,0,0,0,30.923,28.9Zm-7.695-1.968a3.859,3.859,0,0,1,.024-7.718h.026a3.8,3.8,0,0,1,2.707,1.148,3.874,3.874,0,0,1-.027,5.449,3.8,3.8,0,0,1-2.7,1.121Z"
+                  transform="translate(-18.101 -17.89)"
+                  fill="#fcf4ec"
+                />
+              </svg>
+            </span>
+            <input
+                class="search-form text-uppercase"
+                type="text"
+                id="searchInput"
+                placeholder="{{ 'Search' | translate }}"
+                [(ngModel)]="searchQuery"
+                (ngModelChange)="searchQueryFilter()"
+                spellcheck="false"
+            />
+            <span class="clear-icon" (click)="clearSearchText()" *ngIf="existString">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10.189"
+                    height="10.189"
+                    viewBox="0 0 10.189 10.189"
+                >
+                <path
+                    id="Path_783"
+                    data-name="Path 783"
+                    d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z"
+                    transform="translate(3.622 4.382)"
+                    fill="#fcf4ec"
+                />
+                </svg>
+            </span>
+        </div>
+          <div class="d-flex" style="margin-top: 3px">
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              style="border-style: none"
+            >
+              <form style="display: flex; grid-gap: 5px">
+                <div
+                  class="d-flex border-item p-1 mr-4 cursor-pointer"
+                  (click)="onStatusChange('comming')"
+                >
+                  <div style="margin-bottom: 2px">
+                    <svg
+                      *ngIf="!statusObject.comming"
+                      id="X_icon"
+                      data-name="X icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 12 12"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <path
+                            id="Path_736"
+                            data-name="Path 736"
+                            d="M0,5.951H12v-12H0Z"
+                            transform="translate(0 6.049)"
+                            fill="#fff"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g id="X_icon-2" data-name="X icon">
+                        <g
+                          id="Group_291"
+                          data-name="Group 291"
+                          clip-path="url(#clip-path)"
+                        >
+                          <g
+                            id="Group_289"
+                            data-name="Group 289"
+                            transform="translate(-0.001 0.002)"
+                          >
+                            <path
+                              id="Path_734"
+                              data-name="Path 734"
+                              d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                              transform="translate(6.049 3.024)"
+                              fill="#fcf4ec"
+                            />
+                          </g>
+                          <g
+                            id="Group_290"
+                            data-name="Group 290"
+                            transform="translate(2.484 2.494)"
+                          >
+                            <path
+                              id="Path_735"
+                              data-name="Path 735"
+                              d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                              transform="translate(3.453 2.997)"
+                              fill="#44484c"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <svg
+                      *ngIf="statusObject.comming"
+                      id="Bocka_av_icon"
+                      data-name="Bocka av icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 12 12"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_60"
+                            data-name="Rectangle 60"
+                            width="13"
+                            height="13"
+                            fill="none"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Group_301"
+                        data-name="Group 301"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_745"
+                          data-name="Path 745"
+                          d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                          transform="translate(0.056 0.053)"
+                          fill="#f0e264"
+                        />
+                        <path
+                          id="Path_746"
+                          data-name="Path 746"
+                          d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                          transform="translate(-8.669 -15.967)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="align-button-title">
+                    <span class="text-uppercase mr-1">{{
+                      "On Hold" | translate
+                    }}</span>
+                  </div>
+                </div>
+                <div
+                  class="d-flex border-item p-1 mr-4 cursor-pointer"
+                  (click)="onStatusChange('ongoing')"
+                >
+                  <div style="margin-bottom: 2px">
+                    <svg
+                      *ngIf="!statusObject.ongoing"
+                      id="X_icon"
+                      data-name="X icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 12 12"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <path
+                            id="Path_736"
+                            data-name="Path 736"
+                            d="M0,5.951H12v-12H0Z"
+                            transform="translate(0 6.049)"
+                            fill="#fff"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g id="X_icon-2" data-name="X icon">
+                        <g
+                          id="Group_291"
+                          data-name="Group 291"
+                          clip-path="url(#clip-path)"
+                        >
+                          <g
+                            id="Group_289"
+                            data-name="Group 289"
+                            transform="translate(-0.001 0.002)"
+                          >
+                            <path
+                              id="Path_734"
+                              data-name="Path 734"
+                              d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                              transform="translate(6.049 3.024)"
+                              fill="#fcf4ec"
+                            />
+                          </g>
+                          <g
+                            id="Group_290"
+                            data-name="Group 290"
+                            transform="translate(2.484 2.494)"
+                          >
+                            <path
+                              id="Path_735"
+                              data-name="Path 735"
+                              d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                              transform="translate(3.453 2.997)"
+                              fill="#44484c"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <svg
+                      *ngIf="statusObject.ongoing"
+                      id="Bocka_av_icon"
+                      data-name="Bocka av icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 12 12"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_60"
+                            data-name="Rectangle 60"
+                            width="13"
+                            height="13"
+                            fill="none"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Group_301"
+                        data-name="Group 301"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_745"
+                          data-name="Path 745"
+                          d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                          transform="translate(0.056 0.053)"
+                          fill="#03d156"
+                        />
+                        <path
+                          id="Path_746"
+                          data-name="Path 746"
+                          d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                          transform="translate(-8.669 -15.967)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+
+                  <div class="align-button-title">
+                    <span class="text-uppercase mr-1">{{
+                      "Ongoing" | translate
+                    }}</span>
+                  </div>
+                </div>
+                <div class="completeddiv">
+                  <div
+                    class="d-flex top p-1 mr-4 cursor-pointer"
+                    (click)="onStatusChange('completed')"
+                  >
+                    <div class="iconcomplete" style="margin-bottom: 2px">
+                      <svg
+                        *ngIf="!statusObject.completed"
+                        id="X_icon"
+                        data-name="X icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 12 12"
+                      >
+                        <defs>
+                          <clipPath id="clip-path">
+                            <path
+                              id="Path_736"
+                              data-name="Path 736"
+                              d="M0,5.951H12v-12H0Z"
+                              transform="translate(0 6.049)"
+                              fill="#fff"
+                            />
+                          </clipPath>
+                        </defs>
+                        <g id="X_icon-2" data-name="X icon">
+                          <g
+                            id="Group_291"
+                            data-name="Group 291"
+                            clip-path="url(#clip-path)"
+                          >
+                            <g
+                              id="Group_289"
+                              data-name="Group 289"
+                              transform="translate(-0.001 0.002)"
+                            >
+                              <path
+                                id="Path_734"
+                                data-name="Path 734"
+                                d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                                transform="translate(6.049 3.024)"
+                                fill="#fcf4ec"
+                              />
+                            </g>
+                            <g
+                              id="Group_290"
+                              data-name="Group 290"
+                              transform="translate(2.484 2.494)"
+                            >
+                              <path
+                                id="Path_735"
+                                data-name="Path 735"
+                                d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                                transform="translate(3.453 2.997)"
+                                fill="#44484c"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                      <svg
+                        *ngIf="statusObject.completed"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 12 12"
+                      >
+                        <defs>
+                          <clipPath id="clip-path">
+                            <rect
+                              id="Rectangle_60"
+                              data-name="Rectangle 60"
+                              width="13"
+                              height="13"
+                              fill="none"
+                            />
+                          </clipPath>
+                        </defs>
+                        <g
+                          id="Group_301"
+                          data-name="Group 301"
+                          clip-path="url(#clip-path)"
+                        >
+                          <path
+                            id="Path_745"
+                            data-name="Path 745"
+                            d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                            transform="translate(0.056 0.053)"
+                            fill="#fcf4ec"
+                          />
+                          <path
+                            id="Path_746"
+                            data-name="Path 746"
+                            d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                            transform="translate(-8.669 -15.967)"
+                            fill="#44484c"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                    <div class="align-button-title">
+                      <span class="text-uppercase stylecompletetext">{{
+                        "Completed" | translate
+                      }}</span>
+                    </div>
+                    <div
+                      (click)="
+                        $event.stopPropagation()
+                      "
+                    >
+                      <div
+                        [ngClass]="
+                          toggle == true ? 'input-wrapper1' : 'input-wrapper2'
+                        "
+                      >
+                        <app-dropdown-projectoverview
+                          [years]="projectsYearsArray"
+                          (toggle1)="setToggle($event)"
+                          (Selected)="dateFilter($event)"
+                          [disableSelect]="false"
+                        >
+                        </app-dropdown-projectoverview>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="d-flex border-item p-1 mr-4 cursor-pointer"
+                  (click)="onStatusChange('awaitingInspection')"
+                >
+                  <div style="margin-bottom: 2px">
+                    <svg
+                      *ngIf="!statusObject.awaitingInspection"
+                      id="X_icon"
+                      data-name="X icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 12 12"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <path
+                            id="Path_736"
+                            data-name="Path 736"
+                            d="M0,5.951H12v-12H0Z"
+                            transform="translate(0 6.049)"
+                            fill="#fff"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g id="X_icon-2" data-name="X icon">
+                        <g
+                          id="Group_291"
+                          data-name="Group 291"
+                          clip-path="url(#clip-path)"
+                        >
+                          <g
+                            id="Group_289"
+                            data-name="Group 289"
+                            transform="translate(-0.001 0.002)"
+                          >
+                            <path
+                              id="Path_734"
+                              data-name="Path 734"
+                              d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                              transform="translate(6.049 3.024)"
+                              fill="#fcf4ec"
+                            />
+                          </g>
+                          <g
+                            id="Group_290"
+                            data-name="Group 290"
+                            transform="translate(2.484 2.494)"
+                          >
+                            <path
+                              id="Path_735"
+                              data-name="Path 735"
+                              d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                              transform="translate(3.453 2.997)"
+                              fill="#44484c"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <svg
+                      *ngIf="statusObject.awaitingInspection"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 12 12"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_60"
+                            data-name="Rectangle 60"
+                            width="13"
+                            height="13"
+                            fill="none"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Group_301"
+                        data-name="Group 301"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_745"
+                          data-name="Path 745"
+                          d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                          transform="translate(0.056 0.053)"
+                          fill="#fca85e"
+                        />
+                        <path
+                          id="Path_746"
+                          data-name="Path 746"
+                          d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                          transform="translate(-8.669 -15.967)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="align-button-title">
+                    <span class="text-uppercase mr-1">{{
+                      "Awaiting inspection" | translate
+                    }}</span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div *ngIf="selectedTab == 0" style="position: relative">
+        <div>
+          <div class="tablehead-0">
+            <div
+              class="tablehead-title project-name project-border-rbt text-position-left"
+            >
+              {{ "Project Name" | translate }}
+            </div>
+            <div
+              class="tablehead-title number project-border-rbt text-position-left"
+            >
+              {{ "Number" | translate }}
+            </div>
+            <div
+              class="tablehead-title activity project-border-rbt text-position-left"
+            >
+              {{ "Activity" | translate }}
+            </div>
+            <div
+              class="tablehead-title d-form project-border-rbt"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              {{ "Debit Form" | translate }}
+            </div>
+            <div
+              class="tablehead-title acc-cost project-border-rbt text-position-right"
+            >
+              {{ "TSC_Accumulated_cost" | translate }}
+            </div>
+            <div
+              class="tablehead-title not-send project-border-rbt text-position-right"
+            >
+              {{ "TSC_Not_send" | translate }}
+            </div>
+            <div
+              class="tablehead-title sent project-border-rbt text-position-right"
+            >
+              {{ "TSC_Sent" | translate }}
+            </div>
+            <div
+              class="tablehead-title approved project-border-rbt"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              {{ "TSC_Approved_to_invoice" | translate }}
+            </div>
+            <div
+              class="tablehead-title invoice project-border-bt text-position-center"
+            >
+              {{ "TSC_Invoiced" | translate }}
+            </div>
+          </div>
+          <div class="tablebody" *ngIf="!spinner">
+            <div>
+              <app-tree-list [list]="filteredProjectsData"></app-tree-list>
+            </div>
+            <div class="sticky-total">
+              <div class="mastersuma">
+                <div class="suma">
+                  <strong
+                    style="
+                      background-color: #1a1a1a;
+                      font-size: 16px;
+                      font-family: PT-Sans-Pro-Regular;
+                      padding-right: 13px;
+                      font-weight: 47;
+                    "
+                    >{{'Total' | translate}}</strong
+                  >
+                </div>
+                <div class="accumulatedcost">
+                  <strong class="numbers">{{
+                    totalSumsOverview.totalAccumulated | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="notsend">
+                  <strong class="numbers">{{
+                    totalSumsOverview.totalNotSend | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="send">
+                  <strong class="numbers">{{
+                    totalSumsOverview.totalSent | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="approveeed">
+                  <strong class="numbers">{{
+                    totalSumsOverview.totalApproved | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="zadnji">
+                  <strong class="numbers">{{
+                    totalSumsOverview.totalInvoiced | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedTab == 1" style="position: relative">
+        <div>
+          <div class="chargeable-kostander">
+            <p class="charebleP">{{ "Costs" | translate }}</p>
+          </div>
+          <div class="tablehead">
+            <div
+              class="tablehead-title project-name project-border-rbt text-position-left"
+            >
+              {{ "Project Name" | translate }}
+            </div>
+            <div
+              class="tablehead-title number project-border-rbt text-position-left"
+            >
+              {{ "Number" | translate }}
+            </div>
+            <div
+              class="tablehead-title activityresult project-border-rbt text-position-left"
+            >
+              {{ "Activity" | translate }}
+            </div>
+            <div
+              class="tablehead-title chargeable project-border-rbt text-position-center"
+            >
+              {{ "Chargeable" | translate }}
+            </div>
+
+            <div
+              class="tablehead-title chargeable project-border-rbt text-position-center"
+            >
+              {{ "Personal" | translate }}
+            </div>
+            <div
+              class="tablehead-title chargeable project-border-rbt text-position-center"
+            >
+              {{ "Mat./Lev.F." | translate }}
+            </div>
+            <div
+              class="tablehead-title chargeable project-border-rbt text-position-center"
+            >
+              {{ "Material fast" | translate }}
+            </div>
+            <div
+              class="tablehead-title chargeable project-border-rbt text-position-center"
+            >
+              {{ "Övrigt" | translate }}
+            </div>
+            <div
+              class="tablehead-title chargeable project-border-rbt text-position-center"
+            >
+              {{ "Summa" | translate }}
+            </div>
+            <div
+              class="tablehead-title chargeable project-border-rbt text-position-center"
+            >
+              {{ "TSC_Invoiced" | translate }}
+            </div>
+            <div
+              class="tablehead-title chargeable project-border-rbt text-position-center"
+            >
+              {{ "TB" | translate }}
+            </div>
+            <div
+              class="tablehead-title tb project-border-bt text-position-center"
+            >
+              {{ "TG1" | translate }}
+            </div>
+            <div
+              class="tablehead-title tb project-border-bt text-position-center"
+            >
+              {{ "TG2" | translate }}
+            </div>
+          </div>
+          <div class="tablebody">
+            <div>
+              <app-tree-list-for-results
+                [list]="filteredProjectsData"
+              ></app-tree-list-for-results>
+            </div>
+            <div class="sticky-total">
+              <div class="mastersuma">
+                <div class="sumaresult">
+                  <strong
+                    style="
+                      background-color: #1a1a1a;
+                      font-size: 16px;
+                      font-family: PT-Sans-Pro-Regular;
+                      padding-right: 13px;
+                      font-weight: 47;
+                    "
+                    >{{'Total' | translate}}</strong
+                  >
+                </div>
+                <div class="chargeablee">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalChargeable | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="personal">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalPersonal | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="matlevf">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalMaterial | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="ovrigt">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalFixedMaterial | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="columsuma">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalOther | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="columninvoiced">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalSum | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="columntb">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalInvoiced | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="columntg">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalTb | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="columntg2">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalTg | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+                <div class="columntg3">
+                  <strong class="numbers">{{
+                    totalSumsResults.totalTg2 | number : "1.2-2" : "fr"
+                  }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedTab == 2" style="position: relative" style="margin-top:50px">
+        <app-comment-section
+          content_type="project-overview"
+          [parentId]="companyId"
+        >
+        </app-comment-section>
+      </div>
+    </div>
+    <div class="thin-red-line-right"></div>
+    <div class="thin-red-line-bottom"></div>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+</div>

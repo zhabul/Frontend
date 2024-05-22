@@ -1,0 +1,123 @@
+
+<ng-container [formGroup]="article" >
+    <div>
+        <!-- <input
+
+            class="table-input-field"
+            type="text"
+            readonly
+            formControlName="article"
+            [style.fontWeight]="fontWeight"
+        /> -->
+        <div
+
+            class="table-input-field"
+            [style.fontWeight]="fontWeight"
+            style="background-color: white;"
+        ></div>
+    </div>
+    <div>
+        <input
+
+            class="table-input-field"
+            type="text"
+            formControlName="description"
+            list="properties"
+            [style.fontWeight]="fontWeight"
+            (focus)="setFocusColumn('description')"
+            (blur)="addRowOnClick('description')"
+        />
+        <datalist id="properties">
+            <option *ngFor="let property of properties" [value]="property">{{property}}</option>
+        </datalist>
+    </div>
+    <div>
+        <input
+
+            class="table-input-field"
+            type="text"
+            min="0"
+            formControlName="quantity"
+            number-format-directive
+            (focus)="setFocusColumn('quantity')"
+            (keyup)="updateTotal($event)"
+            [style.fontWeight]="fontWeight"
+            (blur)="addRowOnClick('quantity')"
+        />
+    </div>
+    <div>
+        <select [style.fontWeight]="fontWeight" class="table-select-field" formControlName="unit">
+            <!-- <option value=""></option> -->
+            <option *ngFor="let unit of units" [value]="unit">{{unit}}</option>
+        </select>
+    </div>
+    <div>
+        <input
+
+            class="table-input-field"
+            type="text"
+            number-format-directive
+            formControlName="pricePerUnit"
+            (focus)="setFocusColumn('pricePerUnit')"
+            (keyup)="updateTotal($event)"
+            [style.fontWeight]="fontWeight"
+            (blur)="addRowOnClick('pricePerUnit')"
+        />
+    </div>
+    <div>
+        <input
+
+            class="table-input-field"
+            type="text"
+            formControlName="percentage"
+            number-format-directive
+            (focus)="setFocusColumn('percentage')"
+            (keyup)="updateTotal($event)"
+            [style.fontWeight]="fontWeight"
+            (blur)="addRowOnClick('percentage')"
+        />
+    </div>
+    <!-- *ngIf="article.get('quantity').value == '' && article.get('pricePerUnit').value == ''" -->
+    <div
+      >
+      <input
+
+          class="table-input-field total-container"
+          type="text"
+          formControlName="total"
+          number-format-directive
+          (focus)="setFocusColumn('total')"
+          (keyup)="updateQuantityOrPrice()"
+          [style.fontWeight]="fontWeight"
+          (blur)="addRowOnClick('total')"
+      />
+
+  </div>
+  <!-- <div
+        *ngIf="article.get('quantity').value > '' || article.get('pricePerUnit').value > ''"
+        class="total-container" [style.fontWeight]="fontWeight">
+        {{ total | number:'1.2-2':'fr' }}
+    </div> -->
+
+    <ng-content>
+    </ng-content>
+    <div class="white-flex-container" (click)="removeRow()">
+        <app-delete-icon-svg *ngIf="!loading"></app-delete-icon-svg>
+    </div>
+    <div
+      (click)="toggleModal()"
+      class="white-flex-container"
+      [ngStyle]="{'background-color': modal ? '#FF7000' : '#FFFFFF'}"
+      >
+        <app-more-dots-svg></app-more-dots-svg>
+    </div>
+    <div class="modal-container" *ngIf="modal">
+        <app-insert-row-modal
+
+            [index]="index"
+            (addRow)="addRowByIndex($event)"
+            (fontWeight)="setFontWeight($event)"
+
+        ></app-insert-row-modal>
+    </div>
+</ng-container>

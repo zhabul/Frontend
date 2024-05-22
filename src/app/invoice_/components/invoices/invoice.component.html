@@ -1,0 +1,241 @@
+<div class="row row1X mb-3">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-lightX bgGrayBlueX br3 pl-em"
+      style="padding: 10px"
+    >
+      <ul class="navbar-nav flex-container wrap justify-content">
+        <div class="navbar-collapse custom-800" id="navbarSupportedContent">
+          <li class="nav-item active flex-item mr-2">
+            <a
+              [routerLink]="['/']"
+              class="btn btn-dark lh09 hideUnder800"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <span class="badgeX badge-darkX material-icons top1px posRel"
+                >arrow_back</span
+              >
+            </a>
+          </li>
+          <li class="nav-item active flex-item mr-2">
+            <div class="projects-date mb-10">
+              <div class="input-group date w100Under800 maxw170Over800">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="material-icons">calendar_today</i></span
+                  >
+                </div>
+                <input
+                  (keydown)="$event.preventDefault()"
+                  id="dateSelect"
+                  autocomplete="off"
+                  type="text"
+                  class="form-control project-date"
+                  aria-describedby="basic-addon1"
+                  placeholder="{{ 'Choose date' | translate }}"
+                  #selectedDate
+                  (change)="onChange(selectedDate, selectStatus, searchInput)"
+                />
+              </div>
+            </div>
+          </li>
+          <li class="nav-item flex-item mr-2">
+            <div class="select-toggle mb-10">
+              <select
+                class="project-nav-select w100Under800 minw160Over800 h38 pt2px pl5px text-muted"
+                id="project-status"
+                #selectStatus
+                (change)="onChange(selectedDate, selectStatus, searchInput)"
+                style="display: none"
+              >
+                <option value="0" selected>{{ "All" | translate }}</option>
+                <option value="1">{{ "Not sent" | translate }}</option>
+                <option value="2">{{ "Sent" | translate }}</option>
+                <option value="4">{{ "TSC_Booked" | translate }}</option>
+                <option value="6">{{ "Paid" | translate }}</option>
+                <option value="3">{{ "Unpaid due" | translate }}</option>
+                <option value="5">{{ "Canceled" | translate }}</option>
+              </select>
+            </div>
+          </li>
+          <li class="nav-item flex-item mr-2">
+            <a
+              class="btn btn-dark btn-icon-postion mr-2 hideUnder800"
+              routerLinkActive="active"
+              routerLink="/invoices/new"
+            >
+              <i class="material-icons">add_circle_outline</i>
+              <span class="ml-1 nowrap hideUnder1400">{{
+                "New Invoice" | translate
+              }}</span>
+            </a>
+          </li>
+        </div>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<div class="row row1X">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70"
+    id="notMuchPaddingTill800"
+  >
+    <div class="py-2 d-flex justify-content-between">
+      <h1 class="h4">{{ "Invoices" | translate }}</h1>
+      <input
+        type="text"
+        class="form-control"
+        style="width: 300px"
+        #searchInput
+        placeholder="{{ 'Search' | translate }}"
+        (input)="onChange(selectedDate, selectStatus, searchInput)"
+      />
+    </div>
+
+    <form class="buttons-form">
+      <div class="group-status" (click)="onStatusChange('0')">
+        <p class="radio-button-container">
+          <input type="radio" name="all" [checked]="statusObject['0']" />
+          <label class="label-color-default">{{ "All" | translate }}</label>
+        </p>
+      </div>
+      <div class="group-status" (click)="onStatusChange('6')">
+        <p class="radio-button-container">
+          <input type="radio" name="Paid" [checked]="statusObject['6']" />
+          <label class="label-color-green">{{ "Paid" | translate }}</label>
+        </p>
+      </div>
+      <div (click)="onStatusChange('3')" class="group-status">
+        <p class="radio-button-container">
+          <input type="radio" name="Unpaid due" [checked]="statusObject['3']" />
+          <label class="label-color-red">{{ "Unpaid due" | translate }}</label>
+        </p>
+      </div>
+      <div (click)="onStatusChange('2')" class="group-status">
+        <p class="radio-button-container">
+          <input type="radio" name="Sent" [checked]="statusObject['2']" />
+          <label class="label-color-purple">{{ "Sent" | translate }}</label>
+        </p>
+      </div>
+      <div class="group-status" (click)="onStatusChange('1')">
+        <p class="radio-button-container">
+          <input type="radio" name="Not Sent" [checked]="statusObject['1']" />
+          <label class="label-color-pink">{{ "Not Sent" | translate }}</label>
+        </p>
+      </div>
+      <div class="group-status" (click)="onStatusChange('4')">
+        <p class="radio-button-container">
+          <input type="radio" name="Booked" [checked]="statusObject['4']" />
+          <label class="label-color-yellow">{{
+            "TSC_Booked" | translate
+          }}</label>
+        </p>
+      </div>
+      <div class="group-status" (click)="onStatusChange('5')">
+        <p class="radio-button-container">
+          <input type="radio" name="Canceled" [checked]="statusObject['5']" />
+          <label class="label-color-aborted">{{
+            "Canceled" | translate
+          }}</label>
+        </p>
+      </div>
+    </form>
+
+    <div class="row row-sm">
+      <table
+        class="table table-res800 table-darkX table-sm table-bordered table-hover invoice-table"
+      >
+        <thead>
+          <tr>
+            <th>{{ "Number" | translate }}</th>
+            <th>{{ "Project" | translate }}</th>
+            <th>{{ "Client" | translate }}</th>
+            <th>{{ "Date" | translate }}</th>
+            <th>{{ "Type" | translate }}</th>
+            <th>{{ "Total" | translate }}</th>
+            <th>{{ "Action" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="invoice-row"
+            *ngFor="let invoice of invoices; let i = index"
+            (click)="viewEditInvoice(invoice.Id, invoice.Status, invoice.Url)"
+            [ngClass]="{
+              'wemax-purple': invoice.Status == '2',
+              'wemax-red': invoice.Status == '3',
+              'wemax-yellow': invoice.Status == '4',
+              'wemax-green': invoice.Status == '6',
+              'wemax-grey': invoice.Status == '5'
+            }"
+          >
+            <td>
+              {{ invoice.Id }}
+            </td>
+            <td>
+              {{ invoice.Project }}
+            </td>
+            <td>
+              {{ invoice.Client }}
+            </td>
+            <td>
+              {{ invoice.InvoiceDate }}
+            </td>
+            <td>
+              {{ invoice.Type | translate }}
+            </td>
+            <td class="total-text-align">
+              {{ invoice.Total | number: "1.2-2":"fr" }}
+            </td>
+            <td class="text-center delete-icon">
+              <span
+                class="text-danger material-icons top1px posRel"
+                style="cursor: pointer"
+                (click)="removeInvoice(invoice.Id, $event, i)"
+                *ngIf="invoice.Status == '1'"
+                >delete_outline</span
+              >
+            </td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="7" style="text-align: right" *ngIf="showPaginate">
+              <div class="paginate-wrapp">
+                <div class="paginate-style">
+                  <span
+                    class="material-icons"
+                    (click)="paginate(previousPage)"
+                    [ngClass]="{ 'last-page': page == 1 }"
+                    >navigate_before</span
+                  >
+                </div>
+                <div class="paginate-style">
+                  <span
+                    class="material-icons"
+                    (click)="paginate(nextPage)"
+                    [ngClass]="{
+                      'last-page': page == numberOfRowsArray.length
+                    }"
+                    >navigate_next</span
+                  >
+                </div>
+              </div>
+              <div class="paginate-numbers">
+                <span
+                  *ngFor="let num of numberOfRowsArray; let i = index"
+                  (click)="paginate(i + 1)"
+                  [ngStyle]="{ color: i + 1 == page ? 'red' : 'black' }"
+                  >{{ i + 1 }}</span
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

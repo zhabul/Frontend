@@ -1,0 +1,94 @@
+
+div#blu-scroll {
+    max-width: 1043px !important;
+    width: calc(100vw - 50px - 125px);
+    height: calc(100vh - 109px - 0px);
+}
+
+#blu-scroll{
+    border-radius: 8px 0px 0px 0px;
+    height: calc(100vh - 0px - 117px);
+}
+.card-project{
+    position: relative;
+    height: 700px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    border: 1.5px solid;
+    margin-bottom: 112px;
+    border-color: var(--border-color);
+}
+
+.form-group-wraper-position{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+  padding: 18px 45px 0px 25px;
+}
+
+.blu-scroll{
+  border: 1.5px solid;
+  color: var(--border-color);
+  border-top-left-radius: 10px;
+  width: 1042px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  height: 812px;
+  position: relative;
+}
+
+.wrapp{
+  width:1025px;
+  padding: 20px 35px 10px 25px;
+  display: flex;
+  gap: 50px;
+}
+
+.wrapp1{
+  width:1025px;
+  padding: 20px 35px 10px 25px;
+  display: flex;
+  gap: 70px;
+}
+
+.input-wrapper{
+  background-color: #fff;
+   width:265px; height: 35px;
+   border-radius: 4px 4px 4px 4px;
+}
+
+.input-wrapper1{
+  background-color: #fff ;
+  width: 150px; height: 35px ;
+  border-radius: 4px 4px 4px 4px ;
+}
+
+.input-wrapper2{
+  background-color: #fff ;
+  width: 150px; height: 35px ;
+  border-radius: 4px 4px 4px 4px ;
+}
+
+.input-wrapper3{
+  background-color: #fff ;
+  width: 220px; height: 35px ;
+  border-radius: 4px 4px 4px 4px ;
+}
+
+.input-wrapper4{
+  background-color: var(--main-bg) ;
+  width: 185px; height: 30px ;
+  border-radius: 4px 4px 4px 4px ;
+}
+
+.input-wrapper5{
+  background-color: var(--main-bg) ;
+  width: 205px; height: 30px ;
+  border-radius: 4px 4px 4px 4px ;
+}
+
+.input-wrapper6{
+  background-color: #fff ;
+  width: 175px; height: 35px ;
+  border-radius: 4px 4px 4px 4px ;
+}

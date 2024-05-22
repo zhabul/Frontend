@@ -1,0 +1,49 @@
+<div #dropdown style="position: relative;" [ngClass]="{'border-select': toggle == true}">
+    <div  (click)="toogleMultiselect()" class="name-of-single-select" [ngStyle]="{'width': '100%'}">
+        <div [ngStyle]="{'color': '#333'}" class="refname"> {{ ref | uppercase}} </div>
+        <div class="carret-wrapper">
+            <svg id="Group_308" data-name="Group 308" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="9.273" height="6" viewBox="0 0 9.273 6" [attr.transform]="rotate">
+                <defs>
+                    <clipPath id="clip-path">
+                        <path id="Path_758" data-name="Path 758" d="M0,6H9.273V0H0Z" fill="none"/>
+                    </clipPath>
+                </defs>
+                <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+                    <g id="Group_304" data-name="Group 304" >
+                        <path id="Path_757" data-name="Path 757" d="M.106.9l4.1,4.916A.491.491,0,0,0,4.626,6h.047a.491.491,0,0,0,.419-.186L9.169.9a.568.568,0,0,0,.1-.373A.393.393,0,0,0,9.076.2L8.936.106a.663.663,0,0,0-.4-.1A.456.456,0,0,0,8.19.2L4.649,4.393,1.108.2A.456.456,0,0,0,.758,0a.663.663,0,0,0-.4.1L.2.2A.393.393,0,0,0,0,.525.568.568,0,0,0,.106.9" [attr.fill]="fill"/>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <div class="border-on-scroll" *ngIf="toggle" ></div>
+    </div>
+    <div [ngStyle]="{'position': 'absolute', 'left': stylePosition.left, 'right': stylePosition.right, 'bottom': stylePosition.bottom, 'top': stylePosition.top}">
+        <div *ngIf="toggle" class="dropdown-scroll">
+            <div *ngFor="let item of localSelectedItem; let i=index" >
+                <div class="users-list" *ngIf="HaveSend == 0 ? 'true': 'false'" (click)="getSelectedItem(item, i)">
+                    <div [ngStyle]="{'color': setColorDropDownSelect(item)}" class="users" title="{{item.Name}}"> {{item.Name}} </div>
+                    <div class="check-button-wrapp-one">
+                        <input type="checkbox" class="check">
+                        <app-checkin-svg
+                            *ngIf="item?.checked"
+                            [width]="18"
+                            [height]="18"
+                            [color]="'FF7000'"
+                            [hatched]="'white'"
+                        ></app-checkin-svg>
+                        <app-checkout-svg
+                        *ngIf="!item?.checked"
+                            [width]="18"
+                            [height]="18"
+                            [color]="'FF7000'"
+                            [hatched]="'white'"
+                        ></app-checkout-svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="line-scroll"></div>
+    </div>
+</div>
+  
+  

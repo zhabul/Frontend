@@ -1,0 +1,16 @@
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    color: #E3DBD3;
+    font-size: 14px;
+    height: 42px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row > span:first-child {
+    color: #82A7E2;
+}

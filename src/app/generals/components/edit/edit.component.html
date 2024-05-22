@@ -1,0 +1,126 @@
+<div class="row">
+  <div class="col-lg-6 br3 p-2 mb-4 bgDarkBlueX bgGrayBlue">
+    <nav class="nav nav-pills nav-justified">
+      <a
+        routerLink="/generals"
+        class="btn btn-dark mr-2 lh08 hideUnder800"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="badgeX badge-darkX material-icons top1px posRel"
+          >arrow_back</span
+        >
+      </a>
+      <a
+        class="nav-link btn-outline-success"
+        routerLinkActive="active"
+        routerLink="/generals/edit"
+        >{{ "Edit" | translate }}</a
+      >
+    </nav>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6 bg-white p-4">
+    <form
+      class="row flex-column"
+      novalidate
+      autocomplete="off"
+      [formGroup]="editForm"
+      (ngSubmit)="onSave()"
+    >
+      <div
+        class="form-group d-inline-blockX col-sm-12 col-md-6 col-lg-12X pl-0"
+        [ngClass]="{
+          'has-error':
+            (editForm.get('key').touched || editForm.get('key').dirty) &&
+            !editForm.get('key').valid
+        }"
+      >
+        <label for="keyInput">{{ "Key" | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="keyInput"
+          placeholder="{{ 'Enter key' | translate }}"
+          formControlName="key"
+          disabled
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            (editForm.get('key').touched || editForm.get('key').dirty) &&
+            editForm.get('key').errors
+          "
+        >
+          <span *ngIf="editForm.get('key').errors.required" class="text-danger">
+            {{ "Please enter key" | translate }}.
+          </span>
+        </span>
+      </div>
+      <div
+        *ngIf="general.key != 'Logo'"
+        class="form-group d-inline-block col-sm-12 col-md-6 col-lg-12X pr-0"
+        [ngClass]="{
+          'has-error':
+            (editForm.get('value').touched || editForm.get('value').dirty) &&
+            !editForm.get('value').valid
+        }"
+      >
+        <label for="valueInput">{{ "Value" | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="valueInput"
+          placeholder="{{ 'Enter value' | translate }}"
+          formControlName="value"
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            (editForm.get('value').touched || editForm.get('value').dirty) &&
+            editForm.get('value').errors
+          "
+        >
+          <span
+            *ngIf="editForm.get('value').errors.required"
+            class="text-danger"
+          >
+            {{ "Please enter value" | translate }}.
+          </span>
+        </span>
+      </div>
+      <div *ngIf="general.key == 'Logo'">
+        <label for="image">{{ "Image" | translate }}</label>
+        <div class="form-group form-group-upload">
+          <label class="btn btn-outline-info" for="image">{{
+            "Choose file" | translate
+          }}</label>
+          <span *ngIf="!chooseFile">{{ "No file chosen" | translate }}</span>
+          <span *ngIf="chooseFile">{{ uploadMessage }}</span>
+          <input
+            type="file"
+            accept="image/*"
+            class="form-control-file hide"
+            id="image"
+            (change)="onFileChange($event)"
+          />
+        </div>
+      </div>
+      <button
+        type="submit"
+        style="width: 80px"
+        class="btn btn-success"
+        [disabled]="disabled || !editForm.valid"
+      >
+        {{ "Save" | translate }}
+      </button>
+      <span class="message" *ngIf="actionStatus == 1">{{
+        "Successfully updated." | translate
+      }}</span>
+      <span class="message" *ngIf="actionStatus == 0">{{
+        "Something went wrong!" | translate
+      }}</span>
+    </form>
+  </div>
+</div>

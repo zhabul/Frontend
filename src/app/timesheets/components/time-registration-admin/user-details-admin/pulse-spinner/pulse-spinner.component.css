@@ -1,0 +1,40 @@
+.progress-loader2 {
+    position: relative;
+    padding: 1rem;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10000;
+    width: 75px;
+    height: 75px;
+    background-color: rgba(255,255,255,0);
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: 100px auto;
+    transform: scale(0.6);
+  }
+  
+  .double-bounce1,
+  .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--brand-color);
+    opacity: 0.6; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-bounce 2s infinite ease-in-out;
+    animation: sk-bounce 2s infinite ease-in-out;
+  }
+  
+  .double-bounce2 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+  }

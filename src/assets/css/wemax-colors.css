@@ -1,0 +1,294 @@
+.wemax-yellow:hover {
+  background-color: hsla(60, 58%, 75%, 0.35);
+}
+.wemax-yellow {
+  background-color: hsla(54, 70%, 89%, 1);
+}
+.legend-yellow {
+  background-color: hsla(60, 58%, 75%, 0.7);
+}
+.wemax-green {
+  /*  background-color: rgba(141, 242, 198, 0.2); */
+  background-color: var(--wemax-green);
+}
+
+.wemax-green:hover {
+  background-color: rgba(202, 229, 175, 1);
+}
+
+.legend-green {
+  background-color: rgba(141, 242, 198, 0.9);
+}
+.wemax-purple {
+  background-color: rgba(118, 118, 255, 0.15);
+}
+.wemax-purple:hover {
+  background-color: rgba(118, 118, 255, 0.25);
+  zoom: 1;
+}
+.legend-purple {
+  background-color: rgba(118, 118, 255, 0.5);
+  zoom: 1;
+}
+.legend-white,
+.wemax-white {
+  background-color: #fff;
+}
+.wemax-white:hover {
+  background-color: rgb(236, 236, 236);
+}
+.wemax-red {
+  background-color: hsla(0, 58%, 75%, 0.33);
+}
+.wemax-red:hover {
+  background-color: hsla(0, 58%, 75%, 0.45);
+}
+.legend-red {
+  background-color: hsla(0, 58%, 75%, 0.9);
+}
+.wemax-grey {
+  background-color: rgba(68, 68, 68, 0.25);
+}
+.legend-grey,
+.wemax-grey:hover {
+  background-color: rgba(68, 68, 68, 0.5);
+}
+.wemax-aborted {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 48%,
+    rgb(255, 0, 0) 48%,
+    rgb(255, 0, 0) 53%,
+    rgba(0, 0, 0, 0) 53%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+.wemax-clear {
+  background: #fdeeff;
+}
+.wemax-clear:hover {
+  background: #dfc7e2;
+}
+.legend-clear {
+  background: #fdeeff;
+}
+.legend-aborted {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 40%,
+    rgb(255, 0, 0) 40%,
+    rgb(255, 0, 0) 57%,
+    rgba(0, 0, 0, 0) 57%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.wemax-legend {
+  font-size: 1.5em;
+  line-height: 0.8em;
+  border: 1px solid #000;
+  height: 10px;
+  width: 10px;
+  display: block;
+  border-radius: 50%;
+}
+/*-----------Color from WOP360 - new  -------------*/
+.wemax-yellow1 {
+  background-color: hsla(54, 70%, 89%, 1) !important;
+}
+
+.wemax-yellow1:hover {
+  background-color: hsla(54, 82%, 85%, 1) !important;
+}
+
+.wemax-green1 {
+  background-color: hsla(90, 75%, 95%, 1);
+}
+
+.wemax-green1:hover {
+  background-color: hsla(90, 91%, 91%, 1);
+}
+.wemax-blue1 {
+  background-color: #defbff;
+}
+.wemax-blue1:hover {
+  background-color: #bcf3fa;
+}
+
+.wemax-purple1 {
+  background-color: rgba(118, 118, 255, 0.15);
+}
+
+.wemax-purple1:hover {
+  background-color: rgba(118, 118, 255, 0.25);
+}
+
+.wemax-white1 {
+  background-color: #ffffff;
+}
+
+.wemax-white1:hover {
+  background-color: #f7f5f0;
+}
+
+.wemax-red1 {
+  background-color: #fae4ec;
+}
+
+.wemax-red1:hover {
+  background-color: #fdd2e2;
+}
+
+.wemax-aborted1 {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 48%,
+      rgb(255, 0, 0) 48%,
+      rgb(255, 0, 0) 53%,
+      rgba(0, 0, 0, 0) 53%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    rgb(219, 218, 216, 1) 100%;
+}
+
+.wemax-aborted1:hover {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 48%,
+      rgb(255, 0, 0) 48%,
+      rgb(255, 0, 0) 53%,
+      rgba(0, 0, 0, 0) 53%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    #c9c6c6;
+}
+
+.wemax-clear1 {
+  background: #f7e2fd;
+}
+.wemax-clear1:hover {
+  background: #f4d8fc;
+}
+
+/*-----------Color from WOP360 - new  -------------*/
+.wemax-yellow1 {
+  background-color: hsla(54, 70%, 89%, 1) !important;
+}
+
+.wemax-yellow1:hover {
+  background-color: hsla(54, 82%, 85%, 1);
+}
+
+.wemax-green1 {
+  background-color: hsla(90, 75%, 95%, 1);
+}
+
+.wemax-green1:hover {
+  background-color: hsla(90, 91%, 91%, 1);
+}
+.wemax-blue1 {
+  background-color: #defbff;
+}
+.wemax-blue1:hover {
+  background-color: #bcf3fa;
+}
+
+.wemax-purple1 {
+  background-color: rgba(118, 118, 255, 0.15);
+}
+
+.wemax-purple1:hover {
+  background-color: rgba(118, 118, 255, 0.25);
+}
+
+.wemax-white1 {
+  background-color: #ffffff;
+}
+
+.wemax-white1:hover {
+  background-color: #f7f5f0;
+}
+
+.wemax-red1 {
+  background-color: #fae4ec;
+}
+
+.wemax-red1:hover {
+  background-color: #fdd2e2;
+}
+
+.wemax-aborted1 {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 48%,
+      rgb(255, 0, 0) 48%,
+      rgb(255, 0, 0) 53%,
+      rgba(0, 0, 0, 0) 53%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    rgb(219, 218, 216, 1) 100%;
+}
+
+.wemax-aborted1:hover {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 48%,
+      rgb(255, 0, 0) 48%,
+      rgb(255, 0, 0) 53%,
+      rgba(0, 0, 0, 0) 53%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    #c9c6c6;
+}
+
+.wemax-clear1 {
+  background: #f7e2fd;
+}
+.wemax-clear1:hover {
+  background: #f4d8fc;
+}
+
+/******* PROJECTS COLOR WOP360 **********/
+.project-grey1 {
+  background-color: #ffffff;
+}
+
+.project-grey1:hover {
+  background-color: #f7f5f0;
+}
+
+.project-blue1 {
+  background-color: #fce3cd;
+}
+
+.project-blue1:hover {
+  background-color: #f8d4b4;
+}
+
+.project-green1 {
+  background-color: #f3fcea;
+}
+
+.project-green1:hover {
+  background-color: #e8fdd3;
+}
+
+.project-yellow1 {
+  background-color: #f7f3d1;
+}
+
+.project-yellow1:hover {
+  background-color: #f8f2b7;
+}
+
+.wemax-blue {
+  background-color: #E4F0FA;
+}
+
+.wemax-orange {
+  background-color: #FFE5CE;
+}
+
+.wemax-new-green {
+  background-color: #E3E9DD;
+}

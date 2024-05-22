@@ -1,0 +1,4 @@
+::ng-deep .e-schedule .e-vertical-view .e-day-wrapper .e-appointment {
+  white-space: normal;
+  background-color: #ffffff !important;
+}

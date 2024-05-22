@@ -1,0 +1,1651 @@
+<div style="position: relative">
+  <div *ngIf="prognosis.length > 0" class="top-btn-div" style="width: 1360px">
+    <ng-container *ngIf="saved_prognosis">
+      <ng-container *ngFor="let saved_prognos of prognosis; let index = index">
+        <button
+          (click)="setActivePrognosis(index)"
+          style="position: relative"
+          [ngClass]="{
+            active: activePrognosis == index,
+            'position-btn-center': saved_prognos?.locked == false
+          }"
+          class="top-btn"
+          [ngStyle]="changePropertyTopBtn(index)"
+        >
+          <div class="revision-btn-position">
+            <div class="revision-number">
+              P-<span
+                stlye="font-size:14px!important"
+                *ngIf="saved_prognos?.locked"
+                >{{ saved_prognos.prog_number }}</span
+              ><span
+                stlye="font-size: 14px!important"
+                *ngIf="!saved_prognos?.locked"
+                >{{ prognosis.length }}</span
+              >
+            </div>
+            <div class="revision-date">
+              <span class="date-revsion-font" *ngIf="saved_prognos?.locked">{{
+                saved_prognos.created_at
+              }}</span
+              ><span class="date-revsion-font" *ngIf="!saved_prognos?.locked"
+                >&nbsp; &nbsp; &nbsp;</span
+              >
+            </div>
+          </div>
+          <div
+            class=""
+            [ngClass]="{
+              'hiden-line-nav':activePrognosis !=index,
+              'button-prognos-shadow': activePrognosis !=index
+            }"
+          ></div>
+        </button>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div
+    *ngIf="prognosis[activePrognosis]"
+    style="position: relative"
+    [ngStyle]="{
+      width:
+        prognosis[activePrognosis].project_debit == 4
+          ? '1426' + 'px'
+          : '1368' + 'px'
+    }"
+    class="wrap_"
+  >
+    <div
+      class="border-wrapper ata-border shadow-top-div blu-scroll"
+      (scroll)="onScroll($event)"
+      [ngStyle]="{
+        width:
+          prognosis[activePrognosis].project_debit == 4
+            ? '1444' + 'px' + '!important'
+            : '1368' + 'px' + '!important'
+      }"
+      style="height: calc((96vh - 13px) - 0px)"
+    >
+      <div id="scroll-container">
+        <div class="row">
+          <form class="buttons-form" style="justify-content: inherit">
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChangePrognosis('all')"
+            >
+              <div class="margin-svg-buttons">
+                <svg
+                  *ngIf="statusObjectPrognosis['all'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="statusObjectPrognosis['all'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#ff7000"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{ "All" | translate }}</span>
+              </div>
+            </div>
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChangePrognosis('0')"
+            >
+              <div class="margin-svg-buttons">
+                <svg
+                  *ngIf="statusObjectPrognosis['0'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="statusObjectPrognosis['0'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#f0e264"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "Under pricing" | translate
+                }}</span>
+              </div>
+            </div>
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChangePrognosis('4')"
+            >
+              <div class="margin-svg-buttons">
+                <svg
+                  *ngIf="statusObjectPrognosis['4'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="statusObjectPrognosis['4'] == true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_4503"
+                    data-name="Group 4503"
+                    transform="translate(-262 115)"
+                  >
+                    <g
+                      id="Bocka_av_icon"
+                      data-name="Bocka av icon"
+                      transform="translate(262 -115)"
+                    >
+                      <g
+                        id="Group_301"
+                        data-name="Group 301"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_745"
+                          data-name="Path 745"
+                          d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                          transform="translate(0.056 0.053)"
+                          fill="#94effd"
+                        />
+                        <path
+                          id="Path_746"
+                          data-name="Path 746"
+                          d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                          transform="translate(-8.669 -15.967)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "Sent" | translate
+                }}</span>
+              </div>
+            </div>
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChangePrognosis('2')"
+            >
+              <div class="margin-svg-buttons">
+                <svg
+                  *ngIf="statusObjectPrognosis['2'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="statusObjectPrognosis['2'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#03d156"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "In Progress" | translate
+                }}</span>
+              </div>
+            </div>
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChangePrognosis('7')"
+            >
+              <div class="margin-svg-buttons">
+                <svg
+                  *ngIf="statusObjectPrognosis['7'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="statusObjectPrognosis['7'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#e7a0fc"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "Clear" | translate
+                }}</span>
+              </div>
+            </div>
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChangePrognosis('5')"
+            >
+              <div class="margin-svg-buttons">
+                <svg
+                  *ngIf="statusObjectPrognosis['5'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="statusObjectPrognosis['5'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#fff"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "Completed" | translate
+                }}</span>
+              </div>
+            </div>
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChangePrognosis('3')"
+            >
+              <div class="margin-svg-buttons">
+                <svg
+                  *ngIf="statusObjectPrognosis['3'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="statusObjectPrognosis['3'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#fd4444"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "Declined" | translate
+                }}</span>
+              </div>
+            </div>
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChangePrognosis('6')"
+            >
+              <div class="margin-svg-buttons">
+                <svg
+                  *ngIf="statusObjectPrognosis['6'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="statusObjectPrognosis['6'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_1891"
+                        data-name="Path 1891"
+                        d="M0,0H12V12H0Z"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Mask_Group_302"
+                    data-name="Mask Group 302"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#b8b8b8"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "Aborted" | translate
+                }}</span>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div
+          *ngIf="prognosis[activePrognosis]"
+          [ngStyle]="{
+            width:
+              prognosis[activePrognosis].properties.project_debit !== 4
+                ? '1426' + 'px'
+                : '1368' + 'px'
+          }"
+          style="margin-left: -1px"
+        >
+          <div
+            class="middle-div mt-3"
+            style="margin-bottom: -25px;"
+            [ngStyle]="{
+              width:
+                prognosis[activePrognosis].properties.project_debit !== 4
+                  ? '1426' + 'px'
+                  : '1368' + 'px'
+            }"
+          >
+            <div class="parent-btn">
+              <button
+                (click)="setMenuHeight('36px', 'result_overview')"
+                class="collapsing-btn"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseExample1"
+                aria-expanded="true"
+                aria-controls="collapseExample1"
+              >
+                <p>{{ "TSC_RESULT_OVERVIEW" | translate | uppercase }}</p>
+                <img
+                  *ngIf="iconDropdown == true"
+                  class="result-img"
+                  src="../../../../../assets/img/Group 305.png"
+                  alt=""
+                />
+                <img
+                  *ngIf="iconDropdown == false"
+                  class="result-img"
+                  src="../../../../../assets/img/Group 4455.svg"
+                  alt=""
+                />
+                <div class="hidden-border-button"></div>
+              </button>
+            </div>
+            <div
+              [ngStyle]="{ height: menuHeight.result_overview }"
+              class="collapse show height-transition shadow-top-div"
+              style="position: relative"
+            >
+              <div class="card card-body collapse-down">
+                <div class="row resultat-cont-wrapper">
+                  <div class="col-md-2 result-first">
+                    <div class="bordered-sum">
+                      <div style="font-size: 11px; color: white; padding-left: 5px;">{{'Contract_sum_including_Rikt' | translate}}</div>
+                      <div style="display: grid;grid-template-columns: 1fr 1fr;">
+                        <div scope="col" class="blue-txt" style="padding-left: 5px;">{{ "TCS_Contract_Sum" | translate }}:</div>
+                        <div class="white-txt" style="text-align: right; padding-right: 5px;">{{prognosis[activePrognosis].total_project_contract_amount | number: "1.2-2":"fr"}}</div>
+                      </div>
+                    </div>
+                    <div class="first-table-wrapper">
+                      <table class="table table-borderless" id="bottom-first-distance" style="margin-bottom: 0px!important;">
+
+                      <tbody>
+
+                        <ng-container *ngFor="
+                            let prognos of prognosis[activePrognosis].properties;
+                            let index = index
+                          ">
+                          <tr>
+                            <th scope="col" class="blue-txt" style="padding-left: 13px;">
+                              {{ prognos.project_name }} :
+                            </th>
+                            <td class="white-txt" style="text-align: -webkit-right;padding-right: 11px;">
+                              {{
+                              prognos.project_contract_amount | number: "1.2-2":"fr"
+                              }}
+                            </td>
+                          </tr>
+                          <tr [ngStyle]="{
+                                    visibility:
+                                      prognos.project_debit == '4'
+                                        ? 'visible'
+                                        : 'hidden'
+                                  }">
+                            <th scope="col" class="blue-txt" style="padding-left: 13px;">
+                              {{ 'Rikt +/-' }} :
+                            </th>
+                            <td class="white-txt" style="text-align: -webkit-right;padding-right: 11px;">
+                              {{
+                                prognos["ata_totals"].richCostTotal
+                                  | number: "1.2-2":"fr"
+                              }}
+                            </td>
+                          </tr>
+                          <!-- <tr class="project-tr">
+                            <th scope="row" class="yellow-txt"></th>
+                            <td class="white-txt"></td>
+                          </tr> -->
+                          <tr style="height: 14px; position: relative;" *ngIf="
+                              prognosis[activePrognosis].properties.length > 1 &&
+                              index !== prognosis[activePrognosis].properties.length - 1
+                            ">
+                            <div class="line1"></div>
+                            <th scope="row" class="yellow-txt"></th>
+                            <td class="white-txt"></td>
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-md-6 result-second">
+                    <table class="table table-borderless" id="bottom-second-distance">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col" class="blue-txt">
+                            {{ "TSC_Ordered" | translate }}:
+                          </th>
+                          <th scope="col" class="blue-txt">
+                            {{ "TSC_Invoiced" | translate }}:
+                          </th>
+                        </tr>
+
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="
+                            let prognos of prognosis[activePrognosis].properties;
+                            let index = index
+                          " style="position: relative;">
+                          <tr>
+                            <th scope="row" class="blue-txt second-result">
+                              {{ prognos.project_name }}
+                            </th>
+                            <td class="white-txt second-result">
+                              {{prognos['project_du_totals'].totallyWorkedUp | number: "1.2-2":"fr"}}
+                            </td>
+                            <td class="white-txt second-result">
+                              {{prognos['project_du_totals'].invoicedTotal | number: "1.2-2":"fr"}}
+                            </td>
+                          </tr>
+                          <tr style="position: relative;">
+                            <th scope="row" class="blue-txt second-result">
+                              {{ prognos.project_name }} ÄTA:
+                            </th>
+                            <td class="white-txt second-result">
+                              {{
+                              prognos["ata_totals"].totallyWorkedUp
+                              | number: "1.2-2":"fr"
+                              }}
+                            </td>
+                            <td class="white-txt second-result">
+                              {{
+                              prognos["ata_totals"].invoicedTotal
+                              | number: "1.2-2":"fr"
+                              }}
+                            </td>
+
+
+                          </tr>
+                          <tr style="position: relative; height: 14px;">
+                            <div style="height: 13px;" class="line2" [ngStyle]="{'visibility': index == (prognosis[activePrognosis].properties.length-1)? 'hidden': ''}"></div>
+                          </tr>
+                          <!-- <div style="height: 13px" ></div> -->
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-6 result-third" *ngIf="!isShown">
+                    <div class="yellow-area-div">
+                      <div class="row" style="flex-wrap: nowrap !important">
+                        <div class="vertical-text">
+                          <h5 class="vr-txt">{{ "TSC_Forecast" | translate }}</h5>
+                        </div>
+
+                        <div class="prognosis-two-table">
+                          <div class="line3"></div>
+                          <div class="yellow-table yellow-table-1" style="padding: 44px 0px 0px 0px;margin-left: 15px;">
+                            <table class="table table-borderless" id="prognosis-table">
+                              <tbody class="prognosis-tbody" style="position: relative; left: -40px">
+                                <ng-container *ngFor="
+                                    let prognos of prognosis[activePrognosis]
+                                      .properties;
+                                    let index = index
+                                  ">
+                                  <tr class="project-tr">
+                                    <th scope="row" class="yellow-txt">
+                                      {{ prognos.project_name }} :
+                                    </th>
+                                    <td class="white-txt">
+                                        {{
+                                          prognos['project_du_totals'].prognosis
+                                          | number: "1.2-2":"fr"
+                                        }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row" class="yellow-txt">
+                                      {{ prognos.project_name }} ÄTA:
+                                    </th>
+                                    <td class="white-txt">
+                                      {{
+                                      printTotal(prognos, "ata")
+                                      | number: "1.2-2":"fr"
+                                      }}
+                                    </td>
+                                  </tr>
+                                  <div style="height: 13px"></div>
+                                </ng-container>
+                                    <tr style="height: 30px">
+                                      <th scope="row" class="c-work" style="
+                                          font-family: 'PT-Sans-Pro-Bold';
+                                          vertical-align: bottom;
+                                        ">
+                                        {{ "TCS_Prognossumma" | translate | uppercase }}:
+                                      </th>
+                                      <td style="vertical-align: bottom">
+                                        {{
+                                        prognosis[activePrognosis]["total"]
+                                        | number: "1.2-2":"fr"
+                                        }}
+                                      </td>
+                                    </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="yellow-table yellow-table-1">
+                            <div style="margin-left: -27px;width: 284px;margin-top: 5px;" >
+                              <div style=" text-align: center;">
+                                <div style="font-size: 11px; color: white">{{'Contract_sum_including_Rikt' | translate}}</div>
+                              </div>
+                              <div style="display: grid;grid-template-columns: 166px 1fr;">
+                                <div scope="col" class="blue-txt" style="justify-self: right;">
+                                  {{ "TCS_Contract_Sum" | translate }}:
+                                </div>
+                                <div class="white-txt"  style="justify-self: right;">
+                                  {{
+                                  prognosis[activePrognosis].total_project_contract_amount
+                                  | number: "1.2-2":"fr"
+                                  }}
+                                </div>
+                              </div>
+                            </div>
+
+                            <table class="table table-borderless" id="prognosis-table">
+                              <tbody class="prognosis-tbody" style="position: relative; left: -15px">
+                                <tr>
+                                  <!-- <th scope="col" class="blue-txt">
+                                    {{ "TCS_Contract_Sum" | translate }}:
+                                  </th>
+                                  <td class="white-txt">
+                                    {{
+                                    prognosis[activePrognosis].total_project_contract_amount
+                                    | number: "1.2-2":"fr"
+                                    }}
+                                  </td> -->
+                                </tr>
+                                <tr class="project-tr">
+                                    <th scope="row" class="yellow-txt">
+                                      {{ "TCS_Contract_prognos" | translate }}:
+                                    </th>
+                                    <td class="white-txt">
+                                        {{
+                                            prognosis[activePrognosis].projects_total_prognos
+                                            | number: "1.2-2":"fr"
+                                        }}
+                                    </td>
+                                </tr>
+                                <tr class="project-tr">
+                                    <th scope="row" class="yellow-txt">
+                                      {{ "TCS_Diferens" | translate }}:
+                                    </th>
+                                    <td class="white-txt">
+                                 {{
+                                    ( prognosis[activePrognosis].total_project_contract_amount - prognosis[activePrognosis].projects_total_prognos )
+                                    | number: "1.2-2":"fr"
+                                    }}
+                                    </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div style="
+                                display: flex;
+                                flex-direction: row;
+                                margin-top: 35px;
+                                bottom: 20px;
+                                position: absolute;
+                              ">
+                              <div style="left: -55px; position: relative">
+                                <button class="yellow-btn first-yellow-btn lock-prognos" (click)="savePrognosis('Saved')"
+                                  [disabled]="
+                                    prognosis[activePrognosis].locked ||
+                                    prognosis[activePrognosis].saved ||
+                                    disabeButtons ||
+                                    spinner
+                                  ">
+                                  {{ "TSC_save_prognosis" | translate | uppercase }}
+                                </button>
+                              </div>
+                              <div style="left: -38px; position: relative">
+                                <button class="yellow-btn lock-prognos" (click)="savePrognosis('locked')" [disabled]="
+                                    prognosis[activePrognosis].locked ||
+                                    !prognosis[activePrognosis].saved ||
+                                    disabeButtons ||
+                                    spinner
+                                  " style="text-transform: uppercase">
+                                  {{ "TSC_lock_forecast" | translate }}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <table
+          class="table table-bordered"
+          [ngStyle]="{
+            width:
+              prognosis[activePrognosis].project_debit == 4
+                ? '1426' + 'px'
+                : '1426' + 'px'
+          }"
+          style="
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            width: 1426px;
+            margin-left: 0px;
+            display: none !important;
+          "
+          #floatingHeader
+        ></table>
+
+        <div
+          class="second-middle-div mt-3"
+          style="position: relative; margin-left: -1px"
+          [ngStyle]="{
+            width:
+              prognosis[activePrognosis].properties[property_index]
+                .project_debit == 4
+                ? '1426' + 'px'
+                : '1368' + 'px'
+          }"
+        >
+          <a
+            (click)="changePropertyHeight(prognosis)"
+            class="second-md-btn"
+            type="button"
+            style="position: relative"
+          >
+            <span style="color: #e3dbd3; position: relative; top: 2px">
+              ATA OVERSIKT {{ prognosis[activePrognosis].project_name }}</span
+            >
+            <img
+              *ngIf="prognosis.height == 'auto'"
+              src="../../../../../assets/img/Group 305.png"
+              alt=""
+              style="margin-left: 10px"
+            />
+            <img
+              *ngIf="prognosis.height != 'auto'"
+              src="../../../../../assets/img/Group 4455.svg"
+              alt=""
+              style="margin-left: 10px"
+            />
+          </a>
+
+          <div
+            [ngStyle]="{ height: prognosis.height }"
+            class="panel-collapse collapse show height-transition shadow-top-div"
+            style="width: 1425px"
+          >
+            <div class="card card-body collapse-down table-div">
+              <table class="table table-bordered" id="table-t">
+                <thead class="thead-dark">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="nr-width"
+                      title="{{ 'TSC_Number' | translate }}"
+                    >
+                      {{ "TSC_No" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="bea-width"
+                      title="{{ 'TSC_Name' | translate }}"
+                    >
+                      {{ "TSC_Name" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="u-width"
+                      title="{{ 'Deviation' | translate }}"
+                    >
+                      {{ "TSC_D" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="debit-width"
+                      title="{{ 'Debit Form' | translate }}"
+                    >
+                      {{ "TSC_Debit_form" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="upparbetade-width"
+                      title="{{ 'TSC_Accumulated_cost_title' | translate }}"
+                    >
+                      {{ "TSC_Accumulated_cost" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="reglerad-width"
+                      title="{{ 'TSC_Not_send' | translate }}"
+                    >
+                      {{ "TSC_Not_send" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="skickat-width"
+                      title="{{ 'TSC_Sent' | translate }}"
+                    >
+                      {{ "TSC_Sent" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="godkant-width"
+                      title="{{ 'Approved to invoice' | translate }}"
+                    >
+                      {{ "TSC_Approved_to_invoice" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="fakturerat-width"
+                      title="{{ 'TSC_Invoiced' | translate }}"
+                    >
+                      {{ "TSC_Invoiced" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="riktpris-width"
+                      title="Riktpris +/-"
+                      *ngIf="prognosis[activePrognosis].project_debit == 4"
+                    >
+                      Riktpris +/-
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th
+                      scope="col"
+                      class="prognos-width"
+                      title="{{ 'TSC_Forecast' | translate }}"
+                    >
+                      {{ "TSC_Forecast" | translate }}
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                    <th scope="col" class="konto-width" title="Konto">
+                      Konto
+                      <div class="bottom-shadow-thead"></div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="table-body ata-oversikt">
+                  <ng-container
+                    *ngFor="
+                      let ata of prognosis[activePrognosis].properties[
+                        property_index
+                      ].atas;
+                      let ata_index = index
+                    "
+                  >
+                    <tr [ngClass]="getAtaStatusClass(ata.Status, index)">
+                      <td scope="row" clas="">
+                        {{ "ATA" | translate }}-{{ ata.AtaNumber }}
+                      </td>
+                      <td clas="">
+                        {{ ata.Name | translate }}
+                      </td>
+                      <td class="max-number-character-U">
+                        <a href="javascript:void(0)">{{
+                          renderName(ata) | translate
+                        }}</a>
+                      </td>
+                      <td class="td-debit-width">
+                        {{ ata.PaymentTypeName }}
+                      </td>
+                      <td class="">
+                        {{
+                          ata.Status == 3
+                            ? "0,00"
+                            : (ata.totallyWorkedUp | number: "1.2-2":"fr")
+                        }}
+                      </td>
+                      <td class="">
+                        {{
+                          ata.Status == 3
+                            ? "0,00"
+                            : (ata.workedButNotApproved | number: "1.2-2":"fr")
+                        }}
+                      </td>
+                      <td class="">
+                        {{
+                          ata.Status == 3
+                            ? "0,00"
+                            : (ata.total_sent_wr | number: "1.2-2":"fr")
+                        }}
+                      </td>
+                      <td class="">
+                        {{
+                          ata.Status == 3
+                            ? "0,00"
+                            : (ata.approvedForInvoice | number: "1.2-2":"fr")
+                        }}
+                      </td>
+                      <td class="">
+                        {{
+                          ata.Status == 3
+                            ? "0,00"
+                            : (ata.invoicedTotal | number: "1.2-2":"fr")
+                        }}
+                      </td>
+                      <td *ngIf="prognosis[activePrognosis].project_debit == 4">
+                        {{ ata.ata_total | number: "1.2-2":"fr" }}
+                      </td>
+                      <td
+                        [ngClass]="setClass(ata, ata_index)"
+                        (click)="setBorder(ata_index)"
+                      >
+                        <input
+                          id="{{
+                            'sibling-' + property_index + '-' + ata_index
+                          }}"
+                          class="form-control form-control-sm width5em input-prognos"
+                          type="text"
+                          [value]="printValue(ata)"
+                          #ataPrognosisiVal
+                          (blur)="
+                            onFocusEvent(
+                              ata,
+                              ataPrognosisiVal.value,
+                              index,
+                              ata_index
+                            )
+                          "
+                          (change)="
+                            updateAtaPrognosis(
+                              ata,
+                              ataPrognosisiVal.value,
+                              index,
+                              ata_index,
+                              'on_change'
+                            )
+                          "
+                          (keyup.enter)="
+                            updateAtaPrognosis(
+                              ata,
+                              ataPrognosisiVal.value,
+                              index,
+                              ata_index,
+                              'on_enter'
+                            )
+                          "
+                          (click)="ataPrognosisiVal.select()"
+                          [disabled]="
+                            prognosis[activePrognosis].locked ||
+                            ata.Status != 2 ||
+                            ata.PaymentType != 1
+                          "
+                          number-format-prognosis-directive
+                        />
+                      </td>
+                      <td>
+                        {{ ata.labeling_requirements }}
+                      </td>
+                    </tr>
+                  </ng-container>
+                  <tr
+                    class="sticky-total"
+                    [ngStyle]="
+                      prognosis.height == 'auto'
+                        ? {
+                            'box-shadow': '-1px -2px 5px 0px rgb(0 0 0 / 55%)',
+                            visibility: 'visible'
+                          }
+                        : { 'box-shadow': 'none', visibility: 'hidden' }
+                    "
+                    *ngIf="
+                      prognosis[activePrognosis].properties[
+                        property_index
+                      ] as prognos;
+                      let index = index
+                    "
+                  >
+                    <td class="total total-first" colspan="4">
+                      <strong
+                        style="
+                          background-color: #1a1a1a;
+                          font-size: 16px;
+                          font-family: 'PT-Sans-Pro-Regular';
+                          padding-right: 9px;
+                          font-weight: 400;
+                        "
+                        >Summa</strong
+                      >
+                    </td>
+                    <td class="total total-second">
+                      <strong>
+                        {{
+                          prognos.ata_totals.totallyWorkedUp_without_status
+                            | number: "1.2-2":"fr"
+                        }}</strong
+                      >
+                    </td>
+                    <td class="total total-second">
+                      <strong>{{
+                        prognos.ata_totals.workedButNotApproved_without_status
+                          | number: "1.2-2":"fr"
+                      }}</strong>
+                    </td>
+                    <td class="total total-second">
+                      <strong>{{
+                        prognos.ata_totals.total_sent_wr_without_status
+                          | number: "1.2-2":"fr"
+                      }}</strong>
+                    </td>
+                    <td class="total total-second">
+                      <strong>{{
+                        prognos.ata_totals.approvedForInvoice_without_status
+                          | number: "1.2-2":"fr"
+                      }}</strong>
+                    </td>
+                    <td class="total total-second">
+                      <strong>{{
+                        prognos.ata_totals.invoicedTotal_without_status
+                          | number: "1.2-2":"fr"
+                      }}</strong>
+                    </td>
+                    <td
+                      class="total total-second proba-test"
+                      *ngIf="prognosis[activePrognosis].project_debit !== 4"
+                      [ngStyle]="{
+                        display:
+                          prognosis[activePrognosis].project_debit == 4
+                            ? ''
+                            : 'none'
+                      }"
+                    >
+                      <strong>{{
+                        prognos.ata_totals.richCostTotal_without_status
+                          | number: "1.2-2":"fr"
+                      }}</strong>
+                    </td>
+                    <td class="total total-second">
+                      {{ printTotal(prognos) | number: "1.2-2":"fr" }}
+                    </td>
+                    <td class="total total-second"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="progress-loader" *ngIf="spinner">
+          <mat-spinner></mat-spinner>
+        </div>
+      </div>
+    </div>
+    <div class="ata-prognosis-border"></div>
+    <div class="thin-prognosis-border-bottom"></div>
+  </div>
+</div>

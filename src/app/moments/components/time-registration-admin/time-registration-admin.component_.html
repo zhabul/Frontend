@@ -1,0 +1,155 @@
+<div class="calendar-grid-wrapper">
+  <app-calendar-header
+    [selectedTabs]="selectedTabs"
+    [absenceTypes]="absenceTypes"
+    (initiallyGenerateCalendar)="initiallyGenerateCalendar($event)"
+    (detectChanges)="refreshCalendar()"
+    (filterAbsences)="filterAllUserAbsences($event)"
+    (filterProjects)="filterAllUserProjects($event)"
+    (emitUserSearch)="searchUsers($event)"
+    [hideScreen]="hideScreen"
+  ></app-calendar-header>
+  <div class="card col-12X admin-calendar" [style.opacity]="opacity">
+    <div class="scroll-line-right"></div>
+    <div class="scroll-line-bottom"></div>
+    <div
+      class="hide-top-header"
+      [style.height.px]="calendarStyle.headerHeight"
+    ></div>
+    <div class="calendar-header" [ngStyle]="computedStyle.bodyWrapperStyle">
+      <div
+        class="user-container user-header sticky-container"
+        [ngStyle]="computedStyle.calendarHeaderStyle"
+      >
+        <div class="user-numbers">
+          {{ "Nr" | translate }}
+        </div>
+
+        <div class="user-name-data">
+          {{ "Benämning" | translate }}
+        </div>
+
+        <div class="user-info-data">
+          {{ "Total" }}
+        </div>
+      </div>
+      <div class="sticky-weeks" [ngStyle]="computedStyle.stickyWeeksStyle">
+        <div style="position: relative">
+          <app-sticky-weeks
+            [calendarStyle]="calendarStyle"
+            [calendar]="calendar"
+            [calendarBoundaries]="calendarBoundaries"
+          ></app-sticky-weeks>
+          <div class="fixed-placeholder-inner" [@fade]="hideScreen"></div>
+        </div>
+      </div>
+      <div class="fixed-placeholder-inner" [@fade]="hideScreen"></div>
+    </div>
+    <div
+      class="planner-moments-wrapper blu-scroll"
+      #momentsWrapper
+      [ngStyle]="computedStyle.mainWrapperStyle"
+    >
+      <div class="calendar-container" [ngStyle]="computedStyle.calendarGrid">
+        <div
+          class="rows-container"
+          [ngStyle]="computedStyle.rowsContainerDimension"
+        >
+          <div [ngStyle]="translateY" >
+            <div
+              [ngStyle]="computedStyle.calendarWrapperStyle"
+              *ngFor="let user of users; let index = index"
+            >
+              <ng-container *ngIf="userSpan[index]">
+                <div class="superior-positioning" [id]="index">
+                  <app-user-name
+                    [calendarStyle]="calendarStyle"
+                    [user]="user"
+                    [index]="index"
+                    [users]="users"
+                    [calendar]="calendar"
+                  >
+                  </app-user-name>
+                </div>
+                <div>
+                  <app-calendar-user-row
+                    [momentsWrapper]="momentsWrapper"
+                    [calendarStyle]="calendarStyle"
+                    [user]="user"
+                    [index]="index"
+                    [calendar]="calendar"
+                    [hideScreen]="hideScreen"
+                    [modalMaxHeight]="modalMaxHeight"
+                    (hideScreenFunc)="hideScreenFunc($event)"
+                    (updateUser)="updateUser($event)"
+                  ></app-calendar-user-row>
+                </div>
+              </ng-container>
+            </div>
+            <div
+              (click)="resetModals()"
+              class="fixed-placeholder-inner-user"
+              [@fade]="hideScreen"
+              [ngStyle]="computedStyle.placeholderIneerUser"
+            ></div>
+            <div
+              (click)="resetModals()"
+              class="fixed-placeholder-inner"
+              [@fade]="hideScreen"
+            ></div>
+          </div>
+          <div (click)="resetModals()" class="rows-filler"></div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="horizontal-scroll-div-container"
+      [ngStyle]="computedStyle.horizontalScrollStyle"
+    >
+      <div
+        class="horizontal-scroll-grid"
+        [ngStyle]="computedStyle.horizontalScrollGridStyle"
+      >
+        <div
+          class="horizontal-div-user"
+          [ngStyle]="computedStyle.userPlaceholder"
+        ></div>
+        <div class="horizontal-scroll-div blu-scroll" #rowsContainer>
+          <div [ngStyle]="computedStyle.displacmentDiv"></div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-right-symbol">
+      <svg
+        id="WOP360_logo"
+        data-name="WOP360 logo"
+        xmlns="http://www.w3.org/2000/svg"
+        width="12.359"
+        height="13.099"
+        viewBox="0 0 12.359 13.099"
+      >
+        <g id="Group_3903" data-name="Group 3903">
+          <g id="Group_68" data-name="Group 68">
+            <path
+              id="Path_66"
+              data-name="Path 66"
+              d="M1.8,2.168-.582.737V-2.124l2.391-1.43L4.193-2.122V.739ZM-1.054,7.309l-2.386-1.43V3.018l2.391-1.43L1.337,3.02V5.88Zm5.713,0L2.274,5.879V3.018l2.391-1.43L7.052,3.02,7.046,5.88Zm-9.032-.873,3.319,1.991L1.8,6.716,4.659,8.428,7.981,6.44l0-3.981L5.128.747V-2.681L1.809-4.671-1.516-2.683V.75L-4.373,2.459Z"
+              transform="translate(4.373 4.671)"
+              fill="#44484c"
+            />
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="bottom-line" [ngStyle]="computedStyle.bottomLineStyle"></div>
+  </div>
+  <div
+    (click)="resetModals()"
+    class="fixed-placeholder"
+    [@fade]="hideScreen"
+  ></div>
+</div>
+
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

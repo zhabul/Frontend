@@ -1,0 +1,2092 @@
+<div class="box-message" *ngIf="!editAta && fullName">
+  <h5>{{ "Editing by" | translate }}: {{ fullName }}</h5>
+</div>
+<form
+  id="createForm"
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="updateWeeklyReport()"
+  class="form-content"
+  #myform="ngForm"
+  onkeydown="if( event.key != 'Enter' || event.srcElement.localName == 'textarea') return;"
+  (onkeydup)="detectChanges()"
+  (click)="enableUpdate()"
+>
+  {{ detectChanges() }}
+  <div class="form-wrapper mb-3">
+    <div class="row">
+      <fieldset class="fieldset shadow-top-div" style="display: flex">
+        <div class="form-group projects-date col-md-6 my-3">
+          <label for="weeklyReportDueDate" class="required custom-label">
+            {{ "Weekly Report Due Date" | translate }}
+          </label>
+          <div
+            class="input-group date"
+            [ngStyle]="{ 'margin-left': pominalseMargin + 100 + 'px' }"
+            [ngClass]="show ? 'focused' : ''"
+          >
+            <div class="pominalse" *ngIf="weekly_report.Status == 1">
+              <div>
+                <div style="display: flex; gap: 5px" (click)="pominalseCheck()">
+                  <img
+                    src="/assets/img/modify-ata/check-orange.svg"
+                    *ngIf="pominalse"
+                  />
+                  <img
+                    src="/assets/img/modify-ata/uncheck.svg"
+                    *ngIf="!pominalse"
+                  />
+                  <div
+                    [ngStyle]="{ color: pominalse ? 'var(--orange-dark)' : '' }"
+                    style="text-transform: uppercase"
+                  >
+                    {{ "Reminder" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="input-group-prepend">
+              <span
+                class="input-group-text"
+                id="basic-addon1"
+                [ngStyle]="
+                  weekly_report?.status == 3 ||
+                  weekly_report?.status == 4 ||
+                  weekly_report?.status == 5
+                    ? { 'border-color': 'white', 'background-color': '#c7c6c4' }
+                    : {
+                        'border-color': 'var(--border-color)',
+                        'background-color': 'white'
+                      }
+                "
+              >
+                <i class="material-icons">calendar_today</i>
+              </span>
+            </div>
+            <input
+              (focus)="onFocus()"
+              (blur)="onBlur()"
+              (keydown)="$event.preventDefault()"
+              id="weeklyReportDueDate"
+              autocomplete="off"
+              type="text"
+              class="form-control project-date"
+              aria-describedby="basic-addon1"
+              placeholder="{{ 'Choose Due Date' | translate }}"
+              [value]="weekly_report?.WeeklyReportDueDate"
+              [disabled]="
+                weekly_report?.status == 3 ||
+                weekly_report?.status == 4 ||
+                weekly_report?.status == 5
+              "
+              [ngStyle]="
+                weekly_report?.status == 3 ||
+                weekly_report?.status == 4 ||
+                weekly_report?.status == 5
+                  ? { 'border-color': 'white', 'background-color': '#c7c6c4' }
+                  : {
+                      'border-color': 'var(--border-color)',
+                      'background-color': 'white'
+                    }
+              "
+            />
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="panel panel-default w-100 documents-wrapper">
+      <div class="form-wrapper mb-3">
+        <div class="panel panel-default w-100">
+          <fieldset class="fieldset shadow-top-div">
+            <span class="title-options__documents" (click)="toggleMenu('doc')">
+              <span>
+                {{ "Bilagor" | translate }}
+              </span>
+              <img
+                src="/assets/img/modify-ata/arrow-down.svg"
+                alt=""
+                class="imgPos"
+                *ngIf="this.toggle['doc']"
+              />
+              <img
+                src="/assets/img/modify-ata/arrow-up.svg"
+                alt=""
+                class="imgPos"
+                *ngIf="!this.toggle['doc']"
+              />
+            </span>
+            <fieldset class="no-border" *ngIf="this.toggle['doc']">
+              <div
+                *ngIf="weekly_report.Status == 0 && editAta && userDetails.create_project_Externalata"
+                class="fake-image-modal-container2"
+              >
+                <app-image-modal
+                  (updateAlbums)="updateAlbumsAtaKS($event)"
+                  [infoObject]="infoObjectKS"
+                  fileType="application/pdf, image/*"
+                  [key]="getAlbumKeysKS()[0]"
+                  [clearFiles]="$_clearFilesKS.asObservable()"
+                ></app-image-modal>
+              </div>
+              <div
+                class="fake-image-modal-container"
+                *ngFor="let albumKey of getAlbumKeysKS()"
+              >
+                <div class="form-group-upload form-group-upload2">
+                  <app-file-preview
+                    *ngFor="
+                      let file of getAlbumFilesKS(albumKey, 'images');
+                      let index = index
+                    "
+                    type="image"
+                    [file]="file"
+                    [index]="index"
+                    [active]="index"
+                    (removeFile)="
+                      toggleAttachmentKS(albumKey, $event, 'images')
+                    "
+                    (openSwiper)="
+                      openSwiperKS(
+                        index,
+                        getAlbumFilesKS(albumKey, 'images'),
+                        albumKey
+                      )
+                    "
+                    [canRemove]="
+                      weekly_report.Status == 0 || file.Category == '0'
+                    "
+                  >
+                  </app-file-preview>
+                  <!-- <app-file-preview
+                    *ngFor="let file of getAlbumFilesKS(albumKey, 'pdfs');let index = index"
+                    type="pdf"
+                    [file]="file"
+                    [index]="index"
+                    [active]="index"
+                    (openSwiper)="openSwiperKS(index,getAlbumFilesKS(albumKey, 'pdfs'),albumKey)"
+                    (removeFile)="toggleAttachmentKS(albumKey, $event, 'pdfs')"
+                    [canRemove]="weekly_report.Status == 0 || file.Category == '0'"
+                  >
+                  </app-file-preview> -->
+                  <app-pdfjs-preview
+                    *ngFor="let file of getAlbumFilesKS(albumKey, 'pdfs');let index = index"
+                    style="display: flex; cursor: pointer; width: 68px;"
+                    type="pdf"
+                    (click)="openSwiperKS(index,getAlbumFilesKS(albumKey, 'pdfs'),albumKey)"
+                    [pdfUrls]="[file['file_path']]"
+                    [deleted]=""
+                    [canRemove]="weekly_report.Status == 0 || file.Category == '0'"
+                    (removeFile)="toggleAttachmentKS(albumKey, $event, 'pdfs')"
+                    [index]="index"
+                    [active]="index"
+                    [width]="68"
+                    [height]="43"
+                    [borderRadius]="'0px 0px 0px 0px'"
+                    [folder]="true"
+                    [showcheckbox]="true"
+                    >
+                  </app-pdfjs-preview>
+                </div>
+                <ng-container
+                  *ngIf="
+                    getAlbumFilesKS(albumKey, 'images').length > 0 ||
+                    getAlbumFilesKS(albumKey, 'pdfs').length > 0
+                  "
+                >
+                    <div [innerHTML]="getAlbumDescriptionKS(albumKey)"></div>
+                </ng-container>
+              </div>
+              <div
+                class="image-delete-button-container"
+                style="text-align: right; margin-right: 10px"
+              >
+                <button
+                  type="button"
+                  class="btn btn-danger lh09"
+                  (click)="removeSelectedDocumentsKS($event)"
+                  *ngIf="
+                    weekly_report.removed_documents &&
+                    weekly_report.removed_documents.length > 0 &&
+                    editAta && userDetails.create_project_Ata
+                  "
+                >
+                  <span class="material-icons left-3px top1px posRel">
+                    delete
+                  </span>
+                  <span class="posRel top-5px">
+                    {{ "Delete" | translate }}
+                  </span>
+                </button>
+              </div>
+            </fieldset>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-wrapper mb-3">
+    <div
+      class="panel panel-default w-100"
+      style="position: relative; z-index: 3"
+    >
+      <fieldset class="fieldset shadow-top-div">
+        <span class="title-options first" (click)="toggleMenu('ui')">
+          <span class="cursor-pointer">
+            {{ "Working hours" | translate }}
+          </span>
+          <img
+            src="/assets/img/modify-ata/arrow-down.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="this.toggle['ui']"
+          />
+          <img
+            src="/assets/img/modify-ata/arrow-up.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="!this.toggle['ui']"
+          />
+        </span>
+        <fieldset
+          class="fieldset shadow-top-div no-border"
+          *ngIf="this.toggle['ui']"
+        >
+          <div class="">
+            <table class="table invoice-table table-bordered additional_work">
+              <thead>
+                <tr>
+                  <th scope="col" class="desc">
+                    {{ "Description" | translate }}
+                  </th>
+                  <th
+                    scope="col"
+                    clss="quantity text-right"
+                    style="text-align: right !important"
+                  >
+                    {{ "Quantity" | translate }}
+                  </th>
+                  <th scope="col" class="unit">{{ "Unit" | translate }}</th>
+                  <th scope="col" class="price text-right">
+                    {{ "Price per unit" | translate }}
+                  </th>
+                  <th scope="col" class="percent">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="17.275"
+                      height="10.458"
+                      viewBox="0 0 17.275 10.458"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_15721"
+                            data-name="Rectangle 15721"
+                            width="17.275"
+                            height="10.458"
+                            fill="#fff"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Group_4226"
+                        data-name="Group 4226"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_1791"
+                          data-name="Path 1791"
+                          d="M47.312,6.918a.379.379,0,0,1-.1-.262V4.788H45.5a.3.3,0,0,1-.235-.106.377.377,0,0,1-.1-.262V4.094a.376.376,0,0,1,.1-.262.3.3,0,0,1,.235-.106h1.715V1.858a.379.379,0,0,1,.1-.262.3.3,0,0,1,.235-.106h.368a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262V3.726h1.7a.3.3,0,0,1,.235.106.377.377,0,0,1,.1.262V4.42a.378.378,0,0,1-.1.262.3.3,0,0,1-.235.106h-1.7V6.656a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106h-.368a.3.3,0,0,1-.235-.106"
+                          transform="translate(-33.004 -1.089)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1792"
+                          data-name="Path 1792"
+                          d="M47.129,29.891a.377.377,0,0,1-.1-.262V29.3a.378.378,0,0,1,.1-.262.3.3,0,0,1,.235-.106h3.469a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262v.326a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106H47.364a.3.3,0,0,1-.235-.106"
+                          transform="translate(-34.365 -21.142)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1793"
+                          data-name="Path 1793"
+                          d="M4.112,4.752a2.2,2.2,0,0,1-1.723.731,2.323,2.323,0,0,1-.978-.2A2.246,2.246,0,0,1,.66,4.729a2.47,2.47,0,0,1-.489-.866A3.527,3.527,0,0,1,0,2.734,2.908,2.908,0,0,1,.652.739,2.185,2.185,0,0,1,2.374,0a2.342,2.342,0,0,1,.97.2A2.226,2.226,0,0,1,4.1.755a2.458,2.458,0,0,1,.489.874,3.607,3.607,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987m-2.568-.66a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653A2.69,2.69,0,0,0,3.22,1.391.959.959,0,0,0,2.374,1a.926.926,0,0,0-.838.405A2.366,2.366,0,0,0,1.272,2.67a2.649,2.649,0,0,0,.272,1.422m.683,6.08a.212.212,0,0,1,.008-.238L7.79.525A.706.706,0,0,1,8.046.27.682.682,0,0,1,8.4.175h.388a.232.232,0,0,1,.21.111.212.212,0,0,1-.008.239L3.43,9.934a.7.7,0,0,1-.256.254.679.679,0,0,1-.349.1H2.436a.232.232,0,0,1-.21-.111m8.341-.445a2.195,2.195,0,0,1-1.722.731,2.325,2.325,0,0,1-.978-.2A2.248,2.248,0,0,1,7.115,9.7a2.464,2.464,0,0,1-.489-.866,3.528,3.528,0,0,1-.171-1.129,2.908,2.908,0,0,1,.652-1.995A2.184,2.184,0,0,1,8.83,4.975a2.338,2.338,0,0,1,.97.2,2.225,2.225,0,0,1,.76.556,2.454,2.454,0,0,1,.489.874,3.608,3.608,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987M8,9.068a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653a2.691,2.691,0,0,0-.272-1.438.96.96,0,0,0-.846-.39.927.927,0,0,0-.838.405,2.368,2.368,0,0,0-.264,1.264A2.651,2.651,0,0,0,8,9.068"
+                          transform="translate(0 0)"
+                          fill="#fff"
+                        />
+                      </g>
+                    </svg>
+                  </th>
+                  <th scope="col" class="summa text-right">
+                    {{ "TSC_TOTAL" | translate }}
+                  </th>
+                  <th scope="col" class="konto">{{ "Account" | translate }}</th>
+                  <th class="revert text-center">
+                    <svg
+                      id="Group_4156"
+                      data-name="Group 4156"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10.742"
+                      height="15.696"
+                      viewBox="0 0 10.742 15.696"
+                    >
+                      <path
+                        id="Path_800"
+                        data-name="Path 800"
+                        d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                        transform="translate(-21.973 -15.119)"
+                        fill="#fcf4ec"
+                      />
+                      <path
+                        id="Path_801"
+                        data-name="Path 801"
+                        d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                        transform="translate(-21.973 -20.489)"
+                        fill="#fcf4ec"
+                      />
+                    </svg>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  formArrayName="articlesAdditionalWork"
+                  *ngFor="
+                    let article of articlesAdditionalWork?.controls;
+                    let i = index
+                  "
+                  [ngClass]="
+                    article.value.isEdited
+                      ? 'edited-or-removed-intern-article'
+                      : ''
+                  "
+                  [ngStyle]="{
+                    'background-color':
+                      this.weekly_report.Status == 0 ? 'white' : '#C7C6C4'
+                  }"
+                >
+                <td class="" formGroupName="{{ i }}">
+                    <input type="hidden" formControlName="id" />
+                    <input
+                      class="form-control form-control-sm article-name-border"
+                      type="text"
+                      #articleName1
+                      formControlName="Name"
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      (blur)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      [attr.data-selected_article]="'additional-work'"
+                      [class.is-invalid]="article.get('Name').invalid"
+                      [readonly]="
+                        article.get('is_manual_added').value == 0 ? true : ''
+                      "
+                      (keyup.enter)="setActiveArticle('articlesAdditionalWork')"
+                      (keyup.tab)="setActiveArticle('articlesAdditionalWork')"
+                    />
+                    <ng-container *ngIf="article.get('Quantity').value != 0">
+                      <span
+                        class="active-inactive"
+                        *ngIf="
+                          article.get('additionalWorkStatus').value == 'accepted'
+                        "
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                        >
+                          <g
+                            id="Group_4593"
+                            data-name="Group 4593"
+                            transform="translate(-925.494 -437.498)"
+                          >
+                            <g
+                              id="Path_1901"
+                              data-name="Path 1901"
+                              transform="translate(925.494 437.498)"
+                              fill="#2b8b46"
+                            >
+                              <path
+                                d="M 7.500000476837158 14 C 3.915890455245972 14 1.000000476837158 11.08411026000977 1.000000476837158 7.500000476837158 C 1.000000476837158 3.915890455245972 3.915890455245972 1.000000476837158 7.500000476837158 1.000000476837158 C 11.08411026000977 1.000000476837158 14 3.915890455245972 14 7.500000476837158 C 14 11.08411026000977 11.08411026000977 14 7.500000476837158 14 Z"
+                                stroke="none"
+                              />
+                              <path
+                                d="M 7.500000476837158 2.000000953674316 C 4.467290878295898 2.000000953674316 2.000000953674316 4.467290878295898 2.000000953674316 7.500000476837158 C 2.000000953674316 10.53271102905273 4.467290878295898 13 7.500000476837158 13 C 10.53271102905273 13 13 10.53271102905273 13 7.500000476837158 C 13 4.467290878295898 10.53271102905273 2.000000953674316 7.500000476837158 2.000000953674316 M 7.500000476837158 9.5367431640625e-07 C 11.64212989807129 9.5367431640625e-07 15 3.357860565185547 15 7.500000476837158 C 15 11.64212989807129 11.64212989807129 15 7.500000476837158 15 C 3.357860565185547 15 9.5367431640625e-07 11.64212989807129 9.5367431640625e-07 7.500000476837158 C 9.5367431640625e-07 3.357860565185547 3.357860565185547 9.5367431640625e-07 7.500000476837158 9.5367431640625e-07 Z"
+                                stroke="none"
+                                fill="#288846"
+                              />
+                            </g>
+                            <path
+                              id="Path_1902"
+                              data-name="Path 1902"
+                              d="M22.789,20.527l-.135-.136a.356.356,0,0,0-.538.022l-.248.249h0l-3.976,4-1.665-1.689h0l-.148-.149L16,22.746h0l-.04-.041a.352.352,0,0,0-.522.005l-.135.136a.361.361,0,0,0,.022.541l.248.25h0l2.33,2.334,4.638-4.663.256-.257A.356.356,0,0,0,22.789,20.527Z"
+                              transform="translate(914.337 422.072)"
+                              fill="#fff"
+                              stroke="#fff"
+                              stroke-width="1"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                      <span
+                        class="active-inactive"
+                        *ngIf="
+                          article.get('additionalWorkStatus').value == 'declined'
+                        "
+                      >
+                        <svg
+                          id="Group_4021"
+                          data-name="Group 4021"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                        >
+                          <g
+                            id="Anteckning_information_låst"
+                            data-name="Anteckning/information låst"
+                            transform="translate(0 0)"
+                          >
+                            <g
+                              id="Group_325"
+                              data-name="Group 325"
+                              transform="translate(0 0)"
+                            >
+                              <circle
+                                id="Ellipse_658"
+                                data-name="Ellipse 658"
+                                cx="7.5"
+                                cy="7.5"
+                                r="7.5"
+                                fill="#b63418"
+                              />
+                            </g>
+                            <g
+                              id="Group_346"
+                              data-name="Group 346"
+                              transform="translate(6.26 2.007)"
+                            >
+                              <path
+                                id="Path_784"
+                                data-name="Path 784"
+                                d="M33.1,12.3a1.1,1.1,0,0,0,.813-.322,1.082,1.082,0,0,0,.322-.8,1.1,1.1,0,0,0-.322-.813,1.083,1.083,0,0,0-.8-.322,1.07,1.07,0,0,0-.8.33,1.109,1.109,0,0,0-.322.805,1.083,1.083,0,0,0,.322.8A1.065,1.065,0,0,0,33.1,12.3Z"
+                                transform="translate(-32 -10.04)"
+                                fill="#fff"
+                              />
+
+                              <path
+                                id="Path_785"
+                                data-name="Path 785"
+                                d="M34.717,26.978a.459.459,0,0,0-.337-.138h-.823a.472.472,0,0,0-.476.476v6.812a.472.472,0,0,0,.476.476h.823a.471.471,0,0,0,.476-.476V27.316A.458.458,0,0,0,34.717,26.978Z"
+                                transform="translate(-32.861 -23.307)"
+                                fill="#fff"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+                      </span>
+                    </ng-container>
+                </td>
+                <td formGroupName="{{ i }}">
+                    <input
+                      style="text-align: right"
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="1"
+                      formControlName="Quantity"
+                      (change)="updateTotal(i, articlesAdditionalWork, true)"
+                      [class.is-invalid]="article.get('Quantity').invalid"
+                      [attr.disabled]="
+                        article.get('is_manual_added').value == false
+                          ? true
+                          : null
+                      "
+                      [attr.data-selected_article]="'additional-work'"
+                      number-format-directive-du
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                    />
+                </td>
+                <td formGroupName="{{ i }}">
+                    <!--Dropdown Unit-->
+                    <div
+                      class="input-wrapper3"
+                      [ngStyle]="{
+                        'background-color':
+                          weekly_report.Status == 0 ? 'white' : 'transparent',
+                        'pointer-events':
+                          weekly_report.Status == 0 ? 'auto' : 'none'
+                      }"
+                    >
+                      <select
+                        class="form-control form-control-sm width5em select-property"
+                        #articleUnit1
+                        formControlName="Unit"
+                      >
+                        <option
+                          *ngFor="let unit of units['AdditionalWork']"
+                          value="{{ unit }}"
+                        >
+                          {{ unit }}
+                        </option>
+                      </select>
+
+                    </div>
+                    <!--End Dropdown Unit-->
+
+                    <!--
+                            <select
+                              class="form-control form-control-sm width5em select-property setitem"
+                              #articleUnit1
+                              formControlName="Unit"
+                              [attr.disabled]="weekly_report.Status == 0 ? null : true"
+                              [ngClass]="{'disabled': weekly_report.Status != 0}"
+                              [attr.data-selected_article]="'additional-work'"
+                                (change)="
+                                addRow(
+                                    articlesAdditionalWork,
+                                    'articlesAdditionalWork'
+                                )
+                                "
+                            >
+                              <option
+                                *ngFor="let unit of units['AdditionalWork']"
+                                value="{{ unit }}"
+                              >
+                                {{ unit }}
+                              </option>
+                            </select>
+
+-->
+                </td>
+                <td formGroupName="{{ i }}">
+                    <input
+                      style="text-align: right"
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="0"
+                      [ngStyle]="setPriceError(i, articlesAdditionalWork)"
+                      formControlName="Price"
+                      [attr.disabled]="!article.get('is_manual_added').value ? true : null"
+                      (change)="updateTotal(i, articlesAdditionalWork, true)"
+                      [attr.data-selected_article]="'additional-work'"
+                      number-format-directive-du
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                    />
+                </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      *ngIf="article.get('Quantity').value > 0"
+                      style="text-align: right"
+                      class="form-control form-control-sm width5em articlesAdditionalWork-{{
+                        i
+                      }}"
+                      type="text"
+                      min="1"
+                      formControlName="Deduct"
+                      (change)="updateTotal(i, articlesAdditionalWork, true)"
+                      (click)="
+                        updateValue(
+                          article.value.Deduct,
+                          'articlesAdditionalWork',
+                          i
+                        )
+                      "
+                      (blur)="
+                        returnNullIFNotSetedSamoeValue(
+                          article.value.Deduct,
+                          'articlesAdditionalWork',
+                          i
+                        )
+                      "
+                      [class.is-invalid]="article.get('Deduct').invalid"
+                      [attr.data-selected_article]="'additional-work'"
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      number-format-directive-du
+                    />
+                    <span class="white-span" *ngIf="article.get('Quantity').value == 0"></span>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      class="form-control form-control-sm total-text-align"
+                      type="text"
+                      #articleTotal1
+                      [attr.disabled]="weekly_report.Status == 0 ? null : true"
+                      [value]="
+                        article.get('Total').value | number : '1.2-2' : 'fr'
+                      "
+                      [attr.data-selected_article]="'additional-work'"
+                      (click)="
+                        addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)
+                      "
+                      readonly
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <!--<select
+                                class="form-control form-control-sm width5em select-property"
+                                style="max-width: 125px"
+                                #articleAccount1
+                                formControlName="Account"
+                                [attr.disabled]="weekly_report.Status == 0 ? null : true"
+                                [ngClass]="{'disabled': weekly_report.Status != 0}"
+                                (change)="setAccount('additionalWork', articleAccount1.value, i)"
+                                [attr.data-selected_article]="'additional-work'"
+                                (click)="
+                                addRow(
+                                    articlesAdditionalWork,
+                                    'articlesAdditionalWork'
+                                )
+                                "
+                            >
+                                <option
+                                    *ngFor="let account of enabledAccounts"
+                                    [value]="account.Number"
+                                >
+                                    {{ account.Number }} {{ account.Description }}
+                                </option>
+                            </select>
+                            -->
+                    <!--Dropdown Account-->
+                    <div
+                      class="input-wrapper1"
+                      [ngStyle]="{
+                        'background-color':
+                          weekly_report.Status == 0 ? 'white' : 'transparent',
+                        'pointer-events':
+                          weekly_report.Status == 0 ? 'auto' : 'none'
+                      }"
+                    >
+                      <app-simple-select-in-table
+                        [ClientItem]="enabledAccounts"
+                        [fontSize]="14"
+                        formControlName="Account"
+                        [width]="120"
+                        [type1]="'Account'"
+                        [AccountActive]="true"
+                      >
+                      </app-simple-select-in-table>
+                    </div>
+                    <!--End Dropdown Account-->
+                  </td>
+
+                  <td class="text-center">
+                    <ng-container *ngIf="!article.get('is_manual_added').value">
+                      <span
+                        *ngIf="
+                          weekly_report.Status == 0 && (article.get('ArticlePaymentType').value == 1 || article.get('ArticlePaymentType').value == 2)"
+                        (click)="removeRow(i, articlesAdditionalWork, 1)"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="22.729"
+                          height="16.504"
+                          viewBox="0 0 22.729 16.504"
+                        >
+                          <path
+                            id="Dela_ikon"
+                            data-name="Dela ikon"
+                            d="M14.6,25.5l8.981-7.786v4.607c11.3.126,13.748,11.9,13.748,11.9C29.471,26.186,23.577,28.4,23.577,28.4v4.883Z"
+                            transform="translate(-14.596 -17.715)"
+                            fill="#373b40"
+                          />
+                        </svg>
+                        <span *ngIf="weekly_report.Status == 0"> </span>
+                      </span>
+
+                      <span *ngIf="
+                      weekly_report.Status == 0 &&
+                      article.get('ArticlePaymentType').value == 0"
+                    (click)="removeRow(i, articlesAdditionalWork, 1)">
+                        <img
+                        src="/assets/img/gray-trash.svg"
+                        alt=""
+                        class=""
+                      />
+                      </span>
+
+
+
+                      <span *ngIf="weekly_report.Status != 0">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="22.729"
+                          height="16.504"
+                          viewBox="0 0 22.729 16.504"
+                        >
+                          <path
+                            id="Dela_ikon"
+                            data-name="Dela ikon"
+                            d="M14.6,25.5l8.981-7.786v4.607c11.3.126,13.748,11.9,13.748,11.9C29.471,26.186,23.577,28.4,23.577,28.4v4.883Z"
+                            transform="translate(-14.596 -17.715)"
+                            fill="#858585"
+                          />
+                        </svg>
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="article.get('is_manual_added').value">
+                      <span *ngIf="weekly_report.Status == 0">
+                        <img
+                          (click)="removeRow(i, articlesAdditionalWork, 1)"
+                          src="/assets/img/gray-trash.svg"
+                          alt=""
+                          class=""
+                        />
+                      </span>
+                      <span *ngIf="weekly_report.Status != 0">
+                        <svg
+                          id="Group_4157"
+                          data-name="Group 4157"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="10.742"
+                          height="15.696"
+                          viewBox="0 0 10.742 15.696"
+                        >
+                          <path
+                            id="Path_800"
+                            data-name="Path 800"
+                            d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                            transform="translate(-21.973 -15.119)"
+                            fill="#858585"
+                          />
+                          <path
+                            id="Path_801"
+                            data-name="Path 801"
+                            d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                            transform="translate(-21.973 -20.489)"
+                            fill="#858585"
+                          />
+                        </svg>
+                      </span>
+                    </ng-container>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td scope="col" class="total-text-align">
+                    <strong>
+                      {{
+                        calcAllTotal([articlesAdditionalWork])
+                          | number : "1.2-2" : "fr"
+                      }}
+                    </strong>
+                  </td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!---->
+        </fieldset>
+      </fieldset>
+    </div>
+  </div>
+  <div class="form-wrapper mb-3">
+    <div
+      class="panel panel-default w-100"
+      style="position: relative; z-index: 2"
+    >
+      <fieldset class="fieldset shadow-top-div">
+        <span
+          class="title-options second"
+          (click)="toggleMenu('aditionalWork')"
+        >
+          <span class="cursor-pointer">
+            {{ "Material" | translate }}
+          </span>
+
+          <img
+            src="/assets/img/modify-ata/arrow-down.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="this.toggle['aditionalWork']"
+          />
+          <img
+            src="/assets/img/modify-ata/arrow-up.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="!this.toggle['aditionalWork']"
+          />
+        </span>
+        <div
+          class="button-container col-xs-12"
+          [ngStyle]="{
+            visibility: supplierInvoices.length > 0 ? 'visible' : 'hidden'
+          }"
+        >
+          <!-- *ngIf="supplierInvoices.length > 0" -->
+          <button
+            class="btn-invoice"
+            *ngIf="allowAddInvoiceOnWeeklyReportIfNotRevision() && userDetails.create_project_Ata"
+            (click)="toggleSupplierInvoiceModal()"
+            type="button"
+            [disabled]="supplierInvoices.length < 1"
+            [ngStyle]="{ opacity: supplierInvoices.length < 1 ? '0.5' : '' }"
+            style="text-transform: uppercase"
+          >
+            {{ "Bifoga Leverantörsfakturor" | translate }}
+            <div class="num-invoice">
+              <div style="margin-top: 1px; margin-right: 1px">
+                {{ filterSupplierInvoiceNumber().length }}
+              </div>
+            </div>
+          </button>
+        </div>
+        <fieldset
+          class="fieldset shadow-top-div no-border"
+          *ngIf="this.toggle['aditionalWork']"
+        >
+          <div class="">
+            <table class="table invoice-table table-bordered additional_work">
+              <thead>
+                <tr>
+                  <th scope="col" class="desc">
+                    {{ "Description" | translate }}
+                  </th>
+                  <th
+                    scope="col"
+                    clss="quantity text-right"
+                    style="text-align: right !important"
+                  >
+                    {{ "Quantity" | translate }}
+                  </th>
+                  <th scope="col" class="unit">{{ "Unit" | translate }}</th>
+                  <th scope="col" class="price text-right">
+                    {{ "Price per unit" | translate }}
+                  </th>
+                  <th scope="col" class="percent">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="17.275"
+                      height="10.458"
+                      viewBox="0 0 17.275 10.458"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_15721"
+                            data-name="Rectangle 15721"
+                            width="17.275"
+                            height="10.458"
+                            fill="#fff"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Group_4226"
+                        data-name="Group 4226"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_1791"
+                          data-name="Path 1791"
+                          d="M47.312,6.918a.379.379,0,0,1-.1-.262V4.788H45.5a.3.3,0,0,1-.235-.106.377.377,0,0,1-.1-.262V4.094a.376.376,0,0,1,.1-.262.3.3,0,0,1,.235-.106h1.715V1.858a.379.379,0,0,1,.1-.262.3.3,0,0,1,.235-.106h.368a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262V3.726h1.7a.3.3,0,0,1,.235.106.377.377,0,0,1,.1.262V4.42a.378.378,0,0,1-.1.262.3.3,0,0,1-.235.106h-1.7V6.656a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106h-.368a.3.3,0,0,1-.235-.106"
+                          transform="translate(-33.004 -1.089)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1792"
+                          data-name="Path 1792"
+                          d="M47.129,29.891a.377.377,0,0,1-.1-.262V29.3a.378.378,0,0,1,.1-.262.3.3,0,0,1,.235-.106h3.469a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262v.326a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106H47.364a.3.3,0,0,1-.235-.106"
+                          transform="translate(-34.365 -21.142)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1793"
+                          data-name="Path 1793"
+                          d="M4.112,4.752a2.2,2.2,0,0,1-1.723.731,2.323,2.323,0,0,1-.978-.2A2.246,2.246,0,0,1,.66,4.729a2.47,2.47,0,0,1-.489-.866A3.527,3.527,0,0,1,0,2.734,2.908,2.908,0,0,1,.652.739,2.185,2.185,0,0,1,2.374,0a2.342,2.342,0,0,1,.97.2A2.226,2.226,0,0,1,4.1.755a2.458,2.458,0,0,1,.489.874,3.607,3.607,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987m-2.568-.66a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653A2.69,2.69,0,0,0,3.22,1.391.959.959,0,0,0,2.374,1a.926.926,0,0,0-.838.405A2.366,2.366,0,0,0,1.272,2.67a2.649,2.649,0,0,0,.272,1.422m.683,6.08a.212.212,0,0,1,.008-.238L7.79.525A.706.706,0,0,1,8.046.27.682.682,0,0,1,8.4.175h.388a.232.232,0,0,1,.21.111.212.212,0,0,1-.008.239L3.43,9.934a.7.7,0,0,1-.256.254.679.679,0,0,1-.349.1H2.436a.232.232,0,0,1-.21-.111m8.341-.445a2.195,2.195,0,0,1-1.722.731,2.325,2.325,0,0,1-.978-.2A2.248,2.248,0,0,1,7.115,9.7a2.464,2.464,0,0,1-.489-.866,3.528,3.528,0,0,1-.171-1.129,2.908,2.908,0,0,1,.652-1.995A2.184,2.184,0,0,1,8.83,4.975a2.338,2.338,0,0,1,.97.2,2.225,2.225,0,0,1,.76.556,2.454,2.454,0,0,1,.489.874,3.608,3.608,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987M8,9.068a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653a2.691,2.691,0,0,0-.272-1.438.96.96,0,0,0-.846-.39.927.927,0,0,0-.838.405,2.368,2.368,0,0,0-.264,1.264A2.651,2.651,0,0,0,8,9.068"
+                          transform="translate(0 0)"
+                          fill="#fff"
+                        />
+                      </g>
+                    </svg>
+                  </th>
+                  <th scope="col" class="summa text-right">
+                    {{ "TSC_TOTAL" | translate }}
+                  </th>
+                  <th scope="col" class="konto">{{ "Account" | translate }}</th>
+                  <th class="revert text-center">
+                    <svg
+                      id="Group_4156"
+                      data-name="Group 4156"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10.742"
+                      height="15.696"
+                      viewBox="0 0 10.742 15.696"
+                    >
+                      <path
+                        id="Path_800"
+                        data-name="Path 800"
+                        d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                        transform="translate(-21.973 -15.119)"
+                        fill="#fcf4ec"
+                      />
+                      <path
+                        id="Path_801"
+                        data-name="Path 801"
+                        d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                        transform="translate(-21.973 -20.489)"
+                        fill="#fcf4ec"
+                      />
+                    </svg>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  formArrayName="articlesMaterial"
+                  *ngFor="
+                    let article of articlesMaterial.controls;
+                    let i = index
+                  "
+                  [ngClass]="
+                    article.value.isEdited
+                      ? 'edited-or-removed-intern-article'
+                      : ''
+                  "
+                  [ngStyle]="{
+                    'background-color':
+                      this.weekly_report.Status == 0 ? 'white' : '#C7C6C4'
+                  }"
+                >
+                  <td formGroupName="{{ i }}" class="">
+                    <span
+                      class="pdf-icon"
+                      *ngIf="
+                        article['value'].SupplierInvoiceId &&
+                        article['value'].SupplierInvoiceId != 'NULL' &&
+                        article['value'].SupplierInvoiceId != '0' &&
+                        (article['value'].pdf_doc || article['value'].pdf_images)
+                      "
+                    >
+                      <mat-icon
+                        (click)="
+                          openSwiperSupplierInvoice(null, article['value'])
+                        "
+                        >picture_as_pdf</mat-icon
+                      >
+                    </span>
+                    <input type="hidden" formControlName="id" />
+                    <input
+                      class="form-control form-control-sm article-name-border"
+                      list="properties"
+                      #articleName2
+                      formControlName="Name"
+                      [attr.disabled]="
+                        weekly_report.Status != 0 ||
+                        (article['value'].SupplierInvoiceId &&
+                          article['value'].SupplierInvoiceId != 'NULL' &&
+                          article['value'].SupplierInvoiceId != '0')
+                          ? true
+                          : null
+                      "
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      (change)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      (blur)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      [class.is-invalid]="article.get('Name').invalid"
+                      [ngClass]="
+                        article['value'].SupplierInvoiceId &&
+                        article['value'].SupplierInvoiceId != 'NULL' &&
+                        article['value'].SupplierInvoiceId != '0'
+                          ? 'input-invoice-table-pdf'
+                          : ''
+                      "
+                      [attr.data-selected_article]="'article-material'"
+                    />
+                    <ng-container *ngIf="article.get('Quantity').value != 0">
+                      <span
+                        class="active-inactive"
+                        *ngIf="
+                          article.get('additionalWorkStatus')?.value == 'accepted'
+                        "
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                        >
+                          <g
+                            id="Group_4593"
+                            data-name="Group 4593"
+                            transform="translate(-925.494 -437.498)"
+                          >
+                            <g
+                              id="Path_1901"
+                              data-name="Path 1901"
+                              transform="translate(925.494 437.498)"
+                              fill="#2b8b46"
+                            >
+                              <path
+                                d="M 7.500000476837158 14 C 3.915890455245972 14 1.000000476837158 11.08411026000977 1.000000476837158 7.500000476837158 C 1.000000476837158 3.915890455245972 3.915890455245972 1.000000476837158 7.500000476837158 1.000000476837158 C 11.08411026000977 1.000000476837158 14 3.915890455245972 14 7.500000476837158 C 14 11.08411026000977 11.08411026000977 14 7.500000476837158 14 Z"
+                                stroke="none"
+                              />
+                              <path
+                                d="M 7.500000476837158 2.000000953674316 C 4.467290878295898 2.000000953674316 2.000000953674316 4.467290878295898 2.000000953674316 7.500000476837158 C 2.000000953674316 10.53271102905273 4.467290878295898 13 7.500000476837158 13 C 10.53271102905273 13 13 10.53271102905273 13 7.500000476837158 C 13 4.467290878295898 10.53271102905273 2.000000953674316 7.500000476837158 2.000000953674316 M 7.500000476837158 9.5367431640625e-07 C 11.64212989807129 9.5367431640625e-07 15 3.357860565185547 15 7.500000476837158 C 15 11.64212989807129 11.64212989807129 15 7.500000476837158 15 C 3.357860565185547 15 9.5367431640625e-07 11.64212989807129 9.5367431640625e-07 7.500000476837158 C 9.5367431640625e-07 3.357860565185547 3.357860565185547 9.5367431640625e-07 7.500000476837158 9.5367431640625e-07 Z"
+                                stroke="none"
+                                fill="#288846"
+                              />
+                            </g>
+                            <path
+                              id="Path_1902"
+                              data-name="Path 1902"
+                              d="M22.789,20.527l-.135-.136a.356.356,0,0,0-.538.022l-.248.249h0l-3.976,4-1.665-1.689h0l-.148-.149L16,22.746h0l-.04-.041a.352.352,0,0,0-.522.005l-.135.136a.361.361,0,0,0,.022.541l.248.25h0l2.33,2.334,4.638-4.663.256-.257A.356.356,0,0,0,22.789,20.527Z"
+                              transform="translate(914.337 422.072)"
+                              fill="#fff"
+                              stroke="#fff"
+                              stroke-width="1"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                      <span
+                        class="active-inactive"
+                        *ngIf="
+                          article.get('additionalWorkStatus')?.value == 'declined'
+                        "
+                      >
+                        <svg
+                          id="Group_4021"
+                          data-name="Group 4021"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                        >
+                          <g
+                            id="Anteckning_information_låst"
+                            data-name="Anteckning/information låst"
+                            transform="translate(0 0)"
+                          >
+                            <g
+                              id="Group_325"
+                              data-name="Group 325"
+                              transform="translate(0 0)"
+                            >
+                              <circle
+                                id="Ellipse_658"
+                                data-name="Ellipse 658"
+                                cx="7.5"
+                                cy="7.5"
+                                r="7.5"
+                                fill="#b63418"
+                              />
+                            </g>
+                            <g
+                              id="Group_346"
+                              data-name="Group 346"
+                              transform="translate(6.26 2.007)"
+                            >
+                              <path
+                                id="Path_784"
+                                data-name="Path 784"
+                                d="M33.1,12.3a1.1,1.1,0,0,0,.813-.322,1.082,1.082,0,0,0,.322-.8,1.1,1.1,0,0,0-.322-.813,1.083,1.083,0,0,0-.8-.322,1.07,1.07,0,0,0-.8.33,1.109,1.109,0,0,0-.322.805,1.083,1.083,0,0,0,.322.8A1.065,1.065,0,0,0,33.1,12.3Z"
+                                transform="translate(-32 -10.04)"
+                                fill="#fff"
+                              />
+                              <path
+                                id="Path_785"
+                                data-name="Path 785"
+                                d="M34.717,26.978a.459.459,0,0,0-.337-.138h-.823a.472.472,0,0,0-.476.476v6.812a.472.472,0,0,0,.476.476h.823a.471.471,0,0,0,.476-.476V27.316A.458.458,0,0,0,34.717,26.978Z"
+                                transform="translate(-32.861 -23.307)"
+                                fill="#fff"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+                      </span>
+                    </ng-container>
+                    <datalist id="properties">
+                      <option
+                        *ngFor="let property of materialProperties"
+                        value="{{ property }}"
+                      >
+                        {{ property }}
+                      </option>
+                    </datalist>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      style="text-align: right"
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="1"
+                      #articleQuantity2
+                      formControlName="Quantity"
+                      (change)="updateTotal(i, articlesMaterial)"
+                      [class.is-invalid]="article.get('Quantity').invalid"
+                      number-format-directive-du
+                      [attr.disabled]="
+                        weekly_report.Status != 0 ||
+                        (article['value'].SupplierInvoiceId &&
+                          article['value'].SupplierInvoiceId != 'NULL' &&
+                          article['value'].SupplierInvoiceId != '0')
+                          ? true
+                          : null
+                      "
+                      [attr.data-selected_article]="'article-material'"
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <!--Dropdown Unit-->
+                    <div
+                      class="input-wrapper3"
+                      [ngStyle]="{
+                        'background-color':
+                          weekly_report.Status == 0 ? 'white' : 'transparent',
+                        'pointer-events':
+                          weekly_report.Status == 0 ? 'auto' : 'none'
+                      }"
+                    >
+                      <select
+                        class="form-control form-control-sm width5em select-property"
+                        #articleUnit1
+                        formControlName="Unit"
+                      >
+                        <option
+                          *ngFor="let unit of units['Material']"
+                          value="{{ unit }}"
+                        >
+                          {{ unit }}
+                        </option>
+                      </select>
+                    </div>
+                    <!--End Dropdown Unit-->
+                    <!--
+                            <select
+                              class="form-control form-control-sm width5em select-property setitem"
+                              #articleUnit2
+                              formControlName="Unit"
+                              [attr.disabled]="weekly_report.Status == 0 ? null : true"
+                              [ngClass]="{'disabled': weekly_report.Status != 0}"
+                              [attr.data-selected_article]="'article-material'"
+                              (change)="addRow(articlesMaterial, 'articlesMaterial')"
+                            >
+                              <option
+                                *ngFor="let unit of units['Material']"
+                                value="{{ unit }}"
+                              >
+                                {{ unit }}
+                              </option>
+                            </select>
+-->
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      style="text-align: right"
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="0"
+                      formControlName="Price"
+                      [ngStyle]="setPriceError(i, articlesMaterial)"
+                      (change)="updateTotal(i, articlesMaterial)"
+                      number-format-directive-du
+                      [attr.disabled]="
+                        weekly_report.Status != 0 ||
+                        (article['value'].SupplierInvoiceId &&
+                          article['value'].SupplierInvoiceId != 'NULL' &&
+                          article['value'].SupplierInvoiceId != '0')
+                          ? true
+                          : null
+                      "
+                      [attr.data-selected_article]="'article-material'"
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      *ngIf="article.get('Quantity').value > 0"
+                      style="text-align: right"
+                      class="form-control form-control-sm width5em articlesMaterial-{{
+                        i
+                      }}"
+                      type="text"
+                      min="1"
+                      #articleQuantity1
+                      formControlName="Deduct"
+                      (change)="updateTotal(i, articlesMaterial, true)"
+                      (click)="
+                        updateValue(article.value.Deduct, 'articlesMaterial', i)
+                      "
+                      (blur)="
+                        returnNullIFNotSetedSamoeValue(
+                          article.value.Deduct,
+                          'articlesMaterial',
+                          i
+                        )
+                      "
+                      [class.is-invalid]="article.get('Deduct').invalid"
+                      [attr.data-selected_article]="'article-material'"
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      number-format-directive-du
+                    />
+                    <span class="white-span" *ngIf="article.get('Quantity').value == 0"></span>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      style="text-align: right"
+                      class="form-control form-control-sm total-text-align"
+                      type="text"
+                      #articleTotal2
+                      [attr.disabled]="
+                        weekly_report.Status != 0 ||
+                        (article['value'].SupplierInvoiceId &&
+                          article['value'].SupplierInvoiceId != 'NULL' &&
+                          article['value'].SupplierInvoiceId != '0')
+                          ? true
+                          : null
+                      "
+                      [value]="
+                        article.get('Total').value | number : '1.2-2' : 'fr'
+                      "
+                      [attr.data-selected_article]="'article-material'"
+                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                      readonly
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <!--Dropdown Account-->
+                    <div
+                      class="input-wrapper1"
+                      [ngStyle]="{
+                        'background-color':
+                          weekly_report.Status == 0 ? 'white' : 'transparent',
+                        'pointer-events':
+                          weekly_report.Status == 0 ? 'auto' : 'none'
+                      }"
+                    >
+                      <app-simple-select-in-table
+                        [ClientItem]="enabledAccounts"
+                        [fontSize]="14"
+                        formControlName="Account"
+                        [width]="120"
+                        [type1]="'Account'"
+                        [AccountActive]="true"
+                      >
+                      </app-simple-select-in-table>
+                    </div>
+                    <!--End Dropdown Account-->
+                    <!--
+                            <select
+                                class="form-control form-control-sm width5em select-property"
+                                style="max-width: 125px"
+                                #articleAccount2
+                                formControlName="Account"
+                                [attr.disabled]="weekly_report.Status == 0 ? null : true"
+                                [ngClass]="{'disabled': weekly_report.Status != 0}"
+                                (change)="setAccount('material', articleAccount2.value, i)"
+                                [attr.data-selected_article]="'article-material'"
+                                (change)="addRow(articlesMaterial, 'articlesMaterial')"
+                            >
+                                <option
+                                    *ngFor="let account of enabledAccounts"
+                                    [value]="account.Number"
+                                >
+                                    {{ account.Number }} {{ account.Description }}
+                                </option>
+                            </select>
+-->
+                  </td>
+                  <td class="text-center">
+                    <span *ngIf="weekly_report.Status == 0">
+                      <img
+                        (click)="removeRow(i, articlesMaterial, 2)"
+                        src="/assets/img/gray-trash.svg"
+                        alt=""
+                        class=""
+                      />
+                    </span>
+                    <span *ngIf="weekly_report.Status != 0">
+                      <svg
+                        id="Group_4157"
+                        data-name="Group 4157"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10.742"
+                        height="15.696"
+                        viewBox="0 0 10.742 15.696"
+                      >
+                        <path
+                          id="Path_800"
+                          data-name="Path 800"
+                          d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                          transform="translate(-21.973 -15.119)"
+                          fill="#858585"
+                        />
+                        <path
+                          id="Path_801"
+                          data-name="Path 801"
+                          d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                          transform="translate(-21.973 -20.489)"
+                          fill="#858585"
+                        />
+                      </svg>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td scope="col" class="total-text-align">
+                    <strong>
+                      {{
+                        calcAllTotal([articlesMaterial])
+                          | number : "1.2-2" : "fr"
+                      }}
+                    </strong>
+                  </td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!---->
+        </fieldset>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-wrapper mb-3">
+    <div
+      class="panel panel-default w-100"
+      style="position: relative; z-index: 1"
+    >
+      <fieldset class="fieldset shadow-top-div">
+        <span class="title-options third" (click)="toggleMenu('material')">
+          <span class="cursor-pointer">
+            {{ "UE/Other" | translate }}
+          </span>
+
+          <img
+            src="/assets/img/modify-ata/arrow-down.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="this.toggle['material']"
+          />
+          <img
+            src="/assets/img/modify-ata/arrow-up.svg"
+            alt=""
+            class="imgPos"
+            *ngIf="!this.toggle['material']"
+          />
+        </span>
+        <fieldset
+          class="fieldset shadow-top-div no-border"
+          *ngIf="this.toggle['material']"
+        >
+          <div class="">
+            <table class="table invoice-table table-bordered additional_work">
+              <thead>
+                <tr>
+                  <th scope="col" class="desc">
+                    {{ "Description" | translate }}
+                  </th>
+                  <th
+                    scope="col"
+                    clss="quantity text-right"
+                    style="text-align: right !important"
+                  >
+                    {{ "Quantity" | translate }}
+                  </th>
+                  <th scope="col" class="unit">{{ "Unit" | translate }}</th>
+                  <th scope="col" class="price text-right">
+                    {{ "Price per unit" | translate }}
+                  </th>
+                  <th scope="col" class="percent">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="17.275"
+                      height="10.458"
+                      viewBox="0 0 17.275 10.458"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_15721"
+                            data-name="Rectangle 15721"
+                            width="17.275"
+                            height="10.458"
+                            fill="#fff"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Group_4226"
+                        data-name="Group 4226"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_1791"
+                          data-name="Path 1791"
+                          d="M47.312,6.918a.379.379,0,0,1-.1-.262V4.788H45.5a.3.3,0,0,1-.235-.106.377.377,0,0,1-.1-.262V4.094a.376.376,0,0,1,.1-.262.3.3,0,0,1,.235-.106h1.715V1.858a.379.379,0,0,1,.1-.262.3.3,0,0,1,.235-.106h.368a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262V3.726h1.7a.3.3,0,0,1,.235.106.377.377,0,0,1,.1.262V4.42a.378.378,0,0,1-.1.262.3.3,0,0,1-.235.106h-1.7V6.656a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106h-.368a.3.3,0,0,1-.235-.106"
+                          transform="translate(-33.004 -1.089)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1792"
+                          data-name="Path 1792"
+                          d="M47.129,29.891a.377.377,0,0,1-.1-.262V29.3a.378.378,0,0,1,.1-.262.3.3,0,0,1,.235-.106h3.469a.3.3,0,0,1,.235.106.378.378,0,0,1,.1.262v.326a.377.377,0,0,1-.1.262.3.3,0,0,1-.235.106H47.364a.3.3,0,0,1-.235-.106"
+                          transform="translate(-34.365 -21.142)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_1793"
+                          data-name="Path 1793"
+                          d="M4.112,4.752a2.2,2.2,0,0,1-1.723.731,2.323,2.323,0,0,1-.978-.2A2.246,2.246,0,0,1,.66,4.729a2.47,2.47,0,0,1-.489-.866A3.527,3.527,0,0,1,0,2.734,2.908,2.908,0,0,1,.652.739,2.185,2.185,0,0,1,2.374,0a2.342,2.342,0,0,1,.97.2A2.226,2.226,0,0,1,4.1.755a2.458,2.458,0,0,1,.489.874,3.607,3.607,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987m-2.568-.66a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653A2.69,2.69,0,0,0,3.22,1.391.959.959,0,0,0,2.374,1a.926.926,0,0,0-.838.405A2.366,2.366,0,0,0,1.272,2.67a2.649,2.649,0,0,0,.272,1.422m.683,6.08a.212.212,0,0,1,.008-.238L7.79.525A.706.706,0,0,1,8.046.27.682.682,0,0,1,8.4.175h.388a.232.232,0,0,1,.21.111.212.212,0,0,1-.008.239L3.43,9.934a.7.7,0,0,1-.256.254.679.679,0,0,1-.349.1H2.436a.232.232,0,0,1-.21-.111m8.341-.445a2.195,2.195,0,0,1-1.722.731,2.325,2.325,0,0,1-.978-.2A2.248,2.248,0,0,1,7.115,9.7a2.464,2.464,0,0,1-.489-.866,3.528,3.528,0,0,1-.171-1.129,2.908,2.908,0,0,1,.652-1.995A2.184,2.184,0,0,1,8.83,4.975a2.338,2.338,0,0,1,.97.2,2.225,2.225,0,0,1,.76.556,2.454,2.454,0,0,1,.489.874,3.608,3.608,0,0,1,.171,1.136,2.877,2.877,0,0,1-.652,1.987M8,9.068a.96.96,0,0,0,.846.389q1.1,0,1.1-1.653a2.691,2.691,0,0,0-.272-1.438.96.96,0,0,0-.846-.39.927.927,0,0,0-.838.405,2.368,2.368,0,0,0-.264,1.264A2.651,2.651,0,0,0,8,9.068"
+                          transform="translate(0 0)"
+                          fill="#fff"
+                        />
+                      </g>
+                    </svg>
+                  </th>
+                  <th scope="col" class="summa text-right">
+                    {{ "TSC_TOTAL" | translate }}
+                  </th>
+                  <th scope="col" class="konto">{{ "Account" | translate }}</th>
+                  <th class="revert text-center">
+                    <svg
+                      id="Group_4156"
+                      data-name="Group 4156"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10.742"
+                      height="15.696"
+                      viewBox="0 0 10.742 15.696"
+                    >
+                      <path
+                        id="Path_800"
+                        data-name="Path 800"
+                        d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                        transform="translate(-21.973 -15.119)"
+                        fill="#fcf4ec"
+                      />
+                      <path
+                        id="Path_801"
+                        data-name="Path 801"
+                        d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                        transform="translate(-21.973 -20.489)"
+                        fill="#fcf4ec"
+                      />
+                    </svg>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  formArrayName="articlesOther"
+                  *ngFor="let article of articlesOther.controls; let i = index"
+                  [ngClass]="
+                    article.value.isEdited
+                      ? 'edited-or-removed-intern-article'
+                      : ''
+                  "
+                  [ngStyle]="{
+                    'background-color':
+                      this.weekly_report.Status == 0 ? 'white' : '#C7C6C4'
+                  }"
+                >
+                  <td formGroupName="{{ i }}" class="">
+                    <input type="hidden" formControlName="id" />
+                    <input
+                      class="form-control form-control-sm article-name-border"
+                      type="text"
+                      #articleName3
+                      formControlName="Name"
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                      (blur)="addRow(articlesOther, 'articlesOther', i)"
+                      [class.is-invalid]="article.get('Name').invalid"
+                      [attr.data-selected_article]="'article-other'"
+                    />
+                    <ng-container *ngIf="article.get('Quantity').value != 0">
+                      <span
+                        class="active-inactive"
+                        *ngIf="
+                          article.get('additionalWorkStatus')?.value == 'accepted'
+                        "
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                        >
+                          <g
+                            id="Group_4593"
+                            data-name="Group 4593"
+                            transform="translate(-925.494 -437.498)"
+                          >
+                            <g
+                              id="Path_1901"
+                              data-name="Path 1901"
+                              transform="translate(925.494 437.498)"
+                              fill="#2b8b46"
+                            >
+                              <path
+                                d="M 7.500000476837158 14 C 3.915890455245972 14 1.000000476837158 11.08411026000977 1.000000476837158 7.500000476837158 C 1.000000476837158 3.915890455245972 3.915890455245972 1.000000476837158 7.500000476837158 1.000000476837158 C 11.08411026000977 1.000000476837158 14 3.915890455245972 14 7.500000476837158 C 14 11.08411026000977 11.08411026000977 14 7.500000476837158 14 Z"
+                                stroke="none"
+                              />
+                              <path
+                                d="M 7.500000476837158 2.000000953674316 C 4.467290878295898 2.000000953674316 2.000000953674316 4.467290878295898 2.000000953674316 7.500000476837158 C 2.000000953674316 10.53271102905273 4.467290878295898 13 7.500000476837158 13 C 10.53271102905273 13 13 10.53271102905273 13 7.500000476837158 C 13 4.467290878295898 10.53271102905273 2.000000953674316 7.500000476837158 2.000000953674316 M 7.500000476837158 9.5367431640625e-07 C 11.64212989807129 9.5367431640625e-07 15 3.357860565185547 15 7.500000476837158 C 15 11.64212989807129 11.64212989807129 15 7.500000476837158 15 C 3.357860565185547 15 9.5367431640625e-07 11.64212989807129 9.5367431640625e-07 7.500000476837158 C 9.5367431640625e-07 3.357860565185547 3.357860565185547 9.5367431640625e-07 7.500000476837158 9.5367431640625e-07 Z"
+                                stroke="none"
+                                fill="#288846"
+                              />
+                            </g>
+                            <path
+                              id="Path_1902"
+                              data-name="Path 1902"
+                              d="M22.789,20.527l-.135-.136a.356.356,0,0,0-.538.022l-.248.249h0l-3.976,4-1.665-1.689h0l-.148-.149L16,22.746h0l-.04-.041a.352.352,0,0,0-.522.005l-.135.136a.361.361,0,0,0,.022.541l.248.25h0l2.33,2.334,4.638-4.663.256-.257A.356.356,0,0,0,22.789,20.527Z"
+                              transform="translate(914.337 422.072)"
+                              fill="#fff"
+                              stroke="#fff"
+                              stroke-width="1"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                      <span
+                        class="active-inactive"
+                        *ngIf="
+                          article.get('additionalWorkStatus')?.value == 'declined'
+                        "
+                      >
+                        <svg
+                          id="Group_4021"
+                          data-name="Group 4021"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                        >
+                          <g
+                            id="Anteckning_information_låst"
+                            data-name="Anteckning/information låst"
+                            transform="translate(0 0)"
+                          >
+                            <g
+                              id="Group_325"
+                              data-name="Group 325"
+                              transform="translate(0 0)"
+                            >
+                              <circle
+                                id="Ellipse_658"
+                                data-name="Ellipse 658"
+                                cx="7.5"
+                                cy="7.5"
+                                r="7.5"
+                                fill="#b63418"
+                              />
+                            </g>
+                            <g
+                              id="Group_346"
+                              data-name="Group 346"
+                              transform="translate(6.26 2.007)"
+                            >
+                              <path
+                                id="Path_784"
+                                data-name="Path 784"
+                                d="M33.1,12.3a1.1,1.1,0,0,0,.813-.322,1.082,1.082,0,0,0,.322-.8,1.1,1.1,0,0,0-.322-.813,1.083,1.083,0,0,0-.8-.322,1.07,1.07,0,0,0-.8.33,1.109,1.109,0,0,0-.322.805,1.083,1.083,0,0,0,.322.8A1.065,1.065,0,0,0,33.1,12.3Z"
+                                transform="translate(-32 -10.04)"
+                                fill="#fff"
+                              />
+                              <path
+                                id="Path_785"
+                                data-name="Path 785"
+                                d="M34.717,26.978a.459.459,0,0,0-.337-.138h-.823a.472.472,0,0,0-.476.476v6.812a.472.472,0,0,0,.476.476h.823a.471.471,0,0,0,.476-.476V27.316A.458.458,0,0,0,34.717,26.978Z"
+                                transform="translate(-32.861 -23.307)"
+                                fill="#fff"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+                      </span>
+                    </ng-container>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      style="text-align: right"
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="1"
+                      #articleQuantity3
+                      formControlName="Quantity"
+                      (change)="updateTotal(i, articlesOther)"
+                      [class.is-invalid]="article.get('Quantity').invalid"
+                      number-format-directive-du
+                      [attr.data-selected_article]="'article-other'"
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <!--Dropdown Unit-->
+                    <div
+                      class="input-wrapper3"
+                      [ngStyle]="{
+                        'background-color':
+                          weekly_report.Status == 0 ? 'white' : 'transparent',
+                        'pointer-events':
+                          weekly_report.Status == 0 ? 'auto' : 'none'
+                      }"
+                    >
+                      <select
+                        class="form-control form-control-sm width5em select-property"
+                        #articleUnit1
+                        formControlName="Unit"
+                      >
+                        <option
+                          *ngFor="let unit of units['Other']"
+                          value="{{ unit }}"
+                        >
+                          {{ unit }}
+                        </option>
+                      </select>
+                    </div>
+                    <!--End Dropdown Unit-->
+
+                    <!--
+                            <select
+                                class="form-control form-control-sm width5em select-property setitem"
+                                #articleUnit3
+                                formControlName="Unit"
+                                [attr.disabled]="weekly_report.Status == 0 ? null : true"
+                                [ngClass]="{'disabled': weekly_report.Status != 0}"
+                                [attr.data-selected_article]="'article-other'"
+                                (change)="addRow(articlesOther, 'articlesOther')"
+                            >
+                                <option
+                                    *ngFor="let unit of units['Other']"
+                                    value="{{ unit }}"
+                                >
+                                    {{ unit }}
+                                </option>
+                            </select>
+-->
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      style="text-align: right"
+                      class="form-control form-control-sm width5em"
+                      type="text"
+                      min="0"
+                      formControlName="Price"
+                      [ngStyle]="setPriceError(i, articlesOther)"
+                      (change)="updateTotal(i, articlesOther)"
+                      number-format-directive-du
+                      [attr.data-selected_article]="'article-other'"
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      *ngIf="article.get('Quantity').value > 0"
+                      style="text-align: right"
+                      class="form-control form-control-sm width5em articlesOther-{{
+                        i
+                      }}"
+                      type="text"
+                      min="1"
+                      formControlName="Deduct"
+                      (change)="updateTotal(i, articlesOther, true)"
+                      (click)="
+                        updateValue(article.value.Deduct, 'articlesOther', i)
+                      "
+                      (blur)="
+                        returnNullIFNotSetedSamoeValue(
+                          article.value.Deduct,
+                          'articlesOther',
+                          i
+                        )
+                      "
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                      [class.is-invalid]="article.get('Deduct').invalid"
+                      [attr.data-selected_article]="'article-other'"
+                      number-format-directive-du
+                    />
+                    <span class="white-span" *ngIf="article.get('Quantity').value == 0"></span>
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <input
+                      style="text-align: right"
+                      class="form-control form-control-sm total-text-align"
+                      type="text"
+                      #articleTotal3
+                      [attr.disabled]="weekly_report.Status == 0 ? null : true"
+                      [value]="
+                        article.get('Total').value | number : '1.2-2' : 'fr'
+                      "
+                      readonly
+                      [attr.data-selected_article]="'article-other'"
+                      (click)="addRow(articlesOther, 'articlesOther', i)"
+                      number-format-directive-du
+                    />
+                  </td>
+                  <td formGroupName="{{ i }}">
+                    <!--Dropdown Account-->
+                    <div
+                      class="input-wrapper1"
+                      [ngStyle]="{
+                        'background-color':
+                          weekly_report.Status == 0 ? 'white' : 'transparent',
+                        'pointer-events':
+                          weekly_report.Status == 0 ? 'auto' : 'none'
+                      }"
+                    >
+                      <app-simple-select-in-table
+                        [ClientItem]="enabledAccounts"
+                        [fontSize]="14"
+                        formControlName="Account"
+                        [width]="120"
+                        [type1]="'Account'"
+                        [AccountActive]="true"
+                      >
+                      </app-simple-select-in-table>
+                    </div>
+                    <!--End Dropdown Account-->
+                    <!--
+                            <select
+                                class="form-control form-control-sm width5em select-property"
+                                style="max-width: 125px"
+                                #articleAccount3
+                                formControlName="Account"
+                                [attr.disabled]="weekly_report.Status == 0 ? null : true"
+                                [ngClass]="{'disabled': weekly_report.Status != 0}"
+                                (change)="setAccount('other', articleAccount3.value, i)"
+                                [attr.data-selected_article]="'article-other'"
+                                (change)="addRow(articlesOther, 'articlesOther')"
+                            >
+                                <option
+                                    *ngFor="let account of enabledAccounts"
+                                    [value]="account.Number"
+                                >
+                                    {{ account.Number }} {{ account.Description }}
+                                </option>
+                            </select>
+-->
+                  </td>
+                  <td class="text-center">
+                    <span *ngIf="weekly_report.Status == 0">
+                      <img
+                        (click)="removeRow(i, articlesOther, 3)"
+                        src="/assets/img/gray-trash.svg"
+                        alt=""
+                        class=""
+                      />
+                    </span>
+                    <span *ngIf="weekly_report.Status != 0">
+                      <svg
+                        id="Group_4157"
+                        data-name="Group 4157"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10.742"
+                        height="15.696"
+                        viewBox="0 0 10.742 15.696"
+                      >
+                        <path
+                          id="Path_800"
+                          data-name="Path 800"
+                          d="M32.707,16.306a.275.275,0,0,0-.279-.27h-2.9V15.39a.275.275,0,0,0-.279-.271h-3.8a.275.275,0,0,0-.279.271v.646H22.252a.275.275,0,0,0-.279.27v.8H32.707Z"
+                          transform="translate(-21.973 -15.119)"
+                          fill="#858585"
+                        />
+                        <path
+                          id="Path_801"
+                          data-name="Path 801"
+                          d="M21.973,23.209,23.286,35.9c.033.187.125.283.279.283h7.557c.154,0,.246-.1.279-.283l1.313-12.693Zm2.465,12.053-.909-9.55h1.212l.486,9.55Zm3.491,0H26.656l-.179-9.55h1.607Zm2.216,0h-.789l.486-9.55h1.212Z"
+                          transform="translate(-21.973 -20.489)"
+                          fill="#858585"
+                        />
+                      </svg>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                  <td scope="col" class="total-text-align">
+                    <strong>
+                      {{
+                        calcAllTotal([articlesOther]) | number : "1.2-2" : "fr"
+                      }}
+                    </strong>
+                  </td>
+                  <td colspan="" scope="col"></td>
+                  <td colspan="" scope="col"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!---->
+        </fieldset>
+      </fieldset>
+    </div>
+    <div class="form-wrapper mb-3">
+      <div class="panel panel-default w-100">
+        <div class="">
+          <table class="table table-sm invoice-table table-bordered">
+            <tbody>
+              <tr>
+                <td scope="col" class="total-text-align black">
+                  <strong>{{ "Total" | translate }}</strong>
+                </td>
+                <td colspan="3" class="total-text-align" scope="col">
+                  <strong>
+                    {{
+                      calcAllTotal([
+                        articlesAdditionalWork,
+                        articlesMaterial,
+                        articlesOther
+                      ]) | number : "1.2-2" : "fr"
+                    }}
+                  </strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="buttons-container">
+    <div class="form-group mt-2">
+    <button
+        type="submit"
+        class="save-button-weon"
+        *ngIf="weekly_report.Status == '0' && userDetails.create_project_Externalata"
+        [attr.disabled]="(!createForm.dirty || !createForm.valid) ? true : null"
+    >
+        <div class="button-icon">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="23.5"
+                height="18.548"
+                viewBox="0 0 23.5 18.548"
+            >
+                <g
+                    id="Skapad_mapp"
+                    data-name="Skapad mapp"
+                    transform="translate(0.75 0.75)"
+                >
+                    <path
+                        id="Path_754"
+                        data-name="Path 754"
+                        d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                        transform="translate(-14.993 -19.629)"
+                        fill="#373b40"
+                    />
+                    <ng-container *ngIf="!createForm.dirty || !createForm.valid">
+                        <path
+                            id="Path_755"
+                            data-name="Path 755"
+                            d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                            transform="translate(-14.993 -19.629)"
+                            fill="none"
+                            stroke="#cccccc"
+                            stroke-width="1.5"
+                            opacity="0.973"
+                        />
+                    </ng-container>
+                    <ng-container *ngIf="createForm.dirty && createForm.valid">
+                        <path
+                            id="Path_755"
+                            data-name="Path 755"
+                            d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                            transform="translate(-14.993 -19.629)"
+                            fill="none"
+                            stroke="#ff7000"
+                            stroke-width="1.5"
+                            opacity="0.973"
+                        />
+                    </ng-container>
+                </g>
+            </svg>
+        </div>
+        <div>
+            {{ "Save" | translate }}
+        </div>
+      </button>
+    </div>
+    <div class="form-group mt-2" *ngIf="editAta && userDetails.create_project_Ata">
+      <button
+        type="button"
+        class="delete-button-weon"
+        (click)="deleteWeeklyReport()"
+        *ngIf="allowRemoveEmptyWeeklyReport()"
+      >
+        <div class="button-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="11"
+            height="16.073"
+            viewBox="0 0 11 16.073"
+          >
+            <g
+              id="Group_4075"
+              data-name="Group 4075"
+              transform="translate(0 0)"
+            >
+              <path
+                id="Path_800"
+                data-name="Path 800"
+                d="M32.964,16.5a.3.3,0,0,0-.286-.313H29.712v-.749a.3.3,0,0,0-.286-.314h-3.89a.3.3,0,0,0-.286.314v.749H22.259a.3.3,0,0,0-.286.313v.922H32.964Z"
+                transform="translate(-21.973 -15.119)"
+                fill="#fd4444"
+              />
+              <path
+                id="Path_801"
+                data-name="Path 801"
+                d="M21.973,23.209l1.344,12.638c.034.187.128.282.286.282h7.739c.158,0,.252-.1.286-.282l1.344-12.638Zm2.524,12L23.566,25.7h1.241l.5,9.508Zm3.575,0h-1.3L26.585,25.7H28.23Zm2.27,0h-.808l.5-9.508h1.241Z"
+                transform="translate(-21.973 -20.056)"
+                fill="#fd4444"
+              />
+            </g>
+          </svg>
+        </div>
+        <div>
+          {{ "Delete" | translate }}
+        </div>
+      </button>
+    </div>
+  </div>
+</form>
+<div
+  class="answerToClient shadow-top-div"
+  style="background-color: #1a1a1a; padding-bottom: 30px"
+  *ngIf="weekly_report?.clientResponses.length > 0"
+>
+  <div
+    class="answer-title"
+    style="
+      background-color: #1a1a1a;
+      margin-left: 82px;
+      text-transform: uppercase;
+    "
+  >
+    {{ "TSC_EDIT_MESS" | translate }}
+  </div>
+  <div
+    style="margin-top: -11px"
+    class="form-column-wrapper-position client-answers rounded"
+    *ngFor="let answer of weekly_report?.clientResponses"
+  >
+    <div class="form-column panel panel-default">
+      <div class="answerFromClient">
+        <div class="" style="margin-top: 30px; position: relative">
+          <div class="form-group">
+            <div style="position: relative; display: flex; width: 489px">
+              <input
+                type="text"
+                class="form-control answer-mail"
+                id="sender"
+                [value]="answer.answerEmail"
+                readonly
+              />
+              <div
+                class="answer-status"
+                [ngStyle]="{
+                  background: setEmailLogData(answer.Status)?.background
+                }"
+              >
+                {{ setEmailLogData(answer.Status)?.name | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="" style="flex-flow: column">
+          <ng-container *ngIf="answer.client_message">
+            <label for="sender">{{ "Comment" | translate }}</label>
+            <textarea class="form-control answer" rows="3" readonly>{{
+              answer.client_message
+            }}</textarea>
+          </ng-container>
+        </div>
+      </div>
+      <div style="margin-left: 36px; margin-top: 10px">
+        <app-file-preview
+          *ngFor="let file of answer.files; let index = index"
+          type="pdf"
+          [file]="generateAttachmentImageArray(file)"
+          [index]="'0'"
+          [active]="'0'"
+          [canRemove]="false"
+          (removeFile)="(false)"
+          (openSwiper)="openAttachmentSwiper2(file, answer.files, index)"
+        ></app-file-preview>
+        <app-file-preview
+          *ngIf="answer.attachment"
+          type="image"
+          [file]="generateAttachmentImageArray(answer)"
+          [index]="'0'"
+          [active]="'0'"
+          (openSwiper)="openAttachmentSwiper(answer)"
+          [canRemove]="false"
+          (removeFile)="(false)"
+        >
+        </app-file-preview>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </fieldset> -->
+<img src="/assets/img/modify-ata/check-orange.svg" style="display: none" />
+<img src="/assets/img/modify-ata/uncheck.svg" style="display: none" />
+<ng-template #otherComponent>
+  <app-gallery
+  *ngIf="swiperKS.images.length"
+  [swiper]="swiperKS"
+  [canRemove]="false"
+  (removeImageEvent)="removeSwiperImageKS($event)"
+  (closeSwiperEvent)="closeSwiperKS($event)"
+  [server]="true"
+>
+</app-gallery>
+<app-gallery
+  *ngIf="swiperSupplierInvoice.images.length"
+  [swiper]="swiperSupplierInvoice"
+  [canRemove]="false"
+  (closeSwiperEvent)="closeSwiperSupplierInvoice($event)"
+  [server]="true"
+>
+</app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiperKS.images.length"
+    [swiper]="swiperKS"
+    [canRemove]="false"
+    [server]="true"
+    (removeImageEvent)="removeSwiperImageKS($event)"
+    (closeSwiperEvent)="closeSwiperKS()"
+  ></app-pdfjs-viewer>
+  <app-pdfjs-viewer
+  *ngIf="swiperSupplierInvoice.images.length"
+  [swiper]="swiperSupplierInvoice"
+  [canRemove]="false"
+  [server]="true"
+  (removeImageEvent)="closeSwiperSupplierInvoice($event)"
+  (closeSwiperEvent)="closeSwiperSupplierInvoice()"
+></app-pdfjs-viewer>
+</ng-container>

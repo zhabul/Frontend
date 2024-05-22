@@ -1,0 +1,65 @@
+<div class="dropdown-wrapper">
+    <div
+      class="btn-wrapper"
+      (click)="onDropdownOpen()"
+      [ngClass]="{'btn-wrapper-orange-border': isOpen}"
+    >
+        <div>
+            {{ title | translate }}
+        </div>
+        <div>
+            <svg *ngIf="!isOpen" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="9.273" height="6" viewBox="0 0 9.273 6">
+                <defs>
+                  <clipPath id="clip-path">
+                    <path id="Path_758" data-name="Path 758" d="M0-1.726H9.273v-6H0Z" transform="translate(0 7.726)" fill="none"/>
+                  </clipPath>
+                </defs>
+                <g id="Group_7142" data-name="Group 7142" transform="translate(0)">
+                  <g id="Group_308" data-name="Group 308" transform="translate(0 0)">
+                    <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+                      <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+                        <path id="Path_757" data-name="Path 757" d="M-.03-.258l4.1,4.916a.491.491,0,0,0,.419.186h.047a.491.491,0,0,0,.419-.186L9.032-.258a.568.568,0,0,0,.1-.373.393.393,0,0,0-.2-.326L8.8-1.05a.663.663,0,0,0-.4-.1.456.456,0,0,0-.349.2L4.513,3.236.971-.957a.456.456,0,0,0-.349-.2.663.663,0,0,0-.4.1L.063-.957a.393.393,0,0,0-.2.326.568.568,0,0,0,.1.373" transform="translate(0.136 1.156)" fill="#858585"/>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            <svg *ngIf="isOpen" style="rotate: 180deg;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="9.273" height="6" viewBox="0 0 9.273 6">
+                <defs>
+                  <clipPath id="clip-path">
+                    <path id="Path_758" data-name="Path 758" d="M0-1.726H9.273v-6H0Z" transform="translate(0 7.726)" fill="none"/>
+                  </clipPath>
+                </defs>
+                <g id="Group_7142" data-name="Group 7142" transform="translate(0)">
+                  <g id="Group_308" data-name="Group 308" transform="translate(0 0)">
+                    <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+                      <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+                        <path id="Path_757" data-name="Path 757" d="M-.03-.258l4.1,4.916a.491.491,0,0,0,.419.186h.047a.491.491,0,0,0,.419-.186L9.032-.258a.568.568,0,0,0,.1-.373.393.393,0,0,0-.2-.326L8.8-1.05a.663.663,0,0,0-.4-.1.456.456,0,0,0-.349.2L4.513,3.236.971-.957a.456.456,0,0,0-.349-.2.663.663,0,0,0-.4.1L.063-.957a.393.393,0,0,0-.2.326.568.568,0,0,0,.1.373" transform="translate(0.136 1.156)" fill="#858585"/>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+        </div>
+    </div>
+
+    <div class="dropdown-list orange-scroll" *ngIf="isOpen">
+
+        <div class="dropdown-list-item" *ngFor="let wr of items; let i = index">
+            <div>
+                <span *ngIf="wr.weeklyReportName == 'Regulation'">{{'Regulation' | translate}}</span>
+                <span *ngIf="wr.weeklyReportName != 'Regulation'">{{"V." + wr.weeklyReportName.split("-V")[1]}}</span>
+            </div>
+            <div class="price-and-checkbox">
+                <div>{{(wr.total ? wr.total : 0) | number: "1.2-2":"fr"}} {{generals['Currency']['short']}}</div>
+                <div *ngIf="isEdit">
+                    <input type="checkbox" [checked]="wr.includeInInvoice" class="checkbox-round" (click)="onSelectedWR(wr, i)">
+                </div>
+                <div *ngIf="!isEdit">
+                    <input type="checkbox" [checked]="wr.checked" class="checkbox-round" (click)="onSelectedWR(wr, i)">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

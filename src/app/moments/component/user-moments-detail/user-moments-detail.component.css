@@ -1,0 +1,140 @@
+.modal-top-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.modal-top-wrapper .btn-outline-dark {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-group {
+  width: 100%;
+}
+
+.form-row-color-btn {
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-add {
+  margin-top: 10px;
+}
+
+.list-group-item-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-group-item-content i {
+  color: red;
+  cursor: pointer;
+}
+
+.moment-coworker {
+  position: absolute;
+  border-radius: 5px;
+  z-index: 500;
+  border: 1px solid #000000;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-info-wrapper {
+  position: absolute;
+  top: -76px;
+  left: 80px;
+  width: 200px;
+  height: 75px;
+  background-color: red;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.modal-info-wrapper-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom: 1px solid #af9696;
+}
+
+.modal-info-wrapper-header span i {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.modal-info-wrapper-header span i:hover {
+  color: #30af54;
+}
+
+.modal-info-wrapper-footer {
+  font-size: 14px;
+}
+
+.select-position {
+  display: flex;
+  align-items: center;
+}
+
+.modal-link {
+  cursor: pointer;
+}
+
+.modal-link:hover {
+  background: #fcf9f9;
+}
+
+.wrapper-container {
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.user-navigate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper-container {
+  min-height: 310px;
+}
+.lock-days {
+  min-height: 310px;
+}
+
+::ng-deep .cdk-overlay-container {
+  z-index: 1200 !important;
+}
+
+.btn-position {
+  display: flex;
+  justify-content: center;
+}
+
+.btn1 {
+  margin-left: 35px;
+}
+.btn2 {
+  margin-top: 35px;
+}
+
+.row-content {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-margin {
+  margin-right: 20px !important;
+}

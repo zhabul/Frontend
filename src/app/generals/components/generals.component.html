@@ -1,0 +1,234 @@
+<div class="d-block d-sm-block d-md-none"></div>
+
+<div class="d-none d-md-block">
+  <div class="row row1X">
+    <div
+      class="col-md-6 br3 p-2 mb-4 col-lg-8W bgDarkBlueX bgGrayBlue hideUnder800"
+    >
+      <nav class="nav nav-pills nav-justified">
+        <a
+          routerLink="/home"
+          class="btn btn-dark mr-2 lh09"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="badgeX badge-darkX material-icons top1px posRel"
+            >arrow_back</span
+          >
+        </a>
+        <button
+          class="btn btn-dark mr-2"
+          (click)="toggleTab('company-details')"
+        >
+          {{ "Company Details" | translate }}
+        </button>
+        <button
+          class="btn btn-dark mr-2"
+          (click)="toggleTab('accounting-plan')"
+        >
+          {{ "Accounting Plan" | translate }}
+        </button>
+        <button class="btn btn-dark mr-2" (click)="toggleTab('activity-plan')">
+          {{ "Activity plan" | translate }}
+        </button>
+        <button
+          class="btn btn-dark mr-2"
+          (click)="toggleTab('default-moments')"
+        >
+          {{ "Default moments" | translate }}
+        </button>
+        <button class="btn btn-dark mr-2" (click)="toggleTab('notifications')">
+          {{ "Notifications" | translate }}
+        </button>
+        <button class="btn btn-dark mr-2" (click)="toggleTab('support')">
+          {{ "Support" | translate }}
+        </button>
+        <button class="btn btn-dark mr-2" (click)="toggleTab('units')">
+          {{ "Units" | translate }}
+        </button>
+        <button
+          class="btn btn-dark mr-2 mt-2"
+          (click)="toggleTab('role-colors')"
+        >
+          {{ "Roles" | translate }}
+        </button>
+        <button
+          class="btn btn-dark mr-2 mt-2"
+          (click)="toggleTab('public-holidays')"
+        >
+          {{ "TSC_Public_Holidays" | translate }}
+        </button>
+        <button
+          class="btn btn-dark mr-2 mt-2"
+          (click)="toggleTab('absence-types')"
+        >
+          {{ "Absence types" | translate }}
+        </button>
+        <button class="btn btn-dark mr-2 mt-2" (click)="toggleTab('work-week')">
+          {{ "Work week" | translate }}
+        </button>
+
+        <button class="btn btn-dark mr-2 mt-2" (click)="toggleTab('education')">
+          {{ "Education" | translate }}
+        </button>
+        <button class="btn btn-dark mr-2 mt-2" (click)="toggleTab('economy')">
+          {{ "Koppling till ekonomi tab" | translate }}
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row row1X" *ngIf="selectedTab === 'company-details'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <h1 class="h4 pb-3">
+        {{ "Our Company Details" | translate }}
+      </h1>
+      <table
+        class="business-table table table-res800 table-darkX table-striped"
+      >
+        <tbody>
+          <tr *ngFor="let general of generals; let i = index">
+              <th class="">{{ general.key | underscoreToSpace | translate }}</th>
+              <td>{{ general.value | translate }}</td>
+              <td class="edit-td">
+                <a
+                  [ngClass]="{ disabled: !userDetails.create_settings_Global }"
+                  [hidden]="general.key == 'Company_Version'"
+                  routerLink="edit/{{ general.id }}"
+                  ><i class="material-icons text-success">edit</i></a
+                >
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row row1X" *ngIf="selectedTab === 'accounting-plan'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h1 class="h4 mb-0">{{ "Accounting Plan" | translate }}</h1>
+        </div>
+        <div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="{{ 'Search' | translate }}"
+            #searchInput
+            (input)="onSearch(searchInput.value)"
+          />
+        </div>
+      </div>
+
+      <table class="table table-res800 table-darkX table-striped table-sm">
+        <thead>
+          <tr>
+            <th>{{ "Enabled" | translate }}</th>
+            <th>{{ "Fixed Cost" | translate }}</th>
+            <th>{{ "Number" | translate }}</th>
+            <th>{{ "Description" | translate }}</th>
+            <th>{{ "Status" | translate }}</th>
+            <th>{{ "SRU" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let account of accounts; let i = index">
+            <td class="text-center">
+              <input
+                type="checkbox"
+                [checked]="account.Enabled == '1'"
+                (change)="toggleAccountEnabled(i)"
+              />
+            </td>
+            <td class="text-center">
+              <input
+                type="checkbox"
+                [checked]="account.FixedCost == '1'"
+                (change)="toggleAccountFixedCost(i)"
+                *ngIf="account.Enabled == '1'"
+              />
+            </td>
+            <td>{{ account.Number }}</td>
+            <td>{{ account.Description }}</td>
+            <td class="text-center">
+              <span
+                class="badge"
+                [ngClass]="{
+                  'badge-primary': account.Active == '1',
+                  'badge-secondary': account.Active != '1'
+                }"
+              >
+                <span>{{
+                  (account.Active == "1" ? "Active" : "Inactive") | translate
+                }}</span>
+              </span>
+            </td>
+            <td>{{ account.SRU }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'default-moments'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <app-default-moments [moments]="moments" [generals]="generals"></app-default-moments>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'activity-plan'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <app-activity-plan></app-activity-plan>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'notifications'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <h1 class="h4 pb-3">
+        {{ "Notifications" | translate }}
+      </h1>
+      <app-notification-tasks></app-notification-tasks>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'support'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <h1 class="h4 pb-3">
+        {{ "Support" | translate }}
+      </h1>
+      <app-support-tasks></app-support-tasks>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'units'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <app-units></app-units>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'role-colors'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <app-role-colors></app-role-colors>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'public-holidays'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <app-public-holidays></app-public-holidays>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'absence-types'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <app-absence-types></app-absence-types>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'work-week'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <app-work-week></app-work-week>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'education'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <add-education></add-education>
+    </div>
+  </div>
+  <div class="row row1X" *ngIf="selectedTab === 'economy'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <app-fortnox-properties></app-fortnox-properties>
+    </div>
+  </div>
+</div>

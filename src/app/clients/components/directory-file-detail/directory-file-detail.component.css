@@ -1,0 +1,329 @@
+.card {
+  width: 100%;
+  padding: 10px;
+}
+
+.nav-wrapper {
+  background-color: #003469;
+}
+
+.btn-custom:hover {
+  color: #fff !important;
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.btn-custom {
+  background-color: #003469 !important;
+  color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.content-wrapper {
+  height: 100vh;
+}
+
+.pdf-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.hide {
+  display: none;
+}
+
+div[ng-reflect-ng-class]:not(:empty) {
+  height: 100%;
+}
+
+.children-content {
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+}
+
+.children-content-row:hover {
+  background-color: #cccccc;
+}
+
+.form-heading {
+  background-color: #003469;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project {
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.remove-icon {
+  font-size: 30px;
+  color: #de6a6a !important;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.document-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.document-preview img {
+  width: 100%;
+  height: auto;
+}
+
+.create-attachment {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create-attachment * + * {
+  margin-left: 0.5em;
+}
+
+#looksLikeModal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: hsla(0, 0%, 0%, 0.4);
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-directory {
+  margin-top: 33px;
+}
+
+.icon-size {
+  font-size: 70px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.3;
+}
+
+.row-attacment-content-wrapper {
+  padding: 20px;
+}
+
+.attachment-header {
+  padding: 20px;
+  text-align: right;
+}
+
+.collapse-attachment-wrapper {
+  border-top: 1px solid #6c757d;
+}
+
+.collapse-attachment-wrapper form {
+  background-color: #f9f9f9;
+}
+
+.card-wrapper {
+  cursor: pointer;
+}
+
+.card-wrapper .card:hover {
+  background-color: #406488 !important;
+  color: #ffffff;
+}
+
+.hide {
+  display: none !important;
+}
+
+.modal-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  color: black;
+}
+
+.btn-outline-primary {
+  background-color: #fff;
+  border-color: #003469;
+  color: #003469;
+}
+
+.btn-outline-primary:hover {
+  background-color: #003469;
+  border-color: #003469;
+  color: #fff;
+}
+
+.btn-brown {
+  color: #fff;
+  background-color: #6d4c41;
+  border-color: #6d4c41;
+}
+
+@media only screen and (max-width: 800px) {
+  .mrW-auto {
+    margin-right: auto;
+  }
+}
+
+.pdfViewer.removePageBorders {
+  overflow-x: scroll !important;
+  overflow-y: scroll !important;
+  opacity: 1;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+  width: 12px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  border: 2px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+/* ::ng-deep #outerContainer {
+    background: white;
+}
+
+::ng-deep #toolbarViewerLeft {
+    display: none;
+}
+
+::ng-deep #toolbarContainer {
+    background-color: #223;
+    border-radius: 10px;
+}
+
+::ng-deep .canvasWrapper {
+    border-radius: 5px;
+    box-shadow: 0 0 7px 4px hsla(0, 0%, 50%, .35) !important
+}
+
+::ng-deep .pdfViewer .page {
+    -o-border-image: none!important;
+    -webkit-border-image: none!important;
+    border-image: none!important;
+}
+
+::ng-deep #toolbarContainer,
+::ng-deep .findbar,
+::ng-deep .secondaryToolbar {
+    position: fixed!important;
+    bottom: 70px;
+    right: -50px;
+    z-index: 11;
+    width: 100px!important;
+    zoom: 1.25;
+    transform: rotate(-90deg)!important;
+}
+
+::ng-deep #zoomOut::before {
+    content: "-";
+    transform: rotate(-90deg);
+    margin-top: 7px;
+    margin-left: 30px;
+    zoom: .5
+}
+
+::ng-deep #zoomIn::before {
+    margin-left: 7px;
+}
+
+::ng-deep .splitToolbarButton>.toolbarButton:first-child,
+::ng-deep .splitToolbarButton>.toolbarButton:last-child {
+    margin: 0;
+}
+
+::ng-deep .splitToolbarButton>.toolbarButton:first-child,
+::ng-deep .splitToolbarButton>.toolbarButton:last-child {
+    width: 44px!important;
+}
+
+iframe {
+    max-width: 100%; 
+    width: 100vw; 
+} */
+
+div.page {
+  max-width: 100vw;
+  background-color: white;
+}
+
+.pinch-zoom-parent {
+  height: 100vh;
+  width: 100vw;
+}
+
+.pinch-zoom-img {
+  background-color: white;
+  height: 90vh;
+}
+
+@media (min-width: 801px) {
+  .col-lg-8W {
+    max-width: 990px !important;
+    min-width: 990px !important;
+  }
+}
+.rotate-icon-left:hover,
+.rotate-icon:hover {
+  color: red;
+}
+
+#image-gallery {
+  width: 100%;
+  position: relative;
+  height: 85vh;
+  background: transparent;
+}
+
+#image-gallery .image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+}
+
+.tox-notifications-container {
+  display: none !important;
+}
+
+.tox-notifications-container::ng-deep {
+  display: none !important;
+}
+
+.tox :not(svg):not(rect) {
+  display: none;
+}

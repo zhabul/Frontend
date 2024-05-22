@@ -1,0 +1,231 @@
+.title-wrapper {
+  display: flex;
+  height: 38px;
+  align-items: center;
+  border: 1px solid #858585;
+  cursor: pointer;
+  margin-left: -3px;
+}
+
+.title-wrapper-without-border {
+  border: none !important;
+  display: flex;
+  height: 36px;
+  align-items: center;
+  border-left: none !important;
+  margin-left: -5px;
+}
+
+.blue-background {
+  width: 1398px;
+  user-select: none;
+  padding-left: 10px;
+  border-bottom: 2px solid #1a1a1a;
+
+}
+
+.tablemain {
+  display: flex;
+  border-left: 1px solid #858585;
+}
+
+.tablemain1 {
+  display: flex;
+}
+
+.tablemain2 {
+  display: flex;
+  border-left: 1px solid #858585;
+  border-top: 1px solid #858585;
+}
+
+.grey-background {
+  background-color: #fcf4ec;
+  border-right: none !important;
+  border-bottom: none !important;
+}
+
+.border1 {
+  height: 39px;
+  position: absolute;
+  left: 299.1px;
+  border-right: 1px solid #858585;
+  background-color: #858585;
+}
+
+.border200 {
+  height: 39px;
+  position: absolute;
+  left: 10.1px;
+  border: 0.1px solid red;
+  background-color: red;
+}
+
+.border2 {
+  height: 39px;
+  position: absolute;
+  border-right: 1px solid #858585;
+  left: 389px;
+}
+
+.border3 {
+  height: 39px;
+  position: absolute;
+  border-right: 1px solid #858585;
+  left: 630px;
+}
+.border4 {
+  height: 39px;
+  position: absolute;
+  border-right: 1px solid #858585;
+  left: 734.2px;
+}
+.border5 {
+  height: 39px;
+  position: absolute;
+  /* border: 0.1px solid #858585; */
+  border-right: 1px solid #858585;
+  left: 883.8px;
+}
+.border6 {
+  height: 39px;
+  position: absolute;
+  border-right: 1px solid #858585;
+  left: 1003.8px;
+}
+.border7 {
+  height: 39px;
+  position: absolute;
+  border-right: 1px solid #858585;
+  left: 1124px;
+}
+.border8 {
+  height: 39px;
+  position: absolute;
+  border-right: 1px solid #858585;
+  left: 1244px;
+}
+.project-name {
+  height: 39px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.project-name-text {
+  width: 286px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.project-number {
+  padding-top: 9px;
+  position: absolute;
+  left: 300px;
+  padding-left: 10px;
+  width: 90px;
+  max-width: 90px;
+  white-space: nowrap;
+  width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.project-activity {
+
+  padding-top: 9px;
+  position: absolute;
+  left: 390px;
+  padding-left: 10px;
+  width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.procjet-debitform {
+  position: absolute;
+  left: 630px;
+  padding-left: 10px;
+  white-space: nowrap;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 9px;
+  cursor: pointer;
+}
+
+.procjet-tsc-accumulated-cost {
+
+  position: absolute;
+  left: 737px;
+  padding-right: 15px;
+  min-width: 150px;
+  max-width: 150px;
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 9px;
+  justify-content: end;
+  display: grid;
+}
+.procjet-tsc-invoiced {
+
+  position: absolute;
+  left: 1246px;
+  padding-right: 15px;
+  min-width: 150px;
+  max-width: 150px;
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 9px;
+  justify-content: end;
+  display: grid;
+}
+.procjet-tsc-not-send {
+
+  position: absolute;
+  left: 886px;
+  padding-right: 15px;
+  min-width: 120px;
+  max-width: 120px;
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 9px;
+  justify-content: end;
+  display: grid;
+}
+.procjet-tsc-sent {
+  position: absolute;
+  left: 1005px;
+  padding-right: 15px;
+  min-width: 120px;
+  max-width: 120px;
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 9px;
+  justify-content: end;
+  display: grid;
+}
+.procjet-tsc-approved {
+  position: absolute;
+  left: 1125px;
+  padding-right: 15px;
+  min-width: 120px;
+  max-width: 120px;
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 9px;
+  justify-content: end;
+  display: grid;
+}

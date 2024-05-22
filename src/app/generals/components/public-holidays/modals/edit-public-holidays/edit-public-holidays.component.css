@@ -1,0 +1,21 @@
+.form-group-size {
+  width: 100%;
+}
+
+.form-row-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-row-content .form-group {
+  width: 45%;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 888888888888888888;
+}

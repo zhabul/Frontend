@@ -1,0 +1,929 @@
+<form
+        novalidate
+        autocomplete="off"
+        [formGroup]="editForm"
+        (ngSubmit)="saveUser()"
+      >
+        <div class="ata-border shadow-top-div " id="skrollbar">
+          <div class="user-info-tab">
+            <div class="row">
+              <div class="col-4"  [ngStyle]="{'padding': setPadding() }">
+                <p class="user-detail-name" >
+                  {{ editForm.controls["firstName"].value }}
+                  {{ editForm.controls["lastName"].value }}
+                </p>
+                <div class="form-group">
+                  <label for="personalNumber">{{
+                    "Personal Number" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{'is-my-account':isMyAccount&&!this.userDetails.create_users_Manageusers}"
+                    id="personalNumber"
+                    placeholder="{{ 'Enter personal number' | translate }}"
+                    formControlName="personalNumber"
+                    [readOnly]="isMyAccount&&!this.userDetails.create_users_Manageusers"
+                  />
+                </div>
+
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('firstName').touched ||
+                        editForm.get('firstName').dirty) &&
+                      editForm.get('firstName').invalid
+                  }"
+                >
+                  <label for="firstName" class="required">{{
+                    "First Name" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{'is-my-account':isMyAccount&&!this.userDetails.create_users_Manageusers}"
+                    id="firstName"
+                    placeholder="{{ 'Enter first name' | translate }}"
+                    formControlName="firstName"
+                    [readOnly]="isMyAccount&&!this.userDetails.create_users_Manageusers"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (editForm.get('firstName').touched ||
+                        editForm.get('firstName').dirty) &&
+                      editForm.get('firstName').errors
+                    "
+                  >
+                    <span
+                      *ngIf="editForm.get('firstName').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter first name" | translate }}.
+                    </span>
+                  </span>
+                </div>
+
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('startDate').touched ||
+                        editForm.get('startDate').dirty) &&
+                      !editForm.get('startDate').valid
+                  }"
+                >
+                  <label for="startDateSelect" class="required">{{
+                    "Start Date" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="date-readonly form-control"
+                    [ngClass]="{'is-my-account':isMyAccount&&!this.userDetails.create_users_Manageusers}"
+                    id="startDateSelect"
+                    placeholder="{{ 'Select start date' | translate }}"
+                    formControlName="startDate"
+                    readonly
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (editForm.get('startDate').touched ||
+                        editForm.get('startDate').dirty) &&
+                      editForm.get('startDate').errors
+                    "
+                  >
+                    <span
+                      *ngIf="editForm.get('startDate').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please select start date" | translate }}.
+                    </span>
+                  </span>
+                </div>
+
+                <div style="height: 90px"></div>
+
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('email').touched ||
+                        editForm.get('email').dirty) &&
+                      !editForm.get('email').valid
+                  }"
+                >
+                  <label for="email" class="required">{{
+                    "Email" | translate
+                  }}</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="{{ 'Enter email' | translate }}"
+                    formControlName="email"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (editForm.get('email').touched ||
+                        editForm.get('email').dirty) &&
+                      editForm.get('email').errors
+                    "
+                  >
+                    <span
+                      *ngIf="editForm.get('email').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Enter email" | translate }}.
+                    </span>
+                  </span>
+                </div>
+
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('postalAddress1').touched ||
+                        editForm.get('postalAddress1').dirty) &&
+                      !editForm.get('postalAddress1').valid
+                  }"
+                >
+                  <label for="postalAddress1"
+                    >{{ "Postal Address" | translate }} 1</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="postalAddress1"
+                    placeholder="{{ 'Enter postal address' | translate }}"
+                    formControlName="postalAddress1"
+                  />
+                </div>
+              </div>
+
+              <div class="col-4" style="padding: 61px 0 0 30px">
+                <div class="form-group">
+                  <label for="employeeNumber">{{
+                    "Employee Number" | translate
+                  }}</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    [ngClass]="{'is-my-account':isMyAccount&&!this.userDetails.create_users_Manageusers}"
+                    id="employeeNumber"
+                    placeholder="{{ 'Enter employee number' | translate }}"
+                    formControlName="employeeNumber"
+                    [readOnly]="isMyAccount&&!this.userDetails.create_users_Manageusers"
+                  />
+                </div>
+
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('lastName').touched ||
+                        editForm.get('lastName').dirty) &&
+                      !editForm.get('lastName').valid
+                  }"
+                >
+                  <label for="lastName" class="required">{{
+                    "Last Name" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{'is-my-account':isMyAccount&&!this.userDetails.create_users_Manageusers}"
+                    id="lastName"
+                    placeholder="{{ 'Enter last name' | translate }}"
+                    formControlName="lastName"
+                    [readOnly]="isMyAccount&&!this.userDetails.create_users_Manageusers"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (editForm.get('lastName').touched ||
+                        editForm.get('lastName').dirty) &&
+                      editForm.get('lastName').errors
+                    "
+                  >
+                    <span
+                      *ngIf="editForm.get('lastName').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter last name" | translate }}.
+                    </span>
+                  </span>
+                </div>
+
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('endDate').touched ||
+                        editForm.get('endDate').dirty) &&
+                      !editForm.get('endDate').valid
+                  }"
+                >
+                  <label for="endDateSelect" class="required">{{
+                    "End Date" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="end-date-input date-readonly form-control"
+                    [ngClass]="{'is-my-account':isMyAccount&&!this.userDetails.create_users_Manageusers}"
+                    id="endDateSelect"
+                    placeholder="{{ 'Select end date' | translate }}"
+                    formControlName="endDate"
+                    readonly
+                  />
+                  <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      (editForm.get('endDate').touched ||
+                        editForm.get('endDate').dirty) &&
+                      !endDateUnspecified &&
+                      editForm.get('endDate').value == ''
+                    "
+                  >
+                    {{ "Please select end date" | translate }}.
+                  </span>
+
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      class="form-check-input checkbox-input"
+                      id="unspecified-end-date"
+                      [(ngModel)]="endDateUnspecified"
+                      (change)="endDateUnspecifiedChanged($event)"
+                      [ngModelOptions]="{ standalone: true }"
+                      [disabled]="isMyAccount || !this.userDetails.create_users_Manageusers"
+                    />
+                    <label for="unspecified-end-date">{{
+                      "Unspecified end date" | translate
+                    }}</label>
+                  </div>
+                </div>
+
+                <div style="height: 90px"></div>
+
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('mobile').touched ||
+                        editForm.get('mobile').dirty) &&
+                      !editForm.get('mobile').valid
+                  }"
+                >
+                  <label for="mobile" class="required">{{
+                    "Mobile" | translate
+                  }}</label>
+                  <app-mobile-format
+                    [mobile_number]="editForm.get('mobile').value"
+                    (phone_number)="replacePhoneNumber($event, 'mobile1')"
+                    [width]="302"
+                    [placeholder]="translate.instant('Enter mobile 1')"
+                  >
+                  </app-mobile-format>
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (editForm.get('mobile').touched ||
+                        editForm.get('mobile').dirty) &&
+                      editForm.get('mobile').errors
+                    "
+                  >
+                    <span
+                      *ngIf="editForm.get('mobile').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter mobile 1" | translate }}.
+                    </span>
+                  </span>
+                </div>
+
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('zipCode').touched ||
+                        editForm.get('zipCode').dirty) &&
+                      !editForm.get('zipCode').valid
+                  }"
+                >
+                  <label for="zipCode">{{ "Zip Code" | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="zipCode"
+                    placeholder="{{ 'Enter zip code' | translate }}"
+                    formControlName="zipCode"
+                  />
+                </div>
+              </div>
+
+              <div class="col-4" style="padding: 61px 0 0 30px">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('type').touched ||
+                        editForm.get('type').dirty) &&
+                      !editForm.get('type').valid
+                  }"
+                  *ngIf="typesItems && typesItems.length > 0"
+                >
+                  <label for="type">{{ "Type" | translate }}</label>
+
+                  <div
+                    style="
+                      width: 302px;
+                      height: 35px;
+                      position: relative;
+                      z-index: 3;
+                    "
+                    [ngStyle]="{
+                      'pointer-events': disableCustomSimpleDropdown
+                        ? 'none'
+                        : 'auto'
+                    }"
+                  >
+                    <app-custom-simple-select
+                      [isForm]="true"
+                      [items]="typesItems"
+                      [label]="'status'"
+                      [hasDefaultValue]="true"
+                      [defaultValue]="getDefaultType()"
+                      [isSelectedFont]="true"
+                      [hasFirstMinusLine]="false"
+                      (toggleSelectedOption)="selectType($event, 'type')"
+                      [isMyAccount]="isMyAccount&&!this.userDetails.create_users_Manageusers"
+                      [disableSelect]="!enableForm()"
+                    >
+                    </app-custom-simple-select>
+                  </div>
+                </div>
+
+                <div class="form-group"
+                  *ngIf="user_ue && user_ue.length > 0"
+                >
+                  <label>{{ "UE" | translate }}</label>
+
+                  <div
+                    style="
+                      width: 302px;
+                      height: 35px;
+                      position: relative;
+                      z-index: 1;
+                    "
+                    [ngStyle]="{
+                      'pointer-events': disableCustomSimpleDropdown
+                        ? 'none'
+                        : 'auto'
+                    }"
+                  >
+                    <app-custom-simple-select
+                      [isForm]="true"
+                      [items]="user_ue"
+                      [label]="'value'"
+                      [hasDefaultValue]="true"
+                      [defaultValue]="getDefaultUEType()"
+                      [isSelectedFont]="true"
+                      [hasFirstMinusLine]="false"
+                      [isMyAccount]="isMyAccount&&!this.userDetails.create_users_Manageusers"
+                      [disableSelect]="!enableForm()"
+                    >
+                    </app-custom-simple-select>
+                  </div>
+                </div>
+
+                <div class="form-group" *ngIf="userDetails.type == '1'" >
+                  <label for="roleInput">{{ "Role" | translate }}</label>
+                  <div
+                    class="form-group role-dropdown-wrapper"
+                    *ngIf="!showNewUserRoleInput && userRoles.length > 0"
+                    style="width: 96%"
+                  >
+                    <ng-container *ngIf="component_type == 'new'">
+                      <app-form-role-dropdown
+                        [items]="userRoles"
+                        [selected_role_id]="user.role"
+                        (toggleItemSelected)="toggleRole($event)"
+                        [disableSelect]="!enableForm()"
+                      ></app-form-role-dropdown>
+                    </ng-container>
+                    <ng-container *ngIf="component_type == 'edit'">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="role_name"
+                        [value]="user.role_name"
+                        readonly
+                      />
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="form-group" *ngIf="!(userDetails.type == '1')" >
+                  <label for="roleInput">{{ "Role" | translate }}</label>
+                  <div
+                    class="form-group role-dropdown-wrapper"
+                    *ngIf="!showNewUserRoleInput && userRoles.length > 0"
+                    style="width: 96%"
+                  >
+                  <div class="dropdown-wrapper-all" >
+                    <div
+                         [ngClass]="{
+                           'dropdown-wrapper-my-account ': isMyAccount&&!this.userDetails.create_users_Manageusers,
+                           'dropdown-wrapper': !isMyAccount || isMyAccount&&this.userDetails.create_users_Manageusers
+                         }"
+                    >
+                      <div> {{user?.role_name}}</div>
+                      <div class="svg-rotation" style="rotate: 90deg;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" class="svg-custom-up" ><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                <div class="form-group">
+                  <label for="status">{{ "Status" | translate }}</label>
+                  <div
+                    style="
+                      width: 302px;
+                      height: 35px;
+                      position: relative;
+                      z-index: 1;
+                    "
+                  >
+                    <app-custom-simple-select
+                      [isForm]="true"
+                      [items]="statusOfUser"
+                      [label]="'status'"
+                      [hasDefaultValue]="true"
+                      [defaultValue]="getDefaultUserStatus()"
+                      [isSelectedFont]="true"
+                      [hasFirstMinusLine]="false"
+                      (toggleSelectedOption)="
+                        selectUserStatus($event, 'status')
+                      "
+                      [isMyAccount]="isMyAccount&&!this.userDetails.create_users_Manageusers"
+                      [disableSelect]="!enableForm()"
+                    >
+                    </app-custom-simple-select>
+                  </div>
+                </div>
+                <div
+                  class="form-group"
+                  style="margin-top: 23px"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('mobile2').touched ||
+                        editForm.get('mobile2').dirty) &&
+                      !editForm.get('mobile2').valid
+                  }"
+                >
+                  <label for="mobile2"
+                    >{{ "Mobile" | translate }} 2</label
+                  >
+                  <app-mobile-format
+                    [mobile_number]="editForm.get('mobile2').value"
+                    (phone_number)="replacePhoneNumber($event, 'mobile2')"
+                    [width]="302"
+                    [placeholder]="translate.instant('Enter mobile 2')"
+                  >
+                  </app-mobile-format>
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (editForm.get('mobile2').touched ||
+                        editForm.get('mobile2').dirty) &&
+                      editForm.get('mobile2').errors
+                    "
+                  >
+                    <span
+                      *ngIf="editForm.get('mobile2').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter mobile 2" | translate }}.
+                    </span>
+                  </span>
+                </div>
+
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (editForm.get('city').touched ||
+                        editForm.get('city').dirty) &&
+                      !editForm.get('city').valid
+                  }"
+                >
+                  <label for="city">{{ "City" | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    placeholder="{{ 'Enter city' | translate }}"
+                    formControlName="city"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default w-100 mt-5" *ngIf="component_type == 'new'">
+              <fieldset class="fieldset shadow-top-div">
+                <legend
+                  (click)="hourlyToggle = !hourlyToggle"
+                  class="w-auto section-tab input-label section-tab-description"
+                >
+                  <span style="margin-right: 1rem" class="tab-h">{{
+                    "Hourly rate" | translate
+                  }}</span>
+                  <img
+                    style="justify-self: right"
+                    [ngClass]="hourlyToggle == true ? '' : 'd-none'"
+                    class="dropdown-icon"
+                    src="../../../../assets/img/arrow-u.svg"
+                  />
+                  <img
+                    class="list-icon"
+                    src="assets/img/arrow-down.svg"
+                    alt=""
+                    [ngClass]="hourlyToggle == false ? '' : 'd-none'"
+                  />
+                </legend>
+              </fieldset>
+              <div *ngIf="hourlyToggle" class="form-column-wrapper-position">
+                  <div class="col-4" style="padding: 15px 0 0 27px">
+                    <div
+                      class="form-group"
+                    >
+                      <label for="hourlyRate">{{
+                        "Hourly Date" | translate
+                      }}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="hourlyRateDateForm"
+                        formControlName="hourlyRateDate"
+                      />
+                    </div>
+                </div>
+                  <div class="col-4" style="padding: 15px 0 0 27px">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'has-error':
+                          (editForm.get('hourlyRate').touched ||
+                            editForm.get('hourlyRate').dirty) &&
+                          !editForm.get('hourlyRate').valid
+                      }"
+                    >
+                      <label for="hourlyRate" class="required">{{
+                        "Hourly Rate" | translate
+                      }}</label>
+                      <input
+                        type="text"
+                        maxlength="6"
+                        class="form-control"
+                        id="hourlyRate"
+                        placeholder="{{ 'Enter hourly rate' | translate }}"
+                        formControlName="hourlyRate"
+                      />
+                      <span
+                      class="help-block"
+                       *ngIf="
+                           (editForm.get('hourlyRate').touched ||
+                            editForm.get('hourlyRate').dirty) &&
+                            editForm.get('hourlyRate').errors
+                             "
+                              >
+                                <span
+                                 *ngIf="editForm.get('hourlyRate').errors.required"
+                                  class="text-danger"
+                                 >
+                             {{ "Please enter hourly rate" | translate }}.
+                         </span>
+                       </span>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default w-100 mt-5">
+              <fieldset class="fieldset shadow-top-div">
+                <legend
+                  (click)="accMenuToggle = !accMenuToggle"
+                  class="w-auto section-tab input-label section-tab-description"
+                >
+                  <span style="margin-right: 1rem" class="tab-h">{{
+                    "Account" | translate
+                  }}</span>
+                  <img
+                    style="justify-self: right"
+                    [ngClass]="accMenuToggle == true ? '' : 'd-none'"
+                    class="dropdown-icon"
+                    src="../../../../assets/img/arrow-u.svg"
+                  />
+                  <img
+                    class="list-icon"
+                    src="assets/img/arrow-down.svg"
+                    alt=""
+                    [ngClass]="accMenuToggle == false ? '' : 'd-none'"
+                  />
+                </legend>
+                <div *ngIf="accMenuToggle" class="form-column-wrapper-position">
+                  <div class="col-4" style="padding: 15px 0 0 27px">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'has-error':
+                          (editForm.get('bankNumber').touched ||
+                            editForm.get('bankNumber').dirty) &&
+                          !editForm.get('bankNumber').valid
+                      }"
+                    >
+                      <label for="bankNumber">{{
+                        "Bank Number" | translate
+                      }}</label>
+                      <input
+                        type="text"
+                        maxlength="6"
+                        class="form-control"
+                        id="bankNumber"
+                        placeholder="{{ 'Enter bank number' | translate }}"
+                        formControlName="bankNumber"
+                      />
+                    </div>
+
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'has-error':
+                          (editForm.get('bic').touched ||
+                            editForm.get('bic').dirty) &&
+                          !editForm.get('bic').valid
+                      }"
+                    >
+                      <label for="bic">{{ "BIC" | translate }}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="bic"
+                        placeholder="{{ 'Enter BIC' | translate }}"
+                        formControlName="bic"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-4" style="padding: 15px 0 0 26px">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'has-error':
+                          (editForm.get('accountNumber').touched ||
+                            editForm.get('accountNumber').dirty) &&
+                          !editForm.get('accountNumber').valid
+                      }"
+                    >
+                      <label for="accountNumber">{{
+                        "Account Number" | translate
+                      }}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="accountNumber"
+                        placeholder="{{ 'Enter account number' | translate }}"
+                        formControlName="accountNumber"
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="iban">{{ "IBAN" | translate }}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="iban"
+                        placeholder="{{ 'Enter IBAN' | translate }}"
+                        formControlName="iban"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="panel panel-default w-100 mt-5">
+              <fieldset class="fieldset shadow-top-div">
+                <legend
+                  (click)="relMenuToggle = !relMenuToggle"
+                  class="w-auto section-tab input-label section-tab-description"
+                >
+                  <span style="margin-right: 1rem" class="tab-h">{{
+                    "Family Member" | translate
+                  }}</span>
+                  <img
+                    style="justify-self: right"
+                    [ngClass]="relMenuToggle == true ? '' : 'd-none'"
+                    class="dropdown-icon"
+                    src="../../../../assets/img/arrow-u.svg"
+                  />
+                  <img
+                    class="list-icon"
+                    src="assets/img/arrow-down.svg"
+                    alt=""
+                    [ngClass]="relMenuToggle == false ? '' : 'd-none'"
+                  />
+                </legend>
+                <div
+                  *ngIf="relMenuToggle"
+                  class="form-column-wrapper-position"
+                  style="margin-top: -12px; border-bottom: 1px solid #858585"
+                >
+                  <div
+                    class="col-6"
+                    style="
+                      padding: 20px 0 0 27px;
+                      border-right: 1px solid #707070;
+                    "
+                  >
+                    <div formGroupName="familyMember1">
+                      <h5 class="family-header">
+                        {{ "Family Member" | translate }} 1
+                      </h5>
+                      <div class="row row-sm">
+                        <div class="col-6 p-0">
+                          <div
+                            class="form-group"
+                            [ngClass]="{
+                              'has-error':
+                                (editForm.get('familyMember1').touched ||
+                                  editForm.get('familyMember1').dirty) &&
+                                !editForm.get('familyMember1').valid
+                            }"
+                          >
+                            <label for="familyMemberName1">{{
+                              "Name" | translate
+                            }}</label>
+                            <input
+                              type="text"
+                              class="form-control family-input"
+                              id="familyMemberName1"
+                              placeholder="{{ 'Enter name' | translate }}"
+                              formControlName="name"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-6 p-0">
+                          <div
+                            class="form-group"
+                            [ngClass]="{
+                              'has-error':
+                                (editForm.get('familyMember1').touched ||
+                                  editForm.get('familyMember1').dirty) &&
+                                !editForm.get('familyMember1').valid
+                            }"
+                          >
+                            <label class="ml-2" for="familyMemberPhone1">{{
+                              "Mobile" | translate
+                            }}</label>
+                            <app-mobile-format
+                              [mobile_number]="editForm.get('familyMember1').get('phone').value"
+                              (phone_number)="replacePhoneNumber($event, 'phone')"
+                              [width]="220"
+                              [placeholder]="translate.instant('Enter mobile number')"
+                            >
+                            </app-mobile-format>
+                        <!--    <input
+                              type="text"
+                              class="form-control family-input"
+                              id="familyMemberPhone1"
+                              placeholder="{{
+                                'Enter mobile number' | translate
+                              }}"
+                              formControlName="phone"
+                              #mobile_phone
+                              (blur)="formtMobileNumber(mobile_phone.value,'phone')"
+                            /> !-->
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="form-group text-area-parent-div"
+                        [ngClass]="{
+                          'has-error':
+                            (editForm.get('familyMember1').touched ||
+                              editForm.get('familyMember1').dirty) &&
+                            !editForm.get('familyMember1').valid
+                        }"
+                      >
+                        <label for="familyMemberNote1">{{
+                          "Note" | translate
+                        }}</label>
+                        <textarea
+                          class="family-text"
+                          id="familyMemberNote1"
+                          (keyup)="autogrowNote1()"
+                          placeholder="{{ 'Enter note' | translate }}"
+                          formControlName="note"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6" style="padding: 20px 0 0 27px">
+                    <div formGroupName="familyMember2">
+                      <h5 class="family-header">
+                        {{ "Family Member" | translate }} 2
+                      </h5>
+                      <div class="row row-sm">
+                        <div class="col-md-6">
+                          <div
+                            class="form-group"
+                            [ngClass]="{
+                              'has-error':
+                                (editForm.get('familyMember2').touched ||
+                                  editForm.get('familyMember2').dirty) &&
+                                !editForm.get('familyMember2').valid
+                            }"
+                          >
+                            <label for="familyMemberName2">{{
+                              "Name" | translate
+                            }}</label>
+                            <input
+                              type="text"
+                              class="form-control family-input"
+                              id="familyMemberName2"
+                              placeholder="{{ 'Enter name' | translate }}"
+                              formControlName="name"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div
+                            class="form-group"
+                            [ngClass]="{
+                              'has-error':
+                                (editForm.get('familyMember2').touched ||
+                                  editForm.get('familyMember2').dirty) &&
+                                !editForm.get('familyMember2').valid
+                            }"
+                          >
+                            <label for="familyMemberPhone2">{{
+                              "Mobile" | translate
+                            }}</label>
+                            <app-mobile-format
+                              [mobile_number]="editForm.get('familyMember2').get('phone').value"
+                              (phone_number)="replacePhoneNumber($event, 'phone2')"
+                              [width]="220"
+                              [placeholder]="translate.instant('Enter mobile number')"
+                            >
+                            </app-mobile-format>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="form-group text-area-parent-div"
+                        [ngClass]="{
+                          'has-error':
+                            (editForm.get('familyMember2').touched ||
+                              editForm.get('familyMember2').dirty) &&
+                            !editForm.get('familyMember2').valid
+                        }"
+                      >
+                        <label for="familyMemberNote2">{{
+                          "Note" | translate
+                        }}</label>
+                        <textarea
+                          class="family-text"
+                          id="familyMemberNote2"
+                          style="min-height: 120px"
+                          (keyup)="autogrowNote2()"
+                          placeholder="{{ 'Enter note' | translate }}"
+                          formControlName="note"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="button-block">
+                <button
+                    type="submit"
+                    class="btn lh09 mr-3 btn-style"
+                    [disabled]="
+                    editForm.invalid ||
+                    disabled ||
+                    !editForm.dirty ||
+                    !editForm.valid ||
+                    (!endDateUnspecified && editForm.get('endDate').value == '')"
+                >
+                    {{ "Save" | translate }}
+                </button>
+            </div>
+          </div>
+    </div>
+</form>

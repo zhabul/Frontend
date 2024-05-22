@@ -1,0 +1,11 @@
+<div class="modal-top-wrapper">
+    <h5>{{'Attachments' | translate}}</h5>
+    <button class="btn btn-outline-dark" [mat-dialog-close] ><i class="material-icons">close</i></button>
+</div>
+<hr>
+<ol>
+    <li *ngFor="let attachment of attachments">
+        <a [href]="attachment['url']" target="_blank" rel="noopener noreferrer">{{attachment['name']}} &rarr;</a>
+    </li>
+    <p *ngIf="attachments.length < 1">{{'No attachments sent'|translate}}</p>
+</ol>

@@ -1,0 +1,164 @@
+.spacer {
+  position: relative;
+  top: 220px;
+}
+
+.border-login {
+  border: 2px solid;
+  border-radius: 1rem;
+  border-color: var(--border-color);
+}
+
+.border-login-bottom {
+  border-bottom: 2px solid;
+  border-color: var(--border-color);
+}
+
+.icon {
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  border-color: var(--border-color);
+  border-bottom-color: var(--border-color);
+}
+
+.form-group {
+  margin-left: 4px;
+  margin-bottom: 0;
+  background-color: var(--main-bg);
+}
+
+.form-control {
+  color: white;
+
+  border-color: var(--border-color);
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+::placeholder {
+  color: var(--border-color) !important;
+}
+
+input:focus::placeholder {
+  color: var(--text-color) !important;
+}
+
+.above-login {
+  color: var(--title-color) !important;
+}
+
+a {
+  color: var(--title-color) !important;
+}
+
+.material-icons.dot {
+  font-size: 8px !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover {
+  /* transition: background-color 5000s ease-in-out 0s; */
+  /* background-color: var(--main-bg); */
+}
+
+.help-block {
+  background-color: #dd4726 !important;
+  width: 100%;
+  color: white;
+  box-sizing: content-box;
+  height: 100%;
+  display: flex;
+}
+
+.is-active {
+  color: var(--text-color);
+}
+
+.login-form .border,
+.login-form.ng-dirty.ng-touched.ng-invalid .border-bottom,
+.form-control {
+  border-color: #dd4726 !important;
+  color: #dd4726 !important;
+  background: var(--main-bg);
+}
+.login-form .border,
+.login-form.ng-dirty.ng-touched.ng-invalid {
+  border-color: #dd4726 !important;
+  color: #dd4726 !important;
+}
+
+.valid-button {
+  filter: invert(66%) sepia(91%) saturate(2787%) hue-rotate(341deg)
+    brightness(93%) contrast(97%);
+}
+
+.text-danger {
+  color: var(--text-color) !important;
+  margin: 10px;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 200px 200px 100px var(--main-bg) inset;
+  box-shadow: 200px 200px 100px var(--main-bg) inset;
+  -webkit-text-fill-color: #dd4726;
+}
+
+.color-hover:hover {
+  color: white !important;
+}
+
+.image-logo {
+  height: 84px;
+  width: 1050px;
+  left: -207px;
+  position: relative;
+}
+
+/***Contact Bottom Form****/
+.bottom-contact{
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  padding: 0px 70px 0px 70px;
+}
+
+.line-top{
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-color);
+}
+.wrapp-contact{
+  display: flex;
+  justify-content: center;
+}
+.text-contact{
+  color: var(--border-color);
+  display: flex;
+  font-size: 12px;
+}
+
+#toggle_button{
+  position: absolute;
+  right: 0px;
+  top: 12px;
+  stroke:#555;
+  stroke-width: 2px;
+}
+
+.show-password{
+  stroke: #EA5B2E;
+}
+
+.login-spinner{
+  margin-top: 27px;
+}
+

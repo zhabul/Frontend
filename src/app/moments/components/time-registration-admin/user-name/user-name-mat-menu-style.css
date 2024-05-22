@@ -1,0 +1,5 @@
+.mat-menu-panel {
+    background-color: lightgrey;
+    min-height: 0 !important;
+    padding: 0 0.5rem;
+}

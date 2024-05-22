@@ -1,0 +1,281 @@
+<div
+  class="main-wrapper"
+  [ngStyle]="{ 'margin-left': property.level * 5 + 'px' }"
+>
+  <div
+    class="row-wrapper"
+    [ngStyle]="{
+      'grid-template-columns': setGridLayout(),
+      'border-top': isOpenTotalsByType ? 'none' : '2px solid black'
+    }"
+  >
+    <div
+      class="item"
+      [ngClass]="
+        (isOpenTotalsByType || isTopLevel ) ?
+          'isOpenTotalsByType' :
+        property.project_status == 1
+        ? 'project-yellow1'
+        : property.project_status == 2
+        ? 'project-green1'
+        : property.project_status == 4
+        ? 'project-blue1'
+        : property.project_status == 5
+        ? 'wemax-aborted-prognos'
+        : 'project-grey1'
+      "
+    >
+      <app-prognosis-property-down-arrow
+        *ngIf="!isOpenTotalsByType"
+        (click)="isOpenTotalsByType = !isOpenTotalsByType"
+      ></app-prognosis-property-down-arrow>
+      <app-prognosis-property-up-arrow
+        *ngIf="isOpenTotalsByType"
+        (click)="isOpenTotalsByType = !isOpenTotalsByType"
+      ></app-prognosis-property-up-arrow>
+      {{ "DU " + property.project_name | uppercase }}
+    </div>
+    <div class="item special">
+      <span>{{ "Calculated price" | translate | titlecase }}</span>
+      <input
+        #inputPredictedElement
+        id="du-total-{{index}}"
+        (focus)="onFocus('project_total')"
+        type="text"
+        [(ngModel)]="project_total"
+        (keydown)="phantomEnterBehavious($event)" 
+        (click)="$event.target.select()"
+        class="prognos-input-total"
+        [ngClass]="{
+          'disable-btn': isLocked || property.project_debit == 2 || property.project_status != 2 || !userDetails.create_project_Forecast
+        }"
+        (input)="setProjectPrognosTotal($event)"
+        number-format-prognosis-directive
+        [setValue]="resetPredictedValue"
+        [disabled]="
+          isLocked ||
+          property.project_debit == 2 ||
+          property.project_status != 2 || 
+          !userDetails.create_project_Forecast
+        "
+      />
+     <!-- <span>{{ property.kalkyleratPris | number : "1.2-2" : "fr" }}</span> !-->
+    </div>
+    <div
+      class="item"
+      [ngClass]="
+        (isOpenTotalsByType || isTopLevel ) ?
+          'isOpenTotalsByType' :
+        property.project_status == 1
+        ? 'project-yellow1'
+        : property.project_status == 2
+        ? 'project-green1'
+        : property.project_status == 4
+        ? 'project-blue1'
+        : property.project_status == 5
+        ? 'wemax-aborted-prognos'
+        : 'project-grey1'
+      "
+    >
+      {{ property.project_du_totals.totallyWorkedUp | number : "1.2-2" : "fr" }}
+    </div>
+    <div
+      class="item"
+      [ngClass]="
+        (isOpenTotalsByType || isTopLevel ) ?
+          'isOpenTotalsByType' :
+        property.project_status == 1
+        ? 'project-yellow1'
+        : property.project_status == 2
+        ? 'project-green1'
+        : property.project_status == 4
+        ? 'project-blue1'
+        : property.project_status == 5
+        ? 'wemax-aborted-prognos'
+        : 'project-grey1'
+      "
+    >
+      {{
+        property.project_du_totals.workedButNotApproved
+          | number : "1.2-2" : "fr"
+      }}
+    </div>
+    <div
+      class="item"
+      [ngClass]="
+        (isOpenTotalsByType || isTopLevel ) ?
+          'isOpenTotalsByType' :
+        property.project_status == 1
+        ? 'project-yellow1'
+        : property.project_status == 2
+        ? 'project-green1'
+        : property.project_status == 4
+        ? 'project-blue1'
+        : property.project_status == 5
+        ? 'wemax-aborted-prognos'
+        : 'project-grey1'
+      "
+    >
+      {{ property.project_du_totals.total_sent | number : "1.2-2" : "fr" }}
+    </div>
+    <div
+      class="item"
+      [ngClass]="
+        (isOpenTotalsByType || isTopLevel ) ?
+          'isOpenTotalsByType' :
+        property.project_status == 1
+        ? 'project-yellow1'
+        : property.project_status == 2
+        ? 'project-green1'
+        : property.project_status == 4
+        ? 'project-blue1'
+        : property.project_status == 5
+        ? 'wemax-aborted-prognos'
+        : 'project-grey1'
+      "
+    >
+      {{
+        property.project_du_totals.approvedForInvoice | number : "1.2-2" : "fr"
+      }}
+    </div>
+    <div
+      class="item"
+      [ngClass]="
+        (isOpenTotalsByType || isTopLevel ) ?
+          'isOpenTotalsByType' :
+        property.project_status == 1
+        ? 'project-yellow1'
+        : property.project_status == 2
+        ? 'project-green1'
+        : property.project_status == 4
+        ? 'project-blue1'
+        : property.project_status == 5
+        ? 'wemax-aborted-prognos'
+        : 'project-grey1'
+      "
+    >
+      {{ property.project_du_totals.invoicedTotal | number : "1.2-2" : "fr" }}
+    </div>
+    <div
+      class="item"
+      *ngIf="prognosisTableService.hasRiktpris"
+      [ngClass]="
+        (isOpenTotalsByType || isTopLevel ) ?
+          'isOpenTotalsByType' :
+        property.project_status == 1
+        ? 'project-yellow1'
+        : property.project_status == 2
+        ? 'project-green1'
+        : property.project_status == 4
+        ? 'project-blue1'
+        : property.project_status == 5
+        ? 'wemax-aborted-prognos'
+        : 'project-grey1'
+      "
+    ></div>
+    <div
+      [ngClass]="{
+        item: true,
+        prognosis: true,
+        'disable-btn': isLocked || property.project_debit == 2 || property.project_status != 2
+      }"
+      [ngStyle]="{
+        border: prognosisHaveBorder ? '2px solid var(--orange-dark)' : ''
+      }"
+    >
+    <!-- value="{{ property.project_du_totals.prognosis }}" -->
+      <input
+        #inputElement
+        id="du-{{index}}"
+        (focus)="onFocus()"
+        (blur)="prognosisHaveBorder = false"
+        type="text"
+        [(ngModel)]="inputValue"
+        (keydown)="phantomEnterBehavious($event)" 
+        [ngClass]="{
+          'prognos-input': true,
+          'disable-btn': isLocked || property.project_debit == 2 || property.project_status != 2 || !userDetails.create_project_Forecast
+        }"
+        (input)="setProjectPrognos($event)"
+        (click)="resetActiveAta($event)"
+        number-format-prognosis-directive
+        [setValue]="resetInputValue"
+        [disabled]="
+          isLocked ||
+          property.project_debit == 2 ||
+          property.project_status != 2 || 
+          !userDetails.create_project_Forecast
+        "
+      />
+    </div>
+    <div
+      class="item account"
+      [ngClass]="
+        (isOpenTotalsByType || isTopLevel ) ?
+          'isOpenTotalsByType' :
+        property.project_status == 1
+        ? 'project-yellow1'
+        : property.project_status == 2
+        ? 'project-green1'
+        : property.project_status == 4
+        ? 'project-blue1'
+        : property.project_status == 5
+        ? 'wemax-aborted-prognos'
+        : 'project-grey1'
+      "
+    >
+      {{ property.duResursKonto != undefined ? property.duResursKonto : "" }}
+    </div>
+  </div>
+  <div *ngIf="isOpenTotalsByType" class="prognosis-totals-by-type-wrapper">
+    <ng-container>
+      <app-prognosis-totals-by-type
+        [name]="'Additional work'"
+        [index]="index"
+        [isDisabled]="areTotalsByTypeDisabled"
+        [isLocked]="isLocked"
+        [project_status]="property.project_status"
+        [_totalByType]="
+          property.project_du_totals_by_type.project_du_totals_additional_work
+        "
+        [_predicted_total]="property.project_du_totals.additional_work"
+        (returnedNumber)="setTotalResult($event)"
+      ></app-prognosis-totals-by-type>
+      <app-prognosis-totals-by-type
+        [name]="'Material'"
+        [index]="index"
+        [isLocked]="isLocked"
+        [project_status]="property.project_status"
+        [isDisabled]="areTotalsByTypeDisabled"
+        [_totalByType]="
+          property.project_du_totals_by_type.project_du_totals_materials
+        "
+        [_predicted_total]="property.project_du_totals.material"
+        (returnedNumber)="setTotalResult($event)"
+      ></app-prognosis-totals-by-type>
+      <app-prognosis-totals-by-type
+        [name]="'UE/Other'"
+        [index]="index"
+        [isLocked]="isLocked"
+        [project_status]="property.project_status"
+        [isDisabled]="areTotalsByTypeDisabled"
+        [_totalByType]="
+          property.project_du_totals_by_type.project_du_totals_other_work
+        "
+        [_predicted_total]="property.project_du_totals.other"
+        (returnedNumber)="setTotalResult($event)"
+      ></app-prognosis-totals-by-type>
+    </ng-container>
+  </div>
+
+  <app-prognosis-property-ata
+    [index]="index" 
+    [activeAtaIndex]="activeAtaIndex"
+    (findNewActiveIndex)="activeIndexListener($event)"
+    [_atas]="property.atas"
+    [_projectDebit]="property.project_debit"
+    [_ataTotals]="property.ata_totals"
+    [_totalOfAtas]="totalOfAtas"
+    [isLocked]="isLocked"
+  ></app-prognosis-property-ata>
+</div>

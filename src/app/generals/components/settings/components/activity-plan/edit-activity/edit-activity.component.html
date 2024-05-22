@@ -1,0 +1,64 @@
+<mat-dialog-content class="edit-activity-mat-dialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="container">
+    <div class="head">
+        <p>{{ receivedData.action | translate | uppercase }}</p>
+        <img
+        style="cursor: pointer"
+        src="../../../../assets/img/exit-icon.svg"
+        alt="x"
+        (click)="close()"
+        />
+    </div>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" autocomplete="off">
+        <div class="input-container">
+        <span>{{ "Number" | translate }}</span>
+        <input
+            type="number"
+            ngModel="{{ receivedData.activityToEdit.number }}"
+            name="number"
+            [readOnly]="disableInput"
+            [ngClass]="{ disabled: disableInput }"
+        />
+        </div>
+
+        <div class="input-container">
+        <span>{{ "Description" | translate }}</span>
+        <input
+            type="text"
+            ngModel="{{ receivedData.activityToEdit.description }}"
+            name="description"
+            spellcheck="false"
+        />
+        </div>
+
+        <div class="buttons">
+        <div>
+            <span class="checkbox-label">{{ "Active" | translate }}</span>
+            <input
+            class="checkbox"
+            type="checkbox"
+            [ngModel]="receivedData.activityToEdit.status"
+            name="status"
+            style="border-radius: 50%"
+            />
+        </div>
+        <button type="submit">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="add-icon"
+            width="20"
+            viewBox="0 0 19 19"
+            fill="currentColor"
+            >
+            <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                clip-rule="evenodd"
+            />
+            </svg>
+            <p>{{ (disableInput ? "Save" : "Add") | translate | uppercase }}</p>
+        </button>
+        </div>
+    </form>
+    </div>
+</mat-dialog-content>

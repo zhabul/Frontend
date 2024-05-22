@@ -1,0 +1,78 @@
+<div class="main-wrapper" *ngIf="ata">
+  <div
+    class="row-wrapper"
+    [ngClass]="getAtaStatusClass()"
+    [ngStyle]="{ 'grid-template-columns': setGridLayout() }"
+  >
+    <div class="item" (click)="edit()">{{ "ATA" | translate }}-{{ ata.AtaNumber }}</div>
+    <div class="item" (click)="edit()">{{ ata.Name }}</div>
+    <div class="item ata-number" (click)="edit()">{{ ata.deviationRelation.length <= 0 ? '' : ata.deviationRelation[0].number }}</div>
+    <div class="item" (click)="edit()">{{ ata.PaymentTypeName }}</div>
+    <div class="item" (click)="edit()">
+      {{
+        ata.Status == 3
+          ? "0,00"
+          : (ata.totallyWorkedUp | number : "1.2-2" : "fr")
+      }}
+    </div>
+    <div class="item" (click)="edit()">
+      {{
+        ata.Status == 3
+          ? "0,00"
+          : (ata.workedButNotApproved | number : "1.2-2" : "fr")
+      }}
+    </div>
+    <div class="item" (click)="edit()">
+      {{
+        ata.Status == 3 ? "0,00" : (ata.total_sent_wr | number : "1.2-2" : "fr")
+      }}
+    </div>
+    <div class="item" (click)="edit()">
+      {{
+        ata.Status == 3
+          ? "0,00"
+          : (ata.approvedForInvoice | number : "1.2-2" : "fr")
+      }}
+    </div>
+    <div class="item" (click)="edit()">
+      {{
+        ata.Status == 3 ? "0,00" : (ata.invoicedTotal | number : "1.2-2" : "fr")
+      }}
+    </div>
+    <div class="item" *ngIf="prognosisTableService.hasRiktpris" (click)="edit()">
+      {{ projectDebit == 4 ? (ata.ata_total | number : "1.2-2" : "fr") : "" }}
+    </div>
+    <div
+      [ngClass]="{
+        item: true,
+        prognos: true,
+        'disabled-input': ata.Status != 2 || ata.PaymentType != 1 || isLocked
+      }"
+      [ngStyle]="{
+        border: prognosisHaveBorder ? '2px solid var(--orange-dark)' : ''
+      }"
+    >
+
+      <input
+        #inputElement
+        id="du-{{projectIndex}}-{{ataIndex}}"
+        type="text"
+        [ngClass]="{
+          'prognos-input': true,
+          'disabled-input': ata.Status != 2 || ata.PaymentType != 1 || isLocked || !userDetails.create_project_Forecast
+        }"
+        (keydown)="phantomEnterBehavious($event)" 
+        [value]="printValue()"
+        (focus)="prognosisHaveBorder = true"
+        (blur)="prognosisHaveBorder = false"
+        (input)="updateAtaPrognosis($event)"
+        (keyup)="onKeyUp($event)"
+        (click)="$event.target.select()"
+        [disabled]="ata.Status != 2 || ata.PaymentType != 1 || isLocked || !userDetails.create_project_Forecast"
+        number-format-prognosis-directive
+      />
+    </div>
+    <div class="item">{{ ata.labeling_requirements }}</div>
+  </div>
+</div>
+

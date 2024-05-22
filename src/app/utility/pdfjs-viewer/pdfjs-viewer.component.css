@@ -1,0 +1,445 @@
+.clear-link {
+  text-decoration: none;
+  color: var(--main-bg);
+}
+
+.g-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 66px;
+  right: 0;
+  background-color: #eff3f6;
+  z-index: 99999;
+  margin: 1rem;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
+}
+
+.g-container-relative {
+  position: relative;
+  background-color: #eff3f6;
+  z-index: 9999;
+  height: 100%;
+  width: 100%;
+  margin: 1rem;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.button-hover {
+  transition: all 250ms ease-in-out;
+}
+
+.button-hover:hover {
+  background-color: var(--main-bg) !important;
+  color: white !important;
+}
+
+.g-header {
+  width: 100%;
+  background-color: var(--main-bg);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-style: solid;
+  border-color: var(--brand-color);
+  border-width: 3px;
+  height: 60px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  overflow-x: auto;
+}
+
+.g-header-button-container {
+  display: flex;
+  flex-direction: row;
+  z-index: 9;
+}
+
+.icon-container {
+  margin-right: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.g-header-button {
+  /* padding: 1rem; */
+  background-color: var(--main-bg);
+  cursor: pointer;
+  font-size: 1rem;
+  font-size: 0.8rem;
+  color: var(--brand-color);
+  display: flex;
+  flex-direction: row;
+}
+
+.g-close-head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-right: 1rem;
+  color: var(--brand-color);
+  z-index: 9;
+}
+
+.g-close-head > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+
+.g-close-head > div:hover {
+  color: white;
+}
+
+.g-div-image-container {
+  white-space: nowrap;
+  width: 100%;
+  height: calc(100% - 54.19px);
+  background-color: white;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  transition: all 250ms ease-in-out;
+  border: 3px solid var(--orange-dark);
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.main-image {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  transition: all 250ms ease-in-out;
+}
+
+.main-image-element {
+  height: 100%;
+}
+
+.arrow-left-container {
+  /* transform: scale(-1, 1); */
+  background-color: var(--main-bg);
+  color: white;
+  padding: 0.5rem;
+  /*padding-right: 0.4rem;*/
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+.arrow-left-container:hover {
+  color: white;
+}
+
+.arrow-right-container {
+    transform: scale(-1, 1);
+    background-color: var(--main-bg);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.arrow-right-container:hover {
+  color: white;
+}
+
+.total-container {
+    background-color: var(--main-bg);
+    color: var(--brand-color);
+    cursor: default;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-width: 1px;
+    height: 2.188rem;
+    width: 100px;
+    align-self: center;
+    margin-left: 15px;
+    text-align: center;
+    padding: 3.5px;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.rotate-container {
+  transition: all 150ms ease-in-out;
+  width: 100%;
+  height: 100%;
+}
+
+.button-filename {
+  cursor: default;
+}
+
+
+.print-button{
+margin-left: 25px;
+}
+
+.download-button{
+  margin-left: 30px;
+  height: 100%;
+}
+
+.rotate-right{
+  align-self: center;
+  margin-left: 23px;
+}
+.rotate-right-hovered{
+  height: 35px;
+  width: 35px;
+  padding: 4px;
+  text-align: center;
+  align-self: center;
+}
+
+.rotate-right-hovered:hover{
+  padding: 3px;
+  border: 1px solid white;
+  border-radius: 4px;
+  cursor:pointer;
+  height: 35px;
+  width: 35px;
+}
+
+.cursor-clicked{
+  padding: 4px;
+}
+
+.cursos-move{
+  align-self: center;
+   margin-left: 15px;
+}
+
+.img-name-wrapper{
+    width: 348px;
+    place-self: center;
+    color: var(--orange-dark);
+}
+
+.img-name{
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 220px;
+  min-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 70px;
+font-size: 20px;
+text-align: center;
+}
+
+
+.center-imagename-wrapper{
+  display: flex;
+  position: absolute;
+  right: 0;
+  left: 0;
+  place-content: center;
+  top: 10px;
+}
+
+.padd{
+  height: 35px;
+  width: 35px;
+  padding-right: 5px;
+  padding-top: 4px;
+  text-align: center;
+  align-self: center;
+}
+
+.padd:hover{
+  padding-right: 5px;
+  padding-top: 3px;
+  border: 1px solid white;
+  border-radius: 4px;
+  cursor:pointer;
+  height: 35px;
+  width: 35px;
+}
+
+
+.pdfjsorange-scroll::-webkit-scrollbar {
+  background-color: var(--main-bg);
+  display: block;
+    width: 10px;
+    height: 10px;
+}
+
+
+.pdfjsorange-scroll::-webkit-scrollbar-track {
+  background-color: var(--main-bg);
+  /* border: 1px solid;*/
+  border-right: none;
+  border-bottom: none;
+  border-color: var(--orange-dark);
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--orange-dark);
+  border-radius: 0px;
+  border: 4px solid var(--main-bg);
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-position: center 4px;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='6.565' style= 'transform: rotate(180deg)' viewBox='0 0 10.147 6.565'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,6.565H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='6.565' style= 'transform: rotate(180deg)' viewBox='0 0 10.147 6.565'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,6.565H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:vertical:decrement:active {
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='6.565' style= 'transform: rotate(180deg)' viewBox='0 0 10.147 6.565'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,6.565H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:vertical:increment {
+  height: 12px;
+  width: 16px;
+  background-position: center 3px;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='6.565' style= 'transform: rotate(0deg)' viewBox='0 0 10.147 6.565'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,6.565H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:vertical:increment:hover {
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='6.565' style= 'transform: rotate(0deg)' viewBox='0 0 10.147 6.565'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,6.565H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:vertical:increment:active {
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='6.565' style= 'transform: rotate(0deg)' viewBox='0 0 10.147 6.565'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,6.565H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-corner {
+  background: var(--home-title-color);
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  height: 12px;
+  width: 16px;
+  background-position: center 0px;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='10.147' style='transform: rotate(90deg)' viewBox='0 0 10.147 10.147'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,10.147H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='10.147' style='transform: rotate(90deg)' viewBox='0 0 10.147 10.147'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,10.147H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:horizontal:decrement:active {
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='10.147' style='transform: rotate(90deg)' viewBox='0 0 10.147 10.147'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,10.147H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:horizontal:increment {
+  height: 12px;
+  width: 16px;
+  background-position: center 0px;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='10.147' style= 'transform: rotate(-90deg)' viewBox='0 0 10.147 10.147'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,10.147H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:horizontal:increment:hover {
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='10.147' style= 'transform: rotate(-90deg)' viewBox='0 0 10.147 10.147'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,10.147H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.pdfjsorange-scroll::-webkit-scrollbar-button:single-button:horizontal:increment:active {
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10.147' height='10.147' style= 'transform: rotate(-90deg)' viewBox='0 0 10.147 10.147'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Path_758' data-name='Path 758' d='M0,10.147H10.147V0H0Z' fill='%23ff7000'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_305' data-name='Group 305' clip-path='url(%23clip-path)'%3E%3Cg id='Group_304' data-name='Group 304' transform='translate(0 0)'%3E%3Cpath id='Path_757' data-name='Path 757' d='M.116.983,4.6,6.362a.537.537,0,0,0,.459.2h.051a.537.537,0,0,0,.459-.2L10.033.983a.622.622,0,0,0,.115-.408A.43.43,0,0,0,9.931.218l-.153-.1A.725.725,0,0,0,9.344,0a.5.5,0,0,0-.382.217L5.087,4.807,1.212.218A.5.5,0,0,0,.83,0,.725.725,0,0,0,.4.116l-.178.1A.43.43,0,0,0,0,.575.622.622,0,0,0,.116.983' transform='translate(0 0)' fill='%23ff7000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+
+
+@media screen and (max-width: 1493px)  {
+  .center-imagename-wrapper{
+position: absolute;
+right: -22%;
+  }
+}
+@media screen and (max-width: 1354px)  {
+  .center-imagename-wrapper{
+position: absolute;
+right: -27%;
+  }
+}
+
+@media screen and (max-width: 1265px)  {
+  .center-imagename-wrapper{
+position: absolute;
+right: -32%;
+  }
+}
+
+@media screen and (max-width: 1165px)  {
+  .center-imagename-wrapper{
+position: absolute;
+right: -40%;
+  }
+}
+
+@media screen and (max-width: 1080px)  {
+  .center-imagename-wrapper{
+position: absolute;
+right: -44%;
+  }
+}
+
+input[type="number"] {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid gray;
+  outline: none;
+  border: none;
+  /* width: 30px; */
+  color: var(--orange-dark);
+}
+
+input[type="number"]:focus {
+  background-color: transparent;
+}
+
+.percentagescale{
+  width: 40px;
+}
+
+.numberofpage{
+  width: 30px;
+}

@@ -1,0 +1,528 @@
+<div class="scroll-cont">
+  <div
+    [class.skrollbar-hide]="projectlist.length < 1"
+    class="table-wrapper"
+    id="skrollbar sc-1"
+    *ngIf="selectedTab == 1"
+    [ngStyle]="{ height: container_height }"
+  >
+    <table
+      style="min-width: 1680px !important"
+      class="table table-sm"
+      id="table"
+      style="margin-bottom: 0"
+    >
+      <thead class="sticky" [class.lista]="projectlist.length < 1">
+        <!-- thead *ngIf="!someProjectIsExpanded" -->
+        <tr class="tr-head" style="white-space: nowrap">
+          <th class="project_name pl-3 projectname">
+            {{ "Project Name" | translate }}
+          </th>
+          <th class="number pl-3">{{ "Number" | translate }}</th>
+          <th class="project_name pl-3 activity">
+            {{ "Activity" | translate }}
+          </th>
+          <th class="project_name pl-3 debit_form">
+            {{ "Debit Form" | translate }}
+          </th>
+          <th class="start_date hideUnder800 pl-3">
+            {{ "Start Date" | translate }}
+          </th>
+          <th class="end_date hideUnder800 pl-3">
+            {{ "End Date" | translate }}
+          </th>
+          <th class="review hideUnder800 pl-3">{{ "Review" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template #recursiveList let-projectlist>
+          <ng-container *ngFor="let project of projectlist; let i = index">
+            <tr
+              *ngIf="addLastToLastChild(project, projectlist, i)"
+              [class.active]="project_id == project.id"
+              style="
+                cursor: pointer;
+                border-bottom-style: none;
+                border-top-style: none;
+              "
+              (click)="onProjectClick(project.id, $event)"
+              [ngClass]="
+                project.status == 1
+                  ? 'project-yellow1'
+                  : project.status == 2
+                  ? 'project-green1'
+                  : project.status == 4
+                  ? 'project-blue1'
+                  : project.status == 5
+                  ? 'wemax-aborted1'
+                  : 'project-grey1'
+              "
+            >
+              <td
+                class="pl-3 projectLength"
+                style="
+                  align-items: center;
+                  position: relative;
+                  border-top-style: none;
+                "
+              >
+                <div
+                  [ngStyle]="{
+                    'border-left': project.level * 15 + 'px ' + 'solid',
+
+                    'border-left-color':
+                      project.level_zero_status == 1
+                        ? '#F7F3D1'
+                        : project.level_zero_status == 2
+                        ? '#F3FCEA'
+                        : project.level_zero_status == 4
+                        ? '#FCE3CD'
+                        : '#FFFFFF'
+                  }"
+                  class="span-projectname"
+                >
+                  <span
+                    [ngStyle]="{
+                      visibility:
+                        project.activities.length < 1 ? 'hidden' : 'visible'
+                    }"
+                    data-id="showHideSubProjects"
+                    (click)="toggleProjectExpanded(project)"
+                    class="d-flex arrow"
+                  >
+                    <svg
+                      data-id="showHideSubProjects"
+                      [ngClass]="{ rotate90deg: project.expanded }"
+                      style="margin: auto"
+                      width="14"
+                      height="14"
+                      id="Layer_1"
+                      Xdata-name="Layer 1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 8 13.12"
+                    >
+                      <defs data-id="showHideSubProjects">
+                        <style>
+                          .cls-1 {
+                            fill: none;
+                            stroke: #212529;
+                            stroke-miterlimit: 10;
+                            stroke-width: 1px;
+                          }
+                        </style>
+                      </defs>
+                      <polyline
+                        data-id="showHideSubProjects"
+                        class="cls-1"
+                        points="1.11 1.11 6.61 6.11 1.11 12.11"
+                      />
+                    </svg>
+                  </span>
+                  {{ project.name }}
+                </div>
+
+                <div
+                  *ngIf="
+                    (!project.expanded || project.noExpand) &&
+                    project.level === 0
+                  "
+                  class="thin-margin-line-bottom"
+                ></div>
+
+                <div
+                  *ngIf="project.level > 0"
+                  class="thin-margin-line-bottom"
+                ></div>
+
+                <div
+                  [ngStyle]="{ display: project.level == 0 ? 'none' : 'block' }"
+                  class="thin-margin-line-left"
+                ></div>
+                <div
+                  *ngIf="
+                    (!project.expanded || project.noExpand) &&
+                    projectlist.length - 1 === i &&
+                    project.level > 0 &&
+                    project.parent_last
+                  "
+                  [ngStyle]="{
+                    left:
+                      -(
+                        project.level *
+                        ((7.5 * project.level) / (project.level > 1 ? 2 : 1))
+                      ) + 'px',
+                    width:
+                      project.level *
+                        ((7.5 * project.level) / (project.level > 1 ? 2 : 1)) +
+                      'px'
+                  }"
+                  class="thin-margin-line-back-left 3"
+                ></div>
+
+                <div
+                  *ngIf="
+                    (!project.expanded || project.noExpand) &&
+                    projectlist.length - 1 === i &&
+                    project.level > 0 &&
+                    project.last &&
+                    !project.parent_last
+                  "
+                  [ngStyle]="{
+                    left:
+                      7.5 *
+                        (project.parent_level && project.last
+                          ? project.level - project.parent_level
+                          : project.level) +
+                      'px',
+                    width: 7.5 * project.level - project.parent_level + 'px'
+                  }"
+                  class="thin-margin-line-back-left 4"
+                ></div>
+
+                <div
+                  *ngIf="
+                    (project.expanded || !project.noExpand) &&
+                    project.level === 0
+                  "
+                  [ngStyle]="{
+                    left: '7.5px'
+                  }"
+                  class="thin-margin-line-bottom"
+                ></div>
+              </td>
+
+              <td
+                class="pl-3 ls-1 hideUnder800"
+                style="align-items: center; position: relative"
+              >
+                {{ project.CustomName }}
+
+                <div class="thin-margin-line-bottom"></div>
+              </td>
+
+              <td class="pl-3 aktivitetLength" style="position: relative">
+                {{ project.activityDescription }}
+                <div class="thin-margin-line-bottom"></div>
+              </td>
+              <td class="pl-3 ls-1 hideUnder800" style="position: relative">
+                {{ project.type | translate }}
+                <div class="thin-margin-line-bottom"></div>
+              </td>
+              <td class="pl-3 ls-1 hideUnder800" style="position: relative">
+                {{ project.StartDate | trimStr2 }}
+                <div class="thin-margin-line-bottom"></div>
+              </td>
+              <td class="pl-3 ls-1 hideUnder800" style="position: relative">
+                {{ project.EndDate | trimStr2 }}
+                <div class="thin-margin-line-bottom"></div>
+              </td>
+              <td class="pl-3 ls-1 hideUnder800" style="position: relative">
+                {{ project.TehnicReview | trimStr2 }}
+                <div class="thin-margin-line-bottom"></div>
+              </td>
+            </tr>
+
+            <ng-container *ngIf="project.expanded">
+              <ng-container
+                *ngTemplateOutlet="
+                  recursiveList;
+                  context: {
+                    $implicit: project.activities,
+                    parent_last: project.last
+                  }
+                "
+              ></ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="project.expanded || project_id">
+            </ng-container>
+          </ng-container>
+        </ng-template>
+
+        <ng-container
+          *ngTemplateOutlet="recursiveList; context: { $implicit: projectlist }"
+        >
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    [class.skrollbar-hide]="projectlist.length < 1"
+    class="table-wrapper"
+    id="skrollbar"
+    *ngIf="selectedTab == 0"
+    [ngStyle]="{ height: container_height }"
+  >
+    <table
+      style="min-width: 1680px !important"
+      class="table table-sm"
+      id="table"
+      style="margin-bottom: 0"
+    >
+      <thead class="sticky" [class.lista]="projectlist.length < 1">
+        <!-- thead *ngIf="!someProjectIsExpanded" -->
+        <tr class="tr-head" style="white-space: nowrap">
+          <th class="project_name pl-3 projectname">
+            {{ "Project Name" | translate }}
+          </th>
+          <th class="number pl-3">{{ "Number" | translate }}</th>
+          <th class="project_name pl-3 activity">
+            {{ "Activity" | translate }}
+          </th>
+          <th class="project_name pl-3 debit_form">
+            {{ "Debit Form" | translate }}
+          </th>
+          <th class="start_date hideUnder800 pl-3">
+            {{ "Start Date" | translate }}
+          </th>
+          <th class="end_date hideUnder800 pl-3">
+            {{ "End Date" | translate }}
+          </th>
+          <th class="review hideUnder800 pl-3">{{ "Review" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template #recursiveList let-projectlist>
+          <ng-container *ngFor="let project of projectlist; let i = index">
+            <tr
+              *ngIf="addLastToLastChild(project, projectlist, i)"
+              [class.active]="project_id == project.id"
+              style="
+                cursor: pointer;
+                border-bottom-style: none;
+                border-top-style: none;
+              "
+              (click)="onProjectClick(project.id, $event)"
+              [ngClass]="
+                project.status == 1
+                  ? 'project-yellow1'
+                  : project.status == 2
+                  ? 'project-green1'
+                  : project.status == 4
+                  ? 'project-blue1'
+                  : project.status == 5
+                  ? 'wemax-aborted1'
+                  : 'project-grey1'
+              "
+              (mouseover)="hoverProjectsWhitLeftBorders(project, i)"
+              (mouseout)="hoverProjectsWhitLeftBordersOut(project, i)"
+            >
+              <td
+                class="pl-3 projectLength"
+                style="
+                  align-items: center;
+                  position: relative;
+                  border-top-style: none;
+                "
+              >
+                <div
+                  [ngStyle]="{
+                    'border-left': project.level * 15 + 'px ' + 'solid',
+                    'border-color': 'transparent'
+                  }"
+                  class="span-projectname"
+                >
+                  <span
+                    [ngStyle]="{
+                      visibility:
+                        project.activities.length < 1 ? 'hidden' : 'visible'
+                    }"
+                    data-id="showHideSubProjects"
+                    (click)="toggleProjectExpanded(project)"
+                    class="d-flex arrow"
+                  >
+                    <svg
+                      data-id="showHideSubProjects"
+                      [ngClass]="{ rotate90deg: project.expanded }"
+                      style="margin: auto"
+                      width="14"
+                      height="14"
+                      id="Layer_1"
+                      Xdata-name="Layer 1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 8 13.12"
+                    >
+                      <defs data-id="showHideSubProjects">
+                        <style>
+                          .cls-1 {
+                            fill: none;
+                            stroke: #212529;
+                            stroke-miterlimit: 10;
+                            stroke-width: 1px;
+                          }
+                        </style>
+                      </defs>
+                      <polyline
+                        data-id="showHideSubProjects"
+                        class="cls-1"
+                        points="1.11 1.11 6.61 6.11 1.11 12.11"
+                      />
+                    </svg>
+                  </span>
+                  {{ project.name }}
+                </div>
+
+                <div
+                  *ngIf="
+                    (!project.expanded || project.noExpand) &&
+                    project.level == 0
+                  "
+                  class="thin-margin-line-bottom"
+                ></div>
+
+                <div
+                  *ngIf="project.level > 0"
+                  class="thin-margin-line-bottom"
+                  [ngStyle]="{
+                    left:
+                      project.last && project.level == 1
+                        ? '0px'
+                        : 7.5 * project.level + 'px'
+                  }"
+                ></div>
+
+                <div
+                  [ngStyle]="{
+                    'background-color': setBorderLeftColor(project),
+                    left: '0px',
+                    display: project.level == 0 ? 'none' : 'block',
+                    width: project.level * 7.5 + 'px'
+                  }"
+                  class="thin-margin-line-left"
+                ></div>
+
+                <div
+                  *ngIf="
+                    (!project.expanded || project.noExpand) &&
+                    projectlist.length - 1 === i &&
+                    project.level > 0 &&
+                    project.parent_last
+                  "
+                  [ngStyle]="{
+                    left: +(7.5 * project.level) + 'px',
+                    width:
+                      project.level *
+                        ((7.5 * project.level) / (project.level > 1 ? 2 : 1)) +
+                      'px'
+                  }"
+                  class="thin-margin-line-back-left 1"
+                  [id]="project.level"
+                ></div>
+
+                <div
+                  *ngIf="
+                    (!project.expanded || project.noExpand) &&
+                    projectlist.length - 1 === i &&
+                    project.level > 0 &&
+                    project.last &&
+                    !project.parent_last
+                  "
+                  [ngStyle]="{
+                    left:
+                      7.5 *
+                        (project.parent_level && project.last
+                          ? project.level -
+                            project.parent_level -
+                            (project.level > 2 ? 1 : 0)
+                          : project.level / 2) +
+                      'px',
+                    width: 7.5 * project.level - project.parent_level + 'px'
+                  }"
+                  class="thin-margin-line-back-left 2"
+                ></div>
+
+                <div
+                  *ngIf="
+                    (project.expanded || !project.noExpand) &&
+                    project.level === 0
+                  "
+                  [ngStyle]="{ left: '7.5px' }"
+                  class="thin-margin-line-bottom"
+                ></div>
+              </td>
+
+              <td
+                class="pl-3 ls-1 hideUnder800"
+                style="align-items: center; position: relative"
+              >
+                {{ project.CustomName }}
+              </td>
+
+              <td class="pl-3 aktivitetLength" style="position: relative">
+                {{ project.activityDescription }}
+              </td>
+              <td class="pl-3 ls-1 hideUnder800" style="position: relative">
+                {{ project.type | translate }}
+              </td>
+              <td class="pl-3 ls-1 hideUnder800" style="position: relative">
+                {{ project.StartDate | trimStr2 }}
+              </td>
+              <td class="pl-3 ls-1 hideUnder800" style="position: relative">
+                {{ project.EndDate | trimStr2 }}
+              </td>
+              <td class="pl-3 ls-1 hideUnder800" style="position: relative">
+                {{ project.TehnicReview | trimStr2 }}
+              </td>
+            </tr>
+
+            <ng-container *ngIf="project.expanded">
+              <ng-container
+                *ngTemplateOutlet="
+                  recursiveList;
+                  context: {
+                    $implicit: project.activities,
+                    parent_last: project.last
+                  }
+                "
+              ></ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="project.expanded || project_id">
+            </ng-container>
+          </ng-container>
+        </ng-template>
+
+        <ng-container
+          *ngTemplateOutlet="recursiveList; context: { $implicit: projectlist }"
+        >
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div
+      [class.thin-red-line-bottom-hidde]="originProjectList.length < 2"
+      class="thin-red-line-bottom"
+    ></div>
+    <div
+      [class.thin-red-line-right-hidde]="originProjectList.length < 2"
+      class="thin-red-line-right"
+    ></div>
+  </div>
+</div>
+<!--
+  <tr class="total-row" *ngIf="showPagination">
+    <td class="no-border" colspan="6" style="text-align: right;">
+      <div class="paginate-wrapp mt-3 mb-5">
+        <div class="paginate-style left">
+          <span class="material-icons" (click)="paginate(previousPage)"
+            [ngClass]="{'last-page': page == 0  }">navigate_before</span>
+        </div>
+        <div class="paginate-numbers px-3 ">
+          <span *ngFor="let num of numberOfRowsArray; let i = index" (click)="paginate(i)"
+            [ngStyle]="{'color':i == page  ? '#EA7928'  :  '#7a7e7f'}">{{i
+            + 1}}</span>
+        </div>
+        <div class="paginate-style right">
+
+          <span class="material-icons" (click)="paginate(nextPage)"
+            [ngClass]="{'last-page': page == numberOfRowsArray.length - 1   }">navigate_next</span>
+        </div>
+
+      </div>
+
+    </td>
+  </tr>
+
+  -->

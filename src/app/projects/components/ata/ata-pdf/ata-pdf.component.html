@@ -1,0 +1,730 @@
+<div class="ata-pdf">
+  <div class="main-section section-height">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-4 no-pad-left">
+          <img class="img" src="{{ generalImage }}" alt="logo" />
+        </div>
+        <div class="col-8 no-pad-right">
+          <h4 class="first-letter-up hed">
+            {{ "Change & additional work" | translate }}
+          </h4>
+          <div class="row">
+            <div class="col-8 no-pad-left">
+              <h6
+                class="first-letter-up leetsp"
+                [ngClass]="
+                  formValues?.paymentTypeName == 'Löpande räkning'
+                    ? 'art-lop-r'
+                    : ''
+                "
+              >
+                Art: {{ getAtaType(formValues.AtaType) }} -
+                {{
+                  formValues.paymentType == "1"
+                    ? "Löpande räkning"
+                    : formValues.paymentType == "2"
+                    ? "Fastpris"
+                    : formValues.paymentType == "4"
+                    ? "Riktpris"
+                    : formValues.paymentType == "5"
+                    ? "Riktpris Hög/Sänkt "
+                    : "Enl. á-prislista"
+                }}
+              </h6>
+
+              <span class="reminder">
+                {{
+                  formValues.Status == "4" && formValues.timesReminderSent > 0
+                    ? formValues.timesReminderSent == 1
+                      ? "Påminnelse"
+                      : "Påminnelse " + formValues.timesReminderSent
+                    : formValues.paymentType != "0" &&
+                      formValues.paymentType != "1" &&
+                      formValues.paymentType != "4"
+                    ? "- Sammanställning"
+                    : ""
+                }}
+              </span>
+            </div>
+            <div class="right-side-row">
+              <div (click)="generatePdf('Save')">
+                <app-download-svg-icon></app-download-svg-icon>
+                </div>
+              <div (click)="generatePdf('Print')">
+                <app-print-svg-icon></app-print-svg-icon>
+              </div>
+            </div>
+            <div class="col-4 ata-nub leetsp">
+              <p>
+                <b
+                  >{{ "Nr" | translate }}: {{ project.CustomName }}-{{
+                    formValues.Type == "internal" ? "INTERN" : ""
+                  }}ÄTA-{{ nextAtaNumber }}</b
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2 mb-3">
+      <div class="marg-inl-end" style="line-height: 1.45em">
+        <div class="section">
+          <table class="table">
+            <thead></thead>
+            <tbody>
+              <tr>
+                <td class="align-right">
+                  <small>{{ "Project" | translate }}:</small>
+                </td>
+                <td>{{ project.CustomName }} {{ project.name }}</td>
+              </tr>
+              <tr>
+                <td class="align-right" style="padding-top: 2%">
+                  <small
+                    >{{
+                      "Created
+                                        by"
+                        | translate
+                    }}:</small
+                  >
+                </td>
+                <td style="padding-top: 2%">
+                  {{
+                    formValues.AuthorName
+                      ? formValues.AuthorName
+                      : userDetails.firstname + " " + userDetails.lastname
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <td class="align-right">
+                  <small>{{ "Sent" | translate }}:</small>
+                </td>
+                <td class="leetsp">
+                  {{ get_last_email_log_but_first_client.EMAIL_LOG_DATE }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div
+        class="section marg-inl-end"
+        style="line-height: initial"
+        *ngIf="type != 'internal'"
+      >
+        <table class="table">
+          <thead></thead>
+          <tbody>
+            <tr>
+              <td class="align-right no-pad-left">
+                <small>{{ "Application made to" | translate }}:</small>
+              </td>
+              <td class="no-pad-left">
+                {{
+                  get_last_email_log_but_first_client.email_log_client_worker
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="no-pad-top no-pad-left">
+                {{ formValues.clientName }} <br />
+                {{ formValues.street }}
+              </td>
+            </tr>
+            <tr>
+              <td class="no-pad-top"></td>
+              <td class="no-pad-left">
+                {{ formValues.zip }} {{ formValues.city }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 mb-3">
+      <div style="padding-left: 5px">
+        <div class="section">
+          <p>
+            <small>{{ "Heading" | translate }}:</small>
+          </p>
+          <p>
+            <b
+              >{{ project.CustomName }}-{{
+                formValues.Type == "internal" ? "INTERN" : ""
+              }}ÄTA-{{ nextAtaNumber }}</b
+            >
+            <br />
+            <b>{{ formValues.Name }}</b>
+          </p>
+        </div>
+      </div>
+      <div class="marg-left-9">
+        <div class="section">
+          <br />
+          <p>
+            {{ "In order to minimize the time," | translate }}
+            {{
+              (
+                "cost consequences and not cause any
+                        obstacles, we need the above order"
+                | translate
+              ).substring(0, 58)
+            }}
+            {{ "message at the latest" | translate }}:
+            <b> {{ formValues.DueDate.substring(0, 10) }}</b>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="brief" *ngIf="formValues.briefDescription && formValues.briefDescription.length > 0">
+      <small>{{ "Brief description of the change" | translate }}:</small> <br />
+      <p class="brife-2">{{ formValues.briefDescription }}</p>
+    </div>
+    <div>
+      <ng-template
+        [ngIf]="
+          getArticlesAdditionalWork.length > 0 ||
+          getArticlesMaterial.length > 0 ||
+          getArticleOther.length > 0
+        "
+      >
+        <table class="article-table">
+          <thead>
+            <tr>
+              <th class="border-table beskriving">
+                {{ "Name/Title" | translate }}
+              </th>
+              <th class="border-table align-right">
+                {{ "Quantity" | translate }}
+              </th>
+              <th class="border-table aligin-left">{{ "Unit" | translate }}</th>
+              <th class="border-table align-right">
+                {{ "Price per unit" | translate }}
+              </th>
+              <th class="border-table aligin-left">
+                <img
+                  class="img-p-m-sign"
+                  src="/assets/img/plus-minus-percent-sign.png"
+                  alt="plus-minus-percent-sign"
+                />
+              </th>
+              <th class="border-table align-right">{{ "Sum" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-template [ngIf]="getArticlesAdditionalWork.length > 0">
+              <tr>
+                <td colspan="6">
+                  <b>{{ ("Work" | translate).substring(0, 5) }}</b>
+                </td>
+              </tr>
+              <tr *ngFor="let article of getArticlesAdditionalWork">
+                <td class="article-name">{{ article.Name }}</td>
+                <td class="align-right">
+                  <ng-container *ngIf="article.Quantity != 0">
+                    {{ article.Quantity.toString().replace(",", ".") | timeDisplay }}
+                  </ng-container>
+                  <ng-container *ngIf="article.Quantity == 0">
+                    &nbsp;
+                  </ng-container>
+                </td>
+                <td class="aligin-left">
+                  <ng-container *ngIf="article.Quantity != 0">
+                    {{ article.Unit  | translate }}
+                  </ng-container>
+                  <ng-container *ngIf="article.Quantity == 0">
+                    &nbsp;
+                  </ng-container>
+                </td>
+                <td class="align-right">
+                  <ng-container *ngIf="article.Price != 0">
+                    {{ article.Price.toString().replace(",", ".")| number: "1.2-2":"fr" }}
+                  </ng-container>
+                  <ng-container *ngIf="article.Price == 0">
+                    &nbsp;
+                  </ng-container>
+                </td>
+                <td class="aligin-left">
+                  <ng-container *ngIf="article.Quantity != 0">
+                    {{ article.Deduct != "0" ? article.Deduct : "" }}
+                  </ng-container>
+                  <ng-container *ngIf="article.Quantity == 0">
+                    &nbsp;
+                  </ng-container>
+                </td>
+                <td class="align-right">
+                  <ng-container *ngIf="article.Total != 0">
+                    {{ article.Total | number: "1.2-2":"fr" }}
+                  </ng-container>
+                  <ng-container *ngIf="article.Total == 0">
+                    &nbsp;
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template
+              [ngIf]="
+                formValues.paymentType == 1 ||
+                (formValues.paymentType == 4 && formValues.Status == 2)
+              "
+            >
+              <ng-template [ngIf]="getArticlesMaterial.length > 0">
+                <tr>
+                  <td colspan="6">
+                    <b>{{ "Material" | translate }}</b>
+                  </td>
+                </tr>
+                <tr *ngFor="let article of getArticlesMaterial">
+                  <td class="article-name">
+                    {{ article.Name }}
+                  </td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Quantity != 0">
+                      1
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="article.Quantity != 0">
+                      {{ "pieces"  | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Total != 0">
+                      {{ article.Total | number: "1.2-2":"fr" }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Total == 0">
+                    </ng-container>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template [ngIf]="getArticleOther.length > 0">
+                <tr>
+                  <td colspan="6">
+                    <b>{{ "UE/Other" | translate }}</b>
+                  </td>
+                </tr>
+                <tr *ngFor="let article of getArticleOther">
+                  <td class="article-name">{{ article.Name }}</td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Quantity != 0">
+                      1
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="article.Quantity != 0">
+                      {{ "pieces"  | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Total != 0">
+                      {{ article.Total | number: "1.2-2":"fr" }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Total == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                </tr>
+              </ng-template>
+            </ng-template>
+            <ng-template
+              [ngIf]="
+                (formValues.paymentType != 1 && formValues.paymentType != 4) ||
+                (formValues.paymentType == 4 && formValues.Status != 2)
+              "
+            >
+              <ng-template [ngIf]="getArticlesMaterial.length > 0">
+                <tr>
+                  <td colspan="6">
+                    <b>{{ "Material" | translate }}</b>
+                  </td>
+                </tr>
+                <tr *ngFor="let article of getArticlesMaterial">
+                  <td class="article-name">{{ article.Name }}</td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Quantity != 0">
+                      {{ article.Quantity.toString().replace(",", ".") | timeDisplay }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                       &nbsp;
+                    </ng-container>
+                  </td>
+                  <td class="aligin-left">
+                    <ng-container *ngIf="article.Quantity != 0">
+                      {{ article.Unit  | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Price != 0">
+                      {{ article.Price.toString().replace(",", ".") | number: "1.2-2":"fr" }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Price == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td class="aligin-left">
+                    <ng-container *ngIf="article.Quantity != 0">
+                      {{ article.Deduct != "0" ? article.Deduct : "" }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Total != 0">
+                      {{ article.Total | number: "1.2-2":"fr" }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Total == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template [ngIf]="getArticleOther.length > 0">
+                <tr>
+                  <td colspan="6">
+                    <b>{{ "UE/Other" | translate }}</b>
+                  </td>
+                </tr>
+                <tr *ngFor="let article of getArticleOther">
+                  <td class="article-name">{{ article.Name }}</td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Quantity != 0">
+                      {{ article.Quantity.toString().replace(",", ".") | number: "1.2-2":"fr" }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                       &nbsp;
+                    </ng-container>
+                  </td>
+                  <td class="aligin-left">
+                    <ng-container *ngIf="article.Quantity != 0">
+                      {{ article.Unit  | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Price != 0">
+                      {{ article.Price.toString().replace(",", ".")  | number: "1.2-2":"fr" }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td class="aligin-left">
+                    <ng-container *ngIf="article.Quantity != 0">
+                      {{ article.Deduct != "0" ? article.Deduct : "" }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Quantity == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                  <td class="align-right">
+                    <ng-container *ngIf="article.Total != 0">
+                      {{ article.Total | number: "1.2-2":"fr" }}
+                    </ng-container>
+                    <ng-container *ngIf="article.Total == 0">
+                      &nbsp;
+                    </ng-container>
+                  </td>
+                </tr>
+              </ng-template>
+            </ng-template>
+          </tbody>
+        </table>
+      </ng-template>
+    </div>
+  </div>
+  <div class="footer-section mt-2 pt-2">
+    <div class="labeling-requierments" *ngIf="formValues.labeling_requirements">
+      {{ "Labeling requirements" | translate }}
+      {{ formValues.labeling_requirements }}
+    </div>
+    <div>
+      <p class="total-sum border-tot-sum">
+        {{ "TSC_SUM_TOTAL" | translate }}:
+        {{
+          calcAllTotal([
+            getArticlesAdditionalWork,
+            getArticlesMaterial,
+            getArticleOther
+          ]) | number: "1.2-2":"fr"
+        }}
+        {{currency}}
+      </p>
+      <p class="alla-priser">
+        {{ "All prices are excluding VAT" | translate }}
+      </p>
+    </div>
+    <div style="margin-bottom: 2em">
+      <div class="container no-pad-right">
+        <div class="row">
+          <div class="col-6" *ngIf="formValues?.clientResponses?.length < 1">
+            <div class="footer" style="margin-top: 4%">
+              <p class="title">{{ "The above is approved" | translate }}:</p>
+              <p class="signature-field">
+                {{ "city" | translate }}, {{ "date" | translate }}
+              </p>
+              <p class="signature-field">{{ "Signature" | translate }}</p>
+              <p class="signature-field">{{ "Namnförtydligande" }}</p>
+            </div>
+          </div>
+          <div
+            [ngClass]="
+              formValues?.clientResponses?.length < 1
+                ? 'col-6 no-pad-right'
+                : 'no-pr-minl'
+            "
+            *ngIf="formValues.paymentType != 2"
+          >
+            <table class="table-total">
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="formValues.paymentType == 4">
+                  <td><b>Riktkostnad:</b></td>
+                  <td>
+                    <b
+                      >{{
+                        formValues?.richCostTotal | number: "1.2-2":"fr"
+                      }}
+                      {{currency}}</b
+                    >
+                  </td>
+                </tr>
+                <tr *ngIf="formValues.paymentType == 4">
+                  <td>Differens:</td>
+                  <td>
+                    {{
+                      formValues?.richCostTotal - formValues?.invoicedTotal
+                        | number: "1.2-2":"fr"
+                    }}
+                    {{currency}}
+                  </td>
+                </tr>
+                <tr *ngIf="formValues.paymentType == 4">
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="formValues.paymentType == 4">
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="formValues.paymentType == 4">
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>{{ "Totally worked up" | translate }}:</td>
+                  <td>
+                    {{ formValues?.totallyWorkedUp | number: "1.2-2":"fr" }} {{currency}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ "Previously billed" | translate }}:</td>
+                  <td>
+                    {{ formValues?.invoicedTotal | number: "1.2-2":"fr" }} {{currency}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ "Remains to bill" | translate }}:</td>
+                  <td>
+                    {{ calcRemainingToBill() | number: "1.2-2":"fr" }} {{currency}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="my-grid-2">
+      <div
+        [ngClass]="
+          formValues?.clientResponses?.length > 0 ? 'digital-answer' : ''
+        "
+        style="line-height: normal"
+      >
+        <div class="section" style="padding-left: 5px">
+          <div *ngIf="formValues?.clientResponses?.length > 0">
+            <div class="answer-wrapper">
+              <h5>{{ "Message from Client" | translate }}:</h5>
+              <div
+                *ngFor="
+                  let clientResponse of formValues?.clientResponses;
+                  let last = last
+                "
+              >
+                <p>
+                  <ng-container>
+                    <div>
+                      <span>
+                        {{ clientResponse.answerDate }}
+                      </span>
+                      <span
+                        *ngIf="
+                          clientResponse?.manualReply == 1 &&
+                          clientResponse?.Status == 2
+                        "
+                      >
+                        - {{ "Manually accepted by" | translate }}
+                      </span>
+                      <span
+                        *ngIf="
+                          clientResponse?.manualReply == 1 &&
+                          clientResponse?.Status == 3 && type == 'external'
+                        "
+                      >
+                        - {{ "Manually rejected by" | translate }}
+                      </span>
+                      <span
+                        *ngIf="
+                          clientResponse?.manualReply == 1 &&
+                          clientResponse?.Status == 0 && type == 'external'
+                        "
+                      >
+                        - {{ "Manually revisioned by" | translate }}
+                      </span>
+                    </div>
+                    <div>{{ clientResponse.answerEmail }} <br /></div>
+                  </ng-container>
+                </p>
+                <div
+                  class="accepted-answ"
+                  *ngIf="
+                    last &&
+                    (clientResponse?.Status == 2 || clientResponse?.Status == 4)
+                  "
+                >
+                  <h6 style="margin-bottom: 0px">
+                    {{ "Accepted" | translate }}
+                  </h6>
+                </div>
+                <div
+                  class="answ-delinced"
+                  *ngIf="last && clientResponse?.Status == 3"
+                >
+                  <h6 style="margin-bottom: 0px">
+                    {{ "Declined" | translate }}
+                  </h6>
+                </div>
+                <div
+                  class="answ-question"
+                  *ngIf="last && clientResponse?.Status == 0 && type == 'external'"
+                >
+                  <h6 style="margin-bottom: 0px">
+                    {{ "Question" | translate }}
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display: grid;">
+        <ng-container>
+          <div
+            [ngClass]="formValues?.Status == 3 ? 'digital-answer-message' : ''"
+            *ngIf="formValues?.clientResponses?.length > 0"
+          >
+            <p
+              style="display: contents"
+              *ngFor="let clientResponse of formValues?.clientResponses"
+            >
+              <span *ngIf="clientResponse?.client_message">
+                <span class="msg-descr">
+                  {{ "Description" | translate }}
+                </span>
+                <span
+                  *ngIf="clientResponse?.client_message"
+                  class="client-message"
+                >
+                  <div style="font-size: 12px">
+                    {{ clientResponse.answerEmail }}
+                  </div>
+                  <div>{{ clientResponse?.client_message }}<br /><br /></div>
+                </span>
+              </span>
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <hr class="hr" />
+    <div class="grid footer-data" *ngIf="generals">
+      <div>
+        <div class="section">
+          <p>
+            <b>{{ "Postadress" | translate }}</b>
+          </p>
+          <p>{{ generals['Company_Name'].value }}</p>
+          <p>{{ generals['Company_Address'].value }}</p>
+          <p>{{ generals['Company_Email'].value }} {{ generals['Company_Site'].value }}</p>
+        </div>
+      </div>
+      <div class="marg-inl marg-right-16">
+        <div class="section">
+          <p>
+            <b>{{ "Telefon" | translate }}</b>
+          </p>
+          <p>{{ generals['Company_Phone'].value }}</p>
+          <p>
+            <b>{{ "Momsreg.nr" | translate }}</b>
+          </p>
+          <p>{{ generals['Company_Bank_Account'].value }}</p>
+        </div>
+      </div>
+      <div class="marg-inl marg-right-m16">
+        <div class="section">
+          <p>{{ "Approved for F tax" | translate }}</p>
+          <br />
+          <p>{{ "ATA" | translate }} {{ "skapad" | translate}} i </p>
+          <p>SPS360</p>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="section">
+          <br />
+          <br />
+          <p style="font-weight: bold">{{ "Page" | translate }} 1/1</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

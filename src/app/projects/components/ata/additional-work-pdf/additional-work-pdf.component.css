@@ -1,0 +1,467 @@
+.weekly-report-pdf {
+  width: 770px;
+  height: 95vh;
+  overflow-y: auto;
+  background-color: white;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Arial Narrow";
+  color: black;
+}
+
+.bold {
+  font-weight: bold;
+}
+p {
+  margin: 0;
+}
+
+table caption {
+  padding: 0.5em;
+}
+
+table,
+th,
+td {
+  padding: 0.35em;
+  border: 1px solid lightgrey;
+  border-collapse: collapse;
+  /* Dž.K. 03.03.2021 Pocetak*/
+  border: hidden;
+  letter-spacing: 1px;
+  padding-bottom: 0px;
+  /* Dž.K. 03.03.2021 Kraj*/
+}
+
+table tbody tr {
+  cursor: pointer;
+}
+
+/* table caption {
+    padding: .15em 0.3em;
+} */
+
+/* table th,
+table td {
+    padding: .15em 0.3em;
+    border: 1px solid white;
+} */
+
+table td {
+  border: none;
+}
+
+.footer {
+  margin-top: 1em;
+}
+
+.footer p {
+  margin: 0.5em 0;
+}
+
+.date-and-signature {
+  display: flex;
+  border: 1px solid #777;
+}
+
+.total-sum {
+  margin-top: 1em;
+  text-align: right;
+}
+
+.date-and-signature > div {
+  flex: 1;
+  padding: 0.5em;
+  padding-bottom: 3em;
+}
+
+.date-and-signature > div + div {
+  border-left: 1px solid #777;
+}
+
+.grid {
+  display: grid;
+  /* grid-template-columns: repeat(3, minmax(100px, 1fr)); */
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  grid-gap: 0.5em;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(100px, 1fr));
+  grid-gap: 0.5em;
+}
+
+.grid p {
+  margin-bottom: 0rem;
+}
+
+.grid-2 p {
+  margin-bottom: 0px;
+}
+
+.grid img {
+  width: 100%;
+  max-width: 250px;
+  margin-bottom: 1em;
+}
+
+.grid .section + .section {
+  margin-top: 1.5em;
+}
+.footer-right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.footer-section {
+  font-size: 0.8em;
+}
+
+.footer-section .grid > div {
+  padding: 0 10px;
+}
+
+/* .answer-wrapper {
+    width: 100%;
+    border: 1px solid #a5a5a5;
+    background-color: #eee;
+    border-radius: 25px;
+    padding: 10px;
+    margin-bottom: 20px;
+} */
+
+.answer-description {
+  padding: 5px;
+  border: 1px solid #a5a5a5;
+  background-color: #e7e6e6;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.answer {
+  padding: 5px;
+  border: 1px solid #70ad47;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #e7e6e6;
+}
+
+.client-message {
+  padding: 0.45em 0.9em;
+  background-color: #fff;
+  border-radius: 16px;
+  display: inline-block;
+  margin-top: 0.2em;
+}
+
+/* -------------------------------------------------- */
+
+.no-pad-left {
+  padding-left: 0px;
+}
+.no-pad-right {
+  padding-right: 0px;
+}
+.leetsp {
+  letter-spacing: 1px;
+}
+.ata-nub {
+  text-align: right;
+  /* padding-right: 0%; */
+  padding-left: 0%;
+  padding-right: 0;
+}
+.img {
+  width: 100%;
+}
+
+.align-right {
+  text-align: right;
+}
+.aligin-left {
+  text-align: left;
+}
+
+.no-pad-top {
+  padding-top: 0px;
+}
+.no-pad-bot {
+  padding-bottom: 0 !important;
+}
+
+.marg-inl-end {
+  margin-inline-end: auto;
+}
+.hed {
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.container-fluid {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 5%;
+}
+.marg-left-5 {
+  letter-spacing: 0.5px;
+}
+.bg-table {
+  background: #f5f5f5;
+}
+.item-date {
+  font-weight: 600;
+  border-bottom: 0.5px solid #d0d0d0;
+  margin-bottom: 0;
+}
+/* .bord-t-answ-s{
+    border-top: .5px solid #7070708a !important;
+
+    text-decoration: line-through;
+} */
+
+.bord-t-answ-text {
+  color: #d9d9d9;
+  padding-left: 0.5%;
+}
+/* .bord-t-answ-l{
+    border-top: .5px solid #7070708a !important;
+
+    border-left: .5px solid #7070708a !important;
+    text-decoration: line-through;
+    border-top-left-radius:5px;
+
+} */
+.bord-t-answ-r {
+  border-top: 0.5px solid #7070708a !important;
+
+  border-right: 0.5px solid #7070708a !important;
+  border-top-right-radius: 5px;
+}
+.bord-b-answ-l {
+  border-bottom: 0.5px solid #7070708a !important;
+  border-left: 0.5px solid #7070708a !important;
+  text-align: end;
+
+  border-bottom-left-radius: 5px;
+}
+.bord-b-answ-r {
+  border-bottom: 0.5px solid #7070708a !important;
+  border-right: 0.5px solid #7070708a !important;
+
+  border-bottom-right-radius: 5px;
+}
+.text-warning {
+  color: #f69a0f !important;
+}
+.my-grid-2 {
+  display: grid;
+  /* grid-template-columns: 40%,60%; */
+  /* grid-template-columns: repeat(1, 40% 2fr) ; */
+  grid-template-columns: repeat(1, 295px 2fr);
+  /* grid-auto-rows: 1fr; */
+  grid-auto-rows: auto;
+  grid-gap: 0.5em;
+  margin-left: 2%;
+}
+
+.digital-answer {
+  /* padding: 10px; */
+  padding: 5px;
+  background-color: #f8f8f8;
+  border: 1px solid #7070708a;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+
+.answ-delinced {
+  font-weight: bold;
+  color: #fff;
+  background-color: #dc3545;
+  margin-inline-start: auto;
+  width: 32%;
+  text-align: center;
+  border-radius: 1px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.answ-question {
+  font-weight: bold;
+  color: #fff;
+  background-color: #ffc107;
+  margin-inline-start: auto;
+  width: 32%;
+  text-align: center;
+  border-radius: 1px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.answ-accepted {
+  font-weight: bold;
+  color: #fff;
+  background-color: #4cb185;
+  margin-inline-start: auto;
+  width: 32%;
+  text-align: center;
+  border-radius: 1px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.hr {
+  margin-bottom: 0.5rem;
+}
+.marg-inl {
+  margin-inline-start: auto;
+}
+.marg-right-16 {
+  margin-right: 16%;
+}
+.marg-right-m16 {
+  margin-right: -16%;
+}
+.total-time {
+  text-align: end;
+  font-weight: bold;
+}
+
+.digital-answer-message {
+  /* padding: 10px; */
+  padding: 2px;
+  /* background-color: #F8F8F8; */
+  border: 1px solid #7070708a;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  padding-top: 0px;
+}
+
+.msg-descr {
+  font-size: smaller;
+  font-weight: bold;
+}
+.client-message {
+  padding: 0.45em 0.9em;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #7070708a;
+  display: inline-block;
+  margin-top: 0.2em;
+  width: 100%;
+  padding-bottom: 20px;
+}
+.stat-time {
+  font-size: 23px;
+  font-weight: bold;
+}
+.bord {
+  border: 0.5px solid;
+  border-radius: 5px;
+}
+.tb-hed {
+  border-top: 2px solid #7070708a;
+  border-bottom: 2px solid #7070708a;
+  text-align: center;
+}
+
+.del-time {
+  border-color: #7070708a !important;
+  border-top: 0.5px solid;
+  border-left: 0.5px solid;
+  border-right: 0.5px solid;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background-color: white;
+  padding-top: 0.5%;
+}
+.del-time-b {
+  width: 93%;
+  border-color: #7070708a !important;
+  border-bottom: 0.5px solid;
+  border-left: 0.5px solid;
+  border-right: 0.5px solid;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: white;
+}
+.line-trough {
+  text-decoration-color: #707070 !important;
+  text-decoration: line-through;
+}
+
+.marg-06 {
+  margin-left: -0.6%;
+  width: 6%;
+  margin-top: -0.5%;
+}
+.marg-1 {
+  margin-left: -1%;
+  width: 6%;
+  margin-top: -0.5%;
+}
+.width-7 {
+  width: 7%;
+  margin-top: -0.5%;
+}
+.width-7-m06 {
+  width: 7%;
+  margin-left: -0.6%;
+  margin-top: -0.5%;
+}
+.moment-coment {
+  width: 29%;
+  line-height: 1.1;
+  padding-left: 1%;
+}
+.moment-coment-1 {
+  width: 29%;
+  line-height: 1.1;
+}
+
+.padd1105 {
+  padding-right: 11px;
+  padding-top: 0.5%;
+}
+.dig-answ-table {
+  margin-inline-start: auto;
+  margin-top: 5%;
+  font-size: 14px;
+  margin-right: 5%;
+}
+/* -------------------------------------------------- */
+
+.buton-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.preview-btn {
+  color: #17a2b8;
+  cursor: pointer;
+}
+
+.preview-btn:hover {
+  color: #005a68;
+}
+
+.buton-wrapper > div {
+  padding: 0.10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.left-side-row > div:first-child {
+  margin-right: 1rem;
+}
+
+.right-side-row > div:first-child {
+  margin-right: 1rem;
+}

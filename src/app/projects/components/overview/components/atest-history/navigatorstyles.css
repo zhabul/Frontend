@@ -1,0 +1,76 @@
+.my-pagination ::ng-deep .ngx-pagination {
+  text-align: center;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+  background: none;
+  color: red;
+}
+
+.my-pagination ::ng-deep .ngx-pagination li {
+  font-size: 17px;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-next a::after {
+  display: none;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-next::after {
+  display: none;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-previous a::before {
+  display: none;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-previous::before {
+  display: none;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-next {
+  background: none;
+  color: #337ab7;
+  font-weight: bold;
+  font-size: 24px;
+  border: 1px #ddd;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-next a {
+  background: none;
+  color: #337ab7;
+  font-weight: bold;
+  font-size: 24px;
+  border: 1px #ddd;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-previous {
+  background: none;
+  color: #337ab7;
+  font-weight: bold;
+  font-size: 24px;
+  border: 1px #ddd;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-previous a {
+  background: none;
+  color: #337ab7;
+  font-weight: bold;
+  font-size: 24px;
+  border: 1px #ddd;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-next:hover {
+  color: black;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-previous:hover {
+  color: black;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-next a:hover {
+  color: black;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-previous a:hover {
+  color: black;
+}

@@ -1,0 +1,502 @@
+.invoice-form {
+  padding: 20px;
+  padding-top: 5px;
+}
+
+.ata-content {
+  padding: 20px;
+}
+
+.nav-ata {
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+}
+
+.btn-position {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  padding: 10px;
+}
+
+.invoice-pdf {
+  width: 750px;
+  height: 85vh;
+  overflow-y: auto;
+  background-color: white;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pdfDisplay {
+  max-height: 85vh;
+  width: 100%;
+  height: 100%;
+}
+
+.aside {
+  position: fixed;
+  right: 0;
+  top: 10px;
+  transform: translateX(100%);
+  transition: transform 0.25s ease-out;
+  z-index: 998;
+}
+
+.aside.aside-show {
+  transform: translateX(0px);
+}
+
+.aside .buttons {
+  position: absolute;
+  right: calc(100% + 30px);
+  transform-origin: right;
+  top: 125px;
+  transform: rotate(-90deg) translateZ(0);
+}
+
+.aside .buttons button {
+  width: 160px;
+  background: orange;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  outline: 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.aside .buttons button + button {
+  margin-left: 1em;
+}
+
+fieldset {
+  border: 1px solid #ddd !important;
+  margin: 0;
+  min-width: 0;
+  padding: 10px;
+  position: relative;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  padding-left: 10px !important;
+}
+
+table .form-control[disabled] {
+  background-color: white !important;
+}
+
+table .form-control {
+  border: 1px solid #ffffff00;
+}
+
+.form-heading {
+  background-color: #003469;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.invoice-table {
+  background-color: #fff;
+}
+
+.table-text {
+  margin-left: 15px;
+}
+
+.select-wrapper {
+  display: flex;
+}
+
+.select-project-or-ata {
+  width: 220px !important;
+  overflow: hidden !important;
+}
+
+.main-row {
+  background: #ccc;
+}
+
+.disabled-input {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+/**moj css*/
+.content-wrapper {
+  padding-top: 20px;
+  padding-left: 10px;
+}
+
+.lable-white-color {
+  color: #44484c !important;
+}
+.form-row app-image-modal {
+  width: 100%;
+}
+.menu-wrapp {
+  display: flex;
+  flex-direction: column;
+}
+.master-left {
+  margin-left: 16px;
+}
+.border-nav {
+  border: 1.5px solid;
+  margin-left: 15px;
+  margin-right: -23px;
+  border-color: var(--border-color);
+  height: 61px;
+  background-color: var(--main-bg);
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  margin-top: -10px;
+}
+
+.border-h-project {
+  border-right: 1.5px solid;
+  border-color: var(--border-color);
+  height: 60px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.border-h-project-sec {
+  border-right: 1.5px solid;
+  border-color: var(--border-color);
+  height: 60px;
+  padding-left: 0px !important;
+  padding-right: 18px !important;
+}
+.name-of-projects {
+  color: var(--project-color);
+  font-size: 25px !important;
+  font-family: "PT Sans Regular", sans-serif; /* Dodali smo pravilan naziv fonta i fallback font */
+  padding-left: 16px;
+  padding-right: 30px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.title-table-wrapper {
+  padding-top: 10px;
+  /*  padding-bottom: 12px; */
+}
+.title-table {
+  color: var(--project-color);
+  font-size: 20px !important;
+  font-family: "PT-Sans-Pro-Regular";
+  margin-left: 18px;
+}
+.blu-scroll {
+  border: 1.5px solid;
+  border-color: var(--border-color);
+  border-top-left-radius: 8px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  position: relative !important;
+}
+@media (max-width: 7680px) {
+  .blu-scroll {
+    max-width: 1042px !important;
+    width: calc(100vw - 0px - 127px);
+    height: calc(100vh - 83px - 0px);
+  }
+}
+
+@media (max-width: 7680px) {
+  .blu-scroll-wrapp {
+    max-width: 1042px !important;
+    width: calc(100vw - 0px - 127px);
+    height: calc(100vh - 83px - 0px);
+    position: relative;
+  }
+}
+.vertical-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 16px;
+  width: 1px;
+  background-color: var(--border-color);
+}
+
+.horizontal-line {
+  position: absolute;
+  left: 0;
+  bottom: 17px;
+  right: 0px;
+  height: 1px;
+  background-color: var(--border-color);
+}
+.form-bg-c {
+  background-color: #d3dcea;
+  border-top-left-radius: 10px;
+}
+.input-300 {
+  width: 300px;
+  margin-right: 25px; /* Razmak između kolona */
+}
+input {
+  border: 2px solid #858585;
+}
+.icon-color {
+  color: #858585;
+}
+select {
+  border: 2px solid #858585;
+}
+.save-button {
+  border: 1px solid var(--brand-color);
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  background-color: transparent;
+  color: var(--brand-color);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+label {
+  display: inline-block;
+  margin-bottom: 0rem;
+}
+.form-group {
+  margin-bottom: 0.5rem;
+}
+textarea {
+  border: 2px solid #858585;
+}
+
+textarea.form-control {
+  resize: none;
+  overflow: hidden;
+}
+
+#intercommment {
+  height: 55px;
+  width: 64.5%;
+}
+.pre-form {
+  height: calc(100vh - 161px);
+  width: 1014px;
+}
+.padd-top5 {
+  padding-top: 5px;
+}
+
+table thead th {
+  color: var(--white);
+  background: var(--black-light);
+  position: sticky;
+  top: -1px;
+  height: 25px !important;
+  white-space: nowrap;
+  font-family: "PT-Sans-Pro-Regular" !important;
+  font-size: 10px;
+  font-weight: normal !important;
+  border-top: hidden;
+  /* border-left: hidden; */
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+table th,
+table td {
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Change border color for the first row */
+table tbody tr.main-row td {
+  border-bottom: 2px solid #82a7e2;
+  border-top: 2.5px solid #82a7e2;
+}
+table {
+  background-color: #d3dcea;
+}
+
+table tbody tr,
+table tbody tr td {
+  height: 37px !important;
+  background-color: white;
+  /*tu dodaj background colona*/
+}
+.konto-w {
+  width: 95px;
+  min-width: 95px;
+  max-width: 95px;
+}
+.project-w {
+  width: 543px;
+  min-width: 543px;
+  max-width: 543px;
+}
+.belopp-w {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+}
+.paslag-w {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+}
+.total-sum-w {
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
+}
+.delete-w {
+  width: 46px;
+  min-width: 46px;
+  max-width: 46px;
+}
+.save-button {
+  border: 1px solid var(--brand-color);
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  background-color: transparent;
+  color: var(--brand-color);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.save-title {
+  padding-left: 12px;
+  padding-right: 12px;
+  user-select: none;
+}
+.button-wrap {
+  background-color: #d3dcea;
+  padding-bottom: 30px;
+}
+.s-button {
+  position: relative;
+  top: 30px;
+  top: 30px;
+  left: 38px;
+}
+.for-left-text {
+  padding-left: 10px;
+}
+.for-center-text {
+  text-align: center;
+}
+.inputdeduced {
+  border: none;
+  width: 60px;
+  text-align: center;
+  background-color: transparent;
+}
+.inputdeduced:focus {
+  outline: none;
+}
+.inputamount {
+  border: none;
+  width: 140px;
+  padding-left: 10px;
+  background-color: transparent;
+}
+.inputamount:focus {
+  outline: none;
+}
+.border-summe {
+  border: 2px solid #858585;
+}
+.icon-delete {
+  cursor: pointer;
+}
+.sticky-total {
+  position: sticky;
+  bottom: 0;
+}
+table tbody tr:last-child td {
+  /*u tabeli gasi zadnji border crtaj sumin*/
+  border-bottom: none;
+}
+.mastersuma {
+  display: flex;
+  border-top: 1px solid #44484c;
+  border-bottom: 1px solid #44484c;
+}
+.suma {
+  height: 26px;
+  font-size: 13px;
+  font-family: "PT-Sans-Pro-Regular";
+  white-space: nowrap;
+  background-color: #1a1a1a !important;
+  font-weight: bold;
+  color: white;
+  text-align: right;
+  border-left: 1px solid #1a1a1a;
+  border-top: 8px solid #1a1a1a;
+  width: 695px;
+  border-bottom: 1px solid #44484c;
+}
+.total-text {
+  font-size: 13px;
+  font-family: PT-Sans-Pro-Regular;
+  padding-right: 13px;
+  font-weight: 47;
+  background-color: #1a1a1a;
+  position: relative;
+  bottom: 4px;
+}
+.first-blank-digit-suma {
+  position: relative;
+  width: 319px;
+  background-color: #ffffff !important;
+  height: 26px !important;
+}
+.positiondropdown {
+  position: relative;
+  top: -2px;
+  left: -2px;
+}
+.select-wrapper {
+  position: relative; /* Postavite relativnu poziciju na roditeljski element */
+  width: 50%; /* Širina za polovinu select-wrapper elementa */
+  box-sizing: border-box;
+}
+.bg-first-row {
+  background-color: #e5e5e5 !important;
+}
+.select-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -2px; /* Pomerite pseudoelement za 5 piksela iznad gornje ivice */
+  right: 0; /* Postavite na desnu ivicu roditeljskog elementa */
+  width: 1px; /* Debljina bordera */
+  height: calc(100% + 10px); /* Povećajte visinu za 5 piksela sa obe strane */
+  background-color: #707070; /* Boja bordera */
+}
+.delete-icon-hover:hover {
+  cursor: pointer;
+}
+.input-disable
+{
+  pointer-events: none !important;
+}

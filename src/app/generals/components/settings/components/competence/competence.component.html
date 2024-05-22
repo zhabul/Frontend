@@ -1,0 +1,50 @@
+<div class="competence-container blu-scroll" *ngIf="!loading">
+  <div class="list-head">
+    <div class="name">
+      <p>{{ "Name" | translate }}</p>
+    </div>
+    <div class="short-name">
+      <p>{{ "Remove" | translate }}</p>
+    </div>
+  </div>
+
+  <div class="list-element">
+    <div>
+      <input
+        placeholder="{{ 'New' | translate }}"
+        type="text"
+        [(ngModel)]="newCompetence"
+        name="competence"
+        autocomplete="off"
+        [disabled]="!userDetails.create_settings_Global"
+      />
+    </div>
+    <div>
+      <img
+        class="trash-icon"
+        src="../../../../assets/img/save.svg"
+        alt="edit"
+        (click)="addCompetence()"
+      />
+    </div>
+  </div>
+
+  <div
+    class="list-element"
+    *ngFor="let competence of competences; let i = index"
+  >
+    <div>
+      <p>{{ competence.name }}</p>
+    </div>
+    <div>
+      <img
+        class="trash-icon"
+        src="../../../../assets/img/trashcan.svg"
+        alt="edit"
+        (click)="deleteCompetenceModal(i)"
+      />
+    </div>
+  </div>
+</div>
+<div class="thin-red-line-bottom"></div>
+<mat-spinner class="spinner" *ngIf="loading"></mat-spinner>

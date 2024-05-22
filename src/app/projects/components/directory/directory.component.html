@@ -1,0 +1,79 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Add New Directory" | translate }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="createDirectory()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div class="form-group">
+    <label>{{ "Directory" | translate }}</label>
+    <input
+      name="directory"
+      class="form-control"
+      formControlName="Name"
+      required
+    />
+    <span
+      class="help-block"
+      *ngIf="
+        ((createForm.get('Name').touched || createForm.get('Name').dirty) &&
+          createForm.get('Name').errors) ||
+        (createForm.get('Name').hasError('required') && myform.submitted)
+      "
+    >
+      <span *ngIf="createForm.get('Name').errors.required" class="text-danger">
+        {{ "Please enter directory name" | translate }}.
+      </span>
+    </span>
+  </div>
+  <div class="form-group" (click)="onChangeParent(type.value)" #selectType>
+    <label for="name">{{ "Select Type" | translate }}</label>
+    <select
+      class="project-nav-select form-control"
+      required
+      formControlName="Parent"
+      #type
+    >
+      <option value="0">{{ "Main Directory" | translate }}</option>
+      <option value="1">{{ "Subdirectory" | translate }}</option>
+    </select>
+    <span
+      class="help-block"
+      *ngIf="
+        selectType.value == 0 ||
+        (createForm.get('Parent').hasError('required') && myform.submitted)
+      "
+    >
+      <span class="text-danger">
+        {{ "Please select directory type" | translate }}.
+      </span>
+    </span>
+  </div>
+  <div
+    class="form-group"
+    [ngClass]="{ '': showChildrenSelect, hide: showChildrenSelect == false }"
+  >
+    <label for="name">{{ "Select Main Directory" | translate }}</label>
+    <select class="project-nav-select form-control" formControlName="Children">
+      <option
+        value="{{ parent.DirectoryID }}"
+        *ngFor="let parent of modal_data.parentDirectories"
+      >
+        {{ parent.Name | translate }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group btn-position text-center">
+    <button type="submit" class="btn btn-success lh09">
+      <span class="material-icons left-3px top1px posRel">save</span>
+      <span class="posRel top-5px">{{ "Save" | translate }}</span>
+    </button>
+  </div>
+</form>

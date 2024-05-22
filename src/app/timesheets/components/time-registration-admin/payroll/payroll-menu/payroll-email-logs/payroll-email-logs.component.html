@@ -1,0 +1,39 @@
+<div class="log-box">
+    <div class="header-box">
+        <div id="name"></div>
+        <div class="close" [mat-dialog-close]> 
+            <app-grey-close-svg></app-grey-close-svg>
+        </div>
+    </div>
+    <div class="title-box">
+        <div class="font-medium">{{ 'CUD_E-Mail_Logs' | translate }}</div>
+        <div class="font-large">{{ 'Payroll Basis' | translate }}</div>
+    </div>
+    <div class="logs font-medium">
+        <div class="logs-header logs-grid">
+            <div>{{ 'Name' | translate }}</div>
+            <div>{{ 'Sent' | translate }}</div>
+            <div>{{ 'User' | translate }}</div>
+            <div>{{ 'CUD_From' | translate }}</div>
+            <div>{{ 'CUD_To' | translate }}</div>
+            <div>{{ 'Opened' | translate }}</div>
+        </div>
+        <div class="logs-container blu-scroll">
+            <div class="logs-grid logs-items" *ngFor="let log of emailLogs">
+                <div>{{ 'Wages' | translate }} {{ log.msg }}</div>
+                <div>{{ log.Date }}</div>
+                <div>{{ log.name | translate }}</div>
+                <div>{{ log.From | translate }}</div>
+                <div>{{ log.To | translate }}</div>
+                <div>n/a</div>
+            </div>
+            <div class="spinner-container-payroll" *ngIf="sending">
+                <app-pulse-spinner></app-pulse-spinner>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  

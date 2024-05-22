@@ -1,0 +1,341 @@
+.master-around {
+  margin-top: 20px;
+  margin-bottom: 93px;
+  margin-left: 25px;
+  margin-right: 16px;
+}
+
+.edit-adding-contact-mat-dialog  {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+::ng-deep .mat-dialog-container {
+    background-color: var(--main-bg);
+    /* padding: 14px 14px 22px 24px !important; */
+}
+
+.title-project {
+  color: var(--project-color);
+  font-size: 20px !important;
+  font-family: "PT-Sans-Pro-Regular";
+  padding-bottom: 7px;
+  position: relative;
+  top: 4px;
+}
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+.radio-group {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.foractive {
+  /* background-color: darkgray !important; */
+  /* position: absolute; */
+  /* right: 277px; */
+  /* top: 78px; */
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 14%;
+  left: 601px;
+  top: 27px;
+  z-index: 1;
+}
+.for-second-radio-inputs {
+  /* background-color: darkgray !important; */
+  /* position: absolute; */
+  /* right: 277px; */
+  /* top: 78px; */
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 14%;
+  left: 601px;
+  top: 55px;
+  z-index: 1;
+}
+
+/* Stil za labelu */
+.bg-dangerX {
+  margin-right: 10px; /* Dodajte razmak sa desne strane labele */
+}
+/* Stil za radio input kada nije čekiran */
+.first-radio {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Stil za krug unutar radio inputa */
+.first-radio + .first-radio-label::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Stil za radio input kada je čekiran */
+.first-radio:checked + .first-radio-label::before {
+  background-color: #03d156; /* Zelena boja za Yes */
+  border-color: #fff;
+}
+
+/* Stil za tekst labele */
+label {
+  font-size: 14px;
+  padding-bottom: 8px;
+}
+
+/* Stil za okvir radio inputa */
+.first-radio + .first-radio-label {
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+
+/* Stil za okvir radio inputa kada nije čekiran */
+.first-radio + .first-radio-label::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border: 2px solid gray; /* Siva boja za No */
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+
+.first-radio[value="Active"]:checked + .first-radio-label::before {
+  background-color: #03d156; /* Zelena boja za Yes */
+  border-color: #fff;
+}
+
+/* Stil za radio input kada je čekiran za "No" */
+.first-radio[value="Inactive"]:checked + .first-radio-label::before {
+  background-color: #ff0000; /* Crvena boja za No */
+  border-color: #fff;
+}
+.yes-check {
+  color: white;
+  padding-left: 12px;
+  padding-right: 10px;
+  font-family: "PT-Sans-Pro-Regular";
+  font-size: 11px;
+  font-weight: normal;
+}
+.no-check {
+  color: white;
+  padding-left: 12px;
+  font-family: "PT-Sans-Pro-Regular";
+  font-size: 11px;
+  font-weight: normal;
+}
+.radio-wrapper {
+  display: flex;
+  align-items: center; /* Centriraj elemente vertikalno */
+}
+label {
+  padding-bottom: 0px;
+}
+
+/* Stil za radio input kada nije čekiran */
+.sec-radio {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Stil za krug unutar radio inputa */
+.sec-radio + .sec-radio-label::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Stil za radio input kada je čekiran */
+.sec-radio:checked + .sec-radio-label::before {
+  background-color: #03d156; /* Zelena boja za Yes */
+  border-color: #fff;
+}
+
+/* Stil za tekst labele */
+label {
+  font-size: 14px;
+  padding-bottom: 8px;
+}
+
+/* Stil za okvir radio inputa */
+.sec-radio + .sec-radio-label {
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+
+/* Stil za okvir radio inputa kada nije čekiran */
+.sec-radio + .sec-radio-label::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border: 2px solid gray; /* Siva boja za No */
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+
+.sec-radio[value="3"]:checked + .sec-radio-label::before {
+  background-color: #03d156; /* Zelena boja za Yes */
+  border-color: #fff;
+}
+
+/* Stil za radio input kada je čekiran za "No" */
+.sec-radio[value="2"]:checked + .sec-radio-label::before {
+  background-color: #ff0000; /* Crvena boja za No */
+  border-color: #fff;
+}
+.yes-check {
+  color: white;
+  padding-left: 12px;
+  padding-right: 10px;
+  margin-top: -7px;
+}
+.no-check {
+  color: white;
+  padding-left: 12px;
+  margin-top: -7px;
+}
+.radio-wrapper {
+  display: flex;
+  align-items: center; /* Centriraj elemente vertikalno */
+}
+label {
+  padding-bottom: 0px;
+}
+.color-label {
+  color: #fff;
+  font-family: "PT-Sans-Pro-Regular";
+  font-size: 11px;
+  font-weight: normal; /* ili koristite font-weight: 400; */
+}
+.fornamn-w {
+  width: 330px;
+}
+.person-n-w {
+  width: 200px;
+}
+.svg-postion {
+  float: right;
+  position: relative;
+  bottom: 10px;
+}
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 27px;
+}
+.save-button-weon {
+  padding: 8px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  color: var(--brand-color);
+  background-color: var(--main-bg);
+  border: 1px solid var(--brand-color);
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.save-button-folder {
+  margin-right: 12px;
+}
+.delete-button-weon {
+  width: 100px;
+  padding: 8px;
+  margin-right: 27px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  color: #fd4444;
+  background-color: var(--main-bg);
+  border: 1px solid #fd4444;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.button-icon {
+  margin-right: 12px;
+}
+.position-close-svg {
+  position: relative;
+  right: 10px;
+  top: -10px;
+}
+.modal-top-wrapper .btn-outline-dark {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.circle-container {
+  position: relative;
+  display: inline-block;
+}
+.material-icons {
+  font-size: 24px;
+  color: #707070;
+}
+.circle-container::before {
+  content: "";
+  position: absolute;
+  top: 41%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25px;
+  height: 25px;
+  border: 2px solid #707070;
+  border-radius: 50%;
+}
+
+.input-item-wrapp {
+  margin-right: 20px;
+}
+.close-btn {
+  position: relative;
+  left: 1.7rem;
+  bottom: 5px;
+}
+
+.comment-wrapper {
+
+    width: 418px;
+    margin-top: 20px;
+}

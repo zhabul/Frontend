@@ -1,0 +1,70 @@
+.paid-absence-header {
+
+    margin-top: 5px;
+    font-size: 16px;
+    cursor: default;
+}
+
+.paid-absence-grid {
+    display: grid;
+    grid-template-columns: 180px 90px 90px 90px 90px;
+    grid-template-rows: auto;
+    cursor: default;
+    position: relative;
+    background-color: var(--main-bg);
+    cursor: pointer;
+}
+
+.paid-absence-grid > div {
+    position: relative;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.paid-absence-body {
+    border: 1px solid var(--border-color);
+    width: 520px;
+    background-color: var(--main-bg);
+    min-height: 54px;
+    border-radius: 0.25rem;
+    top: 5px;
+    position: relative;
+    padding: 0px 15px 0px 15px;
+}
+
+.paid-absence-body:hover {
+    z-index: 10000000;
+}
+
+.spinner-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.name {
+    text-align: right;
+    padding-right: 11px;
+}
+
+.border-right {
+    position: absolute;
+    top: 0px;
+    bottom: 0px; 
+    right: 40px;
+    width: 1px;
+    background-color: var(--border-color);
+    opacity: 0.5;
+}
+
+.top-15 {
+    top: -15px;
+}
+
+.bottom-15 {
+    bottom: -15px;
+}

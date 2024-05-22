@@ -1,0 +1,158 @@
+
+.tab-content {
+  display: grid;
+  grid-template-columns: calc(100% + 24px);
+  grid-template-rows: 212px auto;
+  height: calc(100vh - 10px);
+  max-height: 1008px;
+  margin-left: 50px;
+}
+
+.calendar-header-container {
+    background-color: var(--main-bg) !important;
+    color: white;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: 110px 740px auto;
+  grid-template-rows: 95px;
+  margin-top: 50px;
+  border: 1px solid var(--border-color);
+  border-top-left-radius: 0.6rem;
+  border-right-style: none;
+  position: relative;
+}
+
+.header-personal-stats {
+    grid-template-columns: 110px 940px auto;
+}
+
+.header-back-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-right-style: solid;
+  border-color: var(--border-color);
+  border-width: 1px;
+}
+
+
+
+.header-filters {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  flex-direction: row;
+}
+
+.header-filters-sw {
+    width: 49%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+    border-right: 1px solid var(--border-color);
+  }
+
+
+.date-input-container {
+    display: flex;
+    font-weight: bold;
+    margin-left: 32px;
+    margin-right: 32px;
+    position: relative;
+}
+
+.calendar-button-container {
+    background-color: white;
+    color: var(--brand-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 250ms ease-in-out;
+    color: black;
+}
+
+.calendar-button-container:hover {
+    background-color: var(--brand-color);
+}
+
+.input-group-prepend {
+    border-radius: 0px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.calendar-icon {
+    color: var(--brand-color) !important;
+    background-color: white;
+    padding: 0rem !important;
+    border-style: none;
+    border-radius: 0px !important;
+}
+
+.date-input {
+    border-style: none;
+    width: 10;
+    background-color: white;
+    border-radius: 0px;
+    width: 100px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.calendar-button-right {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+.calendar-button-left {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.no-left-margin {
+    margin-left: 0px;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.buttons-container {
+    position: relative;
+    align-items: center;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 500px auto;
+}
+
+.header-filters-eng {
+  width: 33%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  flex-direction: row;
+  border-right: 1px solid var(--border-color);
+}

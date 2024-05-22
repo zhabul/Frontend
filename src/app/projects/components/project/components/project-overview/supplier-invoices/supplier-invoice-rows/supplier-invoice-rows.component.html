@@ -1,0 +1,89 @@
+<div class="row row1X mb-3">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav class="nav nav-pills nav-justified">
+      <a
+        [routerLink]="['/projects/view', project.id, 'supplier-invoices']"
+        class="btn btn-dark mr-2 lh09 hideUnder800"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="badgeX badge-darkX material-icons top1px posRel"
+          >arrow_back</span
+        >
+      </a>
+      <span class="component-title"
+        >{{ project.CustomName }} - {{ project.name }}</span
+      >
+    </nav>
+  </div>
+</div>
+
+<div class="row row1X">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70"
+    id="notMuchPaddingTill800"
+  >
+    <div class="card-body">
+      <section class="d-flex justify-content-between mb-2">
+        <h1 class="h4">{{ "Supplier Invoice Rows" | translate }}</h1>
+      </section>
+      <div>
+        <table
+          class="table tab-responsive table-striped table-hover table-sm"
+          id="theTable"
+        >
+          <thead class="table-bordered">
+            <tr>
+              <th scope="col">{{ "Account" | translate }}</th>
+              <th scope="col">{{ "Account Description" | translate }}</th>
+              <th scope="col">{{ "Transaction Information" | translate }}</th>
+              <th scope="col">{{ "Debit" | translate }}</th>
+              <th scope="col">{{ "Credit" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody class="table-bordered">
+            <tr class="cursor-pointer" *ngFor="let row of supplierInvoiceRows">
+              <td>{{ row.Account }}</td>
+              <td>{{ row.AccountDescription }}</td>
+              <td>{{ row.TransactionInformation }}</td>
+              <td>{{ row.Debit }}</td>
+              <td>{{ row.Credit }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="documents.length > 0"
+  class="aside text-center"
+  [ngClass]="showPdfPreview ? 'aside-show' : ''"
+>
+  <div class="buttons">
+    <button type="button" (click)="showPdfPreview = !showPdfPreview">
+      {{ "Preview" | translate }}
+    </button>
+  </div>
+  <button
+    [disabled]="documentToShow <= 0"
+    class="btn btn-dark mr-3"
+    (click)="toggleDocument('-1')"
+  >
+    {{ "Previous" | translate }}
+  </button>
+  <span> {{ documentToShow + 1 }} / {{ documents.length }} </span>
+  <button
+    [disabled]="documentToShow >= documents.length - 1"
+    class="btn btn-dark ml-3"
+    (click)="toggleDocument('+1')"
+  >
+    {{ "Next" | translate }}
+  </button>
+  <div class="invoice-pdf mt-1">
+    <iframe class="pdfDisplay" [src]="whichPdfPreview"></iframe>
+  </div>
+</div>

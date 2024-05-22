@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="con-modal-text">
+        {{ questionText | translate }}
+    </div>
+    <div class="con-modal-buttons">
+        <button
+            class="green"
+            (click)="accept()"
+        >
+            {{ "Yes" | translate }}
+        </button>
+        <button class="red" (click)="reject('button')">
+            {{ "No" | translate }}
+        </button>
+    </div>
+    <div class="col-12 px-5" *ngIf="commentTitle" style="height: 120px">
+        <div style="font-size: smaller">
+            {{ commentTitle | translate }}
+        </div>
+        <textarea
+            id="commentText"
+            class="w-100 h-75 rounded"
+            cols="30"
+            rows="10"
+            [(ngModel)]="commentMessage"
+            placeholder="{{ 'Accepted by the customer via email.' | translate }}"
+        ></textarea>
+    </div>
+</div>

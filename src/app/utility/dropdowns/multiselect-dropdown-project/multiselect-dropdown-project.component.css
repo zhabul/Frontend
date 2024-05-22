@@ -1,0 +1,137 @@
+.name-of-multselect{
+  height: 35px;
+  width: 220px;
+  padding: 6px 5px 0px 10px;
+  border-radius: 4px 4px 0px 0px;
+  display: flex;
+ /* justify-content: space-between;*/
+  position: relative;
+}
+
+.check-button-wrapp {
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+
+.check-button-wrapp-one{
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+input.check {
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+.dropdown-scroll{
+  max-height: 195px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border: 2px solid var(--orange-dark);
+  border-top: 0px;
+  width: calc(100% + 60px);
+  position: relative;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.border-on-scroll{
+  position: absolute;
+  bottom: 0;
+  right: -62px;
+  height: 1.5px;
+  background-color: var(--orange-dark);
+  width: 61px;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.hala{
+  height: 38px;
+  background-color: white;
+  /*border-top: 1px solid var(--main-bg);*/
+  border-bottom: 2px solid var(--main-bg);
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 10px 0px 10px;
+  /*box-shadow: inset 0px 2px 5px 0px var(--border-color), inset 0px 0px 0px 0px var(--border-color);*/
+
+}
+.users-list{
+  height: 38px;
+  background-color: white;
+  border-left: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 28px 7px 8px;
+}
+.line-scroll{
+  position: absolute;
+  right: 1px;
+  top: 0px;
+  bottom: 3px;
+  width: 1px;
+  background-color: var(--border-color);
+}
+
+.counter{
+position: absolute;
+margin-left: 201px;
+margin-right: 2px;
+}
+
+.arrow{
+position: absolute;
+margin-left: 185px;
+cursor: pointer;
+}
+
+.refname{
+position: absolute;
+display: inline-block;
+width: 200px;
+white-space: nowrap;
+overflow: hidden !important;
+text-overflow: ellipsis;
+}
+
+.users{
+display: inline-block;
+width: 216px;
+white-space: nowrap;
+overflow: hidden !important;
+text-overflow: ellipsis;
+}
+
+.user-list-grid{
+  background-color: white;
+  display: flex;
+  padding: 0px 0px 0px 5px;
+}
+
+.user-list-grid1{
+  /*box-shadow: inset 0px 2px 5px 0px var(--border-color), inset 0px 0px 0px 0px var(--border-color);*/
+  border-top: 1px solid var(--main-bg);
+  background-color: white;
+  padding: 0px 0px 0px 5px;
+}
+
+.shadow{
+  box-shadow: 0 5px 4px 1.5px var(--border-color), 0px 0px 0px 0px var(--border-color) !important;
+  z-index: 1;
+  width: 260px;
+  margin-left: 2px;
+  height: 0px;
+  background-color: white;
+  padding-top: 0px;
+  margin-top: -3px;
+  position: absolute;
+}

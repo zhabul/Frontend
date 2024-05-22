@@ -1,0 +1,26 @@
+<div class="user-row" [ngStyle]="computedStyles.userRowStyle">
+  <div
+
+    class="calendar-day"
+    (click)="emitActiveUser(day)"
+    [ngStyle]="computedStyles.placeholderStyle"
+    [style.background-color]="day.backgroundColor"
+    *ngFor="let day of calendar; let index = index"
+
+  >
+    <app-row-day
+
+      [index]="index"
+      [user]="user"
+      [day]="day" 
+      [calendar]="calendar"
+      [calendarStyle]="calendarStyle"
+      [visible]="calendarSpan[index]"
+      [calendarBoundaries]="calendarBoundaries"
+      [queryParams]="queryParams"
+      (updateAbsenceInfo)="updateAbsenceInfo($event)"
+
+    ></app-row-day>
+  </div>
+  <div class='overlay' *ngIf="overlayUser"></div>
+</div>

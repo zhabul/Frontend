@@ -1,0 +1,6 @@
+<div class="color-picker-box" (click)="open()" >
+    <div class="sps-color-picker-icon">
+        <app-sps-color-picker-svg></app-sps-color-picker-svg>
+    </div>
+    <input formControl="color" (input)="setColor($event)" type="color" class="sps-color-picker" #colorPickerInput/>
+</div>

@@ -1,0 +1,38 @@
+<div class="row row1X tab-content tab-content-stats">
+    <div class="calendar-header-container">
+      <div class="calendar-header-schedule">
+        <div class="header-back-button">
+          <div class="justify-flex">
+            <div
+              (click)="redirectToHome()"
+              class="btn mr-2 lh09 hideUnder800 green-arrow-container"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <app-back-button-svg-ud></app-back-button-svg-ud>
+            </div>
+            <div class="green-title">{{ 'Timesheets' | translate }}</div>
+          </div>
+        </div>  
+        <div class="header-filters">
+          <div class="button-container" *ngIf="calendarIsVisible">
+            <a class="time-registration-button" [routerLinkActive]="['active']" [routerLink]="['/moments/time-registration-admin']">
+                {{ 'Time Registration' | translate }} / {{ 'SD_Overview' | translate }}
+            </a>
+            <div class="message-count">
+              {{ messageCount }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-nav-tabs [tabs]="tabs" (emitValue)="setSelectedTab($event)"></app-nav-tabs>
+    <div class="tab-container padding-top-40">
+      <ng-container *ngIf="selectedTab === 0">
+        <app-schedule-calendar></app-schedule-calendar>
+      </ng-container>
+      <ng-container *ngIf="selectedTab === 1">
+        <app-schedule2></app-schedule2>
+      </ng-container>
+    </div>
+</div>

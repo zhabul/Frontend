@@ -1,0 +1,107 @@
+<div class="cont" *ngIf="loadData" >
+    <div class="header-data">
+      <div class="user-border mt-3">
+        <h5 class="user float-right p-3">
+          <div class="user-details">
+            <div class="name-position-user">
+              <span class="full-name">
+                {{ userDetails.firstname + " " + userDetails.lastname}}
+              </span>
+              <span class="fordropdown" *ngIf="isSelectedCompany === true">
+                <app-company-home-dropdown
+                  [CompanyName]="CompanyNames"
+                  [SlectedID]="selectId"
+                  (Selected)="selectedCompany($event)"
+                ></app-company-home-dropdown>
+              </span>
+            </div>
+          </div>
+        </h5>
+      </div>
+      <div class="row text-center px-5" [ngStyle]="{'top': WindowHeight < 910 ? '-30px' : ''}">
+        <img
+          src="assets/img/sidebar-menu-icons/sps-logo-type.svg"
+          class="logo-main"
+          alt=""
+        />
+      </div>
+    </div>
+    <div style="position: relative; margin-left: 57px; margin-right: -23px;" class="blu-scroll" [ngStyle]="{'overflow-y': 'hidden', 'overflow-x' : WindowWidth < 1068 ? 'scroll' : 'hidden'}">
+      <div class="main-container-border" [ngStyle]="{'overflow-y': WindowHeight < 910 ? 'scroll' : 'hidden', 'top' : WindowHeight < 910 ? '2px' : '100px', 'overflow-x' : 'hidden'}" [ngClass]="{'blu-scroll': WindowHeight < 910}">
+        <div class="main-container-content">
+          <div class="row flexHome">
+            <div class="row" style="flex-direction: row; grid-gap: 30px; margin-left: 40px; width: 100%; display: grid; grid-template-columns: 148px 148px 149px;">
+              <div class="planning-item col-2 mt-5" *ngIf="userDetails.show_planning_Global && initProvider.hasComponentAccess('planning')">
+                <ng-container>
+                  <div class="border-item p-4" (mouseenter)="planningEnter()" (mouseleave)="planningLeave()">
+                    <a routerLink="/planning">
+                      <div class="hex mb-3">
+                        <img
+                          src="assets/img/home-icons/planning.svg"
+                          class="none-pointer"
+                          alt=""
+                          width="155"
+                        />
+                      </div>
+                      <span
+                        [ngClass]="planningColor"
+                        class="title-text font-weight-bold d-flex justify-content-center"
+                        >{{ "Planning" | translate }}</span
+                      >
+                    </a>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="project-item col-2 mt-5" *ngIf="userDetails.show_project_Global && initProvider.hasComponentAccess('projects')">
+                <ng-container>
+                  <div class="border-item project-part p-4" (mouseenter)="projectEnter()" (mouseleave)="projectLeave()">
+                    <a routerLink="/projects">
+                      <div class="hex mb-3">
+                        <img
+                          src="assets/img/home-icons/projects-new.svg"
+                          class="none-pointer"
+                          alt=""
+                          style="height: 98px; width: 98px"
+                        />
+                      </div>
+                      <span
+                        [ngClass]="projectColor"
+                        class="title-text font-weight-bold d-flex justify-content-center"
+                        >{{ "Projects" | translate }}</span
+                      >
+                    </a>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="col-2 mt-5" *ngIf="userDetails.show_timesheets_Global && initProvider.hasComponentAccess('timesheets')">
+                <ng-container>
+                  <div class="border-item p-4" (mouseenter)="timesheetEnter()" (mouseleave)="timesheetLeave()">
+                    <a routerLink="/timesheets/schedule-calendar">
+                      <div class="hex mb-3">
+                        <img
+                          src="assets/img/home-icons/timesheet.svg"
+                          class="none-pointer"
+                          alt=""
+                          width="155"
+                        />
+                      </div>
+                      <span
+                        [ngClass]="timesheetColor"
+                        class="title-text font-weight-bold d-flex justify-content-center"
+                        >{{ "Timesheets" | translate }}</span
+                      >
+                    </a>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="app-mini-schedule">
+              <div class="calendar-border col-3 px-1">
+                <app-mini-schedule></app-mini-schedule>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

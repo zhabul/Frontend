@@ -1,0 +1,11 @@
+<input
+    [ngStyle]="{'width.px': width, 'font-size.px': fontSize + ' !important'}"
+    type="text"
+    class="form-control form-control2"
+    id="mobile"
+    #mobileNumber
+    [value]="mobile_number"
+    (keyup)="formtMobileNumber(mobileNumber.value)"
+    placeholder="{{ placeholder }}"
+    [attr.disabled]="disabled ? true : null"
+/>

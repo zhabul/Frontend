@@ -1,0 +1,16 @@
+.modal-top-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.modal-top-wrapper .btn-outline-dark {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-group {
+  width: 100%;
+}

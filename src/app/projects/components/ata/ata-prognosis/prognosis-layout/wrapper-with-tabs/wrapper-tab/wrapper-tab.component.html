@@ -1,0 +1,14 @@
+<div
+  [ngClass]="['main-wrapper-zuna', isRight ? 'right-tab-zuna' : 'left-tab-zuna']"
+  (click)="setQueryParams()"
+  [ngStyle]="{
+    'background-color': isActive ? '#373b40' : '#818181',
+    'z-index': isActive ? '1' : ''
+  }"
+>
+  <div
+    [ngClass]="isActive ? 'name-active-zuna' : 'name-inactive-zuna'"
+    [innerHTML]="tabContent | safeHtml"
+  ></div>
+  <div *ngIf="isActive" class="absolute-line-zuna"></div>
+</div>

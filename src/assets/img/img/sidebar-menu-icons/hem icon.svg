@@ -1,0 +1,10 @@
+<svg id="hem_icon" data-name="hem icon" xmlns="http://www.w3.org/2000/svg" width="42.572" height="37.237" viewBox="0 0 42.572 37.237">
+  <g id="Polygon_Grey" data-name="Polygon Grey">
+    <g id="röd">
+      <path id="Path_594" data-name="Path 594" d="M31.647,5.15,41.808,22.929,31.647,40.707H11.325L1.164,22.929,11.325,5.15H31.647m.482-.84H10.843L.2,22.929,10.843,41.547H32.129L42.772,22.929Z" transform="translate(-0.2 -4.31)" fill="#858585"/>
+    </g>
+  </g>
+  <g id="home" transform="translate(9.94 6.335)">
+    <path id="Path_595" data-name="Path 595" d="M28.253,39.5l10.889-3.8V25.056L33.853,21.65,28.2,27.512Zm-.2,2.063a.559.559,0,0,1-.27,0c-.082,0-9.137-5.4-9.317-5.559s-.319-.147-.319-.327V24.5s7.368-7.123,7.417-7.2A.884.884,0,0,1,26.214,17c.221,0,7.45,2.6,7.851,2.734l6.8,4.511V36.9Z" transform="translate(-18.15 -17)" fill="#e37831"/>
+  </g>
+</svg>

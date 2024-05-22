@@ -1,0 +1,32 @@
+.form-group-size {
+  width: 100%;
+}
+
+.form-row-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-row-content .form-group {
+  width: 45%;
+}
+
+.btn-delete {
+  color: #d88181;
+}
+
+.btn-delete:hover {
+  color: #f10000;
+}
+
+.btn-icon {
+  cursor: pointer;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 40%;
+  left: 36%;
+  transform: translate(-50%, -50%);
+}

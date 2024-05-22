@@ -1,0 +1,61 @@
+<mat-dialog-content class="mat-dialog-education-dialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="dialog-wrapper">
+        <div class="x-wrapper" (click)="close()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.341" height="10.341" viewBox="0 0 12.341 12.341">
+            <path id="Path_783" data-name="Path 783" d="M1.478,1.782l-5.1,5.108,1.057,1.069L2.548,2.851,7.661,7.959,8.719,6.89,3.606,1.782,8.719-3.313,7.649-4.369,2.548.726-2.565-4.382-3.622-3.313Z" transform="translate(3.622 4.382)" fill="#707070"/>
+            </svg>
+        </div>
+        <div class="container" [formGroup]="formCreate">
+            <div class="row">
+                <div class="names" >{{ "To" | translate }}</div>
+                <div class="email-input-container">
+                    <div class="email-container" *ngFor="let email of selectedEmail; let i = index">
+                    <p>{{email.contact}}</p> <a class="x-email" (click)="removeEmail(i)">x</a>
+                    </div>
+                    <div class="email-input">
+                    <input id="email-input" type="email" formControlName="to" [(ngModel)]="inputText" (keyup.enter)="addEmailByEnter()" (blur)="addEmailByEnter()"
+                    (keyup.backspace)="removeEmailByBackSpace()" multiple>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="names">{{ "Subject" | translate }}</div>
+                <div><input type="text" formControlName="subject"></div>
+            </div>
+            <div class="row">
+                <div class="names-2">{{ "Message" | translate }}</div>
+                <div><textarea style="height: 73px;" type="text" formControlName="message" cols="30" rows="10"></textarea></div>
+            </div>
+            <div class="row">
+                <div class="names-2" >{{ "Appendix" | translate }}</div>
+                <div class="folder-wrapper">
+                    <div class="blu-scroll folder-container">
+                        <div class="folder-item" *ngFor="let document of selectedDocument">
+                            <div class="folder-svg">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="22" viewBox="0 0 15 22">
+                                    <defs>
+                                    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 29 43">
+                                        <image width="29" height="43" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAArCAYAAACEsIO/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJUSURBVFhH7ZjPa9RAFMffZLOoFGTrIlbQghTankTEP6Qnwbsg/g968STagnry1lPpTSwIFb1raZWCF0G3ZXvwZ5HadkvbJDPT997MbJIl1GTdeJB8YTbzXjbv8978SLIrlFIa+pAQgo9a624/r4SSkY6+fgS59cW6MoSBwfNsX4E31IT6pWtsqt/fwGucLwQWKgz0zrO7cLi6YF3ZoqA0JBTaH70CjVtz7N96egNOX38AtTMX2e5VVjI2/f5Fo7SLSctfG9aTFg1/rwpBXc4ah9hJyBDCjVXYfX4P5Oa68f1hqAtX2ps32ypC8HvovLgP8udaZnVJ5YbiGrU9qiS+rOuVEQRtBC8+hOjHZ+vMVqFK3UJKDm+qpugQgvUV2Hs5A/L7J3b1vZBM4ORnrDikPRMdIHgZOq+fgMSK/2ohUXADSGdOIeNzBiCw4nBtCTqvHqfAdKRWaHiN6A6UMadWZBNCh/uZYFJhKEMSUFIcLi0CB623CH6Ei6tlvTmhLnsnjVvEifzJanttnuPWEi6uad5OpFzQ5HYx/dj2RyagNjKJbQL8c+NoU3+S/cbGY3MU1P42HHxYxCSC/Pde8GpUInf9C5dh+PY892mb5BZNS61eoFIEuvqEfeLwHvRPcBP1k93m7KSfv4dAvq6fp4zGi/2zY1i9zZkqSNwwjlPj5mwx6CDUvPPGDC/Fo6DHtUEq15wOWhW0VFXQUlVBS1UFLVUVtFRV0FL1/0PdT5PSoQRyMPPW/A+g7uXVvKgbPP95FbbfQbTZZkdpondn/I166uoUHAETcPtCGyDhzgAAAABJRU5ErkJggg=="/>
+                                    </pattern>
+                                    </defs>
+                                    <rect id="Image_6" data-name="Image 6" width="15" height="22" fill="url(#pattern)"/>
+                                </svg>
+                            </div>
+                            <div>{{ document.name }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="send-dropdown">
+            <app-send-dropdown
+                [emailsRemovedByX]="selectedEmail"
+                (listOfCheck)="checkedEmail($event)"
+                (isEmailSent)="send($event)"
+                [items]="client_workers"
+                [disableSelect]="disableIfDataRequiredEmpty()"
+            >
+            </app-send-dropdown>
+        </div>
+    </div>
+</mat-dialog-content>

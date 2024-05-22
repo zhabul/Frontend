@@ -1,0 +1,78 @@
+<form class="lonetype-editor">
+    <ng-container *ngIf="generals.length">
+        <section>
+            <app-wage-type-select 
+            
+                [generals]="generals"
+                [disabled]="inputDisabled"
+                (sendEmail)="sendEmail($event)"
+                
+            ></app-wage-type-select>
+        </section>
+        <section class="time-section">
+            <div>
+                <app-working-hours-editor 
+                    
+                    [generals]="generals"
+                    [disabled]="inputDisabled"
+                    
+                ></app-working-hours-editor>
+            </div>
+            <div>
+                <app-regular-time
+                
+                    title='Ordinarie starttid'
+                    item="Regular Start Date"
+                    [generals]="generals"
+                    [disabled]="inputDisabled"
+                
+                ></app-regular-time>
+            </div>
+            <div>
+                <app-regular-time
+                
+                    title='Ordinarie sluttid'
+                    item="Regular End Date"
+                    [generals]="generals"
+                    [disabled]="inputDisabled"
+                
+                ></app-regular-time>
+            </div>
+            <div>
+                <app-regular-time
+                
+                    title='OB 1 Start'
+                    item="OB1"
+                    [generals]="generals"
+                    [disabled]="inputDisabled"
+                
+                ></app-regular-time>
+            </div>
+            <div>
+                <app-regular-time
+                
+                    title='OB 2 Start'
+                    item="OB2"
+                    [generals]="generals"
+                    [disabled]="inputDisabled"
+                
+                ></app-regular-time>
+            </div>
+            <div>
+                <app-regular-time
+                
+                    title='OB 3 Start'
+                    item="OB3"
+                    [generals]="generals"
+                    [disabled]="inputDisabled"
+                
+                ></app-regular-time>
+            </div>
+        </section>
+        <section>
+            <app-sps-work-week [disabled]="inputDisabled"></app-sps-work-week>
+        </section>
+    </ng-container>
+
+</form>
+

@@ -1,0 +1,34 @@
+<div class="title">{{ 'Choose payment model of time worked' | translate }}</div>
+<div class="select-wrapper" *ngIf="data.length">
+    <div (click)="toggleOpen()">
+        <div name="cars" class="wage-type-select" >
+            <div>{{ selectedOption.description | translate }}</div>
+            <div style="transform: rotate(-90deg)" *ngIf="!open">
+               <app-arrow-down-svg></app-arrow-down-svg>
+            </div>
+        </div>
+    </div>
+    <div class="list-container" *ngIf="open">
+        <div class="select-list orange-scroll">
+            <div (click)="selectOption(type)" *ngFor="let type of data;" [value]="type.id" >
+                <ng-container *ngIf="selectedOption.description != type.description">
+                    {{ type.description | translate }}
+                </ng-container>
+            </div> 
+        <!---   <div>-</div>  !-->
+            <div (click)="orderModel()"> 
+                <div class="flex-justify">
+                    <div>
+                        {{ 'Order your own model at sps360@com' | translate }}
+                    </div>
+                    <div>
+                        <app-sent-icon-svg></app-sent-icon-svg>
+                    </div>
+                    <!-- Beställ en egen modell på wop360@com -->
+                </div> 
+            </div>
+
+        </div>
+        <div class="grey-line"></div>
+    </div>
+</div>

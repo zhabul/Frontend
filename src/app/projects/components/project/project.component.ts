@@ -1,0 +1,679 @@
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+} from "@angular/core";
+import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ProjectsService } from "../../../core/services/projects.service";
+import { User } from "../../../core/models/user";
+import { Client } from "src/app/core/models/client.model";
+import { AppService } from "src/app/core/services/app.service";
+import { TranslateService } from "@ngx-translate/core";
+import { UsersService } from "src/app/core/services/users.service";
+import { Subscription} from "rxjs";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { AppComponent } from "src/app/app.component";
+import { AtestInfoService } from "../overview/components/atest/atest-info.service";
+import { ConfirmModalComponent } from "src/app/shared/modals/confirm-modal/confirm-modal.component";
+import { AtaService } from "src/app/core/services/ata.service";
+import { PrognosisTableService } from "../ata/ata-prognosis/prognosis-table/prognosis-table.service";
+
+@Component({
+  selector: "app-project",
+  templateUrl: "./project.component.html",
+  styleUrls: ["./project.component.css"],
+})
+export class ProjectComponent implements OnInit, OnDestroy {
+  public objData: any = {};
+  public userDetails: any;
+  public project: any;
+  public actionStatus = -1;
+  public disabled = false;
+  public projects = [];
+  public responsiblePersons: User[];
+  public clients: Client[];
+  public client_workers: any = [];
+  public buttonName = "Project Management";
+  public buttonToggle = false;
+  public projectUsers: User[];
+  public ata: any;
+  public deviations: any[];
+  public messages_id: any[] = [];
+  public constructionManager: any[];
+  public ProjectManagers: any[];
+  public showAnswers = false;
+  public showQuestions = true;
+  public orders: any[];
+  public currentAddRoute: string;
+  public previousRoute: string;
+  public attachments;
+  public userScalableToggle;
+  public logs = [];
+  public initiallySelectedWeeklyReport: any = -1;
+  public projectUserDetails: any;
+  public attestSaved = false;
+  public currentTab = Number(sessionStorage.getItem("currentTab")) || 0;
+  public availableAtasOrDu: any[] = [];
+  public routerLink = "/projects";
+  public originProjectList = [];
+  public showPagination = true;
+  private selectedDate: any = 0;
+  public currentClass = "title-new-project";
+  public subsClass = "sub-project-button";
+  public showSubProject = false;
+  public selectOpen: boolean = false;
+  public statusObjectProject: any = {
+    all: false,
+    "1": false,
+    "2": false,
+    "3": false,
+    "4": false,
+    "5": false,
+  };
+
+  public projects_for_select: any = [];
+  public selectStartedValue: any;
+  public projectt: any;
+  public atestInfoSubscription: Subscription;
+
+  project_id;
+
+  @ViewChild("searchInput") searchInput: ElementRef;
+  @ViewChild("selectedDate") selectedDateInput: ElementRef;
+  paramsSubscription: Subscription;
+  constructor(
+    private route: ActivatedRoute,
+    private projectsService: ProjectsService,
+    private translate: TranslateService,
+    private appService: AppService,
+    private usersService: UsersService,
+    private router: Router,
+    private activateroute: ActivatedRoute,
+    private dialog: MatDialog,
+    private appComponent: AppComponent,
+    private atestInfoService: AtestInfoService,
+    private ataService: AtaService,
+    private prognosisTableService: PrognosisTableService
+  ) {
+    this.paramsSubscription = this.route.queryParamMap.subscribe((params) => {
+      this.initiallySelectedWeeklyReport = params.get("weeklyreport") || -1;
+    });
+  }
+
+  async ngOnInit() {
+    this.initializeComponent();
+    this.getPrognosis();
+  }
+
+  async initializeComponent() {
+    this.project_id = this.activateroute.snapshot.params.id;
+
+    this.project = this.route.snapshot.data["project"];
+    this.selectStartedValue = this.project.CustomName + " " + this.project.name;
+    this.userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+    this.client_workers = this.route.snapshot.data["client_workers"];
+    this.projectUsers = this.route.snapshot.data["users"]["data"].map(
+      (user) => {
+        return {
+          ...user,
+          StartDate: user.StartDate.split(" ")[0],
+          EndDate: user.EndDate.split(" ")[0],
+        };
+      }
+    );
+    this.orders = this.route.snapshot.data["orders"];
+    this.attachments = this.route.snapshot.data["attachments"]["data"] || [];
+    this.availableAtasOrDu = this.route.snapshot.data["avaible_atas_or_du"]["data"] || [];
+    this.projectUserDetails = this.route.snapshot.data["projectUserDetails"];
+
+    if (this.initiallySelectedWeeklyReport != -1) {
+      this.currentTab = 9;
+    }
+
+    if (this.project.parent == 0) {
+      this.projects.push(this.project);
+      this.originProjectList.push(this.project);
+    } else {
+      const project = await this.projectsService.getProject(
+        this.project.parent
+      );
+
+      this.projects.push(project);
+      this.originProjectList.push(project);
+    }
+    this.projects.map((p) => {
+      p["expanded"] = false;
+      p["visible"] = true;
+      p["l_status"] = 0;
+      p["branch"] = 0;
+      p["noExpand"] = p["childs"] == 0;
+    });
+
+    this.currentAddRoute = "/projects/newSubProject/" + this.project.id;
+    this.appService.setAddRoute(this.currentAddRoute);
+    this.appService.setShowAddButton =
+      true && this.userDetails.create_project_Global;
+    this.showSubProject =
+      this.userDetails.create_project_Global == 0 ? false : true;
+    this.previousRoute = "/projects";
+    this.appService.setBackRoute(this.previousRoute);
+    this.translate.use(sessionStorage.getItem("lang"));
+    // this.onSearch("", 2, "");
+
+    this.get_project_and_sub_project_name_id_and_custom_name_by_project_id();
+  }
+
+  addLastToLastChild(project, projectList, index) {
+    if (project.level == 1) {
+      project.parent_last = true;
+    }
+
+    if (project.activities.length > 0) {
+      if (projectList[index + 1] === undefined && project.parent_last) {
+        project.activities[project.activities.length - 1].parent_last =
+          project.last;
+      }
+
+      if (!project.parent_level) {
+        project.activities[project.activities.length - 1].parent_level =
+          project.level;
+      } else {
+        project.activities[project.activities.length - 1].parent_level =
+          project.parent_level;
+      }
+    }
+
+    return true;
+  }
+
+  toggleProjectExpanded(project) {
+    project.expanded = !project.expanded;
+  }
+  setBorderLeftColor(project) {
+    const hover = project.hover;
+    const level_zero_status = project.level_zero_status;
+
+    return level_zero_status == 1
+      ? hover
+        ? "#F8F2B7"
+        : "#F7F3D1"
+      : level_zero_status == 2
+      ? hover
+        ? "#E8FDD3"
+        : "#F3FCEA"
+      : level_zero_status == 4
+      ? hover
+        ? "#F8D4B4"
+        : "#FCE3CD"
+      : hover
+      ? "#F7F5F0"
+      : "#FFFFFF";
+  }
+
+  ngAfterViewInit() {
+    this.getUserPermissionTabs();
+  }
+
+  private get_project_and_sub_project_name_id_and_custom_name_by_project_id() {
+    let project_id =
+      this.project.parent > 0 ? this.project.parent : this.project.id;
+
+    this.projectsService
+      .get_project_and_sub_project_name_id_and_custom_name_by_project_id(
+        project_id
+      )
+      .then((res) => {
+        if (res["status"]) this.projects_for_select = res["data"];
+      });
+  }
+
+  buttonNameToggle() {
+    this.buttonToggle = !this.buttonToggle;
+  }
+
+  ensureAtest() {
+    let status = false;
+    const status1 = Number(this.userDetails.show_project_timeattest);
+    const status2 = Number(this.projectUserDetails.Atest);
+
+    if (status1 == 1 || status2 == 1 ) {
+      status = true;
+    }
+
+    return status;
+  }
+
+
+  ensureAtaShow() {
+    let status = this.userDetails.show_project_Ata;
+    const ataExternal = Number(this.userDetails.show_project_Externalata);
+    const ataInternal = Number(this.userDetails.show_project_Internalata);
+    const ataForecast = Number(this.userDetails.show_project_Forecast);
+
+    if (ataExternal == 1 || ataInternal == 1 || ataForecast == 1) {
+      status = 1;
+    }
+
+    if (this.projectUserDetails) {
+      const ataExternal2 = Number(this.projectUserDetails.Ata_External);
+      const ataInternal2 = Number(this.projectUserDetails.Ata_Internal);
+
+      if (ataExternal2 == 1 || ataInternal2 == 1) {
+        status = 1;
+      }
+    }
+
+    if (status !== undefined && status != 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  ensureDeviationShow() {
+    let status = this.userDetails.show_project_Deviation;
+
+    const deviationExternal = this.userDetails.show_project_Externaldeviation;
+    const deviationInternal = this.userDetails.show_project_Internaldeviation;
+
+    if (deviationInternal == 1 || deviationExternal == 1) {
+      status = 1;
+    }
+
+    if (this.projectUserDetails) {
+
+      const deviationExternal2 = this.projectUserDetails.Deviation_External;
+      const deviationInternal2 = this.projectUserDetails.Deviation_Internal;
+
+      if (deviationInternal2 == 1 || deviationExternal2 == 1) {
+        status = 1;
+      }
+    }
+
+    if (status !== undefined && status != 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  ensureOwnControl() {
+    if (this.userDetails.show_project_Qualitycontrol && this.projectUserDetails && this.projectUserDetails.QualityControl) {
+      return true;
+    }
+    return false;
+  }
+
+  onAttestSave(e) {
+    this.attestSaved = true;
+  }
+
+  setCurrentTab(newCurrentTab) {
+    this.currentTab = newCurrentTab;
+    sessionStorage.setItem("currentTab", this.currentTab.toString());
+    if (newCurrentTab == 11) {
+      if (!this.prognosis) return;
+      const queryParams: Params = {
+        leftTabIndex: 1,
+        rightTabIndex: this.prognosis.length - 1,
+      };
+      this.router.navigate([], {
+        relativeTo: this.activateroute,
+        queryParams,
+      });
+    }
+  }
+
+  isResponsiblePerson() {
+    let isResponsiblePerson = false;
+    if (this.project) {
+      isResponsiblePerson = this.project.responsiblePeople.some(
+        (rp) => rp.Id == this.userDetails.user_id
+      );
+    }
+    return isResponsiblePerson;
+  }
+
+  setRouterLink(link) {
+    this.routerLink = link;
+  }
+
+  handleRemoveFile(deletedFiles) {
+    this.attachments = this.attachments.filter((item: any) => {
+      let found = true;
+      for (let i = 0; i < deletedFiles.length; i++) {
+        const del_item = deletedFiles[i];
+        if (del_item.Id == item.Id) {
+          found = false;
+          break;
+        }
+      }
+      return found;
+    });
+  }
+
+  goBack() {
+    window.history.replaceState({}, "", `/#//projects/view/${this.project_id}`);
+    sessionStorage.setItem("selectedTab", "0");
+
+    if (this.currentTab === 0) {
+      this.router.navigate([this.routerLink], {queryParams: {from_edit: true}});
+      return;
+    }
+    this.currentTab = 0;
+  }
+
+  checkAll(status) {
+    const keys = Object.keys(this.statusObjectProject);
+    keys.forEach((key) => {
+      this.statusObjectProject[key] = status;
+      if (key !== "all") {
+        this.createUserPermissionTabs(key, "Project", status);
+      }
+    });
+  }
+
+  createUserPermissionTabs(value, type, status) {
+    this.objData = {
+      user_id: this.userDetails.user_id,
+      tab_name: value,
+      type: type,
+    };
+
+    if (status) {
+      this.usersService.createUserPermissionTabs(this.objData);
+    } else {
+      this.usersService.deleteUserPermissionTabs(this.objData);
+    }
+  }
+
+  deleteUserPermissionTabs(value, type) {
+    this.usersService.deleteUserPermissionTabs(this.objData);
+  }
+
+  deepCopy<T>(instance: T): T {
+    if (instance == null) {
+      return instance;
+    }
+
+    // handle Dates
+    if (instance instanceof Date) {
+      return new Date(instance.getTime()) as any;
+    }
+
+    // handle Array types
+    if (instance instanceof Array) {
+      var cloneArr = [] as any[];
+      (instance as any[]).forEach((value) => {
+        cloneArr.push(value);
+      });
+      // for nested objects
+      return cloneArr.map((value: any) => this.deepCopy<any>(value)) as any;
+    }
+    // handle objects
+    if (instance instanceof Object) {
+      var copyInstance = { ...(instance as { [key: string]: any }) } as {
+        [key: string]: any;
+      };
+      for (var attr in instance) {
+        if ((instance as Object).hasOwnProperty(attr))
+          copyInstance[attr] = this.deepCopy<any>(instance[attr]);
+      }
+      return copyInstance as T;
+    }
+    // handling primitive data types
+    return instance;
+  }
+
+  onSearch(date, status, search) {
+    this.projects = [];
+    this.projects =  [...this.deepCopy(this.originProjectList)];
+
+    this.projects = this.projects.filter((project) =>
+      this.checkIfProjectShouldShow(project, status, date, search)
+    );
+    this.projects.forEach((project) => {
+      project.activities = project.activities.filter((subproject) =>
+        this.checkIfSubprojectShouldShow(subproject, status, date, search)
+      );
+    })
+
+  }
+
+  checkIfProjectShouldShow(project, status, date, searchQuery) {
+    const doesIncludeInName = [
+      "name",
+      "CustomName",
+      "activityNumber",
+      "activityDescription",
+      "StartDate",
+      "EndDate",
+      "TehnicReview",
+    ].some((property) => {
+      if (project[property]) {
+        return project[property].toLowerCase().includes(searchQuery.toLowerCase());
+      } else {
+        return false;
+      }
+    });
+
+    return doesIncludeInName && this.statusObjectProject[project.status]
+  }
+
+  checkIfSubprojectShouldShow(subproject, status, date, searchQuery) {
+    return this.statusObjectProject[subproject.status] ;
+  }
+
+  onStatusChange(value) {
+    const type = "Project";
+    const searchInput = this.searchInput.nativeElement;
+    const status = !this.statusObjectProject[value];
+
+    if (value == "all") {
+      this.checkAll(status);
+    } else {
+      if (!status) {
+        this.statusObjectProject["all"] = false;
+      }
+      this.statusObjectProject[value] = status;
+      this.createUserPermissionTabs(value, type, status);
+      this.handleAllStatus("Project");
+    }
+
+    this.onSearch(this.selectedDate, value, searchInput.value);
+  }
+
+  handleAllStatus(type) {
+    const statusObject = this[`statusObject${type}`];
+    const keys = Object.keys(statusObject);
+    let flag = true;
+    for (let i = 0; i < keys.length - 1; i++) {
+      const key = keys[i];
+      if (!statusObject[key]) {
+        flag = false;
+        break;
+      }
+    }
+    statusObject["all"] = flag;
+  }
+
+  getUserPermissionTabs() {
+    this.usersService.getUserPermissionTabs().subscribe((res) => {
+      const project = res["data"]["Project"];
+      const searchInput = this.searchInput
+        ? this.searchInput.nativeElement
+        : { value: "" };
+
+      if (project) {
+        const keys_project = Object.keys(project);
+        keys_project.forEach((status) => {
+          this.statusObjectProject[status] = true;
+          this.onSearch(this.selectedDate, status, searchInput.value);
+        });
+
+        if (keys_project.length === 5) {
+          this.statusObjectProject["all"] = true;
+          this.onSearch(this.selectedDate, "all", searchInput.value);
+        }
+      }
+    });
+  }
+
+  public selectedProject(event) {
+    this.project_id = event;
+  }
+
+  selectProject(project) {
+    this.project.name = project.name;
+    this.project_id = project.id;
+    this.project.id = this.project_id;
+    window.history.replaceState({}, "", `/#/projects/view/${project.id}`);
+    window.location.reload();
+  }
+
+  enter() {
+    this.currentClass = "title-new-project-hover";
+  }
+
+  leave() {
+    this.currentClass = "title-new-project";
+  }
+
+  enterSub() {
+    this.subsClass = "sub-project-button-hover";
+  }
+
+  leaveSub() {
+    this.subsClass = "sub-project-button";
+  }
+
+  toggleselectOpen(e) {
+    this.selectOpen = !this.selectOpen;
+    e.stopPropagation();
+  }
+
+  closeSelect() {
+    this.selectOpen = false;
+  }
+
+  toProjectPlan(projectid, type) {
+    if (type == "project-view") {
+      this.router.navigate(["/moments/planner/", projectid], {
+        queryParams: { type: "project-view", projectId: projectid },
+      });
+    }
+  }
+
+  onConfirmationModal(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = false;
+      dialogConfig.disableClose = true;
+      dialogConfig.width = "185px";
+      dialogConfig.panelClass = "confirm-modal";
+      this.dialog
+        .open(ConfirmModalComponent, dialogConfig)
+        .afterClosed()
+        .subscribe((response) => {
+          if (response.result) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        });
+    });
+  }
+
+  canDeactivate(): Promise<boolean> | boolean {
+    let theFormHasBeenChanged: boolean;
+    this.atestInfoSubscription = this.atestInfoService
+      .getIfHasChangesOnForm()
+      .subscribe((response) => {
+        theFormHasBeenChanged = response;
+      });
+    if (theFormHasBeenChanged) {
+      this.appComponent.loading = false;
+      return this.onConfirmationModal();
+    } else {
+      return true;
+    }
+  }
+
+  async canYouChangeTab(index: number) {
+
+    let theFormHasBeenChanged: boolean;
+    this.atestInfoSubscription = this.atestInfoService
+      .getIfHasChangesOnForm()
+      .subscribe((response) => {
+        theFormHasBeenChanged = response;
+      });
+
+    if (theFormHasBeenChanged) {
+      if (await this.onConfirmationModal()) {
+        this.atestInfoService.setIfHasChangesOnForm(false);
+        this.setCurrentTab(index);
+      }
+    } else {
+      this.setCurrentTab(index);
+    }
+
+    if(index == 2) {
+      this.projectsService.enableEditAtest(this.project_id);
+    }
+  }
+
+  getPrognosisSub: Subscription | undefined;
+  prognosis;
+
+  getPrognosis() {
+    if (!this.project_id) return;
+    this.getPrognosisSub = this.ataService
+      .getPrognosis(this.project_id)
+      .subscribe({
+        next: (result: { status: boolean; data: any; hasRikt: boolean }) => {
+          if (!result || result.status === false) return;
+          this.prognosis = result.data;
+          this.prognosisTableService.hasRiktpris = result.hasRikt;
+        },
+      });
+  }
+
+  get_prognosis(event = null) {
+    this.ataService.getPrognosis(this.project.id).subscribe((res) => {
+      if (res["status"]) {
+        this.prognosis = res["data"];
+        if (event && event == "new prognosis emitted") {
+          // this.activePrognosis = this.prognosis.length - 2;
+        } else {
+          // this.activePrognosis = this.prognosis.length - 1;
+        }
+
+        /* if (this.activePrognosis < 0) {
+          this.activePrognosis = 0;
+        } */
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.atestInfoService.setIfHasChangesOnForm(false);
+    if (this.atestInfoSubscription) {
+      this.atestInfoSubscription?.unsubscribe();
+    }
+    this.getPrognosisSub?.unsubscribe();
+  }
+
+  getStatusColor(status: string): string {
+    switch (status) {
+      case '1': return '#F7F3D1';
+      case '2': return '#F3FCEA';
+      case '3': return '#FFFFFF';
+      case '4': return '#FCE3CD';
+      case '5': return '#DBDAD8';
+      default: return '#FFFFFF';
+    }
+  }
+
+}

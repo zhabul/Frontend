@@ -1,0 +1,24 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Error" | translate }}</h5>
+  <button class="btn btn-outline-dark" mat-dialog-close>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<p class="text-danger mt-3">
+  {{
+    "You need to assign a different responsible person to the projects below to delete user."
+      | translate
+  }}
+</p>
+<hr />
+<ol>
+  <li *ngFor="let project of data.projects" class="text-danger">
+    <a
+      routerLink="/projects/view/project/{{ project.id }}/project-information"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-danger"
+      >{{ project.name }} &rarr;</a
+    >
+  </li>
+</ol>

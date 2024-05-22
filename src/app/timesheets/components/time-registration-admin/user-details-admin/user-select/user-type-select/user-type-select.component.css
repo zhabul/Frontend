@@ -1,0 +1,17 @@
+.multiselect-container {
+    position: relative;
+    background-color: #fff !important;
+    width:302px; height: 35px !important;
+    border-radius: 4px 4px 4px 4px !important;
+    color: var(--border-color) !important;
+    z-index: 10000;
+    width: 200px;
+}
+
+.selected-name {
+    position: absolute;
+    left: 22px;
+    top: 7px;
+    z-index: 1000;
+    color: black;
+}

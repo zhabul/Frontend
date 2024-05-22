@@ -1,0 +1,34 @@
+<!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" viewBox="0 0 15 15">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="15" height="15" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_23598" data-name="Rectangle 23598" width="15" height="15"/>
+    </clipPath>
+  </defs>
+  <g id="Repeat_Grid_70" data-name="Repeat Grid 70" clip-path="url(#clip-path)">
+    <g transform="translate(-813 -689)">
+      <g id="a" transform="translate(813 689)" clip-path="url(#clip-path-2)">
+        <rect id="Rectangle_23597" data-name="Rectangle 23597" width="15" height="15" fill="none"/>
+        <g id="Group_9632" data-name="Group 9632" transform="translate(-1104.287 -416.539)">
+          <g id="Group_9631" data-name="Group 9631" transform="translate(0.137 0.637)">
+            <circle id="Ellipse_789" data-name="Ellipse 789" cx="1.75" cy="1.75" r="1.75" transform="translate(1109.902 416.75)"/>
+            <circle id="Ellipse_790" data-name="Ellipse 790" cx="1.75" cy="1.75" r="1.75" transform="translate(1114.805 416.75)"/>
+            <circle id="Ellipse_791" data-name="Ellipse 791" cx="1.75" cy="1.75" r="1.75" transform="translate(1105 416.75)"/>
+            <circle id="Ellipse_792" data-name="Ellipse 792" cx="1.75" cy="1.75" r="1.75" transform="translate(1109.902 421.652)"/>
+            <circle id="Ellipse_793" data-name="Ellipse 793" cx="1.75" cy="1.75" r="1.75" transform="translate(1114.805 421.652)"/>
+            <circle id="Ellipse_794" data-name="Ellipse 794" cx="1.75" cy="1.75" r="1.75" transform="translate(1105 421.652)"/>
+            <circle id="Ellipse_795" data-name="Ellipse 795" cx="1.75" cy="1.75" r="1.75" transform="translate(1109.902 426.555)"/>
+            <circle id="Ellipse_796" data-name="Ellipse 796" cx="1.75" cy="1.75" r="1.75" transform="translate(1114.805 426.555)"/>
+            <circle id="Ellipse_797" data-name="Ellipse 797" cx="1.75" cy="1.75" r="1.75" transform="translate(1105 426.555)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg> -->
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="13" viewBox="0 0 15 13">
+  <path id="Path_5942" data-name="Path 5942" d="M3.188,13.794-1.237,9.369,9.369-1.237,13.8,3.188Z" transform="translate(1.749 7.629) rotate(-45)" fill="#fff"/>
+</svg>
+

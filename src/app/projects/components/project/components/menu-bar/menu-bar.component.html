@@ -1,0 +1,93 @@
+<ul class="nav nav-tabs bg-beige mobileGrid">
+  <li
+    *ngIf="userDetails.show_project_Settings"
+    class="nav-item dropdown"
+  >
+    <a
+      class="nav-link txt-color"
+      [routerLink]="[
+        '/projects/view/project',
+        project_id,
+        'project-information'
+      ]"
+    >
+      {{ "Project Settings" | translate }}
+    </a>
+  </li>
+  <li
+    *ngIf="userDetails.show_project_Organization"
+    class="nav-item dropdown"
+  >
+    <a
+      class="nav-link txt-color"
+      [routerLink]="[
+        '/projects/view/project-org',
+        project_id,
+        'project-organisation'
+      ]"
+    >
+      {{ "Project Organisation" | translate }}
+    </a>
+  </li>
+  <li *ngIf="userDetails.show_project_ShareProjects" class="nav-item dropdown">
+    <a
+      class="nav-link txt-color"
+      data-toggle="dropdown"
+      href="#"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+      >{{ "Share Projects" | translate }}
+    </a>
+  </li>
+  <li *ngIf="userDetails.show_project_Paymentplan && ((project?.debit_Id == 4 && project.payment_type == 'PAYMENT') || (project?.debit_Id == 1 && project?.paymentplanids?.length > 0 && project.payment_type == 'PAYMENT') || project?.debit_Id == 2) " class="nav-item dropdown">
+    <a
+      class="nav-link txt-color"
+    
+      [routerLink]="['/projects/view', project_id, 'payment-plan']"
+     
+      >{{ "Payment Plan" | translate }}
+    </a>
+  </li>
+  <li *ngIf="userDetails.show_project_Purchases" class="nav-item dropdown">
+    <a
+      class="nav-link txt-color" 
+      [routerLink]="['/projects/view', project_id, 'purchases', 'supplier']"
+    >
+      {{ "Purchases" | translate }}
+    </a>
+  </li>
+ <!-- <li
+    *ngIf="userDetails.show_project_Attachment"
+    class="nav-item dropdown"
+  >
+    <a
+      class="nav-link dropdown-toggle txt-color"
+      data-toggle="dropdown"
+      href="#"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+      >{{ "Attachment And Documents" | translate }}
+    </a>
+  </li> !-->
+  <li *ngIf="userDetails.show_project_WorkManual" class="nav-item dropdown">
+    <a
+      class="nav-link txt-color"
+      data-toggle="dropdown"
+      href="#"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+      >{{ "Work Manual" | translate }}
+    </a>
+  </li>
+  <li *ngIf="userDetails.show_project_Summary" class="nav-item dropdown">
+    <a
+      class="nav-link txt-color"
+      [routerLink]="['/projects/view', project_id, 'project-summary']"
+    >
+      {{ "Project Summary" | translate }}
+    </a>
+  </li>
+</ul>

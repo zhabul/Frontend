@@ -1,0 +1,84 @@
+<div class="dropdowns-container" *ngIf="!loading">
+ <!--   <app-dropdown
+      [isStatus]="true"
+      [dropdownValues]="statusDropdown"
+      (selectedOption)="changeStatusOption($event)"
+      [disableSelect]="userDetails.create_settings_Global ? false : true"
+    ></app-dropdown>
+-->
+    <app-select-dropdown
+        [ngClass]="{'disabled':isRoleSelected()}"
+        [dropdownValues]="momentsForDropdown"
+        (selectedOption)="selectMoment($event)"
+        [disableSelect]="(userDetails.create_settings_Global ? false : true) || isRoleSelected()"
+    ></app-select-dropdown>
+    <app-dropdown
+        [dropdownValues]="roleDropdown"
+        (selectedOption)="changeRoleOption($event)"
+        [disableSelect]="userDetails.create_settings_Global ? false : true"
+    ></app-dropdown>
+</div>
+<div class="dropdowns-container" *ngIf="!loading">
+   <!-- <app-select-dropdown
+      [ngClass]="{'disabled':isRoleSelected()}"
+      [dropdownValues]="momentsForDropdown"
+      (selectedOption)="selectMoment($event)"
+      [disableSelect]="(userDetails.create_settings_Global ? false : true) || isRoleSelected()"
+    ></app-select-dropdown>
+    -->
+    <div class="buttons">
+        <button (click)="openNewRoleModal()" *ngIf="userDetails.create_settings_Global">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="add-icon"
+                width="20"
+                viewBox="0 0 19 19"
+                fill="currentColor"
+            >
+            <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                clip-rule="evenodd"
+            />
+            </svg>
+            <p>{{ "New role" | translate | uppercase }}</p>
+        </button>
+        <button (click)="onSave()" *ngIf="userDetails.create_settings_Global" [disabled]="saveDisabled()" [ngClass]="{'disabled':saveDisabled()}" >
+            <p>{{ "Save" | translate | uppercase }}</p>
+        </button>
+    </div>
+</div>
+<div class="role-list-container blu-scroll" *ngIf="!loading"[ngClass]="{'role-list-container-no-button':!userDetails.create_settings_Global}">
+    <div class="list-head">
+      <div>
+        <p>{{ "Name" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "Short name" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "Number" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "Sort order" | translate }}</p>
+      </div>
+    <!--  <div>
+        <p>{{ "Status" | translate }}</p>
+      </div>-->
+      <div>
+        <p>{{ "Award" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "Color" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "Edit" | translate }}</p>
+      </div>
+      <div class="icon">
+        <img src="../../../../assets/img/white-transh.png" alt="edit" />
+      </div>
+    </div>
+    <app-role-list [roles]="roles"></app-role-list>
+</div>
+  <div class="thin-red-line-bottom"></div>
+  <mat-spinner class="spinner" *ngIf="loading"></mat-spinner>

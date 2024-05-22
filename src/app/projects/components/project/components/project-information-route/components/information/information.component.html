@@ -1,0 +1,12 @@
+<div class="blu-scroll-wrapp">
+  <div class="blu-scroll shadow-top-div" id="skrollbar">
+    <app-attachment
+      [directories]="attachments"
+      [projectId]="project.id"
+      [attachmentCategory]="'information'"
+      (removeFile)="handleRemoveFile($event)"
+    ></app-attachment>
+  </div>
+  <div class="thin-red-line-bottom"></div>
+  <div class="thin-red-line-right"></div>
+</div>

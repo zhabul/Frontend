@@ -1,0 +1,26 @@
+.header-custom {
+  position: relative;
+}
+
+.txt-header {
+  text-align: center;
+}
+
+.email-signup-thankyou {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10%;
+}
+
+.logo-wrapper {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.done-symbol {
+  font-size: 150px;
+  color: green;
+}

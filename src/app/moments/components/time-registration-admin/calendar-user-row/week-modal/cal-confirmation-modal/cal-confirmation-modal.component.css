@@ -1,0 +1,73 @@
+.con-modal-container {
+  position: absolute;
+  top: 0rem;
+  bottom: 0rem;
+  left: 0rem;
+  right: 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 1000;
+}
+
+.con-modal-body {
+  border-style: solid;
+  border-width: 3px;
+  border-color: #ff7f00;
+  background-color: var(--main-bg);
+  width: 165.83px;
+  height: 119.73px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+}
+
+.con-modal-buttons {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+
+.con-modal-buttons > div {
+  width: 56.17px;
+  height: 53.5px;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  opacity: 1;
+  transition: 250ms opacity ease-in-out;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: white;
+  text-transform: uppercase;
+  border-width: 2px;
+}
+
+.con-modal-buttons > div:hover {
+  opacity: 0.9;
+}
+
+.green {
+  background-color: #017a32;
+  margin-right: 21px;
+}
+
+.red {
+  background-color: #b63418;
+}
+
+.con-modal-text {
+  padding-top: 10px;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

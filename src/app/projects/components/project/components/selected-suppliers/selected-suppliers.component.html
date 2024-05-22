@@ -1,0 +1,84 @@
+<div class="wrapper-top">
+    <div style="align-self: center;">
+        <a class="btn primary-btn mr-4"
+            routerLinkActive="active"
+            [routerLink]="['/suppliers/']" [queryParams]="{ project_id: project_id }"
+            [routerLinkActiveOptions]="{ exact: true }"
+        >
+            <span class="mt-1 ">{{ "Supplier register" | translate }}</span>
+        </a>
+    </div>
+</div>
+<table class="table-bordered supplier-table">
+    <thead>
+        <th class="td-property">{{ 'Category' | translate }}</th>
+        <th class="td-property">{{ 'Supplier' | translate }}</th>
+        <th class="delete-w">
+            <app-delete-icon
+                [width]="10.399"
+                [height]="15.194"
+                [color]="'E3DBD3'"
+            ></app-delete-icon>
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let supplier of suppliers; let i = index">
+            <td>{{supplier.categoryName}}</td>
+            <td>{{supplier.supplierName}}</td>
+            <td class="delete-w">
+                <app-delete-icon
+                    (click)="onRemoveClick(supplier.Id, i)"
+                    [width]="10.399"
+                    [height]="15.194"
+                    [color]="'858585'"
+                ></app-delete-icon>
+            </td>
+        </tr>
+        <tr class="td-select">
+            <td>
+                <app-single-select-dropdown
+                    [SendPrintUT1] = "material_categories"
+                    [placeholder]="selected_material_categories | translate"
+                    [Print]="'Print' | translate"
+                    [Send]="'Send' | translate"
+                    (selected)="onMaterialCategorySelect($event)"
+                    [HaveSend]="1"
+                    [disableSelect]="false"
+                    [stylePosition]="selectStylePosition"
+                >
+                </app-single-select-dropdown>
+            </td>
+            <td>
+                <ng-container *ngIf="suppliers_category && suppliers_category.length > 0">
+                    <app-single-select-dropdown
+                        [SendPrintUT1] = "suppliers_category"
+                        [placeholder]="selected_supplier_category | translate"
+                        [Print]="'Print' | translate"
+                        [Send]="'Send' | translate"
+                        (selected)="onSupplierCategorySelect($event)"
+                        [HaveSend]="1"
+                        [disableSelect]="false"
+                        [stylePosition]="selectStylePosition"
+                    >
+                    </app-single-select-dropdown>
+                </ng-container>
+                <ng-container *ngIf="suppliers_category.length == 0">
+                    <span class="supp-txt-decoration">{{selected_supplier_category | translate}}</span>
+                </ng-container>
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<div class="btn-left-wrapper">
+    <button
+        class="save-button-weon"
+        [disabled]="!allowAddSupplierOnProject() ? true : null"
+        (click)="create()"
+    >
+        {{ "Save" | translate }}
+    </button>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+</div>  

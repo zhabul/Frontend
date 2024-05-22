@@ -1,0 +1,7 @@
+.svg-path {
+    transition: all 250ms ease-in-out;
+}
+
+path {
+    transition: all 250ms ease-in-out;
+}

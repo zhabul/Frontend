@@ -1,0 +1,225 @@
+
+<div class="tab-wrapper" [ngStyle]="{ height: container_height }">
+  <div class="row">
+    <div class="nav-tabs nav-tabs-supp tab-navigation">
+        <ul class="nav nav-tabs nav-pills" role="tablist">
+            <li class="nav-item approveItem">
+                <a
+                    class="nav-link active approve"
+                    [ngClass]="{ active: activeTab == 0 }"
+                    role="tab"
+                    (click)="canYouChangeTab(0)"
+                    id="approveItem"
+                >
+                    {{ "Overview" | translate }}
+                    <div [ngClass]="{ 'hide-bottom-box-shadow': activeTab == 0 }"></div
+                ></a>
+            </li>
+            <li class="nav-item align-l">
+                <a
+                    class="nav-link attest nav-link2"
+                    [ngClass]="{ active: activeTab == 1 }"
+                    role="tab"
+                    (click)="canYouChangeTab(1)"
+                >
+                    {{ "Select supplier" | translate }}
+                    <div [ngClass]="{ 'hide-bottom-box-shadow': activeTab == 1 }"></div
+                ></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="pt-2 blu-scroll scroll order-wrapper " [ngStyle]="{ height: container_height }">
+  <div *ngIf="activeTab == 0">
+    <div class="button-wrapper">
+      <div>
+        <select
+          class="form-control search-input"
+          #statusSelect
+          (change)="filterByStatus(statusSelect.value)"
+        >
+          <option value="-3">{{ "All" | translate }}</option>
+          <option value="-1" selected>{{ "Pending" | translate }}</option>
+          <option value="-2">{{ "Draft" | translate }}</option>
+          <option value="5">{{ "Completed" | translate }}</option>
+          <option value="0">{{ "Declined" | translate }}</option>
+        </select>
+      </div>
+      <div>
+        <button
+          class="btn btn-icon-postion"
+          type="button"
+          routerLinkActive="active"
+          *ngIf="userDetails.create_project_Order"
+          [hidden]="project.status == 3"
+          [routerLink]="['/orders/new/', projectID]"
+          (mouseenter)="enter()" (mouseleave)="leave()"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="add-icon" [ngClass]="currentClass" width="25" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+          </svg>
+          <span class="ml-2 title-new-project text-uppercase" [ngClass]="currentClass">{{ "New Order" | translate }}</span>
+        </button>
+      </div>
+    </div>
+    <div style="position: relative;" class="blu-scroll-wrapp" [ngStyle]="{ height: container_height }">
+      <div class="row" style="display: block !important" [ngStyle]="{ height: container_height }">
+        <table style="overflow: hidden;">
+          <thead>
+            <th>{{ "Order number" | translate }}</th>
+            <th>{{ "Delivery" | translate }}</th>
+            <th>{{ "Status" | translate }}</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let order of orders; let i = index"
+              (click)="navigateToOrder(order, $event)"
+              style="cursor: pointer; position: relative"
+              class=""
+              [ngClass]="{ 'order-aborted': order.status == 3 }"
+            >
+              <td
+                style="color: #666"
+                [ngClass]="{
+                  'order-background': i % 2 == 0,
+                  'order-background-gray':i % 2 !=0,
+                  'order-aborted': order.status == 3
+                }"
+              >
+                {{ order.orderId }}
+              </td>
+              <td
+                style="color: #666"
+                [ngClass]="{
+                  'order-background': i % 2 == 0,
+                  'order-background-gray':i % 2 !=0,
+                  'order-aborted': order.status == 3
+                }"
+              >
+                {{ order.date == 1 ? ("Immediate" | translate) : order.date }}
+                {{ order.time }}
+                <span
+                  *ngIf="order.status == 1 && userDetails.create_project_Order"
+                  class="list-parent"
+                  class="order-icon float-right list-parent"
+                >
+                  <a
+                    routerLink="/orders/order-acceptance-comments/{{ order.orderID }}"
+                    class="material-icons"
+                    [ngClass]="{
+                      'text-danger': order.saved && order.hasErrors,
+                      'text-success': order.saved && !order.hasErrors,
+                      'text-warning': !order.saved
+                    }"
+                    style="height: 21px; display: block; position:relative; z-index: 9999;"
+                    >list</a
+                  >
+                  <span
+                    class="list-check-icon material-icons text-success"
+                    *ngIf="order.errorsResolved == 1"
+                    >check</span
+                  >
+                </span>
+                <span
+                  class="order-icon warning"
+                  *ngIf="order.status == 2 && userDetails.create_project_Order"
+                  >
+                  <!-- routerLink="/orders/change-order-date/{{ order.orderID }}" -->
+                  <a (click)="openModal(order )"
+
+                    ><img
+                      src="assets/img/exclamation mark.png"
+                      width="15"
+                      height="15"
+                  /></a>
+                </span>
+                <span
+                  class="order-icon fork-lift"
+                  *ngIf="order.status == 1 && userDetails.create_project_Order"
+                  ><a routerLink="/orders/delivery-order/{{ order.orderID }}"
+                    ><img
+                      [ngClass]="{
+                        'fork-lift-accept': order.unload_status == '1',
+                        'fork-lift-decline': order.unload_status == '0',
+                        'fork-lift-pending':
+                          order.unload_status == '-1' || !order.unload_status
+                      }"
+                      src="assets/img/fork-lift.png"
+                      width="23"
+                      height="23"
+                  /></a>
+                </span>
+                <span
+                  class="order-icon fork-lift"
+                  *ngIf="order.file || order.image"
+                  (click)="openSwiper($event, order)"
+                  style="height: 24px"
+                >
+                  <a class="material-icons">description</a>
+                </span>
+              </td>
+              <td
+                class="status"
+                style="color: rgb(F, F, F)"
+                [ngStyle]="{
+                  'background-color':
+                    order.status == 1
+                      ? 'rgba(141, 242, 198, 0.2)'
+                      : order.status == 2
+                      ? 'rgba(118, 118, 255, 0.15)'
+                      : order.status == -1
+                      ? 'hsla(60, 58%, 75%, 0.5)'
+                      : order.status == 3
+                      ? 'hsla(0, 58%, 75%, 0.33)'
+                      : order.status == -2
+                      ? 'rgb(97, 173, 176)'
+                      : 'rgb(205, 92, 92)'
+                }"
+                [ngClass]="{ 'order-aborted': order.status == 3 }"
+              >
+                {{
+                  order.status == 1
+                    ? ("Accepted" | translate)
+                    : order.status == 2
+                    ? ("New Date" | translate)
+                    : order.status == -1
+                    ? ("Pending" | translate)
+                    : order.status == 3
+                    ? ("Aborted" | translate)
+                    : order.status == -2
+                    ? ("Draft" | translate)
+                    : ("Declined" | translate)
+                }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="thin-line-vertical"></div>
+      <div class="thin-line-horizontal"></div>
+    </div>
+    <ng-template #otherComponent>
+      <app-gallery
+        *ngIf="swiper.images.length"
+        [swiper]="swiper"
+        [canRemove]="false"
+        (removeImageEvent)="removeSwiperImage($event)"
+        (closeSwiperEvent)="closeSwiper()"
+        [server]="true"
+      ></app-gallery>
+    </ng-template>
+    <ng-container *ngIf="isPDFViewer; else otherComponent">
+      <app-pdfjs-viewer
+        *ngIf="swiper.images.length"
+        [swiper]="swiper"
+        [canRemove]="false"
+        (removeImageEvent)="removeSwiperImage($event)"
+        (closeSwiperEvent)="closeSwiper()"
+        [server]="true"
+      ></app-pdfjs-viewer>
+    </ng-container>
+  </div>
+  <div *ngIf="activeTab == 1">
+    <app-selected-suppliers></app-selected-suppliers>
+  </div>
+</div>

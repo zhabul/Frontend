@@ -1,0 +1,39 @@
+.ed-input-container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.ed-input-form {
+  width: 100%;
+  text-align: end;
+}
+
+.delete-icon {
+  color: red;
+  cursor: pointer;
+}
+
+.error-cont {
+  margin-top: 1rem;
+  color: red;
+}
+
+.fetch-error {
+  color: red;
+  text-align: center;
+  width: 100%;
+}
+
+.fetch-error > span {
+  cursor: pointer;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}

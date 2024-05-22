@@ -1,0 +1,9 @@
+.floating-stats {
+    position: absolute;
+    left: 10px;
+    top: 2px;
+    background-color: #C7C6C4;
+    padding: 2px;
+    border-radius: 50%;
+    transform: scale(0.7);
+}

@@ -1,0 +1,42 @@
+<div
+  style=" width:100%; height: 100%;"
+  [ngClass]="setClass()"
+  >
+  <div class="select" >
+
+      <div class="selected-item"  (click)="toggleOn()">
+          <div class="span-selected">
+              <div  class="wrap-custom-name">
+                <p> {{ selected | translate }}</p>
+              </div>
+              <div class="arrow">
+                  <app-toggle-on-svg *ngIf="toggle"  class="toggle-on" [width]="15" [height]="8" [color]=""></app-toggle-on-svg>
+                  <app-toggle-off-svg *ngIf="!toggle"  style="float: right;"></app-toggle-off-svg>
+              </div>
+          </div>
+      </div>
+
+      <div  *ngIf="toggle" class="toogle-dropdown orange-scroll">
+          <div class="" style=" position: relative">
+              <!-- <div class="toggle-div" (click)="toggleOn()" >
+              </div> -->
+              <div class="box-shadow-top">
+                  <div *ngFor="let item of items; let i = index">
+                      <div
+                          class="render-project-div"
+                          [ngStyle]="{'border-left': '1px solid var(--border-color)'}"
+                          (click)="selectOurDays(item, i)"
+                      >
+                          <div  class="project-customname">{{ item.name | translate }} </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="vertical-line-for-scroll"></div>
+          </div>
+      </div>
+      <div (click)="toggleOff()" class="toogleOfDiv"
+      [ngStyle]="{'visibility': toggle? 'visible':'hidden'}">
+
+      </div>
+  </div>
+</div>

@@ -1,0 +1,168 @@
+.name-of-multselect{
+   height: 26px;
+   width: 157px;
+   border: 1px solid #82A7E2 !important;
+
+   border-radius:  4px 4px 4px 4px !important;
+  font-size: 12px !important;
+    font-family: "PT-Sans-Pro";
+
+}
+.name-of-multselect:hover
+{
+  border: 1px solid #FF7F00 !important;
+
+}
+
+.name-of-multselect1
+{
+   height: 35px;
+
+    width: 185px;
+
+
+    padding: 3px 6px 0px 10px;
+    border-radius: 4px 4px 0px 0px;
+    display: flex;
+
+    position: relative;
+    font-size: 16px;
+  z-index: 1;
+  background-color:  #FFFFFF;
+  border-bottom: 1px solid var(--border-color);
+}
+
+
+.check-button-wrapp {
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+
+.check-button-wrapp-one{
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+input.check {
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+.orange-scroll{
+  max-height: 195px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border: 2px solid var(--orange-dark);
+  border-top: 0px;
+  width: calc(100% + 16px);
+  position: relative;
+  border-radius: 0px 0px 4px 4px;
+  z-index: 12;
+  background-color: red;
+}
+
+.border-on-scroll{
+    position: absolute;
+    bottom: 0;
+    right: -28px;
+    height: 2px;
+    background-color: var(--orange-dark);
+    width: 27px;
+    border-radius: 4px 4px 0px 0px;
+    top: 31px;
+}
+
+
+.users-list{
+  height: 33px;
+  background-color: white;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px 3px 8px;
+  border-right: 1px solid var(--main-bg);
+}
+.line-scroll{
+  position: absolute;
+  right: 1px;
+  top: 0px;
+  bottom: 3px;
+  width: 1px;
+  background-color: var(--border-color);
+
+}
+
+.counter{
+  position: absolute;
+  margin-left: 201px;
+  margin-right: 2px;
+}
+
+
+.arrow{
+  position: absolute;
+    margin-right: 10px;
+    top: 3px;
+    cursor: pointer;
+    right: -1px;
+}
+
+
+.refname{
+
+  cursor: pointer;
+    position: absolute;
+    width: 157px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    font-size: 12px !important;
+    font-family: "PT-Sans-Pro-Regular";
+    text-align: center;
+    top: 4px;
+    left: -5px;
+}
+.refname1
+{
+  color: var(--orange-dark);
+    top: 3px;
+    position: absolute;
+    font-size: 16px !important;
+    font-family: "PT-Sans-Pro-Regular";
+    left: 14px;
+}
+
+
+.users{
+
+    display: inline-block;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+/*     color: #1A1A1A!important;
+ */    position: relative;
+    left: 7px;
+    font-size: 14px;
+    font-family: 'PT-SANS-PRO-REGULAR';
+}
+
+.shadow{
+  box-shadow: 0 5px 4px 1.5px var(--border-color), 0px 0px 0px 0px var(--border-color) !important;
+  margin-left: 2px;
+  height: 0px;
+  background-color: white;
+  padding-top: 0px;
+  margin-top: -3px;
+  position: absolute;
+}
+

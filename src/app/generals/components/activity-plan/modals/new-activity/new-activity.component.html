@@ -1,0 +1,123 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Add New Activity" | translate }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="create()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div class="form-group col-xs-12">
+    <label for="number">{{ "Number" | translate }}</label>
+    <input
+      maxlength="4"
+      type="text"
+      id="number"
+      class="form-control"
+      formControlName="number"
+      (input)="validateNumberInput()"
+      [ngClass]="{
+        'is-invalid':
+          (myform.submitted && createForm.get('number').invalid) ||
+          (createForm.get('number').dirty &&
+            createForm.get('number').invalid) ||
+          !numberValidation.status
+      }"
+    />
+    <small style="opacity: 0.75"
+      >{{ createForm.get("number").value.length }}/4</small
+    >
+    <span
+      class="help-block"
+      *ngIf="
+        (myform.submitted && createForm.get('number').invalid) ||
+        (createForm.get('number').dirty && createForm.get('number').invalid) ||
+        !numberValidation.status
+      "
+    >
+      <span
+        class="text-danger"
+        *ngIf="createForm.get('number').errors?.required"
+      >
+        {{ "Number is required" | translate }}.
+      </span>
+      <span
+        class="text-danger"
+        *ngIf="createForm.get('number').errors?.pattern"
+      >
+        {{ "Number must have 4 digits" | translate }}.
+      </span>
+      <span class="text-danger" *ngIf="numberValidation.message === 'noparent'">
+        {{ "There is no parent activity for that activity" | translate }}.
+      </span>
+      <span class="text-danger" *ngIf="numberValidation.message === 'samename'">
+        {{ "There is an activity with that number" | translate }}.
+      </span>
+    </span>
+  </div>
+  <div class="form-group col-xs-12">
+    <label for="description">{{ "Description" | translate }}</label>
+    <textarea
+      maxlength="100"
+      class="form-control"
+      id="description"
+      rows="2"
+      formControlName="description"
+      [ngClass]="{
+        'is-invalid':
+          (myform.submitted && createForm.get('description').invalid) ||
+          (createForm.get('description').dirty &&
+            createForm.get('description').invalid)
+      }"
+    ></textarea>
+    <small style="opacity: 0.75"
+      >{{ createForm.get("description").value.length }}/100</small
+    >
+    <span
+      class="help-block"
+      *ngIf="
+        (myform.submitted && createForm.get('description').invalid) ||
+        (createForm.get('description').dirty &&
+          createForm.get('description').invalid)
+      "
+    >
+      <span
+        class="text-danger"
+        *ngIf="createForm.get('description').errors.required"
+      >
+        {{ "Description is required" | translate }}.
+      </span>
+    </span>
+  </div>
+  <div class="form-group col-xs-12">
+    <div class="form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="status"
+        formControlName="status"
+      />
+      <label for="status">{{ "Status" | translate }}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="button-group text-center">
+      <button
+        type="submit"
+        class="btn btn-success lh09"
+        [disabled]="
+          myform.submitted && (myform.invalid || !numberValidation.status)
+        "
+      >
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Save" | translate }}</span>
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,747 @@
+<div class="row card cont">
+  <div class="close-icon-container">
+    <div class="close-icon" [mat-dialog-close]>
+      <app-close-svg-client></app-close-svg-client>
+    </div>
+  </div>
+  <div class="p-4 m-2 form-column-wrapper">
+    <form
+      class="p-3"
+      novalidate
+      autocomplete="off"
+      [formGroup]="createForm"
+      (ngSubmit)="createClient()"
+      #myform="ngForm"
+    >
+      <h2 class="h5 text-secondary">{{ "Add New Client" | translate }}</h2>
+      <hr />
+
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group rowX pb-4X mb-0 pb-0">
+            <label class="bg-dangerX"
+              ><small>{{ "Type" | translate }}</small></label
+            ><br />
+            <div class="form-check form-check-inline">
+              <div class="custom-control custom-radio">
+                <input
+                  class="custom-control-input"
+                  type="radio"
+                  name="type"
+                  id="inlineRadio11"
+                  value="1"
+                  checked
+                  formControlName="type"
+                />
+                <label
+                  class="custom-control-label fs14X pb8"
+                  for="inlineRadio11"
+                  checked
+                  >{{ "Company" | translate }}</label
+                >
+              </div>
+            </div>
+            <div class="form-check form-check-inline">
+              <div class="custom-control custom-radio">
+                <input
+                  class="custom-control-input"
+                  type="radio"
+                  name="type"
+                  id="inlineRadio21"
+                  value="0"
+                  formControlName="type"
+                />
+                <label
+                  class="custom-control-label fs14X pb8"
+                  for="inlineRadio21"
+                  >{{ "Private Person" | translate }}</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div style="max-width: 318px">
+            <label
+              for="validationCustom04"
+              class="mb-0 mt-1 required"
+              [ngClass]="{ 'font-weight-bold': boldOrNot }"
+              ><small> {{ "ORG NR" | translate }}</small></label
+            ><!-- OK -->
+            <input
+              focusIndex="1"
+              type="text"
+              [ngClass]="{ 'is-invalid': displayError('company_id') }"
+              class="form-control form-control-custom"
+              id="validationCustom04"
+              spellcheck="false"
+              formControlName="company_id"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                displayError('company_id') &&
+                displayErrorObj('company_id', 'required')
+              "
+            >
+              <span
+                *ngIf="displayErrorObj('company_id', 'required')"
+                class="text-danger"
+              >
+                {{ "Please enter Org.Nr" | translate }}.
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-12 col-xl-6">
+          <label for="validationCustom04" class="mb-0 mt-1 required"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Company Name" | translate
+            }}</small></label
+          ><!-- OK -->
+          <input
+            focusIndex="2"
+            type="text"
+            class="form-control form-control-custom"
+            id="validationCustom04"
+            spellcheck="false"
+            formControlName="company"
+            [ngClass]="{ 'is-invalid': displayError('company') }"
+          />
+          <div
+            class="help-block"
+            *ngIf="displayError('company') && createForm.get('company').errors"
+          >
+            <span
+              *ngIf="displayErrorObj('company', 'required')"
+              class="text-danger"
+            >
+              {{ "Please enter the name of the company" | translate }}.
+            </span>
+            <span
+              *ngIf="displayErrorObj('company_id', 'pattern')"
+              class="text-danger"
+            >
+              {{ "You can only type alphanumeric characters" | translate }}.
+            </span>
+          </div>
+
+          <label class="bg-dangerX"
+            ><small>{{ "Status" | translate }}</small></label
+          ><br />
+          <div class="form-check form-check-inline">
+            <div class="custom-control custom-radio">
+              <input
+                class="custom-control-input"
+                type="radio"
+                name="status"
+                id="inlineRadio111"
+                value="1"
+                checked
+                formControlName="status"
+              />
+              <label
+                class="custom-control-label fs14 pb8"
+                for="inlineRadio111"
+                checked
+                >{{ "Aktiv" | translate }}</label
+              >
+            </div>
+          </div>
+          <div class="form-check form-check-inline">
+            <div class="custom-control custom-radio">
+              <input
+                class="custom-control-input"
+                type="radio"
+                name="status"
+                id="inlineRadio211"
+                value="0"
+                formControlName="status"
+              />
+              <label
+                class="custom-control-label fs14 pb8"
+                for="inlineRadio211"
+                >{{ "Inaktiv" | translate }}</label
+              >
+            </div>
+          </div>
+          <br />
+
+          <label class="bg-dangerX"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Reverse payment obligation" | translate
+            }}</small></label
+          ><br />
+          <div class="form-check form-check-inline">
+            <div class="custom-control custom-radio">
+              <input
+                class="custom-control-input"
+                type="radio"
+                name="reversePaymentObligation"
+                id="inlineRadio1"
+                value="1"
+                checked
+                formControlName="reversePaymentObligation"
+              />
+              <label
+                class="custom-control-label fs14 pb8"
+                for="inlineRadio1"
+                checked
+                >{{ "Yes" | translate }}</label
+              >
+            </div>
+          </div>
+          <div class="form-check form-check-inline">
+            <div class="custom-control custom-radio">
+              <input
+                class="custom-control-input"
+                type="radio"
+                name="reversePaymentObligation"
+                id="inlineRadio2"
+                value="0"
+                formControlName="reversePaymentObligation"
+              />
+              <label class="custom-control-label fs14 pb8" for="inlineRadio2">{{
+                "No" | translate
+              }}</label>
+            </div>
+          </div>
+          <br />
+        </div>
+
+        <div class="col-12 col-xl-6">
+          <div class="form-group rowX pb-4X mb-0 pb-0">
+            <label for="validationCustom40" class="mb-0 mt-1 required"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Client Number" | translate
+              }}</small></label
+            ><!-- OK -->
+            <input
+              focusIndex="3"
+              type="text"
+              class="form-control form-control-custom"
+              id="validationCustom40"
+              spellcheck="false"
+              formControlName="number"
+              [ngClass]="{ 'is-invalid': displayError('number') }"
+            />
+            <div
+              class="help-block"
+              *ngIf="
+                displayError('number') && displayErrorObj('number', 'required')
+              "
+            >
+              <span
+                *ngIf="displayErrorObj('number', 'required')"
+                class="text-danger"
+              >
+                {{ "Please enter a client number" | translate }}.
+              </span>
+            </div>
+
+            <label
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "VAT number" | translate
+              }}</small></label
+            >
+            <input
+              focusIndex="4"
+              type="text"
+              class="form-control form-control-custom bg-dangerX"
+              id="validationCustom27"
+              value=""
+              formControlName="vatNumber"
+            />
+
+            <div class="form-group">
+            <label for="clientCategoryInput">
+                <small>{{ "Client category" | translate }}</small>
+            </label>
+            <div class="input-group" [hidden]="!showClientCategoryInput">
+                <input
+                    type="text"
+                    class="form-control"
+                    style="height: 30px; padding: 0px 5px"
+                    #newCategory
+                />
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-secondary py-0"
+                        style="height: 30px; padding: 0 0.45em"
+                        (click)="
+                        addOrEditClientCategory(
+                            categorySelected,
+                            newCategory.value
+                        )
+                        "
+                        type="button"
+                    >
+                        <span
+                            class="badgeX badge-darkX material-icons posRel"
+                            style="top: 2px"
+                        >
+                            save
+                        </span>
+                    </button>
+                </div>
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-secondary py-0"
+                        style="height: 30px; padding: 0 0.45em"
+                        (click)="toggleClientCategoryInput()"
+                        type="button"
+                    >
+                        <span
+                            class="badgeX badge-darkX material-icons posRel"
+                            style="top: 2px"
+                            >arrow_forward</span
+                        >
+                    </button>
+                </div>
+            </div>
+            <div class="input-group" [hidden]="showClientCategoryInput">
+                <select
+                    focusIndex="5"
+                    class="custom-select"
+                    id="inputGroupSelect04"
+                    aria-label="Example select with button addon"
+                    (change)="categoryChange(categorySelected.value)"
+                    #categorySelected
+                >
+                  <option value="0">{{ "Select category" | translate }}</option>
+                  <option
+                    *ngFor="let category of clientCategories"
+                    [value]="category.Id"
+                  >
+                    {{ category.Name | translate }}
+                  </option>
+                </select>
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-secondary py-0"
+                        style="height: 30px; padding: 0 0.45em"
+                        (click)="openAddClientCategory(newCategory)"
+                        type="button"
+                    >
+                    <span
+                        class="badgeX badge-darkX material-icons posRel"
+                        style="top: 2px"
+                    >
+                        add
+                    </span>
+                    </button>
+                </div>
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-secondary py-0"
+                        style="height: 30px; padding: 0 0.45em"
+                        (click)="
+                            openEditClientCategory(categorySelected, newCategory)
+                        "
+                        type="button"
+                    >
+                        <span
+                            class="badgeX badge-darkX material-icons posRel"
+                            style="top: 2px"
+                            >create</span
+                        >
+                    </button>
+                </div>
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-secondary py-0"
+                        style="height: 30px; padding: 0 0.45em"
+                        (click)="deleteClientCategory(categorySelected)"
+                        type="button"
+                    >
+                        <span
+                            class="badgeX badge-darkX material-icons posRel"
+                            style="top: 2px"
+                            >delete</span
+                        >
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+          <div style="max-width: 318px">
+            <h3 class="h5 mt-5 text-secondary">
+              {{ "Visiting Address Details" | translate }}
+            </h3>
+            <label for="validationCustomAA"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Street and Number" | translate
+              }}</small></label
+            >
+            <input
+              focusIndex="6"
+              type="text"
+              class="form-control form-control-custom bg-warningX"
+              id="validationCustomAA"
+              spellcheck="false"
+              formControlName="visiting_address_street_and_no"
+            />
+            <div class="invalid-feedback">Please enter an address</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-xl-4">
+          <!-- x newClient.`Visiting address postnr` -->
+          <label for="validationCustomBB"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Zip code" | translate
+            }}</small></label
+          ><!-- OK -->
+          <input
+            focusIndex="7"
+            type="text"
+            class="form-control form-control-custom bg-warningX"
+            id="validationCustomBB"
+            spellcheck="false"
+            formControlName="visiting_address_postnr"
+          />
+          <div class="invalid-feedback">Please enter a postnr</div>
+        </div>
+        <div class="col-12 col-xl-4">
+          <!-- x newClient.`Visiting address ort` -->
+          <label for="validationCustomCC"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "City" | translate
+            }}</small></label
+          ><!-- OK -->
+          <input
+            focusIndex="8"
+            type="text"
+            class="form-control form-control-custom bg-warningX"
+            id="validationCustomCC"
+            spellcheck="false"
+            formControlName="visiting_address_city"
+          />
+          <div class="invalid-feedback">Please enter an ort</div>
+        </div>
+        <div class="col-12 col-xl-4">
+          <!-- x newClient.`Visiting address land` -->
+          <label for="validationCustomDD"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Country" | translate
+            }}</small></label
+          ><!-- OK -->
+          <input
+            focusIndex="9"
+            type="text"
+            class="form-control form-control-custom bg-warningX"
+            id="validationCustomDD"
+            spellcheck="false"
+            formControlName="visiting_address_land"
+          />
+          <div class="invalid-feedback">Please enter a land</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div style="max-width: 318px">
+            <h3 class="h5 mt-5 text-secondary">
+              {{ "Invoice Address Details" | translate }}
+              <span
+                class="badge badge-success d-inline-block"
+                (click)="copyVisitingAddress()"
+              >
+                <span class="material-icons fs14 cursor-pointer">done</span>
+              </span>
+              <span class="message" *ngIf="actionStatus == 1">{{
+                "Successfully updated." | translate
+              }}</span>
+            </h3>
+
+            <!-- x newClient.`Invoice address gata och nr` -->
+            <label for="validationCustomXA"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Street and Number" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+            <input
+              focusIndex="10"
+              type="text"
+              class="form-control form-control-custom bg-infoX"
+              id="validationCustomXA"
+              spellcheck="false"
+              formControlName="invoice_address_street_and_no"
+            />
+            <div class="invalid-feedback">Please enter an address</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-xl-4">
+          <!-- x newClient.`Invoice address postnr` -->
+          <label for="validationCustomXB"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Zip code" | translate
+            }}</small></label
+          ><!-- OK -->
+          <input
+            focusIndex="11"
+            type="text"
+            class="form-control form-control-custom bg-infoX"
+            id="validationCustomXB"
+            spellcheck="false"
+            formControlName="invoice_address_postnr"
+          />
+          <div class="invalid-feedback">Please enter a postnr</div>
+        </div>
+        <div class="col-12 col-xl-4">
+          <!-- x newClient.`Invoice address ort` -->
+          <label for="validationCustomXC"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "City" | translate
+            }}</small></label
+          ><!-- OK -->
+          <input
+            focusIndex="12"
+            type="text"
+            class="form-control form-control-custom bg-infoX"
+            id="validationCustomXC"
+            spellcheck="false"
+            formControlName="invoice_address_city"
+          />
+          <div class="invalid-feedback">Please enter an ort</div>
+        </div>
+        <div class="col-12 col-xl-4">
+          <!-- x newClient.`Invoice address land` -->
+          <label for="validationCustomXD"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Country" | translate
+            }}</small></label
+          ><!-- OK -->
+          <input
+            focusIndex="13"
+            type="text"
+            class="form-control form-control-custom bg-infoX"
+            id="validationCustomXD"
+            spellcheck="false"
+            formControlName="invoice_address_land"
+          />
+          <div class="invalid-feedback">Please enter a land</div>
+        </div>
+      </div>
+
+      <div class="row mt-5 mb-5">
+        <div class="col-12">
+          <h3 class="h5 mt-4 text-secondary">{{ "References" | translate }}</h3>
+        </div>
+
+        <div class="col-12 col-xl-6">
+          <!-- x newClient.`Reference theirs` -->
+          <label for="validationCustom1B"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Your Reference" | translate
+            }}</small></label
+          >
+          <!-- OK -->
+          <input
+            focusIndex="14"
+            type="text"
+            class="form-control form-control-custom bg-infoX"
+            id="validationCustomXD"
+            spellcheck="false"
+            formControlName="reference_theirs"
+          />
+          <div class="invalid-feedback">Please enter a reference</div>
+        </div>
+        <div class="col-12 col-xl-6">
+          <!-- x newClient.`Reference ours` -->
+          <label for="validationCustom1A"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Our Reference" | translate
+            }}</small></label
+          >
+          <!-- OK -->
+          <input
+            focusIndex="15"
+            type="text"
+            class="form-control form-control-custom bg-infoX"
+            id="validationCustomXC"
+            spellcheck="false"
+            formControlName="reference_ours"
+          />
+          <div class="invalid-feedback">Please enter a reference</div>
+        </div>
+
+        <div class="col-12">
+          <h3 class="h5 mt-5 text-secondary">{{ "Company" | translate }}</h3>
+        </div>
+        <div class="col-12">
+          <div style="max-width: 318px">
+            <!-- 5 newClient.`MobileNumber` -->
+            <label for="validationCustom01" class="mb-0 mt-1"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Phone Number 1" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+            <input
+              focusIndex="16"
+              type="text"
+              class="form-control form-control-custom"
+              id="validationCustom04"
+              spellcheck="false"
+              formControlName="mobile_number"
+            />
+            <div class="invalid-feedback">Please enter an address</div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div style="max-width: 318px">
+            <!-- 5 newClient.`TelephoneNumber` -->
+            <label for="validationCustom01" class="mb-0 mt-1"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Phone Number 2" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+            <input
+              focusIndex="17"
+              type="text"
+              class="form-control form-control-custom"
+              id="validationCustom04"
+              spellcheck="false"
+              formControlName="telephone_number"
+            />
+            <div class="invalid-feedback">Please enter an address</div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div style="max-width: 318px">
+            <!-- 5 newClient.`Email` -->
+            <label for="validationCustom01" class="mb-0 mt-1"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Email" | translate
+              }}</small></label
+            ><!-- OK -->
+            <input
+              focusIndex="18"
+              type="email"
+              class="form-control form-control-custom"
+              id="validationCustom04"
+              [ngClass]="{ 'is-invalid': displayError('email') }"
+              spellcheck="false"
+              formControlName="email"
+              #email
+            />
+            <span
+              class="help-block"
+              *ngIf="displayError('email') && displayErrorObj('email', 'email')"
+            >
+              <span
+                *ngIf="displayErrorObj('email', 'email')"
+                class="text-danger"
+              >
+                {{ "Email invalid" | translate }}
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div style="max-width: 318px">
+            <label for="validationCustom01" class="mb-0 mt-1"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Web Address" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+            <input
+              focusIndex="19"
+              type="text"
+              class="form-control form-control-custom"
+              id="validationCustom04"
+              spellcheck="false"
+              formControlName="web_address"
+            />
+            <div class="invalid-feedback">Please enter a post address</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-12">
+          <h3 class="h5 text-secondary">{{ "Estimation" | translate }}</h3>
+        </div>
+
+        <div class="col-12">
+          <input
+            focusIndex="20"
+            type="text"
+            class="form-control form-control-custom bg-dangerX"
+            id="validationCustom31"
+            value=""
+            formControlName="bedomning"
+          />
+          <div class="invalid-feedback">Please enter a bedomning</div>
+        </div>
+      </div>
+
+      <br /><br />
+
+      <div class="form-group btn-position">
+        <div class="save-wrapper">
+          <div>
+            <button
+              focusIndex="21"
+              type="submit"
+              class="button-save-custom"
+              [disabled]="myform.submitted && createForm.invalid"
+            >
+              {{ "Save" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div
+    *ngIf="showModal"
+    class="card col-12X col-lg-6X mb70"
+    id="looksLikeModal"
+    (click)="closeModal($event)"
+  >
+    <article
+      class="card narrow400 minh70p p-4 d-flex flex-column justify-content-between"
+    >
+      <section>
+        <p>
+          {{
+            "Client category can't be deleted because it is being used by one or more clients"
+              | translate
+          }}
+        </p>
+        <div *ngIf="clientsUsingCategory">
+          <h5>{{ "Clients using category" | translate }}:</h5>
+          <ul>
+            <li *ngFor="let client of clientsUsingCategory" class="text-danger">
+              <a
+                routerLink="/clients/details/{{ client.Id }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-danger"
+                >{{ client.Name }} &rarr;</a
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+    </article>
+  </div>
+</div>

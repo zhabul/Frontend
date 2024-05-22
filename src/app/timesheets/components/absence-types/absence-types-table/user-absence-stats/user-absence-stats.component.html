@@ -1,0 +1,22 @@
+<div class="year-absence-header" *ngFor="let year of allYears">
+    <div class="absences" [ngStyle]="absencesGrid">
+        <div class="absence-name-white" *ngFor="let absence of allAbsences">
+            <app-absence-name
+            
+                [year]="year"
+                [absence]="absence"
+                [user]="user"
+                (valueUpdateListener)="valueUpdateHandler($event)"
+            
+            ></app-absence-name>
+            <!-- [list]="user.stats.list" -->
+        </div>
+    </div>
+</div> 
+<div class="year-absence-header" >
+    <div class="absences" [ngStyle]="absencesGrid">
+        <div class="absence-name-white" *ngFor="let absence of allAbsences">
+            {{ user.years.totals[absence.id] | number: '1.2-2':'fr' }}
+        </div>
+    </div>
+</div>

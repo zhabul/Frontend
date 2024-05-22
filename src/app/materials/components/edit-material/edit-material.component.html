@@ -1,0 +1,268 @@
+<div class="row">
+  <div class="card bgGrayBlue col-12 col-lg-6 col-lg-8W ml-3" id="topFeeder">
+    <nav class="nav nav-pills nav-justified">
+      <div class="nav-links">
+        <a class="btn btn-dark lh08 mr-2 hideUnder800" (click)="goBack()">
+          <span class="badgeX badge-darkX material-icons top1px posRel"
+            >arrow_back</span
+          >
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="card col-12 col-lg-6 col-lg-8W ml-3">
+    <div class="w75 mx-auto">
+      <form
+        novalidate
+        autocomplete="off"
+        [formGroup]="createForm"
+        (ngSubmit)="addMaterial()"
+        class="pl-3 pr-3 pb-3"
+      >
+        <div
+          class="form-group"
+          [ngClass]="{
+            'has-error':
+              (createForm.get('name').touched ||
+                createForm.get('name').dirty) &&
+              !createForm.get('name').valid
+          }"
+        >
+          <h2
+            *ngIf="userDetails.create_register_products"
+            class="h4 mt-3 text-muted"
+          >
+            {{ "Edit Material" | translate }}
+          </h2>
+          <h2
+            *ngIf="!userDetails.create_register_products"
+            class="h4 mt-3 text-muted"
+          >
+            {{ "View Material" | translate }}
+          </h2>
+          <hr class="mb-4" />
+          <label for="name" class="required"
+            ><small>{{ "Material Name" | translate }}</small></label
+          >
+          <input
+            [attr.disabled]="
+              !userDetails.create_register_products ? 'disabled' : null
+            "
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="{{ 'Enter material name' | translate }}"
+            formControlName="name"
+          />
+          <span
+            class="help-block"
+            *ngIf="
+              (createForm.get('name').touched ||
+                createForm.get('name').dirty) &&
+              createForm.get('name').errors
+            "
+          >
+            <span
+              *ngIf="createForm.get('name').errors.required"
+              class="text-danger"
+            >
+              {{ "Please enter material name" | translate }}.
+            </span>
+            <span
+              *ngIf="createForm.get('name').errors.maxlength"
+              class="text-danger"
+            >
+              {{ "Material name must be less than 40 characters" | translate }}.
+            </span>
+          </span>
+        </div>
+        <div
+          *ngIf="createForm.get('details').value"
+          class="form-group"
+          [ngClass]="{
+            'has-error':
+              (createForm.get('details').touched ||
+                createForm.get('details').dirty) &&
+              !createForm.get('details').valid
+          }"
+        >
+          <label for="details"
+            ><small>{{ "Material details" | translate }}</small></label
+          >
+          <textarea
+            [attr.disabled]="
+              !userDetails.create_register_products ? 'disabled' : null
+            "
+            maxlength="250"
+            class="form-control"
+            id="details"
+            rows="3"
+            formControlName="details"
+          ></textarea>
+          <small style="opacity: 0.75"
+            >{{ createForm.get("details").value.length }}/250</small
+          >
+        </div>
+        <div class="form group">
+          <label for="project-status" class="required">{{
+            "Select Category" | translate
+          }}</label>
+          <select
+            [attr.disabled]="
+              !userDetails.create_register_products ? 'disabled' : null
+            "
+            class="project-nav-select form-control"
+            id="project-status"
+            formControlName="category"
+          >
+            <option
+              *ngFor="let category of suppliersCategores"
+              value="{{ category.Id }}"
+            >
+              <small>{{ category.name }}</small>
+            </option>
+          </select>
+        </div>
+        <label *ngIf="userDetails.create_register_products" for="image"
+          ><small>{{ "Image" | translate }}</small></label
+        >
+        <div
+          *ngIf="userDetails.create_register_products"
+          class="form-group form-group-upload"
+        >
+          <label class="btn btn-secondary" for="image">{{
+            "Choose file" | translate
+          }}</label>
+          <span *ngIf="!chooseFile">{{ "No file chosen" | translate }}</span>
+          <span *ngIf="chooseFile">{{ uploadMessage }}</span>
+          <input
+            type="file"
+            accept="image/*"
+            class="form-control-file hide"
+            id="image"
+            (change)="onFileChange($event)"
+          />
+        </div>
+        <div class="form-check">
+          <input
+            [attr.disabled]="
+              !userDetails.create_register_products ? 'disabled' : null
+            "
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="allowCustom"
+            formControlName="allow_custom"
+            style="margin-bottom: 0"
+          />
+          <label class="form-check-label" for="allowCustom">
+            {{ "Allow custom" | translate }}
+          </label>
+        </div>
+        <div class="form-group mt-3">
+          <label
+            *ngIf="userDetails.create_register_products"
+            class="required"
+            for="properties"
+            ><small>{{ "Properties" | translate }}</small></label
+          >
+          <div
+            *ngIf="userDetails.create_register_products"
+            class="input-group mb-3"
+            style="font-size: 16px"
+          >
+            <input
+              type="text"
+              id="properties"
+              class="form-control flex-basis200"
+              placeholder="{{ 'Enter Properties' | translate }}"
+              aria-describedby="button-addon2"
+              #properties
+            />
+            <ng-multiselect-dropdown
+              name="units"
+              [settings]="dropdownSettings"
+              [data]="units"
+              [placeholder]="translate.instant('Select')"
+              [(ngModel)]="selectedUnits"
+              formControlName="units"
+              [disabled]="disabled"
+              [ngStyle]="{ width: '150px' }"
+            >
+            </ng-multiselect-dropdown>
+            <div class="input-group-append">
+              <button
+                [disabled]="properties.value.trim() === ''"
+                class="btn btn-outline-secondary"
+                type="button"
+                id="button-addon2"
+                (click)="addProperty(properties)"
+              >
+                {{ "Add" | translate }}
+              </button>
+            </div>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col mw">{{ "Properties" | translate }}</th>
+                <th class="unit mw" scope="col">{{ "Unit" | translate }}</th>
+                <th
+                  *ngIf="userDetails.create_register_products"
+                  class="delete mw"
+                  scope="col"
+                >
+                  <i class="material-icons">delete</i>
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              cdkDropList
+              class="sort-list"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <tr
+                [ngClass]="{ disabled: !userDetails.create_register_products }"
+                class="sort-box"
+                cdkDrag
+                *ngFor="let mp of materialProperties; let i = index"
+              >
+                <td scope="col mw">{{ mp.property }}</td>
+                <td class="unit mw" scope="col">{{ formatUnits(mp.unit) }}</td>
+                <td
+                  *ngIf="userDetails.create_register_products && mp.canRemove"
+                  class="delete mw"
+                  (click)="removeProperty(i)"
+                >
+                  <i class="material-icons">clear</i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button
+          *ngIf="userDetails.create_register_products"
+          type="submit"
+          class="btn btn-success lh09"
+          [disabled]="
+            disabled || !createForm.valid || !materialProperties.length
+          "
+        >
+          <span class="material-icons left-3px top1px posRel">save</span>
+          <span class="posRel top-5px">{{ "Save" | translate }}</span>
+        </button>
+        <button
+          *ngIf="userDetails.create_register_products"
+          class="btn btn-danger lh09"
+          (click)="removeMaterial($event)"
+        >
+          <span class="material-icons left-3px top1px posRel">delete</span>
+          <span class="posRel top-5px">{{ "Remove" | translate }}</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

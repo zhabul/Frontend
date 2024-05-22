@@ -1,0 +1,23 @@
+<div>
+    <div class="options-div" (mouseenter)="threeDotsEnter()" (mouseleave)="threeDotsLeave()">
+      <div type="button" class="btn-options" (click)="optionsDownDiv()" [ngStyle]="btnOptionsBorderRadius">
+        <div class="dots-div">
+          <div>{{ 'CUD_Payroll_Basis_PDF' | translate }}</div>
+          <app-arrow-up-svg2 [color]="arrowUpColor" *ngIf="!buttonToggleDots"></app-arrow-up-svg2>
+          <app-arrow-down-svg2 color="#BFE29C" *ngIf="buttonToggleDots"></app-arrow-down-svg2>
+        </div> 
+      </div>  
+      <div class="dropdownlist2" *ngIf="buttonToggleDots">
+        <app-payroll-menu-item (itemEvent)="downloadPdf()" [users]="users"  title="CUD_Payroll_Basis_PDF" type="download"></app-payroll-menu-item>
+        <app-payroll-menu-item (itemEvent)="sendPdf('PDF')" [users]="users"  title="CUD_Payroll_Basis_PDF" type="send"></app-payroll-menu-item>
+      <!--  <app-payroll-menu-item [users]="users" (eventListener)="downloadDocumentVisma()" title="CUD_Payroll_Basis_VISMA" type="download"></app-payroll-menu-item> !-->
+        <app-payroll-menu-item [users]="users" (itemEvent)="sendPdf(choosen_payment_system == 'Fortnox' ? 'XLS' : 'TLU')" title="CUD_Löneunderlag_Lönesystem" type="send"></app-payroll-menu-item>
+        <app-payroll-menu-item (itemEvent)="openEmailLog()" [confirm]="false" [hasUsers]="false" title="CUD_E-Mail_Logs"></app-payroll-menu-item>
+        <div class="green-bottom"></div>  
+      </div>  
+    </div> 
+</div>
+
+<div class="spinner-container-absolute" *ngIf="sending">
+  <app-pulse-spinner></app-pulse-spinner>
+</div>

@@ -1,0 +1,83 @@
+<div class="row">
+  <!-- <div class="col-12 text-right">
+    <svg
+      (click)="onXClick()"
+      class="m-2"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      style="cursor: pointer"
+    >
+      <defs>
+        <filter
+          id="Ellipse_302"
+          x="0"
+          y="0"
+          width="32"
+          height="32"
+          filterUnits="userSpaceOnUse"
+        >
+          <feOffset dy="1" input="SourceAlpha" />
+          <feGaussianBlur stdDeviation="1" result="blur" />
+          <feFlood flood-color="#ccc" />
+          <feComposite operator="in" in2="blur" />
+          <feComposite in="SourceGraphic" />
+        </filter>
+      </defs>
+      <g
+        id="Group_1785"
+        data-name="Group 1785"
+        transform="translate(-345.143 -405)"
+      >
+        <g
+          transform="matrix(1, 0, 0, 1, 345.14, 405)"
+          filter="url(#Ellipse_302)"
+        >
+          <circle
+            id="Ellipse_302-2"
+            data-name="Ellipse 302"
+            cx="13"
+            cy="13"
+            r="13"
+            transform="translate(3 2)"
+            fill="#fff"
+          />
+        </g>
+        <g
+          id="Group_1784"
+          data-name="Group 1784"
+          transform="translate(360.935 408) rotate(45)"
+        >
+          <path
+            id="Path_563"
+            data-name="Path 563"
+            d="M1.118.086,19-.1a1,1,0,0,1,1.1.9,1.062,1.062,0,0,1-1.131.92l-9.511.1L1.09,1.9a1,1,0,0,1-1.1-.9A1.062,1.062,0,0,1,1.118.086Z"
+            transform="translate(-1.948 7.754)"
+          />
+          <path
+            id="Path_564"
+            data-name="Path 564"
+            d="M1.118.006,19,.187a1.062,1.062,0,0,1,1.131.92,1,1,0,0,1-1.1.9L1.145,1.824A1.062,1.062,0,0,1,.014.9,1,1,0,0,1,1.118.006Z"
+            transform="translate(8.744 -1.101) rotate(90)"
+          />
+        </g>
+      </g>
+    </svg>
+  </div> -->
+  <div class="col-12 text-center text-position">
+    {{ questionText | translate }}
+  </div>
+  <div class="col-12 button-position">
+    <button
+      class="btn btn-success"
+      (click)="accept()"
+    >
+      {{ "Leave" | translate }}
+    </button>
+    <button class="btn btn-danger" (click)="reject()">
+      {{ "Cancel" | translate }}
+    </button>
+  </div>
+</div>

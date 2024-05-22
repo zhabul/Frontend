@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20.436" height="20.576" viewBox="0 0 20.436 20.576">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_882" data-name="Path 882" d="M0,8.093H19.934v-20H0Z" transform="translate(0 11.906)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_3965" data-name="Group 3965" transform="translate(0.25 0.287)">
+    <g id="Component_74_239" data-name="Component 74 – 239" transform="translate(0 0)">
+      <g id="Group_3957" data-name="Group 3957" transform="translate(0 8.758)">
+        <path id="Path_875" data-name="Path 875" d="M0,1.2V6.818L4.858,9.629l4.87-2.808V1.2L4.87-1.613Z" transform="translate(0 1.613)" fill="#ff7000" stroke="#373b40" stroke-width="0.5"/>
+      </g>
+      <g id="Group_3958" data-name="Group 3958" transform="translate(5.104 0.001)">
+        <path id="Path_876" data-name="Path 876" d="M2.076,0l-4.87,2.81V8.429L2.064,11.24,6.932,8.432V2.811Z" transform="translate(2.794)" fill="#ff7000" stroke="#373b40" stroke-width="0.5"/>
+      </g>
+      <g id="Group_3959" data-name="Group 3959" transform="translate(10.203 8.758)">
+        <path id="Path_877" data-name="Path 877" d="M0,1.2V6.818L4.858,9.629,9.72,6.821,9.733,1.2,4.87-1.613Z" transform="translate(0 1.613)" fill="#ff7000" stroke="#373b40" stroke-width="0.5"/>
+      </g>
+    </g>
+  </g>
+</svg>

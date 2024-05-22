@@ -1,0 +1,483 @@
+<div class="wrapper">
+  <div class="head-wrapper">
+    <div class="text-name">{{ "Lägg till ny kund" | translate }}</div>
+    <div class="close-modal" (click)="close(true)">X</div>
+  </div>
+  <form
+    novalidate
+    autocomplete="off"
+    [formGroup]="createForm"
+    (ngSubmit)="createCustomer()"
+    #myform="ngForm"
+  >
+    <div class="inputs-wrapper">
+      <div class="wrapp-positions">
+        <!--1.first -->
+        <div class="flex-directions">
+          <div class="w280">
+            <label for="" class="required">{{ "Org Nr" | translate }}</label>
+            <input
+              type="text"
+              placeholder="00000-0000"
+              formControlName="company_id"
+              tabIndex="1"
+            />
+            <span *ngIf="displayError('company_id')" class="position-error">
+              <span
+                class="help-block"
+                *ngIf="
+                  (formSubmitted || createForm.controls.company_id.touched) &&
+                  createForm.controls.company_id.errors.required
+                "
+              >
+                <span class="text-danger">
+                  {{ "Please enter organization number" | translate }}.
+                </span>
+              </span>
+              <!-- <span
+                class="help-block"
+                *ngIf="createForm.controls.company_id.status == 'INVALID'"
+              >
+                <span class="text-danger">
+                  {{ "Format" | translate }} 000000-0000
+                </span>
+              </span> -->
+            </span>
+          </div>
+          <div class="w130">
+            <label for="" class="required">{{ "Kund Nr" | translate }}</label>
+            <input
+            style="width: 130px"
+            type="text"
+            formControlName="number"
+            tabIndex="2" />
+            <span *ngIf="displayError('number')" class="position-error">
+              <span
+                class="help-block"
+                *ngIf="createForm.controls.number.status == 'INVALID'"
+              >
+                <span class="text-danger">
+                  {{ "Please enter organization number" | translate }}.
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="w253"
+            style="position: relative; font-size: 12px; margin-left: 13px"
+          >
+            <div style="position: absolute; top: 16px">
+              <div>
+                <div class="check-wrapper">
+                  <div>{{ "Status" | translate }}:</div>
+                  <div class="activity">
+                    <div class="check-button-wrapp">
+                      <input
+                        type="checkbox"
+                        class="check"
+                        #checkProject
+                        (click)="setActiveStatus()"
+                      />
+                      <app-checkout-svg
+                        *ngIf="!active"
+                        [width]="17"
+                        [height]="17"
+                      ></app-checkout-svg>
+                      <app-checkin-svg
+                        *ngIf="active"
+                        [width]="17"
+                        [height]="17"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                      ></app-checkin-svg>
+                    </div>
+                    <div>{{ "Active" | translate }}</div>
+                  </div>
+                  <div class="activity">
+                    <div class="check-button-wrapp">
+                      <input
+                        type="checkbox"
+                        class="check"
+                        #checkProject
+                        (click)="setInactiveStatus()"
+                      />
+                      <app-checkout-svg
+                        *ngIf="active"
+                        [width]="17"
+                        [height]="17"
+                      ></app-checkout-svg>
+                      <app-checkin-svg
+                        *ngIf="!active"
+                        [width]="17"
+                        [height]="17"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                      ></app-checkin-svg>
+                    </div>
+                    <div>{{ "Inactive" | translate }}</div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="check-wrapper">
+                  <div class="stat">
+                    {{ "Omvänd betalningsskyldighet" | translate }}:
+                  </div>
+                  <div class="activity">
+                    <div class="check-button-wrapp">
+                      <app-checkout-svg
+                        (click)="setReversePaymentObligation(true)"
+                        *ngIf="!reversePayment"
+                        [width]="17"
+                        [height]="17"
+                      ></app-checkout-svg>
+                      <app-checkin-svg
+                        *ngIf="reversePayment"
+                        [width]="17"
+                        [height]="17"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                      ></app-checkin-svg>
+                    </div>
+                    <div>{{ "Ja" | translate }}</div>
+                  </div>
+                  <div class="activity">
+                    <div class="check-button-wrapp">
+                      <app-checkout-svg
+                        (click)="setReversePaymentObligation(false)"
+                        *ngIf="reversePayment"
+                        [width]="17"
+                        [height]="17"
+                      ></app-checkout-svg>
+                      <app-checkin-svg
+                        *ngIf="!reversePayment"
+                        [width]="17"
+                        [height]="17"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                      ></app-checkin-svg>
+                    </div>
+                    <div>{{ "Nej" | translate }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-directions">
+          <div class="w280">
+            <label for="" class="required">{{ "Företag" | translate }}</label>
+            <input
+              style="width: 280px"
+              type="text"
+              formControlName="company"
+              tabIndex="3" />
+
+            <span *ngIf="displayError('company')" class="position-error">
+              <span
+                class="help-block"
+                *ngIf="createForm.controls.company.status == 'INVALID'"
+              >
+                <span class="text-danger">
+                  {{ "Please enter organization number" | translate }}.
+                </span>
+              </span>
+            </span>
+          </div>
+          <div class="w200">
+            <label for="" class="required">{{
+              "Momsregistreringsnummer" | translate
+            }}</label>
+            <input
+              style="width: 200px"
+              type="text"
+              formControlName="vatNumber"
+              tabIndex="4"
+            />
+            <span *ngIf="displayError('vatNumber')" class="position-error">
+              <span
+                class="help-block"
+                *ngIf="
+                  (formSubmitted || createForm.controls.vatNumber.touched) &&
+                  createForm.controls.vatNumber.errors.required
+                "
+              >
+                <span class="text-danger">
+                  {{ "Please enter VAT number" | translate }}.
+                </span>
+              </span>
+              <!-- <span
+                class="help-block"
+                *ngIf="createForm.controls.vatNumber.status == 'INVALID'"
+              >
+                <span class="text-danger">
+                  {{ "Format" | translate }} SE000000-0000
+                </span>
+              </span> -->
+            </span>
+            <!-- <span *ngIf="displayError('vatNumber')" class="position-error">
+              <span
+                class="help-block"
+                *ngIf="
+                  (formSubmitted || createForm.controls.vatNumber.touched) &&
+                  createForm.controls.vatNumber.errors.required
+                "
+              >
+                <span class="text-danger">
+                  {{ "Please enter organization number" | translate }}.
+                </span>
+              </span>
+              <span
+                class="help-block"
+                *ngIf="createForm.controls.vatNumber.status == 'INVALID'"
+              >
+                <span class="text-danger">
+                  {{ "Format" | translate }} 000000-0000
+                </span>
+              </span>
+            </span> -->
+          </div>
+          <div class="w279">
+            <label for="">{{
+              "Order e-post (vid material hantering)" | translate
+            }}</label>
+            <input
+              style="width: 279px"
+              type="text"
+              (keyup)="setEmailValidation($event, 'order_email')"
+              tabIndex="5"
+            />
+            <span *ngIf="displayError('order_email')" class="position-error">
+              <span
+                class="help-block"
+                *ngIf="createForm.controls.order_email.status == 'INVALID'"
+              >
+                <span class="text-danger">
+                  {{ "Please enter email" | translate }}.
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="wrapp-positions2">
+        <!--2.second -->
+        <div style="color: #e3dbd3; font-size: 16px">
+          {{ "Referencer" | translate }}
+        </div>
+        <div class="flex-directions">
+          <div class="w271">
+            <label for="">{{ "Er referens" | translate }}</label>
+            <input
+              type="text"
+              formControlName="reference_theirs"
+              tabIndex="6" />
+          </div>
+          <div class="w280">
+            <label for="">{{ "Vår referens" | translate }}</label>
+            <input
+              type="text"
+              formControlName="reference_ours"
+              tabIndex="7" />
+          </div>
+        </div>
+        <div class="flex-directions">
+          <div>
+            <div class="w125">
+              <label for="">{{ "Telefon 1" | translate }}</label>
+              <!-- pattern="[0-9]{3}-[0-9]{6}" -->
+              <input
+                type="text"
+                formControlName="mobile_number"
+                tabIndex="8" />
+                <span *ngIf="displayError('mobile_number')" class="position-error">
+                  <!-- <span
+                    class="help-block"
+                    *ngIf="createForm.controls.mobile_number.status == 'INVALID'"
+                  >
+                    <span class="text-danger">
+                      {{ "Format" | translate }} 000-000000
+                    </span>
+                  </span> -->
+                </span>
+            </div>
+          </div>
+          <div>
+            <div class="w125">
+              <label for="">{{ "Telefon 2" | translate }}</label>
+              <input
+                type="text"
+                formControlName="telephone_number"
+                tabIndex="9" />
+                <span *ngIf="displayError('telephone_number')" class="position-error">
+                  <!-- <span
+                    class="help-block"
+                    *ngIf="createForm.controls.telephone_number.status == 'INVALID'"
+                  >
+                    <span class="text-danger">
+                      {{ "Format" | translate }} 000-000000
+                    </span>
+                  </span> -->
+                </span>
+            </div>
+          </div>
+          <div>
+            <div class="w250">
+              <label for="">{{ "E-post" | translate }}</label>
+              <input
+                type="text"
+                (keyup)="setEmailValidation($event, 'email')"
+                tabIndex="10"
+              />
+              <span *ngIf="displayError('email')" class="position-error">
+                <span
+                  class="help-block"
+                  *ngIf="createForm.controls.email.status == 'INVALID'"
+                >
+                  <span class="text-danger">
+                    {{ "Please enter email" | translate }}.
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div>
+            <div class="w232">
+              <label for="">{{ "Webbadress" | translate }}</label>
+              <input
+                type="text"
+                formControlName="web_address"
+                tabIndex="11" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrapp-positions2">
+        <!--3.third -->
+        <div style="color: #e3dbd3; font-size: 16px">
+          {{ "Besöksadress" | translate }}
+        </div>
+        <div class="flex-directions">
+          <div class="w523">
+            <label for="">{{ "Gatuadress" | translate }}</label>
+            <input
+              type="text"
+              formControlName="visiting_address_street_and_no"
+              tabIndex="12"
+            />
+          </div>
+        </div>
+
+        <div class="flex-directions1">
+          <div>
+            <div class="w250">
+              <label for="">{{ "Postnummer" | translate }}</label>
+              <input
+                type="text"
+                formControlName="visiting_address_postnr"
+                tabIndex="13" />
+                <span *ngIf="displayError('visiting_address_postnr')" class="position-error">
+                  <!-- <span
+                    class="help-block"
+                    *ngIf="createForm.controls.visiting_address_postnr.status == 'INVALID'"
+                  >
+                    <span class="text-danger">
+                      {{ "Format" | translate }} 000-00
+                    </span>
+                  </span> -->
+                </span>
+            </div>
+          </div>
+
+          <div>
+            <div class="w250">
+              <label for="">{{ "Ort" | translate }}</label>
+              <input
+                type="text"
+                formControlName="visiting_address_city"
+                tabIndex="14" />
+            </div>
+          </div>
+
+          <div>
+            <div class="w250">
+              <label for="">{{ "Land" | translate }}</label>
+              <input
+                type="text"
+                formControlName="visiting_address_land"
+                tabIndex="15" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrapp-positions2">
+        <!--4.fourth -->
+        <div style="color: #e3dbd3; font-size: 16px">
+          {{ "Fakturaadress" | translate }}
+        </div>
+        <div class="flex-directions">
+          <div class="w523">
+            <label for="">{{ "Gatuadress" | translate }}</label>
+            <input
+              type="text"
+              formControlName="invoice_address_street_and_no"
+              tabIndex="16"
+            />
+          </div>
+        </div>
+        <div class="flex-directions1">
+          <div>
+            <div class="w250">
+              <label for="">{{ "Postnummer" | translate }}</label>
+              <input
+                type="text"
+                formControlName="invoice_address_postnr"
+                tabIndex="17" />
+                <span *ngIf="displayError('invoice_address_postnr')" class="position-error">
+                  <!-- <span
+                    class="help-block"
+                    *ngIf="createForm.controls.invoice_address_postnr.status == 'INVALID'"
+                  >
+                    <span class="text-danger">
+                      {{ "Format" | translate }} 000-00
+                    </span>
+                  </span> -->
+                </span>
+            </div>
+          </div>
+
+          <div>
+            <div class="w250">
+              <label for="">{{ "Ort" | translate }}</label>
+              <input
+                type="text"
+                formControlName="invoice_address_city"
+                tabIndex="18" />
+            </div>
+          </div>
+
+          <div>
+            <div class="w250">
+              <label for="">{{ "Land" | translate }}</label>
+              <input
+                type="text"
+                formControlName="invoice_address_land"
+                tabIndex="19" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapp-positions3">
+        <button class="save-btn-custom" type="submit">
+          {{ "Save" | translate }}
+        </button>
+
+        <div class="clean-btn-custom" (click)="clearAll()">
+          {{ "Clear" | translate }}
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

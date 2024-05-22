@@ -1,0 +1,80 @@
+<div class="row">
+  <table class="table tab-responsive" style="margin-bottom: 0">
+    <thead>
+      <th class="roleId">{{ "Role" | translate }}</th>
+      <th class="DaysBeforeToday time-property">{{ "Today" | translate }}</th>
+      <th class="DaysAfterToday time-property">{{ "Tomorrow" | translate }}</th>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let note of notification_property; let noteIndex = index"
+        style="cursor: pointer"
+      >
+        <td>{{ note.Name | translate }}</td>
+        <td>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="material-icons">alarm</i></span
+              >
+            </div>
+            <ul class="d-flex align-items-center">
+              <ng-container
+                *ngFor="let time of note.TodayTimes; let todayIndex = index"
+              >
+                <li (click)="removeTime(note, 'Today', todayIndex, time)">
+                  {{ time.Time }}
+                </li>
+              </ng-container>
+            </ul>
+            <div class="input-group-append">
+              <button
+                class="btn btn-secondary py-0"
+                (click)="openTimeSelect(note, 'Today')"
+                type="button"
+              >
+                <span
+                  class="badgeX badge-darkX material-icons posRel"
+                  style="top: 3px"
+                  >add</span
+                >
+              </button>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="input-group" *ngIf="note.Name == 'Time reporting'">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="material-icons">alarm</i></span
+              >
+            </div>
+            <ul class="d-flex align-items-center">
+              <ng-container
+                *ngFor="let time of note.TomorowTimes; let tomorowIndex = index"
+              >
+                <li (click)="removeTime(note, 'Yesterday', tomorowIndex, time)">
+                  {{ time.Time }}
+                </li>
+              </ng-container>
+            </ul>
+            <div class="input-group-append">
+              <button
+                class="btn btn-secondary py-0"
+                (click)="openTimeSelect(note, 'Yesterday')"
+                type="button"
+              >
+                <span
+                  class="badgeX badge-darkX material-icons posRel"
+                  style="top: 3px"
+                  >add</span
+                >
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ngx-material-timepicker #timePickeView></ngx-material-timepicker>

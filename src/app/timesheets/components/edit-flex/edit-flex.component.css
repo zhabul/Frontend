@@ -1,0 +1,23 @@
+.modal-top-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-top-wrapper .btn-outline-dark {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-group {
+  width: 100%;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+}

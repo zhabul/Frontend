@@ -1,0 +1,84 @@
+<!-- ------------------------ATA FIXEC---------------------------------!-->
+<select
+  [disabled]="project.status == 3"
+  #newAtaElement
+  (change)="newAtaChanged(newAtaElement, moment, i3)"
+  *ngIf="
+    (moment.ataId != 0 && moment.ata_payment_type == 2) ||
+    (moment.ataId != 0 && moment.ata_payment_type == 3) ||
+    (moment.ataId != 0 && !moment.atestwr)
+  "
+  [ngStyle]="dataStyleFromAttest"
+
+>
+  <option
+    value="{{ newAta.wr_id }}"
+    [attr.data-ata-number]="newAta.AtaNumber"
+    [attr.data-ata-type]="newAta.ataType"
+    [attr.data-wr-id]="newAta.wr_id"
+    [attr.data-ata-id]="newAta.ataId"
+    [attr.data-external]="newAta.external"
+    [selected]="newAta.ataId == moment.ataId"
+    *ngFor="let newAta of availableAtasOrDu; let new_ata_i = index"
+  >
+    {{ newAta.name }}
+  </option>
+</select>
+<!-- ------------------------ATA AND PROJECT WEEKLY_REPORT---------------------------------!-->
+<select
+  *ngIf="
+    (moment.ataId != 0 && moment.ata_payment_type == 1 && moment.atestwr) ||
+    (moment.ataId != 0 && moment.ata_payment_type == 4 && moment.atestwr) ||
+    (!moment.ata_payment_type &&
+      project.debit_Id != 2 &&
+      project.debit_Id != 3 &&
+      moment.atestwr)
+  "
+  [ngStyle]="dataStyleFromAttest"
+  [disabled]="project.status == 3"
+  #newAtaElement
+  (change)="newAtaChanged(newAtaElement, moment, i3)"
+>
+  <option
+  
+    *ngFor="let newAta of availableAtasOrDu; let new_ata_i = index"
+    value="{{ newAta.wr_id }}"
+    [attr.data-ata-number]="newAta.AtaNumber"
+    [attr.data-ata-type]="newAta.ataType"
+    [attr.data-wr-id]="newAta.wr_id"
+    [attr.data-ata-id]="newAta.ataId"
+    [attr.data-external]="newAta.external"
+    [selected]="newAta.wr_id == moment.atestwr"
+  >
+    <div class="mousehover">
+      {{ newAta.name }}
+    </div>
+  </option>
+</select>
+<!-- ------------------------PROJECT FIXED---------------------------------!-->
+<select
+  *ngIf="
+    (!moment.ata_payment_type &&
+      project.debit_Id != 1 &&
+      project.debit_Id != 4) ||
+    (moment.ataId == 0 && !moment.atestwr)
+  "
+  [ngStyle]="dataStyleFromAttest"
+  [disabled]="project.status == 3"
+  id="newAtaSelect"
+  #newAtaElement
+  (change)="newAtaChanged(newAtaElement, moment, i3)"
+>
+  <option 
+    value="{{ newAta.wr_id }}"
+    [attr.data-ata-number]="newAta.AtaNumber"
+    [attr.data-ata-type]="newAta.ataType"
+    [attr.data-wr-id]="newAta.wr_id"
+    [attr.data-ata-id]="newAta.ataId"
+    [attr.data-external]="newAta.external"
+    [selected]="newAta.project_id == moment.project_id"
+    *ngFor="let newAta of availableAtasOrDu; let new_ata_i = index"
+  >
+    {{ newAta.name }}
+  </option>
+</select>

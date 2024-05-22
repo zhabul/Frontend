@@ -1,0 +1,19 @@
+.user-role-colors ul {
+  list-style: none;
+  margin-top: 2em;
+}
+
+.user-role-colors ul li .role {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.user-role-colors ul li .role input {
+  border: 0;
+  margin-right: 1em;
+}
+
+.user-role-colors ul li + li {
+  margin-top: 1em;
+}

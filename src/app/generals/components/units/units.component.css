@@ -1,0 +1,46 @@
+.secondWrapper {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.btn-delete span {
+  color: red;
+  cursor: pointer;
+}
+
+.btn-delete {
+  text-align: right;
+}
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: 0.5em 0 0.75em;
+}
+
+table tr {
+  border: 1px solid #ddd;
+  padding: 0.35em;
+}
+
+table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+table th,
+table td {
+  padding: 0.625em;
+  text-align: center;
+}
+
+table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

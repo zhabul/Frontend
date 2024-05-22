@@ -1,0 +1,33 @@
+<div class="wrapper" id="saveTemplate">
+  <div class="head-wrapper">
+    <span class="heading">
+      {{ "Save template as" | translate }}
+    </span>
+    <div class="close-modal" type="button" (click)="close()">
+      <app-close-icon-svg></app-close-icon-svg>
+    </div>
+  </div>
+  <div class="body-wrapper">
+    <div class="form-wrapp">
+      <div class="pos">
+        <label class="required" for="to">
+          {{ "Offer" | translate }} {{ "name" | translate }}:
+        </label>
+        <input
+          spellcheck="false"
+          type="text"
+          class="form-control2"
+          [(ngModel)]="offerName"
+          id="to"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="save-wrapper">
+    <button (click)="save()" type="submit" class="button-save-custom">
+      <span>
+        {{ "Save" | translate }}
+      </span>
+    </button>
+  </div>
+</div>

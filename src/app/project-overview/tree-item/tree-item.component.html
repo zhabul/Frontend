@@ -1,0 +1,143 @@
+<div
+  [ngStyle]="{ 'background-color': item.background_color }"
+  [ngClass]="isExpanded && lavel == 0 ? 'blue-background' : 'grey-background'"
+>
+  <span
+    [ngClass]="
+      isExpanded && lavel == 0
+        ? 'title-wrapper-without-border'
+        : 'title-wrapper'
+    "
+    [ngStyle]="{ 'background-color': item.background_color }"
+  >
+    <div class="tablemain1">
+      <div class="border1"></div>
+
+      <div class="project-name item-border" [title]="item.project_name">
+        <span class="project-name-text">{{ item.project_name }}</span>
+      </div>
+      <div class="border2"></div>
+      <div class="project-number item-border" [title]="item.project_number">
+        {{ item.project_number }}
+      </div>
+      <div class="border3"></div>
+      <div class="project-activity item-border" [title]="item.project_activity">
+        {{ item.project_activity }}
+      </div>
+      <div class="border4"></div>
+      <div class="procjet-debitform item-border" [title]="item.debit_id | debit">
+        {{ item.debit_id | debit }}
+      </div>
+
+      <div class="border5"></div>
+
+      <div class="procjet-tsc-accumulated-cost item-border">
+        {{
+          (item.project_total_with_deduct ? item.project_total_with_deduct : 0)
+            | number : "1.2-2" : "fr"
+        }}
+      </div>
+
+      <div class="border6"></div>
+      <div class="procjet-tsc-not-send item-border">
+        {{
+          (item.project_total_not_send ? item.project_total_not_send : 0)
+            | number : "1.2-2" : "fr"
+        }}
+      </div>
+      <div class="border7"></div>
+      <div class="procjet-tsc-sent item-border">
+        {{
+          (item.project_total_sent ? item.project_total_sent : 0)
+            | number : "1.2-2" : "fr"
+        }}
+      </div>
+
+      <div class="border8"></div>
+      <div class="procjet-tsc-approved item-border">
+        {{
+          (item.project_total_approved ? +item.project_total_approved : 0)
+            | number : "1.2-2" : "fr"
+        }}
+      </div>
+
+      <div class="procjet-tsc-invoiced item-border">
+        {{
+          (item.project_total_invoiced ? +item.project_total_invoiced : 0)
+            | number : "1.2-2" : "fr"
+        }}
+      </div>
+      <div class="zunzo"></div>
+    </div>
+  </span>
+  <div class="grey-background">
+    <ng-container *ngIf="item.exist_atas">
+      <span>
+        <div [ngClass]="isExpanded && lavel == 0 ? 'tablemain2' : 'tablemain'">
+          <div class="border1"></div>
+          <div class="project-name item-border">
+            <span class="project-name-text">{{ "Change & Addition work" | translate }}</span>
+          </div>
+          <div class="border2"></div>
+          <div class="project-number item-border">
+            {{ item.project_number }}
+          </div>
+          <div class="border3"></div>
+          <div class="project-activity item-border">
+            {{ item.project_activity }}
+          </div>
+          <div class="border4"></div>
+          <div class="procjet-debitform item-border"></div>
+
+          <div class="border5"></div>
+
+          <div class="procjet-tsc-accumulated-cost item-border">
+            {{
+              (item.ata_total_with_deduct ? item.ata_total_with_deduct : 0)
+                | number : "1.2-2" : "fr"
+            }}
+          </div>
+
+          <div class="border6"></div>
+          <div class="procjet-tsc-not-send item-border">
+            {{
+              (item.ata_total_not_send ? item.ata_total_not_send : 0)
+                | number : "1.2-2" : "fr"
+            }}
+          </div>
+          <div class="border7"></div>
+          <div class="procjet-tsc-sent item-border">
+            {{
+              (item.ata_total_sent ? item.ata_total_sent : 0)
+                | number : "1.2-2" : "fr"
+            }}
+          </div>
+
+          <div class="border8"></div>
+          <div class="procjet-tsc-approved item-border">
+            {{
+              (item.ata_total_approved ? item.ata_total_approved : 0)
+                | number : "1.2-2" : "fr"
+            }}
+          </div>
+
+          <div class="procjet-tsc-invoiced item-border">
+            {{
+              (item.ata_total_invoiced ? item.ata_total_invoiced : 0)
+                | number : "1.2-2" : "fr"
+            }}
+          </div>
+          <div class="zunzo"></div>
+        </div>
+      </span>
+    </ng-container>
+    <div *ngIf="isExpanded">
+      <app-tree-item
+        *ngFor="let child of item.activities"
+        [item]="child"
+        [lavel]="lavel + 1"
+      >
+      </app-tree-item>
+    </div>
+  </div>
+</div>

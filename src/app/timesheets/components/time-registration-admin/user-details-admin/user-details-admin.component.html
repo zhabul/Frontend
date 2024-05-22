@@ -1,0 +1,467 @@
+<div class="row row1X tab-content">
+  {{checkPermssion()}}
+  <div class="calendar-header-container">
+    <div class="calendar-header">
+      <div class="header-back-button">
+        <div>
+          <div
+            (click)="redirectToAdmin()"
+            class="btn mr-2 lh09 hideUnder800 "
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <app-back-button-svg-ud></app-back-button-svg-ud>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-filters">
+          <div class="date-input-container">
+            <div
+              class="calendar-button-container calendar-button-left"
+              (click)="previousDate()"
+            >
+              <span class="badgeX badge-darkX material-icons top1px posRel"
+                >navigate_before</span>
+            </div>
+
+            <div class="input-group-prepend">
+              <span class="input-group-text calendar-icon" id="dateSelectStartDate">
+                <app-calendar-icon-svg></app-calendar-icon-svg>
+              </span>
+            </div>
+            <div class="form-control project-date date-input">
+              {{ choosenDate | date: 'MMM-YYYY' }}
+            </div>
+            <div
+              class="calendar-button-container calendar-button-right"
+              (click)="nextDate()"
+            >
+              <span class="badgeX badge-darkX material-icons top1px posRel">navigate_next</span>
+            </div>
+            <div class="floating-title">{{ 'Choose Month' | translate }}</div>
+          </div>
+          <div style="position: relative">
+            <app-user-select
+
+              [userId]="userId"
+              (emitSelectedUser)="changeSelectedUser($event)"
+
+            ></app-user-select>
+            <div class="floating-title">{{ 'Select type of staff' | translate }}</div>
+          </div>
+      </div>
+      <div class="paid-container">
+        <app-paid-absence-stats
+
+          [userId]="userId"
+          [date]="choosenDate"
+          [changedValue]="changedValue"
+
+        ></app-paid-absence-stats>
+
+        <div class="center-content">
+          <app-options-menu
+
+            [calendar]="true"
+            [userId]="userId"
+            [date]="choosenDate"
+            [name]="userName"
+
+          ></app-options-menu>
+        </div>
+        <div class="nav-wrapp legend-background calender-nav-position">
+          <div class="button-wrapper" *ngIf="allowToSave">
+            <button
+              class="btn btn-dark2"
+              (click)="update()"
+              [disabled]="absence_type_ids.length == 0"
+            >
+              {{ "Save" | translate }} {{ absence_type_ids.length }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<!--
+ADD LATER
+
+
+
+  <div class="card-body">
+      <div class="d-flex justify-content-center user-navigate">
+        <div class="pdf-button-wrapp">
+          <a
+            class="btn mr-2 lh09 hideUnder800"
+            [routerLink]="[
+              '/timesheets/time-registration-admin/pdf/',
+              start_date,
+              last_date
+            ]"
+            [queryParams]="{ userId: userId }"
+            ><i class="material-icons">picture_as_pdf</i></a
+          >
+        </div>
+      </div>
+    </div>
+-->
+  <div class="flex-div">
+    <div class="list-header">
+      <div class="nr-container nr-border">Nr.</div>
+      <div class="list-header-column list-header-column-border-right">
+        {{ "TSC_CREW" | translate }}
+      </div>
+      <div class="list-header-column list-header-column-border-right">
+        {{ "Total" | translate }}
+      </div>
+    </div>
+
+    <div class="calendar-content-row">
+
+      <div class="text-center calendar-content-row-month-border" [ngStyle]="headerGrid">
+        <div
+
+          class="calendar-content-field-day background-black"
+          *ngFor="let day of calendar"
+          [style.border-right]="day.borderRight"
+
+        >
+          <div [style.transform]="day.translate" class="day-field text-center day-field-box-cal font-white" >
+            {{ day.weekText }}
+          </div>
+        </div>
+      </div>
+        <div class="calendar-content-row-day-wrapp" [ngStyle]="headerGrid">
+            <div
+                class="calendar-content-field-day"
+                *ngFor="let day of calendar"
+                [style.background-color]="day.backgroundColor"
+            >
+                <div class="day-field text-center day-field-box-cal">
+                    {{ day.dateDay }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grey-filler"></div>
+  </div>
+
+    <div
+        class="body-planner-moments-wrapper blu-scroll blu-scroll2"
+        #wrapper
+        [style.opacity]="spinner ? 0 : 1"
+        appScrollDetector
+        (emitScrollLeft)="setTranslateXForHeader($event)"
+        [ngClass]="{'tr-body': measure_units.length == 0 }"
+    >
+    <div [ngClass]="milagesZero ? 'kilometers-do-not-exist' : 'kilometers-exist'">
+        <div class="project-moments-menu">
+
+          <div class="projects-ul-wrapper-cal all-projects-with-users">
+            <div class="list-row">
+              <div class="nr-container"></div>
+              <div class="list-row-column list-row-column-border-right column-height">
+                <span>{{ "Work Time" | translate }}</span>
+              </div>
+              <div class="list-row-column list-row-column-border-left column-height">
+                {{ work_time.total }}h
+              </div>
+            </div>
+
+            <div class="list-row">
+              <div class="nr-container"></div>
+              <div class="list-row-column list-row-column-border-right column-height">
+                <span></span>
+              </div>
+              <div class="list-row-column list-row-column-border-left column-height"></div>
+            </div>
+
+            <div class="list-row">
+              <div class="nr-container"></div>
+              <div class="list-row-column list-row-column-border-right column-height">
+                <span></span>
+              </div>
+              <div class="list-row-column list-row-column-border-left column-height"></div>
+            </div>
+
+            <div
+              *ngFor="let detail of absenceDetails | keyvalue; let index = index;"
+              class="list-row"
+            >
+              <div class="nr-container">{{ index + 1}}</div>
+              <div class="list-row-column list-row-column-border-right column-height">
+                <span>{{ detail["value"].absence_type | translate }} </span>
+              </div>
+              <div class="list-row-column list-row-column-border-left column-height" >
+                {{
+                  absenceDetails[detail["value"].absence_type] ? absenceDetails[detail["value"].absence_type].total : 0
+                }}h
+              </div>
+            </div>
+
+            <div class="list-row">
+              <div class="nr-container"></div>
+              <div class="list-row-column list-row-column-border-right column-height">
+                <span></span>
+              </div>
+              <div class="list-row-column list-row-column-border-left column-height"></div>
+            </div>
+
+            <!-- SUM COLUMN -->
+
+            <div class="list-row column-background-highlighted">
+              <div class="nr-container"></div>
+              <div class="list-row-column list-row-column-border-right column-height">
+                <span>{{ "TSC_TOTAL_WORK" | translate }}</span>
+              </div>
+              <div class="list-row-column list-row-column-border-left column-height">
+                {{dateTotal()}}h
+              </div>
+            </div>
+
+            <div class="list-row">
+              <div class="nr-container"></div>
+              <div class="list-row-column list-row-column-border-right column-height">
+                <span></span>
+              </div>
+              <div class="list-row-column list-row-column-border-left column-height"></div>
+            </div>
+
+            <!-- SUM COLUMN -->
+
+            <!-- MILEAGES -->
+
+            <ng-container *ngFor="let mileage of mileages">
+              <div class="list-row">
+                <div class="nr-container">{{ mileage.id | slice : 0 : 2 }}</div>
+                <div class="list-row-column list-row-column-border-right column-height">
+                  <span>{{ mileage.name }}</span>
+                </div>
+                <div class="list-row-column list-row-column-border-left column-height">
+                    {{ mileage_totals[mileage.id] ? mileage_totals[mileage.id] : 0 }} {{ mileage.unit_name }}
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- MILEAGES -->
+
+            <div class="list-row">
+              <div class="nr-container"></div>
+              <div class="list-row-column list-row-column-border-right column-height">
+                <span></span>
+              </div>
+              <div class="list-row-column list-row-column-border-left column-height"></div>
+            </div>
+
+            <div class="list-row" *ngIf="allow_flex">
+              <div class="nr-container"></div>
+              <div class="list-row-column list-row-column-border-right column-height">
+                <span>{{ "TSC_OVERTIME" | translate }}</span>
+              </div>
+              <div class="list-row-column list-row-column-border-left column-height">
+                {{ flex_time.total }}h
+              </div>
+            </div>
+
+            <div class="list-row column-background-highlighted loneunderlag-grid">
+              <div class="nr-container">10</div>
+              <div class="list-row-column list-row-column-border-right">
+                <span>{{ "TSC_TOTAL" | translate }}</span>
+              </div>
+              <div
+                class="list-row-column list-row-column-border-left lone-mileage-total"
+              >
+                <div>{{ total_off_all_finaly_total }}h</div>
+                <div *ngIf="measure_units && measure_units.length > 0">{{ mileageTotalsSum }} {{measure_units}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="planner-content-wrapper">
+
+          <div class="timline-body-wrapper-cal">
+            <div class="project-body-wrapper">
+              <div class="height-field-cal moment-wrraper">
+
+                    <div class="calendar-content-box-cal">
+                      <ng-container
+                        *ngFor="let day of calendar; let dayIndex = index"
+                      >
+                        <div
+                          class="calendar-content-field-box-cal calendar-content-field-box-cal-position"
+                          [style.background-color]="day.backgroundColor"
+                        >
+                          <span>{{ day.hours }}</span>
+                        </div>
+                      </ng-container>
+                    </div>
+
+              </div>
+
+              <app-empty-calendar-row [calendar]="calendar"></app-empty-calendar-row>
+              <app-empty-calendar-row [calendar]="calendar"></app-empty-calendar-row>
+
+              <ng-container
+                *ngFor="
+                  let detail of absenceDetails | keyvalue;
+                  let absenceIndex = index;
+                "
+              >
+                <div class="height-field-cal moment-wrraper">
+                  <div class="calendar-content-box-cal">
+                    <ng-container
+                      *ngFor="let day of calendar; let dayIndex = index"
+                    >
+                      <div
+                        class="calendar-content-field-box-cal calendar-content-field-box-cal-position"
+                        *ngIf="day[detail['value'].absence_type]"
+                        [style.background-color]="day[detail['value'].absence_type].Color"
+                        [ngStyle]="setStyle(day, detail['value'].absence_type)"
+                      >
+                        <ng-container
+                          *ngIf="day.dayName != 'Sun' && day.dayName != 'Sat'"
+                        >
+                          <input
+
+                            *ngIf="day[detail['value'].absence_type]"
+                            number-format-directive
+                            class="calender-input {{
+                              setClassToAbsenceButFlex(day[detail['value'].absence_type].key, day.date)
+                            }}"
+                            type="text"
+                            (change)="
+                              updateAbsencePerDate(
+                                $event,
+                                day,
+                                day[detail['value'].absence_type],
+                                detail['value'].absence_type
+                              )
+                            "
+                            name=""
+                            [value]="day[detail['value'].absence_type].hours"
+
+                            [disabled]="allowInputValue"
+                          />
+                        </ng-container>
+                        <ng-container
+                          *ngIf="day.dayName == 'Sun' || day.dayName == 'Sat'"
+                        >
+                          <div *ngIf="day[detail['value'].absence_type]">
+                            {{ day[detail['value'].absence_type].hours }}
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
+
+              <app-empty-calendar-row [calendar]="calendar"></app-empty-calendar-row>
+
+              <!-- SUMMA TOTAL WORK -->
+
+              <div class="height-field-cal moment-wrraper">
+                  <div class="calendar-content-box-cal">
+                    <ng-container *ngFor="let day of calendar">
+                      <div
+                        class="calendar-content-field-box-cal calendar-content-field-box-cal-position"
+                        [style.background-color]="day.specialAbsenceBackgroundColor"
+                      >
+                        <span>{{
+                          absenceTotals[day.date]
+                            ? absenceTotals[day.date].total + "h"
+                            : ""
+                        }}</span>
+                      </div>
+                    </ng-container>
+                  </div>
+              </div>
+
+              <app-empty-calendar-row [calendar]="calendar"></app-empty-calendar-row>
+
+              <!-- SUMMA TOTAL WORK -->
+
+              <ng-container *ngFor="let mileage of mileages">
+                <div class="height-field-cal moment-wrraper">
+                  <div class="calendar-content-box-cal">
+                    <ng-container
+                      *ngFor="let day of calendar; let dayIndex = index"
+                    >
+                        <div
+                            class="calendar-content-field-box-cal calen dar-content-field-box-cal-position"
+                            [style.background-color]="day.backgroundColor"
+                            style="height: 34px;"
+                        >
+                            <input
+                                *ngIf="momentDetails[day.date]"
+                                class="calender-input"
+                                [ngClass]="{'td-disabled': disableMileage(day) }"
+                                number-format-directive
+                                type="text"
+                                (change)="
+                                    updateMileagePerDate(
+                                    $event,
+                                    day.date,
+                                    mileage.id
+                                    )
+                                "
+                                name=""
+                                [value]="printMileageQuantity(day.date, mileage.id)"
+                                [disabled]="disableMileage(day) ? true : null"
+                            />
+                        </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
+
+              <app-empty-calendar-row [calendar]="calendar"></app-empty-calendar-row>
+
+              <!-- COMPANY CAR -->
+
+              <!-- OVERTIME -->
+
+              <div *ngIf="allow_flex" class="height-field-cal moment-wrraper">
+                  <div class="calendar-content-box-cal">
+                    <ng-container
+                      *ngFor="let day of calendar; let dayIndex = index"
+                    >
+                      <div
+                        class="calendar-content-field-box-cal calendar-content-field-box-cal-position"
+                        [style.background-color]="day.backgroundColor"
+                      >
+                      <span>{{ day.hours_overtime }}</span>
+                      </div>
+                    </ng-container>
+                  </div>
+              </div>
+              <div class="height-field-cal moment-wrraper loneunderlag-height">
+                    <div class="calendar-content-box-cal">
+                      <ng-container
+                        *ngFor="let day of calendar; let dayIndex = index"
+                      >
+                        <div
+                          class="calendar-content-field-box-cal calendar-content-field-box-cal-position loneunderlag-height"
+                          [style.background-color]="day.specialHoursBackgroundColor"
+                        >
+                          <span>{{ day.finally_total }}</span>
+                        </div>
+                      </ng-container>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="thin-right-line" [ngStyle]="rightLineStyles" [style.opacity]="spinner ? 0 : 1"></div>
+  <div class="thin-bottom-line" [style.opacity]="spinner ? 0 : 1"></div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+    <div class="scale-spinner">
+    <mat-spinner></mat-spinner>
+    </div>
+</div>

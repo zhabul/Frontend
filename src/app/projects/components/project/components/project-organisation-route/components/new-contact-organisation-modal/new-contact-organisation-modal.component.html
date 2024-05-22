@@ -1,0 +1,127 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "New Contact" | translate }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<p class="mt-3">{{ "Create new contact." | translate }}</p>
+<hr />
+<form [formGroup]="newContactForm" (ngSubmit)="createContact()">
+  <div class="row">
+    <div class="col-md-6">
+      <label for="validationCustom04">{{ "First Name" | translate }}</label>
+      <!-- OK -->
+      <input
+        type="text"
+        class="form-control form-control-custom"
+        id="validationCustom04"
+        spellcheck="false"
+        formControlName="FirstName"
+      />
+
+      <label for="validationCustom01">{{ "Role" | translate }}</label>
+      <!-- OK -->
+      <input
+        type="text"
+        class="form-control form-control-custom"
+        id="validationCustom01"
+        required
+        spellcheck="false"
+        formControlName="Role"
+      />
+
+      <label for="validationCustom03">{{ "Email" | translate }}</label>
+      <!-- OK -->
+      <input
+        type="text"
+        class="form-control form-control-custom"
+        id="validationCustom03"
+        required
+        spellcheck="false"
+        formControlName="Email"
+      />
+    </div>
+    <div class="col-md-6" style="position: relative; top: 3px">
+      <label for="validationCustom01b">{{ "Last Name" | translate }}</label>
+      <!-- OK -->
+      <input
+        type="text"
+        class="form-control form-control-custom"
+        id="validationCustom01b"
+        required
+        spellcheck="false"
+        formControlName="LastName"
+      />
+
+      <label for="validationCustom01c">{{ "Section" | translate }}</label>
+      <!-- OK -->
+      <input
+        type="text"
+        class="form-control form-control-custom"
+        id="validationCustom01c"
+        required
+        spellcheck="false"
+        formControlName="Section"
+      />
+
+      <label for="validationCustom02c">{{ "Mobile" | translate }}</label>
+      <!-- OK -->
+      <input
+        type="text"
+        class="form-control form-control-custom"
+        id="validationCustom02c"
+        required
+        spellcheck="false"
+        formControlName="Mobile"
+      />
+
+      <label>{{ "Status" | translate }}</label
+      ><br />
+      <input
+        type="radio"
+        id="inlineRadio1"
+        value="1"
+        formControlName="Active"
+      />
+      <label class="ml-1" for="inlineRadio1">{{ "Yes" | translate }}</label>
+      <input
+        class="ml-3"
+        type="radio"
+        id="inlineRadio2"
+        value="0"
+        formControlName="Active"
+      />
+      <label class="ml-1" for="inlineRadio2">{{ "No" | translate }}</label>
+    </div>
+  </div>
+  <label for="validationCustom04c">{{ "Note" | translate }}</label>
+  <!-- OK -->
+  <textarea
+    class="form-control form-control-custom"
+    id="validationCustom04c"
+    required
+    spellcheck="false"
+    formControlName="Note"
+    style="min-height: 100px"
+  ></textarea>
+
+  <div class="mt-3">
+    <button
+      type="submit"
+      class="btn btn-success lh09"
+      [disabled]="newContactForm.get('Email').errors"
+    >
+      <span class="material-icons left-3px top1px posRel">save</span>
+      <span class="posRel top-5px">{{ "Create" | translate }}</span>
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger lh09"
+      style="float: right"
+      [mat-dialog-close]
+    >
+      <span class="material-icons left-3px top1px posRel">clear</span>
+      <span class="posRel top-5px">{{ "Cancel" | translate }}</span>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,15 @@
+<div class="tab-navigation">
+    <div class="nav-tabs tab-navigation"> 
+      <ul class="nav nav-tabs nav-pills" role="tablist">
+        <app-nav-tab 
+        
+            *ngFor="let tab of tabs; let index = index;" 
+            (click)="setSelectedTab(index)" 
+            [index]="index" 
+            [tab]="tab" 
+            [selected]="selectedTab"
+            
+        ></app-nav-tab>
+      </ul>
+    </div>
+</div>

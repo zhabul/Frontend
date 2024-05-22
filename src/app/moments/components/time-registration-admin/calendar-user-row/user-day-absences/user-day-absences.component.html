@@ -1,0 +1,36 @@
+<div class="abs-container">
+  <div class="triangle" [ngStyle]="computedStyles.createAbsences"></div>
+  <div class="circle" [ngStyle]="computedStyles.circleStyle" *ngIf="showCircle">
+    <div
+      *ngIf="showAbsenceHourSum"
+      class="calendar-text-field" 
+      [style.font-size]="calendarStyle.fontSizeSmall"
+    >
+      <div class="lock-p-name" [ngStyle]="computedStyles.lockItemStyle">
+        <app-lock-icons
+          [size]="computedStyles.lockIconSizeCondition"
+          [day]="day"
+          [user]="user" 
+          location="calendar"
+        ></app-lock-icons>
+        <div *ngIf="moments.ProjectName">{{ moments.ProjectName }}</div>
+      </div>
+      <ng-container>
+        {{ absenceHourSum }}
+      </ng-container>
+    </div>
+    <div
+      *ngIf="attested_text"
+      class="abs-not-accepted"
+      [style.font-size]="calendarStyle.fontSizeMedium"
+    >
+      {{ attested_text | translate }}
+    </div>
+  </div>
+
+  <div
+    [ngStyle]="computedStyles.weekendLine"
+    *ngIf="showLine"
+    class="absence-weekend-line"
+  ></div>
+</div>

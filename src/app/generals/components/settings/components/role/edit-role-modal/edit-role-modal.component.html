@@ -1,0 +1,87 @@
+<mat-dialog-content class="edit-role-mat-dialog"  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="container">
+    <div class="head">
+        <p>{{ receivedData.modalAction | translate | uppercase }}</p>
+        <img
+            style="cursor: pointer"
+            src="../../../../assets/img/exit-icon.svg"
+            alt="x"
+            (click)="close()"
+        />
+    </div>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" autocomplete="off">
+        <div class="input-container">
+            <span>{{ "Name" | translate }}</span>
+            <input
+                class="name-input"
+                type="text"
+                ngModel="{{ receivedData.role.roles }}"
+                name="name"
+                required
+            />
+        </div>
+        <div class="two-inputs-container">
+            <div>
+                <span>{{ "Short name" | translate }}</span>
+                <input
+                type="text"
+                ngModel
+                name="shortening"
+                ngModel="{{ receivedData.role.reduction }}"
+                />
+            </div>
+            <div>
+                <span>{{ "Number" | translate }}</span>
+                <input
+                type="text"
+                ngModel
+                name="number"
+                ngModel="{{ receivedData.role.number }}"
+                />
+            </div>
+        </div>
+        <div class="two-inputs-container">
+            <div>
+                <span>{{ "Sort order" | translate }}</span>
+                <input
+                type="text"
+                ngModel
+                name="sortOrder"
+                ngModel="{{ receivedData.role.sortingScheme }}"
+                />
+            </div>
+            <div>
+                <span>{{ "Award" | translate }}</span>
+                <input
+                type="text"
+                ngModel
+                name="award"
+                ngModel="{{ receivedData.role.price }}"
+                />
+            </div>
+        </div>
+        <div class="buttons buttons-modal">
+            <button
+                class="btn-dt"
+                type="submit"
+                [disabled]="!f.dirty || !f.valid"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="add-icon"
+                    width="20"
+                    viewBox="0 0 19 19"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+                <p>{{ "Add" | translate | uppercase }}</p>
+            </button>
+        </div>
+    </form>
+    </div>
+</mat-dialog-content>

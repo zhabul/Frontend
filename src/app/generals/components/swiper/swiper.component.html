@@ -1,0 +1,96 @@
+<div
+  *ngIf="swiper != null"
+  [@cardAnimator]="animationState"
+  (@cardAnimator.done)="resetAnimationState()"
+  (swipeleft)="startAnimation('slideInRight')"
+  (swiperight)="startAnimation('slideInLeft')"
+  style="position: relative; top: 70px"
+>
+  <div class="row row1X" *ngIf="swiper.screenTitle == 'Foretag installningar'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <h1 class="h4 pb-3">
+        {{ "Our Company Details" | translate }}
+      </h1>
+      <table
+        class="business-table table table-responsiveX table-res800 table-darkX table-striped"
+      >
+        <tbody>
+          <tr *ngFor="let general of generals; let i = index">
+            <th class="">{{ general.key | underscoreToSpace | translate }}</th>
+            <td>{{ general.value }}</td>
+            <td class="edit-td">
+              <a
+                [ngClass]="{ disabled: !userDetails.create_settings_Global }"
+                [hidden]="general.key == 'Company_Version'"
+                routerLink="edit/{{ general.id }}"
+                ><i class="material-icons text-success">edit</i></a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row row1X" *ngIf="swiper.screenTitle == 'Kontoplan'">
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <h1 class="h4 pb-3">
+        {{ "Accounting Plan" | translate }}
+      </h1>
+
+      <table
+        class="table table-responsive table-res800X table-darkX table-striped table-sm"
+      >
+        <thead>
+          <tr>
+            <th>{{ "Enabled" | translate }}</th>
+            <th>{{ "Number" | translate }}</th>
+            <th>{{ "Description" | translate }}</th>
+            <th>{{ "Status" | translate }}</th>
+            <th>{{ "SRU" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let account of accounts; let i = index">
+            <td class="text-center">
+              <input
+                type="checkbox"
+                [checked]="account.Enabled == '1'"
+                (change)="toggleAccountEnabled(i)"
+              />
+            </td>
+            <td>{{ account.Number }}</td>
+            <td>{{ account.Description }}</td>
+            <td class="text-center">
+              <span
+                class="badge"
+                [ngClass]="{
+                  'badge-primary': account.Active == '1',
+                  'badge-secondary': account.Active != '1'
+                }"
+              >
+                <span>{{
+                  (account.Active == "1" ? "Active" : "Inactive") | translate
+                }}</span>
+              </span>
+            </td>
+            <td>{{ account.SRU }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div
+    class="row row1X"
+    *ngIf="swiper.screenTitle == 'User Schedule Role'"
+    style="padding-bottom: 200px"
+  >
+    <div class="col-md-12 col-lg-8W p-4 bg-white">
+      <h1 class="h4 pb-3">
+        {{ "User Schedule Role" | translate }}
+      </h1>
+      <user-calendar-role [scheduleRoles]="scheduleRoles"> </user-calendar-role>
+    </div>
+  </div>
+</div>

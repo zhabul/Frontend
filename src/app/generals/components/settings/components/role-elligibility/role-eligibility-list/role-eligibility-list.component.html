@@ -1,0 +1,555 @@
+<div class="table-wrapper">
+  <div class="table-responsive">
+    <div class="table-header-permit">
+      <div class="table-header-item">{{ "TSC_RIGHTS" | translate}}</div>
+      <div class="table-header-item">{{ "TSC_READ" | translate}}</div>
+      <div class="table-header-item">{{ "TSC_WRITE" | translate}}</div>
+    </div>
+    <div class="table-body-permit" style="width: 939px;">
+      <!-- Ovo je za parent bijeli -->
+      <ng-container
+        *ngFor="let user_role of allRoles; let parent_index = index"
+      >
+       <div class="table-row-permit">
+          <div class="row-rights">
+            <div style="margin-right: 10px">
+        <input
+               [checked]="user_role?.read"
+               (change)="
+                updateUserPermissionStatus(
+                user_role,
+                'parent',
+                $event,
+                null,
+                null,
+                true )" 
+                
+                type="checkbox"
+                class="checkbox-icon"
+              [ngClass]="{
+                'show-icon': setCheckboxClass(user_role) == 'show-icon',
+                'write-icon':  setCheckboxClass(user_role) == 'write-icon',
+                'default-icon': setCheckboxClass(user_role) == 'default-icon'
+              }"  
+                [attr.disabled]="
+                  userDetails.create_settings_Global ? null : true
+                " 
+              />
+            </div> 
+            <div
+              style="margin-right: 10px"
+              (click)="toggleChildrenArticles(user_role)"
+            >
+              <i
+                class="material-icons arrow_down"
+                *ngIf="user_role.children.length > 0"
+              >
+                {{
+                  user_role.visible
+                    ? "keyboard_arrow_up"
+                    : "keyboard_arrow_down"
+                }}
+              </i>
+            </div>
+
+            <div
+               [ngClass]="{
+                'checkbox-name-disabled':parentNoticeDisable(user_role) ? true : null
+                 }" 
+              class="uppercase"
+            >  
+             {{ 
+                user_role.eligibility | translate 
+              }}
+            </div>
+          </div>
+
+          <div class="row-read">
+            <div>
+              <input
+                (change)="
+                  updateUserPermissionStatus(
+                    user_role,
+                    'read',
+                    $event,
+                    null,
+                    null
+                  )
+                "
+                type="checkbox"
+                [checked]="user_role?.read"
+                class="checkbox-round"
+                [ngClass]="{
+                  'checkbox-round-child-grey': user_role.write,
+                  'hold-checked':  holdCheckedReadInput(user_role)
+                }"
+                [attr.disabled]="
+                  parentNoticeDisable(user_role) ? true : null || 
+                  userDetails.create_settings_Global ? null : true
+                "
+              />
+            </div>
+          </div>
+
+          <div class="row-write">
+            <div>
+              <input
+                (change)="
+                  updateUserPermissionStatus(
+                    user_role,
+                    'write',
+                    $event,
+                    null,
+                    null
+                  )
+                "
+                type="checkbox"
+                [checked]="user_role?.write"
+                class="checkbox-round"
+                [ngClass]="{
+                  'checkbox-round-child-grey': user_role.write,
+                  'hold-checked': holdCheckedWriteInput(user_role)
+                }"
+                [attr.disabled]="
+                  (parentNoticeDisable(user_role) ? true : null) || 
+                  (userDetails.create_settings_Global ? null : true)
+                "
+              />
+            </div>
+          </div>
+        </div>
+
+        <!--***********************************************************************-->
+
+        <ng-container
+          *ngFor="
+            let user_children_role_1 of user_role.children;
+            let children_index_1 = index
+          "
+        >
+          <ng-container *ngIf="user_role.visible">
+            <!-- Ovo je za child bijeli -->
+
+            <div class="table-row-permit-child">
+              <div class="row-rights-child">
+                <div style="margin-right: 10px">  
+                  
+              <input
+              [checked]="user_children_role_1?.read"
+              [ngClass]="{
+                'show-icon': setCheckboxClass(user_children_role_1) == 'show-icon',
+                'write-icon':  setCheckboxClass(user_children_role_1) == 'write-icon',
+                'default-icon': setCheckboxClass(user_children_role_1) == 'default-icon'
+              }"
+              type="checkbox"
+              class="checkbox-icon"
+              (change)="
+              updateUserPermissionStatus(
+                user_children_role_1,
+               'parent',
+                $event,
+                parent_index,
+                null )"  
+                      
+                [attr.disabled]="
+                checkDisableNotice(user_children_role_1) ? true : null ||
+                checkDisableSuppliersWrite(user_children_role_1) ? true : null || 
+                userDetails.create_settings_Global ? null : true
+                " 
+            />
+              </div>
+                <div
+                  style="margin-right: 10px"
+                  (click)="toggleChildrenArticles(user_children_role_1)"
+                >
+                  <i
+                    class="material-icons arrow_down"
+                    *ngIf="user_children_role_1.children.length > 0"
+                  >
+                    {{
+                      user_children_role_1.visible
+                        ? "keyboard_arrow_up"
+                        : "keyboard_arrow_down"
+                    }}
+                  </i>
+                </div>
+                <div
+                [ngClass]="{
+                  'checkbox-name-disabled': checkDisableNotice(user_children_role_1) ? true : null
+                }" 
+                >
+                   {{ 
+                      printPermit(user_children_role_1) | translate 
+                   }}
+                </div>
+              </div>
+              <div class="row-read row-read-child">
+                <div>
+                  <input
+                    type="checkbox"
+                    (change)="
+                      updateUserPermissionStatus(
+                        user_children_role_1,
+                        'read',
+                        $event,
+                        parent_index,
+                        null
+                      )
+                    "
+                    [checked]="user_children_role_1?.read"
+                    class="checkbox-round checkbox-round-child"
+                    [ngClass]="{
+                      'checkbox-round-child-grey': user_children_role_1.write
+                    }"
+                    [attr.disabled]="
+                     checkDisableNotice(user_children_role_1) ? true : null ||
+                     checkDisableSuppliersRead(user_children_role_1) ? true : null ||
+                     (userDetails.create_settings_Global ? null : true)
+                    "  
+                  />
+                </div>
+              </div>
+              <div class="row-write row-write-child">
+                <div>
+                  <input
+                    type="checkbox"
+                    (change)="
+                      updateUserPermissionStatus(
+                        user_children_role_1,
+                        'write',
+                        $event,
+                        parent_index,
+                        null
+                      )
+                    "
+                    [checked]="user_children_role_1?.write"
+                    class="checkbox-round checkbox-round-child"
+                    [ngClass]="{
+                      'checkbox-round-child-grey': user_children_role_1.write
+                    }"
+                    [attr.disabled]="
+                    checkDisableNotice(user_children_role_1) ? true : null ||
+                    checkDisableSuppliersWrite(user_children_role_1) ? true : null ||
+                    (userDetails.create_settings_Global ? null : true)
+                    " 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!--************************************************************************-->
+
+            <ng-container
+              *ngFor="
+                let user_children_role_2 of user_children_role_1.children;
+                let children_index = index
+              "
+            >
+              <!-- Ovo je za grandchild bijeli -->
+
+              <div
+                class="table-row-permit-child"
+                *ngIf="user_children_role_1.visible"
+              >
+                <div class="row-rights-grandchild">
+                  <div style="margin-right: 10px">
+                    <input
+                    [checked]="user_children_role_2?.read"
+                      type="checkbox"
+                      class="checkbox-icon checkbox-icon-child"
+                      [ngClass]="{
+                        'show-icon':
+                          user_children_role_2.read &&
+                          !user_children_role_2.write,
+                        'write-icon': user_children_role_2.write,
+                        'default-icon':
+                          !user_children_role_2.read &&
+                          !user_children_role_2.write
+                      }"
+                      type="checkbox"
+                      (change)="
+                        updateUserPermissionStatus(
+                          user_children_role_2,
+                          'parent',
+                          $event,
+                          parent_index,
+                          children_index_1
+                        )
+                      "
+                      [disabled]="userDetails.create_settings_Global ? null : true"
+                    />
+                  </div>
+                  <div>
+                       {{ 
+                           (user_children_role_2.eligibility.charAt(0).toUpperCase() + user_children_role_2.eligibility.slice(1)).split("_").join(" ") | translate 
+                        }}
+                  </div>
+                </div>
+                <div class="row-read row-read-child">
+                  <div>
+                    <input
+                      type="checkbox"
+                      (change)="
+                        updateUserPermissionStatus(
+                          user_children_role_2,
+                          'read',
+                          $event,
+                          parent_index,
+                          children_index_1
+                        )
+                      "
+                      [checked]="user_children_role_2.read"
+                      class="checkbox-round checkbox-round-child"
+                      [ngClass]="{
+                        'checkbox-round-child-grey': user_children_role_2.write
+                      }"
+                      [disabled]="userDetails.create_settings_Global ? null : true"
+                    />
+                  </div>
+                </div>
+                <div class="row-write row-write-child">
+                  <div>
+                    <input
+                      type="checkbox"
+                      (change)="
+                        updateUserPermissionStatus(
+                          user_children_role_2,
+                          'write',
+                          $event,
+                          parent_index,
+                          children_index_1
+                        )
+                      "
+                      [checked]="user_children_role_2.write"
+                      class="checkbox-round checkbox-round-child"
+                      [ngClass]="{
+                        'checkbox-round-child-grey': user_children_role_2.write
+                      }"
+                      [disabled]="userDetails.create_settings_Global ? null : true"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="spinner" class="progress-loader">
+  <mat-spinner></mat-spinner>
+</div> 
+
+  <!-- <div class="btn-wrapper">
+  <button class="save-btn" (click)="updatePermission()">{{ "Save" | translate }}</button>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="eligibilities" [ngClass]="{ is_child: isChild }">
+  <div *ngFor="let eligibility of eligibilities">
+    <div class="eligibility">
+      <div
+        [ngClass]="{
+          child_eligibility_column: isChild,
+          eligibility_column: !isChild
+        }"
+      >
+      
+        <img
+          [ngStyle]="{ 'margin-left.px': 27 * (rang - 1) }"
+          class="hexagon hidden"
+          [ngClass]="{
+            show: eligibility.read && eligibility.write && mainCheckboxCheck(eligibility),
+            small_checkbox_hexagon: isChild
+          }"
+          src="../../../../assets/img/hexagon-checkbox.svg"
+          alt="checkbox"
+          (click)="changeCheckedCheckbox(eligibility)"
+        />
+        <img
+          [ngClass]="{
+            show: !eligibility.checked && !eligibility.read ,
+            small_checkbox_hexagon: isChild
+          }"
+          class="hidden"
+          [ngStyle]="{ 'margin-left.px': 27 * (rang - 1) }"
+          (click)="changeCheckedCheckbox(eligibility)"
+          src="../../../../assets/img/hexagon-uncheckbox.svg"
+          alt="checkbox"
+        />
+        <img
+          [ngClass]="{
+            show: !eligibility.write && eligibility.read ||!mainCheckboxCheck(eligibility) && eligibility.read ,
+            small_checkbox_hexagon: isChild
+          }"
+          class="hidden"
+          [ngStyle]="{ 'margin-left.px': 27 * (rang - 1) }"
+          (click)="changeCheckedCheckbox(eligibility)"
+          src="../../../../assets/img/hexagon-orange-uncheckbox.svg"
+          alt="checkbox"
+        />
+
+
+        <i
+          class="material-icons arrow_down"
+          (click)="openCloseList(eligibility)"
+          *ngIf="eligibility.children.length > 0"
+        >
+          {{ eligibility.open ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+        </i>
+        <p [ngClass]="{ no_children: eligibility.children?.length == 0 }">
+           {{ 
+            (eligibility.eligibility.charAt(0).toUpperCase() + eligibility.eligibility.slice(1)).split("_").join(" ") | translate
+           }}
+        </p>
+      </div>
+
+ 
+      <div
+        [ngClass]="{
+          child_eligibility_column: isChild,
+          eligibility_column: !isChild
+        }"
+      >
+
+        <img
+          [ngClass]="{
+            show: eligibility.read&&!eligibility.write,
+            small_checkbox_circle: isChild
+          }"
+          class="hidden"
+          (click)="changeReadCheckbox(eligibility)"
+          src="../../../../assets/img/round-checkbox.svg"
+          alt="checkbox"
+        />
+     
+        <img
+        [ngClass]="{
+          show: eligibility.write&&eligibility.read,
+          small_checkbox_circle: isChild
+        }"
+        class="hidden"
+        (click)="changeReadCheckbox(eligibility)"
+        src="../../../../assets/img/round-checkbox-dark.svg"
+        alt="checkbox"
+      />
+
+        <img
+          [ngClass]="{
+            hidden: eligibility.read,
+            small_checkbox_circle: isChild
+          }"
+          (click)="changeReadCheckbox(eligibility)"
+          src="../../../../assets/img/round-uncheckbox.svg"
+          alt="checkbox"
+        />
+      </div>
+
+
+
+      <div
+        [ngClass]="{
+          child_eligibility_column: isChild,
+          eligibility_column: !isChild
+        }"
+      >
+        <img
+          [ngClass]="{
+            hidden: !eligibility.write,
+            small_checkbox_circle: isChild
+          }"
+          (click)="changeWriteCheckbox(eligibility)"
+          src="../../../../assets/img/round-checkbox-dark.svg"
+          alt="checkbox"
+        />
+
+        <img
+          [ngClass]="{
+            hidden: eligibility.write,
+            small_checkbox_circle: isChild
+          }"
+          (click)="changeWriteCheckbox(eligibility)"
+          src="../../../../assets/img/round-uncheckbox.svg"
+          alt="checkbox"
+        />
+      </div>
+    </div>
+
+    <div *ngIf="eligibility.children?.length > 0 && eligibility.open">
+      <app-role-eligibility-list
+        [eligibilities]="eligibility.children"
+        [rang]="rang + 1"
+      ></app-role-eligibility-list>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,104 @@
+.tree {
+  font-size: 16px;
+}
+
+.tree > ul {
+  padding-left: 0;
+}
+
+.tree a,
+.tree span {
+  color: white;
+  text-decoration: none;
+}
+
+.tree li {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 5px 0 5px;
+  position: relative;
+}
+
+.tree li::before,
+.tree li::after {
+  content: "";
+  left: -20px;
+  position: absolute;
+  right: auto;
+}
+
+.tree li::before {
+  border-left: 2px solid #ed7d31;
+  bottom: 50px;
+  height: 100%;
+  top: 0;
+  width: 1px;
+}
+
+.tree li::after {
+  border-top: 2px solid #ed7d31;
+  height: 20px;
+  top: 25px;
+  width: 25px;
+}
+
+.tree li span {
+  background-color: black;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 3px;
+  display: inline-block;
+  padding: 3px 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tree > ul > li::before,
+.tree > ul > li::after {
+  border: 0;
+}
+
+.tree li:last-child::before {
+  height: 27px;
+}
+
+[aria-expanded="false"] > .expanded,
+[aria-expanded="true"] > .collapsed {
+  display: none;
+}
+
+.add-worker-parent {
+  position: relative;
+}
+
+.add-worker {
+  cursor: pointer;
+  display: none;
+  padding: 3px 8px !important;
+  border-radius: 3px !important;
+  color: white !important;
+  background-color: hsl(207, 27%, 37%) !important;
+}
+
+.add-worker-parent:hover + .add-worker,
+.add-worker:hover {
+  display: inline-block;
+}
+
+.tree ul,
+.tree ul li:last-of-type {
+  margin-bottom: 0 !important;
+}
+
+.fa-trash {
+  padding: 9px 9px 6px 9px !important;
+}
+
+@media (max-width: 800px) {
+  .tree {
+    font-size: 12px;
+  }
+  .fa-trash {
+    padding: 7px 7px 5px 7px !important;
+  }
+}

@@ -1,0 +1,256 @@
+.month {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  color: white;
+}
+
+.calendar-wrapper {
+  height: 90px;
+  width: 55px;
+  border: 1px solid var(--border-color);
+  display: grid;
+  grid-template-rows: 22px 35px 32px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  width: 0px;
+}
+
+.date-view {
+  font-size: 12px;
+}
+
+.calendar-days {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 3px;
+}
+.flex-container {
+  display: grid;
+  grid: auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  margin-top: 2px;
+}
+.flex-center {
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.oneDay {
+  height: 90px;
+  width: 53px;
+  border: 0.45px solid var(--border-color);
+  border-top: none;
+  border-right: none;
+  display: grid;
+  grid-template-rows: 22px 67px;
+}
+
+.iconsSize {
+  cursor: pointer;
+  color: white;
+  margin: 0px !important;
+}
+
+.iconsSize:hover {
+  color: #e3dbd3;
+}
+.dateFormat {
+  font-size: 22px;
+  word-wrap: none;
+  color: white;
+  display: flex;
+  gap: 10px;
+  height: 32px;
+}
+
+.dateView {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  height: 50px;
+}
+
+h5 {
+  font-weight: 400;
+  display: flex;
+  margin-bottom: 0px !important;
+  justify-content: center;
+}
+h3 {
+  margin-bottom: 0px !important;
+}
+.number {
+  font-size: 12px;
+}
+.shortName {
+  margin-left: 6px;
+  font-size: 9px;
+  margin-top: 2.9px;
+}
+
+.workDay {
+  color: white !important;
+  padding-top: 10px;
+}
+.weekendDay {
+  color: #e18ba7 !important;
+  padding-top: 10px;
+}
+
+.clock {
+  padding-top: 12px;
+  justify-content: center;
+  position: relative;
+  display: flex;
+
+  flex-direction: column;
+}
+
+.clock2 {
+  justify-content: center;
+  margin-top: -20px;
+  position: relative;
+  display: flex;
+
+  flex-direction: column;
+}
+
+.border-clock {
+  position: absolute;
+  top: -35px;
+  left: -0.7px;
+  right: -0.7px;
+  bottom: 0px;
+  border-bottom: 5px solid #bee19c;
+  border-left: 1px solid #bee19c;
+  border-right: 1px solid #bee19c;
+  border-top: 1px solid #bee19c;
+}
+
+.columns-calendar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+svg {
+  margin-top: -3px;
+}
+
+.weekNumber {
+  height: 90px;
+  width: 43px;
+  border: 0.45px solid var(--border-color);
+  border-top: none;
+  border-right: none;
+}
+
+.v-weekNumber {
+  padding: 8px 0px 0px 14px;
+  text-transform: uppercase;
+  color: var(--border-color);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.top-calendar-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--border-color);
+}
+
+.container-fluid {
+  padding-left: 0px !important;
+}
+
+.hours-view {
+  margin-top: 3px;
+}
+
+.visibled {
+  visibility: visible;
+}
+.unvisibled {
+  visibility: hidden;
+}
+
+span {
+  padding: 7px 0px 0px 0px;
+}
+
+.currentClock {
+  border: 3px solid #bee19c;
+}
+
+.greenBorder {
+  /* border: 2px solid #BEE19C;
+    border-bottom: 5px solid #BEE19C; */
+}
+
+.clock-time {
+  justify-content: center;
+  display: grid;
+  grid-template-rows: 20px 20px;
+  grid-row-gap: 4px;
+  margin-top: 10px;
+}
+
+.svg-position {
+  text-align: -webkit-center;
+
+  text-align: -webkit-center;
+  justify-content: center;
+  display: grid;
+  grid-template-rows: 20px 20px;
+  grid-row-gap: 4px;
+  margin-top: 2px;
+}
+
+.current-date {
+  justify-content: center;
+  display: grid;
+  grid-template-rows: 20px 20px;
+  grid-row-gap: 2px;
+  margin-top: -57px;
+  max-width: 52px;
+}
+@media (min-width: 56px) {
+  .span-media {
+    display: grid !important;
+    justify-content: center;
+  }
+  .div-span {
+    margin-top: -16px !important;
+  }
+}
+
+.bordered-current-date {
+  position: relative;
+  top: -76px;
+  left: 0px;
+  width: 54px;
+  height: 89px;
+  border-left: 1px solid #bee19c;
+  border-right: 1px solid #bee19c;
+  border-top: 1px solid #bee19c;
+  border-bottom: 5px solid #bee19c;
+}
+
+h5 {
+  max-width: 52px;
+}
+.hours-position {
+  margin-top: 3px;
+}

@@ -1,0 +1,107 @@
+.wrapper{
+    width:813px;
+    height: 291px;
+    padding: 0px 8px 0px 8px;
+}
+
+.head-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.text-name{
+    text-align: left;
+    color: #FF7000;
+    font-size:  18px;
+}
+.close-modal{
+    text-align: right;
+    border: 1px solid #B8B8B8;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    color: #B8B8B8;
+    cursor: pointer;
+}
+
+.form-wrapp{
+    display: flex;
+    gap: 30px;
+}
+
+.pos{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+.pos2{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+input{
+    height: 33px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+input:focus, input:focus-visible{
+    outline: none;
+}
+label{
+    font-size: 12px;
+    color:#B8B8B8;
+    margin-bottom: 5px;
+}
+
+.inputs-wrapper{
+    gap: 30px;
+    display: grid;
+    margin-top: 13px;
+}
+
+.check-wrapper, .activity{
+    display: flex;
+    color: #E3DBD3;
+
+}
+
+.check-wrapper{
+    gap:7px;
+    margin-top:30px;
+}
+.check-button-wrapp{
+    width: 25px;
+    height: 25px;
+    position: relative;
+}
+
+input.check {
+    width: 100%;
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+}
+
+.save-wrapper {
+    display: flex;
+    float: right;
+}
+
+.button-save-custom {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: var(--orange-dark);
+    border: 1px solid var(--orange-dark);
+    padding: 3px 11px 3px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+::ng-deep .cdk-overlay-dark-backdrop {
+  background: rgb(128 128 128 / 50%);
+}

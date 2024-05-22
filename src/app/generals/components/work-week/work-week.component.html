@@ -1,0 +1,27 @@
+<h1 class="h4 mb-0">
+  {{ "Work week" | translate }}
+</h1>
+<table class="table table-darkX table-striped table-sm">
+  <thead>
+    <tr>
+      <th>{{ "Name" | translate }}</th>
+      <th>{{ "Short name" | translate }}</th>
+      <th>{{ "Working day" | translate }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let day of workWeek; let i = index">
+      <td>{{ day.name | translate }}</td>
+      <td>{{ day.short_name | translate }}</td>
+      <td>
+        <label>
+          <input
+            type="checkbox"
+            (change)="changeWorkingDay(i)"
+            [checked]="workWeek[i].type == 1"
+          />
+        </label>
+      </td>
+    </tr>
+  </tbody>
+</table>

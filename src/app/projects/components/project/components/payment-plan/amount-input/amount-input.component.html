@@ -1,0 +1,24 @@
+<input
+
+    #amountInput
+    [disabled]="project?.data.debit_Id == 1 || userData[selectedPaymentPlan].isLocked == 1 || index != 0 || article.Invoice_date != '' || !userDetails.create_project_Paymentplan"
+    (change)="
+    updateSaveStatus(
+        userData[selectedPaymentPlan],
+        $event
+    )
+    "
+    (paste)="onPaste_($event, article, index, keyIndex, month.date)"
+    (keyup)="changed($event)"
+    (focus)="formatNumber($event)"
+    maxlength="14"
+    number-format-directive
+    type="text"
+    [placeholder]="conditionallyCalculateRemainder(index + keyIndex + month.date)"
+    class="form-control inpt-table"
+    id="amount"
+    [defaultValue]="articleAmount"
+    [name]="'same_amount' + index + keyIndex + month.date"
+    [ngClass]="{ amountErr: article.amountError }"
+
+/>

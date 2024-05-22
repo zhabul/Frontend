@@ -1,0 +1,15 @@
+.counter-wrapper {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #b63418;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.number {
+  color: white;
+  font-size: 8px;
+}

@@ -1,0 +1,324 @@
+<!-- <div class="row row1X mb-3">
+    <div class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue" id="topFeeder">
+        <nav class="nav nav-pills nav-justified">
+            <a routerLink="/register" class="btn btn-dark mr-2 lh09 hideUnder800" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <span class="badgeX badge-darkX material-icons top1px posRel">arrow_back</span>
+            </a>
+            <button hidden class="btn btn-dark mr-2 active" type="button" routerLinkActive="active">
+                {{ "All Suppliers" | translate }}
+            </button>
+
+            <button *ngIf="userDetails.create_register_suppliers" class="btn btn-dark mr-2" type="button" routerLinkActive="active" routerLink="/suppliers/new">
+                {{ "New Supplier" | translate }}
+            </button>
+        </nav>
+    </div>
+</div> -->
+<div class="master-border">
+  <div class="row border-nav d-flex">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <a
+        routerLink="/register"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="back-icon-position">
+          <app-back-icon-svg
+            [width]="34"
+            [height]="29"
+            [color]="'82a7e2'"
+          ></app-back-icon-svg>
+        </span>
+      </a>
+      <button
+        hidden
+        class="btn btn-dark mr-2 active"
+        type="button"
+        routerLinkActive="active"
+      >
+        {{ "All Suppliers" | translate }}
+      </button>
+
+      <span class="ml-3 mt-2 h2 font-weight-normal title-project">{{
+        "Supplier register" | translate
+      }}</span>
+    </div>
+    <div class="d-flex align-items-center px-4 py-2 nyProject">
+      <a
+        class="btn border-brand projekt btn-icon-postion text-white"
+        (mouseenter)="enter()"
+        (mouseleave)="leave()"
+        *ngIf="userDetails.create_register_suppliers"
+        routerLinkActive="active"
+        routerLink="/suppliers/new"
+      >
+        <span class="add-icon-position">
+          <app-add-icon-with-params-svg
+            #childComponentAddIcon
+            [width]="16"
+            [height]="16"
+            [fill]="fillColor"
+            [fillPuls]="'373b40'"
+          >
+          </app-add-icon-with-params-svg>
+        </span>
+        <span
+          class="title-new-project text-uppercase"
+          [ngClass]="currentClass"
+          >{{ "New Supplier" | translate }}</span
+        >
+      </a>
+    </div>
+  </div>
+  <div
+    class="container-fluidW px-0W l0 hideUnder1400 mt-3 pl-25 project-container"
+  >
+    <h1 class="h4 title-table">{{ "Supplier register" | translate }}</h1>
+    <div class="px-0 d-flex">
+      <div class="searchdiv">
+        <div class="input-group mb-3" class="responsiveInput1">
+          <span class="search-icon">
+            <app-search-icon-with-params-svg
+              [width]="13"
+              [height]="13.06"
+              [color]="'fcf4ec'"
+            ></app-search-icon-with-params-svg>
+          </span>
+          <input
+            class="search-form form-control mr-sm-2"
+            type="text"
+            [(ngModel)]="filterInput"
+            (ngModelChange)="onInputChange()"
+            placeholder="{{ 'Search for suppliers' | translate }}"
+          />
+          <span class="clear-icon" (click)="clearInput()">
+            <app-clean-search-input-icon-svg
+              [width]="10.189"
+              [height]="10.189"
+              [color]="'fcf4ec'"
+            ></app-clean-search-input-icon-svg>
+          </span>
+        </div>
+      </div>
+      <form class="buttons-form">
+        <div class="group-status" (click)="onStatusChangeExternal('0')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg
+              *ngIf="statusSupplier[0] == false"
+            ></app-not-selected-icon-svg>
+            <app-selected-icon-svg
+              color="#03D156"
+              *ngIf="statusSupplier[0] == true"
+            ></app-selected-icon-svg>
+          </div>
+          <div class="filter-name">{{ "Active" | translate }}</div>
+        </div>
+        <div class="group-status" (click)="onStatusChangeExternal('1')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg
+              *ngIf="statusSupplier[1] == false"
+            ></app-not-selected-icon-svg>
+            <app-selected-icon-svg
+              color="#FD4444"
+              *ngIf="statusSupplier[1] == true"
+            ></app-selected-icon-svg>
+          </div>
+          <div class="filter-name">{{ "EJ AKTIVA" | translate }}</div>
+        </div>
+        <div class="group-status" (click)="onStatusChangeExternal('all')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg
+              *ngIf="statusSupplier['all'] == false"
+            ></app-not-selected-icon-svg>
+            <app-selected-icon-svg
+              color="#FCF4EC"
+              *ngIf="statusSupplier['all'] == true"
+            ></app-selected-icon-svg>
+          </div>
+          <div class="filter-name">{{ "Select All" | translate }}</div>
+        </div>
+      </form>
+
+    <!--  <div>
+        <button
+          class="btn btn-dark btn-see-all"
+          type="button"
+          routerLink="supplier-invoices"
+          (mouseenter)="enterSeeAllBtn()"
+          (mouseleave)="leaveSeeAllBtn()"
+        >
+          <svg
+            [ngClass]="tempClass"
+            class="svg-eye-position"
+            id="Component_844_8"
+            data-name="Component 844 – 8"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="21.726"
+            height="11.5"
+            viewBox="0 0 21.726 11.5"
+          >
+            <defs>
+              <clipPath id="clip-path">
+                <rect
+                  id="Rectangle_17979"
+                  data-name="Rectangle 17979"
+                  width="21.726"
+                  height="11.5"
+                  fill="none"
+                />
+              </clipPath>
+            </defs>
+            <g
+              id="Group_8284"
+              data-name="Group 8284"
+              clip-path="url(#clip-path)"
+            >
+              <path
+                id="Path_5094"
+                data-name="Path 5094"
+                d="M21.614,5.658A14.165,14.165,0,0,0,15.349.616C10.3-1.165,5.077,1.135,1.36,4.729a1.586,1.586,0,0,0-1.25.713.986.986,0,0,0,.006.919,1.661,1.661,0,0,0,1.368.717,16.257,16.257,0,0,0,8.9,4.34c4.611.545,8.468-1.661,11.233-5.29a.51.51,0,0,0,.109-.248.424.424,0,0,0-.112-.222m-19.16.794a4.493,4.493,0,0,0-1.345-.61c1.276-.094,2.126-1.511,3.143-2.158A17.892,17.892,0,0,1,6.976,2.145,5.221,5.221,0,0,0,5.9,6.858a5.1,5.1,0,0,0,1.615,2.73A13.732,13.732,0,0,1,2.454,6.452m8.828,3.474a4.335,4.335,0,1,1,4.389-4.335,4.362,4.362,0,0,1-4.389,4.335m3.765-.014-.537.153a5.4,5.4,0,0,0,2.22-5.506,5.2,5.2,0,0,0-1.492-2.8,13.364,13.364,0,0,1,5.187,4.017,11.246,11.246,0,0,1-5.379,4.139"
+                transform="translate(0 0)"
+                fill="currentColor"
+              />
+              <path
+                id="Path_5095"
+                data-name="Path 5095"
+                d="M132.724,45.373a2.644,2.644,0,0,0-1.226.3l1.024,2.283-2.415-.354a2.554,2.554,0,0,0,.744,2.239,2.673,2.673,0,0,0,3.747,0,2.594,2.594,0,0,0,0-3.7,2.646,2.646,0,0,0-1.874-.767"
+                transform="translate(-121.443 -42.399)"
+                fill="currentColor"
+              />
+            </g>
+          </svg>
+          {{ "See All Supplier Invoices" | translate }}
+        </button>
+      </div>
+    -->
+    </div>
+
+    <div class="blu-scroll-wrapp" *ngIf="!spinner">
+      <div class="blu-scroll skrollbar">
+        <table
+          class="table tab-responsive table-striped table-hover table-lightX table-sm"
+          id="theTable"
+        >
+          <thead class="">
+            <th
+              class="nr-w"
+              *ngIf="showCol('category')"
+              scope="col"
+              [ngClass]="{ hideColumn: !buttonColumnToggle }"
+            >
+              {{ "TSC_No" | translate }}
+            </th>
+            <th
+              class="name-w"
+              *ngIf="showCol('companyname')"
+              scope="col"
+              [ngClass]="{ hideColumn: !buttonColumnToggle }"
+            >
+              {{ "Company Name" | translate }}
+            </th>
+            <th
+              class="org-nr-w"
+              *ngIf="showCol('orgnr')"
+              scope="col"
+              [ngClass]="{ hideColumn: !buttonColumnToggle }"
+            >
+              {{ "ORG NR" | translate }}
+            </th>
+            <th
+              class="e-post-w"
+              *ngIf="showCol('email')"
+              scope="col"
+              [ngClass]="{ hideColumn: !buttonColumnToggle }"
+            >
+              {{ "Email" | translate }}
+            </th>
+            <th
+              class="tel-w"
+              *ngIf="showCol('telefon')"
+              scope="col"
+              [ngClass]="{ hideColumn: !buttonColumnToggle }"
+            >
+              {{ "Telefon" | translate }}
+            </th>
+            <th
+              class="status-w"
+              *ngIf="showCol('status')"
+              scope="col"
+              [ngClass]="{ hideColumn: !buttonColumnToggle }"
+            >
+              {{ "Status" | translate }}
+            </th>
+            <th
+              class="delete-w"
+              style="white-space: nowrap; padding-left: 20px"
+              *ngIf="showCol('remove')"
+              scope="col"
+              [ngClass]="{ hideColumn: !buttonColumnToggle }"
+            >
+              <app-delete-icon
+                [width]="10.399"
+                [height]="15.194"
+                [color]="'E3DBD3'"
+              ></app-delete-icon>
+            </th>
+          </thead>
+          <tbody class="table-bordered tr-toggleableX">
+            <tr
+              class="cursor-pointer"
+              routerLink="/suppliers/details/{{ supplier.Id }}"
+              *ngFor="let supplier of filteredSuppliers; let i = index"
+            >
+              <td *ngIf="showCol('category')">{{ supplier.customer_number }}</td>
+              <td *ngIf="showCol('companyname')">{{ supplier.Name }}</td>
+              <td *ngIf="showCol('orgnr')">{{ supplier.Orgnr }}</td>
+              <td *ngIf="showCol('email')">{{ supplier.Email }}</td>
+              <td *ngIf="showCol('telefon')">{{ supplier.Number }}</td>
+              <td
+                *ngIf="showCol('status')"
+                [ngClass]="[
+                  supplier.Active === '1' ? 'bg-active' : 'bg-inactive'
+                ]"
+                class="text-center"
+              >
+                <!-- <span
+                class=""
+                [ngClass]="{
+                  '': supplier.Active === '1',
+                  '': supplier.Active !== '1'
+                }"
+              > -->
+                <span>{{
+                  (supplier.Active === "1" ? "Active" : "Inactive") | translate
+                }}</span>
+                <!-- </span> -->
+              </td>
+              <td
+                id="noDelete"
+                *ngIf="showCol('remove')"
+                scope="col"
+                class="text-center"
+              >
+                <i class="material-icons text-danger cursor-pointer" *ngIf="allowEditSupplierInvoice() && supplier.allow_delete_supplier">
+                  <app-delete-icon
+                    (click)="removeSupplier(i, $event)"
+                    [width]="10.399"
+                    [height]="15.194"
+                    [color]="'858585'"
+                  ></app-delete-icon>
+                </i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="vertical-line"></div>
+      <div class="horizontal-line"></div>
+    </div>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

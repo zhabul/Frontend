@@ -1,0 +1,161 @@
+<div class="schedRespon card col-md-12X col-lg-6X col-lg-8W mb-4">
+  <div class="row">
+    <div class="card bgGrayBlue card-header col-md-12">
+      <nav class="nav nav-pills nav-justified nav-style">
+        <div class="nav-links">
+          <a
+            routerLink="{{
+              userDetails.type == '1'
+                ? '/timesheets/time-registration-admin/'
+                : '/timesheets/schedule-calendar'
+            }}"
+            class="btn btn-dark mr-2 lh09 hideUnder800"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="nav-title mt-2">
+          <h5>
+            {{ "Name:" | translate }} {{ userDetails.firstname }}
+            {{ userDetails.lastname }}
+          </h5>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="tab-navigation-wrapper" *ngIf="userDetails.type != '1'">
+    <div class="tab-navigation bgGrayBlue">
+      <ul class="nav nav-tabs nav-pills" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            [routerLink]="['/timesheets/schedule-calendar']"
+            role="tab"
+          >
+            {{ "Timekeeping" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            [routerLink]="['/timesheets/time-overview']"
+            role="tab"
+            >{{ "Overview" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            [routerLink]="[
+              '/timesheets/schedule-review',
+              { skipLocationChange: false }
+            ]"
+            href="#schedule"
+            role="tab"
+            >{{ "Schedule" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            [routerLink]="['/timesheets/mileage-review']"
+            role="tab"
+            >{{ "Others" | translate }} {{ "Overview" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            *ngIf="userDetails.show_timesheets_time_report_management"
+            [routerLinkActive]="['active']"
+            [routerLink]="['/timesheets/time-registration-admin']"
+            role="tab"
+          >
+            {{ "Time registration Admin" | translate }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-12 mb-5">
+    <div class="row row-sm">
+      <section class="d-flex justify-content-between">
+        <h1 class="h4">{{ "Mileage" | translate }}</h1>
+      </section>
+    </div>
+    <div class="mr-0 d-sm-flex flex-columnX mb-1">
+      <div class="mr-4">
+        <span class="legenda" style="color: orange">&#9679;</span>
+        <span class="posRelX btm-4pxX">{{ "Pending" | translate }}</span>
+      </div>
+      <div class="mr-4">
+        <span class="legenda" style="color: green">&#9679;</span>
+        <span class="posRelX btm-4pxX">{{ "Approved" | translate }}</span>
+      </div>
+      <div class="mr-4">
+        <span class="legenda" style="color: tomato">&#9679;</span>
+        <span class="posRelX btm-4pxX">{{ "Declined" | translate }}</span>
+      </div>
+    </div>
+    <div class="row row-sm table-responsive">
+      <table
+        class="table table-res800 table-darkX table-sm table-bordered table-hover mileage-table"
+      >
+        <thead>
+          <tr>
+            <th>{{ "Date" | translate }}</th>
+            <th>{{ "Project" | translate }}</th>
+            <th>{{ "ATA" | translate }}</th>
+            <th>{{ "Comment" | translate }}</th>
+            <th>{{ "Mileage" | translate }}</th>
+            <th>{{ "Action" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="invoice-row"
+            *ngFor="let mileage of mileages; let i = index"
+            [ngClass]="{
+              'table-warning': mileage.Status == '1',
+              'table-danger': mileage.Status == '3',
+              'table-success': mileage.Status == '2'
+            }"
+          >
+            <td>
+              {{ mileage.Date }}
+            </td>
+            <td>
+              {{ mileage.Project }}
+            </td>
+            <td>
+              {{ mileage.Ata }}
+            </td>
+            <td width="320">
+              {{ mileage.Comment }}
+            </td>
+            <td>
+              {{ mileage.Mileage }}
+            </td>
+            <td class="text-center delete-icon" width="60">
+              <span
+                class="text-danger material-icons top1px posRel"
+                style="cursor: pointer"
+                (click)="removeMileage(mileage.Id, $event, i)"
+                *ngIf="mileage.Status == '1'"
+                >delete_outline</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

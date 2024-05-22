@@ -1,0 +1,84 @@
+<div class="form-box">
+  <form [formGroup]="editAbsenceForm" (submit)="submit()">
+      <div class="header-box">
+          <div id="name"></div>
+          <div class="close" [mat-dialog-close]> 
+              <app-grey-close-svg></app-grey-close-svg>
+          </div>
+      </div>
+      <div id="inputs">
+        <div class="content-container">
+            <div>
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'CUD_From' | translate }}</div>
+                    <div class="input-flex"> 
+                      <input disabled type="text" class="input" formControlName="from" maxlength="255" />
+                      <ng-container *ngIf="editAbsenceForm.controls['from'].invalid && (editAbsenceForm.controls['from'].dirty || editAbsenceForm.controls['from'].touched)" class="alert">
+                        <div class="error" *ngIf="editAbsenceForm.controls['from'].errors.required">
+                          {{ 'CUD_Sender_is_required' | translate }} 
+                        </div>
+                        <div class="error" *ngIf="editAbsenceForm.controls['from'].errors.email">
+                          {{ 'CUD_Invalid_email' | translate }} 
+                        </div>
+                      </ng-container>
+                    </div>
+                </div>
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'CUD_To' | translate }}</div>
+                    <div class="input-flex">
+                        <input type="text" class="input" formControlName="to" maxlength="255" [attr.disabled]="modal_data.type == 'order_model' ? true : null" />
+                        <ng-container *ngIf="editAbsenceForm.controls['to'].invalid && (editAbsenceForm.controls['to'].dirty || editAbsenceForm.controls['to'].touched)" class="alert">
+                          <div class="error" *ngIf="editAbsenceForm.controls['to'].errors.required">
+                           {{ 'CUD_Receiver_is_required' | translate }}
+                          </div>
+                          <div class="error" *ngIf="editAbsenceForm.controls['to'].errors.email">
+                            {{ 'CUD_Invalid_email' | translate }} 
+                          </div>
+                      </ng-container>
+                    </div>
+                </div>
+                <div class="input-group-2">
+                  <div class="input-title required">{{ 'CUD_Subject' | translate }}</div>
+                  <div class="input-flex">
+                      <input type="text" class="input" formControlName="subject" maxlength="255" [attr.disabled]="modal_data.type == 'order_model' ? true : null" />
+                      <ng-container *ngIf="editAbsenceForm.controls['subject'].invalid && (editAbsenceForm.controls['subject'].dirty || editAbsenceForm.controls['subject'].touched)" class="alert">
+                          <div class="error" *ngIf="editAbsenceForm.controls['subject'].errors.required">
+                             {{ 'CUD_Subject_is_required' | translate }}
+                          </div>
+                      </ng-container>
+                  </div>
+                </div>
+                <div class="input-group-2">
+                  <div class="input-title required">{{ 'CUD_Notification' | translate }}</div>
+                  <div class="input-flex">
+                      <textarea type="text" class="textarea" formControlName="notification" maxlength="3500"></textarea>
+                      <ng-container *ngIf="editAbsenceForm.controls['notification'].invalid && (editAbsenceForm.controls['notification'].dirty || editAbsenceForm.controls['notification'].touched)" class="alert">
+                          <div class="error" *ngIf="editAbsenceForm.controls['notification'].errors.required">
+                             {{ 'CUD_Notification_is_required' | translate }}
+                          </div>
+                      </ng-container>
+                  </div> 
+                </div>
+            </div>
+            <div class="file-container" *ngIf="modal_data.type != 'order_model'">  
+                <div>{{ 'CUD_Appendix' | translate }} ( {{ payrollType }} {{ 'CUD_Salary' | translate }} )</div>
+                <div class="filename-container">{{ filename }}</div>
+            </div>
+        </div>
+        <div id="inputs-footer">
+            <div></div>
+            <div>
+                <button id='spara-btn' type="submit">
+                    <div class="spara-text-box">
+                        <div>{{ 'Send' | translate }}</div>
+                        <div><app-send-icon-svg color="white"></app-send-icon-svg></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+      </div>
+  </form>
+  <div class="spinner-container-absolute" *ngIf="spinner">
+      <app-pulse-spinner></app-pulse-spinner>
+  </div>
+</div>

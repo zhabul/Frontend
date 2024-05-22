@@ -1,0 +1,164 @@
+.header-wrapp{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px
+}
+
+.close-btn{
+  cursor: pointer;
+}
+
+.invoice-text{
+    font-size: 16px;
+    color: var(--project-color);
+}
+
+
+/*TABLE*/
+
+table {
+    color: #333;
+    background: white;
+    border: 1px solid var(--border-color);
+    font-size: 10pt;
+    border-collapse: separate;
+    border-spacing: 0px;
+    width: 100%;
+    border-left: hidden;
+    border-bottom: hidden;
+    border-right: hidden;
+  }
+
+  table {
+    color: #333;
+    background: white;
+    border: 1px solid lightgrey;
+    font-size: 10pt;
+    border-collapse: collapse;
+    width: 100%;
+    z-index: 20;
+    position: relative;
+    border-top-color: var(--black-light) !important;
+    border-left: 0px;
+  }
+
+  table thead th{
+    color: var(--white);
+    background: var(--black-light);
+    position: sticky;
+    /* top: -1px; */
+    height: 27px;
+    white-space: nowrap;
+    font-family: "PT-Sans-Pro-Regular" !important;
+    font-size: 11px;
+    font-weight: normal !important;
+    border-top: hidden;
+  }
+
+  table th, table td {
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+  th {
+    padding: 4.8px 4.8px 4.8px 10px;
+  }
+
+  table tbody tr, table tbody tr td{
+    height: 38px;
+  }
+
+  /*END TABLE*/
+
+
+  .no-w{
+    width: 62px;
+    min-width: 62px;
+    max-width: 62px;
+  }
+  .Name-w{
+    width: 340px;
+    min-width:340px ;
+    max-width:340px ;
+  }
+  .Cost-w{
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+  }
+  .Labeling-w{
+    width: 190px;
+    min-width: 190px;
+    max-width: 190px;
+  }
+  .Comment-w{
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+  }
+  .input-w{
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+  }
+ .btn-add{
+  display: flex;
+  background-color: var(--main-bg);
+  border-radius: 4px;
+  border: 1px solid #4CB185;
+  height: 30px;
+  float: right;
+  justify-content: space-evenly;
+  cursor: pointer;
+  width: 115px;
+  align-items: center;
+  user-select: none;
+ }
+
+ .btn-add svg {
+  pointer-events: none;
+ }
+
+.text-add{
+  color: #4CB185;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+ button:focus{
+  outline: none;
+ }
+
+ .footer-wrapp{
+  margin-top: 25px;
+ }
+
+ .Balance-w{
+    width: 117px;
+    min-width: 117px;
+    max-width: 117px;
+ }
+  .Invoice-w{
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+ }
+  .Amount-w{
+    width: 122px;
+    min-width: 122px;
+    max-width: 122px;
+ }
+  .Arrears-w{
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+ }
+ .checkbox-type {
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}

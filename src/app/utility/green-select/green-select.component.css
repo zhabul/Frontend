@@ -1,0 +1,27 @@
+.select-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icon {
+    background-color: white;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+}
+
+.label {
+    margin-right: 15px;
+}
+
+.center-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.pointer {
+    cursor: pointer;
+}

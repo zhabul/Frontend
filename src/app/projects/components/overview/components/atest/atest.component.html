@@ -1,0 +1,673 @@
+<div class="atest-wrapp">
+
+  <div class="box-message" *ngIf="disabledInput">
+    <h5>{{ "Editing by" | translate }}: {{ fullName }}</h5>
+  </div>
+  <app-attest-absence
+    id="absence-at"
+    (addAbsencesEvent)="addAbsences($event)"
+    (removeAbsencesEvent)="removeAbsences($event)"
+    [projectId]="projectId"
+    [userId]="userDetails.user_id"
+    [attestedAbsencesSubject]="attestedAbsencesSubject.asObservable()"
+    [allowEdit]="allowEdit()"
+
+  ></app-attest-absence>
+  <div class="absence-table " *ngIf="hoursForAtest.length > 0">
+    <div class="d-flex mb-3" style="position: relative;">
+      <span
+        class="list-wrappeer-right cursor-pointer"
+        (click)="toggleselectOpen()"
+      >
+        {{ "Attest" | translate }}
+        <i class="material-icons">
+          {{ selectOpen ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+        </i>
+
+      </span>
+    </div>
+    <table class="sticky-table" [ngStyle]="{'visibility': activeStickyThead? 'hidden': 'visible'}"
+    style="position: sticky;
+    z-index: 999;
+    visibility: visible;
+    top: -1px;">
+      <thead class="sticky-thead">
+        <tr>
+          <th scope="col" class="name-th">{{ "Name" | translate }}</th>
+          <th scope="col" class="moment-th">{{ "Moment" | translate }}</th>
+          <th scope="col" class="time-th">{{ "Time" | translate }}</th>
+          <th scope="col" class="attest-th">{{ "Atest" | translate }}</th>
+          <th scope="col" class="state-th">{{ "State" | translate }}</th>
+          <th scope="col" class="comment-th">{{ "Comment" | translate }}</th>
+          <th scope="col" class="notice-th">
+            <app-note-svg></app-note-svg>
+          </th>
+          <th scope="col" class="delete-th">
+            <app-dellete-icon-svg></app-dellete-icon-svg>
+          </th>
+        </tr>
+      </thead>
+    </table>
+    <table
+        id="tablescroll"
+        style="min-width: 1000px!important;
+        max-width: 1385px;background-color: white;"
+        (click)="enableUpdate($event)"
+        *ngIf="selectOpen"
+    >
+      <thead>
+        <tr>
+          <th scope="col" class="name-th">{{ "Name" | translate }}</th>
+          <th scope="col" class="moment-th">{{ "Moment" | translate }}</th>
+          <th scope="col" class="time-th">{{ "Time" | translate }}</th>
+          <th scope="col" class="attest-th">{{ "Atest" | translate }}</th>
+          <th scope="col" class="state-th">{{ "State" | translate }}</th>
+          <th scope="col" class="comment-th">{{ "Comment" | translate }}</th>
+          <!-- <th scope="col" class="pdf-th">PDF</th> -->
+          <th scope="col" class="notice-th">
+            <app-note-svg></app-note-svg>
+          </th>
+          <th scope="col" class="delete-th">
+            <app-dellete-icon-svg></app-dellete-icon-svg>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of hoursForAtest; let i = index">
+          <tr style="background-color: #1A1A1A; color: white;">
+            <td colspan="9" class="pl-15">
+              {{ item["date"] }}
+
+            </td>
+          </tr>
+          <ng-container *ngFor="let user of item['users']; let i2 = index">
+            <tr
+                bnIntersectionObserver
+                #intersection1="intersection"
+                [ngSwitch]="intersection1.isIntersecting"
+                [ngStyle]="{
+                    'background-color': user.backgroundColor
+                }"
+                style="cursor: default"
+            >
+              <td
+                colspan="2"
+                style="font-weight: 600"
+                class="imp-container-flex pl-15"
+              >
+                <div (click)="impChange($event, i, i2, user)" class="openModal">
+                    {{ user["name"] }}
+                </div>
+              </td>
+              <td colspan="" style="font-weight: 600; border-left:1px solid"></td>
+              <td colspan="" style=" font-weight: 600; position: relative;   white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;" class="pl-15">
+                <ng-container *ngSwitchCase="intersection1.IS_INTERSECTING">
+                    {{ user["total"] | timeDisplay }} h
+                    <div class="attested-class"  *ngIf="user['moments'][0].seen == 0">
+                        <app-exist-mark-svg></app-exist-mark-svg>
+                    </div>
+                </ng-container>
+              </td>
+              <td style="text-align: center; position: relative;">
+                <span (click)="disableLoadData()" *ngIf="allowEdit()">
+                    <app-check-out-all-svg *ngIf="!checkBox.checked"></app-check-out-all-svg>
+                    <app-check-in-svg *ngIf="checkBox.checked"></app-check-in-svg>
+                    <input
+                        class="checkbox-type"
+                        #checkBox
+                        [checked]="user.checked"
+                        [disabled]="project.status == 3 || !editAtest"
+                        type="checkbox"
+                        [(ngModel)]="user['allStatus']"
+                        [id]="'allCheck' + i + '-' + i2"
+                        (change)="allCheckChange($event, i, i2)"
+                        style="width: 100%"
+                    />
+                </span>
+              </td>
+              <td></td>
+              <td></td>
+              <td style="border-right: 0px;"></td>
+              <td></td>
+
+            </tr>
+            <ng-container *ngFor="let moment of user['moments']; let i3 = index">
+                <tr
+                    bnIntersectionObserver
+                    #intersection="intersection"
+                    [ngSwitch]="intersection.isIntersecting"
+                    [ngStyle]="{'background-color': user.backgroundColor}"
+                    style="position: relative;"
+                >
+                    <ng-container *ngIf="!moment.impostorRemoved">
+                        <td
+                          (click)="setNewAta(user.id, moment, $event)"
+                          class="position-of-td"
+                        > 
+                        <ng-container *ngSwitchCase="intersection.IS_INTERSECTING">
+                            <div style="width:100%; height:100%; display: grid; grid-template-columns: 225px 1fr; position: absolute; top: 0;bottom: 0;">
+                                <div class="ata-images-flex">
+                                    <span  style="position: absolute;
+                                    left: 0;
+                                    right: 44px;
+                                    margin-top: -18px;">
+                                        <app-simple-select-attest-table-dropdown
+                                        [disabled]="editAtest"
+                                        [project]="project"
+                                        [items]="availableAtasOrDu"
+                                        [selected]="moment"
+                                        type="time_attest"
+                                        [borderwidth]="12"
+                                        (emitSelectChanged)="newAtaChangedFromChild($event)"
+                                        >
+                                        </app-simple-select-attest-table-dropdown>
+                                    </span>
+                                </div>
+                                <div class="image-wrapper">
+                                    <div class="images-pure-flex" *ngIf="moment['images'].length > 0">
+                                    <div class="image-icon-container">
+                                        <app-image-exist-svg
+                                            [attr.data-noclick]="matImage"
+                                            (click)="openSwiper(moment['images'])">
+                                        </app-image-exist-svg>
+                                    </div>
+                                    </div>
+                                    <div class="images-pure-flex" *ngIf="!moment['images'].length">
+                                    <div class="image-icon-container"
+                                    [ngClass]="!moment['images'].length ? 'image-icon-container-empty': 'image-icon-container' "
+                                    >
+                                    </div>
+                                    </div>
+                                    <span *ngIf="moment['images'].length" class="number-img"> {{moment['images'].length}}</span>
+                                </div>
+                            </div>
+                          </ng-container>
+                        </td>
+                        <td (click)="project.status == 3 ? null : setNewMoment(moment, $event, i, i2) "class="position-of-td">
+                          <ng-container *ngSwitchCase="intersection.IS_INTERSECTING">
+                            <span style="position: absolute; left: 0; right: 0px; margin-top: -18px;">
+                                <app-simple-select-attest-table-dropdown
+                                    [disabled]="editAtest"
+                                    [project]="project"
+                                    [items]="momentsForUser"
+                                    [selected]="moment"
+                                    type="moment"
+                                    [borderwidth]="12"
+                                    (emitSelectChanged)="newMomentChangedFromChild($event)"
+                                >
+                                </app-simple-select-attest-table-dropdown>
+                            </span>
+                          </ng-container>
+                        </td>
+                        <!-- <td contenteditable (click)="onTimeClick($event, i, i2, i3)" data-toggle="modal" data-target="#setTimeModal">{{moment['time']}}</td> -->
+                        <td
+                            style="width: 30px;"
+                            #timeEl
+                            [attr.contenteditable]="editAtest && project.status != 3"
+                            class="position-of-td with-focus pl-15"
+                            [ngClass]="{ 'edit-icon': editAtest && project.status != 3 }"
+                            (keydown.enter)="
+                                onContentEditableEnter('time', timeEl, moment, i, i2, i3)
+                            "
+                            (blur)="onContentEditableBlur('time', timeEl, moment, i, i2, i3)"
+                            (keypress)="preventNumber($event)"
+                        >
+                          <ng-container *ngSwitchCase="intersection.IS_INTERSECTING">
+                            {{ moment["time"] }}
+                          </ng-container>
+                        </td>
+                        <td style="text-align: center; position: relative;">
+                          <ng-container *ngSwitchCase="intersection.IS_INTERSECTING">
+                            <span (click)="disableLoadData()" *ngIf="allowEdit()">
+                                <app-check-out-svg *ngIf="!checkBoxSingle.checked"></app-check-out-svg>
+                                <app-check-in-svg *ngIf="checkBoxSingle.checked"></app-check-in-svg>
+                                <input
+                                #checkBoxSingle
+                                class="checkbox-type"
+                                [disabled]="project.status == 3 || !editAtest"
+                                type="checkbox"
+                                [(ngModel)]="moment['status']"
+                                [ngModelOptions]="{ standalone: true }"
+                                [id]="'singleCheck' + moment['momentId']"
+                                style="width: 100%"
+                                (change)="checkAttest($event, i, i2, i3)"
+                                />
+                            </span>
+                          </ng-container>
+                        </td>
+                        <td
+                            style="    overflow-wrap: anywhere;"
+                            (blur)="onContentEditableBlur('state', state, moment, i, i2, i3)"
+                            (keydown.enter)="
+                                onContentEditableEnter('state', state, moment, i, i2, i3)
+                            "
+                            (keyup)="checkedLength($event)"
+                            [attr.contenteditable]="editAtest && project.status != 3"
+                            class="position-of-td with-focus pl-15"
+                            [ngClass]="{ 'edit-icon': editAtest && project.status != 3}"
+                            #state
+                        >
+                            {{ moment["state"] }}
+                        </td>
+                        <td style="width: 253.5px;position: relative;border-top: 0px;max-width: 253.5px;top: 0;bottom: 0;" class="position-of-td with-focus pl-15">
+                          <ng-container *ngSwitchCase="intersection.IS_INTERSECTING">
+                            <div
+                                  style="width: 100%;
+                                  border: none;
+                                  outline: none;
+                                  padding: 0px!important;"
+                                  #commentText
+                                  [attr.contenteditable]="editAtest && project.status != 3"
+                                  class="position-of-td with-focus pl-15"
+                                  [ngClass]="{ 'edit-icon': editAtest && project.status != 3 }"
+                                  (blur)="onContentEditableBlur('comment', commentText, moment, i, i2, i3)"
+                                  (keydown.enter)="onContentEditableEnter('comment', commentText, moment, i, i2, i3)"
+                                  (keyup)="checkedLengthComment($event)"
+                              >
+                                {{ moment["comment"] }}
+                            </div>
+                            <span style="position: absolute;top: -1px;right: 4px;">
+                                <app-exist-mark-svg *ngIf="moment['commentActive'] == 0 || moment['commentActive'] == false "></app-exist-mark-svg>
+                                <app-not-exist-mark-svg *ngIf="moment['commentActive'] == true || moment['commentActive'] == 1"></app-not-exist-mark-svg>
+                                <input
+                                    class="checkbox-type"
+                                    type="checkbox"
+                                    [disabled]="!editAtest"
+                                    style="width: 100%"
+                                    (change)="commentActiveCheck($event, i, i2, i3, moment)"
+                                />
+                            </span>
+                          </ng-container>
+                        </td>
+                        <td style="width: 60px; text-align: center; border-right: 0px " class="icon-flex">
+                          <ng-container *ngSwitchCase="intersection.IS_INTERSECTING">
+                            <div class="images-pure-flex">
+                                <svg
+                                    (click)="openNotifyUserModal(moment)"
+                                    *ngIf="moment.icon === 'not_sent'"
+                                    id="Component_72_231"
+                                    data-name="Component 72 – 231"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="21.72"
+                                    height="19.23"
+                                    viewBox="0 0 21.72 19.23"
+                                >
+                                    <path
+                                        id="Path_771"
+                                        data-name="Path 771"
+                                        d="M30.7,16.736H19.362a4.647,4.647,0,0,0-4.842,4.412v6.886a8.877,8.877,0,0,0,.349,2.295c.577,1.846-.65,4.685-1.032,5.433a.135.135,0,0,0,.062.183.172.172,0,0,0,.082.022.161.161,0,0,0,.125-.058c.49-.584,2.929-2.6,5.256-2.6H30.7a4.647,4.647,0,0,0,4.842-4.412V21.148A4.647,4.647,0,0,0,30.7,16.736Z"
+                                        transform="translate(-13.821 -16.736)"
+                                        fill="#858585"
+                                    />
+                                    <g
+                                        id="Group_322"
+                                        data-name="Group 322"
+                                        transform="translate(4.523 3.362)"
+                                    >
+                                        <rect
+                                        id="Rectangle_225"
+                                        data-name="Rectangle 225"
+                                        width="13.959"
+                                        height="1.164"
+                                        transform="translate(0 5.605)"
+                                        fill="#fff"
+                                        />
+                                        <rect
+                                        id="Rectangle_226"
+                                        data-name="Rectangle 226"
+                                        width="8.423"
+                                        height="1.164"
+                                        transform="translate(0 8.408)"
+                                        fill="#fff"
+                                        />
+                                        <rect
+                                        id="Rectangle_227"
+                                        data-name="Rectangle 227"
+                                        width="13.959"
+                                        height="1.164"
+                                        transform="translate(0 2.803)"
+                                        fill="#fff"
+                                        />
+                                        <rect
+                                        id="Rectangle_228"
+                                        data-name="Rectangle 228"
+                                        width="13.959"
+                                        height="1.164"
+                                        fill="#fff"
+                                        />
+                                    </g>
+                                    </svg>
+
+                                    <svg
+                                    (click)="openNotifyUserModal(moment)"
+                                    *ngIf="moment.icon === 'read'"
+                                    id="Component_72_233"
+                                    data-name="Component 72 – 233"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="21.72"
+                                    height="19.23"
+                                    viewBox="0 0 21.72 19.23"
+                                    >
+                                    <path
+                                        id="Path_771"
+                                        data-name="Path 771"
+                                        d="M30.7,16.736H19.362a4.647,4.647,0,0,0-4.842,4.412v6.886a8.877,8.877,0,0,0,.349,2.295c.577,1.846-.65,4.685-1.032,5.433a.135.135,0,0,0,.062.183.172.172,0,0,0,.082.022.161.161,0,0,0,.125-.058c.49-.584,2.929-2.6,5.256-2.6H30.7a4.646,4.646,0,0,0,4.842-4.412V21.148A4.647,4.647,0,0,0,30.7,16.736Z"
+                                        transform="translate(-13.821 -16.736)"
+                                        fill="#017a32"
+                                    />
+                                    <g
+                                        id="Group_322"
+                                        data-name="Group 322"
+                                        transform="translate(4.523 3.362)"
+                                    >
+                                        <rect
+                                        id="Rectangle_225"
+                                        data-name="Rectangle 225"
+                                        width="13.959"
+                                        height="1.164"
+                                        transform="translate(0 5.605)"
+                                        fill="#fff"
+                                        />
+                                        <rect
+                                        id="Rectangle_226"
+                                        data-name="Rectangle 226"
+                                        width="8.423"
+                                        height="1.164"
+                                        transform="translate(0 8.408)"
+                                        fill="#fff"
+                                        />
+                                        <rect
+                                        id="Rectangle_227"
+                                        data-name="Rectangle 227"
+                                        width="13.959"
+                                        height="1.164"
+                                        transform="translate(0 2.803)"
+                                        fill="#fff"
+                                        />
+                                        <rect
+                                        id="Rectangle_228"
+                                        data-name="Rectangle 228"
+                                        width="13.959"
+                                        height="1.164"
+                                        fill="#fff"
+                                        />
+                                    </g>
+                                    </svg>
+                                    <svg
+                                    (click)="openNotifyUserModal(moment)"
+                                    *ngIf="moment.icon === 'not_read'"
+                                    id="Component_72_232"
+                                    data-name="Component 72 – 232"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="21.72"
+                                    height="19.23"
+                                    viewBox="0 0 21.72 19.23"
+                                    >
+                                    <path
+                                        id="Path_771"
+                                        data-name="Path 771"
+                                        d="M30.7,16.736H19.362a4.647,4.647,0,0,0-4.842,4.412v6.886a8.877,8.877,0,0,0,.349,2.295c.577,1.846-.65,4.685-1.032,5.433a.135.135,0,0,0,.062.183.172.172,0,0,0,.082.022.161.161,0,0,0,.125-.058c.49-.584,2.929-2.6,5.256-2.6H30.7a4.646,4.646,0,0,0,4.842-4.412V21.148A4.647,4.647,0,0,0,30.7,16.736Z"
+                                        transform="translate(-13.821 -16.736)"
+                                        fill="#e37831"
+                                    />
+                                    <g
+                                        id="Group_322"
+                                        data-name="Group 322"
+                                        transform="translate(4.523 3.363)"
+                                    >
+                                        <rect
+                                        id="Rectangle_225"
+                                        data-name="Rectangle 225"
+                                        width="13.959"
+                                        height="1.164"
+                                        transform="translate(0 5.605)"
+                                        fill="#fff"
+                                        />
+                                        <rect
+                                        id="Rectangle_226"
+                                        data-name="Rectangle 226"
+                                        width="8.423"
+                                        height="1.164"
+                                        transform="translate(0 8.408)"
+                                        fill="#fff"
+                                        />
+                                        <rect
+                                        id="Rectangle_227"
+                                        data-name="Rectangle 227"
+                                        width="13.959"
+                                        height="1.164"
+                                        transform="translate(0 2.803)"
+                                        fill="#fff"
+                                        />
+                                        <rect
+                                        id="Rectangle_228"
+                                        data-name="Rectangle 228"
+                                        width="13.959"
+                                        height="1.164"
+                                        fill="#fff"
+                                        />
+                                    </g>
+                                </svg>
+                            </div>
+                          </ng-container>
+                        </td>
+                        <td style="width: 60px; text-align: center" class="icon-flex">
+                          <ng-container *ngSwitchCase="intersection.IS_INTERSECTING">
+                            <div class="images-pure-flex" *ngIf="allowEdit()">
+                                <svg
+                                (click)="removeMoment(i, i2, i3, user)"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="14.589"
+                                height="14.589"
+                                viewBox="0 0 14.589 14.589"
+                                >
+                                <defs>
+                                    <clipPath id="clip-path">
+                                    <path
+                                        id="Path_736"
+                                        data-name="Path 736"
+                                        d="M0,8.54H14.589V-6.049H0Z"
+                                        transform="translate(0 6.049)"
+                                        fill="none"
+                                    />
+                                    </clipPath>
+                                </defs>
+                                <g
+                                    id="Group_291"
+                                    data-name="Group 291"
+                                    transform="translate(0 0)"
+                                    clip-path="url(#clip-path)"
+                                >
+                                    <g
+                                    id="Group_289"
+                                    data-name="Group 289"
+                                    transform="translate(-0.001 0.002)"
+                                    >
+                                    <path
+                                        id="Path_734"
+                                        data-name="Path 734"
+                                        d="M8.54,4.269A7.294,7.294,0,1,1,1.246-3.024,7.293,7.293,0,0,1,8.54,4.269"
+                                        transform="translate(6.049 3.024)"
+                                        fill="#b63418"
+                                    />
+                                    </g>
+                                    <g
+                                    id="Group_290"
+                                    data-name="Group 290"
+                                    transform="translate(3.02 3.032)"
+                                    >
+                                    <path
+                                        id="Path_735"
+                                        data-name="Path 735"
+                                        d="M4.874,4.231,1.886,1.243l2.993-3a.574.574,0,0,0,0-.842l-.215-.215a.574.574,0,0,0-.863.048L.84.2-2.182-2.816a.584.584,0,0,0-.859.014l-.224.222a.585.585,0,0,0,.029.883L-.248,1.286S-3.142,4.195-3.241,4.291a.574.574,0,0,0,0,.842l.215.215A.574.574,0,0,0-2.168,5.3L.8,2.333,3.82,5.35a.585.585,0,0,0,.861-.014l.224-.222a.583.583,0,0,0-.031-.883"
+                                        transform="translate(3.453 2.997)"
+                                        fill="#fcf4ec"
+                                    />
+                                    </g>
+                                </g>
+                                </svg>
+                            </div>
+                          </ng-container>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <tr *ngIf="hoursForAtest.length < 1">
+            <td colspan="9" class="text-center">
+                {{ "No hours for atest" | translate }}
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <div
+        class="row"
+        *ngIf="
+            editAtest && (hoursForAtest.length > 0 || attestedAbsences.length > 0)
+        "
+    >
+        <button
+            type="button"
+            class="save-button"
+            (click)="save()"
+            [hidden]="spinner || project.status == 3 || !allowEdit()"
+            [disabled]="!form_dirty"
+        >
+            <div class="button-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="23.5" height="18.548" viewBox="0 0 23.5 18.548">
+                    <g id="Skapad_mapp" data-name="Skapad mapp" transform="translate(0.75 0.75)">
+                        <path id="Path_754" data-name="Path 754" d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z" transform="translate(-14.993 -19.629)" fill="#373b40"/>
+                        <ng-container *ngIf="!form_dirty">
+                            <path id="Path_755" data-name="Path 755" d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z" transform="translate(-14.993 -19.629)" fill="none" stroke="#cccccc" stroke-width="1.5" opacity="0.973"/>
+                        </ng-container>
+                        <ng-container *ngIf="form_dirty">
+                            <path id="Path_755" data-name="Path 755" d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z" transform="translate(-14.993 -19.629)" fill="none" stroke="#ff7000" stroke-width="1.5" opacity="0.973"/>
+                        </ng-container>
+                    </g>
+                </svg>
+            </div>
+            <div>
+                {{ "Save" | translate }}
+            </div>
+        </button>
+    </div>
+    <ngx-material-timepicker #timePickeView></ngx-material-timepicker>
+    <div class="progress-loader" *ngIf="spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+<div id="modfade" class="notif-modal" style="display: none ;z-index: 9999999;">
+  <div class="notif-modal-content notif-animate-opacity notif-card-4">
+    <header class="notif-container notif-teal" style="margin-top: 5px;">
+      <span
+        class="my-2"
+        (click)="closeNotifyUserModal()"
+        class="my-2 notif-button notif-large notif-display-topright material-icons icon-image-preview"
+        >clear</span
+      >
+      <div class="header-of-notice">
+        <img src="assets/img/Notering.svg" alt="">
+        <h6 class="my-2">{{ "Send notice to user" | translate }}</h6>
+      </div>
+    </header>
+    <ng-container *ngIf="selectedMoment">
+      <div
+        class="usr-msg-container"
+        *ngFor="let msg of selectedMoment['user_messages']"
+      >
+        <div class="usr-msg">
+          {{ msg.message }}
+        </div>
+        <div class="usr-fullname">
+          - {{ msg.fullname }} | {{ printDate(msg.created_at) }}
+        </div>
+      </div>
+    </ng-container>
+    <div class="notif-container">
+      <div
+        class="form-group col-xs-12"
+        [ngClass]="{ 'has-error': notificationText.length < 1 }"
+      >
+
+        <textarea
+          class="form-control"
+          id="notificationText"
+          [(ngModel)]="notificationText"
+          style="height: 70px;border: 2px solid var(--border-color);"
+          required="true"
+          maxlength="60"
+          placeholder="{{ 'Fill in this field' | translate }}"
+        ></textarea>
+        {{ notificationText.length }}/60
+      </div>
+    </div>
+    <footer class="notif-container notif-teal" style="text-align: right;padding-bottom: 10px;">
+      <button
+        [disabled]="notificationText.length < 1"
+        type="button"
+        class="button-send"
+        (click)="submitNotification()"
+      >
+        <span>{{ "Send" | translate }}</span>
+      </button>
+    </footer>
+  </div>
+</div>
+<div
+  *ngIf="showAttachmentImage"
+  class="card col-12X col-lg-6X mb70 image-gallery-container"
+  id="looksLikeModal"
+>
+  <div class="image-wrapper">
+    <span class="rotate-icon-left" (click)="rotateLeft()"
+      ><i class="material-icons">rotate_left</i></span
+    >
+    <span class="rotate-icon" (click)="rotateRight()"
+      ><i class="material-icons">rotate_right</i></span
+    >
+    <span
+      class="close-icon-right material-icons"
+      style="cursor: pointer"
+      (click)="closeAttachment()"
+      >clear</span
+    >
+    <!-- <img id="preview-image" style="max-height:85vh;" src="{{currentAttachmentImage}}" alt="attachment-image"> -->
+  </div>
+  <div id="image-gallery">
+    <div class="image-container"></div>
+    <div class="image-info">
+      <div class="image-info-container">
+        <div>{{ selectedImageInfo["date"] }}</div>
+        <div>{{ selectedImageInfo["name"] }}</div>
+        <div>{{ selectedImageInfo["momentName"] }}</div>
+      </div>
+      <div class="image-info-description">
+        {{ selectedImageInfo["description"] }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #otherComponent>
+  <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="true"
+  ></app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="true"
+  ></app-pdfjs-viewer>
+</ng-container>

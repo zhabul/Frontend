@@ -1,0 +1,258 @@
+
+      <div class="add-section">
+        <div class="row ml-2 searchdiv">
+          <div style="position: relative;">
+            <span class="search-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13.06" viewBox="0 0 13 13.06">
+                <path id="Path_737" data-name="Path 737" d="M30.923,28.9l-.078-.079h0l-3.134-3.151a5.185,5.185,0,0,0-4.425-7.777h-.034a5.18,5.18,0,0,0-.032,10.36h.034a5.106,5.106,0,0,0,2.595-.706l3.131,3.149h0l.078.079a.6.6,0,0,0,.858,0l1.007-1.013A.612.612,0,0,0,30.923,28.9Zm-7.695-1.968a3.859,3.859,0,0,1,.024-7.718h.026a3.8,3.8,0,0,1,2.707,1.148,3.874,3.874,0,0,1-.027,5.449,3.8,3.8,0,0,1-2.7,1.121Z" transform="translate(-18.101 -17.89)" fill="#fcf4ec"/>
+              </svg>
+            </span>
+            <input
+              class="search-form text-uppercase"
+              type="text"
+              placeholder="{{ 'Search' | translate }}"
+              [(ngModel)]="searchQuery"
+              (keyup)="filterCommentsBySearchValue()"
+              #searchInput
+
+            />
+            <span class="clear-icon" (click)="clearSearchText()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10.189" height="10.189" viewBox="0 0 10.189 10.189">
+                <path id="Path_783" data-name="Path 783" d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z" transform="translate(3.622 4.382)" fill="#fcf4ec"/>
+              </svg>
+            </span>
+          </div>
+
+        </div>
+        <div class="add-button-center">
+          <button
+            *ngIf="!disabled"
+            type="button"
+            class="add-btn"
+            [disabled]="(content_type === 'paymentplan' && project.data.debit_Id == 1) || status==1"
+            (click)="setOpacity()"
+          >
+            <div class="add-img">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.456" height="25.456" viewBox="0 0 25.456 25.456">
+                <defs>
+                  <clipPath id="clip-path12">
+                    <path id="Path_736" data-name="Path 736" d="M0,11.951H18v-18H0Z" transform="translate(0 6.049)" fill="none"/>
+                  </clipPath>
+                </defs>
+                <g id="X_icon" data-name="X icon" transform="translate(12.728) rotate(45)">
+                  <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path12)">
+                    <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                      <path id="Path_734" data-name="Path 734" d="M11.951,5.975a9,9,0,1,1-9-9,9,9,0,0,1,9,9" transform="translate(6.049 3.024)" fill="#ff7000"/>
+                    </g>
+                    <g id="Group_290" data-name="Group 290" transform="translate(3.727 3.742)">
+                      <path id="Path_735" data-name="Path 735" d="M6.822,5.921,3.135,2.234l3.693-3.7a.708.708,0,0,0,.006-1.039l-.265-.265a.708.708,0,0,0-1.065.06L1.843.943-1.885-2.774a.721.721,0,0,0-1.059.018l-.277.274a.721.721,0,0,0,.036,1.089L.5,2.288S-3.07,5.877-3.192,6A.708.708,0,0,0-3.2,7.034l.265.265a.708.708,0,0,0,1.065-.06L1.79,3.579,5.521,7.3a.722.722,0,0,0,1.062-.018L6.86,7.01a.719.719,0,0,0-.039-1.089" transform="translate(3.453 2.997)" fill="#373b40"/>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div>
+              <p class="add-txt-orange">{{ "TSC_NEW_CARD" | translate }}</p>
+            </div>
+          </button>
+        </div>
+      </div>
+      <!-----Text editor---->
+      <div>
+        <app-text-comment
+
+          *ngFor="let row of rows; let i = index"
+          [info]='row'
+          [index]="i"
+          [infoStatus]="infoStatus"
+          [disabledDeleteIcon] = "disabled"
+          (deleteChild)="deleteCom($event, i)"
+          (postChild)="postCom($event)"
+          (buttonDisabled)="takeAction($event)"
+          (blur)="onBlur($event)"
+          [visible]="visibility"
+          [content_type]="content_type"
+          [canAttachFiles] = "canAttachFiles"
+        ></app-text-comment>
+      </div>
+
+<div class="spara-div" *ngIf="rows.length > 0 && !disabled">
+  <button
+    type="button"
+    [disabled]="status == 1"
+    class="spara-btn"
+    (click)="postAllComments()"
+    [ngClass]="buttonDisabled ? 'border-gray' : 'border-orange'"
+    [ngStyle]="{
+      border: buttonDisabled ? '1px #858585  solid' : '1px #FF7000 solid'
+    }"
+    [disabled]="buttonDisabled"
+  >
+    <div class="spara-svg">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="23.5"
+        height="18.548"
+        viewBox="0 0 23.5 18.548"
+      >
+        <g
+          id="Skapad_mapp"
+          data-name="Skapad mapp"
+          transform="translate(0.75 0.75)"
+        >
+          <path
+            id="Path_754"
+            data-name="Path 754"
+            d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+            transform="translate(-14.993 -19.629)"
+            [attr.fill]="color"
+          />
+          <path
+            id="Path_755"
+            data-name="Path 755"
+            d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+            transform="translate(-14.993 -19.629)"
+            [attr.fill]="color"
+            [attr.stroke]="color"
+            stroke-width="1.5"
+            opacity="0.973"
+          />
+        </g>
+      </svg>
+    </div>
+    <div class="spara-txt">
+      <p [ngStyle]="{ color: buttonDisabled ? '#858585' : '#FF7000' }">
+        {{ "TSC_SAVE" | translate }}
+      </p>
+    </div>
+  </button>
+</div>
+<!-- <div class="border-right-scroll"></div>
+      <div class="border-bottom-scroll"></div> -->
+
+<div class="spinner2" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>
+<!-- Modal -->
+
+<div
+  class="modal fade new-modal"
+  id="addCom"
+  tabindex="-1"
+  role="dialog"
+  [style.opacity]="opacity"
+  [style.display]="display"
+  [style.background]="background"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content lax">
+      <div class="modal-header heahea">
+        <button
+          type="button"
+          class="close-drip-button"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="setOpacity()"
+        >
+          <svg
+            id="Stäng_Close_"
+            data-name="Stäng (Close)"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="24.27"
+            height="24.269"
+            viewBox="0 0 24.27 24.269"
+          >
+            <g id="Group_341" data-name="Group 341">
+              <g
+                id="Group_340"
+                data-name="Group 340"
+                transform="translate(0 0.001)"
+              >
+                <path
+                  id="Path_781"
+                  data-name="Path 781"
+                  d="M4.513,8.432A10.438,10.438,0,0,1-5.929-2.089,10.438,10.438,0,0,1,4.513-12.61,10.438,10.438,0,0,1,14.954-2.089,10.438,10.438,0,0,1,4.513,8.432m0,1.6A12.168,12.168,0,0,0,16.647-2.105,12.167,12.167,0,0,0,4.513-14.239,12.167,12.167,0,0,0-7.621-2.105,12.168,12.168,0,0,0,4.513,10.03"
+                  transform="translate(7.621 14.239)"
+                  fill="#fff"
+                />
+              </g>
+            </g>
+            <g
+              id="Group_342"
+              data-name="Group 342"
+              transform="translate(5.611 5.611)"
+            >
+              <path
+                id="Path_783"
+                data-name="Path 783"
+                d="M1.77,2.135l-5.392,5.4L-2.5,8.664,2.9,3.265l5.405,5.4,1.118-1.13-5.405-5.4L9.424-3.252,8.293-4.369,2.9,1.018-2.5-4.382l-1.118,1.13Z"
+                transform="translate(3.622 4.382)"
+                fill="#fff"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="nameForm">
+          <p class="whh">Name</p>
+          <input
+            type="text"
+            class="form-contorol adcom"
+            formControlName="name"
+            maxlength="50"
+          />
+          <div *ngIf="nameForm.get('name').errors" class="error">
+            {{ "Name is requred" | translate }}
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer tete">
+        <button
+            type="button"
+            class="spara-btn2"
+            (click)="onAddComment()"
+            data-dismiss="modal"
+            [disabled]="!nameForm.dirty || !nameForm.valid"
+        >
+          <div class="spara-svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="23.5"
+              height="18.548"
+              viewBox="0 0 23.5 18.548"
+            >
+              <g
+                id="Skapad_mapp"
+                data-name="Skapad mapp"
+                transform="translate(0.75 0.75)"
+              >
+                <path
+                  id="Path_754"
+                  data-name="Path 754"
+                  d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                  transform="translate(-14.993 -19.629)"
+                  fill="#373b40"
+                />
+                <path
+                  id="Path_755"
+                  data-name="Path 755"
+                  d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z"
+                  transform="translate(-14.993 -19.629)"
+                  fill="none"
+                  stroke="#ff7000"
+                  stroke-width="1.5"
+                  opacity="0.973"
+                />
+              </g>
+            </svg>
+          </div>
+          <div class="spara-txt">
+            <p>{{ "TSC_SAVE" | translate }}</p>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

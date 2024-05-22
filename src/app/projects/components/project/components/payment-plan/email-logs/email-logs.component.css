@@ -1,0 +1,126 @@
+.main-email-c {
+    position: relative;
+    border: 1px #858585 solid;
+    /* margin: 0 auto 30px 30px; */
+    padding: 10px 0 0 0;
+    height: 85vh;
+    overflow: scroll;
+    max-width: 1386px;
+    background: #373b40;
+    box-shadow: -6px 5px -2px rgb(0 0 0 / 32%);
+  }
+
+
+/* .border-right-scroll{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 1px grey solid;
+    height: 100%;
+} */
+
+/* .border-bottom-scroll::after{
+    content:'';
+    width:1383px;
+    height:1px;
+    position:fixed;
+    bottom:25px;
+    left:104px;
+    background:#707070;
+} */
+
+.email-head{
+    /* display: grid;
+    grid-template-columns: 130px repeat(6, 1fr); */
+    background-color: #373B40;
+    color: #FFFFFF;
+}
+
+.email-body{
+    /* display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 130px repeat(6, 1fr); */
+    background: #FFFFFF;
+}
+
+.email-header{
+    color: white;
+    margin: 10px 0 10px 40px;
+}
+
+.email-table{
+    padding: 0 40px;
+}
+
+.e-head{
+    border: 1px #707070 solid;
+    border-top: none;
+    border-left: none;
+    height: 30px;
+    box-shadow: 1px 4px 5px 1px rgb(0 0 0 / 66%);
+}
+
+.e-head p {
+    text-align: center;
+    margin: 5px 0;
+}
+
+.e-body{
+   border: 1px #707070 solid;
+   height: 40px;
+}
+
+.e-body p{
+    margin: 10px 0 0 0;
+    text-align: center;
+}
+
+.thin-red-line-right {
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  right: 16px;
+  background-color: var(--border-color);
+  width: 1px;
+  height: calc(100% - 17px);
+  z-index: 9999;
+}
+
+.thin-red-line-bottom {
+  position: absolute;
+  bottom: 15px;
+  left: 0px;
+  right: 4px;
+  background-color: var(--border-color);
+  height: 1px;
+  z-index: 9999;
+}
+
+/* @media(max-width: 1557px){
+    .border-bottom-scroll::after{
+        width:1382px;
+    }
+}
+
+@media(max-width: 1556px){
+    .border-bottom-scroll::after{
+        width:1381px;
+    }
+}
+
+@media(max-width: 1555px){
+    .border-bottom-scroll::after{
+        width:1381px;
+    }
+}
+
+@media(max-width: 1554px){
+    .border-bottom-scroll::after{
+        width:1380px;
+    }
+}
+@media(max-width: 1553px){
+    .border-bottom-scroll::after{
+        width:1379px;
+    }
+} */

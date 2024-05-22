@@ -1,0 +1,171 @@
+<div class="tab-wrapper" [ngStyle]="{ height: container_height }">
+  <div class="row">
+    <div class="nav-tabs tab-navigation">
+        <ul class="nav nav-tabs nav-pills" role="tablist">
+            <li class="nav-item approveItem">
+                <a
+                    class="nav-link active approve"
+                    [ngClass]="{ active: activeTab == 0 }"
+                    role="tab"
+                    (click)="canYouChangeTab(0)"
+                    id="approveItem"
+                >
+                    {{ "Approve hours" | translate }}
+                    <div [ngClass]="{ 'hide-bottom-box-shadow': activeTab == 0 }"></div
+                ></a>
+            </li>
+            <li class="nav-item align-l">
+                <a
+                    class="nav-link attest"
+                    [ngClass]="{ active: activeTab == 1 }"
+                    role="tab"
+                    (click)="canYouChangeTab(1)"
+                >
+                    {{ "Hours to attest" | translate }}
+                    <div [ngClass]="{ 'hide-bottom-box-shadow': activeTab == 1 }"></div
+                ></a>
+            </li>
+        <!--    <li class="nav-item align-l">
+                <a
+                    class="nav-link attest"
+                    [ngClass]="{ active: activeTab == 2 }"
+                    role="tab"
+                    (click)="canYouChangeTab(2)"
+                >
+                    {{ "Images" | translate }}
+                    <div [ngClass]="{ 'hide-bottom-box-shadow': activeTab == 2 }"></div
+                ></a>
+            </li>-->
+        </ul>
+    </div>
+</div>
+<div class="pt-2 blu-scroll scroll" (scroll)="onScroll($event)" [ngStyle]="{ height: container_height }">
+    <div class="atest-filters" *ngIf="activeTab != 2">
+        <div class="filterText">
+            <div style="display: flex;">
+                <input
+                type="text"
+                class="form-control search-icon"
+                style="height: 35px; width: 207px;"
+                placeholder="{{ 'Search' | translate }}"
+                #searchInput
+                [(ngModel)]="inputText"
+                (keyup)="setSearchText()"
+                />
+                <span (click)="clearSearchText()" class="dellete-input-data">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10.189" height="10.189" viewBox="0 0 10.189 10.189">
+                    <path id="Path_783" data-name="Path 783" d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z" transform="translate(3.622 4.382)" fill="#fcf4ec"/>
+                </svg>
+                </span>
+            </div>
+        </div>
+        <form class="autocomplete-form" [formGroup]="createForm" #myform>
+            <div style="margin-right: 0.3rem">
+                <div class="input-wrapper6">
+                    <app-simple-select
+                    [ClientItem]= "filteringAtas"
+                    [fontSize]="14"
+                    formControlName="ata"
+                    [width]="185"
+                    [type1]="'AttestAll'"
+                    [AttestActive]="true"
+                    [EnableSearch]="true"
+                    (Attest)="setState($event, 'selectedAta')"
+                    [disableSelect]="false"
+                    >
+                    </app-simple-select>
+                </div>
+            </div>
+            <div style="margin-right: 0.3rem">
+                <div class="input-wrapper6">
+                    <app-simple-select
+                        [ClientItem]= "filteringMoments"
+                        [fontSize]="14"
+                        formControlName="moment"
+                        [width]="185"
+                        [type1]="'AttestAll'"
+                        [AttestActive]="true"
+                        [EnableSearch]="true"
+                        (Attest)="setState($event, 'selectedMoment')"
+                        [disableSelect]="false"
+                    >
+                    </app-simple-select>
+                </div>
+            </div>
+            <div style="margin-right: 0.3rem">
+                <div class="input-wrapper6">
+                    <app-simple-select
+                        [ClientItem]= "filteringUsers"
+                        [fontSize]="14"
+                        formControlName="users"
+                        [width]="185"
+                        [type1]="'AttestAll'"
+                        [AttestActive]="true"
+                        [EnableSearch]="true"
+                        (Attest)="setState($event, 'selectedUser')"
+                        [disableSelect]="false"
+                    >
+                    </app-simple-select>
+                </div>
+            </div>
+        <!--Dropdown Search Option in Attest (Weeks)-->
+            <div class="input-wrapper6">
+                <app-simple-select
+                [ClientItem]= "weeks"
+                [fontSize]="14"
+                formControlName="week"
+                [width]="185"
+                [type1]="'AttestAll'"
+                [AttestActive]="true"
+                [EnableSearch]="true"
+                (Attest)="setState($event, 'selectedWeek')"
+                [disableSelect]="false"
+                >
+                </app-simple-select>
+            </div>
+        </form>
+    </div>
+    <app-atest
+        style="width: 100%"
+        *ngIf="activeTab == 0"
+        [project]="project"
+        [selectedWeek]="selectedWeek"
+        [selectedMoment]="selectedMoment"
+        [selectedState]="selectedState"
+        [selectedUser]="selectedUser"
+        [selectedAta]="selectedAta"
+        [searchText]="searchText"
+        (uniqueWeeks)="onGetInformation($event, 'weeks', 'Weeks')"
+        (filteringUsers)="onGetInformation($event, 'filteringUsers', 'Users')"
+        (filteringMoments)="onGetInformation($event, 'filteringMoments', 'Moments')"
+        (filteringStates)="onGetFilteringStates($event)"
+        (filteringAtas)="onGetInformation($event, 'filteringAtas', 'Atas')"
+        (attestSave)="onAttestSave($event)"
+        [availableAtasOrDu]="availableAtasOrDu"
+        [onScrollEvent]="onScrollObservable$"
+    ></app-atest>
+    <app-atest-history
+        style="width: 100%"
+        *ngIf="activeTab == 1"
+        [selectedWeek]="selectedWeek"
+        [selectedMoment]="selectedMoment"
+        [selectedState]="selectedState"
+        [selectedUser]="selectedUser"
+        [selectedAta]="selectedAta"
+        [searchText]="searchText"
+        (filteringMoments)="onGetInformation($event, 'filteringMoments', 'Moments')"
+        [scrollHeight]="scrollHeight"
+        (filteringUsers)="onGetInformation($event, 'filteringUsers', 'Users')"
+        (filteringAtas)="onGetInformation($event, 'filteringAtas', 'Atas')"
+        (filteringStates)="onGetFilteringStates($event)"
+        (uniqueWeeks)="onGetInformation($event, 'weeks', 'Weeks')"
+    ></app-atest-history>
+    <ng-container *ngIf="activeTab == 2 && documents.length > 0">
+        <app-images-list
+            [documents]="documents"
+        ></app-images-list>
+    </ng-container>
+  </div>
+  <div class="ata-prognosis-border"></div>
+  <div  class="thin-prognosis-border-bottom"></div>
+</div>

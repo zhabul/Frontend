@@ -1,0 +1,55 @@
+
+<div [style.width.px]="width" style=" width:100%;min-height: 39px;"  [ngClass]="toggle==true ? 'select-wrapper' : 'select-wrapper'"> <!--height: 100%-->
+  <div class="select" style=" width:100%; height: 100%; position: relative;" >
+      <div class="selected-item" [ngClass]="toggle==true ? 'border-hover' : 'selected-item'" (click)="toggleOn()" >
+          <!-- [ngStyle]="{'cursor': selected.AtestStatus == '1'? 'not-allowed':'pointer'}" -->
+          <div class="span-selected" [ngStyle]="{'max-width': type=='time_attest'? '225px': ''}" >
+              <div [ngClass]="type == 'time_attest'? 'time-atest-pos': ''">
+                  <p *ngIf="type == 'Supplier-Number'">{{selected.Account}}</p>
+                  <p *ngIf="type == 'Supplier-project'">{{selectedID + ' '}} {{selectedName}}<p>
+                  <p *ngIf="type == 'Supplier-subproject'">{{ selected.name ? selected.name : selected.Project}}</p>
+              </div>
+              <div class="arrow"  *ngIf="!disabled_click">
+                <app-arrow-for-dropdown
+                [fill]="fill"
+                [rotate]="rotate"
+                >
+                </app-arrow-for-dropdown>
+              </div>
+          </div>
+      </div>
+      <div class="border-on-scroll" *ngIf="toggle" [style.width.px]="borderwidth" [style.right.px]="-borderwidth" ></div>
+      <div  *ngIf="toggle" class="toogle-dropdown dropdown-scroll">
+          <div class="" style=" position: relative">
+              <div class="toggle-div" (click)="toggleOn()" >
+              </div>
+              <div class="box-shadow-top">
+                  <div *ngFor="let item of items; let i=index"  (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)" >
+                      <p class="item-name" *ngIf="type == 'Supplier-Number'" title="{{item.Number}}" (click)="newAtaChanged(item, selected, i)" >{{item.Number}}</p>
+                      <p class="item-name" *ngIf="type == 'Supplier-project'" title=" {{ item.CustomName }} {{ item.name }}" (click)="newAtaChanged(item, selected, i)" >{{ item.CustomName }} {{ item.name }}</p>
+                      <p class="item-name " *ngIf="type == 'Supplier-subproject'" title=" {{ item.name }}" (click)="newAtaChanged(item, selected, i)" >{{ item.name }}</p>
+                      <div class="check-button-wrapp-one">
+                        <input type="checkbox" class="check" >
+                        <app-checkin-svg
+                        *ngIf="item && item.checked"
+                        [width]="18"
+                        [height]="18"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                      ></app-checkin-svg>
+                          <app-checkout-svg
+                          *ngIf="item && item.checked == false"
+                              [width]="18"
+                              [height]="18"
+                              [color]="'FF7000'"
+                              [hatched]="'white'"
+                          ></app-checkout-svg>
+                      </div>
+                      <div  class="div-vertical-line">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,431 @@
+<div class="articles-form-container blu-scroll">
+  <div *ngIf="createForm">
+    <form style="margin-bottom: 2rem;" [formGroup]="createForm">
+        <div class="table-fieldset">
+              <div class="d-flex default-cursor table-title">
+                  <span >{{ 'Additional work' | translate }}</span>
+              </div>
+              <div>
+                  <!--Article Table-->
+                  <div>
+                      <!-- <button type="button" class="btn btn-sm btn-outline-info lh09 ml-auto mb-2 mt-4 d-block" (click)="toggleAddArticleAdditionalWorkForm()"><span class="material-icons top1px posRel">add</span></button> -->
+                      <div class="table-wrapper">
+                          <div class="table-header row">
+                              <div scope="col">{{'Description' | translate}}</div>
+                              <div scope="col">{{'Quantity' | translate}}</div>
+                              <div scope="col">{{'Unit' | translate}}</div>
+                              <div scope="col">{{'Price per unit' | translate}}</div>
+                              <div scope="col">{{'%' | translate}}</div>
+                              <div scope="col">{{'Total' | translate}}</div>
+                              <div scope="col">{{'Konto' | translate}}</div>
+                              <div>{{'Remove' |translate}}</div>
+                          </div>
+                          <div>
+                              <div class="article-div" formArrayName="articlesAdditionalWork"
+                                  *ngFor="let article of articlesAdditionalWork.controls; let i=index">
+                                  <div formGroupName="{{i}}">
+                                    <input class="article_modal"  type="hidden" formControlName="id">
+                                    <input class="table-input-field"
+                                      type="text"
+                                      #articleName1
+                                      formControlName="Name"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (blur)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      [attr.data-selected_article]="'additional-work'"
+                                      [class.is-invalid]="article.get('Name').invalid"
+                                    >
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <input
+                                      class="table-input-field"
+                                      type="text"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (blur)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      [attr.data-selected_article]="'additional-work'"
+                                      min="1"
+                                      #articleQuantity1
+                                      formControlName="Quantity"
+                                      (keyup)="updateTotal(i, articlesAdditionalWork, true)"
+                                      number-format-directive
+                                    >
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <select class="table-select-field"
+                                      #articleUnit1
+                                      formControlName = "Unit"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (blur)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      [attr.data-selected_article]="'additional-work'">
+                                      <option *ngFor="let unit of units['AdditionalWork']" value="{{unit}}">{{unit}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <input
+                                      class="table-input-field"
+                                      type="text"
+                                      min="0"
+                                      formControlName="Price"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (blur)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (keyup)="updateTotal(i, articlesAdditionalWork, true)"
+                                      number-format-directive
+                                      [attr.data-selected_article]="'additional-work'"
+                                    >
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <input
+                                      class="table-input-field"
+                                      type="text"
+                                      formControlName="Deduct"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (blur)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (keyup)="updateTotal(i, articlesAdditionalWork, true)"
+                                      [attr.data-selected_article]="'additional-work'"
+                                    >
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <input
+                                      class="table-input-field"
+                                      readonly
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (blur)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      type="text"
+                                      #articleTotal1
+                                      [value]="article.get('Total').value | number:'1.2-2':'fr'"
+                                      readonly
+                                      [attr.data-selected_article]="'additional-work'"
+                                    >
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <select
+                                      class="table-select-field"
+                                      #articleAccount1
+                                      formControlName="Account"
+                                      (click)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (blur)="addRow(articlesAdditionalWork, 'articlesAdditionalWork', i)"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      [attr.data-selected_article]="'additional-work'">
+                                      <option *ngFor="let account of enabledAccounts"
+                                        [value]="account.Number"
+                                        [selected]="account.Number == enabledAccounts[0].Number">
+                                        {{account.Number}} {{account.Description}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                  <div class="delete-container" >
+                                    <img (click)="removeRow(i, articlesAdditionalWork, 1)" src="assets/img/red-trash.png" alt="" class="red-trash">
+                                  </div>
+                              </div>
+                              <div *ngIf="getArticlesAdditionalWork">
+                                <div colspan="5" scope="col"></div>
+                                <div scope="col"><strong>{{calcAllTotal([getArticlesAdditionalWork]) | number:'1.2-2':'fr'}}</strong></div>
+                                <div colspan="2" scope="col"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!---->
+              </div>
+        </div>
+      <div class="table-fieldset" >
+          <div class="panel panel-default w-100">
+              <div class="d-flex default-cursor table-title">
+                <span >{{ 'Material' | translate }}</span>
+              </div>
+              <div>
+                  <!-- <div class="d-flex justify-content-end">
+                      <button class="btn btn-dark btn-sm mb-2" type="button"
+                          (click)="openSupplierInvoiceModal()"><i
+                              class="material-icons button-icon">add_circle_outline</i>{{'Add Supplier Invoice'|translate}}</button>
+                  </div> -->
+
+                  <!--Material Table-->
+                  <div class="form-row">
+                      <!-- <button type="button" class="btn btn-sm btn-outline-info lh09 ml-auto mb-2 mt-4 d-block" (click)="toggleAddArticleMaterialForm()"><span class="material-icons top1px posRel">add</span></button> -->
+                      <div class="table table-sm invoice-table">
+                          <div class="table-header row">
+                              <div>{{'Description' | translate}}</div>
+                              <div>{{'Quantity' | translate}}</div>
+                              <div>{{'Unit' | translate}}</div>
+                              <div>{{'Price per unit' | translate}}</div>
+                              <div>{{'%' | translate}}</div>
+                              <div>{{'Total' | translate}}</div>
+                              <div>{{'Konto' | translate}}</div>
+                              <div>{{'Remove' |translate}}</div>
+                          </div>
+                          <div>
+                              <div class="article-div" formArrayName="articlesMaterial"
+                                  *ngFor="let material of articlesMaterial.controls; let i=index">
+                                  <div formGroupName="{{i}}">
+                                    <input
+                                      class="table-input-field"
+                                      list="properties"
+                                      #articleName2
+                                      formControlName="Name"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      (blur)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      [class.is-invalid]="material.get('Name').invalid"
+                                      >
+                                    <datalist id="properties">
+                                        <option *ngFor="let property of materialProperties"
+                                          value="{{property}}">{{property}}</option>
+                                    </datalist>
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <input class="table-input-field" type="text"
+                                      min="1"
+                                      #articleQuantity2
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      (blur)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      formControlName="Quantity"
+                                      (keyup)="updateTotal(i, articlesMaterial)" number-format-directive
+                                      >
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <select class="table-select-field" #articleUnit2
+                                        formControlName="Unit"
+                                        (keydown.enter)="moveToNextColumn($event)"
+                                        (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                        (blur)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                        >
+                                        <option *ngFor="let unit of units['Material']" value="{{unit}}">{{unit}}
+                                        </option>
+                                    </select>
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <input class="table-input-field" type="text"
+                                      min="0"
+                                      #articlePrice2
+                                      formControlName="Price"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      (blur)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      (keyup)="updateTotal(i, articlesMaterial)"
+                                      number-format-directive
+                                      >
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <input class="table-input-field"
+                                      type="text"
+                                      #articleDeduct2
+                                      formControlName = "Deduct"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      (blur)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      (keyup)="updateTotal(i, articlesMaterial)"
+                                      >
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <input class="table-input-field"
+                                    readonly
+                                    type="text"
+                                    (keydown.enter)="moveToNextColumn($event)"
+                                    (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                    (blur)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                    #articleTotal2
+                                    [value]="material.get('Total').value | number:'1.2-2':'fr'"
+                                    readonly>
+                                  </div>
+                                  <div formGroupName="{{i}}">
+                                    <select class="table-select-field"
+                                      #articleAccount2
+                                      formControlName="Account"
+                                      (keydown.enter)="moveToNextColumn($event)"
+                                      (click)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      (blur)="addRow(articlesMaterial, 'articlesMaterial', i)"
+                                      >
+                                      <option *ngFor="let account of enabledAccounts"
+                                        [value]="account.Number">{{account.Number}}
+                                        {{account.Description}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                  <div class="delete-container" >
+                                    <img (click)="removeRow(i, articlesMaterial, 'articlesMaterial')" src="../../../../../../assets/img/red-trash.png"
+                                      alt="" class="red-trash" />
+                                  </div>
+                              </div>
+                              <div *ngIf="getArticlesMaterial">
+                                  <div colspan="5" scope="col"></div>
+                                  <div scope="col"><strong>{{calcAllTotal([getArticlesMaterial]) | number:'1.2-2':'fr'}}</strong></div>
+                                  <div colspan="2" scope="col"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!---->
+              </div>
+          </div>
+      </div>
+      <div class="table-fieldset">
+          <div class="panel panel-default w-100">
+              <div class="d-flex default-cursor table-title">
+                  <span >{{ 'UE/Other' | translate }}</span>
+              </div>
+              <div>
+                  <!--Other Table-->
+                  <div>
+                      <!-- <button type="button" class="btn btn-sm btn-outline-info lh09 ml-auto mb-2 mt-4 d-block" (click)="toggleAddArticleOtherForm()"><span class="material-icons top1px posRel">add</span></button> -->
+                      <div >
+                          <div class="table-header row">
+                            <div scope="col">{{'Description' | translate}}</div>
+                            <div scope="col">{{'Quantity' | translate}}</div>
+                            <div scope="col">{{'Unit' | translate}}</div>
+                            <div scope="col">{{'Price per unit' | translate}}</div>
+                            <div scope="col">{{'%' | translate}}</div>
+                            <div scope="col">{{'Total' | translate}}</div>
+                            <div scope="col">{{'Konto' | translate}}</div>
+                            <div>{{'Remove' |translate}}</div>
+                          </div>
+                          <div>
+                            <div class="article-div" formArrayName="articlesOther"
+                                *ngFor="let Other of articlesOther.controls; let i=index">
+                                <div formGroupName="{{i}}">
+                                  <input
+                                    class="table-input-field"
+                                    type="text"
+                                    #articleName3
+                                    formControlName="Name"
+                                    (keydown.enter)="moveToNextColumn($event)"
+                                    (click)="addRow(articlesOther, 'articlesOther', i)"
+                                    (blur)="addRow(articlesOther, 'articlesOther', i)"
+                                    [class.is-invalid]="Other.get('Name').invalid">
+                                </div>
+                                <div formGroupName="{{i}}">
+                                  <input
+                                  class="table-input-field"
+                                  type="text"
+                                  min="1"
+                                  #articleQuantity3
+                                  formControlName="Quantity" number-format-directive
+                                  (keydown.enter)="moveToNextColumn($event)"
+                                  (click)="addRow(articlesOther, 'articlesOther', i)"
+                                  (blur)="addRow(articlesOther, 'articlesOther', i)"
+                                  (keyup)="updateTotal(i, articlesOther)">
+                                </div>
+                                <div formGroupName="{{i}}">
+                                  <select
+                                  class="table-select-field"
+                                  #articleUnit3
+                                  formControlName="Unit"
+                                  (keydown.enter)="moveToNextColumn($event)"
+                                  (click)="addRow(articlesOther, 'articlesOther', i)"
+                                  (blur)="addRow(articlesOther, 'articlesOther', i)"
+                                  >
+                                    <option *ngFor="let unit of units['Other']" value="{{unit}}">{{unit}}
+                                    </option>
+                                  </select>
+                                </div>
+                                <div formGroupName="{{i}}">
+                                  <input
+                                    class="table-input-field"
+                                    type="number"
+                                    min="0"
+                                    type="text"
+                                    step="any"
+                                    lang="fr"
+                                    #articlePrice3
+                                    formControlName="Price"
+                                    (keydown.enter)="moveToNextColumn($event)"
+                                    (click)="addRow(articlesOther, 'articlesOther', i)"
+                                    (blur)="addRow(articlesOther, 'articlesOther', i)"
+                                    (keyup)="updateTotal(i, articlesOther)"
+                                    number-format-directive
+                                    >
+                                </div>
+                                <div formGroupName="{{i}}">
+                                  <input
+                                  class="table-input-field"
+                                  type="text"
+                                  #articleDeduct3
+                                  formControlName="Deduct"
+                                  (keydown.enter)="moveToNextColumn($event)"
+                                  (click)="addRow(articlesOther, 'articlesOther', i)"
+                                  (blur)="addRow(articlesOther, 'articlesOther', i)"
+                                  (keyup)="updateTotal(i, articlesOther)">
+                                </div>
+                                <div formGroupName="{{i}}">
+                                  <input
+                                  class="table-input-field"
+                                  readonly type="text"
+                                  #articleTotal3
+                                  [value]="Other.get('Total').value | number:'1.2-2':'fr'"
+                                  readonly
+                                  (keydown.enter)="moveToNextColumn($event)"
+                                  (click)="addRow(articlesOther, 'articlesOther', i)"
+                                  (blur)="addRow(articlesOther, 'articlesOther', i)"
+                                  >
+                                </div>
+                                <div formGroupName="{{i}}">
+                                  <select
+                                    class="table-select-field"
+                                    #articleAccount3
+                                    formControlName="Account"
+                                    (keydown.enter)="moveToNextColumn($event)"
+                                    (click)="addRow(articlesOther, 'articlesOther', i)"
+                                    (blur)="addRow(articlesOther, 'articlesOther', i)"
+                                    >
+                                    <option *ngFor="let account of enabledAccounts"
+                                      [value]="account.Number"
+                                      [selected]="account.Number == enabledAccounts[0].Number">
+                                      {{account.Number}} {{account.Description}}
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="delete-container" >
+                                    <img (click)="removeRow(i, articlesOther, 'articlesOther')" src="../../../../../../assets/img/red-trash.png"
+                                      alt="" class="red-trash" />
+                                </div>
+                            </div>
+                            <div *ngIf="getArticleOther">
+                                <div colspan="5" scope="col"></div>
+                                <div scope="col"><strong>{{calcAllTotal([getArticleOther]) | number:'1.2-2':'fr'}}</strong></div>
+                                <div colspan="2" scope="col"></div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!---->
+              </div>
+          </div>
+      </div>
+      <div *ngIf="getArticlesAdditionalWork && getArticlesMaterial && getArticleOther" class="form-wrapper mb-3">
+          <div class="panel panel-default w-100">
+              <div>
+                  <div >
+                      <div>
+                          <div>
+                              <div>
+                                  <div scope="col" class="w-75" style="text-align: right;">
+                                      <strong>{{'Total'|translate}}:
+                                          {{calcAllTotal([getArticlesAdditionalWork, getArticlesMaterial, getArticleOther]) | number:'1.2-2':'fr'}}</strong>
+                                  </div>
+                                  <div colspan="2" scope="col"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="sticky-container">
+          <button
+          type="button"
+          class="save-button"
+          (click)="toggleRikiModal()"
+          >
+          {{ "Save" | translate }}
+          </button>
+      </div>
+    </form>
+  </div>
+</div>

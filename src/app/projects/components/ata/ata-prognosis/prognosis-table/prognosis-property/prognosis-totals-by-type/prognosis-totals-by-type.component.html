@@ -1,0 +1,177 @@
+<div
+  class="second-row-wrapper"
+  [ngStyle]="{ 'grid-template-columns': setGridLayout() }"
+>
+  <div 
+    class="item"
+    [ngClass]="
+      project_status == 1
+      ? 'project-yellow1'
+      : project_status == 2
+      ? 'project-green1'
+      : project_status == 4
+      ? 'project-blue1'
+      : project_status == 5
+      ? 'wemax-aborted-prognos'
+      : 'project-grey1'
+    "
+  >
+    {{ name }}
+  </div>
+  <div class="item prognos-totals">
+    <input
+      type="text"
+      class="prognos-input-total"
+      [value]="predicted_total"
+      (click)="$event.target.select()"
+      (input)="setProjectPrognos($event, true)"
+      number-format-prognosis-directive
+      [resetValue]="resetPredictedValue"
+      [disabled]="
+        isLocked || !userDetails.create_project_Forecast
+      "
+      [ngClass]="{
+        'disabled-btn': isLocked || !userDetails.create_project_Forecast
+      }"
+    />
+  </div>
+  <div 
+    class="item"
+    [ngClass]="
+      project_status == 1
+      ? 'project-yellow1'
+      : project_status == 2
+      ? 'project-green1'
+      : project_status == 4
+      ? 'project-blue1'
+      : project_status == 5
+      ? 'wemax-aborted-prognos'
+      : 'project-grey1'
+    "  
+  >
+    {{ totalByType.totallyWorkedUp | number : "1.2-2" : "fr" }}
+  </div>
+  <div 
+    class="item"
+    [ngClass]="
+      project_status == 1
+      ? 'project-yellow1'
+      : project_status == 2
+      ? 'project-green1'
+      : project_status == 4
+      ? 'project-blue1'
+      : project_status == 5
+      ? 'wemax-aborted-prognos'
+      : 'project-grey1'
+    "  
+  >
+    {{ totalByType.workedButNotApproved | number : "1.2-2" : "fr" }}
+  </div>
+  <div 
+    class="item"
+    [ngClass]="
+      project_status == 1
+      ? 'project-yellow1'
+      : project_status == 2
+      ? 'project-green1'
+      : project_status == 4
+      ? 'project-blue1'
+      : project_status == 5
+      ? 'wemax-aborted-prognos'
+      : 'project-grey1'
+    "
+  >
+    {{ totalByType.total_sent | number : "1.2-2" : "fr" }}
+  </div>
+  <div 
+    class="item"
+    [ngClass]="
+      project_status == 1
+      ? 'project-yellow1'
+      : project_status == 2
+      ? 'project-green1'
+      : project_status == 4
+      ? 'project-blue1'
+      : project_status == 5
+      ? 'wemax-aborted-prognos'
+      : 'project-grey1'
+    "  
+  >
+    {{ totalByType.approvedForInvoice | number : "1.2-2" : "fr" }}
+  </div>
+  <div 
+    class="item"
+    [ngClass]="
+      project_status == 1
+      ? 'project-yellow1'
+      : project_status == 2
+      ? 'project-green1'
+      : project_status == 4
+      ? 'project-blue1'
+      : project_status == 5
+      ? 'wemax-aborted-prognos'
+      : 'project-grey1'
+    "
+  >
+    {{ totalByType.invoicedTotal | number : "1.2-2" : "fr" }}
+  </div>
+  <div 
+    class="item" 
+    *ngIf="prognosisTableService.hasRiktpris"
+    [ngClass]="
+      project_status == 1
+      ? 'project-yellow1'
+      : project_status == 2
+      ? 'project-green1'
+      : project_status == 4
+      ? 'project-blue1'
+      : project_status == 5
+      ? 'wemax-aborted-prognos'
+      : 'project-grey1'
+    "  
+    ></div>
+  <div
+    class="item prognos"
+    [ngClass]="{
+      item: true,
+      prognos: true,
+      'disabled-btn': isLocked
+    }"
+    [ngStyle]="{
+      border: prognosisHaveBorder ? '2px solid var(--orange-dark)' : ''
+    }"
+  >
+    <input
+      (focus)="prognosisHaveBorder = true"
+      (blur)="prognosisHaveBorder = false"
+      type="text"
+      class="prognos-input"
+      [ngClass]="{
+        'prognos-input': true,
+        'disabled-btn': isLocked || !userDetails.create_project_Forecast
+      }"
+      (input)="setProjectPrognos($event)"
+      [value]="totalByType.prognosis"
+      number-format-prognosis-directive
+      [resetValue]="resetValue"
+      [disabled]="
+        isLocked || !userDetails.create_project_Forecast
+      "
+      (click)="$event.target.select()"
+    />
+  </div>
+  <div 
+    class="item"
+    [ngClass]="
+      project_status == 1
+      ? 'project-yellow1'
+      : project_status == 2
+      ? 'project-green1'
+      : project_status == 4
+      ? 'project-blue1'
+      : project_status == 5
+      ? 'wemax-aborted-prognos'
+      : 'project-grey1'
+    "  
+  ></div>
+</div>

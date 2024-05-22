@@ -1,0 +1,11 @@
+<div class="erst-type-grid child-white-bck" >
+    <div class="sticky-column stck-cl-0 erst-type-box c" >{{ nr + 1 }}</div>
+    <div class="sticky-column stck-cl-1 erst-type-box flex-align-start">{{ type.name }}</div>
+    <div class="erst-type-box">{{ type.quantity | number: "1.2-2":"fr" }}</div>
+    <div class="erst-type-box">{{ type.unit_name }}</div>
+    <div class="erst-type-box">{{ type.timecode_visma }}</div> 
+    <div class="erst-type-box">{{ type.timecode }}</div>
+    <div class="erst-type-box">{{ status | translate }}</div>
+    <div (click)="openEditTypeModal(type)" [title]="'Edit' | translate" class="pointer erst-type-box"><app-edit-icon-svg></app-edit-icon-svg></div>
+    <div (click)="removeType(type)" [title]="'Remove' | translate" class="pointer erst-type-box"><app-trash-can-icon-svg></app-trash-can-icon-svg></div>
+</div>

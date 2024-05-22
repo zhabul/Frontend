@@ -1,0 +1,114 @@
+<div class="modal-top-wrapper">
+  <h4>{{ "Message" | translate }}</h4>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="update()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div class="form-group col-xs-12">
+    <div class="messages-wrapper blu-scroll" id="skrollbar">
+      <div class="chat-window">
+        <div class="right-line" style="bottom: -3px"></div>
+        <div class="chat-week">
+          <div class="week-title padding-left">
+            {{ "Week" | translate }} {{ messages[0].week }}
+          </div>
+          <div
+
+            class="chat-cont"
+            [style.justify-content]="
+              userDetails.user_id == message.user_id ? 'left' : 'right'
+            "
+            *ngFor="let message of messages"
+            
+          >
+            <ng-container *ngIf="message.message && message.message != ''">
+              <div
+                [ngClass]="
+                  userDetails.user_id == message.user_id
+                    ? 'user-chat'
+                    : 'admin-chat'
+                " 
+              >
+                <div class="msg">
+                  <div>
+                    {{ message.message | translate }}
+                  </div> 
+                  <div class="floating-icon-image"> 
+                    <span class="material-icons icon-image" *ngFor="let file of message.images; let index = index" (click)="openSwiper(index, message.images)">
+                      image  
+                    </span>
+                  </div>
+                </div>
+                <div
+                  [ngClass]="
+                    userDetails.user_id == message.user_id
+                      ? 'text-justify-left'
+                      : 'text-justify-right'
+                  "
+                >
+                  {{
+                    userDetails.user_id != message.user_id
+                      ? message.full_name
+                      : ""
+                  }}
+                  {{ message.created_message }}
+                </div>
+              </div>
+              <app-chat-buble-arrow-for-app-module
+                [type]="
+                  userDetails.user_id == message.user_id
+                    ? 'user-chat'
+                    : 'admin-chat'
+                "
+              ></app-chat-buble-arrow-for-app-module>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="textarea-container">
+        <div class="right-line"></div>
+        <div class="left-line"></div>
+        <textarea
+          class="txt-area blu-scroll"
+          [placeholder]="('Comment' | translate) + ' ...'"
+          d="Description"
+          rows="2"
+          maxlength="500"
+          formControlName="message"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="button-group text-center">
+    <button 
+      *ngIf="createForm.valid"
+      type="submit"
+      class="btn lh09 dialogBtn"
+      (click)="sendComment()"
+    >
+      <mat-icon>send</mat-icon>
+      <div style="margin-left: 15px;">Send</div>
+    </button> 
+  </div>
+</div>
+
+
+<app-gallery
+
+  *ngIf="swiper.images.length" 
+  [swiper]="swiper"
+  [canRemove]="false"
+  (closeSwiperEvent)="closeSwiper()"
+  [server]="true"
+
+></app-gallery>

@@ -1,0 +1,136 @@
+<div class="modal-top-wrapper">
+  <h6>{{ "Upload Images" | translate }}</h6>
+  <button class="btn btn-close close-button-custom" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="modalForm"
+  (ngSubmit)="addImages()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div class="form-top">
+    <div class="form-row-align">
+      <div class="form-group">
+        <label for="document">{{ "Upload document" | translate }}</label>
+        <div
+          class="form-group form-group-upload dropzone fileover"
+          appDnd
+          (fileDropped)="onFileDropped($event)"
+        >
+          <div></div>
+          <label class="btn btn-outline-info mr-2" for="document">{{
+            "Attach or drop file here" | translate
+          }}</label>
+
+          <span *ngIf="!chooseFile">{{ "No file chosen" | translate }}</span>
+          <input
+            type="file"
+            [accept]="fileType"
+            class="form-control-file hide"
+            id="document"
+            (change)="documentsOnChange($event)"
+            #fileDropRef
+          />
+          <span>{{ uploadImage }} {{ uploadPdf }}</span>
+          <div class="fileover-background"></div>
+        </div>
+      </div>
+
+      <div class="for-row-content" *ngIf="!modal_data.data.noComment">
+        <div
+          class="form-group editor-wrapp"
+          [ngClass]="{
+            'has-error':
+              (modalForm.get('description').touched ||
+                modalForm.get('description').dirty) &&
+              !modalForm.get('description').valid
+          }"
+        >
+          <label for="description">{{ "Description" | translate }}</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="description"
+            placeholder="{{ 'Enter description' | translate }}"
+            formControlName="description"
+            rows="3"
+            maxlength="500"
+          >
+          </textarea>
+          <small style="opacity: 0.75"
+            >{{ modalForm.get("description").value.length }}/500</small
+          >
+        </div>
+      </div>
+      <span
+        *ngIf="modalForm.value.image || modalForm.value.pdf_documents"
+        class="btn btn-add btn-success text-center"
+        (click)="addToArray()"
+        ><i class="material-icons">library_add</i></span
+      >
+    </div>
+  </div>
+  <div class="form-bottom">
+    <div class="file-wrapper blu-scroll">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{ "Name" | translate }}</th>
+            <th *ngIf="!modal_data.noComment" scope="col">
+              {{ "Description" | translate }}
+            </th>
+            <th *ngIf="modal_data.noComment" scope="col"></th>
+            <th scope="col">{{ "Remove" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tr-title" *ngIf="files.length > 0">
+            <td colspan="3">
+              {{ "Images" | translate }}
+            </td>
+          </tr>
+          <tr *ngFor="let file of files; let index = index">
+            <td>{{ file.name }}</td>
+            <td>{{ file.description }}</td>
+            <td>
+              <i
+                (click)="removeImages(index)"
+                class="material-icons remove-icon"
+                >clear</i
+              >
+            </td>
+          </tr>
+          <tr class="tr-title" *ngIf="documents.length > 0">
+            <td colspan="3">
+              {{ "Documents" | translate }}
+            </td>
+          </tr>
+          <tr *ngFor="let document of documents; let index = index">
+            <td>{{ document.name }}</td>
+            <td>{{ document.description }}</td>
+            <td>
+              <i
+                (click)="removeImages(index, 'document')"
+                class="material-icons remove-icon"
+                >clear</i
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="form-group text-center">
+      <button
+        type="submit"
+        class="btn btn-success btn-primary"
+        [disabled]="files.length == 0 && documents.length == 0"
+      >
+        {{ "Save" | translate }}
+      </button>
+    </div>
+  </div>
+</form>

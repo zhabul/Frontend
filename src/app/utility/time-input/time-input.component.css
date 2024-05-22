@@ -1,0 +1,43 @@
+.time-input-box {
+   color: black;
+   display: flex;
+   flex-direction: row;
+}
+
+.time-input-box input {
+    height: 27px;
+    width: 27px;
+    padding: 5px;
+    border-style: none;
+    text-align: center;
+}
+
+.time-seperator {
+    background-color: white;
+    height: 27px;
+    width: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.time-hours {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: white;
+}
+
+.time-minutes {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: white;
+}
+
+#hours {
+    padding-right: 0px;
+}
+
+#minutes {
+    padding-left: 0px;
+}

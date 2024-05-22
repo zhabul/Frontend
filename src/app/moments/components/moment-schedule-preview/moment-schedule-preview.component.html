@@ -1,0 +1,304 @@
+<div class="card col-md-12X col-lg-6X col-lg-8WX mb-4">
+  <div class="row form-heading bgGrayBlue py-1 d-flex heading-fixed">
+    <div class="header-btn-psotion">
+      <div class="btn-group-left">
+        <button
+          (click)="goBack()"
+          class="btn btn-dark mr-2 lh09 hideUnder800"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="badgeX badge-darkX material-icons top1px posRel"
+            >arrow_back</span
+          >
+        </button>
+        <div class="input-group date-month">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="material-icons">calendar_today</i></span>
+          </div>
+          <input id="dateSelectStartDate" autocomplete="off" type="text" class="form-control project-date"
+            aria-describedby="basic-addon1" placeholder="{{ 'Choose Start Date' | translate }}" #StartDate />
+        </div>
+        <input id="searchQuery" autocomplete="off" type="text" class="form-control project-date"
+          aria-describedby="basic-addon1" placeholder="{{ 'Search' | translate }}" [(ngModel)]="searchText" #search />
+      </div>
+      <div>
+        <div class="legend d-flex flex-row">
+          <ng-container *ngFor="let detail of absence_types | keyvalue">
+            <div
+              [ngStyle]="{
+                'background-color': detail['value'].color,
+                'border-radius': '2px',
+                margin: '3px',
+                padding: '2px'
+              }"
+            >
+              {{ detail["value"].ShortName | translate }}
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="legend-cars d-flex flex-row car">
+          <span style="width: 120px"></span>
+
+          <i [ngClass]="{
+              'material-icons calendar-icon blue': true,
+              car: true
+            }">
+            directions_car</i>
+          {{ "Company vehicle" | translate }}
+
+          <span style="width: 30px"></span>
+
+          <i [ngClass]="{
+              'material-icons calendar-icon': true,
+              car: true
+            }">
+            directions_car</i>
+          <p>{{ "Private vehicle" | translate }}</p>
+        </div>
+      </div>
+      <div class="pdf-button-wrapp">
+        <a class="btn btn-dark mr-2 lh09 hideUnder800" [routerLink]="[
+            '/timesheets/time-registration-admin/pdf/',
+            start_date,
+            last_date
+          ]" [queryParams]="{ userId: userId }"><i class="material-icons">picture_as_pdf</i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="planner-moments-wrapper" [ngStyle]="calculateStyles()">
+    <div class="calendar-body-window" id="scrollwindow" #scrollwindow>
+      <div
+        class="body-planner-moments-wrapper wrapper-top-position"
+        [style.min-height.px]="55 * users.length"
+      >
+        <div class="project-moments-menu">
+          <div class="project-moments-menu-header">
+            <div class="pagination-button-wrapp">
+              <span (click)="previous()"><i class="material-icons">navigate_before</i></span>
+              <span (click)="next()"><i class="material-icons">navigate_next</i></span>
+            </div>
+          </div>
+          <ul class="projects-ul-wrapper-cal all-projects-with-users">
+            <li
+              *ngFor="let user of users | filter: searchText; let i = index"
+              class="project-users-list-cal"
+            >
+              <div
+                class="moments-ul-li-left-cal"
+                (click)="goToUserDetails(user.id)"
+              >
+                <span>{{ user.firstName }} {{ user.lastName }}</span>
+                <div class="user-property">
+                  <div>{{ user.monthly_time }}</div>
+                  <div
+                    class="calendar-mileage-field mileage-style mileage-cars"
+                  >
+                    <i class="material-icons calendar-icon blue"
+                      >directions_car</i
+                    >{{
+                      user.monthly_mileage_company_car
+                        ? user.monthly_mileage_company_car
+                        : "0"
+                    }}
+                    <span style="width: 20px; height: 1px"></span>
+                    <i class="ml-2 material-icons calendar-icon"
+                      >directions_car</i
+                    >{{
+                      user.monthly_mileage_private_car
+                        ? user.monthly_mileage_private_car
+                        : "0"
+                    }}
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="planner-content-wrapper">
+          <div class="calendar-content-row" [ngStyle]="setHeaderPosition()">
+            <div
+              class="calendar-content-row-year"
+              *ngFor="let object of calendar; let index = index"
+              [ngClass]="setYearClass(index, object)"
+            >
+              <div
+                class="calendar-content-row-month"
+                *ngFor="let month of object.months; let index = index"
+                [ngClass]="setMonthClass(index, month)"
+              >
+                <div class="text-center calendar-content-row-month-border">
+                  <h5>{{ month.name | translate }} - {{ month.year }}</h5>
+                </div>
+
+                <div class="calendar-content-row-week-wrapper">
+                  <div
+                    *ngFor="let day of month.days; let index = index"
+                    class="week-td"
+                  >
+                    <div [ngStyle]="setBorder(day.isoWeek, index)">
+                      <div class="day-field text-center">
+                        {{ printWeek(day.isoWeek, index) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="calendar-content-row-day-wrapp">
+                  <div
+                    class="calendar-content-field-day"
+                    *ngFor="let day of month.days"
+                    (click)="lockDaysModal(day)"
+                    [ngStyle]="{
+                      'background-color':
+                        day.dayName === 'Sat' || day.dayName === 'Sun'
+                          ? '#efefef'
+                          : 'transparent'
+                    }">
+                    <div class="day-field text-center day-field-box-cal">
+                      {{ day.dateDay }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timline-body-wrapper-cal overflowHidden">
+            <div class="project-body-wrapper">
+              <ng-container *ngFor="
+                  let user of users | filter: searchText;
+                  let userIndex = index
+                ">
+                <div class="height-field-cal moment-wrraper">
+                  <ng-container
+                    *ngFor="let object of calendar; let index = index"
+                  >
+                    <ng-container
+                      *ngFor="let month of object.months; let index2 = index"
+                    >
+                      <ng-container *ngFor="let day of month.days">
+                        <div [ngStyle]="setStyle(user, day)">
+                          <div
+                            class="calendar-content-field-box-cal calendar-content-box-cal-lgreen {{
+                              day.date
+                            }}"
+                            [ngStyle]="{
+                              'background-color':
+                                day.dayName === 'Sat' || day.dayName === 'Sun'
+                                  ? '#efefef'
+                                  : 'transparent'
+                            }"
+                            (click)="goToUserMomentDetail(user, day.date)"
+                          >
+                            <ng-container
+                              *ngIf="
+                                (user.moments[day.date] &&
+                                  user.moments[day.date].Type ==
+                                    'userRaportStatus') ||
+                                (user.moments[day.date] &&
+                                  user.moments[day.date].time != '00:00' &&
+                                  user.moments[day.date]
+                                    .raportedDayHaveMomentsAndLocked)
+                              "
+                            >
+                              <i class="material-icons calendar-lock-style"
+                                >lock</i
+                              >
+                            </ng-container>
+                            <div class="calendar-text-field">
+                              {{ setValue(user, day)["ProjectName"] }}
+                            </div>
+                            <div
+                              class="calendar-text-field"
+                              *ngIf="user.moments[day.date]"
+                            >
+                              <i
+                                class="material-icons icon-small"
+                                *ngIf="
+                                  user.moments[day.date] &&
+                                  user.moments[day.date].time != '00:00'
+                                "
+                                >access_time</i
+                              >
+                              {{ setTimeValue(user, day) | translate }}
+                            </div>
+                            <div
+                              class="calendar-text-field"
+                              *ngIf="
+                                user.absences[day.date] &&
+                                user.absences[day.date].length > 0 &&
+                                user.absences[day.date][0].Approved == 1 &&
+                                day.dayName !== 'Sat' &&
+                                day.dayName !== 'Sun'
+                              "
+                            >
+                              <i class="material-icons icon-small"
+                                >free_breakfast</i
+                              >{{ setAbsenceValue(user, day) }}
+                            </div>
+                            <div
+                              class="calendar-mileage-field mileage-style"
+                              *ngIf="setValue(user, day).mileage"
+                            >
+                              <i
+                                [ngClass]="{
+                                  'material-icons calendar-icon': true,
+                                  blue:
+                                    user.moments[day.date]?.mileageType == '2',
+                                  black:
+                                    user.moments[day.date]?.mileageType != '2'
+                                }"
+                              >
+                                directions_car</i
+                              >
+                              {{ setValue(user, day)["mileage"] }}
+                            </div>
+
+                            <div
+                              (click)="openApproveAbsenceModal(day.date, user)"
+                              *ngIf="
+                                user.notApprovedAbsences[day.date]?.length &&
+                                day.dayName !== 'Sat' &&
+                                day.dayName !== 'Sun'
+                              "
+                              class="approve-absence-area"
+                              [title]="
+                                user.notApprovedAbsences[day.date][0]
+                                  .AbsenceType
+                              "
+                            >
+                              <span
+                                *ngIf="
+                                  user.notApprovedAbsences[day.date][0]
+                                    .attested == 0
+                                "
+                              >
+                                {{ "Need attest" | translate }}
+                              </span>
+                              <span class="approve-absence-text">
+                                {{
+                                  user.notApprovedAbsences[day.date][0]
+                                    .ShortName
+                                }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

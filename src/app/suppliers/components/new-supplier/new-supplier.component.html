@@ -1,0 +1,884 @@
+<div class="row border-nav d-flex">
+  <div class="d-flex align-items-center border-h-project px-4 py-2">
+    <a
+      routerLink="/suppliers"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+    <span class="back-icon-position">
+      <app-back-icon-svg
+        [width]="34"
+        [height]="29"
+        [color]="'82a7e2'"
+      ></app-back-icon-svg>
+    </span>
+    </a>
+    <button
+      hidden
+      class="btn btn-dark mr-2 active"
+      type="button"
+      routerLinkActive="active"
+    >
+      {{ "All Suppliers" | translate }}
+    </button>
+
+    <span class="ml-3 mt-2 h2 font-weight-normal title-project">{{
+      "Supplier register" | translate
+    }}</span>
+  </div>
+</div>
+<div class="tab-navigation-wrapper mt-2">
+  <div class="tab-navigation" style="margin-top: 26px">
+    <div class="nav-tabs tab-navigation">
+      <ul class="nav nav-tabs nav-pills" role="tablist">
+        <li class="nav-item approveItem cr-point">
+          <a
+            class="nav-link active"
+            [ngClass]="{ active: selectedTab == 0 }"
+            (click)="setSelectedTab(0)"
+            id="approveItem"
+          >
+            {{ "LEVERANTÖR DETALJER" | translate }}
+            <div
+              [ngClass]="{
+                'hide-bottom-box-shadow': selectedTab == 0,
+                'bottom-shadow-button': selectedTab !== 0
+              }"
+            ></div>
+          </a>
+        </li>
+        <li class="nav-item align-l cr-point">
+          <a
+            class="nav-link attest"
+            [ngClass]="{ active: selectedTab == 1 }"
+            (click)="setSelectedTab(1)"
+            style="z-index: 1; pointer-events: none"
+          >
+            {{ "LEVERANTÖR REFERENS" | translate }}
+            <div
+              [ngClass]="{
+                'hide-bottom-box-shadow': selectedTab == 1,
+                'bottom-shadow-button': selectedTab !== 1
+              }"
+            ></div>
+          </a>
+        </li>
+        <li class="nav-item align-l cr-point">
+          <!--  <div class="exclamation-mark-container" *ngIf="showCommentsNumber">
+            <p class="exclamation-mark">{{ commentsNumber }}</p>
+          </div> -->
+          <a
+            class="nav-link forecast"
+            [ngClass]="{ active: selectedTab == 2 }"
+            (click)="setSelectedTab(2)"
+            style="pointer-events: none"
+          >
+            {{ "Appendices" | translate }}
+            <div
+              [ngClass]="{
+                'hide-bottom-box-shadow': selectedTab == 2,
+                'bottom-shadow-button': selectedTab !== 2
+              }"
+            ></div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="blu-scroll-wrapp master-margin">
+  <div class="blu-scroll skrollbar card-project">
+    <form
+      *ngIf="this.selectedTab === 0"
+      class="p-3X w75"
+      novalidate
+      autocomplete="off"
+      [formGroup]="createForm"
+      (ngSubmit)="createSupplier()"
+      #myform="ngForm"
+    >
+      <h2 class="h5 master-title masster-title-margin">
+        {{ "Add New Supplier" | translate }}
+      </h2>
+      <!--  <hr /> -->
+      <div class="form-group rowX pb-4X mb-0 pb-0">
+        <div class="foractive">
+          <label class="bg-dangerX"
+            ><small
+              style="margin-left: -6px"
+              [ngClass]="{ 'font-weight-bold': boldOrNot }"
+              >{{ "Status" | translate }}{{ ":" }}
+              <!-- (OmvÃ¤nd betalningsskyldighet) --></small
+            ></label
+          ><br />
+          <div class="form-check form-check-inline">
+            <div class="radio-wrapper">
+              <input
+                class="first-radio"
+                type="radio"
+                name="Active"
+                id="inlineRadio1"
+                value="1"
+                checked
+                formControlName="Active"
+              />
+              <label
+                class="first-radio-label"
+                for="inlineRadio1"
+                checked
+              ></label>
+            </div>
+            <span class="yes-check">{{ "Active" | translate }}</span>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <div class="radio-wrapper">
+              <input
+                class="first-radio"
+                type="radio"
+                name="Active"
+                id="inlineRadio2"
+                value="0"
+                formControlName="Active"
+                checked
+              />
+              <label class="first-radio-label" for="inlineRadio2"
+                ><!-- {{ "No" | translate }} --></label
+              >
+              <span class="no-check">{{ "Inactive" | translate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="for-second-radio-inputs">
+          <label class="bg-dangerX"
+            ><small
+              style="margin-left: -6px; white-space: nowrap"
+              [ngClass]="{ 'font-weight-bold': boldOrNot }"
+              >{{ "Omvänd betalningsskyldighet" | translate }}{{ ":" }}
+              <!-- (OmvÃ¤nd betalningsskyldighet) --></small
+            ></label
+          ><br />
+          <div class="form-check form-check-inline">
+            <div class="radio-wrapper">
+              <input
+                class="first-radio"
+                type="radio"
+                name="reverse_charge"
+                id="inlineRadio11"
+                value="1"
+                checked
+                formControlName="reverse_charge"
+              />
+              <label
+                class="first-radio-label"
+                for="inlineRadio11"
+                checked
+              ></label>
+            </div>
+            <span class="yes-check">{{ "Yes" | translate }}</span>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <div class="radio-wrapper">
+              <input
+                class="first-radio"
+                type="radio"
+                name="reverse_charge"
+                id="inlineRadio22"
+                value="0"
+                formControlName="reverse_charge"
+                checked
+              />
+              <label class="first-radio-label" for="inlineRadio22"
+                ><!-- {{ "No" | translate }} --></label
+              >
+              <span class="no-check">{{ "No" | translate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: -83px">
+          <div class="" style="position: relative;left: 35px;">
+            <label for="validationCustom01" class="required"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "ORG NR" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+            <input
+              type="text"
+              class="form-control form-control-custom org-nr-width"
+              [ngClass]="{
+                'is-invalid':
+                  (createForm.get('Orgnr').touched || myform.submitted) &&
+                  createForm.get('Orgnr').invalid
+              }"
+              id="validationCustom01"
+              spellcheck="false"
+              formControlName="Orgnr"
+            />
+            <div class="invalid-feedback">Please enter a Org nr</div>
+            <label for="validationCustom01" class="required"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Supplier Name" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+            <input
+              type="text"
+              class="form-control form-control-custom supplier-name"
+              [ngClass]="{
+                'is-invalid':
+                  (createForm.get('Name').touched || myform.submitted) &&
+                  createForm.get('Name').invalid
+              }"
+              id="validationCustom01"
+              spellcheck="false"
+              formControlName="Name"
+            />
+            <div class="invalid-feedback">Please enter a Supplier's Name</div>
+
+            <div class="form-group">
+              <label for="supplierCategoryInput"
+                ><small>{{ "Supplier category" | translate }}</small></label
+              >
+              <div class="input-group" [hidden]="!showSupplierCategoryInput">
+                <input type="text" class="form-control" #newCategory />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary py-0"
+                    (click)="addOrEditSupplierCategory(newCategory.value)"
+                    type="button"
+                  >
+                    <span
+                      class="badgeX badge-darkX material-icons posRel"
+                      style="top: 3px"
+                      >save</span
+                    >
+                  </button>
+                </div>
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary py-0"
+                    (click)="toggleSupplierCategoryInput()"
+                    type="button"
+                  >
+                    <span
+                      class="badgeX badge-darkX material-icons posRel"
+                      style="top: 3px"
+                      >arrow_forward</span
+                    >
+                  </button>
+                </div>
+              </div>
+              <div class="input-group" [hidden]="showSupplierCategoryInput">
+                <!--
+                                <select class="custom-select" id="inputGroupSelect04"
+                                    aria-label="Example select with button addon"
+                                    (change)="categoryChange(categorySelected.value)" #categorySelected>
+                                    <option value="0">{{'Select category'|translate}}</option>
+                                    <option *ngFor="let category of supplierCategories" [value]="category.Id">
+                                        {{category.name | translate}}</option>
+                                </select>
+                                -->
+                <!--  <ng-multiselect-dropdown
+                  class="noRightBorder"
+                  name="material_categories"
+                  [settings]="dropdownSettings"
+                  [data]="supplierCategories"
+                  [placeholder]="translate.instant('Select')"
+                  [(ngModel)]="selectedMaterialCategories"
+                  [ngStyle]="{ width: 'calc(100% - 100px)' }"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                </ng-multiselect-dropdown> -->
+
+                <div class="input-wrapper1">
+                  <app-counter-dropdown-multiselect
+                    [(selectedItem)]="supplierCategories"
+                    [selectedCoworkers]=""
+                    [EnableSearch]="true"
+                    [placeholder]="'Select category' | translate"
+                    [width]="235"
+                    [type]="'AddSupplier'"
+                    (SelectedUser)="onSelect($event)"
+                    (SelectedUserAll)="onSelectAll($event)"
+                    (OnDeSelectAll)="onDeSelectAll($event)"
+                    [PermitActive]="false"
+                  >
+                  </app-counter-dropdown-multiselect>
+                </div>
+
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary py-0"
+                    (click)="openAddSupplierCategory(newCategory)"
+                    type="button"
+                  >
+                    <span
+                      class="badgeX badge-darkX material-icons posRel"
+                      style="top: 3px"
+                      >add</span
+                    >
+                  </button>
+                </div>
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary py-0"
+                    (click)="deleteSupplierCategory()"
+                    type="button"
+                  >
+                    <span
+                      class="badgeX badge-darkX material-icons posRel"
+                      style="top: 3px"
+                      >delete</span
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="" style="margin-top: 3px;position: absolute;left: 31rem;">
+            <!-- Prvi dio ovdje -->
+            <label for="validationCustom01" class="required"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Kund Nr" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+
+            <input
+              type="text"
+              class="form-control form-control-custom kund-nr-width"
+              [ngClass]="{
+                'is-invalid':
+                  (createForm.get('customer_number').touched || myform.submitted) &&
+                  createForm.get('customer_number').invalid
+              }"
+              id="validationCustom01"
+              spellcheck="false"
+              formControlName="customer_number"
+            />
+            <div class="invalid-feedback message-warrnig">
+              Please enter a Kund Nr
+            </div>
+            <label for="validationCustom01"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Momsregistreringsnummer" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+            <input
+              type="text"
+              class="form-control form-control-custom kund-nr-width"
+              [ngClass]="{
+                'is-invalid':
+                  (createForm.get('vat_registration_number').touched ||
+                    myform.submitted) &&
+                  createForm.get('vat_registration_number').invalid
+              }"
+              id="validationCustom01"
+              spellcheck="false"
+              formControlName="vat_registration_number"
+            />
+            <div class="invalid-feedback">
+              Please enter a Momsregistreringsnummer
+            </div>
+            <div class="form-group">
+              <label for="validationCustom03" class="required"
+                ><small>{{ "Order Email" | translate }}</small></label
+              >
+              <input
+                [attr.disabled]="
+                  !userDetails.create_register_suppliers ? 'disabled' : null
+                "
+                type="email"
+                class="form-control form-control-custom w-order-email"
+                id="validationCustom03"
+                spellcheck="false"
+                formControlName="Email"
+                [ngClass]="{
+                  'is-invalid':
+                    (createForm.get('Email').touched || myform.submitted) &&
+                    createForm.get('Email').invalid
+                }"
+              />
+              <span
+                class="help-block"
+                *ngIf="
+                  (createForm.get('Email').touched ||
+                    createForm.get('Email').dirty) &&
+                  createForm.get('Email').errors
+                "
+              >
+                <span
+                  *ngIf="createForm.get('Email').errors.required"
+                  class="text-danger"
+                  >{{ "Email required" | translate }}.</span
+                >
+                <span
+                  *ngIf="createForm.get('Email').errors.email"
+                  class="text-danger"
+                  >{{ "Email invalid" | translate }}.</span
+                >
+                <span
+                  *ngIf="createForm.get('Email').errors.exists"
+                  class="text-danger"
+                >
+                  {{ "Email already in use" | translate }}.
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <h3 class="h5 text-secondary master-title">
+              {{ "Company" | translate }}
+            </h3>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div style="flex: 0 0 calc(49% - 40px); padding-left: 35px">
+            <!-- Prvi div, 30% širine s razmakom od 40px desno i padding-left od 35px -->
+            <label for="validationCustom02"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Er referens" | translate
+              }}</small></label
+            >
+            <input
+              type="text"
+              class="form-control form-control-custom phone-1-2 w-company"
+              id="validationCustom02"
+              spellcheck="false"
+              formControlName="reference"
+            />
+            <div class="invalid-feedback">Please enter Er referens</div>
+          </div>
+          <div style="flex: 0 0 calc(47% - 19px); padding-left: 32px;padding-right:22px">
+            <!-- Drugi div, 30% širine s razmakom od 22px desno -->
+            <label for="validationCustom02"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Vår referens" | translate
+              }}</small></label
+            >
+            <input
+              type="text"
+              class="form-control form-control-custom phone-1-2 w-company"
+              id="validationCustom02"
+              spellcheck="false"
+              formControlName="our_reference"
+            />
+            <div class="invalid-feedback">Please enter Vår referens</div>
+          </div>
+          <div style="flex: 0 0 calc(47% - 45px);">
+            <!-- Drugi div, 30% širine s razmakom od 22px desno -->
+            <label for="validationCustom02"
+              ><small>{{ "Order Email" | translate }}</small></label
+            >
+            <input
+              [attr.disabled]="
+                !userDetails.create_register_suppliers ? 'disabled' : null
+              "
+              type="email"
+              class="form-control form-control-custom l-w-copany"
+              id="validationCustom02"
+              spellcheck="false"
+              formControlName="comapny_order_email"
+            />
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div style="flex: 0 0 calc(32% - 61px); padding-left: 35px">
+            <label style="white-space: nowrap" for="validationCustom02"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Phone Number 1" | translate
+              }}</small></label
+            >
+        <!--    <input
+              type="text"
+              class="form-control form-control-custom width-phone-1-2"
+              id="validationCustom02"
+              spellcheck="false"
+              formControlName="company_phone_1"
+            />
+          -->
+          <app-mobile-format
+            [mobile_number]="createForm.get('company_phone_1').value"
+            (phone_number)="replacePhoneNumber($event, 'company_phone_1')"
+            [width]="150"
+            [placeholder]="'Phone Number 1' | translate"
+            [fontSize]="12"
+            [disabled]="!allowEditSupplierInvoice()"
+          >
+          </app-mobile-format>
+            <div class="invalid-feedback">Please enter Company Phone 1</div>
+          </div>
+          <div style="flex: 0 0 calc(25% - 42px); margin-left: 15px">
+            <label style="white-space: nowrap" for="validationCustomYB"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                <!--Fakturaadress (Invoice address - postnr)-->{{
+                  "Phone Number 2" | translate
+                }}</small
+              ></label
+            >
+           <!-- <input
+              type="text"
+              class="form-control form-control-custom bg-infoX width-phone-1-2"
+              id="validationCustomYB"
+              spellcheck="false"
+              formControlName="company_phone_2"
+            />-->
+            <app-mobile-format
+              [mobile_number]="createForm.get('company_phone_2').value"
+              (phone_number)="replacePhoneNumber($event, 'company_phone_2')"
+              [width]="150"
+              [placeholder]="'Phone Number 2' | translate"
+              [fontSize]="12"
+              [disabled]="!allowEditSupplierInvoice()"
+            >
+            </app-mobile-format>
+            <div class="invalid-feedback">Please enter a company phone 2</div>
+          </div>
+          <div style="flex: 0 0 calc(42% - 22px); margin-left: 19px;padding-right:22px">
+            <label for="validationCustom03"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Email" | translate
+              }}</small></label
+            >
+            <input
+              type="text"
+              class="form-control form-control-custom w-company"
+              id="validationCustom03"
+              spellcheck="false"
+              formControlName="CompanyEmail"
+            />
+            <div class="invalid-feedback">Please enter an Email</div>
+          </div>
+          <div style="flex: 0 0 calc(42% - 28px);">
+            <label for="validationCustomXD"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                {{ "Web Address" | translate }}</small
+              ></label
+            >
+            <input
+              type="text"
+              class="form-control form-control-custom bg-infoX l-w-copany"
+              id="validationCustomXD"
+              spellcheck="false"
+              formControlName="WebAddress"
+            />
+            <div class="invalid-feedback">Please enter a web address</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div style="max-width: 100%">
+              <h3
+                class="h5 text-secondary master-title"
+                style="margin-top: 22px"
+              >
+                {{ "Visiting Address Details" | translate }}
+              </h3>
+              <label for="validationCustomAA"
+                ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                  <!-- Visiting Address (Besöksadres - Gata och nr) -->{{
+                    "Street and Number" | translate
+                  }}</small
+                ></label
+              >
+              <!-- OK -->
+              <input
+                type="text"
+                class="form-control form-control-custom bg-warningX"
+                id="validationCustomAA"
+                spellcheck="false"
+                formControlName="VisitingAddress"
+                style="width: 440px;"
+              />
+              <div class="invalid-feedback">Please enter an address</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div style="flex: 0 0 calc(49% - 40px); padding-left: 35px">
+            <!-- Prvi div, 30% širine s razmakom od 40px desno i padding-left od 35px -->
+            <label for="validationCustomBB"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Zip Code" | translate
+              }}</small></label
+            >
+
+            <input
+              type="text"
+              class="form-control form-control-custom bg-warningX w-zip-code"
+              id="validationCustomBB"
+              spellcheck="false"
+              formControlName="VisitingAddressPostnr"
+            />
+            <div class="invalid-feedback">Please enter a postnr</div>
+          </div>
+          <div style="flex: 0 0 calc(46% - 10px); padding-left: 10px;padding-right:22px">
+            <label for="validationCustomCC"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "City" | translate
+              }}</small></label
+            >
+
+            <input
+              type="text"
+              class="form-control form-control-custom bg-warningX w-city"
+              id="validationCustomCC"
+              spellcheck="false"
+              formControlName="VisitingAddressCity"
+            />
+            <div class="invalid-feedback">Please enter an ort</div>
+          </div>
+          <div style="flex: 0 0 calc(47% - 44px);">
+            <label for="validationCustomDD"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Country" | translate
+              }}</small></label
+            >
+            <input
+              type="text"
+              class="form-control form-control-custom bg-warningX l-w-copany"
+              id="validationCustomDD"
+              spellcheck="false"
+              formControlName="VisitingAddressLand"
+            />
+            <div class="invalid-feedback">Please enter a land</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div style="max-width: 100%">
+              <h3
+                class="h5 text-secondary master-title"
+                style="margin-top: 22px"
+              >
+                {{ "Invoice Address Details" | translate }}
+              </h3>
+              <label for="validationCustomXA"
+                ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                  <!-- Fakturaadress (Invoice address - Gata och nr) -->{{
+                    "Street and number" | translate
+                  }}</small
+                ></label
+              >
+              <!-- OK -->
+              <input
+                type="text"
+                class="form-control form-control-custom bg-infoX"
+                id="validationCustomXA"
+                spellcheck="false"
+                formControlName="InvoiceAddressStreetAndNo"
+                style="width: 100%; max-width: 440px"
+              />
+              <div class="invalid-feedback">Please enter an address</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div style="flex: 0 0 calc(49% - 40px); padding-left: 35px">
+            <!-- Prvi div, 30% širine s razmakom od 40px desno i padding-left od 35px -->
+            <label for="validationCustomXB"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                <!--Fakturaadress (Invoice address - postnr)-->{{
+                  "Zip Code" | translate
+                }}</small
+              ></label
+            >
+
+            <input
+              type="text"
+              class="form-control form-control-custom bg-infoX w-zip-code"
+              id="validationCustomXB"
+              spellcheck="false"
+              formControlName="InvoiceAddressPostnr"
+            />
+            <div class="invalid-feedback">Please enter a postnr</div>
+          </div>
+          <div style="flex: 0 0 calc(46% - 8px); padding-left: 10px;padding-right: 22px;">
+            <label for="validationCustomXC"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                <!-- Fakturaadress (Invoice address - ort) -->{{
+                  "City" | translate
+                }}</small
+              ></label
+            >
+
+            <input
+              type="text"
+              class="form-control form-control-custom bg-infoX w-city"
+              id="validationCustomXC"
+              spellcheck="false"
+              formControlName="InvoiceAddressCity"
+            />
+            <div class="invalid-feedback">Please enter an ort</div>
+          </div>
+          <div style="flex: 0 0 calc(47% - 45px);">
+            <label for="validationCustomXD"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                <!--Fakturaadress (Invoice address - land)-->{{
+                  "Country" | translate
+                }}</small
+              ></label
+            >
+            <input
+              type="text"
+              class="form-control form-control-custom bg-infoX l-w-copany"
+              id="validationCustomXD"
+              spellcheck="false"
+              formControlName="InvoiceAddressLand"
+            />
+            <div class="invalid-feedback">Please enter a land</div>
+          </div>
+        </div>
+
+        <!--  <div class="row">
+          <div class="col-12">
+            <h3 class="h5 mt-5 text-secondary master-title">
+              {{ "Payment Information" | translate }}
+            </h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <label for="validationCustomZA"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                {{
+                  "Bank Account" | translate
+                }}</small
+              ></label
+            >
+
+            <input
+              type="text"
+              class="form-control form-control-custom bg-infoX"
+              id="validationCustomZA"
+              spellcheck="false"
+              formControlName="BankGiro"
+            />
+            <div class="invalid-feedback">Please enter a bank giro</div>
+          </div>
+
+          <div class="col-12">
+            <label for="validationCustomZB"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                {{
+                  "Plus Account" | translate
+                }}</small
+              ></label
+            >
+
+            <input
+              type="text"
+              class="form-control form-control-custom bg-infoX"
+              id="validationCustomZB"
+              spellcheck="false"
+              formControlName="PlusGiro"
+            />
+            <div class="invalid-feedback">Please enter a plus giro</div>
+          </div>
+        </div> -->
+      </div>
+
+      <div
+        class="form-group text-center"
+        style="margin-left: 35px; margin-top: 25px"
+      >
+        <button
+          [disabled]="
+          !userDetails.create_register_suppliers ||
+          !createForm.dirty ||
+          !createForm.valid
+        "
+          type="submit"
+          class="save-button"
+          [style.opacity]="myform.submitted && createForm.invalid ? '0.5' : '1'"
+          [style.pointer-events]="myform.submitted && createForm.invalid ? 'none' : 'auto'"
+        >
+            <div class="button-icon">
+                <ng-container *ngIf="!createForm.dirty || !createForm.valid">
+                    <app-folder-icon-with-params-svg
+                        [width]="23.5"
+                        [height]="18.548"
+                        [strokeWidthParams]="1.5"
+                        [color]="'373b40'"
+                        [colorStroke]="'cccccc'"
+                        [opacityVal]="0.973"
+                    ></app-folder-icon-with-params-svg>
+                </ng-container>
+                <ng-container *ngIf="createForm.dirty && createForm.valid">
+                    <app-folder-icon-with-params-svg
+                        [width]="23.5"
+                        [height]="18.548"
+                        [strokeWidthParams]="1.5"
+                        [color]="'373b40'"
+                        [colorStroke]="'ff7000'"
+                        [opacityVal]="0.973"
+                    ></app-folder-icon-with-params-svg>
+                </ng-container>
+            </div>
+          <div>
+            {{ "Save" | translate }}
+          </div>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="vertical-line"></div>
+  <div class="horizontal-line"></div>
+</div>
+<div
+  *ngIf="showModal"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="closeModal($event)"
+>
+  <article
+    class="card narrow400 minh70p p-4 d-flex flex-column justify-content-between"
+  >
+    <section>
+      <p>
+        {{
+          "Supplier category can't be deleted because it is being used by one or more suppliers"
+            | translate
+        }}
+      </p>
+      <div *ngIf="suppliersUsingCategory">
+        <h5>{{ "Suppliers using category" | translate }}:</h5>
+        <ul>
+          <li
+            *ngFor="let supplier of suppliersUsingCategory"
+            class="text-danger"
+          >
+            <a
+              routerLink="/suppliers/details/{{ supplier.Id }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-danger"
+              >{{ supplier.Name }} &rarr;</a
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+  </article>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

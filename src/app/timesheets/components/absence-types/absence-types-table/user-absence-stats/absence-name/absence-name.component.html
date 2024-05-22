@@ -1,0 +1,7 @@
+<ng-container *ngIf="showValue">
+    <div class="value" (click)="toggleEditor()">{{ user.years.list[year.id][absence.id].subtracted | number: '1.2-2':'fr' }}</div>
+</ng-container>
+
+<ng-container *ngIf="showEditor">
+    <input #inputEl class="value-input" [(ngModel)]="yearMax" number-format-directive (blur)="save($event)" />
+</ng-container>

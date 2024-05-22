@@ -1,0 +1,164 @@
+<div class="weapper">
+    <div class="header">
+        <div class="logo">
+            <app-logo-svg></app-logo-svg>
+        </div>
+        <div class="amendments">
+            <div class="fs-30">
+                {{project_name}}
+            </div>
+            <div class="fs-30">
+                <ng-container *ngIf="from == 'du'">
+                    {{'Debiteringsunderlag att attestera' | translate}}
+                </ng-container>
+                <ng-container *ngIf="from != 'du'">
+                    {{'Ändrings' | translate}} {{'&' | translate}} {{'Tilläggsarbeten att attestera' | translate}}
+                </ng-container>
+            </div>
+        </div>
+        <div class="date">
+            <div>
+            </div>
+            <div>
+                <p class="fs-16 margin-bottom-32" *ngIf="!empty_data">
+                    {{'Skapad' | translate}}: {{sending_date}}
+                </p>
+                <p class="fs-20" *ngIf="!empty_data && due_date && due_date.length > 0">
+                    {{'Besked senast' | translate}}: {{due_date}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table *ngIf="weekly_reports.length > 0">
+            <thead>
+                <tr>
+                    <th style="min-width: 132px; width:132px">{{ from == 'du' ? 'Project' : 'Nr' | translate }}</th>
+                    <th style="min-width: 301px; width:301px">{{ from == 'du' ? 'DU' : 'TSC_Name' | translate }}</th>
+                    <th style="min-width: 92.86px; width:92.86px">{{ from == 'du' ? 'Activity' : 'Debit form' | translate}}</th>
+                    <th style="min-width: 95px; width:95px">{{'TSC_SENT' | translate}}</th>
+                    <th [attr.colspan]="number_of_client_workers">
+                        <div style="display: grid;grid-template-columns: 1fr 1fr  1fr 1fr;position:relative">
+                            <p style="position: absolute;justify-self: center;top: -9px;" class="mb-0">{{'Attestflöde' | translate}}</p>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let weekly_report of weekly_reports; let index = index">
+                    <tr (click)="openExternalLink(weekly_report)">
+                        <th [ngClass]="{click_enabled: weekly_report.allow_answer && weekly_report.avaible_cw_ids.includes(client_id)}">{{ from == 'du' ? weekly_report.project_name : weekly_report.name}}</th>
+                        <th [ngClass]="{click_enabled: weekly_report.allow_answer && weekly_report.avaible_cw_ids.includes(client_id)}">{{from == 'du' ?  weekly_report.name : weekly_report.description}}</th>
+                        <th>{{from == 'du' ?  weekly_report.project_activity : weekly_report.debit}}</th>
+                        <th>{{weekly_report.sent}}</th>
+                        <ng-container *ngFor="let number_of_email_log of number_of_email_logs; let client_worker_index = index;">
+                            <th style="padding-left:30px">
+                                {{weekly_report.email_logs[client_worker_index] ? weekly_report.email_logs[client_worker_index].to_user : ''}}
+                                <span class="accepted-icon" *ngIf="(weekly_report.email_logs[client_worker_index] && weekly_report.email_logs[client_worker_index].status != 1 && weekly_report.email_logs[client_worker_index].status != 0)">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="15"
+                                        height="15"
+                                        viewBox="0 0 30.843 26.649"
+                                    >
+                                    <path
+                                        id="Path_422"
+                                        data-name="Path 422"
+                                        d="M29.2,68.509a1.328,1.328,0,0,0-2.095,0L9.353,89.431l-6.825-8.04a1.328,1.328,0,0,0-2.095,0,1.973,1.973,0,0,0,0,2.469L8.3,93.135a1.328,1.328,0,0,0,2.095,0L29.2,70.964a1.974,1.974,0,0,0,0-2.455Z"
+                                        transform="translate(0.609 -67.498)"
+                                        fill="#07b937"
+                                        stroke="#0bb70b"
+                                        stroke-width="1"
+                                    />
+                                    </svg>
+                                </span>
+                                <span class="not_accepted" *ngIf="weekly_report.email_logs[client_worker_index] && weekly_report.email_logs[client_worker_index].status != 2"></span>
+                            </th>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <table *ngIf="reminder_weekly_reports.length > 0">
+            <thead>
+                <tr>
+                    <th [attr.colspan]=" 4 + number_of_client_workers" class="tr-2">
+                        <div style="display: grid;grid-template-columns: 132px 400px 1fr;">
+                           <div class="pominnelse">{{ 'PÅMINNELSE' | translate }}</div>
+                           <div class="andrings">
+                                <ng-container *ngIf="from == 'du'">
+                                    {{'Debiteringsunderlag att attestera' | translate}}
+                                </ng-container>
+                                <ng-container *ngIf="from != 'du'">
+                                    {{ 'Ändrings & Tilläggsarbeten att attestera' | translate}}
+                                </ng-container>
+                            </div>
+                           <div class="date-table-thead">{{ 'Besked senast' | translate }}: {{due_date}} </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let weekly_report of reminder_weekly_reports; let index = index">
+                    <tr (click)="openExternalLink(weekly_report)">
+                        <th [ngClass]="{click_enabled: weekly_report.allow_answer && ( weekly_report.reminder > 0 || weekly_report.avaible_cw_ids.includes(client_id) )}" style="min-width: 132px; width:132px">{{ from == 'du' ? weekly_report.project_name : weekly_report.name}}</th>
+                        <th [ngClass]="{click_enabled: weekly_report.allow_answer && ( weekly_report.reminder > 0 || weekly_report.avaible_cw_ids.includes(client_id) )}" style="min-width: 301px; width:301px">{{from == 'du' ?  weekly_report.name : weekly_report.description}}</th>
+                        <th style="min-width: 92.86px; width:92.86px">{{from == 'du' ?  weekly_report.project_activity : weekly_report.debit}}</th>
+                        <th style="min-width: 95px; width:95px">{{weekly_report.sent}}</th>
+                        <ng-container *ngFor="let number_of_email_log of number_of_email_logs; let client_worker_index = index;">
+                            <th style="padding-left:30px">
+                                {{weekly_report.email_logs[client_worker_index] ? weekly_report.email_logs[client_worker_index].to_user : ''}}
+                                <span class="accepted-icon" *ngIf="(weekly_report.email_logs[client_worker_index] && weekly_report.email_logs[client_worker_index].status != 1 && weekly_report.email_logs[client_worker_index].status != 0)">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="15"
+                                        height="15"
+                                        viewBox="0 0 30.843 26.649"
+                                    >
+                                    <path
+                                        id="Path_422"
+                                        data-name="Path 422"
+                                        d="M29.2,68.509a1.328,1.328,0,0,0-2.095,0L9.353,89.431l-6.825-8.04a1.328,1.328,0,0,0-2.095,0,1.973,1.973,0,0,0,0,2.469L8.3,93.135a1.328,1.328,0,0,0,2.095,0L29.2,70.964a1.974,1.974,0,0,0,0-2.455Z"
+                                        transform="translate(0.609 -67.498)"
+                                        fill="#07b937"
+                                        stroke="#0bb70b"
+                                        stroke-width="1"
+                                    />
+                                    </svg>
+                                </span>
+                                <span class="not_accepted" *ngIf="weekly_report.email_logs[client_worker_index] && weekly_report.email_logs[client_worker_index].status != 2"></span>
+                            </th>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <div class="empty-data" *ngIf="empty_data">
+        <div class="main-content">
+            <div class="txt-header">
+                <span class="material-icons done-symbol">
+                    done
+                </span>
+            </div>
+            <div class="txt-header">
+                <h1>{{ "Thank you for your confirmation." | translate }}</h1>
+            </div>
+          </div>
+    </div>
+    <div class="footer">
+        <div class="footer-wrapp">
+            <div class="right-footer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="82" height="20.25" viewBox="0 0 82 20.25">
+                    <g id="Group_6194" data-name="Group 6194" transform="translate(-1750 -1742)">
+                      <text id="sps360.com_" data-name="sps360.com " transform="translate(1750 1757)" fill="#e67314" font-size="15" font-family="PTSans-Regular, PT Sans" letter-spacing="0.016em"><tspan x="0" y="0">sps360.com </tspan></text>
+                      <line id="Line_318" data-name="Line 318" x2="78" transform="translate(1750.5 1761.5)" fill="none" stroke="#e67314" stroke-width="1.5"/>
+                    </g>
+                  </svg>
+            </div>
+        </div>
+        <div class="progress-loader" *ngIf="spinner">
+          <mat-spinner></mat-spinner>
+        </div>
+    </div>
+</div>

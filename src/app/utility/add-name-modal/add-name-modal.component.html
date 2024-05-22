@@ -1,0 +1,46 @@
+
+<div
+  class="modal fade new-modal"
+  style="opacity: 1; display: block;"
+  id="addCom"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content lax">
+      <div class="modal-header heahea">
+        <button
+          type="button"
+          class="close le"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeModal()"
+        >
+          <app-close-icon-svg></app-close-icon-svg>
+        </button>
+      </div>
+      <form [formGroup]="nameForm" (submit)="saveModalData()">
+        <div class="modal-body">
+            <p class="whh">Name</p>
+            <input
+
+              type="text"
+              class="form-contorol adcom"
+              formControlName="name"
+              maxlength="50"
+
+            />
+        </div>
+        <div class="modal-footer tete">
+          <button
+            type="submit"
+            class="spara-btn2"
+            data-dismiss="modal"
+          >
+            <div class="spara-txt">
+              <p>{{ "TSC_SAVE" | translate }}</p>
+            </div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

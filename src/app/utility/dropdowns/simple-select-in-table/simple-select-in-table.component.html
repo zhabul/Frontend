@@ -1,0 +1,39 @@
+
+<div (click)="onToggleMenu()" #dropdown [style.width.px]="width" class="name-of-multselect"
+  [ngStyle]="{
+    'border':border,
+    'border-bottom':toggle ? border4 : border,
+    'padding': padding
+    }">
+    <input [ngStyle]="{'color': color }" #search type1="text" class="search" placeholder="{{ ref }}" [(ngModel)]="filterText" *ngIf="show && EnableSearch" [style.font-size.px]="fontSize">
+    <div [ngStyle]="{'color': color }" [ngClass]="{'TitleName': true, 'disabledTitleName': show && EnableSearch}" [style.font-size.px]="fontSize">{{ ref }}</div>
+    <p *ngIf="type == 'time_attest'" class="time-atest-p">{{selected.name2 ? selected.name2: selected.name}}</p>
+    <div class="arrow" >
+        <app-arrow-for-dropdown
+            [fill]="fill"
+            [rotate]="rotate"
+        >
+        </app-arrow-for-dropdown>
+    </div>
+    <div class="border-on-scroll" *ngIf="toggle && showborder" ></div>
+</div>
+<div [style.width.px]="width - 5" class="shadow" *ngIf="toggle && havedata"></div>
+<div>
+  <div [ngStyle]="{
+    'border-bottom': border1,
+    'border-right': border1,
+    'border-left': border1,
+    'border-top': border2,
+    'border-radius': toggle ?'0px 0px 4px 4px': '4px 4px 0px 0px'
+    }" *ngIf="toggle" class="dropdown-scroll" [style.width.px]="width + 12">
+    <div class="users" [disabled]="disabled" [value]="selectedValue" (change)="onChange($event.target.value)">
+      <div class="users-list" *ngFor="let option of filteredClient; let index=index;" [value]="option.id" (click)="onChangeSelect(option)" [style.font-size.px]="fontSize">
+        <div *ngIf="!AccountActive && !Hours && !Minutes && !PayPlanActivity" class="users-wrap" title="{{option}}" [style.width.px]="width - 5">{{ option }}</div>
+        <div *ngIf="AccountActive && !Hours && !Minutes && !PayPlanActivity" class="users-wrap" title="{{option.Description}}" [style.width.px]="width - 5">{{ option.Number + ' ' + option.Description }}</div>
+        <div *ngIf="Hours && !AccountActive && !Minutes && !PayPlanActivity" class="users-wrap" title="{{option.hours}}" [style.width.px]="width - 5">{{ option.hours }}</div>
+        <div *ngIf="Minutes && !Hours && !AccountActive && !PayPlanActivity" class="users-wrap" title="{{option.minutes}}" [style.width.px]="width - 5">{{ option.minutes }}</div>
+        <div *ngIf="PayPlanActivity && !Minutes && !Hours !AccountActive" class="users-wrap" title="{{option.name}}" [style.width.px]="width - 5">{{ option.CustomName + ' ' + option.name }}</div>
+      </div>
+    </div>
+  </div>
+</div>

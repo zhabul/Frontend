@@ -1,0 +1,255 @@
+<ng-container>
+  <div class="d-flex mt-4 buttons-cont email-log-wrapper">
+    <div class="row ml-2 searchdiv">
+      <!-- <form class="form-inline my-2X my-lg-0"> -->
+      <span class="search-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="13"
+          height="13.06"
+          viewBox="0 0 13 13.06"
+        >
+          <path
+            id="Path_737"
+            data-name="Path 737"
+            d="M30.923,28.9l-.078-.079h0l-3.134-3.151a5.185,5.185,0,0,0-4.425-7.777h-.034a5.18,5.18,0,0,0-.032,10.36h.034a5.106,5.106,0,0,0,2.595-.706l3.131,3.149h0l.078.079a.6.6,0,0,0,.858,0l1.007-1.013A.612.612,0,0,0,30.923,28.9Zm-7.695-1.968a3.859,3.859,0,0,1,.024-7.718h.026a3.8,3.8,0,0,1,2.707,1.148,3.874,3.874,0,0,1-.027,5.449,3.8,3.8,0,0,1-2.7,1.121Z"
+            transform="translate(-18.101 -17.89)"
+            fill="#fcf4ec"
+          />
+        </svg>
+      </span>
+      <input
+        class="search-form text-uppercase"
+        type="text"
+        placeholder="{{ 'Search' | translate }}"
+        (input)="filterBySearchQuery()"
+        [(ngModel)]="searchQuery"
+      />
+      <span class="clear-icon" (click)="clearSearchText()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="10.189"
+          height="10.189"
+          viewBox="0 0 10.189 10.189"
+        >
+          <path
+            id="Path_783"
+            data-name="Path 783"
+            d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z"
+            transform="translate(3.622 4.382)"
+            fill="#fcf4ec"
+          />
+        </svg>
+      </span>
+      <!-- </form> -->
+    </div>
+
+    <div class="d-flex" style="margin-top: 3px">
+      <div class="d-flex border-item p-1 mr-4 cursor-pointer" style="border-style: none">
+        <form style="display: flex; grid-gap: 5px">
+          <div
+            class="d-flex border-item p-1 mr-4 cursor-pointer"
+            (click)="onStatusChange('-1')"
+          >
+            <div style="margin-bottom: 2px">
+                <app-status-change-icon
+                  [status]="!statusObject['-1'] ? 'inactive' : 'active'"
+                  [color]="!statusObject['-1'] ? '#fff' : '#fff'"
+                ></app-status-change-icon>
+            </div>
+            <div class="align-button-title">
+              <span class="text-uppercase mr-1">{{ "All" | translate }}</span>
+            </div>
+          </div>
+
+          <div
+            class="d-flex border-item p-1 mr-4 cursor-pointer"
+            (click)="onStatusChange('0')"
+            *ngIf="appPart != 'offer'"
+          >
+            <div style="margin-bottom: 2px">
+              <app-status-change-icon
+                [status]="!statusObject['0'] ? 'inactive' : 'active'"
+                [color]="!statusObject['0'] ? '#fff' : '#FF7000'"
+              ></app-status-change-icon>
+            </div>
+
+            <div class="align-button-title">
+              <span class="text-uppercase mr-1">{{
+                "Reminder" | translate
+              }}</span>
+            </div>
+          </div>
+
+          <div
+            class="d-flex border-item p-1 mr-4 cursor-pointer"
+            (click)="onStatusChange('1')"
+          >
+            <div style="margin-bottom: 2px">
+              <app-status-change-icon
+                [status]="!statusObject['1'] ? 'inactive' : 'active'"
+                [color]="!statusObject['1'] ? '#fff' : '#94EFFD'"
+              ></app-status-change-icon>
+            </div>
+            <div class="align-button-title">
+              <span class="text-uppercase mr-1">{{ "Sent" | translate }}</span>
+            </div>
+          </div>
+
+          <div
+          class="d-flex border-item p-1 mr-4 cursor-pointer"
+          (click)="onStatusChange('6')"
+          *ngIf="haveQuestionStatus"
+        >
+          <div style="margin-bottom: 2px">
+            <app-status-change-icon
+              [status]="!statusObject['6'] ? 'inactive' : 'active'"
+              [color]="!statusObject['6'] ? '#fff' : '#FFF335'"
+            ></app-status-change-icon>
+          </div>
+
+          <div class="align-button-title">
+            <span class="text-uppercase mr-1">{{
+              "Question" | translate
+            }}</span>
+          </div>
+        </div>
+
+          <div
+            class="d-flex border-item p-1 mr-4 cursor-pointer"
+            (click)="onStatusChange('2')"
+          >
+            <div style="margin-bottom: 2px">
+              <app-status-change-icon
+                [status]="!statusObject['2'] ? 'inactive' : 'active'"
+                [color]="!statusObject['2'] ? '#fff' : '#03D156'"
+              ></app-status-change-icon>
+            </div>
+            <div class="align-button-title">
+              <span class="text-uppercase mr-1">{{
+                "Accepted" | translate
+              }}</span>
+            </div>
+          </div>
+
+          <div
+            (click)="onStatusChange('3')"
+            class="d-flex border-item p-1 mr-4 cursor-pointer"
+          >
+            <div style="margin-bottom: 2px">
+              <app-status-change-icon
+                [status]="!statusObject['3'] ? 'inactive' : 'active'"
+                [color]="!statusObject['3'] ? '#fff' : '#FD4444'"
+              ></app-status-change-icon>
+            </div>
+            <div class="align-button-title">
+              <span class="text-uppercase mr-1">{{
+                "Not accepted" | translate
+              }}</span>
+            </div>
+          </div>
+
+          <div
+            (click)="onStatusChange('4')"
+            class="d-flex border-item p-1 mr-4 cursor-pointer"
+          >
+            <div style="margin-bottom: 2px">
+              <app-status-change-icon
+                [status]="!statusObject['4'] ? 'inactive' : 'active'"
+                [color]="!statusObject['4'] ? '#fff' : '#B8B8B8'"
+              ></app-status-change-icon>
+            </div>
+            <div class="align-button-title">
+              <span class="text-uppercase mr-1">{{
+                "Canceled" | translate
+              }}</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div class="log-container">
+  <div class="table-head">
+    <div style="color:#FCF4EC; font-size:10px; font-family: 'PT Sans'; font-weight: normal;">{{ "TSC_Name" | translate }}</div>
+    <div style="color:#FCF4EC; font-size:10px; font-family: 'PT Sans'; font-weight: normal;">{{ "Sent" | translate }}</div>
+    <div style="color:#FCF4EC; font-size:10px; font-family: 'PT Sans'; font-weight: normal;">{{ "From" | translate }}</div>
+    <div style="color:#FCF4EC; font-size:10px; font-family: 'PT Sans'; font-weight: normal;">{{ "To" | translate }}</div>
+    <div style="color:#FCF4EC; font-size:10px; font-family: 'PT Sans'; font-weight: normal;">{{ "Opened" | translate }}</div>
+    <div style="color:#FCF4EC; font-size:10px; font-family: 'PT Sans'; font-weight: normal;">{{ "Responded" | translate }}</div>
+  </div>
+  <ng-container *ngFor="let logName of logNames">
+    <div
+      class="logs"
+      [ngStyle]="{ 'background-color': getOfferLogsBackgroundColor(logName)}"
+      *ngIf="logs[logName]?.length > 0"
+    >
+      <div class="head-row">
+        <div [title]="logName">{{ logName }}</div>
+        <div *ngIf="hasPDFsOrImage(logs[logName])">
+          <app-pdf-icon (click)="viewAttachmentsSent(logs[logName])" style="cursor:pointer"></app-pdf-icon>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ng-container *ngFor="let log of logs[logName]">
+        <div
+          class="log-row"
+          [ngStyle]="{ 'background-color': getRowBackgroundColor(log) }"
+          *ngIf="log.show"
+        >
+          <div>
+            <app-send-icon
+              [emailLog]="log"
+              *ngIf="(log.reminder ? (log.Status != '2' && log.Status != '3' && log.StatusName != '2' && log.StatusName != '3' && log.reminder == '0') :
+              (log.Status != '2' && log.Status != '3' && log.StatusName != '2' && log.StatusName != '3'))
+              || (log.Status == '6' && log.StatusName != '6' && log.reminder == '1')"
+            >
+            </app-send-icon>
+
+            <app-accepted-icon *ngIf="log.Status == '2' || log.StatusName == '2'"></app-accepted-icon>
+            <app-declined-icon *ngIf="log.Status == '3' || log.StatusName == '3'"></app-declined-icon>
+
+            <ng-container *ngIf="log.reminder !== '0' && log.reminder !== 'undefined' && log.Status === '1' && appPart != 'offer' || log.StatusName === '1'">
+              <ng-container *ngIf="log.active === '1'; else InactiveReminder">
+                <app-send-icon
+                *ngIf="log.reminder == '1' "
+                  [emailLog]="log"
+                  >
+                </app-send-icon>
+                <app-remind-icon
+                  *ngIf="log.reminder !== '0'"
+                  [color]="'#ff7000'"
+                  >
+                </app-remind-icon>
+              </ng-container>
+              <ng-template #InactiveReminder>
+                <app-send-icon
+                *ngIf="log.reminder == '1' "
+                  [emailLog]="log"
+                  >
+                </app-send-icon>
+                <app-remind-icon
+                *ngIf="log.reminder !== '0'"
+                  [color]="'#858585'"
+                  >
+                </app-remind-icon>
+              </ng-template>
+            </ng-container>
+
+
+          </div>
+          <div>{{ log.date ? log.date : log.Date }}</div>
+          <div>{{ log.sentFrom ? log.sentFrom : log.From}}</div>
+          <div>{{ log.answerEmail ? log.answerEmail : log.To }}</div>
+          <div>{{ log.openDate ? log.openDate : log.Opened }}</div>
+          <div>{{ log.answerDate ? log.answerDate : (log.Responded ? log.Responded : '' ) }}</div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

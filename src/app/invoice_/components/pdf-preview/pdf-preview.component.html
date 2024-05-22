@@ -1,0 +1,8 @@
+<div class="weekly-report-pdf blu-scroll">
+  <ng-container *ngFor="let pdf of pdfs_preview; let index = index">
+    <iframe
+      style="max-height: 85vh; width: 100%; min-height: 85vh"
+      [src]="pdf"
+    ></iframe>
+  </ng-container>
+</div>

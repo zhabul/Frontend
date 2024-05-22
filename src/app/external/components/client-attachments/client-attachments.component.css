@@ -1,0 +1,113 @@
+.card-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.card-wrapper .card{
+    margin-left: 20px;
+}
+
+.nav-item a {
+    cursor: pointer;
+}
+
+.nav-container{
+    border-bottom: 1px solid #fff;
+}
+
+.client-header {
+    color: var(--project-color);
+    margin-left: 30px!important;
+    margin-right: 55px!important;
+    font-size: 25px!important;
+    font-family: PT-Sans-Pro-Regular;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 315px!important;
+    width: 300px;
+    cursor: default;
+}
+
+.form-heding-client {
+    display: flex !important;
+    border-bottom: 1px solid;
+    border-color: var(--border-color);
+    height: 71px;
+    background-color: var(--main-bg);
+    display: flex;
+}
+
+.container-wrapper {
+    padding: 0px 30px;
+}
+
+.gallery-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+    position: absolute;
+    left: 20px;
+    right: 270px;
+    bottom: 37px;
+    top: 85px;
+}
+
+.attachments-container {
+
+    position: fixed;
+    padding: 3rem;
+    width: 200px;
+    background-color: var(--main-bg);
+    z-index: 5000;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    max-height: calc(100vh - 2rem);
+    color: white;
+    overflow: auto;
+    right: 1rem;
+    top: 100px;
+    bottom: 1rem;
+}
+
+.thin-red-line-right {
+
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-color: var(--border-color);
+    width: 1px;
+    height: 100%;
+}
+
+.file-type-title {
+    color: white;
+    display: flex;
+    padding: 0.5rem;
+    font-weight: bold;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.images-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.files-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}

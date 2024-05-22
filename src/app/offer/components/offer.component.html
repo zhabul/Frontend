@@ -1,0 +1,108 @@
+<div class="container-fluidW px-0W l0 hideUnder1400 mt-3 pl-5 project-container">
+  <div class="row border-nav d-flex">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <a class="home" routerLink="/home">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="34.604"
+          height="29.342"
+          viewBox="0 0 34.604 29.342"
+        >
+          <defs>
+            <clipPath id="clip-path">
+              <rect
+                id="Rectangle_15829"
+                data-name="Rectangle 15829"
+                width="34.604"
+                height="29.342"
+                fill="none"
+              />
+            </clipPath>
+          </defs>
+          <g id="Group_4372" data-name="Group 4372" transform="translate(0 0)">
+            <g
+              id="Group_4371"
+              data-name="Group 4371"
+              transform="translate(0 0)"
+              clip-path="url(#clip-path)"
+            >
+              <path
+                id="Path_1822"
+                data-name="Path 1822"
+                d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7"
+                transform="translate(0 0)"
+                fill="#82a7e2"
+              />
+            </g>
+          </g>
+        </svg>
+      </a>
+      <span
+        class="ml-3 mt-2 h2 text-uppercase font-weight-normal title-project"
+        >{{ "Offer" | translate }}</span
+      >
+    </div>
+    <div class="d-flex align-items-center px-4 py-2 nyProject" *ngIf="userDetails['create_offer_Global'] == 1 ">
+      <button
+          type="button"
+          class="add-btn"
+          (click)="openCreateOfferModal()"
+        >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="add-icon"
+          width="25"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          [ngClass]="currentClass"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <span class="ml-2 title-new text-uppercase" [ngClass]="currentClass">
+          {{ "Create a new offer" | translate }}
+        </span>
+      </button>
+    </div>
+  </div>
+
+    <div class="filters-container">
+      <div class="d-flex mt-4 buttons-cont">
+        <div class="row ml-2 searchdiv">
+            <span class="search-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13.06" viewBox="0 0 13 13.06">
+                <path id="Path_737" data-name="Path 737" d="M30.923,28.9l-.078-.079h0l-3.134-3.151a5.185,5.185,0,0,0-4.425-7.777h-.034a5.18,5.18,0,0,0-.032,10.36h.034a5.106,5.106,0,0,0,2.595-.706l3.131,3.149h0l.078.079a.6.6,0,0,0,.858,0l1.007-1.013A.612.612,0,0,0,30.923,28.9Zm-7.695-1.968a3.859,3.859,0,0,1,.024-7.718h.026a3.8,3.8,0,0,1,2.707,1.148,3.874,3.874,0,0,1-.027,5.449,3.8,3.8,0,0,1-2.7,1.121Z" transform="translate(-18.101 -17.89)" fill="#fcf4ec"/>
+              </svg>
+            </span>
+            <input
+              class="search-form text-uppercase"
+              type="text"
+              placeholder="{{ 'Search' | translate }}"
+              [(ngModel)]="searchQuery"
+              (keyup)="textFilter()"
+              #searchInput
+
+            />
+            <span class="clear-icon" (click)="clearSearchText()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10.189" height="10.189" viewBox="0 0 10.189 10.189">
+                <path id="Path_783" data-name="Path 783" d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z" transform="translate(3.622 4.382)" fill="#fcf4ec"/>
+              </svg>
+            </span>
+        </div>
+      </div>
+      <app-offer-filters (newFilters)="filterOffers($event,true)"></app-offer-filters>
+    </div>
+
+    <!-- opening table of offers -->
+    <app-offer-list [offers]="offers" [totalSum]="totalSum"></app-offer-list>
+
+    <app-new-offer-modal
+
+      *ngIf="createOfferModal"
+      (close)="openCreateOfferModal()"
+
+    ></app-new-offer-modal>

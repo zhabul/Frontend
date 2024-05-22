@@ -1,0 +1,42 @@
+<div style=" width:100%; height: 100%;min-height: 39px;"  [ngClass]="toggle==true ? 'select-wrapper' : 'select-wrapper'">
+    <div class="select" style=" width:100%; height: 100%; position: relative;" >
+
+        <div class="selected-item" [ngClass]="toggle==true ? 'border-hover' : 'selected-item'" (click)="toggleOn()" >
+            <!-- [ngStyle]="{'cursor': selected.AtestStatus == '1'? 'not-allowed':'pointer'}" -->
+            <div class="span-selected" [ngStyle]="{'max-width': type=='time_attest'? '225px': ''}" >
+
+                <div [ngClass]="type == 'time_attest'? 'time-atest-pos': ''">
+                    <p *ngIf="type == 'moment'">{{selected.moment}}</p>
+                    <p *ngIf="type == 'time_attest'" class="time-atest-p">{{selected.name2 ? selected.name2: selected.name}}</p>
+                    <p *ngIf="type == 'time_attest1'" class="time-atest-p">{{selected.name2 ? selected.name2: selected.name}}</p>
+                    <p *ngIf="type == 'moment-editor'">{{selected.work}}</p>
+                    <p *ngIf="type == 'moment-editor-project'">{{selected.projectName}}</p>
+                    <p *ngIf="type == 'moment-editor-ata/du'">{{selected.ataType}} {{selected.AtaNumber}}</p>
+                </div>
+                <div class="arrow" *ngIf="!disabled_click">
+                    <app-toggle-on-svg *ngIf="toggle && !disabled_click"  class="toggle-on"></app-toggle-on-svg>
+                    <app-toggle-off-svg *ngIf="!toggle && !disabled_click"  style="float: right;"></app-toggle-off-svg>
+                </div>
+            </div>
+        </div>
+        <div class="border-on-scroll" *ngIf="toggle" ></div>
+        <div  *ngIf="toggle" class="toogle-dropdown orange-scroll">
+            <div class="" style=" position: relative">
+                <div class="toggle-div" (click)="toggleOn()" >
+                </div>
+                <div class="box-shadow-top height-dropdown">
+                    <div *ngFor="let item of items; let i=index" >
+                        <p [ngClass]="item.parent == '0' ? 'item-name1':'item-name'" *ngIf="type == 'moment'"  (click)="newAtaChanged(item, selected, i)">{{item.name}}</p>
+                        <p class="item-name" *ngIf="type == 'time_attest'"  (click)="newAtaChanged(item, selected, i)">{{item.name2 ? item.name2 : item.name}}</p>
+                        <p class="item-name" *ngIf="type == 'time_attest1'"  (click)="newAtaChanged(item, selected, i)">{{item.name2 ? item.name2 : item.name}}</p>
+                        <p [ngClass]="item.parent == '0' ? 'item-name1':'item-name'" title="" *ngIf="type == 'moment-editor'" (click)="newAtaChanged(item, selected, i)">{{item.moment_number}} {{item.Description}}</p>
+                        <p class="item-name" *ngIf="type == 'moment-editor-project'" (click)="newAtaChanged(item, selected, i)">{{item.CustomName}} {{item.Name}}</p>
+                        <p class="item-name" *ngIf="type == 'moment-editor-ata/du'" (click)="newAtaChanged(item, selected, i)">{{item.finalName}}</p>
+                        <div  class="div-vertical-line">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

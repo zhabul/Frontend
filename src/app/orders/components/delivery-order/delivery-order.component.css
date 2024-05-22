@@ -1,0 +1,126 @@
+
+.form-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.form-column-wrapper {
+  /* background: #faf9fa;
+  border: 3px solid #f0eff1;
+  border-radius: 5px;
+  margin-bottom: 10px; */
+  width: 100%;
+  padding: 10px 35px 10px 25px;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+  
+
+/*setup site*/
+.container-fluidX {
+  padding-left: 3rem;
+  margin-top: -10px;
+}
+
+.form-heading{
+  height: 61px;
+  border: 1px solid var(--border-color);
+  margin-right: -24px;
+}
+
+.border-h-project{
+  height: 100%;
+}
+
+#topFeeder{
+  margin-left: 30px;
+}
+
+.text-muted{
+  color: var(--project-color)!important;
+  margin-left: 30px !important;
+  margin-right: 55px !important;
+  font-size: 25px !important;
+  font-family: "PT-Sans-Pro-Regular";
+}
+
+.blu-scroll{
+  overflow-y: scroll;
+  overflow-x: scroll;
+  border: 1px solid;
+  border-color: var(--border-color);
+}
+
+@media (max-width: 7680px)
+{
+  .blu-scroll{
+      max-width: 1040px !important;
+      width: calc(100vw - 0px - 125px);
+      height: calc(99vh - 120px - 0px);
+  }
+}
+
+.thin-red-line-bottom {
+  position: absolute;
+  bottom: 15px;
+  left: 0px;
+  right: 2px;
+  background-color: var(--border-color);
+  height: 1px;
+}
+
+.thin-red-line-right {
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  right: 16px;
+  background-color: var(--border-color);
+  width: 1px;
+}
+
+.input-group{
+  width: 301.5px!important;
+}
+
+.input-wrapp{
+  display: flex;
+  justify-content: space-between;
+}
+
+.mb-2{
+  width: 301.5px!important;
+}
+
+.button-custom{
+  border: 1px solid;
+  color: var(--project-color);
+  box-shadow: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: "PT-Sans-Pro-Regular";
+  padding: 1px 6px 0px 6px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  background: var(--main-bg);
+}
+.button-custom:hover{
+  cursor: pointer;
+}
+
+label{
+  font-size: 11px;
+  color: white;
+}
+
+.text-danger{
+  font-size: 11px;
+}

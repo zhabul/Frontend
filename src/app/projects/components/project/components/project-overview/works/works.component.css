@@ -1,0 +1,152 @@
+.total-row td,
+thead tr th {
+  background-color: #efefef;
+}
+
+.btn-details,
+.btn-timeAttests,
+.btn-overview {
+  border: 1px solid transparent !important;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px 50px;
+}
+
+.btn-details:hover,
+.btn-timeAttests:hover,
+.btn-overview:hover {
+  border: 1px solid hsl(207, 27%, 37%) !important;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.btn-details:visited,
+.btn-timeAttests:visited,
+.btn-overview:hover .btn-all:focus,
+.btn-approved:focus,
+.btn-overview:focus {
+  border: 1px solid transparent !important;
+  border-radius: 0;
+}
+
+.btn-details.active,
+.btn-timeAttests.active,
+.btn-overview.active {
+  background-color: hsl(207, 27%, 37%) !important;
+  border: 1px solid hsl(207, 27%, 37%) !important;
+  border-radius: 0;
+  color: #ffffff !important;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 45%;
+  z-index: 99999999999;
+}
+
+.filter {
+  width: 120px;
+}
+
+.filterText {
+  margin-right: 0.5em;
+  width: 150px;
+}
+
+.atest-filters select + select {
+  margin-left: 0.5em;
+}
+
+.menu-wrapp {
+  display: flex;
+  flex-direction: column;
+}
+
+.autocomplete-form {
+  display: flex;
+}
+
+.paginate-wrapp {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;*/
+  margin-top: 1rem;
+}
+
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+  list-style: none;
+}
+
+.page-item {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+.page-link:first-child .page-link {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.page-link:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+  color: white !important;
+  background-color: #007bff;
+}
+
+.page-link-main {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  cursor: pointer;
+}
+
+.previous-item,
+.first-item,
+.last-item,
+.next-item {
+  z-index: 200;
+}
+
+.page-link-main:hover {
+  color: white !important;
+  background-color: #007bff;
+}
+
+.page-num-wrapp {
+  z-index: 20;
+}
+
+.page-num-main-wrapp {
+  position: relative;
+}
+
+.active-fnt > a {
+  color: white !important;
+}

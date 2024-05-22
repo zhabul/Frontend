@@ -1,0 +1,111 @@
+
+<div>
+</div>
+
+<div [class]="containerClass">
+  <!-- <div class="g-header">
+    <div class="g-header-button-container">
+      <div class="g-header-button button-filename">
+        {{ activeName() }}
+      </div>
+    </div>
+
+  </div> -->
+  <div class="g-header">
+
+    <div class="g-header-button-container">
+      <div class="total-container">
+        {{ this.active + 1 }} / {{ swiper.images.length }}
+      </div>
+      <div (click)="printActive()" class="g-header-button button-hover print-button" (mouseover)="hovered.download = true" (mouseleave)="hovered.download = false" >
+        <div class="icon-container">
+          <app-print-svg *ngIf="!hovered.download"></app-print-svg>
+          <app-print-hover-svg *ngIf="hovered.download"></app-print-hover-svg>
+        </div>
+      </div>
+      <a [href]="downloadActive()" [download]="activeName()" class="clear-link" (mouseover)="hovered.pdf = true" (mouseleave)="hovered.pdf = false">
+        <div class="g-header-button button-hover download-button">
+          <div class="icon-container">
+           <app-download-pdf-svg *ngIf="!hovered.pdf"></app-download-pdf-svg>
+           <app-download-pdf-hover-app *ngIf="hovered.pdf"></app-download-pdf-hover-app>
+          </div>
+        </div>
+      </a>
+
+      <div
+        *ngIf="canRemove"
+        [ngStyle]="{ color: activeDeleted() ? 'red' : 'var(--brand-color)' }"
+        class="g-header-button button-hover"
+        (click)="removeImage()"
+      >
+        <div class="icon-container">
+          <span class="material-icons"> delete </span>
+        </div>
+        {{ "Remove" | translate }}
+      </div>
+      <div class="rotate-right" (click)="rotateBy(-90)">
+       <div class="rotate-right-hovered">
+        <app-rotate-right-svg></app-rotate-right-svg>
+      </div>
+      </div>
+      <div class="rotate-right" (click)="rotateBy(90)">
+        <div class="rotate-right-hovered">
+          <app-rotate-left-svg></app-rotate-left-svg>
+        </div>
+      </div>
+
+      <div class="cursos-move" (click)="resetZoom()">
+        <div class="cursor-clicked rotate-right-hovered" [ngStyle]="styleMousClicked">
+          <app-cursor-move-svg></app-cursor-move-svg>
+        </div>
+      </div>
+      <div class="cursos-move" >
+        <div class="rotate-right-hovered"  (click)="zoomBy(10)">
+          <app-zoom-in-svg></app-zoom-in-svg>
+        </div>
+      </div>
+      <div class="cursos-move" (click)="zoomBy(-10)">
+        <div class="rotate-right-hovered">
+          <app-zoom-out-svg></app-zoom-out-svg>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div style="display:flex" class="center-imagename-wrapper" [ngStyle]="{'margin-left': marginL}">
+      <div class="arrow-left-container  padd"  (click)="next(-1)" *ngIf="leftArrowCondition()">
+        <app-arrow-left></app-arrow-left>
+      </div>
+      <div class="img-name-wrapper">
+        <p class="img-name">{{ activeName() }}</p>
+      </div>
+
+      <div class="arrow-right-container padd" (click)="next(1)" *ngIf="rightArrowCondition()" >
+        <app-arrow-left></app-arrow-left>
+      </div>
+    </div>
+
+    <div class="g-close-head">
+      <div (click)="closeSwiper()">
+        <app-close-svg></app-close-svg>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="swiper.images" class="g-div-image-container" >
+    <app-gallery-image
+
+      [image]="swiper.images[active]"
+      [active]="active"
+      [index]="i"
+      [updateComment]="updateComment"
+      (updateCommentEvent)="saveComment($event)"
+      [rotation]="rotation"
+      [cursormove]="cursormove"
+      [zoomButton]="zoomButton"
+    >
+    </app-gallery-image>
+  </div>
+</div>

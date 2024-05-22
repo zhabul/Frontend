@@ -1,0 +1,257 @@
+#dropdown {
+  position: relative;
+}
+.name-of-multselect{
+
+  height: 30px;
+    min-width: 100%;
+    padding: 3px 6px 0px 10px;
+    border-radius: 4px 4px 0px 0px;
+    display: flex;
+    position: relative;
+    font-size: 16px;
+    border-bottom: none !important;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* .name-of-multselect:hover{
+ color: var(--orange-dark);
+} */
+
+/* .check-button-wrapp {
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+
+.check-button-wrapp-one{
+  width: 20px;
+  height: 20px;
+  position: relative;
+} */
+
+/* .check-button-wrapp-one:hover
+{
+   fill: red !important;
+} */
+
+input.check {
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+.orange-scroll{
+  max-height: 195px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border: 2px solid var(--orange-dark);
+  border-top: 0px;
+  width: calc(100% + 23px);
+  position: relative;
+  border-radius: 0px 0px 4px 4px;
+  z-index: 12;
+}
+
+.orange-without-scroll {
+  max-height: 195px;
+  overflow: hidden;
+  overflow-x: hidden;
+  border: 2px solid var(--orange-dark);
+  border-top: 0px;
+  width: calc(100% + 23px);
+  position: relative;
+  border-radius: 0px 0px 4px 4px;
+  z-index: 12;
+}
+
+.orange-without-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.orange-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.orange-scroll::-webkit-scrollbar-thumb {
+  opacity: 0.5;
+  background-color: var(--border-color);
+  border-width: 4px;
+  border-radius: 10px !important;
+}
+
+.orange-scroll::-webkit-scrollbar-track {
+  background: black;
+}
+
+/*Za FireFox preglednik*/
+.orange-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: black #f1f1f1;
+}
+
+.orange-scroll::-moz-scrollbar {
+  width: 10px;
+}
+
+.orange-scroll::-moz-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-width: 4px;
+  border-radius: 10px !important;
+}
+
+.orange-scroll::-moz-scrollbar-track {
+  background: #f1f1f1;
+}
+/*Za FireFox preglednik*/
+
+.border-on-scroll{
+  position: absolute;
+    bottom: 0;
+    right: -25px;
+    height: 2px;
+    background-color: var(--orange-dark);
+    width: 24px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.topheader{
+  height: 30px;
+  background-color: white;
+  /*border-top: 1px solid var(--main-bg);*/
+  border-bottom: 2px solid var(--main-bg);
+  border-right: 1px solid var(--main-bg);
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 1px 4px 8px;
+  box-shadow: inset 0px 2px 5px 0px var(--border-color), inset 0px 0px 0px 0px var(--border-color);
+  cursor: pointer;
+}
+
+.topheader1{
+  height: 30px;
+  background-color: white;
+  /*border-top: 1px solid var(--main-bg);*/
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--main-bg);
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 5px 4px 8px;
+  cursor: pointer;
+  /*box-shadow: inset 0px 2px 5px 0px var(--border-color), inset 0px 0px 0px 0px var(--border-color);*/
+}
+
+.users-list{
+  height: 30px;
+  background-color: white;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px 3px 8px;
+  border-right: 1px solid var(--main-bg);
+  cursor: pointer;
+}
+
+
+svg
+{
+  fill: #82A7E2
+
+}
+.users-list:hover{
+  color: var(--orange-dark);
+ /*  fill: var(--orange-dark);; */
+
+
+}
+svg:hover
+{
+  fill: var(--orange-dark);;
+}
+.line-scroll{
+  position: absolute;
+  right: 1px;
+  top: 0px;
+  bottom: 3px;
+  width: 1px;
+  background-color: var(--border-color);
+}
+
+.counter{
+  position: absolute;
+  margin-left: 201px;
+  margin-right: 2px;
+}
+
+.arrow{
+    position: absolute;
+    right: 8px;
+    top: 3px;
+    margin-left: 62px;
+    cursor: pointer;
+    top: 1px;
+}
+
+.refname{
+    cursor: pointer;
+    position: absolute;
+    top: 4px;
+    left: 10px;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.users{
+  display: inline-block;
+  /*width: 200px;*/
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.sent-imagee
+{
+  background-color: red !important;
+  fill: orange !important;
+}
+
+.border-bottom {
+
+    width: 100%;
+    height: 11px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: -2px;
+    /* background: #7a7e7f; */
+    background-color: #373b40;  
+    border-bottom: 0px !important;
+}
+
+.in_active {
+
+    color: #ffffff;
+    background-color: var(--home-title-color);
+}
+
+.active {
+
+    color: #ffffff;
+    background-color: transparent;
+}
+
+.color-active {
+    color: var(--orange-dark);
+}
+
+.color-in_active {
+    color: #ffffff;
+}

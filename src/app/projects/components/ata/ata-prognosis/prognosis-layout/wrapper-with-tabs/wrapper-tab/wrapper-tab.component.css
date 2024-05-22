@@ -1,0 +1,38 @@
+.main-wrapper-zuna {
+    border: 2px solid #858585;
+    display: inline-block;
+    border-bottom: none;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 10px #373B40;
+}
+
+.left-tab-zuna {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 20px;
+}
+
+.right-tab-zuna {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 6px;
+}
+
+.absolute-line-zuna {
+    background-color: #373b40;
+    height: 5px;
+    width: 100%;
+    position: absolute;
+    bottom: -4px;
+}
+
+.name-active-zuna {
+    margin: 5px 20px;
+    color: #FF7F00;
+    font-size: 12px;
+}
+
+.name-inactive-zuna {
+    margin: 5px 20px;
+    color: white;
+    font-size: 12px;
+}

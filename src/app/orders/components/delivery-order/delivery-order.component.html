@@ -1,0 +1,277 @@
+<div class="container-fluidX">
+  <div class="form-heading">
+    <div class="d-flex align-items-center border-h-project">
+      <div
+        class="home"
+        (click)="goBack()"
+        routerLinkActive="active"
+        id="topFeeder"
+      >
+        <svg
+          _ngcontent-dfb-c33=""
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          height="29.342"
+          viewBox="0 0 34.604 29.342"
+          width="34.604"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs _ngcontent-dfb-c33="">
+            <clipPath _ngcontent-dfb-c33="" id="clip-path">
+              <rect
+                _ngcontent-dfb-c33=""
+                data-name="Rectangle 15829"
+                fill="none"
+                height="29.342"
+                id="Rectangle_15829"
+                width="34.604"
+              ></rect>
+            </clipPath>
+          </defs>
+          <g
+            _ngcontent-dfb-c33=""
+            data-name="Group 4372"
+            id="Group_4372"
+            transform="translate(0 0)"
+          >
+            <g
+              _ngcontent-dfb-c33=""
+              clip-path="url(#clip-path)"
+              data-name="Group 4371"
+              id="Group_4371"
+              transform="translate(0 0)"
+            >
+              <path
+                _ngcontent-dfb-c33=""
+                d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7"
+                data-name="Path 1822"
+                fill="#82a7e2"
+                id="Path_1822"
+                transform="translate(0 0)"
+              ></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="project text-muted">
+        <div class="project-name-len">{{ "Unload Order" | translate }}</div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row mb-2">
+    <div class="col-sm-12 col-lg-6 col-lg-8W">
+      <div class="card px-4 py-2 bgGrayBlue" style="flex-direction: row">
+        <div>
+          <button
+            (click)="goBack()"
+            class="btn btn-dark mr-2 lh08 hideUnder800"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </button>
+        </div>
+        <div class="text-dark" style="padding-top: 10px">
+          <h5>{{ "Unload Order" | translate }}</h5>git 
+        </div>
+      </div>
+    </div>
+  </div> --> 
+  <div class="row" style="margin-top: 59px;">
+    <div style="position:relative;" class="table-wrapp">
+      <div class="row blu-scroll shadow-top-div">
+        <div style="width: 100%;">
+        <div
+          class="form-column-wrapper description"
+          *ngIf="order.unload_messages.length > 0"
+        >
+          <label for="sender">{{ "Sender" | translate }}</label>
+          <div
+            class="description mb-3"
+            *ngFor="let unload of order.unload_messages"
+          >
+            <div
+              style="border-style: solid; border-width: 1px"
+              [ngClass]="{
+                'border-success': unload.Status == 1,
+                'border-danger': unload.Status == 0,
+                'border-warning': unload.Status == -1
+              }"
+            >
+              <input
+                type="text"
+                class="form-control"
+                id="sender"
+                [value]="unload.Email"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-column-wrapper mb-0">
+          <form
+            novalidate
+            autocomplete="off"
+            [formGroup]="orderForm"
+            (ngSubmit)="processForm()"
+          >
+            <section class="hero is-primary is-bold mt-3">
+              <div class="hero-body">
+                <div class="input-wrapp">
+                  <div class="form-group">
+                    <label for="dateSelect" class="required">{{
+                      "Order date" | translate
+                    }}</label>
+                    <div class="input-group date">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i class="material-icons">calendar_today</i></span
+                        >
+                      </div>
+
+                      <input
+                        (keydown)="$event.preventDefault()"
+                        id="dateSelect"
+                        autocomplete="off"
+                        type="text"
+                        class="form-control"
+                        aria-describedby="basic-addon1"
+                        placeholder="{{ 'Choose date' | translate }}"
+                        formControlName="date"
+                        [value]="
+                          this.orderForm.value.date == 1
+                            ? ('Choose date' | translate)
+                            : this.orderForm.value.date
+                        "
+                        [ngStyle]="{
+                          color: orderDate == 1 ? '#929292' : '#000'
+                        }"
+                      />
+                    </div>
+                    <span
+                      class="help-block"
+                      *ngIf="
+                        (orderForm.get('date').touched ||
+                          orderForm.get('date').dirty) &&
+                        orderForm.get('date').errors
+                      "
+                    >
+                      <span
+                        *ngIf="orderForm.get('date').errors.required"
+                        class="text-danger"
+                      >
+                        {{ "Enter order date" | translate }}.
+                      </span>
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <label for="timeSelect" class="required">{{
+                      "Order time (Additional payment)" | translate
+                    }}</label>
+                    <div class="input-group date">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i class="material-icons">alarm</i></span
+                        >
+                      </div>
+                      <input
+                        id="timeSelect"
+                        type="text"
+                        class="form-control"
+                        formControlName="time"
+                        aria-describedby="basic-addon1"
+                        placeholder="{{ 'Choose time' | translate }}"
+                      />
+                    </div>
+                    <span
+                      class="help-block"
+                      *ngIf="
+                        (orderForm.get('time').touched ||
+                          orderForm.get('time').dirty) &&
+                        orderForm.get('time').errors
+                      "
+                    >
+                      <span
+                        *ngIf="orderForm.get('time').errors.required"
+                        class="text-danger"
+                      >
+                        {{ "Enter order time" | translate }}.
+                      </span>
+                    </span>
+                  </div>
+                  <span class="message" *ngIf="messageStatus == 1">{{
+                    "Successfully created." | translate
+                  }}</span>
+                </div>
+              </div>
+            </section>
+            <section class="section">
+              <div class="containerX ">
+                <div class="field form group mb-2" *ngIf="userDetails.create_project_Purchases">
+                  <label for="name" class="required"
+                  >{{
+                    "Select Supplier" | translate
+                  }}</label>
+                  <select
+                    class="project-nav-select form-control"
+                    id="project-status"
+                    formControlName="supplier"
+                  >
+                    <option value="">{{ "No supplier" | translate }}</option>
+                    <option
+                      *ngFor="let supplier of suppliers"
+                      [ngValue]="supplier.Id"
+                    >
+                      <small>{{ supplier.Name }}</small>
+                    </option>
+                  </select>
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (orderForm.get('supplier').touched ||
+                        orderForm.get('supplier').dirty) &&
+                      orderForm.get('supplier').errors
+                    "
+                  >
+                    <span
+                      *ngIf="orderForm.get('supplier').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Select order supplier" | translate }}.
+                    </span>
+                  </span>
+                </div>
+                <div class="field form-group">
+                  <label for="name">{{ "Message" | translate }}</label>
+                  <textarea
+                    class="textarea form-control"
+                    name="message"
+                    placeholder="{{ 'Enter message' | translate }}"
+                    formControlName="message"
+                    rows="8"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  [disabled]="orderForm.invalid"
+                  class="button-custom"
+                >
+                  {{ "Send" | translate }}
+                </button>
+              </div>
+            </section>
+          </form>
+        </div>
+        </div>
+      </div>
+      <div class="thin-red-line-right"></div>
+      <div class="thin-red-line-bottom"></div>
+ 
+    </div>
+  </div>
+</div>
+
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

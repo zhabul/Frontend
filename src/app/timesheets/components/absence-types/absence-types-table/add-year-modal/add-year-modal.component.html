@@ -1,0 +1,22 @@
+<div class="modal-container">
+    <form class="add-year-form" (submit)="addYear()">
+        <div>
+            <input 
+            
+                type="number" 
+                pattern="/^-?\d+\.?\d*$/" 
+                onKeyPress="if(this.value.length==4) return false;"
+                min="1"
+                [(ngModel)]="year" 
+                name="year" 
+                class="year-input"
+            
+            >
+        </div>
+        <div class="button-container">
+            <button class="add-year-button" type="submit">
+                {{ buttonText | translate }} 
+            </button>
+        </div>
+    </form>
+</div>

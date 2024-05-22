@@ -1,0 +1,28 @@
+<div class="main-wrapper">
+  <div class="tabs-wrapper">
+    <div class="left-tabs-wrapper">
+      <ng-container *ngFor="let tabContent of leftTabs; let index = index">
+        <app-wrapper-tab
+          class="left-tab"
+          [tabContent]="tabContent"
+          [index]="index"
+        ></app-wrapper-tab>
+      </ng-container>
+    </div>
+    <div class="right-tabs-wrapper">
+      <ng-container *ngFor="let tabContent of rightTabs; let index = index">
+        <app-wrapper-tab
+          class="right-tab"
+          [isRight]="true"
+          [tabContent]="tabContent"
+          [index]="index"
+        >
+        </app-wrapper-tab>
+      </ng-container>
+    </div>
+  </div>
+  <div class="content-wrapper blu-scroll" [style.height]="height">
+    <ng-content></ng-content>
+    <div class="fake-side-line"></div>
+  </div>
+</div>

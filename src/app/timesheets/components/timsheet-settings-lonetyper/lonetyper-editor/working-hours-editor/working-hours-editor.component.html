@@ -1,0 +1,16 @@
+<div class="hours-input-box">
+    <div id="title">{{ 'Ordinary working hours' | translate }}:</div>
+    <div>
+        <input 
+         
+            [(ngModel)]="data.value" 
+            id="hours-input" 
+            type="text" 
+            (keypress)="validateInput($event)" 
+            (blur)="updateValue($event)"
+            (focus)="clearValue($event)"
+            [disabled]="disabled"
+            
+        />
+    </div>
+</div>

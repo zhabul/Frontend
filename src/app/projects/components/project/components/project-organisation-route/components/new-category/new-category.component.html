@@ -1,0 +1,141 @@
+<div class="row card" style="margin: 0">
+  <div class="p-3 m-2 form-column-wrapper">
+    <h5>{{ "Add New Category" | translate }}</h5>
+
+    <form
+      novalidate
+      autocomplete="off"
+      [formGroup]="createForm"
+      class="form-content"
+      #myform="ngForm"
+      (ngSubmit)="createDirectory()"
+    >
+      <div class="form-group mt-4">
+        <input
+          name="directory"
+          class="form-control"
+          formControlName="Name"
+          required
+        />
+        <span
+          class="help-block"
+          *ngIf="
+            ((createForm.get('Name').touched || createForm.get('Name').dirty) &&
+              createForm.get('Name').errors) ||
+            (createForm.get('Name').hasError('required') && myform.submitted)
+          "
+        >
+          <span
+            *ngIf="createForm.get('Name').errors.required"
+            class="text-danger"
+          >
+            {{ "Please enter name of register." | translate }}
+          </span>
+        </span>
+      </div>
+      <div class="form-group mt-4">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input
+            type="radio"
+            id="customRadioInline1"
+            name="customRadioInline1"
+            class="custom-control-input"
+            [(ngModel)]="InputSupplierClient"
+            [value]="true"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <label class="custom-control-label" for="customRadioInline1">{{
+            "Clients" | translate
+          }}</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input
+            type="radio"
+            id="customRadioInline2"
+            name="customRadioInline1"
+            class="custom-control-input"
+            [(ngModel)]="InputSupplierClient"
+            [value]="false"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <label class="custom-control-label" for="customRadioInline2">{{
+            "Suppliers" | translate
+          }}</label>
+        </div>
+      </div>
+      <div *ngIf="!InputSupplierClient" class="form-group mb-4">
+        <label for="name" class="mt-2">{{ "Suppliers" | translate }}</label>
+        <div class="select-section">
+          <div class="select-buttons">
+            <button class="btn btn-dark btn-sm" (click)="openSupplier($event)">
+              <span class="material-icons">add</span>
+            </button>
+            <button class="btn btn-dark btn-sm" style="display: none">
+              <span class="material-icons">edit</span>
+            </button>
+            <button class="btn btn-dark btn-sm" style="display: none">
+              <span class="material-icons">delete</span>
+            </button>
+          </div>
+          <select
+            class="project-nav-select form-control"
+            id="project-supplier_id"
+            #Client
+            formControlName="supplier"
+          >
+            <!--   <option *ngFor="let supplier of suppliers" value="-1">{{'Choose your Supplier' | translate}</option>-->
+            <option
+              *ngFor="let supplier of suppliers"
+              value="{{ supplier.Id }}"
+            >
+              {{ supplier.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <!--
+    <div class="form-group">
+      <label for="name" class="mt-2">{{'Supplier Workers' | translate}}</label>
+      <select class="project-nav-select form-control" id="project-status" formControlName="supplierWorkers">
+        <option *ngFor="let supplierWorker of supplierWorkers" value="{{supplierWorker.Id}}">{{supplierWorker.FirstName}}
+          {{supplierWorker.LastName}}</option>
+      </select>
+    </div>
+  -->
+      <div *ngIf="InputSupplierClient" class="form-group mb-4">
+        <label for="name" class="mt-2">{{ "Client" | translate }}</label>
+        <div class="select-section">
+          <div class="select-buttons">
+            <button
+              class="btn btn-dark btn-sm"
+              (click)="openComponentDetail($event)"
+            >
+              <span class="material-icons">add</span>
+            </button>
+            <button class="btn btn-dark btn-sm" style="display: none">
+              <span class="material-icons">edit</span>
+            </button>
+            <button class="btn btn-dark btn-sm" style="display: none">
+              <span class="material-icons">delete</span>
+            </button>
+          </div>
+          <select
+            class="project-nav-select form-control"
+            id="project-client_id"
+            #Client
+            formControlName="client"
+          >
+            <option *ngFor="let client of clients" value="{{ client.Id }}">
+              {{ client.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group btn-position text-center">
+        <button type="submit" class="btn btn-outline-success">
+          {{ "Save" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

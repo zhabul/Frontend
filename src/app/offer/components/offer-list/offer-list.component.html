@@ -1,0 +1,31 @@
+<div class="blu-scroll-wrapp">
+  <div class="scroll-cont blu-scroll" id="skrollbar">
+    <div class="relative">
+      <div class="offer-grid-head font-white">
+          <div>{{ 'Nr' | translate }}</div>
+          <div>{{ 'TSC_Name' | translate }}</div>
+          <div>{{ 'Client' | translate }}</div>
+          <!-- <div>{{ 'TSC_Debit_form' | translate }}</div> -->
+          <div>{{ 'Price' | translate }}</div>
+          <div>{{ 'Sent' | translate }}</div>
+          <div>{{ 'Opened' | translate }}</div>
+          <div>
+              {{ 'Status' | translate }}
+              <!-- <div id="small-grey-block"></div> -->
+          </div>
+      </div>
+
+    </div>
+
+    <app-offer-row *ngFor="let offer of offers;" [offer]="offer" ></app-offer-row>
+    <app-offer-list-sum  [totalSum]="totalSum" class="offer-sum"></app-offer-list-sum>
+
+
+
+  </div>
+  <div id="right-line"></div>
+  <div id="bottom-line"></div>
+
+
+</div>
+

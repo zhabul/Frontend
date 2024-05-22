@@ -1,0 +1,827 @@
+<div class="row row1X px-2" style="display: block !important">
+  <div class="card bgGrayBlue col-12X col-lg-6X col-lg-8W" id="topFeeder">
+    <nav class="nav nav-pills nav-justified">
+      <div class="nav-links d-flex w-100">
+        <a
+          routerLink="/home"
+          class="btn btn-dark mr-2 lh09 hideUnder800"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="badgeX badge-darkX material-icons top1px posRel"
+            >arrow_back</span
+          >
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+<br />
+<div
+  class="row row1X px-2 edit-user-header"
+  style="align-items: flex-start; margin-bottom: 0.5rem"
+>
+  <div
+    class="btn btn-dark mr-2 lh09 hideUnder800 header-button active"
+    [ngClass]="{
+      active: selectedTab === 0
+    }"
+    (click)="setSelectedTab(0)"
+  >
+    {{ "Edit User" | translate }}
+  </div>
+  <div
+    class="btn btn-dark mr-2 lh09 hideUnder800 header-button"
+    [ngClass]="{
+      active: selectedTab === 1
+    }"
+    (click)="setSelectedTab(1)"
+  >
+    {{ "Education" | translate }}
+  </div>
+</div>
+<div class="row row1X px-2" style="align-items: flex-start" *ngIf="selectedTab==0">
+  <div class="col-md-12X col-lg-6X col-lg-8W bg-white br3 pt-3 pb-3 card">
+    <h4 class="mb-3">{{ "My Account" | translate }}</h4>
+    <form
+      novalidate
+      autocomplete="off"
+      [formGroup]="createForm"
+      (ngSubmit)="createUser()"
+    >
+      <div class="row new-user">
+        <div
+          class="col-md-12X col-lg-6X col-6"
+          style="padding-right: 5px"
+          [ngClass]="userDetails.type == '1' ? 'col-md-6' : 'col-md-6'"
+        >
+          <div class="card form-column-wrapper mb-3">
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('personalNumber').touched ||
+                        createForm.get('personalNumber').dirty) &&
+                      !createForm.get('personalNumber').valid
+                  }"
+                >
+                  <label for="personalNumber" class="required">{{
+                    "Personal Number" | translate
+                  }}</label>
+                  <input
+                    readonly
+                    type="text"
+                    class="form-control"
+                    id="personalNumber"
+                    placeholder="{{ 'Enter personal number' | translate }}"
+                    formControlName="personalNumber"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('personalNumber').touched ||
+                        createForm.get('personalNumber').dirty) &&
+                      createForm.get('personalNumber').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('personalNumber').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Enter personal number" | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="employeeNumber" class="required">{{
+                    "Employee Number" | translate
+                  }}</label>
+                  <input
+                    readonly
+                    type="text"
+                    class="form-control"
+                    id="employeeNumber"
+                    placeholder="{{ 'Enter employee number' | translate }}"
+                    formControlName="employeeNumber"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('firstName').touched ||
+                        createForm.get('firstName').dirty) &&
+                      !createForm.get('firstName').valid
+                  }"
+                >
+                  <label for="firstName" class="required">{{
+                    "First Name" | translate
+                  }}</label>
+                  <input
+                    readonly
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    placeholder="{{ 'Enter first name' | translate }}"
+                    formControlName="firstName"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('firstName').touched ||
+                        createForm.get('firstName').dirty) &&
+                      createForm.get('firstName').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('firstName').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter first name" | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('lastName').touched ||
+                        createForm.get('lastName').dirty) &&
+                      !createForm.get('lastName').valid
+                  }"
+                >
+                  <label for="lastName" class="required">{{
+                    "Last Name" | translate
+                  }}</label>
+                  <input
+                    readonly
+                    type="text"
+                    class="form-control"
+                    id="lastName"
+                    placeholder="{{ 'Enter last name' | translate }}"
+                    formControlName="lastName"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('lastName').touched ||
+                        createForm.get('lastName').dirty) &&
+                      createForm.get('lastName').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('lastName').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter last name" | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-group"
+              [ngClass]="{
+                'has-error':
+                  (createForm.get('email').touched ||
+                    createForm.get('email').dirty) &&
+                  !createForm.get('email').valid
+              }"
+            >
+              <label for="email" class="required">{{
+                "Email" | translate
+              }}</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="{{ 'Enter email address' | translate }}"
+                formControlName="email"
+              />
+              <span
+                class="help-block"
+                *ngIf="
+                  (createForm.get('email').touched ||
+                    createForm.get('email').dirty) &&
+                  createForm.get('email').errors
+                "
+              >
+                <span
+                  *ngIf="createForm.get('email').errors.required"
+                  class="text-danger"
+                >
+                  {{ "Email required" | translate }}.
+                </span>
+                <span
+                  *ngIf="createForm.get('email').errors.email"
+                  class="text-danger"
+                >
+                  {{ "Email invalid" | translate }}.
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="card form-column-wrapper mb-3">
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="status">{{ "Status" | translate }}</label>
+                  <select
+                    class="form-control"
+                    id="status"
+                    formControlName="status"
+                    disabled
+                  >
+                    <option value="Active">{{ "Active" | translate }}</option>
+                    <option value="Inactive">
+                      {{ "Inactive" | translate }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="type">{{ "Type" | translate }}</label>
+                  <select
+                    class="form-control"
+                    id="type"
+                    formControlName="type"
+                    disabled
+                  >
+                    <option value="Own Personal">
+                      {{ "Own Personal" | translate }}
+                    </option>
+                    <option value="Hired">{{ "Hired" | translate }}</option>
+                    <option value="Subcontractor">
+                      {{ "Subcontractor" | translate }}
+                    </option>
+                    <option value="Others">{{ "Others" | translate }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row row-sm">
+              <div class="col-md-4">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('bankNumber').touched ||
+                        createForm.get('bankNumber').dirty) &&
+                      !createForm.get('bankNumber').valid
+                  }"
+                >
+                  <label for="bankNumber">{{
+                    "Bank Number" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    maxlength="6"
+                    class="form-control"
+                    id="bankNumber"
+                    placeholder="{{ 'Enter bank number' | translate }}"
+                    formControlName="bankNumber"
+                  />
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('accountNumber').touched ||
+                        createForm.get('accountNumber').dirty) &&
+                      !createForm.get('accountNumber').valid
+                  }"
+                >
+                  <label for="accountNumber">{{
+                    "Account Number" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="accountNumber"
+                    placeholder="{{ 'Enter account number' | translate }}"
+                    formControlName="accountNumber"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row row-sm">
+              <div class="col-md-4">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('bic').touched ||
+                        createForm.get('bic').dirty) &&
+                      !createForm.get('bic').valid
+                  }"
+                >
+                  <label for="bic">{{ "BIC" | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="bic"
+                    placeholder="{{ 'Enter BIC' | translate }}"
+                    formControlName="bic"
+                  />
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="iban">{{ "IBAN" | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="iban"
+                    placeholder="{{ 'Enter IBAN' | translate }}"
+                    formControlName="iban"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card form-column-wrapper mb-3">
+            <div
+              class="mb-3"
+              [ngClass]="{
+                'has-error':
+                  (createForm.get('phoneNumber').touched ||
+                    createForm.get('phoneNumber').dirty) &&
+                  !createForm.get('phoneNumber').valid
+              }"
+            >
+              <label for="phoneNumber">{{ "Phone" | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneNumber"
+                placeholder="{{ 'Enter phone number' | translate }}"
+                formControlName="phoneNumber"
+              />
+            </div>
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('phoneNumber').touched ||
+                        createForm.get('phoneNumber').dirty) &&
+                      !createForm.get('phoneNumber').valid
+                  }"
+                >
+                  <label for="phoneNumber">{{ "Mobile" | translate }} 1</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="phoneNumber"
+                    placeholder="{{ 'Enter phone number' | translate }} 1"
+                    formControlName="mobileNumber"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('mobileNumber').touched ||
+                        createForm.get('mobileNumber').dirty) &&
+                      !createForm.get('mobileNumber').valid
+                  }"
+                >
+                  <label for="mobileNumber2"
+                    >{{ "Mobile" | translate }} 2</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="mobileNumber2"
+                    placeholder="{{ 'Enter mobile number' | translate }} 2"
+                    formControlName="mobileNumber2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('postalAddress1').touched ||
+                        createForm.get('postalAddress1').dirty) &&
+                      !createForm.get('postalAddress1').valid
+                  }"
+                >
+                  <label for="postalAddress1"
+                    >{{ "Postal Address" | translate }} 1</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="postalAddress1"
+                    placeholder="{{ 'Enter postal address' | translate }}"
+                    formControlName="postalAddress1"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('postalAddress2').touched ||
+                        createForm.get('postalAddress2').dirty) &&
+                      !createForm.get('postalAddress2').valid
+                  }"
+                >
+                  <label for="postalAddress2"
+                    >{{ "Postal Address" | translate }} 2</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="postalAddress2"
+                    placeholder="{{ 'Enter postal address' | translate }}"
+                    formControlName="postalAddress2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('zipCode').touched ||
+                        createForm.get('zipCode').dirty) &&
+                      !createForm.get('zipCode').valid
+                  }"
+                >
+                  <label for="zipCode">{{ "Zip Code" | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="zipCode"
+                    placeholder="{{ 'Enter zip code' | translate }}"
+                    formControlName="zipCode"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('city').touched ||
+                        createForm.get('city').dirty) &&
+                      !createForm.get('city').valid
+                  }"
+                >
+                  <label for="city">{{ "City" | translate }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    placeholder="{{ 'Enter city' | translate }}"
+                    formControlName="city"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12X col-lg-6X col-6">
+          <div
+            formGroupName="familyMember1"
+            class="card form-column-wrapper mb-3"
+          >
+            <h5>{{ "First Family Member" | translate }}</h5>
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('familyMember1').touched ||
+                        createForm.get('familyMember1').dirty) &&
+                      !createForm.get('familyMember1').valid
+                  }"
+                >
+                  <label for="familyMemberName1">{{
+                    "Name" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="familyMemberName1"
+                    placeholder="{{ 'Enter name' | translate }}"
+                    formControlName="name"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('familyMember1').touched ||
+                        createForm.get('familyMember1').dirty) &&
+                      !createForm.get('familyMember1').valid
+                  }"
+                >
+                  <label for="familyMemberPhone1">{{
+                    "Phone" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="familyMemberPhone1"
+                    placeholder="{{ 'Enter phone number' | translate }}"
+                    formControlName="phone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-group"
+              [ngClass]="{
+                'has-error':
+                  (createForm.get('familyMember1').touched ||
+                    createForm.get('familyMember1').dirty) &&
+                  !createForm.get('familyMember1').valid
+              }"
+            >
+              <label for="familyMemberNote1">{{ "Note" | translate }}</label>
+              <textarea
+                class="form-control"
+                id="familyMemberNote1"
+                style="min-height: 75px"
+                placeholder="{{ 'Enter note' | translate }}"
+                formControlName="note"
+              ></textarea>
+            </div>
+          </div>
+          <div
+            formGroupName="familyMember2"
+            class="card form-column-wrapper mb-3"
+          >
+            <h5>{{ "Second Family Member" | translate }}</h5>
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('familyMember2').touched ||
+                        createForm.get('familyMember2').dirty) &&
+                      !createForm.get('familyMember2').valid
+                  }"
+                >
+                  <label for="familyMemberName2">{{
+                    "Name" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="familyMemberName2"
+                    placeholder="{{ 'Enter name' | translate }}"
+                    formControlName="name"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('familyMember2').touched ||
+                        createForm.get('familyMember2').dirty) &&
+                      !createForm.get('familyMember2').valid
+                  }"
+                >
+                  <label for="familyMemberPhone2">{{
+                    "Phone" | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="familyMemberPhone2"
+                    placeholder="{{ 'Enter phone number' | translate }}"
+                    formControlName="phone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-group"
+              [ngClass]="{
+                'has-error':
+                  (createForm.get('familyMember2').touched ||
+                    createForm.get('familyMember2').dirty) &&
+                  !createForm.get('familyMember2').valid
+              }"
+            >
+              <label for="familyMemberNote2">{{ "Note" | translate }}</label>
+              <textarea
+                class="form-control"
+                id="familyMemberNote2"
+                style="min-height: 75px"
+                placeholder="{{ 'Enter note' | translate }}"
+                formControlName="note"
+              ></textarea>
+            </div>
+          </div>
+          <div class="card form-column-wrapper mb-3">
+            <h5>{{ "Privacy Settings" | translate }}</h5>
+            <div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="share-email-checkbox"
+                  formControlName="shareEmail"
+                />
+                <label for="share-email-checkbox">{{
+                  "Share email" | translate
+                }}</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="share-mobile-checkbox"
+                  formControlName="shareMobilePhoneNumber"
+                />
+                <label for="share-mobile-checkbox">{{
+                  "Share mobile phone number" | translate
+                }}</label>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <button
+            type="button"
+            class="btn btn-dark mb-2"
+            (click)="togglePasswordChange(null)"
+          >
+            {{ "Change Password" | translate }}
+          </button>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="disabled || !isFormValid()"
+      >
+        {{ "Update" | translate }}
+      </button>
+    </form>
+  </div>
+  <div
+    *ngIf="showPasswordChange"
+    class="card col-12X col-lg-6X mb70"
+    id="looksLikeModal"
+    (click)="togglePasswordChange($event)"
+    [formGroup]="createForm"
+  >
+    <article
+      class="card narrow400 minh70p p-4 d-flex flex-column justify-content-between"
+    >
+      <div class="p-1">
+        <div
+          class="form-group"
+          [ngClass]="{
+            'has-error':
+              (createForm.get('password').touched &&
+                createForm.get('password').dirty) &&
+              !createForm.get('password').valid
+          }"
+        >
+          <label for="password">{{ "New Password" | translate }}</label>
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="{{ 'New Password' | translate }}"
+              formControlName="password"
+              [ngClass]="{
+                'is-invalid':
+                  (createForm.get('password').touched && !createForm.get('password').valid) &&
+                  createForm.get('password').invalid
+              }"
+            />
+            <div class="input-group-append">
+              <span
+                class="input-group-text"
+                style="padding-left: 0.5em; padding-right: 0.5em"
+              >
+                <span
+                  (click)="togglePasswordVisibility($event)"
+                  style="cursor: pointer"
+                  class="material-icons"
+                  >remove_red_eye</span
+                >
+              </span>
+            </div>
+          </div>
+            <span
+              class="help-block"
+              *ngIf="
+                (createForm.get('password').touched &&
+                createForm.get('password').dirty) &&
+              !createForm.get('password').valid
+              "
+            >
+              <span class="text-danger">
+                {{
+                  "Password must contain uppercase letter, lowercase letter, a number and a special character excluding a slash."
+                    | translate
+                }} 
+              </span>
+            </span>
+        </div>
+        <div
+          class="form-group"
+          [ngClass]="{
+            'has-error':
+              (createForm.get('confirmPassword').touched &&
+                createForm.get('confirmPassword').dirty) &&
+              !createForm.get('confirmPassword').valid
+          }"
+        >
+          <label for="confirmPassword">{{
+            "Confirm Password" | translate
+          }}</label>
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              placeholder="{{ 'Confirm Password' | translate }}"
+              formControlName="confirmPassword"
+              [ngClass]="{
+            'is-invalid':
+                  (createForm.get('confirmPassword').touched &&
+                    !createForm.get('confirmPassword').valid) &&
+                  createForm.get('confirmPassword').invalid
+              }"
+            />
+            <div class="input-group-append" style="cursor: pointer">
+              <span
+                class="input-group-text"
+                style="padding-left: 0.5em; padding-right: 0.5em"
+              >
+                <span
+                  (click)="togglePasswordVisibility($event)"
+                  style="cursor: pointer"
+                  class="material-icons"
+                  >remove_red_eye</span
+                >
+              </span>
+            </div>
+          </div>
+
+
+        <span
+          class="help-block"
+          *ngIf="
+            (createForm.get('confirmPassword').touched || !createForm.get('confirmPassword').valid) &&
+            createForm.get('confirmPassword').invalid
+          "
+        >
+          <div class="text-danger" *ngIf="createForm.get('confirmPassword').errors.required">
+            {{ "Password is required!" | translate }}.
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="createForm.get('confirmPassword').errors.confirmedValidator"
+          >
+            {{ "Password and confirm password must be match!" | translate }}
+          </div>
+        </span>
+
+        </div>
+       <button type="button" class="btn btn-success" (click)="onPasswordChange()" [disabled]="!createForm.get('password').valid || !createForm.get('confirmPassword').valid">
+          {{ "OK" | translate }}
+        </button>
+      </div>
+    </article>
+  </div>
+</div>
+<app-my-account-educations *ngIf="selectedTab==1" [userId]="userId"></app-my-account-educations>

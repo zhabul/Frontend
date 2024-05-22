@@ -1,0 +1,56 @@
+.main-wrapper {
+  padding-top: 15px;
+}
+
+.prognosis-layout-wrapper {
+  padding-top: 10px;
+}
+
+.filter-wrapper {
+  display: flex;
+  height: 28px;
+  justify-content: space-between;
+  padding: 0 55px 0 10px;
+  margin-bottom: 10px;
+}
+
+.search-and-filter {
+  display: flex;
+  gap: 20px;
+}
+
+.composition {
+  border: 1px solid #82a7e2;
+  color: #82a7e2;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 28px;
+  font-size: 12px;
+}
+
+.composition:hover {
+  cursor: pointer;
+  color: #f96138;
+  border: 1px solid #f96138;
+}
+
+.directory-wrapper {
+  padding: 10px 0 0 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.blue-tables-wrapper {
+  display: flex;
+  gap: 22px;
+}
+
+.dropdown-wrapper {
+  background-color: var(--main-bg);
+  width: 185px;
+  height: 28px;
+  border-radius: 4px 4px 4px 4px;
+}

@@ -1,0 +1,188 @@
+<div class="row">
+  <div class="card col-md-6X col-lg-8W">
+    <div class="form-heading bgGrayBlue">
+      <div
+        class="project-content d-flex"
+        style="width: 100%; justify-content: space-between"
+      >
+        <div>
+          <a
+            routerLink="{{
+              directory.belongs_to == '0'
+                ? '/clients/attachments/' + directory.client_id
+                : '/clients/attachments/' +
+                  directory.belongs_to +
+                  '/' +
+                  directory.client_id
+            }}"
+            class="btn btn-dark lh09 hideUnder800 nowrap mr-2"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            id="topFeeder"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="create-attachment" style="flex: 1">
+          <button
+            [ngClass]="{
+              disabled: !userDetails.create_project_Attachment,
+              'btn-brown': directory.lock == 1,
+              'btn-danger': directory.lock != 1
+            }"
+            class="btn mrW-auto"
+            type="button"
+            [disabled]="directory.lock == 1"
+            (click)="deleteFolder()"
+          >
+            {{ "Delete" | translate }}
+          </button>
+          <button
+            [ngClass]="{
+              disabled: !userDetails.create_project_Attachment
+            }"
+            class="btn btn-outline-info"
+            type="button"
+            (click)="toggleCreateFile(null)"
+          >
+            {{ "New file" | translate }}
+          </button>
+          <button
+            [ngClass]="{
+              disabled: !userDetails.create_project_Attachment
+            }"
+            class="btn btn-outline-info"
+            type="button"
+            (click)="toggleCreateFolder(null)"
+          >
+            {{ "New folder" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="attachment-content">
+      <div
+        class="row row-attacment-content-wrapper"
+        *ngIf="directories.length > 0"
+      >
+        <div
+          class="col-md-3 card-wrapper"
+          *ngFor="let directory of directories; let i = index"
+        >
+          <div class="card bg-light mb-3" (click)="goTo(i, $event)">
+            <div
+              class="card-header d-flex justify-content-between align-items-center"
+              title="{{ directory.name }}"
+            >
+              <span class="ellipsis">{{ formatName(directory.name) }} </span>
+              <div
+                data-id="noNavigate"
+                class="collapsible-header"
+                (click)="changeLock(directory, i)"
+              >
+                <i
+                  data-id="noNavigate"
+                  class="material-icons"
+                  *ngIf="directory.lock == 1"
+                  >lock</i
+                >
+                <i
+                  data-id="noNavigate"
+                  class="material-icons"
+                  *ngIf="directory.lock != 1"
+                  >lock_open</i
+                >
+              </div>
+            </div>
+
+            <div class="card-body">
+              <p class="card-text text-center">
+                <i class="material-icons icon-size">{{
+                  directory.type === "folder" ? "folder" : "insert_drive_file"
+                }}</i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="directories.length < 1">
+        <p class="text-center pt-3">
+          {{ "No folders and files here" | translate }}.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="showCreateFile"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="toggleCreateFile($event)"
+>
+  <article
+    class="card narrow400 minh70p p-4 d-flex flex-column justify-content-between"
+  >
+    <h4 class="mb-3">
+      {{ "Choose a file to upload" | translate }}
+    </h4>
+    <div>
+      <div class="custom-file mb-2">
+        <input
+          (change)="onFileChange($event)"
+          type="file"
+          class="custom-file-input"
+          id="file"
+          #newFile
+          accept="application/pdf, image/*"
+        />
+        <label class="custom-file-label" for="file" *ngIf="!uploadMessage"
+          >{{ "Choose file" | translate }}...</label
+        >
+        <label class="custom-file-label" for="file" *ngIf="uploadMessage">{{
+          uploadMessage
+        }}</label>
+      </div>
+      <button
+        class="btn btn-outline-info"
+        type="button"
+        (click)="addNewFile(newFile.value)"
+        [disabled]="!newFile.value"
+      >
+        {{ "Create file" | translate }}
+      </button>
+    </div>
+  </article>
+</div>
+
+<div
+  *ngIf="showCreateFolder"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="toggleCreateFolder($event)"
+>
+  <article
+    class="card narrow400 minh70p p-4 d-flex flex-column justify-content-between"
+  >
+    <h4 class="mb-3">{{ "Enter folder name" | translate }}</h4>
+    <div>
+      <input
+        type="text"
+        class="form-control mb-2"
+        maxlength="64"
+        placeholder="{{ 'Enter new folder name' | translate }}"
+        #newFolderName
+      />
+      <button
+        class="btn btn-outline-info"
+        type="button"
+        (click)="addNewFolder(newFolderName.value)"
+        [disabled]="newFolderName.value.trim() === ''"
+      >
+        {{ "Create folder" | translate }}
+      </button>
+    </div>
+  </article>
+</div>

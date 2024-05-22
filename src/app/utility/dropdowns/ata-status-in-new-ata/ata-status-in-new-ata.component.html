@@ -1,0 +1,106 @@
+<div #dropdown>
+  <div (click)="toogleMultiselect()" class="name-of-multselect"
+  [ngStyle]="{
+    'border':border,
+    'border-radius': toggle ?'4px 4px 0px 0px':'4px 4px 4px 4px',
+    'border-bottom':toggle ? '0px':border
+}">
+
+      <div [ngStyle]="{'color': color}" class="refname"> {{ ref }} </div>
+      <div class="arrow">
+          <app-arrow-for-dropdown
+            [fill]="fill"
+            [rotate]="rotate"
+          >
+          </app-arrow-for-dropdown>
+      </div>
+      <div class="border-on-scroll" *ngIf="toggle" ></div>
+  </div>
+  <div class="shadow" *ngIf="toggle"></div>
+  <div style="position:relative">
+  <div *ngIf="toggle" class="dropdown-scroll">
+  <div *ngIf="!Disabled">
+      <div *ngFor="let status of localSelectedItem; let i=index" >
+          <div class="users-list" (click)="getSelectedItem(status, i)" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)"  >
+              <div [ngStyle]="{'color': setColorDropDownSelect(status)}" class="users" title="{{status.Name}}"> {{status.Name}}</div>
+              <div class="check-button-wrapp-one">
+                <input type="checkbox"  class="check" >
+                  <app-checkin-svg
+                      *ngIf="status?.checked"
+                      [width]="18"
+                      [height]="18"
+                      [color]="'FF7000'"
+                      [hatched]="'white'"
+                  ></app-checkin-svg>
+                  <app-checkout-svg
+                  *ngIf="!status?.checked"
+                      [width]="18"
+                      [height]="18"
+                      [color]="'FF7000'"
+                      [hatched]="'white'"
+                  ></app-checkout-svg>
+
+              </div>
+          </div>
+      </div>
+    </div>
+        <!-- Decline -->
+        <div
+            style="text-align: start"
+            class="users-list"
+            (click)="manuallyDecline()"
+
+        >
+         <span [ngStyle]="{'color': color5}" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)">{{ decline | uppercase }}</span>
+         <div class="check-button-wrapp-one">
+         <input type="checkbox"  class="check"  [(ngModel)]="isChecked1" (change)="onCheckboxChange(1)">
+          <app-checkin-svg
+              *ngIf="isChecked1"
+              [width]="18"
+              [height]="18"
+              [color]="'FF7000'"
+              [hatched]="'white'"
+          ></app-checkin-svg>
+          <app-checkout-svg
+          *ngIf="!isChecked1"
+              [width]="18"
+              [height]="18"
+              [color]="'FF7000'"
+              [hatched]="'white'"
+          ></app-checkout-svg>
+        </div>
+      </div>
+        <!-- End Decline -->
+        <!-- Accept -->
+        <div
+          tyle="text-align: start"
+          class="users-list"
+          (click)="manuallyAccept()"
+
+        >
+          <span [ngStyle]="{'color': color4}"  (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)">{{ accept | uppercase}}</span>
+            <div class="check-button-wrapp-one">
+              <input type="checkbox"  class="check" [(ngModel)]="isChecked2" (change)="onCheckboxChange(2)">
+              <app-checkin-svg
+                  *ngIf="isChecked2"
+                  [width]="18"
+                  [height]="18"
+                  [color]="'FF7000'"
+                  [hatched]="'white'"
+              ></app-checkin-svg>
+              <app-checkout-svg
+              *ngIf="!isChecked2"
+                  [width]="18"
+                  [height]="18"
+                  [color]="'FF7000'"
+                  [hatched]="'white'"
+              ></app-checkout-svg>
+          </div>
+      </div>
+        <!-- End Accept -->
+  </div>
+  <div class="line-scroll"></div>
+  </div>
+</div>
+
+

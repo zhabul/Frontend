@@ -1,0 +1,23 @@
+.pme {
+    padding: 5px 25px 5px 25px;
+    display: flex;
+}
+
+.image-icon{
+    height: 100%;
+    border-right: 2px solid var(--project-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    cursor: default;
+}
+  
+.offer-status{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 10px;
+}
+  

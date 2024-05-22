@@ -1,0 +1,485 @@
+<div class="row row1X mb-3 menu-wrapp">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-lightX bgGrayBlueX br3 pl-em"
+      style="padding: 10px"
+    >
+      <ul class="navbar-nav flex-container wrap justify-content">
+        <div class="navbar-collapse custom-800" id="navbarSupportedContent">
+          <li class="nav-item active flex-item mr-2">
+            <div class="d-flex">
+              <div>
+                <a
+                  [routerLink]="['/projects/view/', project.id]"
+                  class="btn btn-dark lh09 hideUnder800 mr-3"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                >
+                  <span class="badgeX badge-darkX material-icons top1px posRel"
+                    >arrow_back</span
+                  >
+                </a>
+              </div>
+              <div class="project text-muted w-100">
+                <span class="d-block text-uppercase" style="font-size: 0.9em">{{
+                  (project.parent == "0" ? "Project" : "Subproject") | translate
+                }}</span>
+                <h4 class="textDarkBlue posRel mb-0 fs-18">
+                  {{ project.CustomName }} {{ project.name }}
+                </h4>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </nav>
+  </div>
+  <div class="tab-navigation col-lg-8W bgGrayBlue">
+    <ul class="nav nav-tabs nav-pills" role="tablist">
+      <li class="nav-item" *ngIf="userDetails.show_project_Supplier_Invoices">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'supplier-invoices']"
+          role="tab"
+        >
+          {{ "Supplier Invoices" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link" 
+          [routerLink]="['/projects/view', project.id, 'invoices']"
+          role="tab"
+          id=""
+          >{{ "Invoices History" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          [routerLink]="['/projects/view', project.id, 'works']"
+          role="tab"
+          >{{ "Work Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'materials']"
+          role="tab"
+          >{{ "Materials Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'reports']"
+          role="tab"
+          >{{ "Weekly Reports" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'project-summary']"
+          role="tab"
+          >{{ "Project Summary" | translate }}</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row row1X mb-3">
+  <div class="tab-navigation col-lg-8W bgGrayBlue">
+    <button class="btn-overview active" (click)="setContent('overview')">
+      {{ "Overview" | translate }}
+    </button>
+    <button class="btn-timeAttests" (click)="setContent('timeAttests')"
+      *ngIf="userDetails.show_project_timeattest"
+    >
+      {{ "Time Attests" | translate }}
+    </button>
+    <button class="btn-details" (click)="setContent('details')">
+      {{ "Details" | translate }}
+    </button>
+  </div>
+</div>
+<div class="row row1X">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70"
+    id="notMuchPaddingTill800"
+  >
+    <div class="card-body">
+      <section class="d-flex justify-content-between">
+        <h1 class="h4">{{ "Work Summary" | translate }}</h1>
+      </section>
+      <div class="d-flex atest-filters" *ngIf="details">
+        <form class="autocomplete-form" [formGroup]="createForm" #myform>
+          <div style="margin-right: 0.3rem">
+            <app-input-autocomplete
+              [control]="createForm.get('ata')"
+              [inputText]="createForm.get('ata_name')"
+              [list]="filteringAtas"
+              [myform]="myform"
+              id="id"
+              placeholderText="All"
+              (getEvent)="setState($event, 'selectedAta')"
+            ></app-input-autocomplete>
+          </div>
+          <div style="margin-right: 0.3rem">
+            <app-input-autocomplete
+              [control]="createForm.get('moment')"
+              [inputText]="createForm.get('moment_name')"
+              [list]="filteringMoments"
+              [myform]="myform"
+              id="id"
+              (getEvent)="setState($event, 'selectedMoment')"
+            ></app-input-autocomplete>
+          </div>
+          <div style="margin-right: 0.3rem">
+            <app-input-autocomplete
+              [control]="createForm.get('users')"
+              [inputText]="createForm.get('users_name')"
+              [list]="filteringUsers"
+              [myform]="myform"
+              id="id"
+              (getEvent)="setState($event, 'selectedUser')"
+            ></app-input-autocomplete>
+          </div>
+          <div style="margin-right: 0.3rem">
+            <app-input-autocomplete
+              [control]="createForm.get('week')"
+              [inputText]="createForm.get('week_name')"
+              (getEvent)="setState($event, 'selectedWeek')"
+              [list]="filteringWeeks"
+              [myform]="myform"
+              id="id"
+            ></app-input-autocomplete>
+          </div>
+          <div style="margin-right: 0.3rem">
+            <app-input-autocomplete
+              [control]="createForm.get('month')"
+              [inputText]="createForm.get('month_name')"
+              (getEvent)="setState($event, 'selectedMonth')"
+              [list]="filteringMonths"
+              [myform]="myform"
+              id="id"
+            ></app-input-autocomplete>
+          </div>
+          <div style="margin-right: 0.3rem">
+            <app-input-autocomplete
+              [control]="createForm.get('wr_st')"
+              [inputText]="createForm.get('wr_state')"
+              (getEvent)="setState($event, 'selectedInvoicedApproved')"
+              [list]="filteringWrState"
+              [myform]="myform"
+              id="id"
+            ></app-input-autocomplete>
+          </div>
+        </form>
+
+        <!--
+        <select
+          class="form-control filter"
+          [(ngModel)]="selectedAta"
+          (ngModelChange)="filterTheList()"
+        >
+          <option value="">{{ "Atas" | translate }}</option>
+          <option [value]="ata" *ngFor="let ata of filteringAtas">
+            {{ ata }}
+          </option>
+        </select>
+        <select
+          class="form-control filter"
+          [(ngModel)]="selectedMoment"
+          (ngModelChange)="filterTheList()"
+        >
+          <option value="">{{ "Moments" | translate }}</option>
+          <option [value]="moment" *ngFor="let moment of filteringMoments">
+            {{ moment }}
+          </option>
+        </select>
+        <select
+          class="form-control filter"
+          [(ngModel)]="selectedUser"
+          (ngModelChange)="filterTheList()"
+        >
+          <option value="">{{ "Users" | translate }}</option>
+          <option [value]="user" *ngFor="let user of filteringUsers">
+            {{ user }}
+          </option>
+        </select>
+
+        <select
+          class="form-control filter"
+          [(ngModel)]="selectedWeek"
+          (ngModelChange)="filterTheList()"
+        >
+          <option value="">{{ "Weeks" | translate }}</option>
+          <option [value]="week" *ngFor="let week of filteringWeeks">
+            {{ week }}
+          </option>
+        </select>
+                <select
+          class="form-control filter"
+          [(ngModel)]="selectedMonth"
+          (ngModelChange)="filterTheList()"
+        >
+          <option value="">{{ "Months" | translate }}</option>
+          <option [value]="month" *ngFor="let month of filteringMonths">
+            {{ month }}
+          </option>
+        </select>
+-->
+      </div>
+    </div>
+    <div class="row row-sm" *ngIf="overview">
+      <table
+        class="table table-res800 table-darkX table-sm table-bordered table-hover invoice-table"
+      >
+        <thead>
+          <tr>
+            <th>{{ "Worker Name" | translate }}</th>
+            <th>{{ "Total Time" | translate }}</th>
+            <th>{{ "Atested Time" | translate }}</th>
+            <th>{{ "Not Atested Time" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="invoice-row"
+            *ngFor="let work of works; let i = index"
+            [ngClass]="{
+              'table-warning': work.AtestStatus == '0',
+              'table-success': work.AtestStatus == '1'
+            }"
+          >
+            <td>
+              {{ work.Worker }}
+            </td>
+            <td class="total-text-align">
+              {{ work.totalTime }}
+            </td>
+            <td class="text-success total-text-align">
+              {{ work.atestedTime }}
+            </td>
+            <td class="text-warning total-text-align">
+              {{ work.notAtestedTime }}
+            </td>
+          </tr>
+          <tr class="total-row">
+            <td>
+              <b>{{ "Total" | translate }}</b>
+            </td>
+            <td class="total-text-align">
+              <b *ngIf="works.length > 0">{{ works[0].total }}</b>
+            </td>
+            <td class="text-success total-text-align">
+              <b *ngIf="works.length > 0">{{ works[0].atestedTotal }}</b>
+            </td>
+            <td class="text-warning total-text-align">
+              <b *ngIf="works.length > 0">{{ works[0].notAtestedTotal }}</b>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row row-sm" *ngIf="timeAttests && ensureAtest()">
+      <app-overview
+        [project]="project"
+        [users]="projectUsers"
+        (attestSave)="onAttestSave($event)"
+      ></app-overview>
+    </div>
+    <div class="row row-sm" *ngIf="details">
+      <table
+        class="table tab-responsive table-striped table-hover table-lightX table-sm"
+      >
+        <thead class="table-bordered">
+          <tr>
+            <th scope="col" colspan="9"></th>
+            <th scope="col" colspan="4">{{ "Sum" | translate }}</th>
+          </tr>
+          <tr>
+            <th scope="col">{{ "User" | translate }}</th>
+            <th scope="col">{{ "Moment" | translate }}</th>
+            <th scope="col">{{ "Week" | translate }}</th>
+            <th scope="col">{{ "Date" | translate }}</th>
+            <th scope="col">{{ "Time" | translate }}</th>
+            <th scope="col">{{ "Moment hourly price" | translate }}</th>
+            <th scope="col">{{ "User hourly rate" | translate }}</th>
+            <th scope="col">{{ "Deduct" | translate }}</th>
+            <th scope="col">{{ "Const" | translate }}</th>
+            <th scope="col">{{ "Moment" | translate }}</th>
+            <th scope="col">{{ "User hourly rate" | translate }}</th>
+            <th scope="col">{{ "Net profit" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody class="table-bordered">
+          <ng-container
+            *ngFor="let moment of additionalWork; index as i; last as isLast"
+          >
+            <tr>
+              <td>{{ moment["Surname"] }} {{ moment["Lastname"] }}</td>
+              <td>{{ moment["Work"] }}</td>
+              <td>
+                <span *ngIf="moment['AtaNumber']"
+                  >{{ moment["AtaNumber"] }}-</span
+                >{{ moment["NAME"] }}
+              </td>
+              <td>{{ moment["utDate"] }}</td>
+              <td>{{ moment["MomentTime"] }}</td>
+              <td>{{ moment["Price"] }}</td>
+              <td>{{ moment["userHourlyRate"] }}</td>
+              <td>{{ moment["Deduct"] }}</td>
+              <td>{{ moment["socialSecurity"] }}</td>
+              <td class="total-text-align">
+                {{ moment["sumByMomentHourlyRate"] | number: "1.2-2":"fr" }}
+              </td>
+              <td class="total-text-align">
+                {{ moment["UserTotalCost"] | number: "1.2-2":"fr" }}
+              </td>
+              <td class="total-text-align">
+                {{ moment["DifferenceBetweenTheSums"] | number: "1.2-2":"fr" }}
+              </td>
+            </tr>
+          </ng-container>
+          <tr class="font-weight-bold total-text-align">
+            <td colspan="4" style="text-align: start">
+              {{ "TSC_worker_total" | translate }}
+            </td>
+            <td class="total-text-align">
+              {{ items.time_qty_total_default | number: "1.2-2":"fr" }}
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="total-text-align">
+              {{
+                items.total_loan_user_cost_per_moment_default
+                  | number: "1.2-2":"fr"
+              }}
+            </td>
+            <td class="total-text-align">
+              {{
+                items.total_user_cost_per_moment_default | number: "1.2-2":"fr"
+              }}
+            </td>
+            <td class="total-text-align">
+              {{
+                items.total_diference_user_cost_and_loan_cost_per_moment_default
+                  | number: "1.2-2":"fr"
+              }}
+            </td>
+          </tr>
+          <tr class="font-weight-bold total-text-align">
+            <td colspan="4" style="text-align: start">
+              {{ "TSC_Total_Manually_added" | translate }}
+            </td>
+            <td class="total-text-align">
+              {{ items.time_qty_total_manual | number: "1.2-2":"fr" }}
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="total-text-align">
+              {{
+                items.total_loan_user_cost_per_moment_manual
+                  | number: "1.2-2":"fr"
+              }}
+            </td>
+            <td class="total-text-align">
+              {{
+                items.total_user_cost_per_moment_manual | number: "1.2-2":"fr"
+              }}
+            </td>
+            <td class="total-text-align">
+              {{
+                items.total_diference_user_cost_and_loan_cost_per_moment_manual
+                  | number: "1.2-2":"fr"
+              }}
+            </td>
+          </tr>
+          <tr class="font-weight-bold total-text-align">
+            <td colspan="4" style="text-align: start">Total</td>
+            <td class="total-text-align">
+              {{ items.time_qty_total | number: "1.2-2":"fr" }}
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="total-text-align">
+              {{ items.total_loan_user_cost_per_moment | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{ items.total_user_cost_per_moment | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{
+                items.total_diference_user_cost_and_loan_cost_per_moment
+                  | number: "1.2-2":"fr"
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="paginate-wrapp">
+        <div class="pagination">
+          <div class="page-num-main-wrapp">
+            <ul class="pagination page-num-wrapp">
+              <li class="page-item first-item">
+                <a
+                  (click)="generatePageArray(1, true)"
+                  class="page-link-main"
+                  >{{ "First" | translate }}</a
+                >
+              </li>
+              <li class="page-item previous-item">
+                <a
+                  (click)="generatePageArray(selectedPage - 1, true)"
+                  class="page-link-main"
+                  >{{ "Previous" | translate }}</a
+                >
+              </li>
+              <ng-container *ngFor="let page of pages; let index = index">
+                <li
+                  class="page-item number-item"
+                  [ngClass]="{
+                    active: page === selectedPage,
+                    'active-fnt': page === selectedPage
+                  }"
+                >
+                  <a class="page-link" (click)="generatePageArray(page, true)">
+                    {{ page }}
+                  </a>
+                </li>
+              </ng-container>
+              <li
+                class="page-item next-item"
+                (click)="generatePageArray(selectedPage + 1, true)"
+              >
+                <a class="page-link-main">{{ "Next" | translate }}</a>
+              </li>
+              <li class="page-item last-item">
+                <a
+                  (click)="generatePageArray(maxPage, true)"
+                  class="page-link-main"
+                  >{{ "Last" | translate }}</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="progress-loader" *ngIf="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>

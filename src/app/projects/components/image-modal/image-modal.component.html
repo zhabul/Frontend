@@ -1,0 +1,140 @@
+<div class="revisited-dnd">
+    <div class="attachment-container-transition-fix">
+      <div
+        class="attachment-dot-container"
+        [ngClass]="type == 'edit-ata' || 'add-ata' ? 'attachment-dot__options' : ''"
+        appDnd
+        (fileDropped)="onFileDropped($event)">
+        <div class="container-dots"></div>
+        <div class="attachment-container"
+              [ngStyle]="{
+                width: type == 'edit-ata' || 'add-ata' ? '89%' : '50% ',
+                margin : type == 'edit-ata' || 'add-ata' ? '0px 0px' : 'auto',
+                padding : type == 'edit-ata' || 'add-ata' ? '0px 0rem' : '0rem'
+              }">
+          <div
+            class="btn btn-outline-info mr-2 choose-file-button"
+            (click)="fileDropRef.click()"
+            for="image">
+            {{ "Choose file" | translate }}
+          </div>
+          <input
+            type="file"
+            [accept]="fileType"
+            class="form-control-file hide"
+            id="document"
+            (change)="documentsOnChange($event)"
+            #fileDropRef
+            multiple="true"
+          />
+          <div class="dropzone fileover upload-files">
+            <div></div>
+            <div class="attach-text" for="document">
+              {{ "Attach or drop files here" | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let albumKey of getAlbumKeys()" class="album-keys">
+    <div
+      class="fake-image-modal-container"
+      *ngIf="
+        getAlbumImages(albumKey).length > 0 || getAlbumPdfs(albumKey).length > 0
+      "
+    >
+      <div
+        class="form-group-upload form-group-upload2"
+        *ngIf="
+          getAlbumImages(albumKey).length > 0 || getAlbumPdfs(albumKey).length > 0
+        "
+      >
+        <div class="preview-image-new-container2">
+          <div style="display: inline-block;" *ngFor="let file of getAlbumImages(albumKey); let index = index">
+            <app-file-preview
+
+              type="image"
+              [file]="file"
+              [index]="index"
+              [active]="index"
+              [canRemove]="true"
+              [imageModal]="true"
+              (removeFile)="removeFile(albumKey, $event, 'images')"
+              (openSwiper)="openSwiper(index, getAlbumImages(albumKey), albumKey)"
+            ></app-file-preview>
+          </div>
+        </div>
+
+        <div class="preview-image-new-container2">
+          <div style="display: inline-block;" *ngFor="let file of getAlbumPdfs(albumKey); let index = index">
+              <!-- <app-file-preview
+
+                type="pdf"
+                [file]="file"
+                [index]="index"
+                [active]="index"
+                [canRemove]="true"
+                [imageModal]="true"
+                (removeFile)="removeFile(albumKey, $event, 'pdfs')"
+                (openSwiper)="openSwiper(index, getAlbumPdfs(albumKey), albumKey)"
+
+              >
+              </app-file-preview> -->
+              <app-pdfjs-preview
+                style="display: flex; cursor: pointer; width: 68px; margin-right: 5px;"
+                type="pdf"
+                (click)="openSwiper(index, getAlbumPdfs(albumKey), albumKey)"
+                [pdfUrls]="[file['Url']]"
+                [deleted]="file.deleted"
+                [canRemove]="'true'"
+                [index]="index"
+                [active]="index"
+                [width]="68"
+                [height]="43"
+                [borderRadius]="'0px 0px 0px 0px'"
+                [folder]="true"
+                (removeFile)="removeFile(albumKey, $event, 'pdfs')"
+              >
+            </app-pdfjs-preview>
+          </div>
+        </div>
+      </div>
+
+      <div class="album-description-container">
+        <textarea
+            *ngIf="getAlbumImages(albumKey).length > 0 || getAlbumPdfs(albumKey).length > 0"
+            maxlength="500"
+            class="album-description form-control"
+            rows="3"
+            #testData
+            (keydown)="onEnterKeyPress(testData.value, albumKey)"
+            [placeholder]="translate.instant('Enter description')"
+        ></textarea>
+        <!--          [(ngModel)]="albums[albumKey].description"
+-->
+      </div>
+    </div>
+  </div>
+
+  <ng-template #otherComponent>
+    <app-gallery
+      *ngIf="swiper.images.length"
+      [swiper]="swiper"
+      [canRemove]
+      (removeImageEvent)="removeSwiperImage($event)"
+      (closeSwiperEvent)="closeSwiper()"
+    ></app-gallery>
+    </ng-template>
+    <ng-container *ngIf="isPDFViewer; else otherComponent">
+      <app-pdfjs-viewer
+        *ngIf="swiper.images.length"
+        [swiper]="swiper"
+        [canRemove]
+        [server]="true"
+        (removeImageEvent)="removeSwiperImage($event)"
+        (closeSwiperEvent)="closeSwiper()"
+      ></app-pdfjs-viewer>
+    </ng-container>
+

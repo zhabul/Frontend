@@ -1,0 +1,318 @@
+<div class="wrapp">
+  <div class="form-heading">
+          <div class="navbar-collapse custom-800" id="navbarSupportedContent">
+           <div class="back-button-and-invoices-name">
+              <a
+                [routerLink]="['/']"
+                class="home"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+              <svg  xmlns:xlink="http://www.w3.org/1999/xlink" height="29.342" viewBox="0 0 34.604 29.342" width="34.604" xmlns="http://www.w3.org/2000/svg"><defs><clipPath   id="clip-path"><rect data-name="Rectangle 15829" fill="none" height="29.342" id="Rectangle_15829" width="34.604"></rect></clipPath></defs><g  data-name="Group 4372" id="Group_4372" transform="translate(0 0)"><g clip-path="url(#clip-path)" data-name="Group 4371" id="Group_4371" transform="translate(0 0)"><path  d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7" data-name="Path 1822" fill="#82a7e2" id="Path_1822" transform="translate(0 0)"></path></g></g></svg>
+              </a>
+              <div class="head-name">
+                {{ "Invoices" | translate}}
+              </div>
+            </div>
+            <!-- <li class="nav-item active flex-item mr-2">
+              <div class="projects-date mb-10">
+                <div class="input-group date w100Under800 maxw170Over800">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="material-icons">calendar_today</i></span
+                    >
+                  </div>
+                  <input
+                    (keydown)="$event.preventDefault()"
+                    id="dateSelect"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control project-date"
+                    aria-describedby="basic-addon1"
+                    placeholder="{{ 'Choose date' | translate }}"
+                    #selectedDate
+                    (change)="onChange(selectedDate, selectStatus, searchInput)"
+                  />
+                </div>
+              </div>1
+            </li> -->
+
+              <div class="select-toggle mb-10">
+                <select
+                  class="project-nav-select w100Under800 minw160Over800 h38 pt2px pl5px text-muted"
+                  id="project-status"
+                  #selectStatus
+                  (change)="onChange( selectStatus, searchInput)"
+                  style="display: none"
+                >
+                  <option value="0" selected>1 {{ "All" | translate }}</option>
+                  <option value="1">2 {{ "Not sent" | translate }}</option>
+                  <option value="2">3 {{ "Sent" | translate }}</option>
+                  <option value="4">4 {{ "TSC_Booked" | translate }}</option>
+                  <option value="6">5 {{ "Paid" | translate }}</option>
+                  <option value="3">6 {{ "Unpaid due" | translate }}</option>
+                  <option value="5">7 {{ "Canceled" | translate }}</option>
+                </select>
+              </div>
+
+
+              <a
+                class="btn btn-new-invoice"
+                routerLinkActive="active"
+                routerLink="/invoices/new"
+                (mouseenter)="onEnterMouse()"
+                (mouseleave)="onLeaveMouse()"
+                [ngStyle]="{'border-color': hoverColor}"
+                *ngIf="userDetails.create_invoices_Global"
+              >
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18.385" height="18.385" viewBox="0 0 18.385 18.385">
+                <defs>
+                  <clipPath id="clip-path">
+                    <path id="Path_736" data-name="Path 736" d="M0,6.951H13v-13H0Z" transform="translate(0 6.049)" fill="none"/>
+                  </clipPath>
+                </defs>
+                <g id="X_icon" data-name="X icon" transform="translate(9.192) rotate(45)">
+                  <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                    <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                      <path id="Path_734" data-name="Path 734" d="M6.951,3.475a6.5,6.5,0,1,1-6.5-6.5,6.5,6.5,0,0,1,6.5,6.5" transform="translate(6.049 3.024)" [style.fill]="hoverColor"/>
+                    </g>
+                    <g id="Group_290" data-name="Group 290" transform="translate(2.691 2.702)">
+                      <path id="Path_735" data-name="Path 735" d="M3.968,3.444,1.3.781,3.972-1.892a.512.512,0,0,0,0-.75l-.191-.191a.511.511,0,0,0-.769.043L.372-.152-2.321-2.836a.521.521,0,0,0-.765.013l-.2.2a.521.521,0,0,0,.026.787L-.6.82S-3.176,3.412-3.264,3.5a.512.512,0,0,0,0,.75l.191.191A.511.511,0,0,0-2.308,4.4L.333,1.753,3.028,4.441A.521.521,0,0,0,3.8,4.428l.2-.2a.52.52,0,0,0-.028-.787" transform="translate(3.453 2.997)" fill="#373b40"/>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              </span>
+                <span class="ml-1 nowrap hideUnder1400" [ngStyle]="{'color': hoverColor}">{{
+                  "New Invoice" | translate
+                }}</span>
+              </a>
+          </div>
+  </div>
+
+  <div class="blu-scroll-wrapp">
+    <div
+      class="blu-scroll"
+      (scroll)="onScroll($event)"
+    >
+    <div class="search-nav-wrapp">
+        <div class="row ml-2 searchdiv">
+            <span class="search-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="13.06"
+                  viewBox="0 0 13 13.06"
+                >
+                  <path
+                    id="Path_737"
+                    data-name="Path 737"
+                    d="M30.923,28.9l-.078-.079h0l-3.134-3.151a5.185,5.185,0,0,0-4.425-7.777h-.034a5.18,5.18,0,0,0-.032,10.36h.034a5.106,5.106,0,0,0,2.595-.706l3.131,3.149h0l.078.079a.6.6,0,0,0,.858,0l1.007-1.013A.612.612,0,0,0,30.923,28.9Zm-7.695-1.968a3.859,3.859,0,0,1,.024-7.718h.026a3.8,3.8,0,0,1,2.707,1.148,3.874,3.874,0,0,1-.027,5.449,3.8,3.8,0,0,1-2.7,1.121Z"
+                    transform="translate(-18.101 -17.89)"
+                    fill="#fcf4ec"
+                  />
+                </svg>
+            </span>
+            <input
+                type="text"
+                id="searchInput"
+                class="form-control search-input"
+                style="width: 300px"
+                #searchInput
+                placeholder="{{ 'Search' | translate }}"
+                (input)="onChange( selectStatus, searchInput)"
+            />
+            <span class="clear-icon" (click)="clearSearchText($event)" *ngIf="existString">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10.189"
+                height="10.189"
+                viewBox="0 0 10.189 10.189"
+                >
+                <path
+                    id="Path_783"
+                    data-name="Path 783"
+                    d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z"
+                    transform="translate(3.622 4.382)"
+                    fill="#fcf4ec"
+                />
+                </svg>
+            </span>
+        </div>
+
+
+      <form class="buttons-form">
+        <div class="group-status" (click)="onStatusChange('0')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg *ngIf="statusObject['0'] == false" ></app-not-selected-icon-svg>
+            <app-selected-icon-svg *ngIf="statusObject['0'] == true" color='#ff7000'></app-selected-icon-svg>
+          </div>
+          <input type="radio" name="all" [checked]="statusObject['0']" />
+          <div class="filter-name">{{ "All" | translate }}</div>
+        </div>
+        <div class="group-status" (click)="onStatusChange('1')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg *ngIf="statusObject['1'] == false" ></app-not-selected-icon-svg>
+            <app-selected-icon-svg *ngIf="statusObject['1'] == true" color='#FFFFFF'></app-selected-icon-svg>
+          </div>
+            <input type="radio" name="Booked" [checked]="statusObject['1']" />
+            <div class="filter-name">{{"Under pricing" | translate}}</div>
+        </div>
+        <div class="group-status" (click)="onStatusChange('4')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg *ngIf="statusObject['4'] == false" ></app-not-selected-icon-svg>
+            <app-selected-icon-svg *ngIf="statusObject['4'] == true" color='#F0E264'></app-selected-icon-svg>
+          </div>
+            <input type="radio" name="Not Sent" [checked]="statusObject['4']" />
+            <div class="filter-name">{{ "Not Sent" | translate }}</div>
+
+        </div>
+        <div (click)="onStatusChange('2')" class="group-status">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg *ngIf="statusObject['2'] == false" ></app-not-selected-icon-svg>
+            <app-selected-icon-svg *ngIf="statusObject['2'] == true" color='#94EFFD'></app-selected-icon-svg>
+          </div>
+          <input type="radio" name="Sent" [checked]="statusObject['2']" />
+          <div class="filter-name">{{ "Sent" | translate }}</div>
+        </div>
+        <div class="group-status" (click)="onStatusChange('6')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg *ngIf="statusObject['6'] == false" ></app-not-selected-icon-svg>
+            <app-selected-icon-svg *ngIf="statusObject['6'] == true" color='#03D156'></app-selected-icon-svg>
+          </div>
+          <input type="radio" name="Paid" [checked]="statusObject['6']" />
+          <div class="filter-name">{{ "Paid" | translate }}</div>
+
+        </div>
+        <div (click)="onStatusChange('3')" class="group-status">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg *ngIf="statusObject['3'] == false" ></app-not-selected-icon-svg>
+            <app-selected-icon-svg *ngIf="statusObject['3'] == true" color='#FD4444'></app-selected-icon-svg>
+          </div>
+          <input type="radio" name="Unpaid due" [checked]="statusObject['3']" />
+          <div class="filter-name">{{ "Unpaid due" | translate }}</div>
+
+        </div>
+
+        <div class="group-status" (click)="onStatusChange('5')">
+          <div class="svg-wrapp">
+            <app-not-selected-icon-svg *ngIf="statusObject['5'] == false" ></app-not-selected-icon-svg>
+            <app-selected-icon-svg *ngIf="statusObject['5'] == true" color='#B8B8B8'></app-selected-icon-svg>
+          </div>
+          <input type="radio" name="Canceled" [checked]="statusObject['5']" />
+          <div class="filter-name">{{"Canceled" | translate}}</div>
+        </div>
+      </form>
+    </div>
+      <div class="row row-sm">
+        <table
+          class="table table-res800 table-darkX table-sm table-bordered table-hover invoice-table"
+          id="tablescroll"
+        >
+          <thead>
+            <tr>
+              <th class="nr-w">{{ "TSC_No" | translate }}</th>
+              <th class="project-w">{{ "Project" | translate }}</th>
+              <th class="client-w">{{ "Client" | translate }}</th>
+              <th class="date-w">{{ "Date" | translate }}</th>
+              <th class="type-w">{{ "Type" | translate }}</th>
+              <th class="invoice-w">{{'Faktura nr.' | translate}}</th>
+              <th class="total-w">{{ "Total" | translate }}</th>
+              <th class="action-w">{{ "Comment" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="invoice-row"
+              *ngFor="let invoice of invoices; let i = index"
+              [ngClass]="{
+                'wemax-purple': invoice.Status == '2',
+                'wemax-red': invoice.Status == '3',
+                'wemax-yellow': invoice.Status == '4',
+                'wemax-green': invoice.Status == '6',
+                'wemax-grey': invoice.Status == '5'
+              }"
+            >
+              <td (click)="viewEditInvoice(invoice.Id, invoice.Status, invoice.Url, invoice.index, invoice.parent)">
+                <span>{{ invoice.index }}</span>
+              </td>
+              <td (click)="viewEditInvoice(invoice.Id, invoice.Status, invoice.Url, invoice.index, invoice.parent)">
+                <span>{{ invoice.Project }}</span>
+              </td>
+              <td (click)="viewEditInvoice(invoice.Id, invoice.Status, invoice.Url, invoice.index, invoice.parent)">
+                <span>{{ invoice.Client }}</span>
+              </td>
+              <td (click)="viewEditInvoice(invoice.Id, invoice.Status, invoice.Url, invoice.index, invoice.parent)">
+                <span>{{ invoice.InvoiceDate }}</span>
+              </td>
+              <td (click)="viewEditInvoice(invoice.Id, invoice.Status, invoice.Url, invoice.index, invoice.parent)">
+                <span>{{ invoice.Type | translate }}</span>
+              </td>
+              <td (click)="viewEditInvoice(invoice.Id, invoice.Status, invoice.Url, invoice.index, invoice.parent)">
+                <span>{{ invoice.FinanceId }}</span>
+              </td>
+              <td class="total-text-align" (click)="viewEditInvoice(invoice.Id, invoice.Status, invoice.Url, invoice.index, invoice.parent)">
+                <span>{{ invoice.Total | number: "1.2-2":"fr" }}</span>
+              </td>
+            <!--  <td class="text-center delete-icon">
+                <span
+                  class="text-danger material-icons top1px posRel"
+                  style="cursor: pointer"
+                  (click)="removeInvoice(invoice.Id, $event, i)"
+                  *ngIf="invoice.Status == '1'"
+                  >delete_outline</span
+                >
+
+              </td> !-->
+              <td class="ata-td-comment edit-row"
+                (keyup)="checkedLengthRequirements($event)"
+                (blur)="saveCustomComment(invoice.Id, $event, i)"
+                [attr.contenteditable]= "true"
+                >
+                  <div>{{invoice.custom_comment}}</div>
+            </td>
+            </tr>
+            <!-- <tr class="total-row">
+              <td  style="text-align: right" *ngIf="showPaginate">
+                <div class="paginate-wrapp">
+                  <div class="paginate-style">
+                    <span
+                      class="material-icons"
+                      (click)="paginate(previousPage)"
+                      [ngClass]="{ 'last-page': page == 1 }"
+                      >navigate_before</span
+                    >
+                  </div>
+                  <div class="paginate-style">
+                    <span
+                      class="material-icons"
+                      (click)="paginate(nextPage)"
+                      [ngClass]="{
+                        'last-page': page == numberOfRowsArray.length
+                      }"
+                      >navigate_next</span
+                    >
+                  </div>
+                </div>
+                <div class="paginate-numbers">
+                  <span
+                    *ngFor="let num of numberOfRowsArray; let i = index"
+                    (click)="paginate(i + 1)"
+                    [ngStyle]="{ color: i + 1 == page ? 'red' : 'black' }"
+                    >{{ i + 1 }}</span
+                  >
+                </div>
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="vertical-line"></div>
+    <div  class="horizontal-line"></div>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

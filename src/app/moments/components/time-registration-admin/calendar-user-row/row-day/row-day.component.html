@@ -1,0 +1,23 @@
+<ng-container *ngIf="visible">
+  <app-user-day-moments
+    *ngIf="moments"
+    [moments]="user.moments[day.date]"
+    [day]="day"
+    [user]="user"
+    [index]="index"
+    [calendarStyle]="calendarStyle"
+    [queryParams]="queryParams"
+  ></app-user-day-moments>
+  <app-user-day-absences
+    *ngIf="absences"
+    [absences]="user.absences[day.date]"
+    [day]="day"
+    [days]="calendar"
+    [user]="user"
+    [calendarStyle]="calendarStyle"
+    [index]="index"
+    (updateAbsenceInfo)="updateAbsenceInfo_($event)"
+  ></app-user-day-absences>
+  <div *ngIf="day.boundary_condition" class="placeholder-cube"></div>
+  <div *ngIf="day.today" class="current-day-line"></div>
+</ng-container>

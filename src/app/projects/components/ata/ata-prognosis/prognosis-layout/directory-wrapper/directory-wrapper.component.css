@@ -1,0 +1,28 @@
+.content-wrapper {
+  width: 100%;
+  border-top: 2px solid #858585;
+  border-radius: 5px;
+}
+
+.button-wrapper {
+  border: 2px solid #858585;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom: none;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.name {
+  margin: 8px 10px 0 10px;
+  color: #E3DBD3;
+}
+
+.line {
+  height: 2px;
+  width: 100%;
+  background-color: #373b40;
+  position: absolute;
+}

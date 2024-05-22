@@ -1,0 +1,11 @@
+<svg id="Bocka_av_icon" data-name="Bocka av icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 14 14">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_60" data-name="Rectangle 60" width="14" height="14" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+    <path id="Path_745" data-name="Path 745" d="M13.877,6.938a6.941,6.941,0,0,1-13.883,0A7.041,7.041,0,0,1,2.852,1.326,6.738,6.738,0,0,1,6.937,0a6.94,6.94,0,0,1,6.94,6.94" transform="translate(0.065 0.061)" fill="#fff"/>
+    <path id="Path_746" data-name="Path 746" d="M19.538,19.45l-.21-.212a.638.638,0,0,0-.451-.2.731.731,0,0,0-.51.235l-4.654,4.608L12.19,22.3v0l-.483-.487a.656.656,0,0,0-.46-.2.685.685,0,0,0-.476.21l-.21.212A.65.65,0,0,0,10.6,23l3.13,3.155,5.423-5.364.4-.4a.643.643,0,0,0-.007-.938" transform="translate(-8.386 -15.455)" fill="#1a1a1a"/>
+  </g>
+</svg>

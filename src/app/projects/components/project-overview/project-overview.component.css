@@ -1,0 +1,245 @@
+.bgGrayBlue {
+  background-color: #d5dfe7 !important;
+  background-color: hsl(207, 27%, 87%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  /*background-color: rgb(213, 223, 231) !important;*/
+}
+
+.tab-navigation {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.btnAddImage {
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.btn-all,
+.btn-approved {
+  border: 1px solid transparent !important;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px 50px;
+}
+
+.btn-all:hover,
+.btn-approved:hover {
+  border: 1px solid hsl(207, 27%, 37%) !important;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.btn-all.active,
+.btn-approved.active,
+.btnAddImage {
+  background-color: hsl(207, 27%, 37%) !important;
+  border: 1px solid hsl(207, 27%, 37%) !important;
+  border-radius: 0;
+  color: #ffffff !important;
+}
+
+#looksLikeModal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: hsla(0, 0%, 0%, 0.4);
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#image-gallery {
+  width: 100%;
+  position: relative;
+  height: 85vh;
+  background: transparent;
+}
+
+#image-gallery .image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+}
+
+.heading {
+  width: 100%;
+}
+
+.wrImages {
+  margin-bottom: 100px;
+}
+
+.docImages {
+  margin-bottom: 30px;
+}
+
+.documentImage {
+  height: 150px;
+  width: 150px;
+  margin: 10px;
+}
+
+.image {
+  height: 120px;
+  width: 150px;
+}
+
+.imgName {
+  text-align: center;
+  background-color: hsl(207deg 21% 55%) !important;
+  position: absolute;
+  bottom: -15px;
+  left: 1px;
+  width: 100%;
+}
+
+.icon-display {
+  transform: scale(2);
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.pdf-placeholder {
+  height: 120px;
+  width: 150px;
+  background: grey;
+  color: #651411;
+}
+
+.panel {
+  position: relative !important;
+  overflow: hidden;
+  display: block;
+  border-radius: 0 !important;
+  cursor: pointer;
+}
+
+.panel-default {
+  border-color: #ebedef !important;
+  background-color: hsl(207deg 21% 55%) !important;
+  position: relative;
+}
+
+.panel .panel-body {
+  padding: 0 !important;
+  overflow: hidden;
+  height: auto;
+}
+
+.panel .panel-body {
+  overflow: hidden;
+}
+
+.panel .panel-body img {
+  display: block;
+  margin: 0;
+  width: 100%;
+  height: auto;
+  transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+}
+
+.panel .panel-body .zoom:hover img {
+  transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  -webkit-transform: scale(1.3);
+  -o-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+}
+
+.panel .panel-body .zoom span.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  height: 100%;
+  width: 100%;
+  background-color: #000;
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+  -moz-transition: opacity 0.25s ease-out;
+  -webkit-transition: opacity 0.25s ease-out;
+  -o-transition: opacity 0.25s ease-out;
+}
+
+.panel .panel-body .zoom:hover span.overlay {
+  display: block;
+  visibility: visible;
+  opacity: 0.55;
+  -moz-opacity: 0.55;
+  -webkit-opacity: 0.55;
+  filter: alpha(opacity=65);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+}
+
+.panel .panel-body .zoom:hover span.overlay i {
+  position: absolute;
+  top: 45%;
+  left: 0%;
+  width: 100%;
+  font-size: 2.25em;
+  color: #fff !important;
+  text-align: center;
+  opacity: 1;
+  -moz-opacity: 1;
+  -webkit-opacity: 1;
+  filter: alpha(opacity=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+}
+
+.panel .panel-footer {
+  padding: 8px !important;
+  background-color: #f9f9f9 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.panel .panel-footer h4 {
+  display: inline;
+  font: 400 normal 1.125em "Roboto", Arial, Verdana, sans-serif;
+  color: #34495e;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.panel .panel-footer i.glyphicon {
+  display: inline;
+  font-size: 1.125em;
+  cursor: pointer;
+}
+
+.panel .panel-footer i.glyphicon-thumbs-up {
+  color: #1abc9c;
+}
+
+.panel .panel-footer i.glyphicon-thumbs-down {
+  color: #e74c3c;
+  padding-left: 5px;
+}
+
+.panel .panel-footer div {
+  width: 15px;
+  display: inline;
+  font: 300 normal 1.125em "Roboto", Arial, Verdana, sans-serif;
+  color: #34495e;
+  text-align: center;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.modal-title {
+  font: 400 normal 1.625em "Roboto", Arial, Verdana, sans-serif;
+}
+
+.modal-footer {
+  font: 400 normal 1.125em "Roboto", Arial, Verdana, sans-serif;
+}

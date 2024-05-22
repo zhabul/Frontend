@@ -1,0 +1,45 @@
+<div class="container-fluidX px-0X w-100W" style="position: absolute">
+  <div class="row">
+    <div class="card col-md-12X col-lg-6X col-lg-8W">
+      <div class="form-heading bgGrayBlue">
+        <div class="float-left">
+          <a
+            routerLink="/projects/view/{{ project.id }}"
+            class="btn btn-dark mr-2 lh09 hideUnder800"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            id="topFeeder"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="project text-uppercase text-muted" style="font-size: 0.9em">
+          {{ "Purchases" | translate }}
+          <br />
+          <span class="h4 textDarkBlue fs-18"
+            >{{ project.CustomName }} {{ project.name }}</span
+          >
+        </div>
+      </div>
+      <div class="tab-navigation-wrapper">
+        <div class="tab-navigation bgGrayBlue">
+          <ul class="nav nav-tabs nav-pills" role="tablist">
+            <li class="nav-item" *ngIf="userDetails.create_project_Purchases">
+              <a
+                class="nav-link"
+                [routerLinkActive]="['active']"
+                [routerLink]="['./supplier']"
+                role="tab"
+              >
+                {{ "Select Supplier" | translate }}</a
+              >
+            </li>
+          </ul>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

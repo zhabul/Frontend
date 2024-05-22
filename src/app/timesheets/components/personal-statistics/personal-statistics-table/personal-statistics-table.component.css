@@ -1,0 +1,121 @@
+.table-header {
+    display: grid;
+    grid-template-rows: 35px;
+    grid-template-columns: 290px auto;
+    border-top: 1px solid var(--border-color);
+    height: 36px;
+    position: relative;
+    top: 0;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.table-header > div {
+    color: white;
+    background-color: black;
+    border-right: 1px solid var(--border-color);
+}
+
+.table-header > div:last-child {
+    border-right: none;
+}
+
+.grey-filler {
+    position: absolute;
+    right: 0;
+    top: 67px;
+    height: 35px; 
+    width: 16px;
+    background-color: var(--main-bg);
+    z-index: 1000;
+    border-left: 1px solid var(--border-color);
+}
+
+
+.table-row {
+    display: grid;
+    grid-template-rows: 35px;
+    grid-template-columns: 290px auto;
+    border-bottom: 1px solid var(--border-color);
+    height: 36px;
+    background-color: white;
+    width: 100%;
+}
+ 
+.table-row > div {
+    background-color: white;
+    border-right: 1px solid var(--border-color);
+}
+
+.sticky-columns {
+    position: sticky;
+    left: 0;
+    display: grid;
+    grid-template-columns: 65px 225px auto;
+    grid-template-rows: auto;
+    z-index: 10;
+    
+}
+
+.sticky-columns > div {
+    text-align: left;
+    padding-left: 5px;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    border-right: 1px solid var(--border-color);
+    word-break: break-all;
+}
+
+.font-small {
+    font-size: 10px !important;
+}
+
+.dynamic-grid {
+    display: grid;
+    grid-template-rows: 35px;
+}
+
+.dynamic-grid > div {
+    text-align: center;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    border-right: 1px solid var(--border-color);
+}
+
+.spinner-container-absolute {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.sticky-totals {
+    position: sticky;
+    bottom: 0;
+    background-color: #FCDEBE;
+    height: 36px;
+    z-index: 1000;
+}
+
+.sticky-totals > div {
+    background-color: #FCDEBE;
+    border-top: 1px solid var(--border-color);
+}
+
+.blu-scroll3::-webkit-scrollbar-button:single-button:horizontal:decrement {
+    width: 585px !important;
+}
+
+.left-algin {
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding-left: 10px;
+}

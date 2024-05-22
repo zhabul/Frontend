@@ -1,0 +1,82 @@
+<div class="schedRespon card col-md-12x">
+  <div class="row form-heading bgGrayBlue py-1 d-flex">
+    <div>
+      <a
+        [routerLink]="['./schedule-calendar']"
+        class="btn btn-dark mt-2 mb-2 ml-3 lh09 float-left hideUnder800"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        id="topFeeder"
+      >
+        <span class="badgeX badge-darkX material-icons top1px posRelX"
+          >arrow_back</span
+        >
+      </a>
+    </div>
+    <div class="project text-muted ml-100X w-100X ml-2 mt-3">
+      <h4 class="textDarkBlue posRelX fs-18 b-28X l-15X">
+        {{ "Timesheets" | translate }}
+      </h4>
+    </div>
+  </div>
+
+  <div class="tab-navigation-wrapper">
+    <div class="tab-navigation bgGrayBlue">
+      <ul class="nav nav-tabs nav-pills" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            [routerLink]="['./schedule-calendar']"
+            role="tab"
+          >
+            {{ "Timesheets" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            [routerLink]="['./time-overview']"
+            role="tab"
+            >{{ "Overview" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            [routerLink]="['./schedule2', { skipLocationChange: false }]"
+            href="#schedule"
+            role="tab"
+            >{{ "Schedule" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            *ngIf="
+              userDetails.show_timesheets_time_report_management
+            "
+            [routerLinkActive]="['active']"
+            [routerLink]="['/moments/time-registration-admin']"
+            role="tab"
+          >
+            {{ "Time registration Admin" | translate }}
+          </a>
+        </li>
+        <!-- <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            [routerLink]="['./schedule-review', { skipLocationChange: false }]"
+            href="#schedule"
+            role="tab"
+            >{{ "Schedule" | translate }}</a
+          >
+        </li> -->
+      </ul>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

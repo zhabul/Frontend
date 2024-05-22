@@ -1,0 +1,767 @@
+<div class="row row1X mb-3">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav class="nav nav-pills nav-justified">
+      <a
+        [routerLink]="['/invoices']"
+        class="btn btn-dark mr-2 lh09 hideUnder800"
+        *ngIf="!tabActive"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="badgeX badge-darkX material-icons top1px posRel"
+          >arrow_back</span
+        >
+      </a>
+      <a
+        href="#nav-default"
+        data-toggle="tab"
+        role="tab"
+        aria-controls="nav-default"
+        *ngIf="tabActive"
+        class="btn btn-dark mr-2 lh09 hideUnder800"
+        (click)="onBackFromListInovice()"
+      >
+        <span class="badgeX badge-darkX material-icons top1px posRel"
+          >arrow_back</span
+        >
+      </a>
+    </nav>
+  </div>
+</div>
+
+<div class="row row1X tab-content">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70 tab-pane fade show active"
+    id="nav-default"
+    role="tabpanel"
+    aria-labelledby="nav-default-tab"
+  >
+    <div class="card-body">
+      <section class="d-flex justify-content-between">
+        <h1 class="h4">{{ "Invoices" | translate }}</h1>
+      </section>
+    </div>
+    <form
+      novalidate
+      autocomplete="off"
+      [formGroup]="createForm"
+      (ngSubmit)="createInvoice()"
+      #myform="ngForm"
+    >
+      <div class="form-wrapper mb-3">
+        <div class="panel panel-default w-100">
+          <fieldset class="fieldset-content-wrapp">
+            <legend class="w-auto">{{ "Information" | translate }}</legend>
+            <div class="fieldset-content-wrapp">
+              <div class="content-form-group">
+                <label for="project" class="required">{{
+                  "Project" | translate
+                }}</label>
+                <app-input-autocomplete
+                  [control]="createForm.get('project')"
+                  [inputText]="createForm.get('project_name')"
+                  [list]="projects"
+                  [myform]="myform"
+                  id="id"
+                  errorText=""
+                  (getEvent)="getProject($event, true)"
+                  type="ata"
+                ></app-input-autocomplete>
+              </div>
+              <div class="content-form-group" *ngIf="existActivityProjects">
+                <label for="project">{{ "Activity" | translate }}</label>
+                <select
+                  class="form-control activity-select"
+                  id="activity"
+                  formControlName="activity"
+                  (change)="getProject(createForm.get('activity').value)"
+                >
+                  <option value="" disabled selected hidden>
+                    {{ "Select activity" | translate }}
+                  </option>
+                  <option
+                    *ngFor="let activityProject of activityProjects"
+                    value="{{ activityProject.id }}"
+                  >
+                    {{ activityProject.CustomName }} -
+                    {{ activityProject.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="content-form-group">
+                <label for="client" class="required">{{
+                  "Client" | translate
+                }}</label>
+                <input
+                  id="client"
+                  autocomplete="off"
+                  type="text"
+                  class="form-control"
+                  formControlName="client"
+                />
+              </div>
+              <div class="content-form-group">
+                <label for="reference" class="required">{{
+                  "Our Reference" | translate
+                }}</label>
+                <app-input-autocomplete
+                  *ngIf="createForm"
+                  [control]="createForm.get('reference')"
+                  [inputText]="createForm.get('reference_name')"
+                  [list]="references"
+                  [myform]="myform"
+                  id="id"
+                  errorText=""
+                ></app-input-autocomplete>
+              </div>
+
+              <div class="content-form-group">
+                <label for="invoiceDate" class="required">{{
+                  "Invoice Date" | translate
+                }}</label>
+                <input
+                  (keydown)="$event.preventDefault()"
+                  id="invoiceDate"
+                  autocomplete="off"
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': displayError('invoiceDate') }"
+                  placeholder="{{ 'Select' | translate }} {{
+                    'Invoice Date' | translate
+                  }}"
+                  formControlName="invoiceDate"
+                />
+              </div>
+              <div class="content-form-group">
+                <label for="dueDate">{{ "Pay by latest" | translate }}</label>
+                <input
+                  (keydown)="$event.preventDefault()"
+                  id="dueDate"
+                  autocomplete="off"
+                  type="text"
+                  class="form-control"
+                  placeholder="{{ 'Select' | translate }} {{
+                    'Pay by latest' | translate
+                  }}"
+                  formControlName="dueDate"
+                />
+              </div>
+              <div class="content-form-group">
+                <label for="type" class="required">{{
+                  "Type" | translate
+                }}</label>
+                <select
+                  class="form-control type-select"
+                  id="type"
+                  formControlName="type"
+                  [class.is-invalid]="
+                    (createForm.get('type').touched ||
+                      createForm.get('type').dirty) &&
+                    createForm.get('type').invalid
+                  "
+                >
+                  <option *ngFor="let type of types" value="{{ type }}">
+                    {{ type | translate }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="form-wrapper mb-3">
+        <div class="panel panel-default w-100">
+          <fieldset>
+            <legend class="w-auto">{{ "Invoice text" | translate }}</legend>
+            <div class="row row-sm">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <textarea
+                    maxlength="150"
+                    class="form-control"
+                    id="note-1"
+                    rows="3"
+                    formControlName="note1"
+                  ></textarea>
+                  <small style="opacity: 0.75"
+                    >{{ createForm.get("note1").value.length }}/150</small
+                  >
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row row-sm mb-3">
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm"
+          id="nav-atas-tab"
+          [disabled]="
+            (atasNotInvoiced.length == 0 && atasInvoiced.length == 0) ||
+            disabledButton ||
+            disableAta
+          "
+          *ngIf="!tabActive"
+          data-toggle="tab"
+          href="#nav-atas"
+          role="tab"
+          aria-controls="nav-atas"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">add_circle_outline</span>
+          <span class="ml-1">{{ "Ata" | translate }}</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm ml-3"
+          id="nav-weekly-reports-tab"
+          [disabled]="
+            (weeklyReportsNotInvoiced.length == 0 &&
+              weeklyReportsInvoiced.length == 0) ||
+            disabledButton ||
+            disableOngoing
+          "
+          *ngIf="!tabActive"
+          data-toggle="tab"
+          href="#nav-weekly-reports"
+          role="tab"
+          aria-controls="nav-weekly-reports"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">add_circle_outline</span>
+          <span class="ml-1">{{ "Ongoing Work" | translate }}</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm ml-3"
+          id="nav-payment-plan-tab"
+          [disabled]="
+            paymentPlans.length == 0 || disabledButton || disablePaymentPlan
+          "
+          *ngIf="!tabActive"
+          data-toggle="tab"
+          href="#nav-payment-plan"
+          role="tab"
+          aria-controls="nav-payment-plan"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">add_circle_outline</span>
+          <span class="ml-1">{{ "Payment Plan" | translate }}</span>
+        </button>
+      </div>
+
+      <table
+        class="table table-sm table-bordered invoice-table"
+        *ngIf="!process"
+      >
+        <thead>
+          <tr>
+            <th style="width: 50%">{{ "Description" | translate }}</th>
+            <th>{{ "Quantity" | translate }}</th>
+            <th>{{ "Unit" | translate }}</th>
+            <th>{{ "Price per unit" | translate }}</th>
+            <th>{{ "Deduct" | translate }}</th>
+            <th>{{ "Total" | translate }}</th>
+            <th>{{ "Remove" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            formArrayName="articleForm"
+            *ngFor="let job of articleForm.controls; let i = index"
+          >
+            <td formGroupName="{{ i }}">
+              <input type="hidden" formControlName="ataId" />
+              <input type="hidden" formControlName="MaterialId" />
+              <input type="hidden" formControlName="ReportIds" />
+              <input type="hidden" formControlName="AtaNumber" />
+              <input type="hidden" formControlName="MonthId" />
+              <input type="hidden" formControlName="PaymentPlanId" />
+              <input
+                class="form-control form-control-sm article-name"
+                type="text"
+                #articleName
+                formControlName="Description"
+                (click)="addRow(articleForm)"
+                [class.is-invalid]="job.get('Description').invalid"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm width5em"
+                type="text"
+                min="1"
+                [readonly]="isReadOnly"
+                #articleQuantity
+                number-format-directive
+                formControlName="DeliveredQuantity"
+                (change)="updateTotal(i, articleForm)"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <select
+                class="form-control form-control-sm width5em"
+                style="width: 110px"
+                #articleUnit1
+                [attr.disabled]="isReadOnly"
+                formControlName="Unit"
+              >
+                <option *ngFor="let unit of units" value="{{ unit }}">
+                  {{ unit | translate }}
+                </option>
+              </select>
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm width5em"
+                style="width: 110px"
+                type="text"
+                min="0"
+                [readonly]="isReadOnly"
+                #articlePrice
+                formControlName="Price"
+                (change)="updateTotal(i, articleForm)"
+                number-format-directive
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm width5em"
+                type="number"
+                [readonly]="isReadOnly"
+                #articleDeduct
+                formControlName="Deduct"
+                (change)="updateTotal(i, articleForm)"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm"
+                style="width: 110px"
+                readonly
+                type="text"
+                #articleTotal
+                [value]="job.get('Total').value | number: '1.2-2':'fr'"
+              />
+            </td>
+            <td class="text-center">
+              <span
+                class="text-danger material-icons top1px posRel"
+                style="cursor: pointer"
+                [class.disabled]="i < count-1"
+                (click)="removeRow(i, articleForm)"
+                >delete</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="total-amount">
+        <div class="row row-sm">
+          <div class="col-10 total-text"><b>Total:</b></div>
+          <div class="col-2 text-right">
+            {{ invoiceTotalAmount() | number: "1.2-2":"fr" }}
+          </div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-success lh09"
+        [disabled]="
+          (myform.submitted && createForm.invalid) ||
+          process ||
+          createForm.invalid ||
+          createForm.get('articleForm').value[0].Description == ''
+        "
+      >
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Create" | translate }}</span>
+      </button>
+    </form>
+  </div>
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70 tab-pane fade"
+    id="nav-atas"
+    role="tabpanel"
+    aria-labelledby="nav-atas-tab"
+  >
+    <ul class="nav nav-tabs bg-beige mobileGrid">
+      <li
+        class="nav-link txt-color cursor-pointer"
+        [ngClass]="{ active: selectedTab == 0 }"
+        (click)="selectedTab = 0"
+      >
+        {{ "Not Invoiced" | translate }}
+      </li>
+      <li
+        class="nav-link txt-color cursor-pointer"
+        [ngClass]="{ active: selectedTab == 1 }"
+        (click)="selectedTab = 1"
+      >
+        {{ "Invoiced" | translate }}
+      </li>
+    </ul>
+    <form class="atasform" novalidate autocomplete="off" [formGroup]="atasForm">
+      <ng-container *ngIf="selectedTab == 0">
+        <table class="table table-res800 table-darkX table-striped table-sm">
+          <thead>
+            <tr>
+              <th>{{ "Number" | translate }}</th>
+              <th>{{ "Name" | translate }}</th>
+              <th class="wr-width">{{ "Weekly Report" | translate }}</th>
+              <th class="labeling-requirement">{{ "Labeling requirements" | translate }}</th>
+              <th>{{ "Comments" | translate }}</th>
+              <th>
+                <input type="checkbox" (click)="checkAll('ata', $event)" />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of atasNotInvoiced; let i = index">
+              <td>
+                {{ "ÄTA" + a.ataNumber }}
+              </td>
+              <td>
+                {{ a.ataName }}
+              </td>
+              <td style="position: relative">
+                <ng-container *ngIf="a.weeklyReports?.length > 0">
+                  <ul
+                    class="weekly-report-dropdown-select"
+                    [ngClass]="{ 'is-wr-opened': a.wrOpened }"
+                  >
+                    <li
+                      (click)="toggleWRDropdown(a)"
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <span>{{
+                        (a.wrOpened
+                          ? "Close Selection"
+                          : "Select Weekly Reports"
+                        ) | translate
+                      }}</span>
+                      <i class="material-icons">{{
+                        a.wrOpened ? "keyboard_arrow_up" : "keyboard_arrow_down"
+                      }}</i>
+                    </li>
+                    <li
+                      *ngFor="let wr of a.weeklyReports; let wr_i = index"
+                      (click)="toggleWeeklyReport(a, wr)"
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <div class="d-flex align-items-center">
+                        <span class="is-wr-checked"
+                          ><i *ngIf="wr.includeInInvoice" class="material-icons"
+                            >check</i
+                          ></span
+                        >
+                        <span>{{
+                          wr.weeklyReportName == "Regulation"
+                            ? "Regulation"
+                            : "V." + wr.weeklyReportName.split("-V")[1]
+                        }}</span>
+                      </div>
+                      <span
+                        >{{
+                          (wr.total ? wr.total : 0) | number: "1.2-2":"fr"
+                        }}
+                        kr</span
+                      >
+                    </li>
+                  </ul>
+                </ng-container>
+                <ng-container *ngIf="a.weeklyReport?.length < 1">
+                  {{ a.total | number: "1.2-2":"fr" }} kr
+                </ng-container>
+              </td>
+              <td>
+                  {{a.labeling_requirements}}
+              </td>
+              <td>
+                  <span class="answer-envelope" (click)="openModal(a)"><i class="material-icons">chat_bubble</i></span>
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  #atas
+                  formControlName="ataSelected"
+                  class="ata-checkbox"
+                  (change)="getAtaRows(atasForm.get('ataSelected').value, a)"
+                  [disabled]="process"
+                  [checked]="isChecked(a.ataId, 1)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <ng-container *ngIf="selectedTab == 1">
+        <table class="table table-res800 table-darkX table-striped table-sm">
+          <thead>
+            <tr>
+              <th>{{ "Number" | translate }}</th>
+              <th>{{ "Name" | translate }}</th>
+              <th>{{ "Weekly Report" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of atasInvoiced; let i = index">
+              <td>
+                {{ "ÄTA" + (a.ataNumber || a.AtaNumber) }}
+              </td>
+              <td>
+                {{ a.ataName || a.Name }}
+              </td>
+              <td style="position: relative">
+                {{
+                  a.weeklyReports
+                    ? displayWeeklyReportName(a.weeklyReports)
+                    : (a.total || a.Price | number: "1.2-2":"fr") + " kr"
+                }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </form>
+    <div class="row row-sm">
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm"
+          id="nav-default-tab"
+          *ngIf="tabActive"
+          data-toggle="tab"
+          href="#nav-default"
+          role="tab"
+          aria-controls="nav-default"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">done</span>
+          <span class="ml-1">{{ "Import" | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70 tab-pane fade"
+    id="nav-weekly-reports"
+    role="tabpanel"
+    aria-labelledby="nav-weekly-reports-tab"
+  >
+    <section class="d-flex justify-content-between mb-2">
+      <h1 class="h4">{{ "Ongoing Work" | translate }}</h1>
+    </section>
+    <ul class="nav nav-tabs bg-beige mobileGrid">
+      <li
+        class="nav-link txt-color cursor-pointer"
+        [ngClass]="{ active: selectedTab == 0 }"
+        (click)="selectedTab = 0"
+      >
+        {{ "Not Invoiced" | translate }}
+      </li>
+      <li
+        class="nav-link txt-color cursor-pointer"
+        [ngClass]="{ active: selectedTab == 1 }"
+        (click)="selectedTab = 1"
+      >
+        {{ "Invoiced" | translate }}
+      </li>
+    </ul>
+    <form class="wrform" novalidate autocomplete="off" [formGroup]="weeklyReportsForm">
+      <table
+        class="table tab-responsive table-striped table-hover table-lightX table-sm"
+      >
+        <thead class="table-bordered">
+          <tr>
+            <th scope="col">{{ "Name" | translate }}</th>
+            <th scope="col">{{ "Comment" | translate }}</th>
+            <th scope="col">{{ "Date" | translate }}</th>
+            <th scope="col">{{ "Total" | translate }}</th>
+            <th>
+              <input
+                *ngIf="selectedTab == 0"
+                type="checkbox"
+                (click)="checkAll('wr', $event)"
+              />
+            </th>
+          </tr>
+        </thead>
+        <tbody class="table-bordered">
+          <tr
+            class="cursor-pointer"
+            *ngFor="
+              let report of selectedTab == 0
+                ? weeklyReportsNotInvoiced
+                : weeklyReportsInvoiced;
+              let index = index
+            "
+          >
+            <td>{{ report.name }}</td>
+            <td>{{ report.comment }}</td>
+            <td>{{ report.created }}</td>
+            <td>
+              {{ (report.total ? report.total : 0) | number: "1.2-2":"fr" }} kr
+            </td>
+            <td *ngIf="selectedTab == 0">
+              <input
+                type="checkbox"
+                #atas
+                formControlName="reportSelected"
+                class="wr-checkbox"
+                (change)="
+                  getWeeklyReportsRows(
+                    weeklyReportsForm.get('reportSelected').value,
+                    report.id,
+                    report.name,
+                    report.total,
+                    report.AtaNumber,
+                    report.ataId,
+                    index,
+                    report.revision_or_week_converted_to_number
+                  )
+                "
+                [disabled]="process"
+                [checked]="isChecked(report.id, 3)"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <div class="row row-sm">
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm"
+          id="nav-default-tab"
+          *ngIf="tabActive"
+          data-toggle="tab"
+          href="#nav-default"
+          role="tab"
+          aria-controls="nav-default"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">done</span>
+          <span class="ml-1">{{ "Import" | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70 tab-pane fade"
+    id="nav-payment-plan"
+    role="tabpanel"
+    aria-labelledby="nav-payment-plan-tab"
+  >
+    <section class="d-flex justify-content-between mb-2">
+      <h1 class="h4">{{ "Payment Plan" | translate }}</h1>
+    </section>
+    <ul class="nav nav-tabs bg-beige mobileGrid">
+      <li
+        class="nav-link txt-color cursor-pointer"
+        [ngClass]="{ active: selectedTab == 0 }"
+        (click)="selectedTab = 0"
+      >
+        {{ "Not Invoiced" | translate }}
+      </li>
+      <li
+        class="nav-link txt-color cursor-pointer"
+        [ngClass]="{ active: selectedTab == 1 }"
+        (click)="selectedTab = 1"
+      >
+        {{ "Invoiced" | translate }}
+      </li>
+    </ul>
+    <form class="paymentplanform" novalidate autocomplete="off" [formGroup]="paymentPlanForm">
+      <table
+        class="table tab-responsive table-striped table-hover table-lightX table-sm"
+      >
+        <thead class="table-bordered">
+          <tr>
+            <th scope="col">{{ "Month" | translate }}</th>
+            <!-- <th scope="col">{{ 'Comment' | translate }}</th>
+                      <th scope="col">{{ 'Date' | translate }}</th> -->
+            <th scope="col">{{ "Total" | translate }}</th>
+            <!-- <th *ngIf="selectedTab == 0">
+              <input type="checkbox" (click)="checkAll('pp', $event)" />
+            </th> -->
+          </tr>
+        </thead>
+        <tbody class="table-bordered" formArrayName="paymentPlans" >
+          <tr
+            class="cursor-pointer"
+
+            *ngFor="
+              let month of selectedTab == 0
+                ? paymentPlanForm_.controls
+                : paymentPlansInvoiced;
+              let index = index
+            "
+
+          >
+          <ng-container [formGroupName]="index">
+            <td>{{ month.value ? month.value.date : month.date }}</td>
+            <!-- <td>{{ report.comment }}</td>
+                      <td>{{ report.created }}</td> -->
+            <td>
+              {{ (month.value ? (month.value.total) : (month.total ? month.total : 0)) | number: "1.2-2":"fr" }} kr
+            </td>
+            <td *ngIf="selectedTab == 0">
+              <input
+
+                type="checkbox"
+                class="pp-checkbox"
+                formControlName="checkbox"
+                (change)="
+                  getPaymentPlanRows(
+                    month.value.checkbox,
+                    month,
+                    index,
+                    month.value.avst
+                  )
+                "
+                [checked]="isChecked(month.value ? month.value.id : month.id, 4)"
+
+              />
+            </td>
+          </ng-container>
+
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <div class="row row-sm">
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm"
+          id="nav-default-tab"
+          *ngIf="tabActive"
+          data-toggle="tab"
+          href="#nav-default"
+          role="tab"
+          aria-controls="nav-default"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">done</span>
+          <span class="ml-1">{{ "Import" | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

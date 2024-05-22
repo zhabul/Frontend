@@ -1,0 +1,187 @@
+<div class="pdf-wrapp" id="pdfPreview">
+    <div class="header" id="header">
+        <div class="logo-title-flex">
+            <div class="logo">
+                <img class="img" [src]="logo" alt="logo" />
+            </div>
+            <div id="offer-title">
+                {{ 'Offer' | translate }}
+            </div>
+        </div>
+        <div>
+          <div class="top-flex">
+            {{ 'Page' | translate }} {{pageNumber}} {{ 'by' | translate }} {{pageTotal}}
+          </div>
+          <div><br/></div>
+          <div class="bottom-flex">
+            <div>{{ 'Nr' | translate }}:  {{ offer.offerNum_preview }}</div>
+            <div><span class="f-small">{{ 'Date' | translate }}:</span>  {{ offer.StartDate }}</div>
+          </div>
+        </div>
+    </div>
+    <div class="container-body" id="main">
+          <div class="info-header nr">
+            <div>
+                <div>
+                    <div *ngIf="offer.userWithPermission_mobile" class="reference"><span class="f-small">{{ 'Our Reference' | translate }}: </span>{{ offer.userWithPermission_name }}, {{ offer.userWithPermission_mobile }}</div>
+                    <div *ngIf="offer.userWithPermission_mobile == null" class="reference"><span class="f-small">{{ 'Our Reference' | translate }}: </span>{{ offer.userWithPermission_name }}, {{ offer.userWithPermission_mobile }}</div>
+                </div>
+                <div>
+                    <div *ngIf="offer.clwork_mobile" class="reference"><span class="f-small">{{ 'Your Reference' | translate }}: </span>{{ offer.clwork_name }}, {{ offer.clwork_mobile }}</div>
+                    <div *ngIf="offer.clwork_mobile == null" class="reference"><span class="f-small">{{ 'Your Reference' | translate }}: </span>{{ offer.clwork_name }}</div>
+                </div>
+            </div>
+            <div>
+                <div class="reference">{{ offer.cl_name  }}</div>
+                <div class="reference">{{ offer.cl_invoice_address_and_no }}</div>
+                <div class="reference">{{ offer.cl_invoice_address_post_nr }}</div>
+                <div class="reference">{{ offer.cl_invoice_address_city }}</div>
+            </div>
+        </div>
+        <div class="project-name-header nr">
+            {{ 'Project' | translate }}: {{ offer.name }}
+        </div>
+        <div class="sps-loader-container" *ngIf="spinner">
+            <app-sps-loader></app-sps-loader>
+        </div>
+        <div class="container">
+            <div *ngFor="let intro of introductionComments">
+                <div class="comment-title nr"></div>
+                <!-- <div class="comment-title nr">{{ intro.name }}</div> -->
+                <!-- <div style="line-height: 1;" [innerHTML]="sanitizer.bypassSecurityTrustHtml(textSplit(intro.comment))"></div> -->
+                <div style="line-height: 1;" [innerHTML]="sanitizer.bypassSecurityTrustHtml(intro.comment)"></div>
+            </div>
+        </div>
+        <div  class="container">
+            <div class="lines-container" *ngFor="let line of lines">
+              <div *ngIf="showLines(line.articles)">
+                <div class="line-title nr">{{ line.title != "Rad" ? line.title+" :" : "" }}</div>
+                <div class="lines-grid grid-header nr">
+                    <div>{{ 'Description' | translate }}</div>
+                    <div>{{ 'Qty.' | translate }}</div>
+                    <div>{{ 'Unit' | translate }}</div>
+                    <div class="price">{{ 'Price' | translate }}</div>
+                    <div class="percentage">%±</div>
+                    <div class="price">{{ 'Total' | translate }}</div>
+                </div>
+                  <div class="lines-grid nr"
+                  *ngFor="let article of line.articles"
+                  [ngStyle]="{'font-weight': article.fontWeight}">
+                    <ng-container
+                    *ngIf="article.description.length > 0">
+                        <div>{{ article.description }}</div>
+                        <!-- <div>{{ article.quantity }}</div> -->
+                        <div><div *ngIf="article.quantity != 0">{{ formatNumber(article.quantity) | number:'1.2-2':'fr'}}</div></div>
+                        <div>{{ article.unit }}</div>
+                        <div class="price"><div *ngIf="article.pricePerUnit > ''">{{ formatNumber(article.pricePerUnit) | number:'1.2-2':'fr'}}</div></div>
+                        <div class="percentage">{{ article.percentage }}</div>
+                        <div class="price"><div *ngIf="article.total != 0">{{ formatNumber(article.total) | number:'1.2-2':'fr'}}</div></div>
+                    </ng-container>
+                  </div>
+                  <div class="lines-grid lines-total nr">
+                    <div>Totalsumma exkl. moms</div>
+                    <div>{{getArticlesSum(line.articles) | number:'1.2-2':'fr'}}</div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="intro-container" *ngFor="let intro of terminationComments">
+                <div class="comment-title nr"></div>
+                <!-- <div class="comment-title nr">{{ intro.name }}</div> -->
+                <!-- <div [innerHTML]="intro.comment"></div> -->
+                <!-- <div style="line-height: 1;" [innerHTML]="sanitizer.bypassSecurityTrustHtml(textSplit(intro.comment))"></div> -->
+                <div style="line-height: 1;" [innerHTML]="sanitizer.bypassSecurityTrustHtml(intro.comment)"></div>
+            </div>
+        </div>
+        <div class="container additional-info nr">
+          <!-- Förutsättningar & villkor -->
+          <div>{{ 'Terms and conditions' | translate }}</div>
+          <div class="info-title">{{ 'Offer validity period' | translate }}</div>
+          <div class="info-value">{{ offer.ValidityPeriod }} {{ "days from the quotation date" | translate }}</div>
+          <div class="info-title">{{ 'Payment terms' | translate }}</div>
+          <div class="info-value">{{ offer.PaymentTerms }} {{ 'days' | translate}}</div>
+          <div class="info-title">{{ 'Alterations and additional works professional' | translate }}:</div>
+          <!-- SEK per timme exkl. moms -->
+          <div class="info-value">{{ offer.AtaWorkerHourlyRate }} {{ 'SEK per hour excluding VAT' | translate }}</div>
+          <!--<div>{{ 'Ändrings- och tilläggsarbeten:' |translate }}</div>-->
+          <div class="info-title">{{ 'Markup purchase supplier/material (%)' | translate }}</div>
+          <div class="info-value">{{ offer.ATAchargeMaterial }}%</div>
+          <!--<div>{{ 'Påslag inköp (%)' | translate }}</div>-->
+      </div>
+      <div class="logs" *ngIf="logs.length">
+          <ng-container *ngFor="let log of reversedLogs; let i = index;">
+              <ng-container *ngIf="log.Status != 1 && log.Status <= 6">
+                  <div class="logs-container border-style nr" [style.border-color]="getEmailLogColor(log)" >
+                      <div class="logs-grid">
+                          <div class="answer">
+                              <div>Besked från beställaren:</div>
+                              <div>{{ log.answerDate }}</div>
+                              <div style="margin-bottom: 20px;">{{ log.answerEmail }}</div>
+                              <div
+                                class="answer-button"
+                                [style.background-color]="getEmailLogColor(log)"
+                                [ngStyle]="{'color': log.Status == 6 ? 'black' : 'white'}">
+                                {{ renderManualAcceptedText(log) | translate  }}  {{ renderStatusText(log) | translate }}
+                              </div>
+                          </div>
+                          <div [style.border-color]="getEmailLogColor(log)" class="description">{{ renderStatusQuestion(log) }}<div [innerHTML]="log.comment"></div></div>
+                      </div>
+                      <ng-container *ngIf="log.Status == 6 && reversedLogs[i+1]">
+                          <div class="svar-container border-style">
+                              SVAR: <div [innerHTML]="reversedLogs[i+1].comment"></div>
+                          </div>
+                      </ng-container>
+                  </div>
+
+              </ng-container>
+          </ng-container>
+      </div>
+      <div  class="signature nr">
+          <ng-container *ngIf="!logs.length">
+              <div class="accept-offer">
+                  {{ 'Accept the offer' | translate }}
+              </div>
+              <div class="signature-info">
+                  <div class="signature-flex">
+                      <div>{{ 'Place' | translate }}:</div>
+                      <div class="border-dots"></div>
+                  </div>
+                  <div class="signature-flex">
+                      <div>{{ 'Date' | translate }}:</div>
+                      <div class="border-dots"></div>
+                  </div>
+                  <div class="signature-flex">
+                      <div>{{ 'Name' | translate }}:</div>
+                      <div class="border-dots"></div>
+                  </div>
+              </div>
+          </ng-container>
+      </div>
+    </div>
+    <div class="footer" id="footer">
+        <div class="footer-flex">
+            <div>{{ 'Address' | translate }}:</div>
+            <div>{{ companyInfo.name }}</div>
+            <div>{{ companyInfo.address }}</div>
+            <div>{{ companyInfo.email }}</div>
+        </div>
+        <div class="footer-flex">
+            <div>{{ 'Phone' | translate }}:</div>
+            <div>{{ companyInfo.phone }}</div>
+            <div>{{ 'Website' | translate }}:</div>
+            <div><a target="_blank" [href]="'https://' + companyInfo.site">{{ companyInfo.site }}</a></div>
+        </div>
+        <div class="footer-flex-between">
+            <div class="footer-flex">
+                <div>{{ 'Momsreg.nr.' | translate }}:</div>
+                <div>{{ companyInfo.bank_account }}</div>
+            </div>
+            <div>{{ 'Approved for F tax' | translate }}</div>
+        </div>
+        <div class="sps-flex">
+            <div>{{ 'Offer' | translate }} {{ 'created via' | translate }} SPS360 </div>
+            <a target="_blank" href="https://www.sps360.com">www.sps360.com</a>
+        </div>
+    </div>
+</div>

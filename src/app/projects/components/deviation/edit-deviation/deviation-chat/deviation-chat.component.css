@@ -1,0 +1,109 @@
+.hide {
+    display: none;
+}
+
+.flex-button {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+}
+
+.workers-position {
+
+    font-size: 10px;
+    position: absolute;
+    top: 28px;
+    left: -1px;
+    /*border: 1px solid #FD9A44;*/
+    border-top: none;
+    background-color: var(--main-bg);
+    height: auto !important;
+    max-height: 200px;
+    overflow: auto;
+    padding: 0.5rem 0;
+}
+.clientMessage{
+    overflow: hidden;
+}
+
+textarea{
+    max-height: 100%!important;
+}
+
+.worker-chat {
+
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    flex-direction: row;
+    text-transform: none !important;
+    padding: 5px;
+    border-bottom: solid;
+    border-color: var(--main-bg);
+    position: relative;
+}
+
+.send-text {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding-left: 10px;
+    transition: all 250ms ease-in-out;
+}
+
+.worker-chat:hover {
+    color: var(--brand-color) !important;
+}
+
+.send-text:hover {
+    color: var(--brand-color) !important;
+}
+
+::ng-deep .worker-chat:hover .path-hover { 
+    fill: var(--brand-color) !important;
+}
+
+
+.send-icon-cont {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding-right: 5px;
+    font-weight: bold;
+}
+
+.progress-loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.progress-percentage {
+ 
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: bold;
+    color: #3f51b5;
+    cursor: default;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }

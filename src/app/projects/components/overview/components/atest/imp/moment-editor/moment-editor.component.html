@@ -1,0 +1,217 @@
+<td
+style="padding: 9px 10px 9px 15px!important; background-color: '#C7C6C4';"
+  *ngIf="!editable"
+  [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' "
+>
+    {{ moment.project_name }}
+</td>
+<td *ngIf="editable" [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' " [ngStyle]="{'background-color': moment.AtestStatus != '0' ? '#C7C6C4' : '#ffffff'}">
+      <!--Dropdown Attest Table-->
+      <app-simple-select-attest-table-dropdown
+        [disabled]="editAtest"
+        [project]="project"
+        [items]="projectManagerProjects"
+        [selected]="moment"
+        [disabled_click]="moment.AtestStatus == 0 ? false : true"
+        [disabled]="moment.AtestStatus == 1 ? false : true"
+        type="moment-editor-project"
+        [borderwidth]="12"
+        (emitSelectChanged)="editProjectChild($event)"
+      >
+      </app-simple-select-attest-table-dropdown>
+    <!--End Dropdown Attest Table-->
+ <!--
+  <app-attest-select-dropdown
+        [project]="project"
+        [items]="projectManagerProjects"
+        [fromAtest]='true'
+        [selected]="moment"
+            [disabled_click]="moment.AtestStatus == 0 ? false : true"
+            [disabled]="moment.AtestStatus == 1 ? false : true"
+        type="moment-editor-project"
+        (emitSelectChanged)="editProjectChild($event)"
+    >
+    </app-attest-select-dropdown>
+  -->
+</td>
+<td
+style="padding: 9px 10px 9px 15px!important; background-color: '#C7C6C4';"
+  *ngIf="!editable"
+  [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' "
+>
+    {{ moment.name }}
+</td>
+<td
+    *ngIf="editable"
+    [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' "
+    [ngStyle]="{'background-color': moment.AtestStatus != '0' ? '#C7C6C4' : '#ffffff'}"
+>
+      <!--Dropdown Attest Table-->
+      <app-simple-select-attest-table-dropdown
+        [project]="project"
+        [items]="availableAtasOrDu[moment.ProjectID]"
+        [fromAtest]='true'
+        [selected]="moment"
+        [disabled_click]="moment.AtestStatus == 0 ? false : true"
+        [disabled]="moment.AtestStatus == 1 ? false : true"
+        type="time_attest1"
+        (emitSelectChanged)="editAtaInputNew($event)"
+        [borderwidth]="12"
+      >
+      </app-simple-select-attest-table-dropdown>
+    <!--End Dropdown Attest Table-->
+    <!--
+    <app-attest-select-dropdown
+        [project]="project"
+        [items]="availableAtasOrDu[moment.ProjectID]"
+        [fromAtest]='true'
+        [selected]="moment"
+        [disabled_click]="moment.AtestStatus == 0 ? false : true"
+        [disabled]="moment.AtestStatus == 1 ? false : true"
+        type="time_attest1"
+        (emitSelectChanged)="editAtaInputNew($event)"
+    >
+    </app-attest-select-dropdown>
+  -->
+</td>
+<td *ngIf="!editable" #h (click)="editMoment(h, false)" style="padding: 9px 10px 9px 15px!important; background-color: '#C7C6C4';" [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' ">
+  {{ moment.work }}
+
+</td>
+<td *ngIf="editable" [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index'  " [ngStyle]="{'background-color': moment.AtestStatus != '0' ? '#C7C6C4' : '#ffffff'}">
+    <div>
+      <!--Dropdown Attest Table-->
+      <app-simple-select-attest-table-dropdown
+        [project]="project"
+        [items]="projectMoments"
+        [fromAtest]='true'
+        [selected]="moment"
+        type="moment-editor"
+        (emitSelectChanged)="newAtaChangedFromChild($event)"
+        [disabled_click]="moment.AtestStatus == 0 ? false : true"
+        [disabled]="moment.AtestStatus == 1 ? false : true"
+        [borderwidth]="12"
+      >
+      </app-simple-select-attest-table-dropdown>
+    <!--End Dropdown Attest Table-->
+    <!--
+        <app-attest-select-dropdown
+        [project]="project"
+        [items]="projectMoments"
+        [fromAtest]='true'
+        [selected]="moment"
+        type="moment-editor"
+        (emitSelectChanged)="newAtaChangedFromChild($event)"
+        [disabled_click]="moment.AtestStatus == 0 ? false : true"
+        [disabled]="moment.AtestStatus == 1 ? false : true"
+        >
+        </app-attest-select-dropdown>
+      -->
+    </div>
+</td>
+<td *ngIf="!editable " (click)="editTime()" style="padding: 9px 10px 9px 15px!important; background-color: '#C7C6C4';"  [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' ">{{ moment.time }}</td>
+<td *ngIf="editable " [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' " [ngStyle]="{'background-color': moment.AtestStatus != '0' ? '#C7C6C4' : '#ffffff'}">
+  <div class="time-box">
+    <!--Dropdown Hours-->
+      <div class="input-wrapper3"  [ngStyle]="{'background-color': moment.AtestStatus != '0' ? '#C7C6C4' : '#ffffff', 'pointer-events': moment.AtestStatus != '0' ? 'none' : 'pointer'}">
+        <app-simple-select-in-table
+          [ClientItem]= "HoursArray"
+          [placeholder]="createForm2.get('Hours').value"
+          [fontSize]="14"
+          [width]="45"
+          [type1]="'hours'"
+          [Hours]="true"
+          (HoursParent)="editHours($event)"
+        >
+        </app-simple-select-in-table>
+      </div>
+    <!--End Dropdown Hours-->
+
+    <!-- <select
+      class="project-nav-select form-control new-input-class"
+      [formControl]="createForm2.get('Hours')"
+      style="padding: 0!important;"
+      [ngStyle]="{'background-color': !editable ? '#C7C6C4' : ''}"
+      (change)="editTime()"
+    >
+      <option value="0">00</option>
+      <option value="1">01</option>
+      <option value="2">02</option>
+      <option value="3">03</option>
+      <option value="4">04</option>
+      <option value="5">05</option>
+      <option value="6">06</option>
+      <option value="7">07</option>
+      <option value="8">08</option>
+      <option value="9">09</option>
+      <option value="10">10</option>
+    </select> -->
+
+    <!--Dropdown minutes-->
+    <div class="input-wrapper3" [ngStyle]="{'background-color': moment.AtestStatus != '0' ? '#C7C6C4' : '#ffffff', 'pointer-events': moment.AtestStatus != '0' ? 'none' : 'pointer'}">
+      <app-simple-select-in-table
+        [ClientItem]= "MinutesArray"
+        [placeholder]="createForm2.get('Minutes').value"
+        [fontSize]="14"
+        [width]="45"
+        [type1]="'minutes'"
+        [Minutes]="true"
+        (MinutesParent)="editMinutes($event)"
+      >
+      </app-simple-select-in-table>
+    </div>
+  <!--End Dropdown minutes-->
+    <!-- <select
+      class="project-nav-select form-control new-input-class"
+      [formControl]="createForm2.get('Minutes')"
+      style="padding: 0!important"
+      (change)="editTime()"
+    >
+      <option *ngIf="createForm2.get('Hours').value !== '00'" value="00">
+        00
+      </option>
+      <option value="15">15</option>
+      <option value="30">30</option>
+      <option value="45">45</option>
+    </select> -->
+  </div>
+</td>
+<td *ngIf="!editable" style="padding: 9px 10px 9px 15px!important; background-color: '#C7C6C4';" [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' ">{{ moment["state"] }}</td>
+<td *ngIf="editable" [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' " [ngStyle]="{'background-color': moment.AtestStatus != '0' ? '#C7C6C4' : '#ffffff'}">
+  <input
+    type="text"
+    name="State"
+    [formControl]="createForm2.get('State')"
+    class="form-control clear-text new-input-class "
+    placeholder="{{ 'Enter State' | translate }}"
+    (keydown.enter)="handleStateKeyDown($event)"
+    (blur)="editState('state', index )"
+    [disabled]="_isDisabled"
+  />
+</td>
+<td  style="padding: 9px 10px 9px 15px!important; background-color: '#C7C6C4';" *ngIf="!editable" [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' ">{{moment.Comment}}</td>
+<td *ngIf="editable" [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' " [ngStyle]="{'background-color': moment.AtestStatus != '0' ? '#C7C6C4' : '#ffffff'}">
+  <input
+    type="text"
+    name="Comment"
+    [formControl]="createForm2.get('Comment')"
+    class="form-control clear-text  new-input-class "
+    placeholder="{{'Edit Comment' | translate}}"
+    (keydown.enter)="handleStateKeyDown($event)"
+    (blur)="editComment()"
+  />
+</td>
+<td  *ngIf="moment.AtestStatus == '0'" [ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || index==0? 'first-index': 'other-index' " style="position:relative;" [ngStyle]="{'background-color': !editable ? '#C7C6C4' : ''}">
+  <span
+      *ngIf="editable"
+    class="btn-delete"
+    (click)="removeProperty()"
+  >
+  <app-dellete-svg></app-dellete-svg>
+  </span>
+</td>
+<td *ngIf="moment.AtestStatus != '0'"
+[ngClass]="index==indexArr.length-1? 'last-index': 'other-index' || (index==0 && index==indexArr.length-1)? 'first-index': 'other-index'  "
+style="position:relative; background-color: '#C7C6C4'">
+  <i class="material-icons btn-delete">lock</i>
+</td>

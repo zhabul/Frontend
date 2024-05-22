@@ -1,0 +1,223 @@
+.custom-select-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.custom-select-title {
+  border: 1.5px solid var(--border-color);
+  border-radius: 5px;
+  padding-left: 10px;
+  cursor: pointer;
+  /* color: #1A1A1A; */
+  font-size: 14px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.custom-select-shadow {
+  -webkit-box-shadow:0px 1px 1px #888;
+  -moz-box-shadow:0px 1px 1px #888;
+  box-shadow:0px 3px 7px #888;
+}
+
+.custom-select-title:hover svg path,
+.custom-select-title:hover {
+  /* fill: #FF7000 !important; */
+  /* color: #FF7000 !important; */
+  font-weight: bold;
+}
+
+.custom-select-title-open {
+  /* color: #FF7000 !important; */
+  font-weight: bold;
+  border-left: 2px solid var(--orange-dark);
+  border-right: 2px solid var(--orange-dark);
+  border-top: 2px solid var(--orange-dark);
+}
+
+.custom-title-select-smaller:hover {
+  font-weight: bold;
+  /* color: var(--orange-dark); */
+}
+
+.custom-title-select-bigger:hover {
+  font-weight: bold;
+  /* color: var(--orange-dark); */
+}
+
+.custom-select-list {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: -3px;
+  z-index: -1;
+}
+
+.custom-select-list-item {
+  border-bottom: 1.5px solid #858585;
+  border-left: 1.5px solid #858585;
+  border-right: 1.5px solid #858585;
+  padding: 3% 15px;
+  background-color: white;
+  color: black;
+  width: 100%;
+  /* height: 34px; */
+}
+
+.custom-select-list-item:hover {
+  color: #FF7000;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.custom-select-list-bottom-border {
+  /* background-color: #FF7000;
+  height: 6px;
+  width: 120%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.disable-select {
+  user-select: none; /* supported by Chrome and Opera */
+ -webkit-user-select: none; /* Safari */
+ -khtml-user-select: none; /* Konqueror HTML */
+ -moz-user-select: none; /* Firefox */
+ -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.custom-title-select-bigger {
+  padding: 2% 0;
+  font-size: 18px;
+}
+
+.custom-title-select-smaller {
+  padding: 4% 0;
+  font-size: 14px;
+}
+
+.toggle-on{
+  float: right;
+  position: absolute;
+  right: 10px;
+}
+
+.svg-custom-down {
+  transform: rotate(0deg);
+  /* fill: var(--border-color); */
+  float: right;
+  margin-top: 14px;
+  margin-right: 15px;
+}
+
+.svg-custom-up {
+  transform: rotate(-180deg);
+  /* fill: var(--border-color); */
+  float: right;
+  margin-top: 14px;
+  margin-right: 15px;
+}
+
+.svg-custom-up-open {
+  /* fill: #FF7000; */
+}
+
+.smaller-height {
+  height: 0;
+}
+
+.add-grey-background {
+  background-color: #C7C6C4;
+}
+
+.orange-border {
+  border-right: 2px solid var(--orange-dark);
+  border-left: 2px solid var(--orange-dark);
+  border-top: 2px solid var(--orange-dark);
+}
+
+.orange-border1{
+  border-right: 2px solid var(--orange-dark);
+  border-left: 2px solid var(--orange-dark);
+  border-top: 2px solid var(--orange-dark);
+  border-bottom: 2px solid var(--orange-dark);
+}
+
+.make-z-index-smaller {
+  position: relative;
+  z-index: -1;
+  height: 30px;
+}
+
+.skroller-bigger {
+  height: 207px;
+  width: 120%;
+  overflow-y: scroll;
+  border-right: 3px solid #FF7000;
+  border-left: 3px solid #ff7000;
+  border-top: 3px solid #ff7000;
+}
+
+.skroller-bigger::-webkit-scrollbar {
+  width: 15px;
+}
+
+.skroller-bigger::-webkit-scrollbar-track {
+  background: white;
+}
+
+.skroller-bigger::-webkit-scrollbar-thumb {
+  background-color: #858585;
+  border-radius: 2px;
+  border: 6px solid white;
+}
+
+.skroller-bigger::-webkit-scrollbar-button:start  {
+  background-image: url(./up-arrow-svgrepo-com.svg);
+  background-color: white;
+}
+
+.skroller-bigger::-webkit-scrollbar-button:end  {
+  background-image: url(./down-arrow-svgrepo-com.svg);
+  background-color: white;
+}
+
+.skroller-smaller {
+  border-radius: 4px 4px 4px 4px;
+  border-right: 2px solid #FF7000;
+  border-left: 2px solid #ff7000;
+  border-bottom: 2px solid #ff7000;
+  width: 100%;
+}
+
+.skroller-smaller::-webkit-scrollbar {
+  width: 15px;               /* width of the entire scrollbar */
+}
+
+.skroller-smaller::-webkit-scrollbar-track {
+  background: white;        /* color of the tracking area */
+}
+
+.skroller-smaller::-webkit-scrollbar-thumb {
+  background-color: #858585;    /* color of the scroll thumb */
+  border-radius: 2px;       /* roundness of the scroll thumb */
+  border: 6px solid white;  /* creates padding around scroll thumb */
+}
+
+.skroller-smaller::-webkit-scrollbar-button:start  {
+  background-image: url(./up-arrow-svgrepo-com.svg);
+  background-color: white;
+}
+
+.skroller-smaller::-webkit-scrollbar-button:end  {
+  background-image: url(./down-arrow-svgrepo-com.svg);
+  background-color: white;
+}
+
+.arrow{
+  position: absolute;
+  margin-right: 15px;
+  cursor: pointer;
+  right: 0;
+}

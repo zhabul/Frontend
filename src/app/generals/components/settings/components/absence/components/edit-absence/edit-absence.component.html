@@ -1,0 +1,79 @@
+<mat-dialog-content  class="edit-adding-edit-absence-mat-dialog" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="container">
+    <div class="head">
+        <p>{{ receivedData.action | translate | uppercase }}</p>
+        <img
+        style="cursor: pointer"
+        src="../../../../assets/img/exit-icon.svg"
+        alt="x"
+        (click)="close()"
+        />
+    </div>
+
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" autocomplete="off">
+        <div class="input-container">
+        <span>{{ "Name" | translate }}</span>
+        <input
+            type="text"
+            ngModel="{{ receivedData.absenceToEdit.Name }}"
+            name="name"
+        />
+        </div>
+
+        <div class="input-container">
+        <span>{{ "Short name" | translate }}</span>
+        <input
+            type="text"
+            ngModel="{{ receivedData.absenceToEdit.ShortName }}"
+            name="shortname"
+            spellcheck="false"
+        />
+        </div>
+
+        <div class="buttons">
+        <div>
+            <span class="checkbox-label">{{ "Paid" | translate }}</span>
+            <input
+            class="checkbox"
+            type="checkbox"
+            [ngModel]="receivedData.absenceToEdit.paid == 1 ? true : false"
+            name="paid"
+            style="border-radius: 50%"
+            />
+
+            <ng-container *ngIf="showFlex">
+            <span class="checkbox-label">{{ "Flex" | translate }}</span>
+            <input
+                class="checkbox"
+                type="checkbox"
+                [ngModel]="receivedData.absenceToEdit.flex == 1 ? true : false"
+                name="flex"
+                style="border-radius: 50%"
+            />
+            </ng-container>
+
+        </div>
+        <button
+            type="submit"
+            class="btn-dt"
+            [disabled]="!f.dirty || !f.valid"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="add-icon"
+                width="20"
+                viewBox="0 0 19 19"
+                fill="currentColor"
+            >
+            <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                clip-rule="evenodd"
+            />
+            </svg>
+            <p>{{ "Add" | translate | uppercase }}</p>
+        </button>
+        </div>
+    </form>
+    </div>
+</mat-dialog-content>

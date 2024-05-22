@@ -1,0 +1,27 @@
+<div>
+    
+    <form class="user-select-form" #myform>
+
+        <div class="select-container-200 margin-right">
+            <app-user-type-select (emitActiveType)="onItemSelect($event)"></app-user-type-select>
+        </div>
+ 
+        <div class="select-container-220 margin-right" *ngIf="allUsers.length">
+            <app-input-autocomplete
+                [control]="selectForm.get('user')"
+                [inputText]="selectForm.get('user_name')"
+                [myform]="myform"
+                [list]="users"
+                (getEvent)="changeSelectedUser($event)"
+                id="id"
+                errorText="''"
+                class="input-auto"
+                type="ata"
+            >
+            </app-input-autocomplete>
+            <div class="floating-title">{{ 'Choose person' | translate }}</div>
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,226 @@
+<div #dropdown >
+  <div (click)="toogleMultiselect()" class="name-of-multselect"
+  [ngStyle]="{
+    'border':border,
+    'border-radius': toggle ?'4px 4px 0px 0px':'4px 4px 4px 4px',
+    'border-bottom':toggle ? '0px':border,
+    'pointer-events': allowOrDisable ? 'none': 'auto'
+}">
+
+      <div [ngStyle]="{'color': color}" class="refname"> {{ ref }} </div>
+      <div class="arrow">
+          <app-arrow-for-dropdown
+            [fill]="fill"
+            [rotate]="rotate"
+          >
+          </app-arrow-for-dropdown>
+      </div>
+      <div class="border-on-scroll" *ngIf="toggle" ></div>
+  </div>
+  <div class="shadow" *ngIf="toggle"></div>
+  <div style="position:relative">
+  <div *ngIf="toggle" class="dropdown-scroll">
+
+<ng-container>
+  <div *ngIf="Disabled">
+      <div *ngFor="let status of localSelectedItem; let i=index" >
+        <div *ngIf="status.Status !== SelectedAta">
+          <div class="users-list" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)"  (click)="getSelectedItem(status)">
+              <div [ngStyle]="{'color': setColorDropDownSelect(status)}" class="users" title="{{status.Name}}"> {{ translate.instant(status.Name) | uppercase }}</div>
+                <div class="check-button-wrapp-one">
+                    <input type="checkbox" class="check" >
+                    <app-checkin-svg
+                        *ngIf="status?.checked"
+                        [width]="18"
+                        [height]="18"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                    ></app-checkin-svg>
+                    <app-checkout-svg
+                        *ngIf="!status?.checked"
+                        [width]="18"
+                        [height]="18"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                    ></app-checkout-svg>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <ng-container *ngIf="Uvjet3">
+        <!-- Decline -->
+        <div
+            style="text-align: start"
+            class="users-list"
+            (click)="manuallyDecline()"
+
+        >
+         <span class="users" title="{{decline}}" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)"  [ngStyle]="{'color': color5}">{{ decline | uppercase }}</span>
+         <div class="check-button-wrapp-one">
+         <input type="checkbox"  class="check" [(ngModel)]="isChecked1" (change)="onCheckboxChange(1)">
+          <app-checkin-svg
+              *ngIf="isChecked1"
+              [width]="18"
+              [height]="18"
+              [color]="'FF7000'"
+              [hatched]="'white'"
+          ></app-checkin-svg>
+          <app-checkout-svg
+          *ngIf="!isChecked1"
+              [width]="18"
+              [height]="18"
+              [color]="'FF7000'"
+              [hatched]="'white'"
+          ></app-checkout-svg>
+        </div>
+      </div>
+        <!-- End Decline -->
+        <!-- Cancel -->
+        <div *ngIf="Uvjet4"
+            style="text-align: start"
+            class="users-list"
+            (click)="createRevision()"
+
+        >
+          <span class="users" title="{{cancel}}" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)"  [ngStyle]="{'color': color6}">{{ cancel | uppercase}}</span>
+            <div class="check-button-wrapp-one">
+              <input type="checkbox"  class="check" [(ngModel)]="isChecked3" (change)="onCheckboxChange(3)">
+              <app-checkin-svg
+                  *ngIf="isChecked3"
+                  [width]="18"
+                  [height]="18"
+                  [color]="'FF7000'"
+                  [hatched]="'white'"
+              ></app-checkin-svg>
+              <app-checkout-svg
+              *ngIf="!isChecked3"
+                  [width]="18"
+                  [height]="18"
+                  [color]="'FF7000'"
+                  [hatched]="'white'"
+              ></app-checkout-svg>
+          </div>
+      </div>
+        <!-- End Cancel -->
+        <!-- Accept -->
+        <div
+          tyle="text-align: start"
+          class="users-list"
+          (click)="manuallyAccept()"
+
+        >
+          <span class="users" title="{{accept}}" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)" [ngStyle]="{'color': color4}">{{ accept | uppercase}}</span>
+            <div class="check-button-wrapp-one">
+              <input type="checkbox"  class="check" [(ngModel)]="isChecked2" (change)="onCheckboxChange(2)">
+              <app-checkin-svg
+                  *ngIf="isChecked2"
+                  [width]="18"
+                  [height]="18"
+                  [color]="'FF7000'"
+                  [hatched]="'white'"
+              ></app-checkin-svg>
+              <app-checkout-svg
+              *ngIf="!isChecked2"
+                  [width]="18"
+                  [height]="18"
+                  [color]="'FF7000'"
+                  [hatched]="'white'"
+              ></app-checkout-svg>
+          </div>
+      </div>
+        <!-- End Accept -->
+        <!-- Aborted -->
+        <div
+            *ngIf="Uvjet"
+            class="users-list"
+            style="text-align: start"
+            (click)="manuallyAborted()"
+
+        >
+          <span class="users" title="{{aborted}}" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)"  [ngStyle]="{'color': color8}">{{ aborted | uppercase }}</span>
+            <div class="check-button-wrapp-one">
+              <input type="checkbox"  class="check" [(ngModel)]="isChecked4" (change)="onCheckboxChange(4)" >
+              <app-checkin-svg
+                  *ngIf="isChecked4"
+                  [width]="18"
+                  [height]="18"
+                  [color]="'FF7000'"
+                  [hatched]="'white'"
+              ></app-checkin-svg>
+              <app-checkout-svg
+              *ngIf="!isChecked4"
+                  [width]="18"
+                  [height]="18"
+                  [color]="'FF7000'"
+                  [hatched]="'white'"
+              ></app-checkout-svg>
+          </div>
+      </div>
+      <!-- End Aborted -->
+      </ng-container>
+      <!-- Revision -->
+      <ng-container *ngIf="Uvjet1">
+      <div
+          style="text-align: start"
+          class="users-list"
+          (click)="createRevision()"
+
+        >
+        <span class="users" title="{{revision}}" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)" [ngStyle]="{'color': color7}">{{ revision | uppercase }}</span>
+          <div class="check-button-wrapp-one">
+            <input type="checkbox" class="check"  [(ngModel)]="isChecked5" (change)="onCheckboxChange(5)">
+            <app-checkin-svg
+                *ngIf="isChecked5"
+                [width]="18"
+                [height]="18"
+                [color]="'FF7000'"
+                [hatched]="'white'"
+            ></app-checkin-svg>
+            <app-checkout-svg
+            *ngIf="!isChecked5"
+                [width]="18"
+                [height]="18"
+                [color]="'FF7000'"
+                [hatched]="'white'"
+            ></app-checkout-svg>
+        </div>
+      </div>
+      </ng-container>
+    <!-- End Revision -->
+    <!-- Transfer to External -->
+    <ng-container *ngIf="Uvjet2">
+      <div
+          style="text-align: start"
+          class="users-list"
+          (click)="makeExternalAta()"
+
+      >
+      <span class="users" title="{{transfer}}" (mouseenter)="changeColor($event)" (mouseleave)="changeColorLeave($event)" [ngStyle]="{'color': color9}" >{{ transfer | uppercase }}</span>
+      <div class="check-button-wrapp-one">
+        <input type="checkbox" class="check"  [(ngModel)]="isChecked6" (change)="onCheckboxChange(6)">
+          <app-checkin-svg
+              *ngIf="isChecked6"
+              [width]="18"
+              [height]="18"
+              [color]="'FF7000'"
+              [hatched]="'white'"
+          ></app-checkin-svg>
+          <app-checkout-svg
+          *ngIf="!isChecked6"
+              [width]="18"
+              [height]="18"
+              [color]="'FF7000'"
+              [hatched]="'white'"
+          ></app-checkout-svg>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+    <!-- End Transfer to External -->
+  </div>
+  <div class="line-scroll"></div>
+  </div>
+</div>
+
+

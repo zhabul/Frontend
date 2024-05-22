@@ -1,0 +1,26 @@
+<div
+  [ngStyle]="computedStyles.contStyle"
+  class="moment-cont"
+  [style.font-size]="calendarStyle.fontSizeSmall"
+>
+  <div class="test-container">
+    <div class="lock-p-name" [ngStyle]="computedStyles.lockItemStyle">
+      <app-lock-icons
+        [size]="computedStyles.lockIconSizeCondition"
+        [day]="day"
+        [user]="user"
+      ></app-lock-icons>
+      <div>{{ moments.ProjectName }}</div>
+    </div>
+    <div class="hours-a-name">
+      <div>
+        {{ moments.time_qty_hours }}
+      </div>
+      <div *ngIf="moments.sum_of_mileages_per_day > 0">{{ moments.sum_of_mileages_per_day }} mil</div>
+    </div>
+  </div>
+
+  <div class="not-accepted" [style.font-size]="calendarStyle.fontSizeXS">
+    {{ moments.needAtest | translate }}
+  </div>
+</div>

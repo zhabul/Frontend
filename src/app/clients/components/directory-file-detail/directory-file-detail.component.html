@@ -1,0 +1,74 @@
+<div style="position: fixed">
+  <div class="row">
+    <div class="card py-2 bgGrayBlue col-12X col-lg-6X col-lg-8W">
+      <div
+        class="project-content d-flex"
+        style="width: 100%; justify-content: space-between"
+      >
+        <div>
+          <a
+            routerLink="{{
+              directory.belongs_to == '0'
+                ? '/clients/attachments/' + directory.ClientId
+                : '/clients/attachments/' +
+                  directory.belongs_to +
+                  '/' +
+                  directory.client_id
+            }}"
+            class="btn btn-dark lh09 hideUnder800 nowrap mr-2"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            id="topFeeder"
+            style="color: white"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="create-attachment" style="flex: 1">
+          <button
+            [ngClass]="{
+              disabled: !userDetails.create_project_Attachment,
+              'btn-brown': directory.lock == 1,
+              'btn-danger': directory.lock != 1
+            }"
+            class="btn mrW-auto"
+            type="button"
+            [disabled]="directory.lock == 1"
+            (click)="deleteFile()"
+          >
+            {{ "Delete" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-controls d-flex justify-content-center mt-1">
+    <span class="rotate-icon-left cursor-pointer" (click)="rotateLeft()"
+      ><i class="material-icons">rotate_left</i></span
+    >
+    <span class="rotate-icon cursor-pointer" (click)="rotateRight()"
+      ><i class="material-icons">rotate_right</i></span
+    >
+  </div>
+
+  <div class="row" style="margin: 0" *ngIf="viewType">
+    <div
+      class="page pinch-zoom-parent"
+      [ngStyle]="{ height: elementHeight + 'px' }"
+    >
+      <div id="image-gallery">
+        <div class="image-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 10px" *ngIf="!viewType">
+    <div class="col-12X col-lg-6X col-lg-8W">
+      <div id="image-gallery">
+        <div class="image-container"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Set coworkers number" | translate }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="create()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div
+    class="form-group col-xs-12"
+    [ngClass]="{
+      'has-error':
+        (createForm.get('NumberOfCoworkers').touched ||
+          createForm.get('NumberOfCoworkers').dirty) &&
+        !createForm.get('NumberOfCoworkers').valid
+    }"
+  >
+    <label>{{ "Number of coworkers" | translate }}</label>
+    <input
+      class="form-control"
+      id="NumberOfCoworkers"
+      rows="2"
+      formControlName="NumberOfCoworkers"
+      required="true"
+    />
+  </div>
+  <div class="form-row">
+    <div class="form-group col-sm-12">
+      <label for="name" class="required">{{
+        "Choose timeframe" | translate
+      }}</label>
+      <select
+        class="project-nav-select form-control"
+        id="project-users"
+        #timeframe
+        (change)="onChangeSetTimeframe(timeframe.value)"
+        formControlName="timeframe"
+      >
+        <option value="week">{{ "Week" | translate }}</option>
+        <option value="day">{{ "Day" | translate }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row form-row-color-btn">
+    <div class="form-group col-sm-12">
+      <label>{{ "Color" | translate }}</label>
+      <input
+        name="directory"
+        class="form-control"
+        formControlName="Color"
+        type="color"
+      />
+    </div>
+  </div>
+  <div class="render-added-data-into-array">
+    <ul class="list-group list-group-flush">
+      <li
+        class="list-group-item list-group-item-content"
+        *ngFor="let object of coworkersArray; let index = index"
+      >
+        <span
+          >{{ "Start Date" | translate }}: {{ object.StartDate }},
+          {{ "End Date" | translate }}: {{ object.EndDate }},
+          {{ "Coworkers" | translate }}: {{ object.NumberOfCoworkers }}</span
+        ><span (click)="removeFromArray(index)"
+          ><i class="material-icons">clear</i></span
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="button-group text-center">
+      <button type="submit" class="btn btn-success lh09">
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Save" | translate }}</span>
+      </button>
+    </div>
+  </div>
+</form>

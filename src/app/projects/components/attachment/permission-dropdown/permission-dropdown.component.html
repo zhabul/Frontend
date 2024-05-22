@@ -1,0 +1,118 @@
+<div
+  class="dropdown-wrapper"
+  [ngStyle]="{ 'background-color': disable ? '#bfbfbf' : 'none' }"
+  *ngIf="!isDropdownOpen"
+  (click)="onOpenDropdown()"
+>
+  <div 
+    class="dropdown-title"
+    [ngClass]="{'dropdown-title-orange': placeholder != title }"
+  >{{ placeholder }}</div>
+  <div>
+    <app-down-arrow></app-down-arrow>
+  </div>
+</div>
+<div class="input-wrapper" *ngIf="isDropdownOpen">
+  <div>
+    <input #userInput type="text" (input)="takeUserInput($event)" />
+  </div>
+  <div (click)="onOpenDropdown()">
+    <app-up-arrow></app-up-arrow>
+  </div>
+</div>
+<div class="dropdown-list-wrapper orange-scroll" *ngIf="isDropdownOpen">
+  <div class="dropdown-item-wrapper">
+    <div class="item-col">
+      <div class="item-title">Välj alla</div>
+      <div>
+        <app-checkbox-uncheck
+          (click)="onAllChecked()"
+          *ngIf="!isAllChecked"
+        ></app-checkbox-uncheck>
+        <app-checkbox-check
+          (click)="onAllChecked()"
+          *ngIf="isAllChecked"
+        ></app-checkbox-check>
+      </div>
+    </div>
+    <div class="item-col">
+      <div>
+        <app-checkbox-uncheck
+          (click)="onAllView()"
+          *ngIf="!isAllView"
+        ></app-checkbox-uncheck>
+        <app-checkbox-check
+          (click)="onAllView()"
+          *ngIf="isAllView"
+        ></app-checkbox-check>
+      </div>
+      <div class="lasa-skriva">Läsa</div>
+    </div>
+    <div class="item-col">
+      <div>
+        <app-checkbox-uncheck
+          (click)="onAllEdit()"
+          *ngIf="!isAllEdit"
+        ></app-checkbox-uncheck>
+        <app-checkbox-check
+          (click)="onAllEdit()"
+          *ngIf="isAllEdit"
+        ></app-checkbox-check>
+      </div>
+      <div class="lasa-skriva">Skriva</div>
+    </div>
+  </div>
+  <ng-container *ngFor="let item of copyOfAllItems">
+    <div class="dropdown-item-wrapper">
+      <div class="item-col">
+        <div class="item-title">{{ item[loopThrough] }}</div>
+        <div>
+          <app-checkbox-uncheck
+            (click)="onItemCheck(item)"
+            *ngIf="!item.checked"
+          ></app-checkbox-uncheck>
+          <app-checkbox-check
+            (click)="onItemCheck(item)"
+            *ngIf="item.checked"
+          ></app-checkbox-check>
+        </div>
+      </div>
+      <div class="item-col">
+        <ng-container *ngIf="item.checked">
+          <div>
+            <app-checkbox-uncheck
+              (click)="onViewCheck(item)"
+              *ngIf="!item.canView"
+            ></app-checkbox-uncheck>
+            <app-checkbox-check
+              (click)="onViewCheck(item)"
+              *ngIf="item.canView"
+            ></app-checkbox-check>
+          </div>
+          <div>
+            <app-eye-grey *ngIf="!item.canView"></app-eye-grey>
+            <app-eye-green *ngIf="item.canView"></app-eye-green>
+          </div>
+        </ng-container>
+      </div>
+      <div class="item-col">
+        <ng-container *ngIf="item.checked">
+          <div>
+            <app-checkbox-uncheck
+              (click)="onEditCheck(item)"
+              *ngIf="!item.canEdit"
+            ></app-checkbox-uncheck>
+            <app-checkbox-check
+              (click)="onEditCheck(item)"
+              *ngIf="item.canEdit"
+            ></app-checkbox-check>
+          </div>
+          <div>
+            <app-pencil-grey *ngIf="!item.canEdit"></app-pencil-grey>
+            <app-pencil-green *ngIf="item.canEdit"></app-pencil-green>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>

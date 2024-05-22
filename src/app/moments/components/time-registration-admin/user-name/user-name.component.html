@@ -1,0 +1,41 @@
+<div
+  #nameDiv
+  class="user-container user-sticky"
+  [ngStyle]="computedStyle.generateStyle"
+>
+  <div
+    class="user-numbers-info"
+    [ngStyle]="computedStyle.userNameStyle"
+    [matMenuTriggerFor]="user.messageCount > 0 ? menu : null"
+  >
+    <span>{{ user_number }}</span>
+    <mat-menu #menu="matMenu" xPosition="after" yPosition="above" class="custom-menu">
+      <div class="read-btn" (click)="onMarkAllAsRead()">{{"mark all as read" | translate }}
+      </div>
+    </mat-menu>
+  </div>
+  <div
+    (click)="goToUserDetails()"
+    class="user-name-data-info"
+    [ngStyle]="computedStyle.userNameStyle"
+  >
+    <span>{{ user.firstName }} {{ user.lastName }}</span>
+    <div
+      (click)="emitOpenWeekModal($event, 0)"
+      *ngIf="user.messageCount && userDetails.create_timesheets_time_report_management"
+      class="msg-icon"
+    >
+      <app-msg-svg></app-msg-svg>
+      <div class="count-number">{{ user.messageCount }}</div>
+    </div>
+  </div>
+  <div class="user-path-data" [style.font-size]="calendarStyle.fontSizeMedium">
+    <div class="hour-data">
+      {{ monthly_time }}
+    </div>
+    <div class="path-data" *ngIf="user.exist_mileage_type == 1">
+      {{ monthy_mileage }}
+    </div>
+  </div>
+  <div class="overlay" *ngIf="overlayUser"></div>
+</div>

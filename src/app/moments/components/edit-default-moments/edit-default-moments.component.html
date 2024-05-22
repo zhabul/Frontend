@@ -1,0 +1,64 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Create planner" | translate }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="editForm"
+  (ngSubmit)="update()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div
+    class="form-group col-xs-12"
+    [ngClass]="{
+      'has-error':
+        (editForm.get('Name').touched || editForm.get('Name').dirty) &&
+        !editForm.get('Name').valid
+    }"
+  >
+    <label>{{ "Name" | translate }}</label>
+    <textarea
+      maxlength="100"
+      class="form-control"
+      id="Name"
+      rows="2"
+      formControlName="Name"
+      required="true"
+    ></textarea>
+  </div>
+  <div class="form-group">
+    <input
+      id="sort"
+      formControlName="sort"
+      type="hidden"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group">
+    <input
+      id="parent"
+      formControlName="parent"
+      type="hidden"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group">
+    <select class="form-control" formControlName="type" id="type">
+      <option value="1">{{ "Worker" | translate }}</option>
+      <option value="2">{{ "Skilled Worker" | translate }}</option>
+    </select>
+  </div>
+  <div class="row">
+    <div class="button-group text-center">
+      <button type="submit" class="btn btn-success lh09">
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Save" | translate }}</span>
+      </button>
+    </div>
+  </div>
+</form>

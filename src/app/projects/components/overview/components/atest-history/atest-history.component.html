@@ -1,0 +1,419 @@
+<div class="header-wrapp">
+  <!-- <div class="paginate-wrapp">
+
+    <div class="pagination">
+      <div class="page-num-main-wrapp">
+        <ul class="pagination page-num-wrapp">
+          <li class="page-item first-item">
+            <a (click)="generatePageArray(1, true)" class="page-link-main">{{
+              "First" | translate
+            }}</a>
+          </li>
+          <li class="page-item previous-item">
+            <a
+              (click)="generatePageArray(selectedPage - 1, true)"
+              class="page-link-main"
+              >{{ "Previous" | translate }}</a
+            >
+          </li>
+          <ng-container *ngFor="let page of pages; let index = index">
+            <li
+              class="page-item number-item"
+              [ngClass]="{
+                active: page === selectedPage,
+                'active-fnt': page === selectedPage
+              }"
+            >
+              <a class="page-link" (click)="generatePageArray(page, true)">
+                {{ page }}
+              </a>
+            </li>
+          </ng-container>
+          <li
+            class="page-item next-item"
+            (click)="generatePageArray(selectedPage + 1, true)"
+          >
+            <a class="page-link-main">{{ "Next" | translate }}</a>
+          </li>
+          <li class="page-item last-item">
+            <a
+              (click)="generatePageArray(maxPage, true)"
+              class="page-link-main"
+              >{{ "Last" | translate }}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+  <!-- <div>
+    <button class="btn btn-outline-info ml-2" (click)="exportExcel()">
+      {{ "TSC_EXPORT" | translate }}
+    </button>
+  </div> -->
+</div>
+
+
+
+<div class="d-flex mb-3">
+  <span
+    class="list-wrappeer-right cursor-pointer pr-3 attest-align"
+    (click)="toggleselectOpen()"
+  >
+    {{ "Attest" | translate }}
+    <i class="material-icons pl-2">
+      {{ selectOpen ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+    </i>
+  </span>
+</div>
+
+
+<div class="total-wrapper" *ngIf="selectOpen">
+  <div class="total-border">
+    <div class="total-order">
+      <div class="total-name">{{ "Total" | translate }}:</div>
+      <div class="total-sum">{{ totalHours | number: "1.2-2":"fr" }}</div>
+    </div>
+    <div class="total-order">
+      <div class="total-name margin-left">{{ "Project Total" | translate }}:</div>
+      <div class="total-sum">{{ totalProjectHours | number: "1.2-2":"fr" }}</div>
+    </div>
+    <div class="total-order">
+      <div class="total-name margin-left">{{ "Ata Total" | translate }}:</div>
+      <div class="total-sum">{{ totalAtaHours | number: "1.2-2":"fr" }}</div>
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-outline-info ml-2" (click)="exportExcel()" style="float: right; margin-right: 30px;">
+      {{ "TSC_EXPORT" | translate }}
+    </button>
+  </div>
+</div>
+
+<table style="width: 100%"  *ngIf="selectOpen">
+  <thead>
+    <tr style="border-left: 1px solid;">
+      <th scope="col" class="name-th">{{ "Name" | translate }}</th>
+      <th scope="col" class="moment-th" >{{ "Moment" | translate }}</th>
+      <th scope="col" class="time-th">{{ "Time" | translate }}</th>
+      <th scope="col" class="state-th">{{ "State" | translate }}</th>
+      <th scope="col" class="comment-th">{{ "Comment" | translate }}</th>
+      <th scope="col" class="attestedBy-th">{{ "Attested by" | translate }}</th>
+      <th scope="col" class="attestedDate-th">{{ "Attested Date" | translate }}</th>
+      <th scope="col" style="border-bottom:1px solid var(--black-light)" class="restore-th">{{ "Restore" | translate }}</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+    <ng-container *ngFor="let item of hoursForAtest; let i = index;  let even=even">
+      <tr >
+        <td [attr.colspan]="i == 0 ? '7' : '8'" style="background-color: var(--black-light) ;  color: var(--white); border-left: 1px solid black;padding-left: 20px;">
+          <div style="display:flex">
+            <app-calendar-svg style="margin-right: 10px;"></app-calendar-svg>
+            <div style="padding: 2px 0px 0px 0px;">{{ item["date"] }}</div>
+          </div>
+
+
+        </td>
+        <td *ngIf="i == 0" style="background-color: var(--black-light); text-align: center;">
+          <div *ngIf="allowEdit()">
+            <app-revert-all-svg *ngIf="checked_for_revert == 0"></app-revert-all-svg>
+            <img *ngIf="checked_for_revert.length>0" alt="restore" src="assets/img/time-attest-icons/restore-orange.svg" (click)="revertAtestAll(item.users[0].moments)">
+          </div>
+        </td>
+      </tr>
+
+      <ng-container *ngFor="let user of item['users']; let i2 = index;">
+        <tr
+        [ngStyle]="{
+          'background-color': user.backgroundColor
+        }"
+        >
+          <td colspan="2" style="padding-left: 20.2px;">{{ user["name"] }} </td>
+          <td colspan="" style="font-weight: 600;text-align: center;">
+            {{ user["total"] | number: "1.2-2":"fr" }}
+          </td>
+          <td colspan="" ></td>
+          <td colspan="" ></td>
+          <td colspan="" ></td>
+          <td colspan="" ></td>
+          <td colspan="" ></td>
+
+        </tr>
+        <tr
+          *ngFor="let moment of user['moments']; let i3 = index"
+          [ngStyle]="{
+            'background-color': user.backgroundColor
+          }"
+        >
+          <td style="white-space: nowrap; width: 70px; padding-left: 20.2px;padding-top: 0px;padding-bottom: 0px;">
+
+
+            <div class="wrapper-moments-img-com">
+
+              <div class="ata-images-flex">
+                  {{ moment["content_name"] }}<span *ngIf="moment['AtaName']">-{{ moment['AtaName'] }}</span>
+              </div>
+              <div class="image-wrapper">
+                <div class="images-pure-flex" >
+                  <div class="images-pure-flex" *ngIf="moment['images'].length > 0">
+                    <div class="image-icon-container">
+                      <app-image-exist-svg
+                          [attr.data-noclick]="matImage"
+                          (click)="openSwiper(moment['images'])">
+                      </app-image-exist-svg>
+                    </div>
+                  </div>
+                  <div class="images-pure-flex" *ngIf="!moment['images'].length">
+                    <div class="image-icon-container"
+                    [ngClass]="!moment['images'].length ? 'image-icon-container-empty': 'image-icon-container' "
+                    >
+                      <!-- <app-image-not-exist-svg></app-image-not-exist-svg> -->
+                    </div>
+                  </div>
+                </div>
+                <span *ngIf="moment['images'].length" class="number-img"> {{moment['images'].length}}</span>
+              </div>
+              <!-- <div style="justify-self: right;" class="comment-icon">
+
+
+                <div style="float: right" class="moment-comment-icon">
+                  <small
+                    data-toggle="modal"
+                    data-target="#moment-comm"
+                    (click)="toggleShowComment(moment)"
+                    class="material-icons"
+                  >
+
+                    <app-comment-not-exist-svg *ngIf="!moment['atestComment']"></app-comment-not-exist-svg>
+
+                      <app-comment-exist-svg *ngIf="moment['atestComment']"></app-comment-exist-svg>
+                  </small>
+                  <div
+                    class="moment-wrapp"
+                    id="moment-comm"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                    *ngIf="moment.show"
+                  >
+                    <div class="arrow-up"></div>
+                    <div
+                      class="header-wrapp mt-1"
+                      data-dismiss="modal"
+                      (click)="closeModal(moment)"
+                    >
+                      <div class="d-flex commentedBy">
+                        <img
+                          class="mr-2 file"
+                          src="assets/img/time-attest-icons/write-comment.svg"
+                        />
+                        <p class="comm-by mb-0">
+                          {{ "Comment by" | translate }}:
+                          {{ moment["attestedBy"] }}
+                        </p>
+                        <img
+                          class="close-icon"
+                          src="assets/img/time-attest-icons/close-comm.svg"
+
+                        />
+                      </div>
+                    </div>
+
+                    <div class="text-area-wrapp mt-3">
+                      <textarea
+                        class="form-control form-control-sm"
+                        rows="2"
+                        [(ngModel)]="moment['atestComment']"
+                        [ngModelOptions]="{ standalone: true }"
+                      ></textarea>
+                      <div class="btn-wrapp d-flex justify-content-end mt-1">
+                        <span
+                          class="btn btn-orange-dark"
+                          data-dismiss="modal"
+                          (click)="closeModalAndSave(moment)"
+                          >{{ "Save" | translate }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div> -->
+            </div>
+          </td>
+          <td style="width: 150px; padding-left: 18px;">{{ moment["moment"] }}</td>
+          <td style="width: 60px ; text-align: center;">
+            {{ moment["time_qty"] | number: "1.2-2":"fr" }}
+          </td>
+          <td style="width: 160px ; padding-left: 18px;">{{ moment["state"] }}</td>
+
+          <td style=" padding-left: 18px;">
+            {{ moment.comment }}
+          </td>
+          <td style="width: 100px; padding-left: 18px;">{{ moment["attestedBy"] }}</td>
+          <td style="width: 100px; padding-left: 18px;">
+            {{ moment["attestedDate"] }}
+            <!--  {{moment['attestedWeek']}} {{ moment['attestedWeek'] ? (moment['week'] | translate) : ''}} -->
+          </td>
+          <td class="moment-comment-icon text-center" >
+            <!-- <i
+              *ngIf="moment.canRevert == 1"
+              class="material-icons"
+              (click)="revertAtest(moment.momentId, i, i2, i3)"
+              >undo</i
+            > -->
+            <div class="d-flex justify-content-center" style="gap:15px" *ngIf="allowEdit()">
+              <div>
+                <img
+                  *ngIf="moment.canRevert == 0"
+                  alt="restore"
+                  src="assets/img/time-attest-icons/restore.svg" 
+                />
+                <img
+                  *ngIf="moment.canRevert == 1"
+                  alt="restore"
+                  src="assets/img/time-attest-icons/restore-orange.svg"
+                  (click)="revertAtest(moment.momentId, i, i2, i3)"
+                />
+              </div >
+              <div *ngIf="moment.canRevert == 1">
+                <a (click)=" checkedRevert(moment, i, i2, i3)">
+                  <app-check-in-svg *ngIf="moment.checked"></app-check-in-svg>
+                  <app-check-out-svg *ngIf="!moment.checked"></app-check-out-svg>
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+    <tr *ngIf="hoursForAtest.length < 1">
+      <td colspan="9" class="text-center">
+        {{ "No atested hours" | translate }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="bottomDiv" #bottomDiv></div>
+<div></div>
+<div class="header-wrapp">
+  <!-- <div class="paginate-wrapp">
+    <div class="pagination">
+      <div class="page-num-main-wrapp">
+        <ul class="pagination page-num-wrapp">
+          <li class="page-item first-item">
+            <a (click)="generatePageArray(1, true)" class="page-link-main">{{
+              "First" | translate
+            }}</a>
+          </li>
+          <li class="page-item previous-item">
+            <a
+              (click)="generatePageArray(selectedPage - 1, true)"
+              class="page-link-main"
+              >{{ "Previous" | translate }}</a
+            >
+          </li>
+          <ng-container *ngFor="let page of pages; let index = index">
+            <li
+              class="page-item number-item"
+              [ngClass]="{
+                active: page === selectedPage,
+                'active-fnt': page === selectedPage
+              }"
+            >
+              <a class="page-link" (click)="generatePageArray(page, true)">
+                {{ page }}
+              </a>
+            </li>
+          </ng-container>
+          <li
+            class="page-item next-item"
+            (click)="generatePageArray(selectedPage + 1, true)"
+          >
+            <a class="page-link-main">{{ "Next" | translate }}</a>
+          </li>
+          <li class="page-item last-item">
+            <a
+              (click)="generatePageArray(maxPage, true)"
+              class="page-link-main"
+              >{{ "Last" | translate }}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+</div>
+<div
+  *ngIf="showAttachmentImage"
+  class="card col-12X col-lg-6X mb70 image-gallery-container"
+  id="looksLikeModal"
+>
+  <div class="image-wrapper">
+    <span class="rotate-icon-left" (click)="rotateLeft()"
+      ><i class="material-icons">rotate_left</i></span
+    >
+    <span class="rotate-icon" (click)="rotateRight()"
+      ><i class="material-icons">rotate_right</i></span
+    >
+    <span
+      class="close-icon-right material-icons"
+      style="cursor: pointer"
+      (click)="closeAttachment()"
+      >clear</span
+    >
+    <!-- <img id="preview-image" style="max-height:85vh;" src="{{currentAttachmentImage}}" alt="attachment-image"> -->
+  </div>
+  <div id="image-gallery">
+    <div class="image-container"></div>
+    <div class="image-info">
+      <div class="image-info-container">
+        <div>{{ selectedImageInfo["date"] }}</div>
+        <div>{{ selectedImageInfo["name"] }}</div>
+        <div>{{ selectedImageInfo["momentName"] }}</div>
+      </div>
+      <div class="image-info-description">
+        {{ selectedImageInfo["description"] }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #otherComponent>
+  <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="true"
+  ></app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="true"
+  ></app-pdfjs-viewer>
+</ng-container>
+
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>
+
+
+<div>
+
+
+
+  <div style="visibility :hidden;">
+    <img src="assets/img/time-attest-icons/restore.svg"/>
+    <img src="assets/img/time-attest-icons/restore-orange.svg"/>
+  </div>
+

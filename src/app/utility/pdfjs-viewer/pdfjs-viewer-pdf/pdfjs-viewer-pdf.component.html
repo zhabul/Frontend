@@ -1,0 +1,79 @@
+<!-- <div class="main-image" #imageContainer>
+    <div class="zoom" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)" (mousewheel)="onWheel($event)" (wheel)="onWheel($event)" [ngStyle]="{ transform: zoomTtranslate }" (mouseleave)="leaveWindow()">
+        <ng-container *ngIf="isPdf(); else imgContainer">
+            <ng-container *ngIf="svgState == 1; else loading">
+                <div class="main-svg-element" [innerHTML]="svgCode" [ngStyle]="{
+                transform: 'scale(' + loadingScale + ') ' + 'rotate(' + rotate + 'deg)'
+              }"></div>
+
+            </ng-container>
+        </ng-container>
+        <ng-template #imgContainer>
+            <ng-container *ngIf="loadingScale == 1; else loading"></ng-container>
+            <img alt="" (load)="loadingImage($event)" [src]="imageUrl" class="main-image-element" [ngStyle]="{
+                    transform: 'scale(' + loadingScale + ') ' + 'rotate(' + rotate + 'deg)'
+                  }" (load)="scaleImage()" (error)="setPreviewUrl()" />
+        </ng-template>
+        <ng-template #loading>
+            <div class="spinner-container">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    <div class="comment-container" *ngIf="commentOpen">
+        {{ getDescription() }}
+    </div>
+    <div class="update-comment-container" *ngIf="commentEdit">
+        <div class="form-group">
+            <textarea [formControl]="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <div class="form-control-button-container" (click)="saveComment()">
+                <div class="btn btn-success py-2 form-control-button">
+                    {{ "Save" | translate }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="progress-loader" *ngIf="spinner">
+        <mat-spinner color="transparent"></mat-spinner>
+    </div>
+</div> -->
+
+  <div class="pdf-container pdfjsorange-scroll" id="pdf-container">
+    <ng-container *ngIf="isPdf()" >
+      <ng-container *ngIf="pdfState === 1">
+        <canvas #pdfCanvas id="pdf-canvas" *ngIf="pdfUnavailable === false"></canvas>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="loading">
+      <div class="spinner-container1">
+          <div class="spinner1">
+              <div class="double-bounce3"></div>
+              <div class="double-bounce4"></div>
+          </div>
+      </div>
+  </ng-container>
+
+  <div *ngIf="pdfUnavailable" class="error-message">
+    {{PDFNotAvaliable}}
+  </div>
+
+  <div class="comment-container" *ngIf="commentOpen">
+      {{ getDescription() }}
+  </div>
+  <div class="update-comment-container" *ngIf="commentEdit">
+      <div class="form-group">
+          <textarea [formControl]="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <div class="form-control-button-container" (click)="saveComment()">
+              <div class="btn btn-success py-2 form-control-button">
+                  {{ "Save" | translate }}
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div id="progress-bar" style="width: 0%; "></div>

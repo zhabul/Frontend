@@ -1,0 +1,776 @@
+<div class="weekly-report-pdf blu-scroll">
+  <div class="main-section">
+    <div class="buton-wrapper">
+      <div (click)="generatePdf('savePdf')">
+        <app-download-svg-icon></app-download-svg-icon>
+      </div>
+      <div (click)="generatePdf('printDeviation')">
+        <app-print-svg-icon></app-print-svg-icon>
+      </div>
+    </div>
+    <div class="container-fluid no-pad-left">
+      <div class="row">
+        <div class="col-4 no-pad-left">
+          <img class="img" src="{{ generalImage }}" alt="logo" />
+        </div>
+        <div class="col-8 no-pad-right">
+          <h4 *ngIf="!checkDU(currentWeeklyReport.name)" class="hed">
+            {{ "Change & additional work" | translate }}
+          </h4>
+          <h4 *ngIf="checkDU(currentWeeklyReport.name)" class="hed">
+            {{ "Debiteringsunderlag" }}
+          </h4>
+          <div class="row">
+            <div
+              *ngIf="!checkDU(currentWeeklyReport.name)"
+              class="col-8 no-pad-left"
+            >
+              <h6 style="font-weight: bold">
+                Art:
+                {{ getAtaType(formValues.AtaType) }} -
+                {{
+                  formValues.paymentType == "1"
+                    ? "Löpande räkning"
+                    : formValues.paymentType == "2"
+                    ? "Fastpris"
+                    : formValues.paymentType == "4"
+                    ? "Riktpris"
+                    : "Enl. á-prislista"
+                }}
+              </h6>
+              <span
+                ><b>{{ checkDisplayText() }}</b></span
+              >
+            </div>
+            <div
+              *ngIf="checkDU(currentWeeklyReport.name)"
+              class="col-8 no-pad-left"
+            >
+              <h6 style="font-weight: bold">Art: {{ checkDisplayTextDU() }}</h6>
+            </div>
+            <div class="col-4 ata-nub leetsp">
+              <p *ngIf="!checkDU(currentWeeklyReport.name)">
+                <b
+                  >{{ "Nr" | translate }}: {{ project.CustomName }}-{{
+                    formValues.Type == "internal" ? "INTERN" : ""
+                  }}ÄTA{{ formValues?.AtaNumber }}</b
+                >
+              </p>
+              <p *ngIf="checkDU(currentWeeklyReport.name)">
+                <b
+                  >{{ "Nr" | translate }}: {{ project.CustomName }}-{{
+                    formValues.Type == "internal" ? "INTERN" : ""
+                  }}{{ currentWeeklyReport?.name }}</b
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2 mb-3">
+      <div class="marg-inl-end" style="line-height: 1.45em">
+        <div class="section">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="align-right">
+                  <small>{{ "Project" | translate }}:</small>
+                </td>
+                <td>{{ project.CustomName }} {{ project.name }}</td>
+              </tr>
+              <tr>
+                <td class="align-right" style="padding-top: 2%">
+                  <small
+                    >{{
+                      "Created
+                                        by"
+                        | translate
+                    }}:</small
+                  >
+                </td>
+                <td style="padding-top: 2%">
+                  {{
+                    get_last_email_log_but_first_client_wr?.from_user === ""
+                      ? current_user_full_name
+                      : get_last_email_log_but_first_client_wr?.from_user
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <td class="align-right">
+                  <small>{{ "Sent" | translate }}:</small>
+                </td>
+                <td class="leetsp">
+                  {{ get_last_email_log_but_first_client_wr?.EMAIL_LOG_DATE }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section marg-inl-end" style="line-height: initial">
+        <table class="table">
+          <thead></thead>
+          <tbody>
+            <tr>
+              <td class="align-right no-pad-left">
+                <small>{{ "Application made to" | translate }}:</small>
+              </td>
+              <td class="no-pad-left">
+                {{
+                  get_last_email_log_but_first_client_wr?.email_log_client_worker
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="no-pad-top no-pad-left">
+                {{ formValues.clientName }} <br />
+                {{ formValues.street }}
+              </td>
+            </tr>
+            <tr>
+              <td class="no-pad-top"></td>
+              <td class="no-pad-left">
+                {{ formValues.zip }} {{ formValues.city }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="grid-2 mb-3">
+      <div style="padding-left: 5px">
+        <div class="section">
+          <p>
+            <small>{{ "Heading" | translate }}:</small>
+          </p>
+          <p *ngIf="getAtaType(formValues?.AtaType)">
+            <b
+              >{{ project.CustomName
+              }}{{
+                formValues?.AtaNumber
+                  ? "-" +
+                    (formValues.Type == "internal" ? "INTERN" : "") +
+                    "ÄTA-" +
+                    formValues?.AtaNumber
+                  : ""
+              }}-{{ currentWeeklyReport.formatWRNumber }}</b
+            >
+            <br />
+            <b>{{ formValues.Name }}</b>
+          </p>
+          <p *ngIf="formValues?.DeviationNumber > 0">
+            {{ "Single notifications are made" | translate }}
+            {{ "U-" + formValues?.DeviationNumber }}
+          </p>
+          <p *ngIf="checkDU(currentWeeklyReport.name)">
+            <b
+              >{{ project.CustomName }}-{{ currentWeeklyReport?.name }} -
+              {{ project.name }}</b
+            >
+          </p>
+        </div>
+      </div>
+      <div class="marg-left-5">
+        <div class="section">
+          <br />
+          <p>
+            {{ "In order to minimize the time," | translate }}
+            {{
+              (
+                "cost consequences and not cause any
+                        obstacles, we need the above order"
+                | translate
+              ).substring(0, 58)
+            }}
+            {{ "message at the latest" | translate }}:
+            <b>
+              {{
+                currentWeeklyReport?.WeeklyReportDueDate?.substring(0, 10)
+              }}</b
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="container table-cont">
+        <table class="table table-striped pdf-table">
+            <thead>
+                <tr>
+                    <td scope="col" class="tb-hed">{{ "Name/Title" | translate }}</td>
+                    <td scope="col" class="tb-hed text-align-right">{{ "Quantity" | translate }}</td>
+                    <td scope="col" class="tb-hed text-align-right">{{ "Unit" | translate }}</td>
+                    <td scope="col" class="tb-hed text-align-right">{{ "Price per unit" | translate }}</td>
+                    <td scope="col" class="tb-hed text-align-right">
+                        <span class="tb-pmin-sign">
+                            <img
+                                class="img-p-m-sign"
+                                src="/assets/img/plus-minus-percent-sign.png"
+                                alt="plus-minus-percent-sign"
+                            />
+                        </span>
+                    </td>
+                    <td scope="col" class="tb-hed text-align-right">{{ "Sum" | translate }}</td>
+                    <td scope="col" class="tb-hed">{{ "Attest" | translate }}</td>
+                    <td scope="col" class="tb-hed" *ngIf="showCommentIfExist">{{ "Comment" | translate }}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let material of materials; let i = index">
+                    <tr>
+                        <td [ngClass]="i == 0 ? 'tb-hed' : ''" [style.background]="(i % 2) == 1 ? '#f5f5f5' : '#ffffff'">{{ material.Name }}</td>
+                        <td [ngClass]="i == 0 ? 'tb-hed text-align-right' : 'text-align-right'" [style.background]="(i % 2) == 1 ? '#f5f5f5' : '#ffffff'">
+                            <ng-container *ngIf="material.Quantity != 0">
+                                {{ material.Quantity.toString().replace(",", ".") }}
+                            </ng-container>
+                            <ng-container *ngIf="material.Quantity == 0">
+                                &nbsp;
+                            </ng-container>
+                        </td>
+                        <td [ngClass]="i == 0 ? 'tb-hed text-align-right' : 'text-align-right'" [style.background]="(i % 2) == 1 ? '#f5f5f5' : '#ffffff'">{{ material.Unit | translate }}</td>
+                        <td [ngClass]="i == 0 ? 'tb-hed text-align-right' : 'text-align-right'" [style.background]="(i % 2) == 1 ? '#f5f5f5' : '#ffffff'">
+                            <ng-container *ngIf="material.Quantity != 0">
+                                {{ material.Price.toString().replace(",", ".") | number: "1.2-2":"fr" }}
+                            </ng-container>
+                            <ng-container *ngIf="material.Price == 0">
+                                {{" "}}
+                            </ng-container>
+                        </td>
+                        <td [ngClass]="i == 0 ? 'tb-hed text-align-right' : 'text-align-right'" [style.background]="(i % 2) == 1 ? '#f5f5f5' : '#ffffff'">
+                            <ng-container *ngIf="material.Quantity != 0">
+                                {{ material.Deduct != "0" ? material.Deduct : "" }}
+                            </ng-container>
+                        </td>
+                        <td [ngClass]="i == 0 ? 'tb-hed text-align-right' : 'text-align-right'" [style.background]="(i % 2) == 1 ? '#f5f5f5' : '#ffffff'">
+                            <ng-container *ngIf="material.Quantity != 0">
+                                {{ material.Total.toString().replace(",", ".") | number: "1.2-2":"fr" }}
+                            </ng-container>
+                            <ng-container *ngIf="material.Total == 0">
+                            </ng-container>
+                        </td>
+                        <td [ngClass]="i == 0 ? 'tb-hed' : ''" [style.background]="(i % 2) == 1 ? '#f5f5f5' : '#ffffff'">
+                            <ng-container *ngIf="material.Quantity != 0">
+                                <svg
+                                  *ngIf="material['ClientStatus'] == '1'"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="20"
+                                  height="15"
+                                  viewBox="0 0 34.987 30.649"
+                                >
+                                  <g
+                                    id="Group_2833"
+                                    data-name="Group 2833"
+                                    transform="translate(-1078.877 -426.767)"
+                                    style="isolation: isolate"
+                                  >
+                                    <g id="tick" transform="translate(1081.56 429.267)">
+                                      <g id="Group_2354" data-name="Group 2354">
+                                        <path
+                                          id="Path_381"
+                                          data-name="Path 381"
+                                          d="M29.2,68.509a1.328,1.328,0,0,0-2.095,0L9.353,89.431l-6.825-8.04a1.328,1.328,0,0,0-2.095,0,1.973,1.973,0,0,0,0,2.469L8.3,93.135a1.328,1.328,0,0,0,2.095,0L29.2,70.964a1.974,1.974,0,0,0,0-2.455Z"
+                                          transform="translate(0.001 -67.997)"
+                                          fill="#07b937"
+                                          stroke="#0bb70b"
+                                          stroke-width="5"
+                                        />
+                                      </g>
+                                    </g>
+                                  </g>
+                                </svg>
+                                <svg
+                                  *ngIf="material['ClientStatus'] == '0'"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  width="22"
+                                  height="22"
+                                  viewBox="0 0 48.416 47.274"
+                                >
+                                <defs>
+                                    <filter
+                                      id="Path_406"
+                                      x="0"
+                                      y="0"
+                                      width="48.416"
+                                      height="47.274"
+                                      filterUnits="userSpaceOnUse"
+                                    >
+                                      <feOffset dy="1" input="SourceAlpha" />
+                                      <feGaussianBlur stdDeviation="1.5" result="blur" />
+                                      <feFlood flood-color="#bebebe" />
+                                      <feComposite operator="in" in2="blur" />
+                                      <feComposite in="SourceGraphic" />
+                                    </filter>
+                                </defs>
+                                  <g
+                                    id="Group_2877"
+                                    data-name="Group 2877"
+                                    transform="translate(-315.5 -553.975)"
+                                  >
+                                    <g
+                                      transform="matrix(1, 0, 0, 1, 315.5, 553.97)"
+                                      filter="url(#Path_406)"
+                                    >
+                                      <path
+                                        id="Path_406-2"
+                                        data-name="Path 406"
+                                        d="M19.708-.525a19.745,19.745,0,0,1,19.708,19.4c0,10.424-8.824,18.875-19.708,18.875S0,29.3,0,18.875A19.745,19.745,0,0,1,19.708-.525Z"
+                                        transform="translate(4.5 4.03)"
+                                        fill="#f60f0f"
+                                      />
+                                    </g>
+                                    <g
+                                      id="Group_1693"
+                                      data-name="Group 1693"
+                                      transform="matrix(0.719, 0.695, -0.695, 0.719, 339.432, 550.965)"
+                                      style="isolation: isolate"
+                                    >
+                                      <g
+                                        id="Path_404"
+                                        data-name="Path 404"
+                                        transform="translate(0.41 14.845)"
+                                        fill="#fff"
+                                      >
+                                        <path
+                                          d="M 33.48321914672852 4.501205444335938 L 2.219246625900269 3.662571907043457 C 2.130610466003418 3.491382598876953 2.027356386184692 3.17852783203125 2.02293848991394 2.764754772186279 C 2.019331216812134 2.427078723907471 2.081257581710815 2.179657936096191 2.140937566757202 2.025383472442627 L 33.40491104125977 2.864017486572266 C 33.49354934692383 3.035205841064453 33.5968017578125 3.348061561584473 33.60121917724609 3.761834621429443 C 33.60482406616211 4.099510669708252 33.54290008544922 4.346931457519531 33.48321914672852 4.501205444335938 Z"
+                                          stroke="none"
+                                        />
+                                        <path
+                                          d="M 1.741138458251953 0.01435279846191406 C 1.751407623291016 0.01435279846191406 1.761524200439453 0.01448822021484375 1.771839141845703 0.01476478576660156 L 33.79208755493164 0.8736848831176758 C 34.7745475769043 0.9000349044799805 35.58448028564453 2.183544635772705 35.60110855102539 3.740474700927734 C 35.6175537109375 5.281060218811035 34.85094451904297 6.512236595153809 33.88300704956055 6.512236595153809 C 33.87273788452148 6.512236595153809 33.86262130737305 6.512101173400879 33.85231018066406 6.511824607849121 L 1.832069396972656 5.652904510498047 C 0.849609375 5.626544952392578 0.03967666625976563 4.343044757843018 0.02304840087890625 2.786114692687988 C 0.006591796875 1.245529651641846 0.7732009887695313 0.01435279846191406 1.741138458251953 0.01435279846191406 Z"
+                                          stroke="none"
+                                          fill="#fff"
+                                        />
+                                      </g>
+                                      <g
+                                        id="Path_405"
+                                        data-name="Path 405"
+                                        transform="translate(21.451 -0.621) rotate(90)"
+                                        fill="#fff"
+                                        stroke-linecap="square"
+                                      >
+                                        <path
+                                          d="M1.895.788,35.425,0c1.029-.024,1.849,1.114,1.831,2.542s-.866,2.605-1.894,2.629L1.832,5.959C.8,5.983-.017,4.845,0,3.417S.866.812,1.895.788Z"
+                                          stroke="none"
+                                        />
+                                        <path
+                                          d="M 35.45759963989258 -1.430511474609375e-06 C 36.47129440307617 -1.430511474609375e-06 37.27397155761719 1.129048347473145 37.25673675537109 2.542022705078125 C 37.23932266235352 3.96991491317749 36.39120101928711 5.147022724151611 35.36238479614258 5.171191692352295 L 1.831569671630859 5.958930492401123 C 1.820831298828125 5.959182739257813 1.810108184814453 5.95930814743042 1.799415588378906 5.95930814743042 C 0.7857208251953125 5.95930814743042 -0.01695632934570313 4.830258369445801 0.000278472900390625 3.41728401184082 C 0.01769256591796875 1.989391803741455 0.865814208984375 0.812283992767334 1.894630432128906 0.7881150245666504 L 35.42544555664063 0.0003762245178222656 C 35.43618392944336 0.0001239776611328125 35.44690704345703 -1.430511474609375e-06 35.45759963989258 -1.430511474609375e-06 Z"
+                                          stroke="none"
+                                          fill="#fff"
+                                        />
+                                      </g>
+                                    </g>
+                                  </g>
+                                </svg>
+                            </ng-container>
+                        </td>
+                        <td *ngIf="showCommentIfExist" [ngClass]="i == 0 ? 'tb-hed' : ''" [style.background]="(i % 2) == 1 ? '#f5f5f5' : '#ffffff'" [style.width]="'100px'">{{ material.ClientComment }}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+          </table>
+<!--    <div>
+        <div class="row tb-hed">
+            <span [ngClass]="showCommentIfExist() ? 'tb-benam2' : 'tb-benam'">{{ "Name/Title" | translate }}</span>
+            <span class="tb-antal">{{ "Quantity" | translate }}</span>
+            <span [ngClass]="showCommentIfExist() ? 'tb-enth5' : 'tb-enth'">{{ "Unit" | translate }}</span>
+            <span [ngClass]="showCommentIfExist() ? 'tb-a-pris5' : 'tb-a-pris'">{{ "Price per unit" | translate }}</span>
+            <span class="tb-pmin-sign">
+                <img
+                    class="img-p-m-sign"
+                    src="/assets/img/plus-minus-percent-sign.png"
+                    alt="plus-minus-percent-sign"
+                />
+            </span>
+            <span [ngClass]="showCommentIfExist() ? 'tb-summ3' : 'tb-summ'">{{ "Sum" | translate }}</span>
+            <span [ngClass]="showCommentIfExist() ? 'tb-attest-h2' : 'tb-attest-h'">{{ "Attest" | translate }}</span>
+            <span *ngIf="showCommentIfExist()" class="tb-comment">{{ "Comment" | translate }}</span>
+        </div>
+    </div>
+      <ng-container *ngFor="let material of materials; let i = index">
+        <div [ngClass]="dclMaterialClass(material['ClientStatus'], i)">
+          <span [ngClass]="showCommentIfExist() ? 'td-title2' : 'td-title1'">{{ material.Name }}</span>
+          <div
+            [ngClass]=" showCommentIfExist() ?
+              (material['ClientStatus'] != '1' && material['wrStatus'] == 4
+                ? 'row dcl-mat-h2'
+                : 'row dcl-mat2' ) :
+                (material['ClientStatus'] != '1' && material['wrStatus'] == 4
+                ? 'row dcl-mat-h'
+                : 'row dcl-mat' )
+            "
+          >
+            <span [ngClass]="showCommentIfExist() ? 'tb-antal3' : 'tb-antal2'">
+              <ng-container *ngIf="material.Quantity != 0">
+                {{ material.Quantity.toString().replace(",", ".") }}
+              </ng-container>
+              <ng-container *ngIf="material.Quantity == 0">
+               &nbsp;
+              </ng-container>
+            </span>
+            <span [ngClass]="showCommentIfExist() ? 'tb-enth3' : 'tb-enth2'">{{ material.Unit | translate }}</span>
+            <span [ngClass]="showCommentIfExist() ? 'tb-a-pris3' : 'tb-a-pris2'">
+              <ng-container *ngIf="material.Quantity != 0">
+                {{ material.Price.toString().replace(",", ".") | number: "1.2-2":"fr" }}
+              </ng-container>
+              <ng-container *ngIf="material.Price == 0">
+                {{" "}}
+              </ng-container>
+            </span>
+            <span class="tb-pmin-sign2">
+              <ng-container *ngIf="material.Quantity != 0">
+                {{ material.Deduct != "0" ? material.Deduct : "" }}
+              </ng-container>
+            </span>
+            <span [ngClass]="showCommentIfExist() ? 'tb-summ4' : 'tb-summ2'">
+              <ng-container *ngIf="material.Quantity != 0">
+                {{ material.Total.toString().replace(",", ".") | number: "1.2-2":"fr" }}
+              </ng-container>
+              <ng-container *ngIf="material.Total == 0">
+              </ng-container>
+            </span>
+            <span class="tb-attest2">
+              <ng-container *ngIf="material.Quantity != 0">
+                <svg
+                  *ngIf="material['ClientStatus'] == '1'"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="15"
+                  viewBox="0 0 34.987 30.649"
+                >
+                  <g
+                    id="Group_2833"
+                    data-name="Group 2833"
+                    transform="translate(-1078.877 -426.767)"
+                    style="isolation: isolate"
+                  >
+                    <g id="tick" transform="translate(1081.56 429.267)">
+                      <g id="Group_2354" data-name="Group 2354">
+                        <path
+                          id="Path_381"
+                          data-name="Path 381"
+                          d="M29.2,68.509a1.328,1.328,0,0,0-2.095,0L9.353,89.431l-6.825-8.04a1.328,1.328,0,0,0-2.095,0,1.973,1.973,0,0,0,0,2.469L8.3,93.135a1.328,1.328,0,0,0,2.095,0L29.2,70.964a1.974,1.974,0,0,0,0-2.455Z"
+                          transform="translate(0.001 -67.997)"
+                          fill="#07b937"
+                          stroke="#0bb70b"
+                          stroke-width="5"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="material['ClientStatus'] == '0'"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 48.416 47.274"
+                >
+                  <defs>
+                    <filter
+                      id="Path_406"
+                      x="0"
+                      y="0"
+                      width="48.416"
+                      height="47.274"
+                      filterUnits="userSpaceOnUse"
+                    >
+                      <feOffset dy="1" input="SourceAlpha" />
+                      <feGaussianBlur stdDeviation="1.5" result="blur" />
+                      <feFlood flood-color="#bebebe" />
+                      <feComposite operator="in" in2="blur" />
+                      <feComposite in="SourceGraphic" />
+                    </filter>
+                  </defs>
+                  <g
+                    id="Group_2877"
+                    data-name="Group 2877"
+                    transform="translate(-315.5 -553.975)"
+                  >
+                    <g
+                      transform="matrix(1, 0, 0, 1, 315.5, 553.97)"
+                      filter="url(#Path_406)"
+                    >
+                      <path
+                        id="Path_406-2"
+                        data-name="Path 406"
+                        d="M19.708-.525a19.745,19.745,0,0,1,19.708,19.4c0,10.424-8.824,18.875-19.708,18.875S0,29.3,0,18.875A19.745,19.745,0,0,1,19.708-.525Z"
+                        transform="translate(4.5 4.03)"
+                        fill="#f60f0f"
+                      />
+                    </g>
+                    <g
+                      id="Group_1693"
+                      data-name="Group 1693"
+                      transform="matrix(0.719, 0.695, -0.695, 0.719, 339.432, 550.965)"
+                      style="isolation: isolate"
+                    >
+                      <g
+                        id="Path_404"
+                        data-name="Path 404"
+                        transform="translate(0.41 14.845)"
+                        fill="#fff"
+                      >
+                        <path
+                          d="M 33.48321914672852 4.501205444335938 L 2.219246625900269 3.662571907043457 C 2.130610466003418 3.491382598876953 2.027356386184692 3.17852783203125 2.02293848991394 2.764754772186279 C 2.019331216812134 2.427078723907471 2.081257581710815 2.179657936096191 2.140937566757202 2.025383472442627 L 33.40491104125977 2.864017486572266 C 33.49354934692383 3.035205841064453 33.5968017578125 3.348061561584473 33.60121917724609 3.761834621429443 C 33.60482406616211 4.099510669708252 33.54290008544922 4.346931457519531 33.48321914672852 4.501205444335938 Z"
+                          stroke="none"
+                        />
+                        <path
+                          d="M 1.741138458251953 0.01435279846191406 C 1.751407623291016 0.01435279846191406 1.761524200439453 0.01448822021484375 1.771839141845703 0.01476478576660156 L 33.79208755493164 0.8736848831176758 C 34.7745475769043 0.9000349044799805 35.58448028564453 2.183544635772705 35.60110855102539 3.740474700927734 C 35.6175537109375 5.281060218811035 34.85094451904297 6.512236595153809 33.88300704956055 6.512236595153809 C 33.87273788452148 6.512236595153809 33.86262130737305 6.512101173400879 33.85231018066406 6.511824607849121 L 1.832069396972656 5.652904510498047 C 0.849609375 5.626544952392578 0.03967666625976563 4.343044757843018 0.02304840087890625 2.786114692687988 C 0.006591796875 1.245529651641846 0.7732009887695313 0.01435279846191406 1.741138458251953 0.01435279846191406 Z"
+                          stroke="none"
+                          fill="#fff"
+                        />
+                      </g>
+                      <g
+                        id="Path_405"
+                        data-name="Path 405"
+                        transform="translate(21.451 -0.621) rotate(90)"
+                        fill="#fff"
+                        stroke-linecap="square"
+                      >
+                        <path
+                          d="M1.895.788,35.425,0c1.029-.024,1.849,1.114,1.831,2.542s-.866,2.605-1.894,2.629L1.832,5.959C.8,5.983-.017,4.845,0,3.417S.866.812,1.895.788Z"
+                          stroke="none"
+                        />
+                        <path
+                          d="M 35.45759963989258 -1.430511474609375e-06 C 36.47129440307617 -1.430511474609375e-06 37.27397155761719 1.129048347473145 37.25673675537109 2.542022705078125 C 37.23932266235352 3.96991491317749 36.39120101928711 5.147022724151611 35.36238479614258 5.171191692352295 L 1.831569671630859 5.958930492401123 C 1.820831298828125 5.959182739257813 1.810108184814453 5.95930814743042 1.799415588378906 5.95930814743042 C 0.7857208251953125 5.95930814743042 -0.01695632934570313 4.830258369445801 0.000278472900390625 3.41728401184082 C 0.01769256591796875 1.989391803741455 0.865814208984375 0.812283992767334 1.894630432128906 0.7881150245666504 L 35.42544555664063 0.0003762245178222656 C 35.43618392944336 0.0001239776611328125 35.44690704345703 -1.430511474609375e-06 35.45759963989258 -1.430511474609375e-06 Z"
+                          stroke="none"
+                          fill="#fff"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </ng-container>
+            </span>
+            <span *ngIf="showCommentIfExist()" class="tb-comment-content">
+                {{ material.ClientComment }}
+            </span>
+          </div>
+          <span style="width: 5%"></span>
+        </div>
+        <div
+          *ngIf="material['ClientStatus'] != '1' && material['wrStatus'] == 4"
+          style="padding-bottom: 0.5%; line-height: 11px"
+          [ngClass]="i % 2 != 0 ? 'row bg-table' : 'row'"
+        >
+          <span style="width: 35%"></span>
+          <div
+            [ngClass]="
+              material['ClientStatus'] != '1' && material['wrStatus'] == 4
+                ? 'row dcl-mat-b'
+                : 'row dcl-mat'
+            "
+          >
+            <span class="desc-user-comment"
+              >{{ "Comment from the customer" | translate }}:</span
+            >
+            <span class="user-comment">{{ material["ClientComment"] }}</span>
+          </div>
+          <span style="width: 5%"></span>
+        </div>
+      </ng-container> !-->
+    </div>
+  </div>
+  <p class="total-sum">
+    {{ "Totalsumma" | translate }}:
+    {{ calcTotal(materials) | number: "1.2-2":"fr" }} {{currency}}
+  </p>
+  <p class="alla-priser">{{ "All prices are excluding VAT" | translate }}</p>
+  <div class="footer-section mt-2 pt-2">
+    <div class="my-grid-2">
+      <div class="section">
+        <div
+          class="digital-answer"
+          *ngIf="currentWeeklyReport?.clientResponses?.length > 0"
+        >
+          <div class="answer-wrapper">
+            <h5 style="font-weight: bold">
+              {{ "Message from Client" | translate }}
+            </h5>
+
+            <div
+            class="response-container"
+              *ngFor="
+                let clientResponse of currentWeeklyReport?.clientResponses
+              "
+            >
+            <ng-container *ngIf="clientResponse?.manualReply == 1">
+                {{ clientResponse.answerDate }} -
+                {{
+                  clientResponse?.Status == 3
+                    ? ("Manually declined by" | translate)
+                    : ("Manually
+                                  accepted by"
+                      | translate)
+                }}
+                {{ clientResponse.answerEmail }}
+              <div
+                class="answ-accepted"
+                *ngIf="clientResponse?.Status == 2"
+              >
+                {{ "Accepted" | translate }}
+              </div>
+
+              <div
+                class="answ-delinced"
+                *ngIf="clientResponse?.Status == 3"
+              >
+                {{ "Declined" | translate }}
+              </div>
+            </ng-container>
+              <ng-container *ngIf="clientResponse?.manualReply == 0">
+
+                    <div>
+                      <ng-container>
+                        {{ clientResponse.answerDate }} -
+                        <ng-container *ngIf="clientResponse?.manualReply == 1">
+                          {{
+                            clientResponse?.Status == 3
+                            ? ("Manually declined by" | translate)
+                            : ("Manually
+                                          accepted by"
+                              | translate)
+                          }}
+                        </ng-container>
+                        {{ clientResponse.answerEmail }}
+                      </ng-container>
+                    </div>
+                    <div>
+                      <div
+                      class="answ-accepted"
+                      *ngIf="
+                        clientResponse?.Status == 2 ||
+                        clientResponse?.Status == 4
+                      "
+                      >
+                        {{ "Accepted" | translate }}
+                      </div>
+                      <div
+                        class="answ-delinced"
+                        *ngIf="clientResponse?.Status == 3"
+                      >
+                        {{ "Declined" | translate }}
+                      </div>
+                      <div
+                        class="answ-question"
+                        *ngIf="clientResponse?.Status == 0"
+                      >
+                        {{ "Question" | translate }}
+                      </div>
+                    </div>
+
+              </ng-container>
+              <br /><span
+                *ngIf="clientResponse?.client_message"
+                class="client-message"
+                >{{ clientResponse?.client_message }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        [ngClass]="
+          currentWeeklyReport.status == 2 || currentWeeklyReport.status == 4
+            ? 'digital-answer-message'
+            : ''
+        "
+        *ngIf="
+          currentWeeklyReport.status == 2 || currentWeeklyReport.status == 4
+        "
+      >
+        <ng-container>
+          <table class="dig-answ-table">
+            <tbody>
+              <tr>
+                <td style="text-align: end; padding-bottom: 0">Totalsumma:</td>
+                <td style="padding-bottom: 0">
+                  {{ calcTotal(materials) | number: "1.2-2":"fr" }} {{currency}}
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: end; padding-top: 0">
+                  {{ "Declined" | translate }}:
+                </td>
+                <td style="padding-top: 0">
+                  {{
+                    getTotalDeclinedMaterials(materials) | number: "1.2-2":"fr"
+                  }}
+                  {{currency}}
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: end">
+                  <b>Accepterat och ok att fakturera:</b>
+                </td>
+                <td>
+                  <b
+                    >{{
+                      getTotalAcceptedMaterials(materials)
+                        | number: "1.2-2":"fr"
+                    }}
+                    {{currency}}</b
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="alla-priser-dig-answ">
+                  <p>{{ "All prices are excluding VAT" | translate }}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+      </div>
+    </div>
+
+    <hr class="hr" />
+    <div class="grid footer-data" *ngIf="generals">
+      <div>
+        <div class="section">
+          <p>
+            <b>{{ "Postadress" | translate }}</b>
+          </p>
+          <p>{{ generals['Company_Name'].value }}</p>
+          <p>{{ generals['Company_Address'].value }}</p>
+          <p>{{ generals['Company_Email'].value }} {{ generals['Company_Site'].value }}</p>
+        </div>
+      </div>
+      <div class="marg-inl marg-right-16">
+        <div class="section">
+          <p>
+            <b>{{ "Telefon" | translate }}</b>
+          </p>
+          <p>{{ generals['Company_Phone'].value }}</p>
+          <p>
+            <b>{{ "Momsreg.nr" | translate }}</b>
+          </p>
+          <p>{{ generals['Company_Bank_Account'].value }}</p>
+        </div>
+      </div>
+      <div class="marg-inl marg-right-m16">
+        <div class="section">
+          <p>{{ "Approved for F tax" | translate }}</p>
+          <br />
+          <p *ngIf="typeKSorDU === 'KS'">
+            {{ "Kostnadssammanställning" | translate }} {{ "skapad" | translate }} i
+          </p>
+          <p *ngIf="typeKSorDU !== 'KS'">
+            {{ "Debiteringsunderlag" | translate }} {{ "skapad" | translate }} i
+          </p>
+          <p>SPS360</p>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="section">
+          <br />
+          <br />
+          <p style="font-weight: bold">{{ "Page" | translate }} 1/1</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

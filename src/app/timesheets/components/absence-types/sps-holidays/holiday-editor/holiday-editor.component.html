@@ -1,0 +1,92 @@
+<div class="form-box">
+    <form [formGroup]="editHolidayForm" (submit)="submit()">
+        <div class="header-box">
+            <div id="name">{{ 'New Holiday' | translate }}</div>
+            <div class="close" [mat-dialog-close]>
+                <app-grey-close-svg></app-grey-close-svg>
+            </div>
+        </div>
+        <div id="inputs">
+            <div class="double-input-group">
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'Name' | translate }}</div>
+                    <div>
+                        <input formControlName="name" type="text" class="input"/>
+                    </div>  
+                    <ng-container *ngIf="editHolidayForm.controls['name'].invalid && (editHolidayForm.controls['name'].dirty || editHolidayForm.controls['name'].touched)" class="alert">
+                        <div class="error" *ngIf="editHolidayForm.controls['name'].errors.required">
+                         {{ 'Name is required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'Hours' | translate }}</div>
+                    <div>
+                        <input type="text" class="input" formControlName="hours" number-format-directive/>
+                    </div>
+                    <ng-container *ngIf="editHolidayForm.controls['hours'].invalid && (editHolidayForm.controls['hours'].dirty || editHolidayForm.controls['hours'].touched)" class="alert">
+                        <div class="error" *ngIf="editHolidayForm.controls['hours'].errors.required">
+                         {{ 'Hours are required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="double-input-group">
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'Start Date' | translate }}</div>
+                    <div class="rel">
+                        <div class="cal-icon">
+                            <app-calendar-icon-svg></app-calendar-icon-svg>
+                        </div>
+                        <input 
+                        
+                            id="start_date" 
+                            formControlName="start_date" 
+                            placeholder="{{ 'Choose Start Date' | translate }}"
+                            type="text" 
+                            class="input date-input"
+                            
+                        />
+                    </div>
+                    <ng-container *ngIf="editHolidayForm.controls['start_date'].invalid && (editHolidayForm.controls['start_date'].dirty || editHolidayForm.controls['start_date'].touched)" class="alert">
+                        <div class="error" *ngIf="editHolidayForm.controls['start_date'].errors.required">
+                         {{ 'Start Date is required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="input-group-2">
+                    <div class="input-title required">{{ 'End Date' | translate }}</div>
+                    <div class="rel">
+                        <div class="cal-icon">
+                            <app-calendar-icon-svg></app-calendar-icon-svg>
+                        </div>
+                        <input 
+                        
+                            id="end_date" 
+                            type="text" 
+                            placeholder="{{ 'Choose End Date' | translate }}"
+                            class="input date-input" 
+                            formControlName="end_date"
+                            
+                        />
+                    </div>
+                    <ng-container *ngIf="editHolidayForm.controls['end_date'].invalid && (editHolidayForm.controls['end_date'].dirty || editHolidayForm.controls['end_date'].touched)" class="alert">
+                        <div class="error" *ngIf="editHolidayForm.controls['end_date'].errors.required">
+                         {{ 'End Date is required.' | translate }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div id="inputs-footer-end">
+            <div>
+                <button id='spara-btn' type="submit">
+                    {{ 'Save' | translate }}
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="spinner-container-absolute" *ngIf="spinner">
+        <app-pulse-spinner></app-pulse-spinner>
+    </div>
+</div>

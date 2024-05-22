@@ -1,0 +1,122 @@
+<div class="revisited-dnd">
+  <div class="attachment-container-transition-fix">
+    <div
+      class="attachment-dot-container"
+      appDnd
+      (fileDropped)="onFileDropped($event)"
+    >
+      <div class="container-dots"></div>
+      <div class="attachment-container">
+        <div
+          class="btn btn-outline-info mr-2 choose-file-button"
+          (click)="fileDropRef.click()"
+          for="image"
+        >
+          {{ "Choose file" | translate }}
+        </div>
+        <input
+          type="file"
+          [accept]="fileType"
+          class="form-control-file hide"
+          id="document"
+          (change)="documentsOnChange($event)"
+          #fileDropRef
+          multiple="true"
+        />
+        <div class="dropzone fileover upload-files">
+          <div></div>
+          <div class="attach-text" for="document">
+            {{ "Attach or drop files here" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="list-heading">
+  <p class="list-heading-title">
+   {{ "Attachments" | translate }}
+  </p>
+ </div>
+<div class="album-div">
+  <div *ngFor="let albumKey of getAlbumKeys()" class="album-keys">
+    <div
+      class="fake-image-modal-container"
+      *ngIf="
+        getAlbumImages(albumKey).length > 0 || getAlbumPdfs(albumKey).length > 0
+      ">
+      <div
+        class="form-group-upload form-group-upload2"
+        *ngIf="
+          getAlbumImages(albumKey).length > 0 || getAlbumPdfs(albumKey).length > 0
+        ">
+        <div class="preview-image-new-container2">
+          <ng-container *ngFor="let file of getAlbumImages(albumKey); let index = index">
+            <app-file-preview
+              type="image"
+              [file]="file"
+              [index]="index"
+              [canRemove]="true"
+              [imageModal]="true"
+              (removeFile)="removeFile(albumKey, $event, 'images')"
+              (openSwiper)="openSwiper(index, getAlbumImages(albumKey), albumKey)"
+              modalType="file"
+            ></app-file-preview>
+          </ng-container>
+          <ng-container style="display: inline-block;" *ngFor="let file of getAlbumPdfs(albumKey); let index = index">
+            <app-file-preview
+
+              type="pdf"
+              [file]="file"
+              [index]="index"
+              [canRemove]="true"
+              [imageModal]="true"
+              (removeFile)="removeFile(albumKey, $event, 'pdfs')"
+              (openSwiper)="openSwiper(index, getAlbumPdfs(albumKey), albumKey)"
+              modalType="file"
+              >
+            </app-file-preview>
+             <!-- <app-pdfjs-preview
+              style="cursor:pointer; margin-left: 5px;"
+              type="pdf"
+              (click)="openSwiper(index, getAlbumPdfs(albumKey), albumKey)"
+              (removeFile)="removeFile(albumKey, $event, 'pdfs')"
+              [pdfUrls]="[file['Url']]"
+              [deleted]=""
+              [canRemove]="true"
+              [index]="index"
+              [active]="index"
+              [width]="68"
+              [height]="43"
+              [borderRadius]="'0px 0px 0px 0px'"
+              [folder]="true"
+            >
+            </app-pdfjs-preview> -->
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #otherComponent>
+  <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper()"
+  ></app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper()"
+  ></app-pdfjs-viewer>
+</ng-container>
+

@@ -1,0 +1,66 @@
+<div class="container-fluidW px-0W l0 hideUnder1400 " style="    margin-left: 50px;">
+  <div class="row border-nav p-2 d-flex justify-content-between">
+    <div class="">
+      <a
+        routerLink="/home"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <svg
+          xmlns=" http://www.w3.org/2000/svg"
+          width="50"
+          class="mb-1"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="#D17C69"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+      </a>
+      <span
+        class="planing-title ml-3 mt-2 h2 text-uppercase font-weight-normal position-absolute"
+        >{{ "Planning" | translate }}</span
+      >
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="border-item p-4 mr-5" *ngIf="userDetails.show_planning_resource_planning">
+      <a routerLink="/moments" routerLinkActive="active">
+        <div class="hex mb-3">
+          <img
+            src="assets/img/planning-page-icons/project-user.svg"
+            class="none-pointer"
+            alt=""
+            width="125"
+          />
+        </div>
+        <span
+          class="text-white font-weight-bold d-flex justify-content-center"
+          >{{ "Resource Planning" | translate }}</span
+        >
+      </a>
+    </div>
+    <div class="border-item p-4" *ngIf="userDetails.show_planning_project">
+      <a >
+        <div class="hex mb-3">
+          <img
+            src="assets/img/planning-page-icons/project-planner.svg"
+            class="none-pointer"
+            alt=""
+            width="125"
+          />
+        </div>
+        <span
+          class="text-white font-weight-bold d-flex justify-content-center"
+          >{{ "Project planner" | translate }}</span
+        >
+      </a>
+    </div>
+  </div>
+</div>

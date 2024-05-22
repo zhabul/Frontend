@@ -1,0 +1,75 @@
+<div class="absence-type-table-grid border-top-stats " [ngStyle]="absenceTypeTableGrid" >
+    <div class="name-container">
+        <div class="absence-type-table-search-bar">
+            <div>
+                <app-input-text-filter (emitValue)="setSearchValue($event)" [width]="253" prefix="att"></app-input-text-filter>
+            </div>
+            <div class="add-year-button" (click)="openAddYearModal()">
+                <div>{{ 'Add a new year' | translate }}</div> 
+                <div class="absolute-icon"><app-plus-icon-svg></app-plus-icon-svg></div>
+            </div>
+        </div>   
+        <div class="absence-type-name-grid">
+            <div class="font-small right-padding">{{ numberWithLine }}</div> 
+            <div class="left-algin">{{ 'Name' | translate }}</div>
+            <div class="left-algin">{{ 'Profession' | translate }}</div>
+        </div>
+    </div>
+    <div [ngStyle]="headerGrid" class="year-absence-header" *ngFor="let year of allYears">
+        <app-stats-year [disabled]="inputDisabled" [year]="year" (yearRemoved)="refreshPersonalStats()"></app-stats-year>
+        <div class="absences" [ngStyle]="absencesGrid">
+            <div class="absence-name-black" *ngFor="let absence of allAbsences">
+                {{ absence.name }}
+            </div>
+        </div>
+    </div>
+    <div [ngStyle]="headerGrid" class="total-container total-background" *ngIf="allYears.length">
+        <div>Total</div>
+        <div class="absences fc-height" [ngStyle]="absencesGrid">
+            <div class="absence-name-total total-background" *ngFor="let absence of allAbsences">
+                {{ absence.name }}
+            </div>
+        </div>
+        <div class="top-lightorange-line "></div>
+        
+    </div>
+    <div class="thin-left-line" ></div>
+</div> 
+<div class="relative">
+    <div 
+        class="body-planner-moments-wrapper no-border-top blu-scroll blu-scroll4 dynamic-height no-b-left" 
+        #wrapper 
+        appScrollDetector 
+        [spinner]="spinner"
+        [allFetched]="allFetched"    
+        (emitTrigger)="getUserData()"
+        (emitScrollLeft)="setTranslateXForHeader($event)"
+    >
+        <div>
+            <div class="absence-type-table-grid user-colum" [ngStyle]="absenceTypeTableGrid" *ngFor="let user of users" >
+                <div class="sticky-columns"> 
+                    <div class="nr-black">{{ user.nr }}</div> 
+                    <div class="left-algin">{{ user.username }}</div>
+                    <div class="left-algin">{{ user.roleName }}</div>
+                </div>
+                <app-user-absence-stats 
+                
+                    [user]="user"  
+                    [absencesGrid]="absencesGrid" 
+                    [allYears]="allYears" 
+                    [allAbsences]="allAbsences"
+
+                ></app-user-absence-stats>
+            </div>
+            <div class="spinner-container-absolute" *ngIf="spinner">
+                <app-pulse-spinner></app-pulse-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="grey-filler-long"></div>
+    <div class="thin-right-line" [ngStyle]="rightLineStyles"></div>
+    <div class="thin-left-line" ></div>
+    <div class="thin-bottom-line" ></div>
+    <div class="thin-top-line" ></div>
+    <div class="thin-bottom-left-scroll-line" ></div>
+</div>

@@ -1,0 +1,138 @@
+<div class="container-fluidX px-0X" style="position: absolute">
+  <div class="row w-100W">
+    <div class="card col-sm-5X col-md-6X col-lg-8W card-header w-100W">
+      <div class="form-heading bgGrayBlue">
+        <div class="nav-wrapper">
+          <nav class="nav nav-pills nav-ata">
+            <div class="nav-links">
+              <a
+                [routerLink]="['/projects/view/', project.id]"
+                class="btn btn-dark mr-3 lh09 hideUnder800"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <span class="badgeX badge-darkX material-icons top1px posRel"
+                  >arrow_back</span
+                >
+              </a>
+            </div>
+            <div class="nav-title">
+              <h4>{{ "project: " | translate }} {{ project.name }}</h4>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row progres-wrapper">
+    <div class="card card1 card-form col-sm-5X col-md-6X col-lg-8W w-100W">
+      <form
+        novalidate
+        autocomplete="off"
+        [formGroup]="createForm"
+        (ngSubmit)="create()"
+        class="form-content"
+        #myform="ngForm"
+      >
+        <div class="form-row select-position">
+          <div class="form-group col-sm-12">
+            <label for="name" class="required">{{
+              "Choose user" | translate
+            }}</label>
+            <select
+              class="project-nav-select form-control"
+              id="project-users"
+              #userVar
+              formControlName="User"
+              (change)="onChangeSetUser(userVar.value)"
+            >
+              <option *ngFor="let user of users" [value]="user.id">
+                {{ user.firstname }} {{ user.lastname }}
+              </option>
+            </select>
+            <span
+              class="help-block"
+              *ngIf="
+                myform.submitted && createForm.get('User').hasError('User')
+              "
+            >
+              <span class="text-danger">
+                {{ "Please select User" | translate }}.
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group projects-date col-md-6">
+            <label for="phone">{{ "Start Date" | translate }}</label>
+            <div class="input-group date">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="material-icons">calendar_today</i></span
+                >
+              </div>
+              <input
+                (keydown)="$event.preventDefault()"
+                id="dateSelectStartDate"
+                autocomplete="off"
+                type="text"
+                class="form-control project-date"
+                aria-describedby="basic-addon1"
+                placeholder="{{ 'Choose Start Date' | translate }}"
+                #selectedDate
+              />
+            </div>
+            <span
+              class="help-block"
+              *ngIf="
+                myform.submitted &&
+                this.createForm.get('StartDate').hasError('required')
+              "
+            >
+              <span class="text-danger">
+                {{ "Please choose start date" | translate }}.
+              </span>
+            </span>
+          </div>
+          <div class="form-group projects-date col-md-6">
+            <label for="phone">{{ "End Date" | translate }}</label>
+            <div class="input-group date">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="material-icons">calendar_today</i></span
+                >
+              </div>
+              <input
+                (keydown)="$event.preventDefault()"
+                id="dateSelectEndDate"
+                autocomplete="off"
+                type="text"
+                class="form-control project-date"
+                aria-describedby="basic-addon1"
+                placeholder="{{ 'Choose End Date' | translate }}"
+                #selectedDate
+              />
+            </div>
+            <span
+              class="help-block"
+              *ngIf="
+                myform.submitted &&
+                this.createForm.get('EndDate').hasError('required')
+              "
+            >
+              <span class="text-danger">
+                {{ "Please choose end date" | translate }}.
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="row btn-position">
+          <button type="submit" class="btn btn-success lh09">
+            <span class="material-icons left-3px top1px posRel">save</span>
+            <span class="posRel top-5px">{{ "Save" | translate }}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

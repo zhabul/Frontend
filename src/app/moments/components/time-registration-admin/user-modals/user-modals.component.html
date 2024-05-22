@@ -1,0 +1,30 @@
+<div *ngIf="modalKeys.length" class="keys-container" [ngStyle]="keysContainerStyle">
+    <ng-container *ngFor="let key of modalKeys; let index = index">
+      <ng-container>
+        <ng-container *ngIf="weeks[key].status">
+          <app-week-modal
+
+            [data]="weeks[key]"
+            [week]="key"
+            [user]="user"
+            [desideNextBtn]="{weeks: weeks, position: weeks[key].position}"
+            [calendarStyle]="calendarStyle"
+            [modalPosition]="modalPosition"
+            (closeModal)="closeModal($event)"
+            (updateAbsences)="updateAbsences_($event)"
+            (updateDayStatus)="updateDayStatus_($event)"
+
+          ></app-week-modal>
+        </ng-container>
+        <ng-container *ngIf="zIndex === 1000">
+          <app-modal-placeholder
+
+            [calendarStyle]="calendarStyle"
+            [data]="weeks[key]"
+            [hideScreen]="hideScreen"
+            
+          ></app-modal-placeholder>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>

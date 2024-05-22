@@ -1,0 +1,102 @@
+  <div class="col-lg-8 bg-transparent p-4">
+    <form
+      novalidate
+      autocomplete="off"
+      [formGroup]="createForm"
+      (ngSubmit)="create()"
+      #myform="ngForm"
+    >
+        <div class="form-row-content">
+			<div class="form-group">
+				<label class="required" for="client_secret">{{ "Economy system" | translate }}</label>
+				<select formControlName="{{['content_id']}}" class="form-control" #EconomySystem id="EconomySystem" (change)="setEconomySystemt(EconomySystem.value)">
+					<option *ngFor="let payment of payment_systems" [selected]="payment.id == createForm.get('content_id')?.value" >{{payment.name}}</option>
+				</select>
+			</div>
+	        <div class="form-group" *ngIf="createForm.get('content_id')?.value && createForm.get('content_id')?.value != ''">
+	          <label class="required" for="client_secret">{{ "Client secret" | translate }}</label>
+	          <input
+	            type="text"
+	            class="form-control"
+	            id="client_secret"
+	            placeholder="{{ 'Client secret' | translate }}"
+	            formControlName="client_secret"
+	            [ngClass]="{
+	              'is-invalid':
+	                (myform.submitted && createForm.get('client_secret').invalid) ||
+	                (createForm.get('client_secret').dirty && createForm.get('client_secret').invalid)
+	            }"
+	            [attr.disabled]="createForm.get('client_secret').value != '' ? true : null"
+	          />
+	          <span
+	            class="help-block"
+	            *ngIf="
+	              (myform.submitted && createForm.get('client_secret').invalid) ||
+	              (createForm.get('client_secret').dirty && createForm.get('client_secret').invalid)
+	            "
+	          >
+	            <span
+	              *ngIf="createForm.get('client_secret').errors.required"
+	              class="text-danger"
+	            >
+	              {{ "Please enter client secret" | translate }}.
+	            </span>
+	          </span>
+	        </div>
+	        <div class="form-group" *ngIf="createForm.get('content_id')?.value && createForm.get('content_id')?.value != ''">
+	          <label class="required" for="client_id">{{ "Client ID" | translate }}</label>
+	          <input
+	            type="text"
+	            class="form-control"
+	            id="client_id"
+	            placeholder="{{ 'Client ID' | translate }}"
+	            formControlName="client_id"
+	            [ngClass]="{
+	              'is-invalid':
+	                (myform.submitted && createForm.get('client_id').invalid) ||
+	                (createForm.get('client_id').dirty && createForm.get('client_id').invalid)
+	            }"
+	            [attr.disabled]="createForm.get('client_id').value != '' ? true : null"
+	          />
+	          <span
+	            class="help-block"
+	            *ngIf="
+	              (myform.submitted && createForm.get('client_id').invalid) ||
+	              (createForm.get('client_id').dirty && createForm.get('client_id').invalid)
+	            "
+	          >
+	            <span
+	              *ngIf="createForm.get('client_id').errors.required"
+	              class="text-danger"
+	            >
+	              {{ "Please enter client ID" | translate }}.
+	            </span>
+	          </span>
+	        </div>
+    	</div>
+	    <div class="form-group btn-position mt-2">
+	        <button
+	          type="submit"
+	          class="btn-buton choose-file"
+	          [disabled]="myform.submitted && createForm.invalid || !createForm.valid || !createForm.dirty"
+	        >
+                <span class="material-icons left-3px top1px posRel">save</span>
+                <span class="posRel btn-save">{{ "Create" | translate }}</span>
+	        </button>
+	    </div>
+	</form>
+	<div class="activate-wrapper">
+      <button
+        type="button"
+        class="btn-buton choose-file"
+        (click)="activateFortnox()"
+        *ngIf="allow_active_button"
+        [disabled]="fortnox_properties && fortnox_properties.status == 2 ? true : null"
+      >
+      	{{ "Activate" | translate }}
+      </button>
+			<button (click)="readMe()" class="btn-buton choose-file">
+				{{'ReadMe' | translate}}
+			</button>
+	</div>
+</div>

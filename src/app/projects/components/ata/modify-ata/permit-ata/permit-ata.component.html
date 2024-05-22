@@ -1,0 +1,41 @@
+<div >
+    <table class="table">
+        <thead>
+            <tr>
+            <th>{{ "First Name" | translate }}</th>
+            <th>{{ "Last Name" | translate }}</th>
+            <th>{{ "Type" | translate }}</th>
+            <th>{{ "Start Date" | translate }}</th>
+            <th>{{ "End Date" | translate }}</th>
+            <th class="assigned">{{ "Assigned" | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center" *ngIf="ata_workers.length < 1">
+            <td colspan="6">{{ "No workers to assign" | translate }}</td>
+            </tr>
+            <tr *ngFor="let worker of ata_workers; let i = index" [ngStyle]="{'background-color': worker.background}">
+            <td>{{ worker.Surname }}</td>
+            <td>{{ worker.Lastname }}</td>
+            <td>{{ worker.Type | translate }}</td>
+            <td>{{ worker.StartDate }}</td>
+            <td>{{ worker.EndDate }}</td>
+            <td style="position: relative;text-align: center;">
+                <input
+                    class="inputClass"
+                type="checkbox"
+                (change)="updateAtaWorkers(i, isChecked.checked)"
+                #isChecked
+                [checked]="worker.isAssigned"
+                [disabled]="ata_permission ? null : true"
+                />
+                <app-check-out-svg *ngIf="!worker.isAssigned"></app-check-out-svg>
+                <app-check-in-svg *ngIf="worker.isAssigned"></app-check-in-svg> 
+            </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+</div>

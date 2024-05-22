@@ -1,0 +1,297 @@
+<div class="row support-container blu-scroll">
+  <div class="card card-form bg-width-master">
+    <div class="tab-navigation-wrapper">
+      <div class="tab-navigation" style="padding-top: 15px; padding-left: 25px">
+        <div class="nav-tabs tab-navigation">
+          <ul class="nav nav-tabs nav-pills" role="tablist">
+            <li class="nav-item approveItem">
+              <a
+                class="nav-link active"
+                [ngClass]="{ active: selectedTab == 1 }"
+                (click)="changeSelectedTab(1)"
+                id="approveItem"
+                style="text-wrap: nowrap"
+              >
+                {{ "Unsolved Tasks" | translate }}
+                <div
+                  [ngClass]="{
+                    'hide-bottom-box-shadow': selectedTab == 1,
+                    'bottom-shadow-button': selectedTab !== 1
+                  }"
+                ></div>
+              </a>
+            </li>
+            <li class="nav-item align-l">
+              <a
+                class="nav-link attest"
+                [ngClass]="{ active: selectedTab == 2 }"
+                (click)="changeSelectedTab(2)"
+                style="z-index: 1"
+                style="text-wrap: nowrap"
+              >
+                {{ "Solved Tasks" | translate }}
+                <div
+                  [ngClass]="{
+                    'hide-bottom-box-shadow': selectedTab == 2,
+                    'bottom-shadow-button': selectedTab !== 2
+                  }"
+                ></div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="tab-content">
+        <div *ngIf="selectedTab == 1">
+          <table class="business-table table table-res800 table-darkX">
+            <tbody>
+              <ng-container
+                *ngFor="let version of getUnsolvedTasks; let i = index let isLast = last"
+
+              >
+                <tr class="border-bottom">
+                  <td class="title-color" colspan="7">
+                    <h5 class="title-text-support-position">
+                      Version: {{ version[0] }}
+                    </h5>
+                  </td>
+                  <td class="subtitle-color title-text-support-position">
+                    {{ "Important implementation" | translate }}
+                  </td>
+                  <td class="subtitle-color title-text-support-position">
+                    {{ "Quick action" | translate }}
+                  </td>
+                </tr>
+                <ng-container  *ngFor="let task of version[1]; let x = index">
+                  <tr
+                    [hidden]="task['solved'] == '1'"
+                    [ngClass]="{
+                      'even-row': x % 2 === 0,
+                      'odd-row': x % 2 !== 0
+                    }"
+                  >
+                  <th class="p-t-22">{{ task["id"] }}</th>
+
+                  <td colspan="6">
+                      <span
+                        class="text-support-position"
+                        [innerHtml]="task['text']"
+                      ></span>
+                    </td>
+                    <td class="p-t-22">{{ task["priority"] }}</td>
+                    <td class="p-t-22">{{ task["urgency"] }}</td>
+                  </tr>
+                  <tr
+                    [hidden]="task['solved'] == '1'"
+                    [ngClass]="{
+                      'even-row': x % 2 === 0,
+                      'odd-row': x % 2 !== 0
+                    }"
+                    class="border-bottom"
+                  >
+                    <td></td>
+                    <td>
+                      <p class="cursor-pointer text-support-position">
+                        {{ getInitials(task["user"]) }}
+                      </p>
+                    </td>
+                    <td class="p-t-22">
+                      {{ task["created"] | date : "dd.MM.yyyy." }}
+                    </td>
+                    <td class="p-t-22">
+                      <a
+                        [href]="'#' + task['location']"
+                        [matTooltip]="'#' + task['location']"
+                        matTooltipPosition="below"
+                        >{{ "Link" | translate | uppercase }}</a
+                      >
+                    </td>
+                    <td class="p-t-22">{{ task["browser"] }}</td>
+                    <td class="p-t-22">
+                      {{ "PM Open" | translate }}:
+                      {{
+                        task["project_management_open"] === 1
+                          ? ("Yes" | translate)
+                          : ("No" | translate)
+                      }}
+                    </td>
+                    <td class="p-t-22">
+                      <ng-container
+                        *ngFor="
+                          let document of task['documents'];
+                          let index = index
+                        "
+                      >
+                        <div
+                          class="material-icons cursor-pointer ml-1"
+                          (click)="openSwiper(index, task['documents'], 0)"
+                          style="color: #858585;"
+                        >
+                          description
+                        </div>
+                      </ng-container>
+                    </td>
+                    <td></td>
+                    <td>
+                      <!-- <button style="position: relative;top: 5px;" class="btn btn-sm"
+                                          [ngClass]="task['solved'] == 1 ? 'btn-success' : 'btn-danger'"
+                                          (click)="toggleSolveBtn(task['id'])"
+                                          *ngIf="userDetails.create_users_Manageusers">
+                                          {{
+                                          task["solved"] == 1
+                                          ? ("Solved" | translate)
+                                          : ("Delete" | translate)
+                                          }}
+                                      </button> -->
+                      <span
+                        class="button-position-delete"
+                        (click)="toggleSolveBtn(task['id'])"
+                        *ngIf="userDetails.create_users_Manageusers"
+                      >
+                      <app-delete-icon
+                      [width]="14.498"
+                      [height]="21.184"
+                      [color]="'858585'"
+                    ></app-delete-icon>
+                      </span>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="selectedTab == 2">
+          <table class="business-table table table-res800 table-darkX">
+            <tbody>
+              <ng-container
+                *ngFor="let version of getSolvedTasks; let i = index"
+              >
+                <tr class="border-bottom">
+                  <td class="title-color" colspan="7">
+                    <h5 class="title-text-support-position">
+                      Version: {{ version[0] }}
+                    </h5>
+                  </td>
+                  <td class="subtitle-color title-text-support-position">
+                    {{ "Priority" | translate }}
+                  </td>
+                  <td class="subtitle-color title-text-support-position">
+                    {{ "Urgency" | translate }}
+                  </td>
+                </tr>
+
+                <ng-container *ngFor="let task of version[1]; let x = index">
+                  <tr
+                    [ngClass]="{
+                      'even-row': x % 2 === 0,
+                      'odd-row': x % 2 !== 0
+                    }"
+                    [hidden]="task['solved'] == '0'"
+                  >
+                    <th class="p-t-22">{{ task["id"] }}</th>
+                    <td colspan="6">
+                      <span
+                        class="text-support-position"
+                        [innerHtml]="task['text']"
+                      ></span>
+                    </td>
+                    <td class="p-t-22">{{ task["priority"] }}</td>
+                    <td class="p-t-22">{{ task["urgency"] }}</td>
+                  </tr>
+                  <tr
+                    [ngClass]="{
+                      'even-row': x % 2 === 0,
+                      'odd-row': x % 2 !== 0
+                    }"
+                    [hidden]="task['solved'] == '0'"
+                    class="border-bottom"
+                  >
+                    <td></td>
+                    <td>
+                      <p class="cursor-pointer text-support-position">
+                        {{ getInitials(task["user"]) }}
+                      </p>
+                    </td>
+                    <td class="p-t-22">
+                      {{ task["created"] | date : "dd.MM.yyyy." }}
+                    </td>
+                    <td class="p-t-22">
+                      <a
+                        [href]="'#' + task['location']"
+                        [matTooltip]="'#' + task['location']"
+                        matTooltipPosition="below"
+                        >{{ "Link" | translate | uppercase }}</a
+                      >
+                    </td>
+                    <td class="p-t-22">{{ task["browser"] }}</td>
+                    <td class="p-t-22">
+                      {{ "PM Open" | translate }}:
+                      {{
+                        task["project_management_open"] === 1
+                          ? ("Yes" | translate)
+                          : ("No" | translate)
+                      }}
+                    </td>
+                    <td class="d-flex p-t-22">
+                      <ng-container *ngFor="let document of task['documents']">
+                        <div
+                          class="material-icons cursor-pointer ml-1"
+                          (click)="openImageModal(document.Url)"
+                        >
+                          description
+                        </div>
+                      </ng-container>
+                    </td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="showAttachmentImage"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="toggleAttachmentImage($event)"
+>
+  <div class="image-wrapper" *ngIf="!showPdf">
+    <span class="rotate-icon-left" (click)="rotateLeft()"
+      ><i class="material-icons">rotate_left</i></span
+    >
+    <span class="rotate-icon" (click)="rotateRight()"
+      ><i class="material-icons">rotate_right</i></span
+    >
+    <span
+      class="close-icon-right material-icons"
+      (click)="showAttachmentImage = !showAttachmentImage"
+      >clear</span
+    >
+  </div>
+  <div id="image-gallery" *ngIf="!showPdf">
+    <div class="image-container"></div>
+  </div>
+  <iframe
+    style="max-height: 85vh; width: 50%; height: 100%"
+    [src]="currentAttachmentPdf"
+    *ngIf="showPdf"
+  ></iframe>
+</div>
+<div class="thin-red-line-bottom"></div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>
+
+<app-gallery
+  *ngIf="swiper.images.length"
+  [swiper]="swiper"
+  [canRemove]="false"
+  (closeSwiperEvent)="closeSwiper()"
+  [server]="true"
+></app-gallery>

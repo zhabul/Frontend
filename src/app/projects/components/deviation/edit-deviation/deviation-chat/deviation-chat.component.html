@@ -1,0 +1,144 @@
+<div *ngIf="deviationMessages.length" class="answerToClient" style="background-color: #1A1A1A;">
+  <div class="answer-title" style="margin-left: 82px; background-color:#1A1A1A ;">
+    {{ "Answers" | translate | uppercase  }}
+  </div>
+  <ng-container *ngFor="let msg of deviationMessages; let index = index;">
+
+    <div class="answerPlace">
+      <div class="answerEmail">{{ msg.user_email }}</div>
+      <div style="display: grid;">
+        <label for="sender">{{
+          "Comment" | translate
+        }}</label>
+        <textarea
+
+          rows="2"
+          class="clientMessage"
+          id="clientMessage"
+          [(ngModel)]="msg.message"
+          [disabled]="returnDisabledCondition(msg, index)"
+          [style.background-color]="setClientMessageBackground(msg, index)"
+          maxlength="4000"
+          (keyup)="autogrow()"
+        ></textarea>
+        <!-- <div style="margin-left: 36px;">
+            <app-file-preview
+
+              *ngFor="let file of msg.files; let index = index;"
+              [type]="getFilePreviewType(file)"
+              [file]="generateAttachmentImageArray(file)"
+              [index]="'0'"
+              [active]="'0'"
+              [canRemove]="false"
+              (openSwiper)="openAttachmentSwiper(file, msg.files, index)"
+
+            ></app-file-preview>
+        </div> -->
+        <div style="margin-left: 36px; margin-top: 10px" *ngFor="let file of msg.files; let index = index">
+          <ng-container *ngIf="file.document_type === 'Pdf'">
+              <app-pdfjs-preview
+              style="display: flex; cursor: pointer; width: 68px;"
+              type="pdf"
+              (click)="openAttachmentSwiper(file, msg.files, index)"
+              [pdfUrls]="[file['file_path']]"
+              [deleted]=""
+              [canRemove]="false"
+              [index]="'0'"
+              [active]="'0'"
+              [width]="68"
+              [height]="43"
+              [borderRadius]="'0px 0px 0px 0px'"
+              [folder]="true"
+              >
+            </app-pdfjs-preview>
+          </ng-container>
+          <ng-container *ngIf="file.document_type === 'Image'">
+            <app-file-preview
+              [type]="getFilePreviewType(file)"
+              [file]="generateAttachmentImageArray(file)"
+              [index]="'0'"
+              [active]="'0'"
+              [canRemove]="false"
+              (openSwiper)="openAttachmentSwiper(file, msg.files, index)"
+            ></app-file-preview>
+          </ng-container>
+        </div>
+      </div>
+      <!-- <div class="lineBetween"></div> -->
+    </div>
+  </ng-container>
+
+  <div class="placeForImage">
+
+  </div>
+  <div class="buttonPlaces" *ngIf="canAnswer">
+    <div>
+      <app-image-modal-small type="vertical-reversed" (setFiles)="setFiles($event)"></app-image-modal-small>
+    </div>
+    <div class="buttons">
+      <div *ngIf="canAnswer" (click)="respondToInternalDeviation()" class="buttonSent">
+        <app-send-icon-svg></app-send-icon-svg>
+        <span style="margin-left: 8px;">{{"Respond" | translate | uppercase}}</span>
+      </div>
+      <div  *ngIf="canAnswer" class="buttonSendFurther" >
+
+          <div  class="flex-button" (click)="setWorkersVisibility(!buttonToggle)" >
+            <span >{{"Forward" | translate | uppercase}}</span>
+
+            <app-arrow-up-svg color="var(--brand-color)" *ngIf="!buttonToggle"></app-arrow-up-svg>
+            <app-arrow-down-svg color="var(--brand-color)" *ngIf="buttonToggle"></app-arrow-down-svg>
+
+          </div>
+          <app-worker-list
+
+            *ngIf="buttonToggle"
+            [contacts]="contacts"
+            [activeCompanyWorkers]="activeCompanyWorkers"
+            type="internal"
+            (buttonNameSummaryEvent)="buttonNameSummary($event)"
+            (sendDeviationMessageEvent)="forwardMessage()"
+            location="bottom-send"
+            (runParentFunction)="runParentFunction_($event)"
+
+          >
+          </app-worker-list>
+      </div>
+      <div (click)="endCorrespondence()" *ngIf="canAnswer" class="buttonNotCurrent">
+        <span style="white-space: nowrap;">{{"Not Current" | translate | uppercase}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div #bottomOfPage></div>
+
+<ng-template #otherComponent>
+  <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper($event)"
+    [server]="true"
+  ></app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper($event)"
+    [server]="true"
+  ></app-pdfjs-viewer>
+</ng-container>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner
+
+    mode="determinate"
+    [value]="progress"
+
+  ></mat-spinner>
+  <div *ngIf="progress > 0" class="progress-percentage">{{progress + "%"}}</div>
+</div>

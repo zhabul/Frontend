@@ -1,0 +1,86 @@
+
+<!-- <div #dropdown [style.width.px]="width"
+
+
+>
+     <div (click)="toogleMultiselect()" [ngClass]="(toggle == true) ? 'name-of-multselect1' : 'name-of-multselect'"
+  [ngStyle]="{
+    'border':border,
+    'border-radius': toggle ?'4px 4px 0px 0px':'4px 4px 4px 4px',
+    'border-bottom':toggle ? border1 :border
+}">
+
+      <div [ngStyle]="{'color': color}" class="refname"> {{ ref }} </div>
+      <div class="arrow">
+          <app-arrow-dropdown
+            [fill]="fill"
+            [rotate]="rotate"
+
+          >
+          </app-arrow-dropdown>
+      </div>
+      <div class="border-on-scroll" *ngIf="toggle" ></div>
+  </div> -->
+
+
+
+  <div #dropdown [style.width.px]="width"
+
+
+  >
+       <div (click)="toogleMultiselect()"  (mouseover)="mouseOver()" (mouseleave)="mouseleave()" [ngClass]="(toggle == true) ? 'name-of-multselect1' : 'name-of-multselect'"
+    [ngStyle]="{
+      'border':border,
+      'border-radius': toggle ?'4px 4px 0px 0px':'4px 4px 4px 4px',
+      'border-bottom':toggle ? border1 :border
+  }">
+
+        <div [ngClass]="(toggle == true)? 'refname1' : 'refname'" [ngStyle]="{'color': color}"> {{ ref }} </div>
+        <div class="arrow" >
+            <app-arrow-dropdown
+              [fill]="fill"
+              [rotate]="rotate"
+
+            >
+            </app-arrow-dropdown>
+        </div>
+        <div class="border-on-scroll" *ngIf="toggle" ></div>
+    </div>
+
+
+
+
+
+
+
+    <div class="shadow" *ngIf="toggle"></div>
+    <div style="position:relative">
+    <div *ngIf="toggle" class="orange-scroll">
+        <div *ngFor="let status of localSelectedItem; let i=index" >
+            <div class="users-list" >
+                <div [ngStyle]="{'color': setColorDropDownSelect(status)}" class="users" title="{{status.name}}"> {{status.name}}</div>
+                <div class="check-button-wrapp-one">
+                  <input type="checkbox" (click)="getSelectedItem(status)" class="check" >
+                    <app-checkin-svg
+                      *ngIf="status?.checked"
+                        [width]="18"
+                        [height]="18"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                    ></app-checkin-svg>
+                    <app-checkout-svg
+                    *ngIf="!status?.checked"
+                        [width]="18"
+                        [height]="18"
+                        [color]="'FF7000'"
+                        [hatched]="'white'"
+                    ></app-checkout-svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="line-scroll"></div>
+    </div>
+  </div>
+
+

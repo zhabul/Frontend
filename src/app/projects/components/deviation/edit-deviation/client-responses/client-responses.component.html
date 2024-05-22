@@ -1,0 +1,262 @@
+
+<div *ngIf="(isAta || isDev) && responses.length > 0">
+<div *ngFor="let answer of responses; let index = index;">
+     <div class="response-container">
+          <div class="response-container-1">  
+            <div class="container-box" >
+               <!-- success -->
+                     <div class="box-1" *ngIf="isAta || (answer.Status == 2 && isDev)" 
+                       >  
+                            <button
+                                  class=" box-title-green box-font " *ngIf="isAta">
+                                  {{'Accept' | translate}}
+                            </button>
+                            <button
+                                   class=" box-title-green box-font " *ngIf="isDev">
+                                   Löpande arbete
+                          </button>
+                            <div class="box-p">
+                                   <p *ngIf="isAta">
+                                    Härmed accepterar jag <br>
+                                    ändrings & tilläggsarbete <br>
+                                    enligt redovisat.
+                                  </p> 
+                                  <p *ngIf="isDev">
+                                    Härmed beställer jag <br />
+                                    utförande av arbetet på <br />
+                                    löpande räkning.
+                                 </p> 
+                            </div>
+                            <div class="box-end">
+                                 <div class="i-sign-1" 
+                                    [ngClass]="{'i-sign-1-clicked':isAta}">
+                                    <p *ngIf="isAta" style="color:black;">✓</p>
+                                    <p *ngIf="!isAta" style="color:white;">i</p>
+                                 </div>
+                            </div>   
+                     </div>  
+              <!-- success-fast -->
+                     <div class="box-1" *ngIf="answer.Status == 4 && isDev"> 
+                          <button
+                               class="box-title-green box-font ">
+                               Beställer åtgärd
+                          </button> 
+                                <div class="box-p">
+                                          <p>
+                                             Härmed beställer jag <br />
+                                             åtgärd enligt <br />
+                                             beskrivning.
+                                         </p> 
+                                 </div>
+                                 <div class="box-end">
+                                       <div class="i-sign-1" 
+                                          [ngClass]="{'i-sign-1-clicked':isAta}">
+                                           <p style="color:white;">i</p>
+                                       </div>
+                             </div> 
+                      </div>
+                  <!-- fraga -->
+                       <div class="box-2" *ngIf="answer.Status == 1 && isDev"> 
+                             <button
+                                  class="box-title-yellow box-font ">
+                                  Fråga
+                             </button> 
+                                   <div class="box-p">
+                                          <p class="box-text">Fråga enligt beskrivning</p>
+                                   </div>
+                                    <div class="box-end">
+                                         <div class="i-sign-1" 
+                                            [ngClass]="{'i-sign-1-clicked':isAta}">
+                                              <p style="color:white;">i</p>
+                                         </div>
+                                    </div> 
+                          </div>
+                        <!-- svar -->
+                           <div class="box-1" *ngIf="answer.Status == 9 && isDev"> 
+                                   <button
+                                        class=" box-title-green box-font ">
+                                        Svar
+                                   </button> 
+                                      <div class="box-p">
+                                        <p class="box-text">Svar enligt beskrivning</p>
+                                       </div>
+                                       <div class="box-end">
+                                           <div class="i-sign-1" 
+                                              [ngClass]="{'i-sign-1-clicked':isAta}">
+                                                <p style="color:white;">i</p>
+                                           </div>
+                                       </div> 
+                              </div>
+                    <!-- Answer from edit deviation -->
+                  <div class="box-1" *ngIf="answer.Status == 6 && isDev"> 
+                             <button
+                                  class=" box-title-green box-font " style="margin-top: 50px; min-height: 35px;">
+                                  Svar
+                             </button> 
+                                <div class="box-p">
+                                    <!--  -->
+                                 </div>
+                                  <div class="box-end">
+                                      <div class="i-sign-1" 
+                                        [ngClass]="{'i-sign-1-clicked':isAta}">
+                                           <p style="color:white;">i</p>
+                                      </div>
+                                 </div> 
+                      </div>      
+              </div>
+     
+          <div class="answer-folder-container">
+              <p>Beskrivning / Åtgärd / Fråga</p>
+              <div>
+                 <div class="answer-container">
+                  {{answer.answerEmail}}  {{answer.answerDate}} <br> {{answer.client_message}}    
+                 </div>
+
+                 <div class="folder-container">
+                  <div style="margin-left: 36px; margin-top: 10px" *ngFor="let file of answer.files; let index = index">
+                    <ng-container *ngIf="file.document_type === 'Pdf'">
+                        <app-pdfjs-preview
+                        style="display: flex; cursor: pointer; width: 68px;"
+                        type="pdf"
+                        (click)="openAttachmentSwiper2(file, answer.files, index)"
+                        [pdfUrls]="[file['file_path']]"
+                        [deleted]="file.deleted"
+                        [canRemove]="false"
+                        [index]="'0'"
+                        [active]="'0'"
+                        [width]="68"
+                        [height]="43"
+                        [borderRadius]="'0px 0px 0px 0px'"
+                        [folder]="true"
+                        >
+                      </app-pdfjs-preview>
+                    </ng-container>
+                    <ng-container *ngIf="file.document_type === 'Image'">
+                      <app-file-preview
+                        type="image"
+                        [file]="generateAttachmentFileArray(file)"
+                        [index]="'0'"
+                        [active]="'0'"
+                        [canRemove]="false"
+                        (removeFile)="false"
+                        (openSwiper)="openAttachmentSwiper2(file, answer.files, index)"
+                      ></app-file-preview>
+                    </ng-container>
+                  </div>                 
+                 </div>
+          </div>
+        </div>  
+      </div>
+</div>
+</div>
+</div>
+
+
+<!-- Stari dizajn koristi se na edit deviation -->
+  <div class="answerToClient shadow-top-div" style="background-color: #1A1A1A; padding-bottom: 30px;" *ngIf="responses.length > 0 && !(isDev||isAta)">
+    <div class="answer-title"  style="background-color: #1A1A1A; margin-left: 82px;">
+      {{ "Message from Client" | translate }}
+    </div>
+    <div
+      style="margin-top: -11px;"
+      class="form-column-wrapper-position client-answers rounded"
+      *ngFor="let answer of responses; let index = index;"
+    >
+      <div  class="form-column col-12 panel panel-default p-3">
+        <div class="answerFromClient" >
+          <div class="form-row" style="margin-top: 30px; position: relative;">
+            <div class="form-group " >
+              <div style="position: relative;">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="sender"
+                  [value]="answer.answerEmail"
+                  readonly
+                  style="width: 450px;"
+                />
+                <div [style.border]="setBorder(responses.length - 1, index)" [style.background-color]="setStatus(answer, 'color')"  class="statuses">
+                  {{ setStatus(answer, 'text') | translate }}
+                  <div class="declined-line" *ngIf="setBorder(responses.length - 1, index)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="143.899" height="36.897" viewBox="0 0 143.899 36.897">
+                      <line id="Line_216" data-name="Line 216" y1="33" x2="143" transform="translate(0.45 1.949)" fill="none" stroke="#fd4444" stroke-width="4" opacity="0.6"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <ng-container *ngIf="answer.client_message">
+              <label for="sender">{{
+                "Comment" | translate
+              }}</label>
+              <textarea
+                id="clientResponse"
+                style="width: 100%; height: 67px"
+                class="form-control blu-scroll"
+                rows="3"
+                readonly
+                (keyup)="autogrow()"
+                >{{ answer.client_message }}</textarea>
+            </ng-container>
+            <div style="margin-left: 36px; margin-top: 10px" *ngFor="let file of answer.files; let index = index">
+              <ng-container *ngIf="file.document_type === 'Pdf'">
+                  <app-pdfjs-preview
+                  style="display: flex; cursor: pointer; width: 68px;"
+                  type="pdf"
+                  (click)="openAttachmentSwiper2(file, answer.files, index)"
+                  [pdfUrls]="[file['file_path']]"
+                  [deleted]="file.deleted"
+                  [canRemove]="false"
+                  [index]="'0'"
+                  [active]="'0'"
+                  [width]="68"
+                  [height]="43"
+                  [borderRadius]="'0px 0px 0px 0px'"
+                  [folder]="true"
+                  >
+                </app-pdfjs-preview>
+              </ng-container>
+              <ng-container *ngIf="file.document_type === 'Image'">
+                <app-file-preview
+  
+                  type="image"
+                  [file]="generateAttachmentFileArray(file)"
+                  [index]="'0'"
+                  [active]="'0'"
+                  [canRemove]="false"
+                  (removeFile)="false"
+                  (openSwiper)="openAttachmentSwiper2(file, answer.files, index)"
+                ></app-file-preview>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+    </div>
+    </div>
+  
+ 
+    <ng-template #otherComponent>
+      <app-gallery
+        *ngIf="swiper.images.length"
+        [swiper]="swiper"
+        [canRemove]="false"
+        (removeImageEvent)="removeSwiperImage($event)"
+        (closeSwiperEvent)="closeSwiper($event)"
+        [server]="true"
+      ></app-gallery>
+    </ng-template>
+    <ng-container *ngIf="isPDFViewer; else otherComponent">
+      <app-pdfjs-viewer
+        *ngIf="swiper.images.length"
+        [swiper]="swiper"
+        [canRemove]="false"
+        (removeImageEvent)="removeSwiperImage($event)"
+        (closeSwiperEvent)="closeSwiper($event)"
+        [server]="true"
+      ></app-pdfjs-viewer>
+    </ng-container>

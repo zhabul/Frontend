@@ -1,0 +1,14 @@
+<div class="ata-info-wrapper">
+  <div>
+    <app-ata-info-nav></app-ata-info-nav>
+  </div>
+  <div class="tabs">
+    <app-ata-info-tabs [reportsData]="reportsData"></app-ata-info-tabs>
+  </div>
+  <div *ngIf="activeComponent == 'ata'">
+    <app-data-of-ata></app-data-of-ata>
+  </div>
+  <div *ngIf="activeComponent == 'weekly_report'">
+    <app-data-of-ks></app-data-of-ks>
+  </div>
+</div>

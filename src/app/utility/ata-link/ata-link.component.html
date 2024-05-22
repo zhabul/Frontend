@@ -1,0 +1,14 @@
+
+<div style="display: flex; flex-wrap: wrap; flex-direction: column;">
+  <div class="column-container" *ngFor="let ataLink of relations; let index = index;">
+    <!-- <div>{{ ataLink.button | translate }}:</div> -->
+    <!-- <div class="ata-link" [href]="ataLink.link"  (click)="navigate(ataLink.link, ataLink)"><div>{{ "I"+ataLink.number }}</div></div> -->
+    <div *ngIf="((type === 'external deviation' || type === 'internal deviation') && relations.length === 1) || (relations.length > 1 && ataLink.number.includes('ATA'))" class="ata-link" [href]="ataLink.link" (click)="navigate(ataLink.link, ataLink)">
+      <div>{{ ((ataLink.child_number.includes('Internal') || (ataLink.parent_number.includes('Internal')) && type === 'external deviation') ? 'I-' : 'E-') + ataLink.number }}</div>
+    </div>
+
+    <div *ngIf="(ataLink.number.includes('ATA') && type === 'deviation') || (type === 'ata')" class="ata-link" [href]="ataLink.link" (click)="navigate(ataLink.link, ataLink)">
+      <div>{{ ataLink.number }}</div>
+    </div>
+  </div>
+</div>

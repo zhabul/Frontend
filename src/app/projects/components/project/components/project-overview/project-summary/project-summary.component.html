@@ -1,0 +1,578 @@
+<div class="row row1X mb-3 menu-wrapp">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-lightX bgGrayBlueX br3 pl-em"
+      style="padding: 10px"
+    >
+      <ul class="navbar-nav flex-container wrap justify-content">
+        <div class="navbar-collapse custom-800" id="navbarSupportedContent">
+          <li class="nav-item active flex-item mr-2">
+            <div class="d-flex">
+              <div>
+                <a
+                  [routerLink]="['/projects/view/', project.id]"
+                  class="btn btn-dark lh09 hideUnder800 mr-3"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                >
+                  <span class="badgeX badge-darkX material-icons top1px posRel"
+                    >arrow_back</span
+                  >
+                </a>
+              </div>
+              <div class="project text-muted w-100">
+                <span class="d-block text-uppercase" style="font-size: 0.9em">{{
+                  (project.parent == "0" ? "Project" : "Subproject") | translate
+                }}</span>
+                <h4 class="textDarkBlue posRel mb-0 fs-18">
+                  {{ project.CustomName }} {{ project.name }}
+                </h4>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </nav>
+  </div>
+  <div class="tab-navigation col-lg-8W bgGrayBlue">
+    <ul class="nav nav-tabs nav-pills" role="tablist">
+      <li class="nav-item" *ngIf="userDetails.show_project_SupplierInvoices">
+        <a
+          
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'supplier-invoices']"
+          role="tab"
+        >
+          {{ "Supplier Invoices" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'invoices']"
+          role="tab"
+          id=""
+          >{{ "Invoices History" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'works']"
+          role="tab"
+          >{{ "Work Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'materials']"
+          role="tab"
+          >{{ "Materials Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'reports']"
+          role="tab"
+          >{{ "Weekly Reports" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          [routerLink]="['/projects/view', project.id, 'project-summary']"
+          role="tab"
+          >{{ "Project Summary" | translate }}</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row row1X">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70"
+    id="notMuchPaddingTill800"
+  >
+    <div class="card-body">
+      <section>
+        <h5>{{ "Project Summary" | translate }}</h5>
+      </section>
+    </div>
+    <div class="mb-5 justify-content-center card-wrapper">
+      <div class="card text-center item-card-1">
+        <div class="simple-card-wrapp">
+          <div class="card-top">
+            <div>
+              {{ "Contract Amount" | translate }}
+            </div>
+            <strong>{{
+              statistic['rows'][0]["contract_amount"]
+                | number: "1.2-2":"fr"
+            }}</strong>
+          </div>
+          <div
+            class="card-bottom"
+            *ngIf="
+              statistic['rows'][0].debit_Id == 1 ||
+              statistic['rows'][0].debit_Id == 4
+            "
+          >
+            <div>
+              {{ "Estimated running time" | translate }}
+            </div>
+            <strong
+              >{{
+                statistic['rows'][0]["estimantedruntime"]
+                  | number: "1.2-2":"fr"
+              }}
+              {{ "hour" | translate }}</strong
+            >
+          </div>
+          <div
+            class="card-bottom"
+            *ngIf="
+              statistic['rows'][0].debit_Id == 2 ||
+              statistic['rows'][0].debit_Id == 3
+            "
+          >
+            <div>
+              {{ "Estimated fixed time" | translate }}
+            </div>
+            <strong
+              >{{
+                statistic['rows'][0]["estimantedfixtime"]
+                  | number: "1.2-2":"fr"
+              }}
+              {{ "hour" | translate }}</strong
+            >
+          </div>
+          <!--  <div class="card-average">
+              <div>
+                {{'Average Total' | translate}}
+              </div>
+              <strong>{{ userTotalAverage | number:'1.2-2':'fr' }}</strong>
+            </div> !-->
+        </div>
+        <div class="simple-card-wrapp">
+          <div class="card-top">
+            <div>
+              {{ "Difference" | translate }}
+            </div>
+            <strong>
+              {{
+                statistic['rows'][0]["project_invoiced"] -
+                statistic['rows'][0]["contractAmount"]
+                  | number: "1.2-2":"fr"
+              }}
+            </strong>
+          </div>
+          <div class="card-bottom">
+            <div>&nbsp; &nbsp;</div>
+            <strong
+              *ngIf="differeneBetweenEstimatedRunningTimeAndProjectInvoicedTime"
+              >{{
+                differeneBetweenEstimatedRunningTimeAndProjectInvoicedTime
+                  | number: "1.2-2":"fr"
+              }}
+              {{ "hour" | translate }}</strong
+            >
+          </div>
+        </div>
+        <div class="simple-card-wrapp">
+          <div class="card-top">
+            <div>
+              {{ "Invoiced" | translate }}
+            </div>
+            <strong>{{
+              statistic['rows'][0]["project_invoiced"]
+                | number: "1.2-2":"fr"
+            }}</strong>
+          </div>
+          <div class="card-bottom">
+            <div>
+              {{ "Invoiced time" | translate }}
+            </div>
+            <strong
+              >{{
+                statistic['rows'][0]["tidTotal"]["total_time"]
+                  | number: "1.2-2":"fr"
+              }}
+              {{ "hour" | translate }}</strong
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card text-center item-card-2">
+        <table class="table table-without-border">
+        <!--  <tr>
+            <td>
+              <strong>{{ "TSC_INTAKTER" | translate }}:</strong>
+            </td>
+            <td>
+              <strong>{{
+                statistic['rows'][0]["project_and_ata_approved_and_invoiced"]
+                  | number: "1.2-2":"fr"
+              }}</strong>
+            </td>
+          </tr>
+        !-->
+          <tr>
+            <td>
+              <strong>{{ "Worked up" | translate }}:</strong>
+            </td>
+            <td>
+              <strong>{{
+                statistic['rows'][0]["project_total"]
+                  | number: "1.2-2":"fr"
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>{{ "Ata works" | translate }}:</strong>
+            </td>
+            <td>
+              <strong>{{
+                statistic['rows'][0]["ata_total"]
+                  | number: "1.2-2":"fr"
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>{{ "Invoiced" | translate }}:</strong>
+            </td>
+            <td>
+              <strong>{{
+                statistic["totals"]['invoiced'] | number: "1.2-2":"fr"
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <strong>{{ "Result" | translate }}:</strong>
+            </td>
+            <td class="total-text-align">
+              <strong>{{
+                statistic['totals']['result']
+                  | number: "1.2-2":"fr"
+              }}</strong>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="content-details mb70 table-wrapper">
+      <ng-container>
+        <!----------------------------LOPANDE PROJECT------------------------------------!-->
+        <table
+          class="table tab-responsive table-striped table-hover table-lightX table-sm mt-5"
+          id="theTable"
+        >
+          <thead class="table-bordered table-statistic">
+            <tr>
+              <th scope="col">{{ "TSC_Project/Activity" | translate }}</th>
+              <th scope="col">{{ "Chargeable" | translate }}</th>
+              <th scope="col">{{ "Personnel costs" | translate }}</th>
+              <th scope="col">{{ "Material costs" | translate }}</th>
+              <th scope="col">{{ "Material fast" | translate }}</th>
+              <th scope="col">{{ "UE/Other" | translate }}</th>
+              <th scope="col">{{ "Total costs" | translate }}</th>
+              <th scope="col">{{ "Invoiced" | translate }}</th>
+              <th scope="col">{{ "Results" | translate }}</th>
+              <th scope="col">{{ "TG1" | translate }}</th>
+              <th scope="col">{{ "TG2" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody class="table-bordered">
+            <ng-container *ngFor="let item of statistic['rows']; let index = index;">
+              <tr [ngClass]="{'project-row': item.parent == 0}">
+                <td class="total-text-align">
+                  {{ item["project_name"] }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["project_chargeable"]
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["project_user_total_cost"] | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["project_material"]
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["project_fixed_material"]
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["project_other"]
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["project_total"]
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["project_invoiced"]
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item['project_result']
+                      | number: "1.2-2":"fr"
+                  }}
+                  <span class="warring-data" *ngIf="item['project_result'] < 0">!</span>
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["project_result_percentage"]
+                      | number: "1.2-2":"fr"
+                  }}
+                  %
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["project_internal_cost_percentage"]
+                      | number: "1.2-2":"fr"
+                  }} %
+                </td>
+              </tr>
+              <tr
+                *ngIf="
+                  item['atas'] &&
+                  item['atas'].length > 0
+                "
+              >
+                <td>
+                  <div
+                    class="d-flex mt-3"
+                    *ngIf="
+                      item &&
+                      item['atas'] &&
+                      item['atas'].length > 0
+                    "
+                  >
+                    <span
+                      (click)="toggleTable('showAtaDetails')"
+                      class="material-icons cursor-pointer"
+                    >
+                      {{
+                        showAtaDetails
+                          ? "keyboard_arrow_up"
+                          : "keyboard_arrow_down"
+                      }}
+                    </span>
+                    <span
+                      (click)="toggleTable('showAtaDetails')"
+                      class="cursor-pointer"
+                    >
+                      {{ item["project_name"] }}-{{
+                        "ATA" | translate
+                      }}
+                    </span>
+                  </div>
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_chargeable"]
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_user_total"] | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_material"] | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_fixed_material"] | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_other"] | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_total"] | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_invoiced"] | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_result"] | number: "1.2-2":"fr"
+                  }}
+                  <span class="warring-data" *ngIf="item['ata_result'] < 0">!</span>
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_result_percentage"]
+                      | number: "1.2-2":"fr"
+                  }}
+                  %
+                </td>
+                <td class="total-text-align">
+                  {{
+                    item["ata_internal_cost_percentage"] | number: "1.2-2":"fr"
+                  }} %
+                </td>
+              </tr>
+              <ng-container *ngIf="showAtaDetails">
+                <tr
+                  *ngFor="
+                    let ata of item['atas'];
+                    let i = index
+                  "
+                >
+                  <td class="total-text-align">
+                    {{ ata["ata_name"] }}
+                  </td>
+                  <td class="total-text-align">
+                    {{ ata["chargeable"] | number: "1.2-2":"fr" }}
+                  </td>
+                  <td class="total-text-align">
+                    {{ ata["user_total"] | number: "1.2-2":"fr" }}
+                  </td>
+                  <td class="total-text-align">
+                    {{ ata["material_total"] | number: "1.2-2":"fr" }}
+                  </td>
+                  <td class="total-text-align">
+                    {{ ata["fixed_material_total"] | number: "1.2-2":"fr" }}
+                  </td>
+                  <td class="total-text-align">
+                    {{ ata["other_total"] | number: "1.2-2":"fr" }}
+                  </td>
+                  <td class="total-text-align">
+                    {{ ata["ata_total"] | number: "1.2-2":"fr" }}
+                  </td>
+                  <td class="total-text-align">
+                    {{ ata["invoiced_total"] | number: "1.2-2":"fr" }}
+                  </td>
+                  <td class="total-text-align">
+                    {{ ata["ata_result"] | number: "1.2-2":"fr" }}
+                    <span class="warring-data" *ngIf="ata['ata_result'] < 0">!</span>
+                  </td>
+                  <td class="total-text-align">
+                    {{
+                      ata["ata_result_percentage"]
+                        | number: "1.2-2":"fr"
+                    }} %
+                  </td>
+                  <td class="total-text-align">
+                    {{ ata["internal_cost_percentage"] | number: "1.2-2":"fr" }} %
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+            <tr class="project-total-row">
+                <td class="total-text-align">
+                  {{
+                    'Total' | translate
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic["totals"]['chargeable']
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic["totals"]['user_total']
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic["totals"]['material']
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic["totals"]['fixed_material']
+                      | number: "1.2-2":"fr"
+                  }}                  
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic["totals"]['other']
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic["totals"]['total']
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic["totals"]['invoiced']
+                      | number: "1.2-2":"fr"
+                  }}
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic['totals']['result']
+                      | number: "1.2-2":"fr"
+                  }}
+                  <span class="warring-data" *ngIf="statistic['totals']['result'] < 0">!</span>
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic["totals"]['resPercentage']
+                      | number: "1.2-2":"fr"
+                  }} %
+                </td>
+                <td class="total-text-align">
+                  {{
+                    statistic["totals"]['internal_cost_percentage']
+                      | number: "1.2-2":"fr"
+                  }} %
+                </td>
+            </tr>    
+          </tbody>
+        </table>
+      </ng-container>
+    </div>
+  </div>
+  <div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

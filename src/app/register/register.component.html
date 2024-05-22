@@ -1,0 +1,53 @@
+<div class="register-wrapper">
+    <!--Navi for undo-->
+    <div class="nav-wrapper">
+        <div class="header" style="z-index: 999999">
+            <div class="d-flex align-items-center border-h-project px-4 py-2">
+                <a (click)="goBack()" style="cursor: pointer">
+                    <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="29.342" viewBox="0 0 34.604 29.342" width="34.604" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <clipPath id="clip-path">
+                                <rect data-name="Rectangle 15829" fill="none" height="29.342" id="Rectangle_15829" width="34.604"></rect>
+                            </clipPath>
+                        </defs>
+                        <g data-name="Group 4372" id="Group_4372" transform="translate(0 0)">
+                            <g clip-path="url(#clip-path)" data-name="Group 4371" id="Group_4371" transform="translate(0 0)">
+                                <path d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7" data-name="Path 1822" fill="#82a7e2" id="Path_1822" transform="translate(0 0)"></path>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+                <span class="ml-3 mt-2 h2 text-uppercase font-weight-normal title-project">{{ "Register" | translate }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!--buttons and icons for component-->
+    <div class="component-wrapper">
+        <div class="border-item p-4" *ngIf="userDetails.show_register_customers" (mouseenter)="clientsEnter()" (mouseleave)="clientsLeave()">
+            <a routerlink="/clients" routerlinkactive="active" href="#/clients">
+                <div class="hex mb-3">
+                    <img alt="" class="none-pointer" src="../../assets/img/sidebar-menu-icons/clients.svg" width="125" />
+                </div>
+                <span [ngClass]="clientsColor" class="text-white font-weight-bold d-flex justify-content-center">{{ "Clients" | translate }}</span>
+            </a>
+        </div>
+
+        <div class="border-item p-4" *ngIf="userDetails.show_register_suppliers" (mouseenter)="suppliersEnter()" (mouseleave)="suppliersLeave()">
+            <a routerlink="/suppliers" routerlinkactive="active" href="#/suppliers">
+                <div class="hex mb-3">
+                    <img alt="" class="none-pointer" src="../../assets/img/sidebar-menu-icons/suppliers.svg" width="125" />
+                </div> 
+                <span [ngClass]="suppliersColor" class="text-white font-weight-bold d-flex justify-content-center">{{ "Suppliers" | translate }}</span>
+            </a>
+        </div>
+        <div class="border-item p-4" *ngIf="userDetails.show_register_products" (mouseenter)="productsEnter()" (mouseleave)="productsLeave()">
+            <a routerlink="/materials" routerlinkactive="active" href="#/materials">
+                <div class="hex mb-3">
+                    <img alt="" class="none-pointer" src="../../assets/img/sidebar-menu-icons/products.svg" width="125" />
+                </div>
+                <span [ngClass]="productsColor" class="text-white font-weight-bold d-flex justify-content-center">{{ "Products" | translate }}</span>
+            </a>
+        </div>
+    </div>
+</div>

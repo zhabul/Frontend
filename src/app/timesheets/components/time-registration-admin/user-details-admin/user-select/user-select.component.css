@@ -1,0 +1,135 @@
+.select-container-200 {
+  width: 200px;
+  position: relative;
+}
+
+.select-container-220 {
+  width: 220px;
+  position: relative;
+}
+
+.margin-right {
+  margin-right: 32px;
+}
+
+.selected-type {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.user-select-form {
+  display: flex;
+}
+
+.floating-title {
+  position: absolute;
+  top: -25px;
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  font-weight: normal;
+  padding-left: 15px;
+  color: lightgray;
+}
+
+
+/* Ispod je code za ng-multiselect-dropdown */
+
+:host ::ng-deep .multiselect-dropdown .dropdown-btn {
+  border: 1.5px solid #858585 !important;
+  padding: 0.375rem 0.75rem !important;
+  height: 35px;
+  font-size: 14px;
+  background: white !important;
+}
+
+:host ::ng-deep .form-group.is-invalid .multiselect-dropdown .dropdown-btn {
+  border: 1px solid #dc3545 !important;
+}
+
+:host ::ng-deep .multiselect-dropdown .dropdown-btn .dropdown-down {
+  border-top: 10px solid #ced4da !important;
+}
+
+:host ::ng-deep .filter-textbox {
+    border-bottom: 1px solid #ccc;
+    position: absolute !important;
+    padding: 10px;
+    top: -38px;
+    border-style: none !important;
+  }
+  
+  :host ::ng-deep .dropdown-list {
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+    width: 350px !important;
+    border-left: 3px solid #ff7000 !important;
+    border-right: 3px solid #ff7000 !important;
+    border-top: 3px solid #ff7000 !important;
+    border-bottom: 6px solid #ff7000 !important;
+  }
+  
+  :host ::ng-deep .dropdown-list li {
+    border-bottom: 1px solid #9f9f9f;
+    border-right: 1px solid #a3a3a3;
+  }
+  
+  :host ::ng-deep .multiselect-item-checkbox input + div:before {
+    right: 0;
+    border: 1px solid #858585 !important;
+    border-radius: 100%;
+    left: unset !important;
+  }
+  
+  :host ::ng-deep .multiselect-item-checkbox input:checked + div:before {
+    background: #ff7000 !important;
+  }
+  
+  :host ::ng-deep .multiselect-item-checkbox input + div {
+    padding-left: 1em !important;
+  }
+  
+  :host ::ng-deep .multiselect-item-checkbox input + div:after {
+    left: unset !important;
+    right: 2px;
+  }
+  
+  /*------------------------------------------------------------------------*/
+  
+  :host ::ng-deep .single-option .multiselect-item-checkbox input + div:before {
+    content: none !important;
+  }
+  
+  :host ::ng-deep .single-option .multiselect-item-checkbox input:checked + div:after {
+    content: none !important;
+  }
+  
+  :host ::ng-deep .toast-container {
+    z-index: 99999999 !important;
+  }
+  
+  
+  :host ::ng-deep .new-project-contact-person .multiselect-item-checkbox input + div:hover {
+    color: #ff7000 !important;
+    font-weight: bold;
+  }
+  
+  :host ::ng-deep .new-project-contact-person .multiselect-item-checkbox:hover {
+    background-color: white !important;
+  }
+  
+  :host ::ng-deep .mat-option-text:hover {
+    color: #ff7000 !important;
+    font-weight: bold;
+    background-color: white !important;
+  }

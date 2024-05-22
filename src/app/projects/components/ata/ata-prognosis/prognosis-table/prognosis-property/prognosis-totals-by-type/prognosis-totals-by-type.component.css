@@ -1,0 +1,91 @@
+.second-row-wrapper {
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  margin-left: 10px;
+  display: grid;
+  min-height: 38px;
+  font-size: 13px;
+}
+
+.item {
+  height: 38px;
+  background-color: #e3e9dd;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  border-right: 1px solid gray;
+}
+
+.item:last-child {
+  border-right: none;
+}
+
+.item:first-child {
+  justify-content: flex-start;
+  padding-left: 15px;
+}
+
+.disabled-btn {
+  background-color: #dddddd !important;
+}
+
+.prognos {
+  background-color: #f8e4b7;
+}
+
+.prognos-totals {
+  background-color: #d5e5fe;
+}
+
+.prognos-input {
+  width: 100%;
+  border: none;
+  text-align: end;
+  background-color: #f8e4b7;
+}
+
+.prognos-input-total {
+  width: 100%;
+  border: none;
+  text-align: end;
+  background-color: transparent;
+}
+
+.prognos-input-total:focus,
+.prognos-input:focus {
+  outline: none;
+}
+
+.project-yellow1 {
+  background-color: #f7f3d1 !important;
+}
+
+.project-yellow1:hover {
+  background-color: #f8f2b7 !important;
+}
+
+.project-green1 {
+  background-color: #f3fcea !important;
+}
+
+.project-green1:hover {
+  background-color: #e8fdd3 !important;
+}
+
+.project-blue1 {
+  background-color: #fce3cd !important;
+}
+
+.project-blue1:hover {
+  background-color: #f8d4b4 !important;
+}
+
+.wemax-aborted-prognos {
+  background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 48%, rgb(255, 0, 0) 48%, rgb(255, 0, 0) 53%, rgba(0, 0, 0, 0) 53%, rgba(0, 0, 0, 0) 100%), rgb(219, 218, 216, 1) 100%;
+}
+
+.isOpenTotalsByType {
+  background-color: #A0C4FA !important;
+}

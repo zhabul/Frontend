@@ -1,0 +1,40 @@
+<div class="plan-container blu-scroll">
+  <div class="list-head">
+    <div>
+      <p>{{ "Name" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Short name" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Working day" | translate }}</p>
+    </div>
+  </div>
+
+  <div class="list">
+    <div class="list-row" *ngFor="let day of days">
+      <div>
+        <p>{{ day.name | translate }}</p>
+      </div>
+      <div>
+        <p>{{ day.short_name | translate }}</p>
+      </div>
+      <div>
+        <img
+          [ngClass]="{ hidden: day.type == 0 }"
+          (click)="changeWorkingOnDay(day)"
+          src="../../../../assets/img/round-checkbox.svg"
+          alt="checkbox"
+        />
+        <img
+          [ngClass]="{ hidden: day.type == 1 }"
+          class="icon-small"
+          (click)="changeWorkingOnDay(day)"
+          src="../../../../assets/img/round-uncheckbox.svg"
+          alt="checkbox"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="thin-red-line-bottom"></div>
+</div>

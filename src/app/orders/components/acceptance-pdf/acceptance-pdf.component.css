@@ -1,0 +1,17 @@
+.card {
+  width: 100%;
+  padding: 10px;
+}
+.nav-wrapper {
+  background-color: #003469;
+}
+.btn-custom:hover {
+  color: #fff !important;
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+.btn-custom {
+  background-color: #003469 !important;
+  color: #28a745 !important;
+  border-color: #28a745 !important;
+}

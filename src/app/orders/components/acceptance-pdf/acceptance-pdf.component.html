@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="card bgGrayBlue col-12 col-lg-12 hideUnder800">
+    <nav class="nav nav-justified">
+      <a
+        (click)="goBack()"
+        class="btn btn-dark mr-2 lh09 text-white"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="badgeX badge-darkX material-icons top1px posRel"
+          >arrow_back</span
+        >
+      </a>
+    </nav>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="card">
+    <ng-template [ngIf]="fileExt !== 'pdf'">
+      <img
+        [src]="order.file"
+        (error)="onImageError($event)"
+        (load)="onImageLoad($event)"
+        alt="acceptance-image"
+        style="display: none; max-width: 100%; width: fit-content"
+      />
+    </ng-template>
+  </div>
+</div>
+
+<app-gallery
+  *ngIf="swiper.images.length"
+  [swiper]="swiper"
+  [canRemove]="false"
+  (removeImageEvent)="removeSwiperImage($event)"
+  (closeSwiperEvent)="closeSwiper()"
+  [server]="true"
+></app-gallery>

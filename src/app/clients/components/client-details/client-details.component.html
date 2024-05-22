@@ -1,0 +1,1248 @@
+<div class="row border-nav d-flex">
+  <div class="d-flex align-items-center border-h-project px-4 py-2">
+    <a (click)="goBack()" style="cursor: pointer">
+      <span class="back-icon-position">
+        <app-back-icon-svg
+          [width]="34"
+          [height]="29"
+          [color]="'82a7e2'"
+        ></app-back-icon-svg>
+      </span>
+    </a>
+    <span class="ml-3 mt-2 h2 font-weight-normal title-project">
+      {{ "Client" | translate }}</span
+    >
+  </div>
+</div>
+<div class="tab-navigation-wrapper mt-2">
+  <div class="tab-navigation" style="margin-top: 26px">
+    <div class="nav-tabs tab-navigation">
+      <ul class="nav nav-tabs nav-pills" role="tablist">
+        <li class="nav-item approveItem">
+          <a
+            class="nav-link active"
+            [ngClass]="{ active: selectedTab == 0 }"
+            (click)="setSelectedTab(0)"
+            id="approveItem"
+          >
+          {{ "Client details" | translate }}
+            <div
+              [ngClass]="{
+                'hide-bottom-box-shadow': selectedTab == 0,
+                'bottom-shadow-button': selectedTab !== 0
+              }"
+            ></div>
+          </a>
+        </li>
+        <li class="nav-item align-l">
+          <a
+            class="nav-link attest"
+            [ngClass]="{ active: selectedTab == 1 }"
+            (click)="setSelectedTab(1)"
+            style="z-index: 1"
+          >
+          {{ "Client reference" | translate }}
+            <div
+              [ngClass]="{
+                'hide-bottom-box-shadow': selectedTab == 1,
+                'bottom-shadow-button': selectedTab !== 1
+              }"
+            ></div>
+          </a>
+        </li>
+        <li class="nav-item align-l">
+          <div class="exclamation-mark-container" *ngIf="showCommentsNumber">
+            <p class="exclamation-mark"><app-comment-warning-icon-svg></app-comment-warning-icon-svg></p>
+           </div>
+          <a
+            class="nav-link forecast"
+            [ngClass]="{ active: selectedTab == 2 }"
+            (click)="setSelectedTab(2)"
+          >
+          {{ "Appendices" | translate }}
+
+            <div
+              [ngClass]="{
+                'hide-bottom-box-shadow': selectedTab == 2,
+                'bottom-shadow-button': selectedTab !== 2
+              }"
+            ></div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div
+    *ngIf="selectedTab == 0 || selectedTab == 2"
+    [ngClass]="[this.selectedTab == 1 ? 'master-border' : 'auto']"
+  >
+    <div *ngIf="this.selectedTab != 1" class="blu-scroll-wrapp master-margin">
+      <div class="blu-scroll skrollbar card-project">
+        <form
+          *ngIf="this.selectedTab === 0"
+          class="p-3X w75"
+          novalidate
+          autocomplete="off"
+          [formGroup]="createForm"
+          (ngSubmit)="createOrUpdateClient()"
+          #myform="ngForm"
+        >
+          <h2 class="h5 master-title masster-title-margin">
+            {{ "Edit client" | translate }}
+          </h2>
+          <div class="form-group rowX pb-4X mb-0 pb-0">
+            <div class="foractive">
+              <label class="bg-dangerX"
+                ><small
+                  style="margin-left: -6px"
+                  [ngClass]="{ 'font-weight-bold': boldOrNot }"
+                  >{{ "Status" | translate }}{{ ":" }}
+                </small></label
+              ><br />
+              <div class="form-check form-check-inline">
+                <div class="radio-wrapper">
+                  <input
+                    class="first-radio"
+                    type="radio"
+                    name="status"
+                    id="inlineRadio1"
+                    value="1"
+                    checked
+                    formControlName="status"
+                  />
+                  <label
+                    class="first-radio-label"
+                    for="inlineRadio1"
+                    checked
+                  ></label>
+                </div>
+                <span class="yes-check">{{ "Active" | translate }}</span>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <div class="radio-wrapper">
+                  <input
+                    class="first-radio"
+                    type="radio"
+                    name="status"
+                    id="inlineRadio2"
+                    value="0"
+                    formControlName="status"
+                    checked
+                  />
+                  <label class="first-radio-label" for="inlineRadio2"></label>
+                  <span class="no-check">{{ "Inactive" | translate }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="for-second-radio-inputs">
+              <label class="bg-dangerX"
+                ><small
+                  style="margin-left: -6px; white-space: nowrap"
+                  [ngClass]="{ 'font-weight-bold': boldOrNot }"
+                  >{{ "Reverse payment obligation" | translate }}{{ ":" }}
+                </small></label
+              ><br />
+              <div class="form-check form-check-inline">
+                <div class="radio-wrapper">
+                  <input
+                    class="first-radio"
+                    type="radio"
+                    name="reversePaymentObligation"
+                    id="inlineRadio11"
+                    value="1"
+                    checked
+                    formControlName="reversePaymentObligation"
+                  />
+                  <label
+                    class="first-radio-label"
+                    for="inlineRadio11"
+                    checked
+                  ></label>
+                </div>
+                <span class="yes-check">{{ "Yes" | translate }}</span>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <div class="radio-wrapper">
+                  <input
+                    class="first-radio"
+                    type="radio"
+                    name="reversePaymentObligation"
+                    id="inlineRadio22"
+                    value="0"
+                    formControlName="reversePaymentObligation"
+                    checked
+                  />
+                  <label class="first-radio-label" for="inlineRadio22"></label>
+                  <span class="no-check">{{ "No" | translate }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="margin-top: -83px">
+              <div class="col-md-6">
+                <label for="validationCustom04" class="required"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "ORG NR" | translate
+                  }}</small></label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-custom org-nr-width"
+                  [ngClass]="{
+                    'is-invalid':
+                      (createForm.get('company_id').touched ||
+                        myform.submitted) &&
+                      createForm.get('company_id').invalid
+                  }"
+                  id="validationCustom04"
+                  spellcheck="false"
+                  formControlName="company_id"
+                />
+                <div class="invalid-feedback">
+                  {{ "Please enter Org.Nr" | translate }}.
+                </div>
+                <label for="validationCustom04" class="required"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Company Name" | translate
+                  }}</small></label
+                >
+                <input
+                  style="width:330px"
+                  type="text"
+                  class="form-control form-control-custom"
+                  [ngClass]="{
+                    'is-invalid':
+                      (createForm.get('company').touched || myform.submitted) &&
+                      createForm.get('company').invalid
+                  }"
+                  id="validationCustom04"
+                  spellcheck="false"
+                  formControlName="company"
+                />
+                <div class="invalid-feedback">
+                  {{ "Please enter the name of the company" | translate }}.
+                </div>
+
+                <div class="form-group">
+                  <label for="clientCategoryInput" class="required">
+                    <small>
+                      {{ "Client category" | translate }}
+                    </small>
+                  </label>
+                  <div class="input-group" [hidden]="!showClientCategoryInput">
+                    <input type="text" class="form-control" #newCategory />
+                    <div  class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary py-0"
+                        (click)="
+                          addOrEditClientCategory(
+                            categorySelected,
+                            newCategory.value
+                          )
+                        "
+                        type="button"
+                      >
+                        <span
+                          class="badgeX badge-darkX material-icons posRel"
+                          style="top: 3px"
+                          >save</span
+                        >
+                      </button>
+                    </div>
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary py-0"
+                        (click)="toggleClientCategoryInput()"
+                        type="button"
+                      >
+                        <span
+                          class="badgeX badge-darkX material-icons posRel"
+                          style="top: 3px"
+                          >arrow_forward</span
+                        >
+                      </button>
+                    </div>
+                  </div>
+                  <div style="flex-wrap: nowrap!important;" class="input-group" [hidden]="showClientCategoryInput">
+                    <div class="input-wrapper1">
+                      <app-counter-dropdown-multiselect
+                        [selectedItem]="clientCategories"
+                        [selectedCoworkers]="selectedCatElement"
+                        [EnableSearch]="true"
+                        [placeholder]="'Select Category' | translate"
+                        [width]="235"
+                        [type]="'newProject'"
+                        (SelectedUser)="onSelect($event)"
+                        (SelectedUserAll)="onSelectAll($event)"
+                        (OnDeSelectAll)="onDeSelectAll($event)"
+                        [PermitActive]="false"
+                        [disableSelect]="!allowEditSupplierInvoice()"
+                      >
+                      </app-counter-dropdown-multiselect>
+                      <!-- <div class="invalid-feedback">{{ "Please enter a client category" | translate }}.</div> -->
+                    </div>
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary py-0"
+                        (click)="openAddClientCategory(newCategory)"
+                        type="button"
+                        [attr.disabled]="allowEditSupplierInvoice() ? null : true"
+                      >
+                        <span
+                          class="badgeX badge-darkX material-icons posRel"
+                          style="top: 3px"
+                          >add</span
+                        >
+                      </button>
+                    </div>
+                    <div class="input-group-append">
+                      <button
+                        *ngIf="allowEditSupplierInvoice()"
+                        class="btn btn-outline-secondary py-0"
+                        (click)="deleteClientCategory(categorySelected)"
+                        type="button"
+                      >
+                        <span
+                          class="badgeX badge-darkX material-icons posRel"
+                          style="top: 3px"
+                          >delete</span
+                        >
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" style="margin-top: 3px;position:absolute;left:460px">
+                <label for="validationCustom40" class="required"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                    {{ "Client Number" | translate }}
+                  </small>
+                </label>
+                <input
+                  type="text"
+                  class="form-control form-control-custom w-client-var-number"
+                  [ngClass]="{
+                    'is-invalid':
+                      (createForm.get('number').touched || myform.submitted) &&
+                      createForm.get('number').invalid
+                  }"
+                  id="validationCustom40"
+                  spellcheck="false"
+                  formControlName="number"
+                />
+                <div class="invalid-feedback">
+                  {{ "Please enter a client number" | translate }}.
+                </div>
+
+                <label for="validationCustom27" class="required">
+                  <small [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                    {{ "VAT number" | translate }}
+                  </small>
+                </label>
+                <input
+                  type="text"
+                  class="form-control form-control-custom w-client-var-number"
+                  [ngClass]="{
+                    'is-invalid':
+                      (createForm.get('vatNumber').touched ||
+                        myform.submitted) &&
+                      createForm.get('vatNumber').invalid
+                  }"
+                  id="validationCustom27"
+                  spellcheck="false"
+                  formControlName="vatNumber"
+                />
+                <div class="invalid-feedback">
+                  {{ "Please enter a VAT number" | translate }}.
+                </div>
+                <div class="form-group">
+                  <label for="validationCustom03"
+                    ><small>{{ "Order Email" | translate }}</small></label
+                  >
+                  <input
+                    style="width:330px"
+                    [attr.disabled]="
+                      !userDetails.create_register_customers ? 'disabled' : null
+                    "
+                    type="email"
+                    class="form-control form-control-custom"
+                    id="validationCustom03"
+                    spellcheck="false"
+                    formControlName="email"
+                    [ngClass]="{
+                      'is-invalid':
+                        (createForm.get('email').touched || myform.submitted) &&
+                        createForm.get('email').invalid
+                    }"
+                  />
+                <!--  <div class="invalid-feedback">
+                    {{ "Please enter a email" | translate }}.
+                  </div>-->
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('email').touched ||
+                        createForm.get('email').dirty) &&
+                      createForm.get('email').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('email').errors.required"
+                      class="text-danger"
+                      >{{ "Email required" | translate }}.</span
+                    >
+                    <span
+                      *ngIf="createForm.get('email').errors.email"
+                      class="text-danger"
+                      >{{ "Email invalid" | translate }}.</span
+                    >
+                    <span
+                      *ngIf="createForm.get('email').errors.exists"
+                      class="text-danger"
+                    >
+                      {{ "Email already in use" | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <h3 class="h5 text-secondary master-title">
+                  {{ "Company" | translate }}
+                </h3>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div style="flex: 0 0 calc(49% - 40px); padding-left: 35px">
+                <label for="validationCustom1B"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Your Reference" | translate
+                  }}</small></label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-custom phone-1-2 w-company"
+                  id="validationCustomXD"
+                  spellcheck="false"
+                  formControlName="reference_theirs"
+                />
+                <div class="invalid-feedback">Please enter a reference</div>
+              </div>
+              <div style="flex: 0 0 calc(47% - 19px); padding-left: 30px;padding-right: 22px;">
+                <label for="validationCustom1A"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Our Reference" | translate
+                  }}</small></label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-custom phone-1-2 w-company"
+                  id="validationCustom1B"
+                  spellcheck="false"
+                  formControlName="reference_ours"
+                />
+                <div class="invalid-feedback">Please enter a reference</div>
+              </div>
+              <div style="flex: 0 0 calc(47% - 45px);">
+                <label for="validationCustom03"
+                  ><small>{{ "Order Email" | translate }}</small></label
+                >
+                <input
+                  [attr.disabled]="
+                    !userDetails.create_register_customers ? 'disabled' : null
+                  "
+                  type="email"
+                  class="form-control form-control-custom w-company-last"
+                  id="validationCustom03"
+                  spellcheck="false"
+                  formControlName="companyEmail"
+                  [ngClass]="{
+                    'is-invalid':
+                      (createForm.get('companyEmail').touched ||
+                        myform.submitted) &&
+                      createForm.get('companyEmail').invalid
+                  }"
+                />
+
+
+                <span
+                  class="help-block"
+                  *ngIf="
+                    (createForm.get('companyEmail').touched ||
+                      createForm.get('companyEmail').dirty) &&
+                    createForm.get('companyEmail').errors
+                  "
+                >
+                  <span
+                    *ngIf="createForm.get('companyEmail').errors.email"
+                    class="text-danger"
+                    >{{ "Email invalid" | translate }}.</span
+                  >
+                  <span
+                    *ngIf="createForm.get('companyEmail').errors.exists"
+                    class="text-danger"
+                  >
+                    {{ "Email already in use" | translate }}.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div style="flex: 0 0 calc(32% - 61px); padding-left: 35px">
+                <label style="white-space: nowrap" for="validationCustom01"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Phone Number 1" | translate
+                  }}</small></label
+                >
+             <!--  <input
+                  type="text"
+                  class="form-control form-control-custom"
+                  id="validationCustom04"
+                  spellcheck="false"
+                  formControlName="mobile_number"
+                  #mobile_number
+                  (blur)="formtMobileNumber(mobile_number.value, 'mobile')"
+                />-->
+                <app-mobile-format
+                  [mobile_number]="createForm.get('mobile_number').value"
+                  (phone_number)="replacePhoneNumber($event, 'mobile_number1')"
+                  [width]="150"
+                  [placeholder]="translate.instant('Phone number 1')"
+                  [fontSize]="12"
+                  [disabled]="!allowEditSupplierInvoice()"
+                >
+                </app-mobile-format>
+                <div class="invalid-feedback">Please enter Company Phone 1</div>
+              </div>
+              <div style="flex: 0 0 calc(25% - 42px); margin-left: 15px;">
+                <label style="white-space: nowrap" for="validationCustomYB"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Phone Number 2" | translate
+                  }}</small></label
+                >
+              <!--  <input
+                  type="text"
+                  class="form-control form-control-custom"
+                  id="validationCustom04"
+                  spellcheck="false"
+                  formControlName="telephone_number"
+                  #tel_number
+                  (blur)="formtMobileNumber(tel_number.value, 'telephone')"
+                />
+              -->
+                <app-mobile-format
+                  [mobile_number]="createForm.get('telephone_number').value"
+                  (phone_number)="replacePhoneNumber($event, 'telephone_number')"
+                  [width]="150"
+                  [placeholder]="translate.instant('Phone number 2')"
+                  [fontSize]="12"
+                  [disabled]="!allowEditSupplierInvoice()"
+                >
+                </app-mobile-format>
+                <div class="invalid-feedback">
+                  Please enter a company phone 2
+                </div>
+              </div>
+              <div style="flex: 0 0 calc(42% - 22px); margin-left: 16px;padding-right:22px">
+                <label for="validationCustom03"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Email" | translate
+                  }}</small></label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-custom w-company"
+                  [ngClass]="{
+                    'is-invalid':
+                      (createForm.get('clientEmail').touched ||
+                        myform.submitted) &&
+                      createForm.get('clientEmail').invalid
+                  }"
+                  id="validationCustom03"
+                  spellcheck="false"
+                  formControlName="clientEmail"
+                />
+                <div class="invalid-feedback">Please enter an Email</div>
+                <!-- <span
+              class="help-block"
+              *ngIf="displayError('clientEmail') && displayErrorObj('email', 'email')">
+              <span
+                *ngIf="displayErrorObj('email', 'email')"
+                class="text-danger">
+                {{ "Email invalid" | translate }}
+              </span>
+            </span> -->
+              </div>
+              <div style="flex: 0 0 calc(42% - 28px);">
+                <label for="validationCustom01" class="mb-0 mt-1">
+                  <small style="position: relative;bottom: 4px;" [ngClass]="{ 'font-weight-bold': boldOrNot }">
+                    {{ "Web Address" | translate }}
+                  </small>
+                </label>
+                <input
+                  style="position: relative;top: 6px;"
+                  type="text"
+                  class="form-control form-control-custom w-company-last"
+                  id="validationCustom04"
+                  spellcheck="false"
+                  formControlName="web_address"
+                />
+                <div class="invalid-feedback">Please enter a web address</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <div style="max-width: 100%">
+                  <h3
+                    class="h5 text-secondary master-title"
+                    style="margin-top: 22px"
+                  >
+                    {{ "Visiting Address Details" | translate }}
+                  </h3>
+                  <label for="validationCustomAA"
+                    ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                      "Street and Number" | translate
+                    }}</small></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-custom bg-warningX"
+                    id="validationCustomAA"
+                    spellcheck="false"
+                    formControlName="visiting_address_street_and_no"
+                    style="width: 100%; max-width: 440px"
+                  />
+                  <div class="invalid-feedback">Please enter an address</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <div style="flex: 0 0 calc(49% - 40px); padding-left: 35px">
+                <label for="validationCustomBB"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Zip Code" | translate
+                  }}</small></label
+                >
+
+                <input
+                  type="text"
+                  class="form-control form-control-custom bg-warningX w-zip-code-country"
+                  id="validationCustomBB"
+                  spellcheck="false"
+                  formControlName="visiting_address_postnr"
+                />
+                <div class="invalid-feedback">Please enter a postnr</div>
+              </div>
+              <div style="flex: 0 0 calc(44% - -4px); padding-left: 12px;padding-right:20px">
+                <label for="validationCustomCC"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "City" | translate
+                  }}</small></label
+                >
+
+                <input
+                  type="text"
+                  class="form-control form-control-custom bg-warningX w-city"
+                  id="validationCustomCC"
+                  spellcheck="false"
+                  formControlName="visiting_address_city"
+                />
+                <div class="invalid-feedback">Please enter an ort</div>
+              </div>
+              <div style="flex: 0 0 calc(47% - 42px);">
+                <label for="validationCustomDD"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Country" | translate
+                  }}</small></label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-custom bg-warningX w-company-last"
+                  id="validationCustomDD"
+                  spellcheck="false"
+                  formControlName="visiting_address_land"
+                />
+                <div class="invalid-feedback">Please enter a land</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <div style="max-width: 100%">
+                  <h3
+                    class="h5 text-secondary master-title"
+                    style="margin-top: 22px"
+                  >
+                    {{ "Invoice Address Details" | translate }}
+                  </h3>
+                  <label for="validationCustomXA"
+                    ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                      "Street and number" | translate
+                    }}</small></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-custom bg-infoX"
+                    id="validationCustomXA"
+                    spellcheck="false"
+                    formControlName="invoice_address_street_and_no"
+                    style="width: 100%; max-width: 440px"
+                  />
+                  <div class="invalid-feedback">Please enter an address</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <div style="flex: 0 0 calc(49% - 40px); padding-left: 35px;">
+                <label for="validationCustomXB"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Zip Code" | translate
+                  }}</small></label
+                >
+
+                <input
+                  type="text"
+                  class="form-control form-control-custom bg-infoX w-zip-code-country"
+                  id="validationCustomXB"
+                  spellcheck="false"
+                  formControlName="invoice_address_postnr"
+                />
+                <div class="invalid-feedback">Please enter a postnr</div>
+              </div>
+              <div style="flex: 0 0 calc(44% - -4px);padding-left: 12px;padding-right: 20px;">
+                <label for="validationCustomXC"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "City" | translate
+                  }}</small></label
+                >
+
+                <input
+                  type="text"
+                  class="form-control form-control-custom bg-infoX w-city"
+                  id="validationCustomXC"
+                  spellcheck="false"
+                  formControlName="invoice_address_city"
+                />
+                <div class="invalid-feedback">Please enter an ort</div>
+              </div>
+              <div style="flex: 0 0 calc(47% - 42px);">
+                <label for="validationCustomXD"
+                  ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                    "Country" | translate
+                  }}</small></label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-custom bg-infoX w-company-last"
+                  id="validationCustomXD"
+                  spellcheck="false"
+                  formControlName="invoice_address_land"
+                />
+                <div class="invalid-feedback">Please enter a land</div>
+              </div>
+            </div>
+          </div>
+            <div
+                class="form-group text-center"
+                style="display: flex; justify-content: space-between"
+            >
+                <span class="pd-50" style="margin-left: 37px; margin-top: 25px">
+                    <button
+                        [disabled]="
+                            !userDetails.create_register_customers ||
+                            !createForm.dirty ||
+                            !createForm.valid
+                        "
+                        type="submit"
+                        class="save-button"
+                        [style.opacity]="myform.submitted && createForm.invalid ? '0.5' : '1'"
+                        [style.pointer-events]="myform.submitted && createForm.invalid ? 'none' : 'auto'"
+                    >
+                        <div class="button-icon">
+                            <ng-container *ngIf="!createForm.dirty || !createForm.valid">
+                                <app-folder-icon-with-params-svg
+                                    [width]="23.5"
+                                    [height]="18.548"
+                                    [strokeWidthParams]="1.5"
+                                    [color]="'373b40'"
+                                    [colorStroke]="'cccccc'"
+                                    [opacityVal]="0.973"
+                                ></app-folder-icon-with-params-svg>
+                            </ng-container>
+                            <ng-container *ngIf="createForm.dirty && createForm.valid">
+                                <app-folder-icon-with-params-svg
+                                    [width]="23.5"
+                                    [height]="18.548"
+                                    [strokeWidthParams]="1.5"
+                                    [color]="'373b40'"
+                                    [colorStroke]="'ff7000'"
+                                    [opacityVal]="0.973"
+                                ></app-folder-icon-with-params-svg>
+                            </ng-container>
+                        </div>
+                        <div>
+                        {{ "Save" | translate }}
+                        </div>
+                    </button>
+                </span>
+                <span
+                class="postion-delete-button"
+                style="margin-top: 25px; position: relative"
+                >
+                <button
+                    *ngIf="allowEditSupplierInvoice() && theClient.allow_delete"
+                    [disabled]="!userDetails.create_register_customers"
+                    type="submit"
+                    class="delete-button"
+                    (click)="removeClient($event)"
+                >
+                    <div class="button-icon-delete">
+                    <app-delete-icon
+                        [width]="10"
+                        [height]="15"
+                        [color]="'FD4444'"
+                    ></app-delete-icon>
+                    </div>
+
+                    <div>
+                    {{ "Delete" | translate }}
+                    </div>
+                </button>
+                </span>
+            </div>
+        </form>
+        <div *ngIf="selectedTab == 2">
+          <app-comment-section
+          content_type="client"
+          [parentId]="theClient.Id"
+        ></app-comment-section>
+        </div>
+      </div>
+      <div class="vertical-line"></div>
+      <div class="horizontal-line"></div>
+    </div>
+  </div>
+  <div
+    class="tab-content"
+    *ngIf="selectedTab == 1"
+    class="border-master-tab-two"
+  >
+    <div class="tab-pane fade show active p-3" id="workers" role="tabpanel">
+      <h2 class="h5 text-secondary title-edit-project">
+        {{ "Employees of" | translate }} {{ theClient.Name }}
+      </h2>
+      <div class="px-0 d-flex">
+        <div class="searchdiv">
+          <div class="input-group mb-3" class="responsiveInput1">
+            <span class="search-icon">
+              <app-search-icon-with-params-svg
+              [width]="13"
+              [height]="13.06"
+              [color]="'fcf4ec'"
+            ></app-search-icon-with-params-svg>
+            </span>
+            <input
+              (input)="onSearch(filterInput.value)"
+              #filterInput
+              class="search-form form-control mr-sm-2"
+              type="text"
+              placeholder="{{ 'Search for customers' | translate }}"
+              aria-label="Search"
+              id="filterInput"
+            />
+            <span class="clear-icon" (click)="clearInput()">
+              <app-clean-search-input-icon-svg
+              [width]="10.189"
+              [height]="10.189"
+              [color]="'fcf4ec'"
+            ></app-clean-search-input-icon-svg>
+            </span>
+          </div>
+        </div>
+        <form class="buttons-form">
+          <div class="group-status" (click)="onStatusChangeExternal('0')">
+            <div class="svg-wrapp">
+              <app-not-selected-icon-svg
+                *ngIf="this.statusClientWorker[0] == false"
+              ></app-not-selected-icon-svg>
+              <app-selected-icon-svg
+                color="#03D156"
+                *ngIf="this.statusClientWorker[0] == true"
+              ></app-selected-icon-svg>
+            </div>
+            <div class="filter-name">{{ "Active" | translate }}</div>
+          </div>
+          <div class="group-status" (click)="onStatusChangeExternal('1')">
+            <div class="svg-wrapp">
+              <app-not-selected-icon-svg
+                *ngIf="this.statusClientWorker[1] == false"
+              ></app-not-selected-icon-svg>
+              <app-selected-icon-svg
+                color="#FD4444"
+                *ngIf="this.statusClientWorker[1] == true"
+              ></app-selected-icon-svg>
+            </div>
+            <div class="filter-name">{{ "EJ AKTIVA" | translate }}</div>
+          </div>
+          <div class="group-status" (click)="onStatusChangeExternal('all')">
+            <div class="svg-wrapp">
+              <app-not-selected-icon-svg
+                *ngIf="statusClientWorker['all'] == false"
+              ></app-not-selected-icon-svg>
+              <app-selected-icon-svg
+                color="#FCF4EC"
+                *ngIf="statusClientWorker['all'] == true"
+              ></app-selected-icon-svg>
+            </div>
+            <div class="filter-name">{{ "Select All" | translate }}</div>
+          </div>
+        <div
+          (mouseenter)="onMouseEnter();changeTextColor('#FF7000')"
+          *ngIf="userDetails.create_register_customers"
+          (mouseleave)="onMouseLeave();changeTextColor('')"
+          class="group-status group-new-client btn-new-client"
+          [ngClass]="currentClassDiv"
+        >
+          <a
+            (click)="openAddingContactSupplierModal()"
+            (mouseenter)="enter()"
+            (mouseleave)="leave()"
+          >
+            <span class="add-icon-position">
+                <app-add-icon-with-params-svg
+                #childComponentAddIcon
+                [width]="16"
+                [height]="16"
+                [fill]="fillColor"
+                [fillPuls]="'373b40'"
+              >
+              </app-add-icon-with-params-svg>
+            </span>
+            <span
+                class="title-new-client ml-2 mr-2 text-uppercase"
+                [style.color]="textColor">
+                {{ "Add contact person" | translate }}
+            </span>
+          </a>
+        </div>
+        </form>
+      </div>
+
+      <div
+        [ngClass]="selectedTab == 1 ? 'blu-scroll-wrapp2' : 'blu-scroll-wrapp'"
+        *ngIf="!spinner"
+      >
+        <div
+          [ngClass]="
+            selectedTab == 1
+              ? 'card-project2 w-1002 blu-scroll skrollbar2'
+              : 'card-project w-100 blu-scroll skrollbar'
+          "
+        >
+        <table
+        class="table tab-responsive table-striped table-hover table-lightX table-sm"
+        id="theTable"
+
+      >
+        <thead class="table-bordered">
+          <tr>
+            <th scope="col" class="title-w">
+              <div
+                class="d-flex justify-content-between align-items-center flex-column-800"
+              >
+                <span [ngClass]="{ 'hide-800': this.showAddContactForm }">{{
+                  "Title" | translate
+                }}</span>
+                <div
+                  style="height: 22px; white-space: nowrap"
+                  *ngIf="this.showAddContactForm"
+                >
+                  <span
+                    *ngIf="!addingOrEditing"
+                    style="cursor: pointer"
+                    class="material-icons text-success mr-1-800"
+                    (click)="showAddTitle(newTitleInput)"
+                    >add</span
+                  >
+                  <span
+                    *ngIf="!addingOrEditing"
+                    style="
+                      cursor: pointer;
+                      font-size: 1.25em;
+                      position: relative;
+                      bottom: 3px;
+                    "
+                    class="material-icons text-warning mr-1-800"
+                    (click)="showEditTitle(selectTitleInput, newTitleInput)"
+                    >edit</span
+                  >
+                  <span
+                    *ngIf="!addingOrEditing && allowEditSupplierInvoice()"
+                    style="
+                      cursor: pointer;
+                      font-size: 1.25em;
+                      position: relative;
+                      bottom: 3px;
+                    "
+                    class="material-icons text-danger"
+                    (click)="deleteTitle(selectTitleInput)"
+                    >delete</span
+                  >
+                  <span
+                    *ngIf="addingOrEditing && allowEditSupplierInvoice()"
+                    style="cursor: pointer"
+                    class="material-icons text-success mr-1-800"
+                    (click)="saveTitle(selectTitleInput, newTitleInput.value)"
+                    >save</span
+                  >
+                  <span
+                    *ngIf="addingOrEditing"
+                    style="cursor: pointer"
+                    class="material-icons text-secondary"
+                    (click)="closeAddEditMode()"
+                    >arrow_forward</span
+                  >
+                </div>
+              </div>
+            </th>
+
+            <th class="name-w" scope="col">{{ "Name" | translate }}</th>
+            <th class="fornamn-w" scope="col">
+              {{ "Last Name" | translate }}
+            </th>
+            <th class="mobile-w" scope="col">{{ "Mobile" | translate }}</th>
+            <th class="e-post-w" scope="col">{{ "Email" | translate }}</th>
+            <th class="status-w text-center" scope="col">
+              {{ "Status" | translate }}
+            </th>
+            <th
+              class="delete-w"
+              scope="col"
+              style="white-space: nowrap; padding-left: 20px"
+            >
+            <app-delete-icon
+            [width]="10"
+            [height]="15"
+            [color]="'E3DBD3'"
+          ></app-delete-icon>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="table-bordered tr-toggleableX">
+          <tr
+            [ngStyle]="{
+              display: showAddContactForm ? 'table-row' : 'none'
+            }"
+          >
+            <td>
+              <select
+                [hidden]="addingOrEditing"
+                [attr.disabled]="
+                  !userDetails.create_register_customers ? 'disabled' : null
+                "
+                class="custom-select custom-select-sm"
+                (change)="onTitleSelect(selectTitleInput.value)"
+                #selectTitleInput
+              >
+                <option selected value="0">
+                  {{ "Choose the title" | translate }}
+                </option>
+                <option
+                  *ngFor="let title of titles"
+                  value="{{ title.TitleID }}"
+                >
+                  {{ title.Name }}
+                </option>
+              </select>
+              <input
+                [hidden]="!addingOrEditing"
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="{{ 'Choose title name' | translate }}"
+                #newTitleInput
+              />
+            </td>
+
+            <td>
+              <input
+                [attr.disabled]="
+                  !userDetails.create_register_customers ? 'disabled' : null
+                "
+                type="text"
+                class="form-control form-control-sm"
+                id="theFirstName"
+                aria-describedby="theFirstNameHelp"
+                placeholder="{{ 'First Name' | translate }}"
+                [(ngModel)]="newWorker.FirstName"
+              />
+            </td>
+            <td>
+              <input
+                [attr.disabled]="
+                  !userDetails.create_register_customers ? 'disabled' : null
+                "
+                type="text"
+                class="form-control form-control-sm"
+                id="theLastName"
+                aria-describedby="theLastNameHelp"
+                placeholder="{{ 'Last Name' | translate }}"
+                [(ngModel)]="newWorker.LastName"
+              />
+            </td>
+
+            <td>
+              <input
+                [attr.disabled]="
+                  !userDetails.create_register_customers ? 'disabled' : null
+                "
+                type="text"
+                class="form-control form-control-sm"
+                id="theNumber"
+                aria-describedby="theNumberHelp"
+                placeholder="{{ 'Address' | translate }}"
+                [(ngModel)]="newWorker.Address"
+              />
+            </td>
+            <td>
+              <input
+                [attr.disabled]="
+                  !userDetails.create_register_customers ? 'disabled' : null
+                "
+                type="email"
+                class="form-control form-control-sm"
+                id="theEmail"
+                aria-describedby="theEmailHelp"
+                placeholder="{{ 'Email' | translate }}"
+                [(ngModel)]="newWorker.Email"
+              />
+            </td>
+            <td></td>
+            <td
+              style="border-right: none !important"
+              class="text-center"
+              [ngClass]="{
+                disabled: !userDetails.create_register_customers
+              }"
+            >
+              <span
+                class="material-icons text-success"
+                [ngClass]="
+                  !this.showAddContactForm
+                    ? 'cursor-default'
+                    : 'cursor-pointer'
+                "
+                (click)="addOneWorker()"
+                >save</span
+              >
+            </td>
+          </tr>
+
+          <tr
+            *ngFor="let worker of client; let index = index"
+            [ngClass]="
+              !this.showAddContactForm ? 'opacityFull' : 'opacity20percent'
+            "
+          >
+            <td
+            class="pl-10-left"
+            (click)="openAddingContactSupplierModal(worker)">{{ worker.Title }}</td>
+            <td
+            class="pl-10-left"
+            (click)="openAddingContactSupplierModal(worker)">{{ worker.FirstName }}</td>
+            <td
+            (click)="openAddingContactSupplierModal(worker)">{{ worker.LastName }}</td>
+
+            <td
+            class="pl-10-left"
+            (click)="openAddingContactSupplierModal(worker)">{{ worker.Mobile }}</td>
+            <td
+            class="pl-10-left"
+            (click)="openAddingContactSupplierModal(worker)">{{ worker.email }}</td>
+            <td
+            (click)="openAddingContactSupplierModal(worker)"
+              [ngClass]="[
+              worker.status === 'Active' ? 'bg-active' : 'bg-inactive'
+              ]"
+              class="text-center"
+            >
+              <span >{{
+                worker.status | translate
+              }}</span>
+            </td>
+            <td
+              style="border-right: none !important"
+              class="text-center"
+              [ngClass]="{
+                disabled: !userDetails.create_register_customers
+              }"
+            >
+              <i
+                *ngIf="allowEditSupplierInvoice()"
+                (click)="deleteWorker(index)"
+                class="material-icons text-danger cursor-pointer"
+              >
+              <app-delete-icon
+              [width]="10"
+              [height]="15"
+              [color]="'858585'"
+            ></app-delete-icon>
+              </i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+        </div>
+        <div class="vertical-line"></div>
+        <div class="horizontal-line"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="showModal"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="closeModal($event)"
+>
+  <article
+    class="card narrow400 minh70p p-4 d-flex flex-column justify-content-between"
+  >
+    <section>
+      <p>
+        {{
+          "Client category can't be deleted because it is being used by one or more suppliers"
+            | translate
+        }}
+      </p>
+      <div *ngIf="clientsUsingCategory">
+        <h5>{{ "Clients using category" | translate }}:</h5>
+        <ul>
+          <li
+            *ngFor="let client of clientsUsingCategory"
+            class="text-danger"
+          >
+            <a
+              routerLink="/clients/details/{{ client.Id }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-danger"
+              >{{ client.Name }} &rarr;</a
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+  </article>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

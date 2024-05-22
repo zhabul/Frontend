@@ -1,0 +1,11 @@
+<div id="main-pdf-preview">
+    <app-preview-image
+
+        *ngFor="let item of items; let index = index;"
+        [item]="item"
+        [index]="index"
+        [pageTotal]="items.length + 1"
+
+    >
+    </app-preview-image>
+</div>

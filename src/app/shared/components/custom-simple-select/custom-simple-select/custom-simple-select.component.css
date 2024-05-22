@@ -1,0 +1,212 @@
+.simple-select-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.custom-select-title {
+  border: 1.5px solid #858585;
+  border-radius: 5px;
+  background-color: white;
+  padding-left: 15px;
+  cursor: pointer;
+  color: #44484C;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.custom-select-title:hover svg path,
+.custom-select-title:hover {
+  fill: #FF7000;
+  color: #FF7000;
+  font-weight: bold;
+}
+
+.custom-select-title-open {
+  color: #FF7000;
+  font-weight: bold;
+}
+
+.disable-select {
+  user-select: none; /* supported by Chrome and Opera */
+ -webkit-user-select: none; /* Safari */
+ -khtml-user-select: none; /* Konqueror HTML */
+ -moz-user-select: none; /* Firefox */
+ -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.smaller-height {
+  height: 0;
+}
+
+.custom-title-select-placeholder {
+  padding: 2% 0;
+  font-size: 14px;
+}
+
+.custom-title-select-selected {
+  padding: 1% 0;
+  font-size: 18px;
+}
+
+
+.svg-custom-down {
+  transform: rotate(90deg);
+  fill: #44484C;
+  float: right;
+  pointer-events: none;
+  margin-top: 9px;
+  margin-right: 21px;
+}
+
+.svg-custom-up {
+  transform: rotate(-90deg);
+  fill: #44484C;
+  float: right;
+  margin-top: 12px;
+  margin-right: 21px;
+}
+
+.svg-custom-up-open {
+  fill: #FF7000;
+}
+
+.custom-select-shadow {
+  -webkit-box-shadow:0px 1px 1px #888;
+  -moz-box-shadow:0px 1px 1px #888;
+  box-shadow:0px 3px 7px #888;
+}
+
+.custom-select-title-open {
+  color: #FF7000;
+  font-weight: bold;
+}
+
+.custom-select-list {
+  width: 125%;
+  height: 100%;
+  border-top: 3px solid #FF7000;
+  position: relative;
+  z-index: -1;
+}
+
+.custom-select-list-form {
+  width: 100%;
+  height: 100%;
+  border-top: 3px solid #FF7000;
+  position: relative;
+  z-index: -1;
+}
+
+.custom-select-list-bottom-border {
+  background-color: #FF7000;
+  height: 100%;
+  width: 100%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.custom-select-list-item {
+  border-bottom: 1.5px solid #858585;
+  border-left: 1.5px solid #858585;
+  border-right: 1.5px solid #858585;
+  padding: 3% 15px;
+  background-color: white;
+  color: #44484C;
+  border-left: 3px solid #FF7000;
+  width: 100%;
+  height: 35px;
+}
+
+.custom-select-list-item:hover {
+  color: #FF7000;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.custom-select-list-bottom-border {
+  background-color: #FF7000;
+  height: 6px;
+  width: 100%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.example-item {
+  height: 50px;
+}
+
+.example-viewport {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+}
+
+.skroller-bigger {
+  height: 210px;
+  overflow-y: scroll;
+  border-right: 3px solid #FF7000;
+}
+
+
+
+  /* ako zatreba skroller i kad ima malo opcija
+  samo dodati
+  overflow-y: scroll; */
+.skroller-smaller {
+  border-right: 3px solid #FF7000;
+}
+
+
+.skroller-bigger::-webkit-scrollbar {
+  width: 15px;               /* width of the entire scrollbar */
+}
+
+.skroller-bigger::-webkit-scrollbar-track {
+  background: white;        /* color of the tracking area */
+}
+
+.skroller-bigger::-webkit-scrollbar-thumb {
+  background-color: #858585;    /* color of the scroll thumb */
+  border-radius: 2px;       /* roundness of the scroll thumb */
+  border: 6px solid white;  /* creates padding around scroll thumb */
+}
+
+.skroller-bigger::-webkit-scrollbar-button:start  {
+  background-image: url(./up-arrow-svgrepo-com.svg);
+  background-color: white;
+}
+
+.skroller-bigger::-webkit-scrollbar-button:end  {
+  background-image: url(./down-arrow-svgrepo-com.svg);
+  background-color: white;
+}
+
+
+.skroller-smaller::-webkit-scrollbar {
+  width: 15px;               /* width of the entire scrollbar */
+}
+
+.skroller-smaller::-webkit-scrollbar-track {
+  background: white;        /* color of the tracking area */
+}
+
+.skroller-smaller::-webkit-scrollbar-thumb {
+  background-color: #858585;    /* color of the scroll thumb */
+  border-radius: 2px;       /* roundness of the scroll thumb */
+  border: 6px solid white;  /* creates padding around scroll thumb */
+}
+
+.skroller-smaller::-webkit-scrollbar-button:start  {
+  background-image: url(./up-arrow-svgrepo-com.svg);
+  background-color: white;
+}
+
+.skroller-smaller::-webkit-scrollbar-button:end  {
+  background-image: url(./down-arrow-svgrepo-com.svg);
+  background-color: white;
+}
+
+.make-border-orange {
+  border: 2px solid #FF7000;
+}

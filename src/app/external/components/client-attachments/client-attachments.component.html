@@ -1,0 +1,85 @@
+<div class="container-wrapper" *ngIf="allowTemplate">
+  <div class="form-heding-client">
+      <div class="d-flex align-items-center border-h-project px-4 py-2">
+          <h1 class="client-header">{{'Documents' | translate}}</h1>
+          <div class="project text-muted w-100 ml-3 mt-1">
+              <h1 class="posRel fs-18 title-project-color title-head-wrapp">{{property['name']}}</h1>
+          </div>
+      </div>
+  </div>
+  <div class="gallery-container">
+      <ng-template #otherComponent>
+        <app-gallery
+          style="width: 100%;height:100%"
+          *ngIf="swiper.images.length"
+          [swiper]="swiper"
+          [canRemove]="false"
+          (removeImageEvent)="removeSwiperImage($event)"
+          (closeSwiperEvent)="closeSwiper()"
+          (setActive)="setActive($event)"
+          [server]="true"
+          position="relative"
+        ></app-gallery>
+      </ng-template>
+      <ng-container *ngIf="isPDFViewer; else otherComponent">
+        <app-pdfjs-viewer
+          style="width: 100%;height:100%"
+          *ngIf="swiper.images.length"
+          [swiper]="swiper"
+          [canRemove]="false"
+          (removeImageEvent)="removeSwiperImage($event)"
+          (closeSwiperEvent)="closeSwiper()"
+          (setActive)="setActive($event)"
+          [server]="true"
+          position="relative"
+        ></app-pdfjs-viewer>
+      </ng-container>
+
+  </div>
+  <div class="attachments-container blu-scroll" #fixedBlueScroll>
+      <div class="files-cont">
+          <div *ngIf="pdfs.length" class="file-type-title">{{ 'Files' | translate }}</div>
+          <div *ngIf="pdfs.length" class="images-container">
+              <!-- <app-file-preview
+              *ngFor="let file of pdfs; let index = index"
+              type="pdf"
+              [file]="file"
+              [index]="index"
+              [active]="activePdf"
+              (openSwiper)="closeAndOpen(index, pdfs);"
+              [canRemove]="false"
+            ></app-file-preview> -->
+            <app-pdfjs-preview
+              *ngFor="let file of pdfs; let index = index"
+              style="display: flex; cursor: pointer; width: 68px;"
+              type="pdf"
+              (click)="closeAndOpen(index, pdfs);"
+              [pdfUrls]="[file['file_path']]"
+              [deleted]=""
+              [canRemove]="false"
+              [index]="index"
+              [active]="activePdf"
+              [width]="68"
+              [height]="43"
+              [borderRadius]="'0px 0px 0px 0px'"
+              [folder]="true"
+              [ngStyle]="{ 'opacity': activePdf === index ? '1' : '0.5' }"
+              >
+            </app-pdfjs-preview>
+          </div>
+          <div *ngIf="images.length" class="file-type-title">{{ 'Images' | translate }}</div>
+          <div *ngIf="images.length" class="images-container">
+              <app-file-preview
+                *ngFor="let file of images; let index = index"
+                type="image"
+                [file]="file"
+                [index]="index"
+                [active]="activeImage"
+                (openSwiper)="openSwiper(index,images,-1)"
+                [canRemove]="false"
+              ></app-file-preview>
+          </div>
+          <div [ngStyle]="calcLineHeight()" class="thin-red-line-right"></div>
+      </div>
+  </div>
+</div>

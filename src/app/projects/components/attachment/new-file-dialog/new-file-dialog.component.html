@@ -1,0 +1,319 @@
+<mat-dialog-content class="mat-dialog-file-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="dialog-wrapper">
+    <div class="dialog-title">
+        {{ "Upload files and documents" | translate }}
+    </div>
+    <div class="close-dialog" (click)="onClose()">
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="25"
+        height="24.999"
+        viewBox="0 0 25 24.999"
+        >
+        <defs>
+            <clipPath id="clip-path21">
+            <path
+                id="Path_782"
+                data-name="Path 782"
+                d="M0,9.756H25v-25H0Z"
+                transform="translate(0 15.243)"
+                fill="none"
+            />
+            </clipPath>
+        </defs>
+        <g id="Stäng_Close_" data-name="Stäng (Close)" transform="translate(0 0)">
+            <g id="Group_6898" data-name="Group 6898">
+            <g id="Group_341" data-name="Group 341" clip-path="url(#clip-path21)">
+                <g
+                id="Group_340"
+                data-name="Group 340"
+                transform="translate(0 0.001)"
+                >
+                <path
+                    id="Path_781"
+                    data-name="Path 781"
+                    d="M4.877,9.113A10.752,10.752,0,0,1-5.878-1.724,10.752,10.752,0,0,1,4.877-12.561,10.752,10.752,0,0,1,15.633-1.724,10.752,10.752,0,0,1,4.877,9.113m0,1.647a12.534,12.534,0,0,0,12.5-12.5,12.532,12.532,0,0,0-12.5-12.5,12.532,12.532,0,0,0-12.5,12.5,12.534,12.534,0,0,0,12.5,12.5"
+                    transform="translate(7.621 14.239)"
+                    fill="#b8b8b8"
+                />
+                </g>
+            </g>
+            <path
+                id="Path_783"
+                data-name="Path 783"
+                d="M1.478,1.781l-5.1,5.107,1.057,1.069L2.548,2.85,7.66,7.957,8.717,6.888,3.605,1.781,8.717-3.313,7.647-4.369,2.548.725-2.565-4.382-3.622-3.313Z"
+                transform="translate(9.952 10.712)"
+                fill="#b8b8b8"
+            />
+            </g>
+        </g>
+        </svg>
+    </div>
+    <div class="content-wrapper">
+        <div class="name-wrapper">
+        <div class="label-color">
+            {{ "name" | translate | titlecase }} /
+            {{ "description" | translate | titlecase }}
+        </div>
+        <input
+            type="text"
+            placeholder="{{ 'name' | translate | titlecase }}"
+            class="custom-input"
+            [(ngModel)]="description"
+        />
+        </div>
+        <div class="name-wrapper" *ngIf="type == 'user'">
+        <div class="label-color">
+            {{ "date" | translate | titlecase }}
+        </div>
+        <input
+            type="text"
+            class="custom-input"
+            id="document-date"
+            [(ngModel)]="date"
+        />
+        </div>
+        <app-image-modal-comment
+        [widthAndHeight]="{
+            blueWidth: 180,
+            greyWidht: 415,
+            height: 60,
+            padding: 0,
+            marginRight: 0
+        }"
+        fileType="application/pdf,image/*"
+        (updateAlbums)="updateAlbums($event)"
+        [infoObject]="infoObject"
+        [inFileUploadDialog]="true"
+        [limit]="limited"
+        [allowedDocuments]="allowedDocuments"
+        (isMouseEnterDragZone)="isMouseEnterDragZoneFun($event)"
+        >
+        </app-image-modal-comment>
+        <div
+        *ngIf="(imagesAndPdfs$ | async).length === 0"
+        class="do-not-remove-this-div"
+        >
+        </div>
+
+        <div
+        class="files-wrapper blu-scroll dashed-border"
+        [ngClass]="{ 'dashed-border': isMouseEnterDragZone }"
+        *ngIf="(imagesAndPdfs$ | async).length >= 0"
+        >
+        <div
+            class="file-wrapper"
+            *ngFor="let file of imagesAndPdfs | async; let index = index"
+        >
+            <div class="file-preview">
+            <ng-container
+                *ngIf="file.name.includes('.xlsx') || file.name.includes('.docx')"
+            >
+                <div [style.padding-left]="'1.5rem'">
+                <app-word-svg></app-word-svg>
+                </div>
+            </ng-container>
+            <ng-container
+                *ngIf="!file.name.includes('.xlsx') && !file.name.includes('.docx')"
+            >
+                <app-pdfjs-preview
+                *ngIf="file.name.includes('.pdf')"
+                    style="cursor:pointer; margin-left: 5px;"
+                    type="pdf"
+                    (click)="OpenPreviewPdf(index, getAlbumPDFClient())"
+                    [pdfUrls]="[file['Url']]"
+                    [deleted]=""
+                    [canRemove]="false"
+                    [index]="index"
+                    [active]="index"
+                    [width]="68"
+                    [height]="43"
+                    [borderRadius]="'0px 0px 0px 0px'"
+                    [folder]="false"
+                >
+                </app-pdfjs-preview>
+
+                <app-file-preview
+                *ngIf="!file.name.includes('pdf')"
+                type="image"
+                [file]="file"
+                [index]="index"
+                [active]="index"
+                [canRemove]="false"
+                [imageModal]="true"
+                (openSwiper)="openSwiper(index, getAlbumImagesClient())"
+                modalType="default-without-folder"
+                >
+                </app-file-preview>
+            </ng-container>
+            </div>
+
+            <div class="file-name">{{ file.Name }}</div>
+            <div class="file-remove" (click)="onRemoveObservable(file.Name)">
+            <svg
+                id="Group_7753"
+                data-name="Group 7753"
+                xmlns="http://www.w3.org/2000/svg"
+                width="13.996"
+                height="20.451"
+                viewBox="0 0 13.996 20.451"
+            >
+                <path
+                id="Path_800"
+                data-name="Path 800"
+                d="M35.957,16.923a.389.389,0,0,0-.364-.411H31.819V15.53a.389.389,0,0,0-.364-.411H26.506a.389.389,0,0,0-.364.411v.982H22.337a.39.39,0,0,0-.364.411v1.208H35.957Z"
+                transform="translate(-21.973 -15.119)"
+                fill="#858585"
+                />
+                <path
+                id="Path_801"
+                data-name="Path 801"
+                d="M21.973,23.209,23.684,39.17c.043.236.163.356.364.356h9.847c.2,0,.321-.12.364-.356l1.711-15.961Zm3.212,15.156L24,26.357h1.579l.634,12.009Zm4.548,0H28.074l-.234-12.009h2.094Zm2.888,0H31.592l.634-12.009H33.8Z"
+                transform="translate(-21.973 -19.075)"
+                fill="#858585"
+                />
+            </svg>
+            </div>
+        </div>
+        </div>
+        <div
+        class="files-wrapper orange-scroll"
+        *ngIf="
+            (added_images && added_images.length > 0) ||
+            (added_documents && added_documents.length > 0)
+        "
+        >
+        <div
+            class="file-wrapper"
+            *ngFor="let file of added_images; let index = index"
+        >
+            <div class="file-preview file-preview-added-doc">
+            <ng-container *ngIf="added_images && added_images.length > 0">
+                <app-file-preview
+                type="image"
+                [file]="file"
+                [index]="index"
+                [active]="index"
+                [canRemove]="false"
+                (openSwiper)="openSwiper(index, added_images, 1)"
+                ></app-file-preview>
+            </ng-container>
+            </div>
+            <div class="file-name">{{ file.name }}</div>
+            <div
+            class="file-remove"
+            (click)="removeDocumentsFormDB(file, index, 'image')"
+            >
+            <svg
+                id="Group_7753"
+                data-name="Group 7753"
+                xmlns="http://www.w3.org/2000/svg"
+                width="13.996"
+                height="20.451"
+                viewBox="0 0 13.996 20.451"
+            >
+                <path
+                id="Path_800"
+                data-name="Path 800"
+                d="M35.957,16.923a.389.389,0,0,0-.364-.411H31.819V15.53a.389.389,0,0,0-.364-.411H26.506a.389.389,0,0,0-.364.411v.982H22.337a.39.39,0,0,0-.364.411v1.208H35.957Z"
+                transform="translate(-21.973 -15.119)"
+                fill="#858585"
+                />
+                <path
+                id="Path_801"
+                data-name="Path 801"
+                d="M21.973,23.209,23.684,39.17c.043.236.163.356.364.356h9.847c.2,0,.321-.12.364-.356l1.711-15.961Zm3.212,15.156L24,26.357h1.579l.634,12.009Zm4.548,0H28.074l-.234-12.009h2.094Zm2.888,0H31.592l.634-12.009H33.8Z"
+                transform="translate(-21.973 -19.075)"
+                fill="#858585"
+                />
+            </svg>
+            </div>
+        </div>
+        <div
+            class="file-wrapper"
+            *ngFor="let file of added_documents; let index = index"
+        >
+            <div class="file-preview">
+            <ng-container *ngIf="added_documents && added_documents.length > 0">
+                <app-pdfjs-preview
+                    style="cursor:pointer; margin-left: 5px;"
+                    type="pdf"
+                    (click)="openSwiper(index, added_documents, 1)"
+                    [pdfUrls]="[pdf['file_path']]"
+                    [deleted]=""
+                    [canRemove]="false"
+                    [index]="index"
+                    [active]="index"
+                    [width]="68"
+                    [height]="43"
+                    [borderRadius]="'0px 0px 0px 0px'"
+                    [folder]="false"
+                >
+                </app-pdfjs-preview>
+            </ng-container>
+            </div>
+            <div class="file-name">{{ file.name }}</div>
+            <div
+            class="file-remove"
+            (click)="removeDocumentsFormDB(file, index, 'document')"
+            >
+            <svg
+                id="Group_7753"
+                data-name="Group 7753"
+                xmlns="http://www.w3.org/2000/svg"
+                width="13.996"
+                height="20.451"
+                viewBox="0 0 13.996 20.451"
+            >
+                <path
+                id="Path_800"
+                data-name="Path 800"
+                d="M35.957,16.923a.389.389,0,0,0-.364-.411H31.819V15.53a.389.389,0,0,0-.364-.411H26.506a.389.389,0,0,0-.364.411v.982H22.337a.39.39,0,0,0-.364.411v1.208H35.957Z"
+                transform="translate(-21.973 -15.119)"
+                fill="#858585"
+                />
+                <path
+                id="Path_801"
+                data-name="Path 801"
+                d="M21.973,23.209,23.684,39.17c.043.236.163.356.364.356h9.847c.2,0,.321-.12.364-.356l1.711-15.961Zm3.212,15.156L24,26.357h1.579l.634,12.009Zm4.548,0H28.074l-.234-12.009h2.094Zm2.888,0H31.592l.634-12.009H33.8Z"
+                transform="translate(-21.973 -19.075)"
+                fill="#858585"
+                />
+            </svg>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div
+        class="add-btn"
+        [ngClass]="hasItems || removed_document.length > 0 ? '' : 'btn-disable'"
+        (click)="onSave()"
+    >
+        <div>
+        <app-plus-svg [color]="'#4CB185'" *ngIf="hasItems"></app-plus-svg>
+        <app-plus-svg *ngIf="!hasItems"></app-plus-svg>
+        </div>
+        <div>{{ "add" | translate | uppercase }}</div>
+    </div>
+    </div>
+    <ng-template #otherComponent>
+    <app-gallery
+        *ngIf="swiper.images.length"
+        [swiper]="swiper"
+        [canRemove]="false"
+        (closeSwiperEvent)="closeSwiper()"
+        [server]="true"
+    ></app-gallery>
+    </ng-template>
+    <ng-container *ngIf="isPDFViewer; else otherComponent">
+    <app-pdfjs-viewer
+        *ngIf="swiper.images.length"
+        [swiper]="swiper"
+        [canRemove]="false"
+        (closeSwiperEvent)="closeSwiper()"
+        [server]="true"
+    ></app-pdfjs-viewer>
+    </ng-container>
+</mat-dialog-content>

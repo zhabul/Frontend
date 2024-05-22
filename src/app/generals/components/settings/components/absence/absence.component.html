@@ -1,0 +1,137 @@
+<div class="buttons" *ngIf="!loading && userDetails.create_settings_Global">
+  <button (click)="openNewAbsenceModal()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="add-icon"
+      width="20"
+      viewBox="0 0 19 19"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+        clip-rule="evenodd"
+      />
+    </svg>
+    <p>{{ "Create new absence type" | translate | uppercase }}</p>
+  </button>
+</div>
+
+<div class="absence-container blu-scroll" *ngIf="!loading"
+     [ngClass]="{'absence-container-no-button':!userDetails.create_settings_Global}"
+  >
+  <div class="list-head">
+    <div>
+      <p>{{ "Name" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Short name" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Color" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Paid" | translate }}</p>
+    </div>
+    <div *ngIf="allow_flex">
+      <p>{{ "Flex" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Edit" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Remove" | translate }}</p>
+    </div>
+  </div>
+
+  <div class="list">
+    <div class="list-row" *ngFor="let absence of absences; let i = index">
+      <div>
+        <p>{{ absence.Name }}</p>
+      </div>
+      <div>
+        <p>{{ absence.ShortName }}</p>
+      </div>
+
+      <div
+        [ngStyle]="{ 'background-color': absence.color }"
+        style="cursor: pointer"
+      >
+        <ng-container *ngIf="userDetails.create_settings_Global">
+          <div
+            class="color-picker-input"
+            (click)="getPresetColors()"
+            [(colorPicker)]="absence.color"
+            [cpWidth]="'210px'"
+            [cpOutputFormat]="'rgba'"
+            [cpPresetColors]="presetColors"
+            [cpPresetLabel]="''"
+            [cpCmykEnabled]="'false'"
+            (colorPickerSelect)="changeColor(color, absence)"
+          ></div>
+        </ng-container>
+      </div>
+      <div>
+        <svg
+          _ngcontent-caj-c169=""
+          *ngIf="absence.paid == 1"
+          xmlns="http://www.w3.org/2000/svg"
+          width="15"
+          height="15"
+          viewBox="0 0 30.843 26.649"
+        >
+          <path
+            _ngcontent-caj-c169=""
+            id="Path_422"
+            data-name="Path 422"
+            d="M29.2,68.509a1.328,1.328,0,0,0-2.095,0L9.353,89.431l-6.825-8.04a1.328,1.328,0,0,0-2.095,0,1.973,1.973,0,0,0,0,2.469L8.3,93.135a1.328,1.328,0,0,0,2.095,0L29.2,70.964a1.974,1.974,0,0,0,0-2.455Z"
+            transform="translate(0.609 -67.498)"
+            fill="#07b937"
+            stroke="#0bb70b"
+            stroke-width="1"
+          ></path>
+        </svg>
+      </div>
+      <div *ngIf="allow_flex">
+        <svg
+          _ngcontent-caj-c169=""
+          *ngIf="absence.flex == 1"
+          xmlns="http://www.w3.org/2000/svg"
+          width="15"
+          height="15"
+          viewBox="0 0 30.843 26.649"
+        >
+          <path
+            _ngcontent-caj-c169=""
+            id="Path_422"
+            data-name="Path 422"
+            d="M29.2,68.509a1.328,1.328,0,0,0-2.095,0L9.353,89.431l-6.825-8.04a1.328,1.328,0,0,0-2.095,0,1.973,1.973,0,0,0,0,2.469L8.3,93.135a1.328,1.328,0,0,0,2.095,0L29.2,70.964a1.974,1.974,0,0,0,0-2.455Z"
+            transform="translate(0.609 -67.498)"
+            fill="#07b937"
+            stroke="#0bb70b"
+            stroke-width="1"
+          ></path>
+        </svg>
+      </div>
+      
+      <div>
+        <img
+          class="icon"
+          src="../../../../assets/img/edit-icon.svg"
+          alt="edit"
+          (click)="editAbsence(absence)"
+        />
+      </div>
+      <div>
+        <img
+          class="icon"
+          src="../../../../assets/img/trashcan.svg"
+          alt="remove"
+          (click)="removeAbsence(i)"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="thin-red-line-bottom"></div>
+<mat-spinner class="spinner" *ngIf="loading || secondLoading"></mat-spinner>

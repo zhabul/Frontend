@@ -1,0 +1,13 @@
+<div class="con-modal-container">
+  <div class="con-modal-body">
+    <div class="con-modal-text">{{ modalInfo.modalText | translate }}?</div>
+    <div class="con-modal-buttons">
+      <div (click)="confirmInput()" class="green">
+        {{ "Yes" | translate }}
+      </div>
+      <div class="red" (click)="rejectInput()">
+        {{ "No" | translate }}
+      </div>
+    </div>
+  </div>
+</div>

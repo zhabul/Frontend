@@ -1,0 +1,11 @@
+<a [href]="link" class="offer-grid" [style.background-color]="color">
+    <div class="offer-ellipsis" [title]="offer.offerNumber">{{ offer.offerNum }}</div>
+    <div>{{ offer.name }}</div>
+    <div>{{ offer.cl_name }}</div>
+    <!-- <div>{{ offer.df_name }}</div> -->
+    <div>{{ offer.article_total | number: '1.2-2' : 'fr' }}</div>
+    <div>{{ date }}</div>
+    <!-- <div>{{ expiredDate }}</div> -->
+    <div>{{ offer.open }}</div>
+    <div [style.background-color]="color">{{ status | translate }}</div>
+</a>

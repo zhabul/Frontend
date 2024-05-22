@@ -1,0 +1,176 @@
+.content-wrapper {
+  padding-top: 20px;
+  padding-left: 10px;
+}
+
+.lable-white-color {
+  color: #44484c !important;
+}
+.form-row app-image-modal {
+  width: 100%;
+}
+.menu-wrapp {
+  display: flex;
+  flex-direction: column;
+}
+.master-left {
+  margin-left: 16px;
+}
+.border-nav {
+  border: 1.5px solid;
+  margin-left: 15px;
+  margin-right: -23px;
+  border-color: var(--border-color);
+  height: 61px;
+  background-color: var(--main-bg);
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  margin-top: -10px;
+}
+
+.border-h-project {
+  border-right: 1.5px solid;
+  border-color: var(--border-color);
+  height: 60px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.border-h-project-sec {
+  border-right: 1.5px solid;
+  border-color: var(--border-color);
+  height: 60px;
+  padding-left: 0px !important;
+  padding-right: 18px !important;
+}
+.name-of-projects {
+  color: var(--project-color);
+  font-size: 25px !important;
+  font-family: "PT Sans Regular", sans-serif; /* Dodali smo pravilan naziv fonta i fallback font */
+  padding-left: 16px;
+  padding-right: 30px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.title-table-wrapper {
+  padding-top: 10px;
+  /* padding-bottom: 12px; */
+}
+.title-table {
+  color: var(--project-color);
+  font-size: 20px !important;
+  font-family: "PT-Sans-Pro-Regular";
+  margin-left: 18px;
+}
+.blu-scroll {
+  border: 1.5px solid;
+  border-color: var(--border-color);
+  border-top-left-radius: 8px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  position: relative !important;
+}
+@media (max-width: 7680px) {
+  .blu-scroll {
+    max-width: 1042px !important;
+    width: calc(100vw - 0px - 127px);
+    height: calc(100vh - 83px - 0px);
+  }
+}
+
+@media (max-width: 7680px) {
+  .blu-scroll-wrapp {
+    max-width: 1042px !important;
+    width: calc(100vw - 0px - 127px);
+    height: calc(100vh - 83px - 0px);
+    position: relative;
+  }
+}
+.vertical-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 16px;
+  width: 1px;
+  background-color: var(--border-color);
+}
+
+.horizontal-line {
+  position: absolute;
+  left: 0;
+  bottom: 17px;
+  right: 0px;
+  height: 1px;
+  background-color: var(--border-color);
+}
+.form-bg-c {
+  background-color: #d3dcea;
+  border-top-left-radius: 10px;
+}
+.input-300 {
+  width: 300px;
+  margin-right: 25px; /* Razmak između kolona */
+}
+input {
+  border: 2px solid #858585;
+}
+.icon-color {
+  color: #858585;
+}
+/* Stilizacija za Invoice Date i Due Date (bez promjene) */
+/* .form-content.invoice-form.form-bg-c .input-group.date input {
+ border: none;
+} */
+select {
+  border: 2px solid #858585;
+}
+.save-button {
+  border: 1px solid var(--brand-color);
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  background-color: transparent;
+  color: var(--brand-color);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+label {
+  display: inline-block;
+  margin-bottom: 0rem;
+}
+.form-group {
+  margin-bottom: 0.5rem;
+}
+textarea {
+  border: 2px solid #858585;
+}
+
+textarea.form-control {
+  resize: none;
+  overflow: hidden;
+}
+
+#intercommment {
+  height: 55px;
+  width: 64.5%;
+}
+.pre-form {
+  /*  padding-top: 8px; */
+  height: calc(100vh - 161px);
+}
+@media (max-height: 654px) {
+  .pre-form {
+    padding-top: 8px;
+    height: 0;
+    background-color: transparent;
+  }
+}
+.invoice-form {
+  padding: 20px;
+  padding-top: 5px;
+  padding-left: 18px;
+}

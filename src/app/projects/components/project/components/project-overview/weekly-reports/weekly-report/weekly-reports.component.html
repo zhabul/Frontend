@@ -1,0 +1,205 @@
+<div class="row row1X mb-3 menu-wrapp">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-lightX bgGrayBlueX br3 pl-em"
+      style="padding: 10px"
+    >
+      <ul class="navbar-nav flex-container wrap justify-content">
+        <div class="navbar-collapse custom-800" id="navbarSupportedContent">
+          <li class="nav-item active flex-item mr-2">
+            <div class="d-flex">
+              <div>
+                <a
+                  [routerLink]="['/projects/view/', project.id]"
+                  class="btn btn-dark lh09 hideUnder800 mr-3"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                >
+                  <span class="badgeX badge-darkX material-icons top1px posRel"
+                    >arrow_back</span
+                  >
+                </a>
+              </div>
+              <div class="project text-muted w-100">
+                <span class="d-block text-uppercase" style="font-size: 0.9em">{{
+                  (project.parent == "0" ? "Project" : "Subproject") | translate
+                }}</span>
+                <h4 class="textDarkBlue posRel mb-0 fs-18">
+                  {{ project.CustomName }} {{ project.name }}
+                </h4>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </nav>
+  </div>
+  <div class="tab-navigation col-lg-8W bgGrayBlue">
+    <ul class="nav nav-tabs nav-pills" role="tablist">
+      <li class="nav-item" *ngIf="userDetails.show_project_SupplierInvoices">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'supplier-invoices']"
+          role="tab"
+        >
+          {{ "Supplier Invoices" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'invoices']"
+          role="tab"
+          id=""
+          >{{ "Invoices History" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'works']"
+          role="tab"
+          >{{ "Work Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'materials']"
+          role="tab"
+          >{{ "Materials Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          [routerLink]="['/projects/view', project.id, 'reports']"
+          role="tab"
+          >{{ "Weekly Reports" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'project-summary']"
+          role="tab"
+          >{{ "Project Summary" | translate }}</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="tab-navigation col-lg-8W bgGrayBlue">
+  <button class="btn-all active" (click)="setContent('week')">
+    {{ "Weekly Reports" | translate }}
+  </button>
+  <button class="btn-approved" (click)="setContent('details')">
+    {{ "Details" | translate }}
+  </button>
+</div>
+<div class="row row1X">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70"
+    id="notMuchPaddingTill800"
+    *ngIf="showWeekyReports"
+  >
+    <div class="card-body">
+      <section class="d-flex justify-content-between">
+        <h1 class="h4 col-12">{{ "Weekly Reports" | translate }}</h1>
+      </section>
+    </div>
+    <table
+      class="table table-res800 table-darkX table-sm table-bordered table-hover invoice-table table-striped"
+    >
+      <thead>
+        <tr>
+          <th scope="col">{{ "Name" | translate }}</th>
+          <th scope="col">{{ "TSC_YEAR" | translate }}</th>
+          <th scope="col">{{ "Type" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of reports; let i = index"
+          routerLink="weekly/{{ item['id'] }}"
+        >
+          <td>{{ item["name"] | translate}}</td>
+          <td>{{ item["year"] }}</td>
+          <td *ngIf="item['ata_name']">
+            {{ "Ata" | translate }} {{ item["ata_number"] }} -
+            {{ item["ata_name"] }}
+          </td>
+          <td *ngIf="item['ata_name'] == null">{{ "Project" | translate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70"
+    *ngIf="showDetails"
+  >
+    <div class="card-body">
+      <section class="d-flex justify-content-between">
+        <h1 class="h4 col-12">{{ "Project" | translate }}</h1>
+      </section>
+    </div>
+    <table
+      class="table tab-responsive table-striped table-hover table-lightX table-sm mt-5"
+      id="momentsOverviewTable"
+      *ngIf="projectWeeklyReports.length > 0"
+    >
+      <thead class="table-bordered">
+        <tr>
+          <th scope="col">{{ "Year" | translate }}</th>
+          <th scope="col">{{ "Name" | translate }}</th>
+          <th scope="col">{{ "Accrued costs" | translate }}</th>
+          <th scope="col">{{ "Last regulate" | translate }}</th>
+          <th scope="col">{{ "Sent" | translate }}</th>
+          <th scope="col">{{ "Approved to invoice" | translate }}</th>
+          <th scope="col">{{ "Invoiced" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody class="table-bordered">
+        <ng-container
+          *ngFor="let report of projectWeeklyReports; let i = index"
+        >
+          <tr>
+            <td>{{ report["year"] }}</td>
+            <td>{{ report["WrName"] }}</td>
+            <td class="total-text-align">
+              {{ report["totallyWorkedUp"] | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{ report["workedButNotApproved"] | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{ report["total_sent"] | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{ report["approvedForInvoice"] | number: "1.2-2":"fr" }}
+            </td>
+            <td class="total-text-align">
+              {{ report["invoicedTotal"] | number: "1.2-2":"fr" }}
+            </td>
+          </tr>
+        </ng-container>
+        <tr class="font-weight-bold">
+          <td>Total</td>
+          <td></td>
+          <td>{{ sumAllTotallyWorkedUp | number: "1.2-2":"fr" }}</td>
+          <td>{{ sumAllWorkedButNotApproved | number: "1.2-2":"fr" }}</td>
+          <td>{{ sumAllSentWr | number: "1.2-2":"fr" }}</td>
+          <td class="total-text-align">
+            {{ sumAllApprovedForInvoice | number: "1.2-2":"fr" }}
+          </td>
+          <td class="total-text-align">
+            {{ sumAllInvoicedTotal | number: "1.2-2":"fr" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

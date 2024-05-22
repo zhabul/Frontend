@@ -1,0 +1,117 @@
+.card {
+  width: 100%;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.business-table td,
+.business-table th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.business-table tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.edit-td {
+  width: 10px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.65;
+}
+
+.badge-primary {
+  background: #28a745;
+  background: #003469;
+}
+
+.badge {
+  border-radius: 3px !important;
+}
+
+.spin {
+  animation-name: spin;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.table thead th {
+  position: sticky;
+  top: -1px;
+  background: white;
+  white-space: nowrap;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 400px) {
+  .table-res800 {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1400px) {
+  .row1 {
+    margin-left: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .tabletView .nav.nav-pills.nav-justified {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+  .tabletView .nav .btn-dark {
+    padding: 4px;
+    letter-spacing: -0.35px;
+    font-size: 16px;
+    margin-right: 0 !important;
+  }
+  .tabletView .nav .btn-dark .material-icons {
+    font-size: 18px;
+  }
+}
+@media (min-width: 501px) and (max-width: 800px) {
+  .tabletView {
+    margin-top: 10px;
+  }
+  .tabletView .nav .btn-dark {
+    margin-right: 0.5rem !important;
+  }
+}
+@media (min-width: 801px) {
+  .tabletView {
+    display: none !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .placement {
+    position: relative;
+    top: -90px;
+  }
+}

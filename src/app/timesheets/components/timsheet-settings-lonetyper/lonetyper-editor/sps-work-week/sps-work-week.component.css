@@ -1,0 +1,42 @@
+.flex-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.sps-work-week-box {
+    color: white;
+    position: relative;
+}
+
+.day-padding > div {
+    padding: 0px 17.5px 0px 17.5px;
+}
+
+.checkbox-parent > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 59px;
+}
+
+.sps-work-week-days {
+    margin-bottom: 25px;
+}
+
+.day-wrapper > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.day-name-pos {
+    position: relative;
+    bottom: 44px;
+}
+
+.day-checkbox-pos {
+    position: relative;
+    bottom: 22px;
+}

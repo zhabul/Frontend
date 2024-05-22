@@ -1,0 +1,64 @@
+@import "../../../../../../../../assets/css/wemax-colors.css";
+
+.main-wrapper {
+  margin-left: 5px;
+}
+
+.row-wrapper {
+  display: grid;
+  min-height: 38px;
+  border-bottom: 1px solid gray;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  justify-content: flex-end;
+  color: #44484c;
+  border-right: 1px solid gray;
+}
+
+.ata-number {
+  white-space: nowrap;
+  justify-content: center;
+}
+
+.item:nth-child(2),
+.item:nth-child(4) {
+  justify-content: flex-start;
+  overflow-x: hidden;
+  word-break: break-word;
+}
+
+.item:first-child {
+  border-left: 1px solid gray;
+}
+
+.prognos {
+  background-color: #f8e4b7;
+}
+
+.prognos-input {
+  width: 100%;
+  border: none;
+  text-align: end;
+  background-color: #f8e4b7;
+}
+
+.prognos-input:focus {
+  outline: none;
+}
+
+.item:last-child {
+  font-size: 0.7rem;
+  display: inline;
+}
+
+.wemax-purple1 {
+  background-color:#c2f0fc;
+}
+
+.disabled-input {
+  background-color: #dddddd;
+}

@@ -1,0 +1,331 @@
+<form *ngIf="nameDescriptionForm" [formGroup]="nameDescriptionForm">
+  <div class="name-and-description-wrapper">
+    <div class="close-btn" (click)="onClose()">
+      <svg
+        id="Stäng_Close_"
+        data-name="Stäng (Close)"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="25"
+        height="25"
+        viewBox="0 0 25 25"
+      >
+        <defs>
+          <clipPath id="clip-path">
+            <path
+              id="Path_782"
+              data-name="Path 782"
+              d="M0,9.757H25v-25H0Z"
+              transform="translate(0 15.243)"
+              fill="none"
+            />
+          </clipPath>
+        </defs>
+        <g id="Group_6898" data-name="Group 6898">
+          <g id="Group_341" data-name="Group 341" clip-path="url(#clip-path)">
+            <g
+              id="Group_340"
+              data-name="Group 340"
+              transform="translate(0 0.001)"
+            >
+              <path
+                id="Path_781"
+                data-name="Path 781"
+                d="M4.878,9.114A10.752,10.752,0,0,1-5.878-1.723,10.752,10.752,0,0,1,4.878-12.561,10.752,10.752,0,0,1,15.634-1.723,10.752,10.752,0,0,1,4.878,9.114m0,1.647a12.534,12.534,0,0,0,12.5-12.5,12.533,12.533,0,0,0-12.5-12.5,12.533,12.533,0,0,0-12.5,12.5,12.534,12.534,0,0,0,12.5,12.5"
+                transform="translate(7.621 14.239)"
+                fill="#b8b8b8"
+              />
+            </g>
+          </g>
+          <path
+            id="Path_783"
+            data-name="Path 783"
+            d="M1.478,1.782l-5.1,5.108,1.057,1.069L2.548,2.851,7.661,7.959,8.719,6.89,3.606,1.782,8.719-3.313,7.649-4.369,2.548.726-2.565-4.382-3.622-3.313Z"
+            transform="translate(9.952 10.712)"
+            fill="#b8b8b8"
+          />
+        </g>
+      </svg>
+    </div>
+    <div
+      [ngClass]="{
+        'name-wrapper': true,
+        'name-wrapper-focus': isNameInputFocus
+      }"
+    >
+      <input
+        type="text"
+        [ngClass]="{
+          'name-wrapper-input': true,
+          'name-wrapper-input-focus': isNameInputFocus
+        }"
+        (focus)="isNameInputFocus = true"
+        (blur)="isNameInputFocus = false"
+        formControlName="name"
+      />
+      <div
+        [ngClass]="{
+          'svg-wrapper': true,
+          'svg-wrapper-focus': isNameInputFocus
+        }"
+      >
+        <mat-icon
+          svgIcon="pen"
+          class="name-pen-svg"
+          [ngStyle]="{
+            color: isNameInputFocus ? 'white' : '#858585'
+          }"
+        ></mat-icon>
+      </div>
+    </div>
+
+    <div
+      [ngClass]="{
+        'name-wrapper description-wrapper': true,
+        'name-wrapper-focus': isDescriptionInputFocus
+      }"
+    >
+      <input
+        type="text"
+        [ngClass]="{
+          'name-wrapper-input': true,
+          'name-wrapper-input-focus': isDescriptionInputFocus
+        }"
+        (focus)="isDescriptionInputFocus = true"
+        (blur)="isDescriptionInputFocus = false"
+        placeholder="Skriv beskrivande text…"
+        formControlName="description"
+      />
+      <div
+        [ngClass]="{
+          'svg-wrapper': true,
+          'svg-wrapper-focus': isDescriptionInputFocus
+        }"
+      >
+        <mat-icon
+          svgIcon="pen"
+          class="name-pen-svg"
+          [ngStyle]="{
+            color: isDescriptionInputFocus ? 'white' : '#858585'
+          }"
+        ></mat-icon>
+      </div>
+    </div>
+    <div class="line"></div>
+  </div>
+</form>
+<div class="dialog-wrapper">
+  <div class="content-wrapper">
+    <div class="left-side">
+      <div class="title">{{ "competence" | translate | titlecase }}</div>
+      <div class="internal-wrapper">
+        <div>{{ "internal" | translate | titlecase }}</div>
+        <div class="dropdown-internal">
+          <app-permission-dropdown
+            [listOfItems]="roles"
+            [title]="'Roller'"
+            (selectedPermissionForAll)="selectedPermissionForAll($event)"
+          >
+          </app-permission-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="right-side">
+      <div class="external-wrapper">
+        <div>{{ "external" | translate | titlecase }}</div>
+        <div class="external-dropdown">
+          <!-- <app-competence-simple-dropdown [disable]="true">
+          </app-competence-simple-dropdown> -->
+
+          <!-- Odkomentarisati ovo iznad i izbrisati ovo ispod kad bude trebalo -->
+          <div class="external-dropdown-fake">
+            <div>Företag / Leverantör</div>
+            <div>
+              <svg
+                id="Group_308"
+                data-name="Group 308"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="9.273"
+                height="6"
+                viewBox="0 0 9.273 6"
+              >
+                <defs>
+                  <clipPath id="clip-path">
+                    <path
+                      id="Path_758"
+                      data-name="Path 758"
+                      d="M0,6H9.273V0H0Z"
+                      fill="none"
+                    />
+                  </clipPath>
+                </defs>
+                <g
+                  id="Group_305"
+                  data-name="Group 305"
+                  clip-path="url(#clip-path)"
+                >
+                  <g
+                    id="Group_304"
+                    data-name="Group 304"
+                    transform="translate(0 0)"
+                  >
+                    <path
+                      id="Path_757"
+                      data-name="Path 757"
+                      d="M.106.9l4.1,4.916A.491.491,0,0,0,4.626,6h.047a.491.491,0,0,0,.419-.186L9.169.9a.568.568,0,0,0,.1-.373A.393.393,0,0,0,9.076.2L8.936.106a.663.663,0,0,0-.4-.1A.456.456,0,0,0,8.19.2L4.649,4.393,1.108.2A.456.456,0,0,0,.758,0a.663.663,0,0,0-.4.1L.2.2A.393.393,0,0,0,0,.525.568.568,0,0,0,.106.9"
+                      fill="#858585"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="external-wrapper">
+        <div>{{ "external" | translate | titlecase }}</div>
+        <div class="external-dropdown">
+          <app-permission-dropdown
+            [listOfItems]="[]"
+            [disable]="true"
+            [title]="'Användare'"
+          >
+          </app-permission-dropdown>
+        </div>
+      </div>
+      <div
+        class="add-btn"
+        [ngClass]="{
+          'add-btn-green': isRolesChanged || nameDescriptionForm?.dirty
+        }"
+        (click)="onSave()"
+      >
+        <div>
+          <svg
+            *ngIf="!isRolesChanged && !nameDescriptionForm?.dirty"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="25.456"
+            height="25.456"
+            viewBox="0 0 25.456 25.456"
+          >
+            <defs>
+              <clipPath id="clip-path">
+                <path
+                  id="Path_736"
+                  data-name="Path 736"
+                  d="M0,11.951H18v-18H0Z"
+                  transform="translate(0 6.049)"
+                  fill="none"
+                />
+              </clipPath>
+            </defs>
+            <g
+              id="X_icon"
+              data-name="X icon"
+              transform="translate(12.728) rotate(45)"
+            >
+              <g
+                id="Group_291"
+                data-name="Group 291"
+                clip-path="url(#clip-path)"
+              >
+                <g
+                  id="Group_289"
+                  data-name="Group 289"
+                  transform="translate(-0.001 0.002)"
+                >
+                  <path
+                    id="Path_734"
+                    data-name="Path 734"
+                    d="M11.951,5.975a9,9,0,1,1-9-9,9,9,0,0,1,9,9"
+                    transform="translate(6.049 3.024)"
+                    fill="#858585"
+                  />
+                </g>
+                <g
+                  id="Group_290"
+                  data-name="Group 290"
+                  transform="translate(3.727 3.742)"
+                >
+                  <path
+                    id="Path_735"
+                    data-name="Path 735"
+                    d="M6.822,5.921,3.135,2.234l3.693-3.7a.708.708,0,0,0,.006-1.039l-.265-.265a.708.708,0,0,0-1.065.06L1.843.943-1.885-2.774a.721.721,0,0,0-1.059.018l-.277.274a.721.721,0,0,0,.036,1.089L.5,2.288S-3.07,5.877-3.192,6A.708.708,0,0,0-3.2,7.034l.265.265a.708.708,0,0,0,1.065-.06L1.79,3.579,5.521,7.3a.722.722,0,0,0,1.062-.018L6.86,7.01a.719.719,0,0,0-.039-1.089"
+                    transform="translate(3.453 2.997)"
+                    fill="#373b40"
+                  />
+                </g>
+              </g>
+            </g>
+          </svg>
+
+          <svg
+            *ngIf="isRolesChanged || nameDescriptionForm?.dirty"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="25.456"
+            height="25.456"
+            viewBox="0 0 25.456 25.456"
+          >
+            <defs>
+              <clipPath id="clip-path">
+                <path
+                  id="Path_736"
+                  data-name="Path 736"
+                  d="M0,11.951H18v-18H0Z"
+                  transform="translate(0 6.049)"
+                  fill="none"
+                />
+              </clipPath>
+            </defs>
+            <g
+              id="X_icon"
+              data-name="X icon"
+              transform="translate(12.728) rotate(45)"
+            >
+              <g
+                id="Group_291"
+                data-name="Group 291"
+                clip-path="url(#clip-path)"
+              >
+                <g
+                  id="Group_289"
+                  data-name="Group 289"
+                  transform="translate(-0.001 0.002)"
+                >
+                  <path
+                    id="Path_734"
+                    data-name="Path 734"
+                    d="M11.951,5.975a9,9,0,1,1-9-9,9,9,0,0,1,9,9"
+                    transform="translate(6.049 3.024)"
+                    fill="#4cb185"
+                  />
+                </g>
+                <g
+                  id="Group_290"
+                  data-name="Group 290"
+                  transform="translate(3.727 3.742)"
+                >
+                  <path
+                    id="Path_735"
+                    data-name="Path 735"
+                    d="M6.822,5.921,3.135,2.234l3.693-3.7a.708.708,0,0,0,.006-1.039l-.265-.265a.708.708,0,0,0-1.065.06L1.843.943-1.885-2.774a.721.721,0,0,0-1.059.018l-.277.274a.721.721,0,0,0,.036,1.089L.5,2.288S-3.07,5.877-3.192,6A.708.708,0,0,0-3.2,7.034l.265.265a.708.708,0,0,0,1.065-.06L1.79,3.579,5.521,7.3a.722.722,0,0,0,1.062-.018L6.86,7.01a.719.719,0,0,0-.039-1.089"
+                    transform="translate(3.453 2.997)"
+                    fill="#373b40"
+                  />
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div>{{ "add" | translate | uppercase }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="spinner-wrapper" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>

@@ -1,0 +1,484 @@
+<div class="row row1X mb-3 menu-wrapp">
+  <div class="border-nav">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <a
+        [routerLink]="[]"
+        (click)="goBack()"
+        style="padding-left: 22px"
+        class="home"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <app-back-icon-svg
+          [width]="34"
+          [height]="29"
+          [color]="'82a7e2'"
+        ></app-back-icon-svg>
+      </a>
+
+      <span class="border-h-project-sec"></span>
+      <span class="ml-3 mt-2 h2 font-weight-normal name-of-projects">
+        {{ "Project" | translate | uppercase }}{{ ": " }}
+        <!-- {{ project.CustomName }} {{ project.name }} -->
+        {{ customName }} {{ projectName }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="master-left">
+  <div class="blu-scroll-wrapp">
+    <div class="blu-scroll skrollbar">
+      <div class="title-table-wrapper">
+        <span class="title-table">{{'Leverantörsfaktura' | translate}}</span>
+      </div>
+      <div class="test" style="margin-left: 10px">
+        <div class="form-bg-c pre-form">
+          <form
+            style="margin-top: 17px"
+            novalidate
+            autocomplete="off"
+            [formGroup]="createForm"
+            class="form-content invoice-form form-bg-c"
+            #myform="ngForm"
+            (ngSubmit)="create()"
+          >
+            <div class="row">
+              <!-- Prva kolona -->
+              <div class="col-md-4 padd-top5">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('SupplierName').touched ||
+                        createForm.get('SupplierName').dirty) &&
+                      !createForm.get('SupplierName').valid
+                  }"
+                >
+                  <label class="required lable-white-color" for="name">{{
+                    "Supplier Name" | translate
+                  }}</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="{{ 'Enter supplier name' | translate }}"
+                    formControlName="SupplierName"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      ((createForm.get('SupplierName').touched ||
+                        createForm.get('SupplierName').dirty) &&
+                        createForm.get('SupplierName').errors) ||
+                      createForm.get('SupplierName').hasError('required')
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('SupplierName').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter supplier name" | translate }}
+                    </span>
+                  </span>
+                </div>
+              <!--  <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('InvoiceNumber').touched ||
+                        createForm.get('InvoiceNumber').dirty) &&
+                      !createForm.get('InvoiceNumber').valid
+                  }"
+                >
+                  <label class="required lable-white-color" for="name">{{
+                    "Invoice Number" | translate
+                  }}</label>
+
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="name"
+                    placeholder="{{ 'Enter invoice number' | translate }}"
+                    formControlName="InvoiceNumber"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      ((createForm.get('InvoiceNumber').touched ||
+                        createForm.get('InvoiceNumber').dirty) &&
+                        createForm.get('InvoiceNumber').errors) ||
+                      createForm.get('InvoiceNumber').hasError('required')
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('InvoiceNumber').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter invoice number" | translate }}.
+                    </span>
+                  </span>
+                </div>
+                -->
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      ((createForm.get('Ocr').touched ||
+                        createForm.get('Ocr').dirty) &&
+                        !createForm.get('Ocr').valid) ||
+                      createForm.get('Ocr').hasError('required')
+                  }"
+                >
+                  <label class="required lable-white-color" for="name">{{
+                    "OCR / fakturanr." | translate
+                  }}</label>
+                  <input
+                    class="form-control"
+                    id="name"
+                    placeholder="{{ 'Enter OCR' | translate }}"
+                    formControlName="Ocr"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('Ocr').touched ||
+                        createForm.get('Ocr').dirty) &&
+                      createForm.get('Ocr').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('SupplierName').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter OCR / invoice No." | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Druga kolona -->
+              <div class="col-md-4 padd-top5">
+                <div class="form-group">
+                  <label class="lable-white-color" for="phone">{{
+                    "Invoice Date" | translate
+                  }}</label>
+                  <div class="input-group date">
+                    <div class="input-group-prepend">
+                      <span
+                        style="
+                          border: 2px solid #858585;
+                          border-right: none;
+                          background-color: white;
+                          height: 96%;
+                        "
+                        class="input-group-text"
+                        id="basic-addon1"
+                        ><i class="material-icons icon-color"
+                          >calendar_today</i
+                        ></span
+                      >
+                    </div>
+                    <input
+                      (keydown)="$event.preventDefault()"
+                      id="dateSelectStartDate"
+                      autocomplete="off"
+                      type="text"
+                      class="form-control project-date"
+                      aria-describedby="basic-addon1"
+                      placeholder="{{ 'Choose Invoice Date' | translate }}"
+                      #InvoiceDate
+                      formControlName="InvoiceDate"
+                      name="InvoiceDate"
+                    />
+                  </div>
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      myform.submitted &&
+                      this.createForm.get('InvoiceDate').hasError('required')
+                    "
+                  >
+                    <span class="text-danger">
+                      {{ "Please choose Invoice Date" | translate }}.
+                    </span>
+                  </span>
+                </div>
+                <div class="form-group">
+                  <label class="lable-white-color" for="phone">{{
+                    "Supplier_Due_Date" | translate
+                  }}</label>
+                  <div class="input-group date">
+                    <div class="input-group-prepend">
+                      <span
+                        style="
+                          border: 2px solid #858585;
+                          border-right: none;
+                          background-color: white;
+                          height: 96%;
+                        "
+                        class="input-group-text"
+                        id="basic-addon1"
+                        ><i class="material-icons icon-color"
+                          >calendar_today</i
+                        ></span
+                      >
+                    </div>
+                    <input
+                      (keydown)="$event.preventDefault()"
+                      id="dateSelectEndDate"
+                      autocomplete="off"
+                      type="text"
+                      class="form-control project-date"
+                      aria-describedby="basic-addon1"
+                      placeholder="{{ 'Choose_Due_Date' | translate }}"
+                      #DueDate
+                      formControlName="DueDate"
+                      name="DueDate"
+                    />
+                  </div>
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      myform.submitted &&
+                      this.createForm.get('DueDate').hasError('required')
+                    "
+                  >
+                    <span class="text-danger">
+                      {{ "Please choose Due Date" | translate }}.
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('Ocr').touched ||
+                        createForm.get('Ocr').dirty) &&
+                      !createForm.get('Ocr').valid
+                  }"
+                >
+                  <label class="required lable-white-color" for="name">{{
+                    "Account" | translate
+                  }}</label>
+                  <select
+                    class="project-nav-select form-control"
+                    id="typeata"
+                    [ngClass]="{
+                      'is-invalid':
+                        (createForm.get('account').touched ||
+                          myform.submitted) &&
+                        createForm.get('account').invalid
+                    }"
+                    #selectAccount
+                    (change)="setAccount(selectAccount.value)"
+                    formControlName="account"
+                  >
+                    <option
+                      *ngFor="let account of enabledAccounts"
+                      value="{{ account.Number }}"
+                    >
+                      {{ account.Number }}
+                    </option>
+                  </select>
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('Ocr').touched ||
+                        createForm.get('Ocr').dirty) &&
+                      createForm.get('Ocr').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('SupplierName').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter OCR / invoice No." | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- TreÄa kolona -->
+              <div class="col-md-4 padd-top5">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('TotalWihoutWat').touched ||
+                        createForm.get('TotalWihoutWat').dirty) &&
+                      !createForm.get('TotalWihoutWat').valid
+                  }"
+                >
+                  <label class="required lable-white-color"
+                    >{{ "Invoice" | translate }} {{ "Total" | translate }} ({{
+                      "Without VAT" | translate
+                    }})
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    #TotalWihoutWat
+                    placeholder="{{ 'Enter invoice total' | translate }}"
+                    formControlName="TotalWihoutWat"
+                    (keyup)="setValue(TotalWihoutWat.value)"
+                    number-format-directive
+                    (click)="TotalWihoutWat.select()"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      ((createForm.get('TotalWihoutWat').touched ||
+                        createForm.get('TotalWihoutWat').dirty) &&
+                        createForm.get('TotalWihoutWat').errors) ||
+                      createForm.get('TotalWihoutWat').hasError('required')
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('TotalWihoutWat').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter invoice total" | translate }}.
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('VAT').touched ||
+                        createForm.get('VAT').dirty) &&
+                      !createForm.get('VAT').valid
+                  }"
+                >
+                  <label class="required lable-white-color" for="name">{{
+                    "VAT" | translate
+                  }}</label>
+                  <input
+                    type="test"
+                    class="form-control"
+                    id="VAT"
+                    #VAT
+                    placeholder="{{ 'Enter invoice VAT' | translate }}"
+                    formControlName="VAT"
+                    (keyup)="setValue(VAT.value)"
+                    (click)="VAT.select()"
+                    number-format-directive
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      ((createForm.get('VAT').touched ||
+                        createForm.get('VAT').dirty) &&
+                        createForm.get('VAT').errors) ||
+                      createForm.get('VAT').hasError('required')
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('VAT').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter invoice VAT" | translate }}.
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('Total').touched ||
+                        createForm.get('Total').dirty) &&
+                      !createForm.get('Total').valid
+                  }"
+                >
+                  <label class="required lable-white-color" for="name">{{
+                    "Total" | translate
+                  }}</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="{{ 'Enter invoice Total' | translate }}"
+                    formControlName="Total"
+                    readonly
+                    number-format-directive
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('Total').touched ||
+                        createForm.get('Total').dirty) &&
+                      createForm.get('Total').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('Total').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter invoice Total" | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <label
+              style="margin-left: 14px"
+              class="lable-white-color"
+              for="name"
+              >{{ "Inter kommentar" | translate }}</label
+            >
+
+            <div style="margin-left: 14px" class="form-group">
+              <textarea
+                (input)="updateCharacterCount()"
+                (keyup)="autoGrowTextZone($event)"
+                maxlength="150"
+                class="form-control"
+                id="intercommment"
+                placeholder="Inter kommentartext"
+                formControlName="interComment"
+              ></textarea>
+              <small style="color: #44484c; margin-left: 10px"
+                >{{ characterCount }}/150</small
+              >
+            </div>
+
+            <div style="margin-left: 14px" class="form-group">
+              <app-image-modal
+                (updateAlbums)="updateAlbums($event)"
+                [infoObject]="infoObject"
+                fileType="image/*"
+                [key]="key"
+                type="add-ata"
+                limit="1"
+              ></app-image-modal>
+            </div>
+            <div
+              class="form-group text-center"
+              style="margin-left: 15px; margin-top: 25px"
+            >
+              <button
+                type="submit"
+                class="save-button"
+                *ngIf="
+                  createForm.get('Total').value < 0 ||
+                  createForm.get('Total').value > 0
+                "
+              >
+                <div>
+                  {{ "Save" | translate }}
+                </div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="vertical-line"></div>
+    <div class="horizontal-line"></div>
+  </div>
+</div>

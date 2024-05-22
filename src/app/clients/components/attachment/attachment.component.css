@@ -1,0 +1,286 @@
+.btn-directory {
+  margin-top: 33px;
+}
+
+.icon-size {
+  font-size: 70px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.3;
+}
+
+.card {
+  width: 100%;
+  padding: 10px;
+}
+
+.row-attacment-content-wrapper {
+  padding: 20px;
+}
+
+.attachment-header {
+  padding: 20px;
+  text-align: right;
+}
+
+.collapse-attachment-wrapper {
+  border-top: 1px solid #6c757d;
+}
+
+.collapse-attachment-wrapper form {
+  background-color: #f9f9f9;
+}
+
+.card-wrapper {
+  cursor: pointer;
+}
+
+.card-wrapper .card:hover {
+  background-color: #406488 !important;
+  color: #ffffff;
+}
+
+.hide {
+  display: none !important;
+}
+
+.modal-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  color: black;
+}
+
+.btn-outline-primary {
+  background-color: #fff;
+  border-color: #003469;
+  color: #003469;
+}
+
+.btn-outline-primary:hover {
+  background-color: #003469;
+  border-color: #003469;
+  color: #fff;
+}
+
+.create-attachment {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1.5em 0;
+}
+
+.create-attachment * + * {
+  margin-left: 0.5em;
+}
+
+#looksLikeModal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: hsla(0, 0%, 0%, 0.4);
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .mw-80 {
+    max-width: 80vw;
+  }
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-directory {
+  margin-top: 33px;
+}
+
+.icon-size {
+  font-size: 70px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.3;
+}
+
+.row-attacment-content-wrapper {
+  padding: 20px;
+}
+
+.attachment-header {
+  padding: 20px;
+  text-align: right;
+}
+
+.collapse-attachment-wrapper {
+  border-top: 1px solid #6c757d;
+}
+
+.collapse-attachment-wrapper form {
+  background-color: #f9f9f9;
+}
+
+.card-wrapper {
+  cursor: pointer;
+}
+
+.card-wrapper .card:hover {
+  background-color: #406488 !important;
+  color: #ffffff;
+}
+
+.hide {
+  display: none !important;
+}
+
+.modal-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  color: black;
+}
+
+.btn-outline-primary {
+  background-color: #fff;
+  border-color: #003469;
+  color: #003469;
+}
+
+.btn-outline-primary:hover {
+  background-color: #003469;
+  border-color: #003469;
+  color: #fff;
+}
+
+.create-attachment {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1.5em 0;
+}
+
+.create-attachment * + * {
+  margin-left: 0.5em;
+}
+
+#looksLikeModal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: hsla(0, 0%, 0%, 0.4);
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .mw-80 {
+    max-width: 80vw;
+  }
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.progress-percentage {
+  padding: 1rem;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+  color: #3f51b5;
+  cursor: default;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.download-icon {
+  color: black;
+  transform: scale(0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  transition: all 250ms ease-in-out;
+}
+
+.lock-icon {
+  transform: scale(0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete {
+  transform: scale(0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.download-icon:hover {
+  color: aliceblue;
+}
+
+.tox-notifications-container {
+  display: none !important;
+}
+.tox-notifications-container::ng-deep {
+  display: none !important;
+}
+
+.tox :not(svg):not(rect) {
+  display: none;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-header-padding {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  position: relative;
+}
+
+.download-button-position {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+}

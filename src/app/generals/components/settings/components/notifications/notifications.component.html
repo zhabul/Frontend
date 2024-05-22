@@ -1,0 +1,70 @@
+<div class="units-container blu-scroll">
+  <div class="list-head">
+    <div>
+      <p>{{ "Role" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Today" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Tomorrow" | translate }}</p>
+    </div>
+  </div>
+  <div class="list">
+    <div
+      class="list-row"
+      *ngFor="let notification of notifications; let j = index"
+    >
+      <div>
+        <p>{{ notification.Name | translate }}</p>
+      </div>
+      <div>
+        <p
+          *ngFor="let todayTime of notification.TodayTimes; let i = index"
+          (click)="deleteTime(notification.TodayTimes, i)"
+          class="time"
+        >
+          {{ todayTime.time }}
+        </p>
+        <img
+          *ngIf="userDetails.create_settings_Global"
+          [ngxTimepicker]="pickerToday"
+          [format]="format"
+          class="icon"
+          src="../../../../assets/img/add-plus-icon.svg"
+          alt="x"
+        />
+        <ngx-material-timepicker
+          #pickerToday
+          (timeSet)="timeSetToday(notification, $event)"
+          timepickerClass="timepicker"
+        ></ngx-material-timepicker>
+      </div>
+      <div>
+        <p
+          class="time"
+          *ngFor="let tomorrowTime of notification.TomorowTimes; let j = index"
+          (click)="deleteTime(notification.TomorowTimes, j)"
+        >
+          {{ tomorrowTime.time }}
+        </p>
+        <img
+          [ngxTimepicker]="pickerTomorrow"
+          [format]="format"
+          format="format"
+          class="icon"
+          src="../../../../assets/img/add-plus-icon.svg"
+          alt="x"
+          *ngIf="notification.id != 2 && userDetails.create_settings_Global"
+        />
+        <ngx-material-timepicker
+          #pickerTomorrow
+          (timeSet)="timeSetTomorrow(notification, $event)"
+          [timepickerClass]="'timepicker-orange'"
+        ></ngx-material-timepicker>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="thin-red-line-bottom"></div>
+<mat-spinner class="spinner" *ngIf="loading"></mat-spinner>

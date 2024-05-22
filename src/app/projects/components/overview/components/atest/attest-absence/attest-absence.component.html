@@ -1,0 +1,78 @@
+<div class="absence-table" *ngIf="users.length > 0">
+  <div class="d-flex mb-3">
+    <span
+      class="list-wrappeer-right cursor-pointer "
+      (click)="toggleselectOpen()"
+    >
+      {{ "Absence" | translate }}
+      <i class="material-icons">
+        {{ selectOpen ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+      </i>
+      
+    </span>
+  </div>
+  <table *ngIf="selectOpen">
+    <thead>
+      <tr>
+        <th>{{ "Name" | translate }}</th>
+        <th>{{ "Absence" | translate }}</th>
+        <th>{{ "Start Date" | translate }}</th>
+        <th>{{ "End Date" | translate }}</th>
+        <th>{{ "Atest" | translate }}</th>
+        <th>{{ "Comment" | translate }}</th>
+        <th><app-dellete-icon-svg></app-dellete-icon-svg></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let user of users; let i = index">
+          <tr class="attest-absence-row" [ngStyle]="{
+            'background-color': i%2==0 ? '#FCF4EC': '#ffffff'
+          }">
+            <td style="width: 150px;padding: 5px 5px 5px 15px;">{{user.Surname}} {{user.Lastname}}</td>
+            <td style="width: 200px;padding: 5px 5px 5px 15px;">
+                {{ user.Name }}  
+            </td>
+            <td style="width: 100px;padding: 5px 5px 5px 15px;">
+              {{ user.StartDate | trimStr2 }}
+            </td>
+            <td style="width: 100px;padding: 5px 5px 5px 15px;">
+             {{ user.EndDate |  trimStr2}} 
+            </td>
+            <td class="text-align" style="width: 50px; position: relative;padding: 0px;">
+              <!-- <input
+                type="checkbox"
+                [checked]="users[absence].attested"
+                (ngModel)="(absenceData[absence].attested)"
+                class="input-class"
+                (change)="attestAbsence($event, absence, user.userId)"
+              /> -->
+                <ng-container *ngIf="allowEdit">
+                  <label [for]="user.attested">
+                    <app-check-in-svg *ngIf="user.attested"></app-check-in-svg>
+                    <app-check-out-svg *ngIf="!user.attested"></app-check-out-svg> 
+                  </label>
+                                                              
+                   <input
+                  type="checkbox"
+                  class="checkbox-type"
+                  [checked]="user.attested"
+                  (ngModel)="(user.attested)"
+                  (change)="attestAbsence($event, user)"
+                  />           
+                </ng-container>
+           
+            </td>
+            <td style="padding: 5px 5px 5px 15px;">
+              {{ user.Comment }} 
+            </td>
+            <td class="text-align" style="width: 70px;padding: 5px 5px 5px 15px;">
+
+              <!-- <app-dellete-svg *ngIf="allowEdit" (click)="removeAbsence(user.UserAbsenceID, user.UserID, i)"></app-dellete-svg> -->
+             
+            </td>
+          </tr>
+      
+      </ng-container>
+    </tbody>
+  </table>
+</div>

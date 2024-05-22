@@ -1,0 +1,24 @@
+<!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.5" height="15" viewBox="0 0 25.5 15">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="25.5" height="15" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Repeat_Grid_68" data-name="Repeat Grid 68" clip-path="url(#clip-path)">
+    <g transform="translate(-812.901 -627.488)">
+      <g id="Mönster-Arrow-1-1.1" transform="translate(829.089 626.319) rotate(90)">
+        <path id="Path_5701" data-name="Path 5701" d="M7.5,12.99,0,0H15Z" transform="translate(1.169 3.198)"/>
+      </g>
+    </g>
+    <g transform="translate(-799.901 -627.488)">
+      <g id="Mönster-Arrow-1-1.1-2" data-name="Mönster-Arrow-1-1.1" transform="translate(829.089 626.319) rotate(90)">
+        <path id="Path_5701-2" data-name="Path 5701" d="M7.5,12.99,0,0H15Z" transform="translate(1.169 3.198)"/>
+      </g>
+    </g>
+  </g>
+</svg> -->
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="13" viewBox="0 0 15 13">
+  <path id="Path_5853" data-name="Path 5853" d="M.458-.884-.884.279,12.774,12.116l1.342-1.163Z" transform="translate(0.884 0.884)" fill="#fff"/>
+</svg>
+
+

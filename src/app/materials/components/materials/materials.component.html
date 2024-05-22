@@ -1,0 +1,135 @@
+<div class="row row1X mb-3">
+  <div
+    class="card col-6 col-lg-8W bgGrayBlue bg-warningX nav-wrapperX"
+    id="topFeeder"
+  >
+    <nav class="nav nav-pills nav-justified">
+      <div class="nav-links w-100">
+        <a
+          routerLink="/register"
+          class="btn btn-dark mr-2 lh09"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="badgeX badge-darkX material-icons top1px posRel"
+            >arrow_back</span
+          >
+        </a>
+        
+
+        <a
+          *ngIf="userDetails.create_register_products"
+          class="btn btn-dark"
+          routerLinkActive="active"
+          routerLink="/materials/new"
+          >{{ "New Category" | translate }}</a
+        >
+
+        <button
+          *ngIf="hasSorted"
+          class="btn btn-dark btn-custom"
+          style="float: right"
+          (click)="saveSort()"
+        >
+          {{ "Save Sort" | translate }}
+        </button>
+      </div>
+    </nav>
+  </div>
+</div>
+<button
+  *ngIf="hasSorted"
+  class="btn btn-dark btn-custom mr-2 lh09 posAbs mediamax799 ml-3X"
+  style="right: 0"
+  (click)="saveSort()"
+>
+  {{ "Save Sort" | translate }}
+</button>
+
+<div class="row row1X overflow-hidden">
+  <div
+    class="card col-6 card1 col-lg-8W"
+    style="overflow-y: auto; overflow-x: hidden"
+  >
+    <div class="theGrid2 ml-3X js-grid">
+      <div
+        (click)="goTo(material.id, $event)"
+        class="card col-sm-4X mr-1X ml-1X mb-3 cursor-pointer custom-edit-bg minw240pxX js-item"
+        *ngFor="let material of materials; let i = index"
+      >
+        <button
+          data-id="noNavigate"
+          class="btn btn-dark btn-custom show-edit-btn material-icons btn-sm"
+          (click)="showEdit(i)"
+          *ngIf="userDetails.create_register_products"
+        >
+          create
+        </button>
+
+        <div data-id="noNavigate" class="edit-section" *ngIf="material.show">
+          <div data-id="noNavigate" class="form group">
+            <label
+              data-id="noNavigate"
+              for="materialName w-100"
+              style="display: block"
+              >{{ "Category Name" | translate }}
+              <span
+                data-id="noNavigate"
+                class="exit-edit"
+                (click)="hideEdit(i)"
+                style="float: right"
+                >X</span
+              ></label
+            >
+            <input
+              data-id="noNavigate"
+              type="text"
+              class="form-control mb-2"
+              id="materialName"
+              placeholder="Enter material name"
+              #materialName
+              value="{{ material.name }}"
+            />
+          </div>
+          <div data-id="noNavigate" class="form-group form-group-upload">
+            <label data-id="noNavigate" for="image">{{
+              "Chose Image" | translate
+            }}</label>
+            <input
+              data-id="noNavigate"
+              type="file"
+              class="form-control-file hide"
+              id="image"
+              #materialPicture
+            />
+          </div>
+          <button
+            data-id="noNavigate"
+            (click)="editMaterial(i, materialName.value, materialPicture)"
+            class="btn btn-dark btn-custom btn-sm"
+          >
+            {{ "Update" | translate }}
+          </button>
+        </div>
+
+        <img
+          class="card-img-top image-crop"
+          src="{{
+            material.image ? material.image : 'assets/img/no-image-icon-1.jpg'
+          }}"
+        />
+        <div class="card-body d-flex flex-column pb-0">
+          <h4 class="h6 mt-auto text-center text-secondary">
+            {{ material.name }}
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="materials.length < 1" class="text-center my-3">
+      <p class="material-icons mb-0" style="font-size: 3em">error_outline</p>
+      <p class="mb-0">
+        {{ "There are no categories created yet" | translate }}.
+      </p>
+    </div>
+  </div>
+</div>

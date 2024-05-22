@@ -1,0 +1,18 @@
+.modal-top-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-top-wrapper button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-top-wrapper button i {
+  font-size: 14px;
+}
+
+.hide {
+  display: none !important;
+}

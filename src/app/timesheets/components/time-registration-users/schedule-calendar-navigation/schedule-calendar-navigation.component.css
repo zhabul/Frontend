@@ -1,0 +1,78 @@
+
+.calendar-header-schedule {
+  display: grid;
+  grid-template-columns: 400px 950px auto;
+  grid-template-rows: 90px;
+  margin-top: 50px;
+  border: 1px solid var(--border-color);
+  border-top-left-radius: 0.6rem;
+  border-right-style: none;
+  position: relative;
+}
+  
+.justify-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 320px;
+}
+  
+.green-title {
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 40px;
+  color: #BFE29C;
+  cursor: default;
+}
+  
+.green-arrow-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.tab-container {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.time-registration-button {
+  border-color: rgb(191, 226, 156);
+  border-style: solid;
+  border-width: 1px;
+  color: rgb(191, 226, 156);
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: opacity 250ms ease-in-out;
+  text-transform: uppercase;
+}
+
+.time-registration-button:hover {
+  opacity: 0.5;
+}
+
+.button-container {
+  position: relative;
+}
+
+.message-count {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  background: #f23835;
+  color: #fff;
+  border-radius: 20px;
+  padding: 0 0.4em;
+  cursor: default;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.header-filters {
+  padding-left: 50px;
+}

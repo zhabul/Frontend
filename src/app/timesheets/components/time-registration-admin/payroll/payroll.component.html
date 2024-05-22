@@ -1,0 +1,73 @@
+<div class="row row1X tab-content2 tab-content">
+
+    <div class="calendar-header-container">
+        <div class="calendar-header-payroll">
+          <div class="header-back-button">
+            <div>
+              <div
+                (click)="redirectToSingleCalendar()"
+                class="btn mr-2 lh09 hideUnder800 "
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <app-back-button-svg-ud></app-back-button-svg-ud>
+              </div>
+            </div>
+          </div>  
+    
+          <div class="header-filters">
+              <div class="date-input-container">
+                <div class="floating-title">{{ 'Choose Month' | translate }}</div>
+                <div
+                  class="calendar-button-container calendar-button-left"
+                  (click)="previousDate()"
+                >
+                  <span class="badgeX badge-darkX material-icons top1px posRel"
+                    >navigate_before</span>
+                </div> 
+    
+                <div class="input-group-prepend">
+                  <span class="input-group-text calendar-icon" id="dateSelectStartDate">
+                    <app-calendar-icon-svg></app-calendar-icon-svg>
+                  </span>
+                </div>
+                <div class="form-control project-date date-input">
+                  {{ choosenDate | date: 'MMM-YYYY' }}
+                </div>
+                <div
+                  class="calendar-button-container calendar-button-right"
+                  (click)="nextDate()"
+                >
+                  <span class="badgeX badge-darkX material-icons top1px posRel">navigate_next</span>
+                </div>
+              </div>
+              <div class="select-container-200 margin-right">
+                <app-company-select ></app-company-select>
+              </div>
+              <div class="select-container-220 margin-right">
+                <div class="floating-title">{{ 'Select type of staff' | translate }}</div>
+                <app-user-type-select (emitActiveType)="onItemSelect($event)"></app-user-type-select>
+              </div>
+              <div class="select-container-200 margin-right">
+                <app-payroll-menu
+                  [users]="checkedUsers"
+                  [date]="choosenDate"
+                  [user_ids]="checkedUsersIDS"
+                ></app-payroll-menu> 
+              </div>
+          </div>
+        </div>
+    </div>
+    <div>
+        <div class="lone-title">{{ 'Create Payroll Basis' | translate }}</div>
+        <app-payroll-user-list
+            [date]="choosenDate"
+            [selectedType]="selectedType"
+            (checkedUsersListener)="setCheckedUsers($event)"
+        ></app-payroll-user-list>
+    </div>
+</div>
+
+
+
+ 

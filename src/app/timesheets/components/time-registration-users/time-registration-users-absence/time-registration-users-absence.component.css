@@ -1,0 +1,271 @@
+.button-position {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.card-header {
+  width: 100%;
+  /*padding: 40px; */
+}
+
+.form-content-timesheet {
+  width: 100%;
+}
+
+.absence-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.form-content-timesheetr {
+  margin-top: 20px;
+}
+
+.form-wrapper {
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
+  padding: 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .schedule-form {
+    margin-bottom: 100px;
+  }
+}
+
+.answer-envelope i {
+  color: #ff3e00;
+  cursor: pointer;
+  transition: opacity 250ms ease-in-out;
+}
+
+.answer-envelope i:hover {
+  opacity: 0.5;
+}
+
+.absence-wrapper {
+  display: flex;
+}
+
+.abs-date-wrapper {
+  display: flex;
+  margin-left: 20px;
+}
+
+.abs-date-field {
+  border: 1px solid #ccc;
+  padding: 5px;
+  background: #fff7f7cc;
+}
+
+.abs-conteiner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.unacepted {
+  background: #000;
+  border-radius: 4px;
+  width: 19px;
+  height: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  padding: 2px;
+}
+
+
+.abs-wrapper {
+
+  width: 100%;
+  text-align: center;
+
+}
+
+.week-days {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.day {
+
+  width: 50px;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 20px 50px 20px;
+  border: 1px solid black;
+  border-right-style: none;
+  font-weight: bold;
+}
+
+.day:last-child {
+  border-right: 1px solid #707070;
+}
+
+.week-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.day-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.day-number {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  cursor: default;
+  font-size: 8px;
+}
+
+.day-absence {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 8px;
+}
+
+.week-circle {
+  border-radius: 50%;
+  background-color: white;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: default;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-container span i {
+  font-size: 10px !important;
+}
+
+.settings-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.settings-field span i {
+  font-size: 16px !important;
+}
+
+
+.settings-field-chat .answer-envelope {
+  position: relative;
+}
+
+.number-of-unread-messages {
+  position: absolute;
+  left: 9px;
+  top: 3px;
+  color: #fff;
+}
+
+.settings-field-chat span i {
+  font-size: 40px !important;
+}
+
+.abs-name {
+  border-bottom: 1px solid #000;
+  margin-bottom: 25px;
+  font-weight: bold;
+  text-align: center;
+  cursor: default;
+  width: 100%;
+}
+
+.remove-txt {
+  font-size: 0.7rem;
+  color: red;
+  cursor: pointer;
+  transition: opacity 250ms ease-in-out;
+}
+
+.remove-txt:hover {
+  opacity: 0.5;
+}
+
+.weon-button {
+  background-color: var(--brand-color); 
+  border-style: none;
+  font-size: large;
+  color: white;
+  padding: 0.50rem 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 250ms ease-in-out;
+}
+
+.weon-button:hover {
+  opacity: 0.5;
+}
+
+.image-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-right: 0.25rem;
+  margin-left: 2rem;
+}
+
+.file-container {
+  margin-left: 1rem;
+  margin-bottom: 0rem;
+}
+
+.progress-loader {
+  position: fixed;
+  padding: 1rem;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 10000;
+  width: 100%;
+  left: -114px;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(255,255,255,0);
+}
+
+::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: var(--brand-color) !important;
+}

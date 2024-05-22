@@ -1,0 +1,216 @@
+<mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="master-around">
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="title-project" *ngIf="this.editForm==false">
+        {{ "Add new Supplier reference" | translate }}
+        </div>
+        <div class="title-project" *ngIf="this.editForm==true">
+        {{ "Edit Supplier reference" | translate }}
+        </div>
+        <div (click)="close(true)" class="position-close-svg mr-2">
+        <button class="btn btn-outline-dark">
+            <div class="circle-container">
+            <i class="material-icons">close</i>
+            </div>
+        </button>
+        </div>
+    </div>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="input-container">
+        <div class="input-group">
+            <label class="required color-label" for="fornamn">{{
+            "First Name" | translate
+            }}</label>
+            <input
+                type="text"
+                class="form-control form-control-custom fornamn-w"
+
+                id="validationCustom01"
+                spellcheck="false"
+                formControlName="FirstName"
+            />
+            <div class="invalid-feedback">Please enter a Supplier's Name</div>
+        </div>
+        <div class="input-group">
+            <label class="required color-label" for="fornamn"> {{ "Last Name" | translate }}</label>
+            <input
+            type="text"
+            class="form-control form-control-custom fornamn-w"
+            id="validationCustom01"
+            spellcheck="false"
+            name="fornamn"
+            formControlName="LastName"
+            />
+            <div class="invalid-feedback">Please enter a Supplier's Name</div>
+        </div>
+
+        <div class="form-check form-check-inline" style="margin-top: 30px">
+            <span class="yes-check">{{ "Status" | translate }}{{ ": " }}</span>
+            <div class="radio-wrapper">
+            <input
+                class="first-radio"
+                type="radio"
+                name="Active"
+                id="inlineRadio1"
+                value="1"
+                checked
+                formControlName="Active"
+            />
+            <label class="first-radio-label" for="inlineRadio1" checked></label>
+            </div>
+            <span class="yes-check">{{ "Active" | translate }}</span>
+        </div>
+        <div class="form-check form-check-inline" style="margin-top: 30px">
+            <div class="radio-wrapper">
+            <input
+                class="first-radio"
+                type="radio"
+                name="Active"
+                id="inlineRadio2"
+                value="0"
+                formControlName="Active"
+                checked
+            />
+            <label class="first-radio-label" for="inlineRadio2"
+                ><!-- {{ "No" | translate }} --></label
+            >
+            <span class="no-check">{{ "Inactive" | translate }}</span>
+            </div>
+        </div>
+        </div>
+        <div class="input-container" style="display: inline-flex">
+        <div class="input-group">
+            <label class="color-label" for="fornamn">{{
+            "Personnummer" | translate
+            }}</label>
+            <input
+            type="text"
+            class="form-control form-control-custom"
+            id="validationCustom01"
+            spellcheck="false"
+            name="fornamn"
+            formControlName="Personnummer"
+            style="width: 200px"
+            />
+            <div class="invalid-feedback">Please enter a Supplier's Name</div>
+        </div>
+        <div class="input-group">
+            <label class="color-label" for="fornamn">{{ "Title" | translate }}</label>
+            <input
+            type="text"
+            class="form-control form-control-custom fornamn-w sec-section"
+            id="validationCustom01"
+            spellcheck="false"
+            name="fornamn"
+            formControlName="Title"
+            style="width: 300px"
+            />
+            <div class="invalid-feedback">Please enter a Supplier's Name</div>
+        </div>
+        </div>
+        <div style="display: flex">
+        <div class="input-item input-item-margin">
+            <label class="color-label" for="input1">{{
+            "Phone Number 1" | translate
+            }}</label>
+        <!--    <input
+            type="text"
+            id="input1"
+            class="form-control"
+            formControlName="PhoneNumber1"
+            style="width: 200px; margin-right: 20px"
+            /> !-->
+            <app-mobile-format
+            [mobile_number]="myForm.get('PhoneNumber1').value"
+            (phone_number)="replacePhoneNumber($event, 'PhoneNumber1')"
+            [width]="200"
+            [placeholder]="translate.instant('Enter mobile 1')"
+            >
+            </app-mobile-format>
+        </div>
+        <div class="input-item input-item-margin">
+            <label class="color-label" for="input2">{{
+            "Phone Number 2" | translate
+            }}</label>
+        <!--  <input
+            type="text"
+            id="input2"
+            class="form-control"
+            formControlName="PhoneNumber2"
+            style="width: 200px; margin-right: 20px"
+            /> !-->
+            <app-mobile-format
+            [mobile_number]="myForm.get('PhoneNumber2').value"
+            (phone_number)="replacePhoneNumber($event, 'PhoneNumber2')"
+            [width]="200"
+            [placeholder]="translate.instant('Enter mobile 1')"
+            >
+            </app-mobile-format>
+        </div>
+        <div class="input-item">
+            <label class="required color-label" for="input3">{{
+            "Email" | translate
+            }}</label>
+            <input
+            type="text"
+            id="input3"
+            formControlName="Email"
+            class="form-control"
+            style="width: 470px"
+            />
+            <span
+            class="help-block"
+            *ngIf="
+                (myForm.get('Email').touched ||
+                myForm.get('Email').dirty) &&
+                myForm.get('Email').errors
+            "
+            >
+            <span
+                *ngIf="myForm.get('Email').errors.required"
+                class="text-danger margin-sec-col"
+                >{{ "Email required" | translate }}.</span
+            >
+            <span
+                *ngIf="myForm.get('Email').errors.email"
+                class="text-danger margin-sec-col"
+                >{{ "Email invalid" | translate }}.</span
+            >
+            </span>
+        </div>
+        </div>
+    <div style="margin-top: 3rem; margin-left: 50px" class="buttons-container">
+        <div style="position:relative;right:5.5%">
+            <button type="submit" class="save-button-weon">
+            <div class="button-icon">
+                <app-folder-icon-with-params-svg
+                [width]="23.5"
+                [height]="18.548"
+                [color]="'373b40'"
+            ></app-folder-icon-with-params-svg>
+            </div>
+            <div>
+                {{ "Save" | translate }}
+            </div>
+            </button>
+        </div>
+        <div>
+            <div>
+            <div class="delete-button-weon" (click) ="removeSupplier()">
+                <div class="button-icon">
+                <app-delete-icon
+                [width]="14.498"
+                [height]="21.184"
+                [color]="'FD4444'"
+                ></app-delete-icon>
+                </div>
+                <div>
+                {{ "Delete" | translate }}
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </form>
+    </div>
+</mat-dialog-content>

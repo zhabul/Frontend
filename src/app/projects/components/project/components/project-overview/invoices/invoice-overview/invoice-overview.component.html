@@ -1,0 +1,680 @@
+<div class="row row1X mb-3">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav class="nav nav-pills nav-justified">
+      <div class="d-flex">
+        <div>
+          <a
+            [routerLink]="['/projects/view', invoice.ProjectId, 'invoices']"
+            class="btn btn-dark mr-2 lh09 hideUnder800"
+            *ngIf="!tabActive"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [ngStyle]="{ visibility: tabActive ? 'hidden' : 'visible' }"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+          <a
+            href="#nav-default"
+            data-toggle="tab"
+            role="tab"
+            aria-controls="nav-default"
+            *ngIf="tabActive"
+            class="btn btn-dark mr-2 lh09 hideUnder800"
+            (click)="isTab()"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="project text-muted w-100">
+          <span class="d-block text-uppercase" style="font-size: 0.9em">{{
+            (project.parent == "0" ? "Project" : "Subproject") | translate
+          }}</span>
+          <h4 class="textDarkBlue posRel mb-0 fs-18">
+            {{ project.CustomName }} {{ project.name }}
+          </h4>
+        </div>
+      </div>
+      <span class="component-title"
+        >{{ project.CustomName }} - {{ project.name }}</span
+      >
+    </nav>
+  </div>
+</div>
+
+<div class="row row1X tab-content">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70 tab-pane fade show active"
+    id="nav-default"
+    role="tabpanel"
+    aria-labelledby="nav-default-tab"
+  >
+    <div class="card-body">
+      <section class="d-flex justify-content-between">
+        <h1 class="h4">{{ "Invoice" | translate }}</h1>
+        <span *ngIf="status == 1" class="status-text">{{
+          "Not Sent" | translate
+        }}</span>
+        <span *ngIf="status == 2" class="text-primary status-text">{{
+          "Sent" | translate
+        }}</span>
+        <span *ngIf="status == 4" class="text-warning status-text">{{
+          "TSC_Booked" | translate
+        }}</span>
+        <span *ngIf="status == 6" class="text-success status-text">{{
+          "Paid" | translate
+        }}</span>
+        <span *ngIf="status == 3" class="text-danger status-text">{{
+          "Unpaid due" | translate
+        }}</span>
+        <span *ngIf="status == 5" class="text-secondary status-text">{{
+          "Canceled" | translate
+        }}</span>
+      </section>
+    </div>
+    <form
+      novalidate
+      autocomplete="off"
+      [formGroup]="createForm"
+      (ngSubmit)="updateInvoice()"
+    >
+      <div class="form-wrapper mb-3">
+        <div class="panel panel-default w-100">
+          <fieldset>
+            <legend class="w-auto">{{ "Information" | translate }}</legend>
+            <div class="row row-sm">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="project" class="required">{{
+                    "Project" | translate
+                  }}</label>
+                  <!-- <select class="form-control project-select" id="project" formControlName="project"
+                                            [class.is-invalid]="(createForm.get('project').touched || createForm.get('project').dirty) && createForm.get('project').invalid"
+                                            (change)="getProject(createForm.get('project').value)">
+                                        <option *ngFor="let project of projects" value="{{project.id}}">{{project.CustomName}} - {{project.name}}</option>
+                                    </select> -->
+                  <input
+                    id="project"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control"
+                    formControlName="project"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!-- <label for="client" class="required">{{'Client' | translate}}</label>
+                                    <select class="form-control" id="client" formControlName="client" [compareWith]="compareFn">
+                                        <option *ngFor="let client of clients" value="{{client.Id}}">{{client.Number}} - {{client.Name}}</option>
+                                    </select> -->
+                  <!-- <span class="help-block" *ngIf="createForm.get('client').hasError('required')">
+                                        <span class="text-danger">{{ 'Please select client' | translate }}</span>
+                                    </span> -->
+                  <label for="client" class="required">{{
+                    "Client" | translate
+                  }}</label>
+                  <input
+                    id="client"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control"
+                    formControlName="client"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="reference" class="required">{{
+                    "Our Reference" | translate
+                  }}</label>
+                  <select
+                    class="form-control reference-select"
+                    id="reference"
+                    formControlName="reference"
+                    *ngIf="!locked"
+                    [class.is-invalid]="
+                      (createForm.get('reference').touched ||
+                        createForm.get('reference').dirty) &&
+                      createForm.get('reference').invalid
+                    "
+                  >
+                    <option
+                      *ngFor="let reference of references"
+                      value="{{ reference.firstname }} {{ reference.lastname }}"
+                    >
+                      {{ reference.firstname }} {{ reference.lastname }}
+                    </option>
+                  </select>
+                  <input
+                    class="form-control"
+                    id="reference"
+                    autocomplete="off"
+                    *ngIf="locked"
+                    type="text"
+                    formControlName="reference"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row row-sm">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="invoiceDate" class="required">{{
+                    "Invoice Date" | translate
+                  }}</label>
+                  <input
+                    (keydown)="$event.preventDefault()"
+                    id="invoiceDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control"
+                    placeholder="{{ 'Select' | translate }} {{
+                      'Invoice Date' | translate
+                    }}"
+                    formControlName="invoiceDate"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="dueDate">{{ "Due Date" | translate }}</label>
+                  <input
+                    (keydown)="$event.preventDefault()"
+                    id="dueDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control"
+                    placeholder="{{ 'Select' | translate }} {{
+                      'Due Date' | translate
+                    }}"
+                    formControlName="dueDate"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="type" class="required">{{
+                    "Type" | translate
+                  }}</label>
+                  <select
+                    class="form-control type-select"
+                    id="type"
+                    formControlName="type"
+                    [class.is-invalid]="
+                      (createForm.get('type').touched ||
+                        createForm.get('type').dirty) &&
+                      createForm.get('type').invalid
+                    "
+                  >
+                    <option *ngFor="let type of types" value="{{ type }}">
+                      {{ type | translate }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="form-wrapper mb-3">
+        <div class="panel panel-default w-100">
+          <fieldset>
+            <legend class="w-auto">{{ "Note" | translate }}</legend>
+            <div class="row row-sm">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="note-1">{{ "Note" | translate }} Fortnox</label>
+                  <textarea
+                    maxlength="150"
+                    class="form-control"
+                    id="note-1"
+                    rows="3"
+                    formControlName="note1"
+                  ></textarea>
+                  <small style="opacity: 0.75"
+                    >{{ createForm.get("note1").value.length }}/150</small
+                  >
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="note-2">{{ "Note" | translate }} SPS360</label>
+                  <textarea
+                    maxlength="150"
+                    class="form-control"
+                    id="note-2"
+                    rows="3"
+                    formControlName="note2"
+                  ></textarea>
+                  <small style="opacity: 0.75"
+                    >{{ createForm.get("note2").value.length }}/150</small
+                  >
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row row-sm mb-3" *ngIf="!locked">
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm"
+          id="nav-atas-tab"
+          [disabled]="atas.length == 0"
+          *ngIf="!tabActive"
+          data-toggle="tab"
+          href="#nav-atas"
+          role="tab"
+          aria-controls="nav-atas"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">add_circle_outline</span>
+          <span class="ml-1">{{ "Ata" | translate }}</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm ml-3"
+          id="nav-materials-tab"
+          [disabled]="supplierInvoicesByProject.length == 0"
+          *ngIf="!tabActive"
+          data-toggle="tab"
+          href="#nav-materials"
+          role="tab"
+          aria-controls="nav-materials"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">add_circle_outline</span>
+          <span class="ml-1">{{ "Supplier Invoices" | translate }}</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm ml-3"
+          id="nav-weekly-reports-tab"
+          [disabled]="weeklyReports.length == 0"
+          *ngIf="!tabActive"
+          data-toggle="tab"
+          href="#nav-weekly-reports"
+          role="tab"
+          aria-controls="nav-weekly-reports"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">add_circle_outline</span>
+          <span class="ml-1">{{ "Ongoing Work" | translate }}</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm ml-3"
+          id="nav-payment-plan-tab"
+          [disabled]="paymentPlans.length == 0"
+          *ngIf="!tabActive"
+          data-toggle="tab"
+          href="#nav-payment-plan"
+          role="tab"
+          aria-controls="nav-payment-plan"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">add_circle_outline</span>
+          <span class="ml-1">{{ "Payment Plan" | translate }}</span>
+        </button>
+      </div>
+
+      <!-- <button type="button" class="btn btn-sm btn-outline-info lh09 ml-auto mb-2 mt-4 d-block" (click)="toggleAddArticleForm()"><span class="material-icons top1px posRel">add</span></button> -->
+
+      <table
+        class="table table-sm table-bordered invoice-table"
+        *ngIf="!process"
+      >
+        <thead>
+          <tr>
+            <th>{{ "Article" | translate }}</th>
+            <th>{{ "Quantity" | translate }}</th>
+            <th>{{ "Unit" | translate }}</th>
+            <th>{{ "Price per unit" | translate }}</th>
+            <th>{{ "Deduct" | translate }}</th>
+            <th>
+              {{ "Total" | translate }}
+              <small style="letter-spacing: -0.25"
+                >({{
+                  ("Price per unit" | translate) +
+                    " * " +
+                    ("Deduct" | translate)
+                }})</small
+              >
+            </th>
+            <th *ngIf="!locked">{{ "Remove" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            formArrayName="articleForm"
+            *ngFor="let job of articleForm.controls; let i = index"
+          >
+            <td formGroupName="{{ i }}">
+              <input type="hidden" formControlName="Id" />
+              <input type="hidden" formControlName="AtaId" />
+              <input type="hidden" formControlName="MaterialId" />
+              <input type="hidden" formControlName="ReportId" />
+              <input
+                class="form-control form-control-sm article-name"
+                type="text"
+                #articleName
+                formControlName="Description"
+                (click)="addRow(articleForm)"
+                [class.is-invalid]="job.get('Description').invalid"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm width5em"
+                type="number"
+                min="1"
+                #articleQuantity
+                formControlName="DeliveredQuantity"
+                (change)="updateTotal(i, articleForm)"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <select
+                class="form-control form-control-sm width5em"
+                #articleUnit1
+                formControlName="Unit"
+              >
+                <option *ngFor="let unit of units" value="{{ unit }}">
+                  {{ unit }}
+                </option>
+              </select>
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm width5em"
+                type="text"
+                min="0"
+                #articlePrice
+                formControlName="Price"
+                number-format-directive
+                (change)="updateTotal(i, articleForm)"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm width5em"
+                type="number"
+                #articleDeduct
+                formControlName="Deduct"
+                (change)="updateTotal(i, articleForm)"
+              />
+            </td>
+            <td formGroupName="{{ i }}">
+              <input
+                class="form-control form-control-sm"
+                readonly
+                type="number"
+                min="0"
+                #articleTotal
+                formControlName="Total"
+              />
+            </td>
+            <td class="text-center" *ngIf="!locked">
+              <span
+                class="text-danger material-icons top1px posRel"
+                style="cursor: pointer"
+                (click)="removeRow(i, articleForm, job.get('Id').value)"
+                >delete</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="total-amount">
+        <div class="row row-sm">
+          <div class="col-9 total-text"><b>Total:</b></div>
+          <div class="col-3 total-number">{{ invoiceTotalAmount() }}</div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-success lh09"
+        [disabled]="createForm.invalid || process"
+        *ngIf="!locked"
+      >
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Update" | translate }}</span>
+      </button>
+      <button
+        type="button"
+        class="btn btn-success lh09 ml-3"
+        [disabled]="createForm.invalid || process"
+        *ngIf="!locked"
+        (click)="sendInvoice()"
+      >
+        <span class="material-icons left-3px top1px posRel">forward</span>
+        <span class="posRel top-5px">{{ "Send to" | translate }} Fortnox</span>
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger lh09 ml-3"
+        [disabled]="createForm.invalid || process"
+        *ngIf="!locked"
+        (click)="cancelInvoice()"
+      >
+        <span class="material-icons left-3px top1px posRel">delete</span>
+        <span class="posRel top-5px">{{ "Delete" | translate }}</span>
+      </button>
+    </form>
+  </div>
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70 tab-pane fade"
+    id="nav-atas"
+    role="tabpanel"
+    aria-labelledby="nav-atas-tab"
+  >
+    <form novalidate autocomplete="off" [formGroup]="atasForm">
+      <table class="table table-res800 table-darkX table-striped table-sm">
+        <thead>
+          <tr>
+            <th>{{ "Number" | translate }}</th>
+            <th>{{ "Name" | translate }}</th>
+            <th>{{ "Date" | translate }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of atas; let i = index">
+            <td>ATA-{{ a.id }}</td>
+            <td>
+              {{ a.Name }}
+            </td>
+            <td>{{ a.StartDate }} - {{ a.EndDate }}</td>
+            <td>
+              <input
+                type="checkbox"
+                #atas
+                formControlName="ataSelected"
+                (change)="
+                  getAtaRows(atasForm.get('ataSelected').value, a.id, a.Name)
+                "
+                [disabled]="process"
+                [checked]="isChecked(a.id, 1)"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <div class="row row-sm" *ngIf="!locked">
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm"
+          id="nav-default-tab"
+          [disabled]="atas.length == 0"
+          *ngIf="tabActive"
+          data-toggle="tab"
+          href="#nav-default"
+          role="tab"
+          aria-controls="nav-default"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">done</span>
+          <span class="ml-1">{{ "Import" | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70 tab-pane fade"
+    id="nav-materials"
+    role="tabpanel"
+    aria-labelledby="nav-materials-tab"
+  >
+    <section class="d-flex justify-content-between mb-2">
+      <h1 class="h4">{{ "Supplier Invoices" | translate }}</h1>
+    </section>
+    <form novalidate autocomplete="off" [formGroup]="materialsForm">
+      <table
+        class="table tab-responsive table-striped table-hover table-lightX table-sm"
+        id="theTable"
+      >
+        <thead class="table-bordered">
+          <tr>
+            <th scope="col">{{ "Order NR" | translate }}</th>
+            <th scope="col">{{ "Supplier Name" | translate }}</th>
+            <th scope="col">{{ "Invoice Date" | translate }}</th>
+            <th scope="col">{{ "Due Date" | translate }}</th>
+            <th scope="col">{{ "Total" | translate }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="table-bordered">
+          <tr
+            class="cursor-pointer"
+            *ngFor="let invoice of supplierInvoicesByProject"
+          >
+            <td>{{ invoice.GivenNumber }}</td>
+            <td>{{ invoice.SupplierName }}</td>
+            <td>{{ invoice.InvoiceDate }}</td>
+            <td>{{ invoice.DueDate }}</td>
+            <td>{{ invoice.Total }}</td>
+            <td>
+              <input
+                type="checkbox"
+                #atas
+                formControlName="materialSelected"
+                (change)="
+                  getMaterialRows(
+                    materialsForm.get('materialSelected').value,
+                    invoice.GivenNumber,
+                    invoice.SupplierName,
+                    invoice.Total
+                  )
+                "
+                [disabled]="process"
+                [checked]="isChecked(invoice.GivenNumber, 2)"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <div class="row row-sm">
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm"
+          id="nav-default-tab"
+          *ngIf="tabActive"
+          data-toggle="tab"
+          href="#nav-default"
+          role="tab"
+          aria-controls="nav-default"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">done</span>
+          <span class="ml-1">{{ "Import" | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70 tab-pane fade"
+    id="nav-weekly-reports"
+    role="tabpanel"
+    aria-labelledby="nav-weekly-reports-tab"
+  >
+    <section class="d-flex justify-content-between mb-2">
+      <h1 class="h4">{{ "Supplier Invoices" | translate }}</h1>
+    </section>
+    <form novalidate autocomplete="off" [formGroup]="weeklyReportsForm">
+      <table
+        class="table tab-responsive table-striped table-hover table-lightX table-sm"
+      >
+        <thead class="table-bordered">
+          <tr>
+            <th scope="col">{{ "Name" | translate }}</th>
+            <th scope="col">{{ "Comment" | translate }}</th>
+            <th scope="col">{{ "Date" | translate }}</th>
+            <th scope="col">{{ "Total" | translate }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="table-bordered">
+          <tr class="cursor-pointer" *ngFor="let report of weeklyReports">
+            <td>{{ report.name }}</td>
+            <td>{{ report.comment }}</td>
+            <td>{{ report.created }}</td>
+            <td>{{ report.total }}</td>
+            <td>
+              <input
+                type="checkbox"
+                #atas
+                formControlName="reportSelected"
+                (change)="
+                  getWeeklyReportsRows(
+                    weeklyReportsForm.get('reportSelected').value,
+                    report.id,
+                    report.name,
+                    report.total
+                  )
+                "
+                [disabled]="process"
+                [checked]="isChecked(report.id, 3)"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <div class="row row-sm">
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-dark btn-icon-postion btn-sm"
+          id="nav-default-tab"
+          *ngIf="tabActive"
+          data-toggle="tab"
+          href="#nav-default"
+          role="tab"
+          aria-controls="nav-default"
+          aria-selected="false"
+          (click)="isTab()"
+        >
+          <span class="material-icons">done</span>
+          <span class="ml-1">{{ "Import" | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

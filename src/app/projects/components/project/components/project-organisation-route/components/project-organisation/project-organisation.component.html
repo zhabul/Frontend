@@ -1,0 +1,388 @@
+<div class="nav-wrapper">
+  <ul class="legend-ul"></ul>
+  <button class="btn btn-dark" (click)="loadMyChildComponent($event)">
+    {{ "Add new category" | translate }}
+  </button>
+  <button
+    class="btn btn-dark"
+    style="float: right"
+    routerLink="/projects/view/project-org/{{ project.id }}/preview"
+  >
+    {{ "Preview" | translate }}
+  </button>
+</div>
+<div class="mt-4">
+  <h4>{{ "Categories" | translate }}</h4>
+  <hr />
+</div>
+<div class="row register-content">
+  <ul class="list-group list-group-flush lh3">
+    <ng-container *ngFor="let register of registers; let index = index">
+      <div class="mt-5 mr-5 font-weight-bold text-secondary">
+        {{ register["Type"] == "1" ? "Clients" : "Supplier" }}
+      </div>
+      <li
+        class="list-group-item rBody"
+        (click)="openComponentDetail1(register, index)"
+      >
+        <div class="float-left mr-5">
+          {{ "Category" | translate }}:
+          <span class="badge badge-info">{{ register["Name"] }}</span>
+        </div>
+
+        <i
+          class="material-icons text-danger cursor-pointer list-group-item posAbs rBody"
+          style="border-top: 0"
+          (click)="removeReg(register['Id'], index)"
+          >clear</i
+        >
+      </li>
+      <li class="list-group-item mb-5 p-0" style="overflow: hidden">
+        <div class="bgGrayBlue">
+          <div
+            class="list-group-item"
+            (click)="openComponentDetail1(register, index)"
+          >
+            <div class="mr-5">
+              {{
+                (register["Type"] == "1" ? "Client" : "Supplier") + " Name"
+                  | translate
+              }}:
+              <span class="badge badge-info">{{
+                register["CompanyName"]
+              }}</span>
+            </div>
+          </div>
+          <div class="float-left mr-5">
+            <button
+              class="btn btn-dark btn-sm ml-2"
+              (click)="openComponent($event, register['Id'])"
+            >
+              {{ "Add Responsible
+              Person" | translate }}
+            </button>
+          </div>
+          <table
+            class="table table-striped table-hover table-responsive table-sm"
+          >
+            <thead class="table-bordered">
+              <tr>
+                <th scope="col" class="text-center">
+                  {{ "Role" | translate }}
+                </th>
+                <th scope="col" class="text-center">
+                  {{ "First Name" | translate }}
+                </th>
+                <th scope="col" class="text-center">
+                  {{ "Last Name" | translate }}
+                </th>
+                <th scope="col" class="text-center" style="white-space: nowrap">
+                  {{ "Remove" | translate }}
+                </th>
+              </tr>
+            </thead>
+            <tbody class="table-bordered tr-toggleableX">
+              <tr
+                *ngFor="let worker of register['workers']; let index2 = index"
+                [ngClass]="
+                  register['new_anim_state'] === 'small'
+                    ? 'opacityFull'
+                    : 'opacity20percent'
+                "
+              >
+                <td class="text-center">{{ worker.Role }}</td>
+                <td class="text-center">{{ worker.FirstName }}</td>
+                <td class="text-center">{{ worker.LastName }}</td>
+                <td class="text-center">
+                  <span
+                    class="material-icons text-danger"
+                    (click)="deleteClientWorker(index, index2)"
+                    >delete_outline</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex m-2" *ngIf="register['Type'] == '1'">
+            <button
+              class="btn btn-dark btn-sm mr-2"
+              (click)="toggleAddCompany(index)"
+            >
+              {{
+                register.showAddCompany
+                  ? "Hide
+              Add Company"
+                  : ("Add Company" | translate)
+              }}
+            </button>
+            <div *ngIf="register.showAddCompany" class="d-flex">
+              <input
+                type="text"
+                class="form-control form-control-custom mr-2"
+                #companyName
+              />
+              <button
+                class="btn btn-dark"
+                (click)="createCompany(index, companyName.value)"
+              >
+                {{ "Add" | translate }}
+              </button>
+            </div>
+          </div>
+          <div *ngIf="register['Type'] == '1'">
+            <div
+              *ngFor="
+                let company of register['company'];
+                let customerIndex = index
+              "
+              class="m-2"
+            >
+              <h4>
+                <span>{{ company.Name }}</span>
+                <span
+                  class="material-icons text-danger ml-2 posRel"
+                  style="top: 3px; cursor: pointer"
+                  (click)="deleteCompany(index, customerIndex)"
+                  >delete_outline</span
+                >
+              </h4>
+              <button
+                [ngClass]="
+                  company['new_anim_state'] == 'small'
+                    ? 'btn-success btn btn-sm mt-2 mb-4'
+                    : 'btn-danger btn btn-sm mt-2 mb-4 float-left'
+                "
+                type="button"
+                (click)="animateMe(company)"
+              >
+                {{
+                  company["new_anim_state"] == "small"
+                    ? ("Add Employee" | translate)
+                    : ("Cancel Adding Employee" | translate)
+                }}
+              </button>
+              <table
+                class="table table-striped table-hover table-responsive table-sm mb-0"
+                [ngClass]="
+                  company['new_anim_state'] == 'small' ? 'clipTable' : ''
+                "
+              >
+                <thead class="table-bordered">
+                  <tr>
+                    <th scope="col">{{ "Role" | translate }}</th>
+                    <th scope="col">{{ "First Name" | translate }}</th>
+                    <th scope="col">{{ "Last Name" | translate }}</th>
+                    <th scope="col" style="white-space: nowrap">
+                      {{ "Remove" | translate }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody
+                  class="table-bordered tr-toggleableX"
+                  [@myfirstanimation]="company['new_anim_state']"
+                >
+                  <tr [@mysecondanimation]="company['new_anim_state']">
+                    <td>
+                      <select
+                        class="form-control form-control-sm"
+                        id="roleInput"
+                        #roleInput
+                      >
+                        <option
+                          *ngFor="let role of roles"
+                          value="{{ role.id }}"
+                        >
+                          {{ role.roles }}
+                        </option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="theFirstName"
+                        aria-describedby="theFirstNameHelp"
+                        placeholder="{{ 'First Name' | translate }}"
+                        #firstName
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="theLastName"
+                        aria-describedby="theFirstNameHelp"
+                        placeholder="{{ 'Last Name' | translate }}"
+                        #lastName
+                      />
+                    </td>
+                    <td class="text-center">
+                      <span
+                        class="material-icons text-success"
+                        [ngClass]="
+                          company['new_anim_state'] === 'small'
+                            ? 'cursor-default'
+                            : 'cursor-pointer'
+                        "
+                        (click)="
+                          addOneWorker(
+                            index,
+                            customerIndex,
+                            firstName.value,
+                            lastName.value,
+                            roleInput.options[roleInput.selectedIndex].value
+                          )
+                        "
+                        >save</span
+                      >
+                    </td>
+                  </tr>
+                  <tr
+                    *ngFor="let worker of company.Employes; let index3 = index"
+                    [ngClass]="
+                      company['new_anim_state'] === 'small'
+                        ? 'opacityFull'
+                        : 'opacity20percent'
+                    "
+                  >
+                    <td>{{ worker.Role }}</td>
+                    <td>{{ worker.FirstName }}</td>
+                    <td>{{ worker.LastName }}</td>
+                    <td class="text-center">
+                      <span
+                        class="material-icons text-danger"
+                        [ngClass]="
+                          company['new_anim_state'] == 'small'
+                            ? 'cursor-pointer'
+                            : 'cursor-default'
+                        "
+                        (click)="deleteWorker(index, customerIndex, index3)"
+                        >delete_outline</span
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!--add new subcategory-->
+
+          <div *ngIf="register['Type'] == '2'">
+            <div class="nav-wrapper">
+              <ul class="legend-ul"></ul>
+              <button
+                class="btn btn-dark btn-sm"
+                (click)="loadSubCategoryComponent()"
+              >
+                {{ "Add new subcategory" | translate }}
+              </button>
+            </div>
+            <div class="mt-5">
+              <h4>Subcategories</h4>
+              <hr />
+            </div>
+            <div class="row register-content">
+              <ul class="list-group list-group-flush lh3">
+                <ng-container
+                  *ngFor="let child of registers['childs']; let index = index"
+                >
+                  <li
+                    class="list-group-item rBody mt-5"
+                    (click)="openSubComponentDetail(register, index)"
+                  >
+                    <div class="float-left mr-5">
+                      Category:
+                      <span class="badge badge-info">{{
+                        register["Name"]
+                      }}</span>
+                    </div>
+
+                    <i
+                      class="material-icons text-danger cursor-pointer list-group-item posAbs rBody"
+                      (click)="removeReg(register['Id'], index)"
+                      >clear</i
+                    >
+                  </li>
+                  <li class="list-group-item p-0" style="overflow: hidden">
+                    <div class="bgGrayBlue">
+                      <div
+                        class="list-group-item"
+                        (click)="openSubComponentDetail(register, index)"
+                      >
+                        <div class="mr-5">
+                          {{ register["Type"] == "1" ? "Clients" : "Supplier" }}
+                          Name:
+                          <span class="badge badge-info">{{
+                            register["CompanyName"]
+                          }}</span>
+                        </div>
+                      </div>
+                      <div class="float-left mr-5">
+                        <button
+                          class="btn btn-dark btn-sm ml-2"
+                          (click)="openSubComponent($event, register['Id'])"
+                        >
+                          {{ "Add Responsible Person" | translate }}
+                        </button>
+                      </div>
+                      <table
+                        class="table table-striped table-hover table-responsive table-sm"
+                      >
+                        <thead class="table-bordered">
+                          <tr>
+                            <th scope="col" class="text-center">
+                              {{ "Role" | translate }}
+                            </th>
+                            <th scope="col" class="text-center">
+                              {{ "First Name" | translate }}
+                            </th>
+                            <th scope="col" class="text-center">
+                              {{ "Last Name" | translate }}
+                            </th>
+                            <th
+                              scope="col"
+                              class="text-center"
+                              style="white-space: nowrap"
+                            >
+                              {{ "Remove" | translate }}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-bordered tr-toggleableX">
+                          <tr
+                            *ngFor="
+                              let worker of register['workers'];
+                              let index2 = index
+                            "
+                            [ngClass]="
+                              register['new_anim_state'] === 'small'
+                                ? 'opacityFull'
+                                : 'opacity20percent'
+                            "
+                          >
+                            <td class="text-center">{{ worker.Role }}</td>
+                            <td class="text-center">{{ worker.FirstName }}</td>
+                            <td class="text-center">{{ worker.LastName }}</td>
+                            <td class="text-center">
+                              <span
+                                class="material-icons text-danger"
+                                (click)="deleteClientWorker(index, index2)"
+                                >delete_outline</span
+                              >
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </div>
+          <!---->
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+</div>

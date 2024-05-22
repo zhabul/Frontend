@@ -1,0 +1,11 @@
+<app-new-offer
+
+    *ngIf="showOffers"
+    [offers]="offers"
+    [id]="id"
+    
+></app-new-offer>
+
+<div class="progress-loader2" *ngIf="!offers.length">
+    <app-sps-loader></app-sps-loader>
+</div> 

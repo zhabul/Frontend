@@ -1,0 +1,232 @@
+<section style="margin-left: -5px">
+  <div class="dateView">
+    <div class="iconsSize ml-1 my-auto" (click)="previousmonth()">
+      <h3>&lt;</h3>
+    </div>
+
+    <div class="dateFormat">
+      <p>{{ currentDate.format("MMMM") | translate }}</p>
+      <p>{{ currentDate.format("YYYY ") }}</p>
+    </div>
+
+    <div class="iconsSize ml-1 my-auto" (click)="nextmonth()">
+      <h3>&gt;</h3>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="container-fluid">
+      <div class="top-calendar-line"></div>
+      <div class="right-calendar-line"></div>
+      <div class="flex-container flex-wrap">
+        <div style="display: grid">
+          <div
+            *ngFor="let weekNumber of weeks | slice: 0:6; let i = index"
+            class="weekNumber"
+          >
+            <p class="v-weekNumber">v.{{ weekNumber }}</p>
+          </div>
+        </div>
+        <div class="columns-calendar">
+          <ng-container *ngFor="let day of daysarr; let index = index">
+            <div
+              [ngClass]="day.dayInFormat == date_now ? 'greenBorder' : ''"
+              class="oneDay"
+            >
+              <div
+                [ngClass]="[
+                  day.longName == 'Saturday' || day.longName == 'Sunday'
+                    ? 'weekendDay'
+                    : 'workDay'
+                ]"
+              >
+                <h5>
+                  <div
+                    class="number"
+                    [ngStyle]="
+                      day.dayInFormat == date_now
+                        ? { color: '#BEE19C' }
+                        : { color: '' }
+                    "
+                  >
+                    {{ day.number }}
+                  </div>
+                  <div
+                    class="shortName"
+                    [ngStyle]="
+                      day.dayInFormat == date_now
+                        ? { color: '#BEE19C' }
+                        : { color: '' }
+                    "
+                  >
+                    {{ day.shortName | translate }}
+                  </div>
+                </h5>
+              </div>
+              <div
+                *ngIf="day.longName != 'Saturday' && day.longName != 'Sunday'"
+                class="clock-time"
+                [ngStyle]="
+                  this.hours_for_calendar[day.dayInFormat] &&
+                  day.isCurrent == false
+                    ? { visibility: 'visible' }
+                    : { visibility: 'hidden' }
+                "
+              >
+                <div class="svg-position">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="19.185"
+                    height="19.182"
+                    viewBox="0 0 19.185 19.182"
+                  >
+                    <path
+                      id="Path_928"
+                      data-name="Path 928"
+                      d="M10.142,2.084A9.524,9.524,0,0,0,3.659-1.364a9.866,9.866,0,0,0-4.65.7A9.1,9.1,0,0,0-3.361.78a9.588,9.588,0,0,0-1.306,13.5A9.529,9.529,0,0,0,1.815,17.73c.315.03.627.045.94.045a9.527,9.527,0,0,0,6.084-2.189,9.6,9.6,0,0,0,1.3-13.5m.538,6.864a7.976,7.976,0,0,1-8.709,7.174,7.918,7.918,0,0,1-5.392-2.868A7.984,7.984,0,0,1-2.335,2.025,7.913,7.913,0,0,1,2.722.205c.26,0,.521.012.783.037A7.976,7.976,0,0,1,10.68,8.949"
+                      transform="translate(7 1.4)"
+                      fill="#e57214"
+                    /> 
+                    <path
+                      id="Path_929"
+                      data-name="Path 929"
+                      d="M3.575,5.577l-.186-.855a.106.106,0,0,0-.055-.072L-.82,2.528V-3.1a.111.111,0,0,0-.037-.084l-.684-.565a.112.112,0,0,0-.136,0l-.7.565a.1.1,0,0,0-.04.082V3.45a.1.1,0,0,0,.059.094l4.98,2.544a.113.113,0,0,0,.05.012.111.111,0,0,0,.047-.012l.8-.392a.108.108,0,0,0,.057-.119"
+                      transform="translate(10.7 6.7)"
+                      fill="#e57214"
+                    />
+                  </svg>
+                </div>
+                <div class="hours-position">
+                  <span
+                    style="
+                      color: #e57214;
+                      display: flex !important;
+                      margin-top: -9px;
+                      gap: 5px;
+                    "
+                  >
+                    <div style="font-size: 17px">
+                      {{
+                        hours_for_calendar[day.dayInFormat]
+                          ? hours_for_calendar[day.dayInFormat]
+                          : ""
+                      }}
+                    </div>
+                    <div style="font-size: 11px; margin-top: 6px">h</div>
+                  </span>
+                </div>
+              </div>
+              <div
+                *ngIf="day.longName == 'Saturday' || day.longName == 'Sunday'"
+                class=""
+                [ngStyle]="
+                  this.hours_for_calendar[day.dayInFormat]
+                    ? { visibility: 'visible', 'margin-top': '10px' }
+                    : { visibility: 'hidden' }
+                "
+              >
+                <div class="svg-position">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="19.185"
+                    height="19.182"
+                    viewBox="0 0 19.185 19.182"
+                  >
+                    <path
+                      id="Path_928"
+                      data-name="Path 928"
+                      d="M10.142,2.084A9.524,9.524,0,0,0,3.659-1.364a9.866,9.866,0,0,0-4.65.7A9.1,9.1,0,0,0-3.361.78a9.588,9.588,0,0,0-1.306,13.5A9.529,9.529,0,0,0,1.815,17.73c.315.03.627.045.94.045a9.527,9.527,0,0,0,6.084-2.189,9.6,9.6,0,0,0,1.3-13.5m.538,6.864a7.976,7.976,0,0,1-8.709,7.174,7.918,7.918,0,0,1-5.392-2.868A7.984,7.984,0,0,1-2.335,2.025,7.913,7.913,0,0,1,2.722.205c.26,0,.521.012.783.037A7.976,7.976,0,0,1,10.68,8.949"
+                      transform="translate(7 1.4)"
+                      fill="#E18BA7"
+                    />
+                    <path
+                      id="Path_929"
+                      data-name="Path 929"
+                      d="M3.575,5.577l-.186-.855a.106.106,0,0,0-.055-.072L-.82,2.528V-3.1a.111.111,0,0,0-.037-.084l-.684-.565a.112.112,0,0,0-.136,0l-.7.565a.1.1,0,0,0-.04.082V3.45a.1.1,0,0,0,.059.094l4.98,2.544a.113.113,0,0,0,.05.012.111.111,0,0,0,.047-.012l.8-.392a.108.108,0,0,0,.057-.119"
+                      transform="translate(10.7 6.7)"
+                      fill="#E18BA7"
+                    />
+                  </svg>
+                  <div class="hours-position">
+                    <span
+                      style="
+                        color: #e18ba7;
+                        display: flex !important;
+                        margin-top: -9px;
+                        gap: 5px;
+                        padding-top: 5px;
+                      "
+                    >
+                      <div style="font-size: 17px">
+                        {{
+                          this.hours_for_calendar[day.dayInFormat]
+                            ? this.hours_for_calendar[day.dayInFormat]
+                            : ""
+                        }}
+                      </div>
+                      <div style="font-size: 11px; margin-top: 6px">h</div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="day.dayInFormat == date_now" class="current-date">
+                <div class="svg-position">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="19.185"
+                    height="19.182"
+                    viewBox="0 0 19.185 19.182"
+                  >
+                    <path
+                      id="Path_928"
+                      data-name="Path 928"
+                      d="M10.142,2.084A9.524,9.524,0,0,0,3.659-1.364a9.866,9.866,0,0,0-4.65.7A9.1,9.1,0,0,0-3.361.78a9.588,9.588,0,0,0-1.306,13.5A9.529,9.529,0,0,0,1.815,17.73c.315.03.627.045.94.045a9.527,9.527,0,0,0,6.084-2.189,9.6,9.6,0,0,0,1.3-13.5m.538,6.864a7.976,7.976,0,0,1-8.709,7.174,7.918,7.918,0,0,1-5.392-2.868A7.984,7.984,0,0,1-2.335,2.025,7.913,7.913,0,0,1,2.722.205c.26,0,.521.012.783.037A7.976,7.976,0,0,1,10.68,8.949"
+                      transform="translate(7 1.4)"
+                      fill="#BEE19C"
+                    />
+                    <path
+                      id="Path_929"
+                      data-name="Path 929"
+                      d="M3.575,5.577l-.186-.855a.106.106,0,0,0-.055-.072L-.82,2.528V-3.1a.111.111,0,0,0-.037-.084l-.684-.565a.112.112,0,0,0-.136,0l-.7.565a.1.1,0,0,0-.04.082V3.45a.1.1,0,0,0,.059.094l4.98,2.544a.113.113,0,0,0,.05.012.111.111,0,0,0,.047-.012l.8-.392a.108.108,0,0,0,.057-.119"
+                      transform="translate(10.7 6.7)"
+                      fill="#BEE19C"
+                    />
+                  </svg>
+                </div>
+                <div
+                  [ngStyle]="
+                    this.hours_for_calendar[day.dayInFormat]
+                      ? { visibility: 'visible' }
+                      : { visibility: 'hidden' }
+                  "
+                  class="hours-position"
+                >
+                  <span
+                    style="
+                      color: #bee19c;
+                      padding: 0px !important;
+                      display: flex !important;
+                      gap: 5px;
+                    "
+                    class="span-media"
+                  >
+                    <div style="font-size: 17px">
+                      {{
+                        this.hours_for_calendar[day.dayInFormat]
+                          ? this.hours_for_calendar[day.dayInFormat]
+                          : ""
+                      }}
+                    </div>
+                    <div style="font-size: 11px; margin-top: 6px">h</div>
+                  </span>
+                </div>
+                <div class="bordered-current-date"></div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+<div class="dropdown-container">
+    <span>{{ dropdown.labelText | translate }}</span>
+    <div
+        class="dropdown search-field"
+        [ngClass]="{ dropdown_open: dropdownToggled }"
+        (click)="toggleDropdown()"
+    >
+        <input type="text" (input)="filter($event)" [disabled]="this.disableSelect"/>
+        <p>+ {{ numberOfSelectedMoments }}</p>
+        <i class="material-icons arrow_down">
+            {{ dropdownToggled ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+        </i>
+    </div>
+    <div
+        class="dropdown-options-container orange-scroll-settings"
+        style="max-height: 518px"
+        *ngIf="dropdownToggled"
+    >
+        <div
+            class="dropdown-option"
+            *ngFor="let option of dropdown.options"
+            (click)="selectOption(option)"
+        >
+            <p>{{ option.name }}</p>
+            <img
+                [ngClass]="{ hidden: !option.selected }"
+                src="../../../../assets/img/check_orange.svg"
+                alt="checkbox"
+            />
+            <img
+                style="height: 14px; width: 14px"
+                [ngClass]="{ hidden: option.selected }"
+                src="../../../../assets/img/check-permit-empty.svg"
+                alt="checkbox"
+            />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+ <svg  class="m-2" id="Stäng_Close_" data-name="Stäng (Close)" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 33.364 33.364">
+      <defs>
+        <clipPath id="clip-path">
+          <path id="Path_782" data-name="Path 782" d="M0,18.121H33.364V-15.243H0Z" transform="translate(0 15.243)"
+            fill="none" />
+        </clipPath>
+      </defs>
+      <g id="Group_341" data-name="Group 341" clip-path="url(#clip-path)">
+        <g id="Group_340" data-name="Group 340" transform="translate(0.001 0.001)">
+          <path id="Path_781" data-name="Path 781"
+            d="M9.06,16.927A14.35,14.35,0,0,1-5.294,2.464a14.355,14.355,0,1,1,28.709,0A14.35,14.35,0,0,1,9.06,16.927m0,2.2A16.728,16.728,0,0,0,25.741,2.442a16.681,16.681,0,0,0-33.362,0A16.728,16.728,0,0,0,9.06,19.125"
+            transform="translate(7.621 14.239)" fill="#858585" />
+        </g>
+      </g>
+      <g id="Group_342" data-name="Group 342" transform="translate(7.714 7.714)">
+        <path id="Path_783" data-name="Path 783"
+          d="M3.79,4.577-3.622,12l1.537,1.554L5.346,6.13l7.431,7.423L14.314,12,6.883,4.577l7.431-7.4L12.758-4.364l-7.412,7.4L-2.085-4.382-3.622-2.828Z"
+          transform="translate(3.622 4.382)" fill="#858585" />
+      </g>
+    </svg>

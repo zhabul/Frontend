@@ -1,0 +1,21 @@
+{
+    "short_name": "SPS360",
+    "name": "Structure Project System 360",
+    "icons": [
+        {
+            "src": "/assets/img/logo_154x192.png",
+            "type": "image/png",
+            "sizes": "154x192"
+        },
+        {
+            "src": "/assets/img//logo_412x512.png",
+            "type": "image/png",
+            "sizes": "412x512"
+        }
+    ],
+    "start_url": "/",
+    "background_color": "#FFFFFF",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "theme_color": "#EFF3F6"
+}

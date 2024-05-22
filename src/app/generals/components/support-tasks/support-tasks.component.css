@@ -1,0 +1,318 @@
+/* a {
+  text-decoration: underline;
+} */
+
+.business-table {
+  font-size: 13px;
+}
+
+.w-50 {
+  word-break: break-all;
+}
+
+.brownBg {
+  background-color: #fc7272c4;
+}
+
+.yellowBg {
+  background-color: #ffff0042;
+}
+
+.btn-outline-dark {
+  cursor: default !important;
+}
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+}
+
+#looksLikeModal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: hsla(0, 0%, 0%, 0.4);
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.rotate-icon-left {
+  position: absolute;
+  right: 35px;
+  color: #3f3a3a;
+  cursor: pointer;
+  z-index: 100;
+  top: -30px;
+}
+
+.rotate-icon {
+  position: absolute;
+  right: 0;
+  color: #3f3a3a;
+  cursor: pointer;
+  z-index: 100;
+  top: -30px;
+}
+.close-icon-right {
+  position: absolute;
+  right: -35;
+  color: #3f3a3a;
+  cursor: pointer;
+  z-index: 100;
+  top: -30px;
+  font-size: 2rem;
+}
+.close-icon-right i,
+.rotate-icon-left i,
+.rotate-icon i {
+  font-size: 32px;
+}
+.close-icon-right:hover,
+.rotate-icon-left:hover,
+.rotate-icon:hover {
+  color: red;
+}
+
+#image-gallery {
+  width: 100%;
+  position: relative;
+  height: 85vh;
+  background: transparent;
+}
+
+#image-gallery .image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+}
+
+.border-bottom {
+  border-bottom: 3px solid black !important;
+}
+
+.support-container {
+  overflow: scroll;
+  height: calc(100vh - 262px);
+  /* min-height: 700px;
+  max-height: 800px; */
+}
+
+.thin-red-line-bottom {
+  bottom: 14px;
+  left: 0px;
+  right: 0px;
+  background-color: var(--border-color);
+  height: 1px;
+  position: absolute;
+}
+.nav-tabs {
+  border: none;
+  position: relative;
+  top: 0px;
+}
+.nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+ul {
+  white-space: pre-wrap !important;
+}
+.nav-tabs {
+  border: none;
+  position: relative;
+  /*   z-index: 2;
+ */
+  top: 0px;
+}
+.tab-navigation .nav-tabs .nav-item a {
+  cursor: pointer;
+  position: relative;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 6px;
+  padding: 4px 25px 1px 35px !important;
+  position: relative;
+  width: auto;
+  top: 2px;
+  box-shadow: 1px -1px 5px 1px rgb(0 0 0 / 32%);
+  background-color: var(--home-title-color);
+  text-transform: uppercase;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  height: 27px;
+  color: white;
+  font-size: 12px;
+}
+
+.tab-navigation .nav-tabs .nav-item a.active {
+  color: var(--orange-dark) !important;
+  border-color: var(--border-color);
+  border-bottom-color: var(--main-bg);
+  position: relative;
+  width: auto;
+  margin-left: 0px !important;
+  top: 0px;
+  padding: 5px 18px;
+  background-color: var(--main-bg) !important;
+  text-transform: uppercase;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 6px;
+  z-index: 15 !important;
+  height: 30px;
+  padding: 4px 25px 1px 15px !important;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: var(--text-color);
+  background-color: var(--active-color);
+  border-color: var(--active-color);
+}
+
+/* .approveItem {
+  margin-left: 41px;
+} */
+
+.nav-link.active {
+  z-index: 9;
+}
+
+.nav-link {
+  color: var(--text-color);
+  padding: 0.3rem 1.5rem;
+  border: 2px solid;
+  border-color: var(--active-color);
+  border-top-right-radius: 1rem;
+  margin-right: -15px;
+  border-bottom: none;
+}
+.nav-link {
+  display: block !important;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+  border-color: var(--active-color);
+}
+.bottom-shadow-button {
+  box-shadow: 1px -2px 4px 1px rgb(0 0 0 / 66%);
+  left: -2px;
+  right: -2px;
+  height: 1px;
+  top: 25px;
+  position: absolute;
+  background-color: var(--border-color);
+}
+.hide-bottom-box-shadow {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  height: 10px;
+  bottom: -5px;
+  background-color: var(--main-bg);
+  z-index: 7;
+}
+.bg-width-master {
+  background-color: transparent !important;
+  min-width: 1013px;
+}
+.table td,
+.table th {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #858585;
+}
+.title-color {
+  color: var(--project-color);
+}
+.subtitle-color {
+  color: #ffffff;
+}
+/* Dodavanje stilova za parne i neparne redove */
+.even-row {
+ /*  background-color: rgb(245, 245, 242); */
+   /* Svijetlo siva boja za parne retke */
+  background-color: white; /* Boja za neparni red */
+}
+.odd-row {
+  background-color: white; /* Boja za neparni red */
+}
+.solved-row {
+  background-color: rgb(250, 227, 207) !important;
+}
+.p-t-22 {
+  padding-top: 22px !important;
+}
+.text-support-position {
+  position: relative;
+  top: 10px;
+}
+.title-text-support-position {
+  position: relative;
+  top: 5px;
+}
+a {
+  text-decoration: none;
+  background-color: transparent;
+  color: var(--project-color);
+}
+
+.button-icon-delete {
+  font-size: 14px;
+  margin-right: 12px;
+  position: relative;
+}
+.delete-button {
+  border: 1px solid #fd4444;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  background-color: var(--main-bg);
+  color: #fd4444;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.button-position-delete
+{
+  margin-top: 25px;
+  position: relative;
+  top: 10px;
+  right: 3px;
+}
+.button-position-delete:hover
+{
+  cursor: pointer;
+}
+.business-table tbody tr:last-child td:first-child {
+
+  border-bottom-left-radius: 10px;
+}
+.business-table tbody tr:last-child td:last-child {
+
+  border-bottom-right-radius: 10px;
+}
+.business-table tbody tr:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}

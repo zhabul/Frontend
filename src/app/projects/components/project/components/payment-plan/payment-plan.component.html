@@ -1,0 +1,1028 @@
+<!--------TOP NAV------>
+<ng-container *ngIf="userData && userData.length">
+    <div class="formDiv">
+        <div (keydown.enter)="fKeyDown($event, formContainer)" #formContainer>
+            <div class="top-nav">
+                <div class="row main-row">
+                    <div class="col-md-4 back top-col-md-4">
+                        <div class="btn-back" (click)="goBack()">
+                            <img src="../../../../../../assets/img/back_arrow.png" width="37px" class="arrow-back" alt="" />
+                        </div>
+                        <!----->
+                        <div class="top-nav-text" title="{{project?.data.CustomName}} {{project?.data.name}}">
+                            {{ project?.data.CustomName }} {{ project?.data.name }}
+                        </div>
+                    </div>
+                    <div class="dropdown-div">
+
+                      <!-- Dropdown SEND/PRINT PAYPLAN-->
+                        <div class="input-wrapper5">
+                          <app-send-print-dropdown-payplan
+                          [SendPrintUT1] = "client_workers"
+                          [placeholder]="'TSC_SEND_PRINT' | translate"
+                          [Print]="'TSC_PRINT' | translate"
+                          [Send]="'TSC_SEND' | translate"
+                          [SendReminder]="'TSC_SEND_REMINDER' | translate"
+                          [HoverText]="'You have to lock paymantplan' | translate"
+                          [selectedWorkers]="this.Contact"
+                          [ReminderCondition]="userData[selectedPaymentPlan].status == 1"
+                          [DisabledWhenLock]="project?.data.debit_Id != 1 && userData[selectedPaymentPlan].isLocked == 0"
+                          [EnableWhenUnlock]="project?.data.debit_Id == 1 || userData[selectedPaymentPlan].isLocked == 0 || userData[selectedPaymentPlan].isDeleted == 1"
+                          (selected)="checkIfContactSelected($event)"
+                          (PrintButton)="printPaymentPlan(true)"
+                          (SendButton)="sendPaymenPlan(userData[selectedPaymentPlan], false)"
+                          (SendButtonReminder)="sendPaymenPlan(userData[selectedPaymentPlan], true)"
+                          [HaveSend]="0"
+                          >
+                          </app-send-print-dropdown-payplan>
+                        </div>
+                      <!-- End Dropdown SEND/PRINT PAYPLAN -->
+
+                         <!-- <button type="button" (click)="dropSend()" class="btn-options" id="first-btn-drop" [disabled]="project?.data.debit_Id == 1 || userData[selectedPaymentPlan].isLocked == 0 || userData[selectedPaymentPlan].isDeleted == 1" [ngClass]="buttonToggle ? 'show-dropdown-menu' : ''">
+                            <div class="nm">{{ "TSC_SEND_PRINT" | translate }}</div>
+                            <img src="../../../../../../assets/img/Group 306.png" width="17px" class="back-btn" alt="" />
+                        </button>
+                        <div *ngIf="project?.data.debit_Id != 1 && userData[selectedPaymentPlan].isLocked == 0" class="hidden">
+                            {{ "You have to lock paymantplan" | translate }}
+                        </div> -->
+                        <!-- collapse -->
+                         <!-- <div class="dropdown-menu show" id="first-drop" [ngClass]="buttonToggle ? '' : 'd-none'">
+                            <div class="border-summary print-div" (click)="printPaymentPlan()">
+                                <p>
+                                    {{ "TSC_PRINT" | translate }}
+                                </p>
+                                <div class="svg-p">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="pdf-p-icon" width="18.953" height="17.216" viewBox="0 0 18.953 17.216">
+                                        <g id="Group_4091" data-name="Group 4091" transform="translate(0 0)">
+                                            <g id="Group_3988" data-name="Group 3988" transform="translate(5.984 4.613)">
+                                                <rect id="Rectangle_15585" data-name="Rectangle 15585" width="6.934" height="0.803" transform="translate(0 1.992)" fill="#44484c" />
+                                                <rect id="Rectangle_15586" data-name="Rectangle 15586" width="6.934" height="0.803" fill="#44484c" />
+                                            </g>
+                                            <path id="Path_1752" data-name="Path 1752" d="M33.834,19.925a.955.955,0,0,0-.953-.957H15.833a.955.955,0,0,0-.952.957v8.132h3.6v.718l7.369,7.409H30.2V28.1h3.636Zm-17.1,6.567v-3.8H18.48v3.8Zm8.806,7.864L20.3,29.089h5.238Zm1.066.757v-7.1H19.546V22.694h9.587V35.113Zm5.38-8.575H30.2V22.694h1.786Z" transform="translate(-14.881 -18.968)" fill="#44484c" />
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div [ngClass]="contacts.length == 0 ? 'disabled-icon' : 'enabled-icon'" class="p-1" (click)="shutDown()">
+                                <div (click)="sendPaymenPlan(userData[selectedPaymentPlan], false)" class="text-icon-align sle">
+                                    <span class="mt-1 ml-2 send">{{ "TSC_SEND" | translate }}</span>
+                                    <img src="../../../../assets/img/disabled-icon.svg" class="send-svg" *ngIf="contacts.length == 0" />
+                                    <img src="../../../../assets/img/enabled-icon.svg" class="send-svg" *ngIf="contacts.length > 0" />
+                                </div>
+                            </div>
+                            <div *ngIf="userData[selectedPaymentPlan].status == 1">
+                                <div [ngClass]="
+                contacts.length == 0 ? 'disabled-icon' : 'enabled-icon'
+              " class="p-1" (click)="shutDown()">
+                                    <div (click)="sendPaymenPlan(userData[selectedPaymentPlan], true)" class="text-icon-align sle">
+                                        <span class="mt-1 ml-2 send">{{
+                                            "TSC_SEND_REMINDER" | translate
+                                            }}</span>
+                                        <img src="../../../../assets/img/disabled-icon.svg" class="send-svg" *ngIf="contacts.length == 0" />
+                                        <img src="../../../../assets/img/enabled-icon.svg" class="send-svg" *ngIf="contacts.length > 0" />
+                                    </div>
+                                </div>
+                            </div>
+
+                           <div class="workers d-flex justify-content-start pl-3 workers-border mx-2" *ngFor="let worker of client_workers" (click)="buttonNameSummary($event, worker)">
+                                <span class="ml-1">{{ worker.Name }}</span>
+                                <span class="span-check" *ngIf="checkIfContactSelected(worker) == false">
+                                    <img style="padding: 0px 0px 0px 3px" src="../../../../assets/img/uncheck.svg" alt="" />
+                                </span>
+                                <span class="span-check" *ngIf="checkIfContactSelected(worker)">
+                                    <img style="padding: 0px 0px 0px 3px" src="../../../../assets/img/check_orange.svg" alt="" />
+                                </span>
+                            </div>
+                        </div> -->
+                        <!-- end collapse -->
+                    </div>
+                </div>
+            </div>
+            <!--Padding right div-->
+            <div class="padding-right-div" *ngIf="spinner == false">
+                <!--PDF SIDE BAR-->
+                <div class="aside" [ngClass]="{ 'aside-show': showPdfPreview }" *ngIf="showingPaymentPlan === 'pp'">
+                    <div class="buttons">
+                        <button type="button" (click)="togglePdfPreview('pp')">
+                            {{ "TSC_PREVIEW" | translate }}
+                        </button>
+                    </div>
+                    <div>
+                        <app-payment-plan-pdf [tot]="totalAmount" [arr]="totalArr" [invoice]="totalInvoice" [userData]="userData" [selectedPaymentPlan]="selectedPaymentPlan" [project]="project" [statuses]="statuses"></app-payment-plan-pdf>
+                    </div>
+                </div>
+                <!-----Main content------>
+
+                <div class="tab-navigation-wrapper mt-2" style="position: relative; max-width: 1386px;">
+                    <!-- <div class="container btns-on-container"> -->
+                    <!-- <div class="left-side-btn">
+        <button class="betalningsplan-btn" type="button">
+          {{ 'TSC_PAYMENT_PLAN' | translate }}
+        </button>
+      </div>
+      <div class="postlogar">
+        <button class="postlogar-btn" type="button">
+          {{ 'TSC_EMAIL_LOGS' | translate }}
+        </button>
+      </div>
+      <div class="komentar">
+        <button class="komentar-btn" type="button">
+          {{ 'TSC_COMMENT' | translate }}
+        </button>
+      </div> -->
+
+                    <div class="tab-navigation mt-5">
+                        <div class="nav-tabs tab-navigation">
+                            <ul class="nav nav-tabs nav-pills" role="tablist">
+                                <li class="nav-item approveItem">
+                                    <a class="nav-link active" style="margin-bottom: -5px; padding-left: 10px;" [ngClass]="{ active: selectedTab == 0 }" (click)="canYouChangeSelectedTab(0)" id="approveItem">
+                                        {{ "TSC_PAYMENT_PLAN" | translate }}
+                                        <div [ngClass]="{
+                    'hide-bottom-box-shadow': selectedTab == 0,
+                    'bottom-shadow-button': selectedTab !== 0
+                  }"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item align-l">
+                                    <a class="nav-link attest" [ngClass]="{ active: selectedTab == 1 }" (click)="canYouChangeSelectedTab(1)" style="z-index: 1">
+                                        {{ "TSC_EMAIL_LOGS" | translate }}
+                                        <div [ngClass]="{
+                    'hide-bottom-box-shadow': selectedTab == 1,
+                    'bottom-shadow-button': selectedTab !== 1
+                  }"></div>
+                                    </a>
+                                </li>
+                                <!-- <div class="koment-not"> -->
+                                <li class="nav-item align-l">
+                                    <a class="nav-link forecast" [ngClass]="{ active: selectedTab == 2 }" (click)="canYouChangeSelectedTab(2)">
+                                        {{ "TSC_COMMENT" | translate }}
+                                        <div [ngClass]="{
+                      'hide-bottom-box-shadow': selectedTab == 2,
+                      'bottom-shadow-button': selectedTab !== 2
+                    }"></div>
+                                        <div *ngIf="comments.length > 0" style="position: absolute;
+                                            top: -10px;
+                                            right: 0;">
+                                            <svg   xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14">
+                                                <g id="Group_4125" data-name="Group 4125" transform="translate(14.489 14.485) rotate(180)">
+                                                    <g id="Group_4021" data-name="Group 4021" transform="translate(-0.121 0)">
+                                                        <g id="Anteckning_information_låst" data-name="Anteckning/information låst" transform="translate(0 0)">
+                                                            <g id="Group_325" data-name="Group 325" transform="translate(0 0)">
+                                                                <ellipse id="Ellipse_658" data-name="Ellipse 658" cx="7.5" cy="7" rx="7.5" ry="7" transform="translate(-0.389 0.485)" fill="#b63418" />
+                                                            </g>
+                                                            <g id="Group_346" data-name="Group 346" transform="translate(5.947 1.709)">
+                                                                <path id="Path_784" data-name="Path 784" d="M33.07,12.225a1.067,1.067,0,0,0,.788-.312,1.048,1.048,0,0,0,.312-.773,1.067,1.067,0,0,0-.312-.788,1.049,1.049,0,0,0-.773-.312,1.037,1.037,0,0,0-.773.32,1.075,1.075,0,0,0-.312.78,1.049,1.049,0,0,0,.312.773A1.031,1.031,0,0,0,33.07,12.225Z" transform="translate(-32 -10.04)" fill="#fff" />
+                                                                <path id="Path_785" data-name="Path 785" d="M34.666,26.974a.445.445,0,0,0-.327-.134h-.8a.457.457,0,0,0-.461.461v6.6a.457.457,0,0,0,.461.461h.8A.457.457,0,0,0,34.8,33.9V27.3A.444.444,0,0,0,34.666,26.974Z" transform="translate(-32.868 -23.417)" fill="#fff" />
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- </div> -->
+                            </ul>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="selectedTab == 0">
+                        <div *ngIf="userData.length > 0" class="top-btn-div">
+                            <ng-container *ngIf="saved_payments">
+                                <ng-container *ngFor="let saved_payment of userData; let index = index">
+                                    <button type="button" (click)="setActivePayments(index)" style="position: relative" [ngClass]="{
+                  active: selectedPaymentPlan == index,
+                  'position-btn-center': saved_payment?.isLocked == 0
+                }" class="top-btn" [ngStyle]="changePropertyTopBtn(index)">
+                                        <div class="revision-btn-position">
+                                            <div class="revision-number">
+                                                <!-- <p
+                      class="bp"
+                      [ngClass]="{ 'margin-tt': saved_payment?.isLocked == 0 }"
+                    > -->
+                                                BP-<span stlye="font-size: 14px!important" *ngIf="saved_payment?.isLocked == 1">{{
+                                                    saved_payment.paymentPlanNumber
+                                                    }}</span><span stlye="font-size: 14px!important" *ngIf="saved_payment?.isLocked == 0">{{ userData.length }}</span>
+                                                <!-- </p> -->
+                                            </div>
+                                            <div class="revision-date">
+                                                <span class="date-revsion-font" *ngIf="saved_payment?.isLocked == 1">{{ saved_payment.created_at }}</span><span class="date-revsion-font" *ngIf="saved_payment?.isLocked == 0">&nbsp; &nbsp; &nbsp;</span>
+                                            </div>
+                                        </div>
+                                        <div class="hiden-line-nav button-payments-shadow" [ngClass]="{
+                    'hiden-line-nav': selectedPaymentPlan == index,
+                    'button-payments-shadow': selectedPaymentPlan !== index
+                  }"></div>
+                                    </button>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+                <!------->
+                <div (keydown)="detectKeydown($event)" [ngClass]="selectedTab == 1 ? 'emaillog-container' : 'pay-container'">
+                    <div class="container main-div blu-scroll" >
+                        <div *ngIf="selectedTab == 0">
+                            <div class="input-field-divs">
+                                <!---Blue nav top-->
+                                <div class="blue-top-nav">
+                                    <div class="status-div">
+                                        <div>
+                                            <svg width="30px" class="payment-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="29.911" height="30.008" viewBox="0 0 29.911 30.008">
+                                                <defs>
+                                                    <clipPath id="clip-path">
+                                                        <path id="Path_882" data-name="Path 882" d="M0,18.1H29.909V-11.906H0Z" transform="translate(0 11.906)" [attr.fill]="iconColor" />
+                                                    </clipPath>
+                                                </defs>
+                                                <g id="Group_4122" data-name="Group 4122" transform="translate(0)">
+                                                    <g id="Component_74_261" data-name="Component 74 – 261" transform="translate(0)">
+                                                        <g id="Group_3957" data-name="Group 3957" transform="translate(0 13.376)">
+                                                            <path id="Path_875" data-name="Path 875" d="M0,2.546V10.86l7.186,4.159,7.2-4.154V2.549L7.2-1.613Z" transform="translate(0 1.613)" [attr.fill]="iconColor" />
+                                                        </g>
+                                                        cv
+                                                        <g id="Group_3958" data-name="Group 3958" transform="translate(7.76 0.002)">
+                                                            <path id="Path_876" data-name="Path 876" d="M4.411,0l-7.2,4.157V12.47l7.186,4.159,7.2-4.154V4.159Z" transform="translate(2.794)" [attr.fill]="iconColor" />
+                                                        </g>
+                                                        <g id="Group_3959" data-name="Group 3959" transform="translate(15.512 13.376)">
+                                                            <path id="Path_877" data-name="Path 877" d="M0,2.546V10.86l7.186,4.159,7.194-4.154L14.4,2.549,7.2-1.613Z" transform="translate(0 1.613)" [attr.fill]="iconColor" />
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="red-lock" *ngIf="userData[selectedPaymentPlan].isLocked == 1 && (userData[selectedPaymentPlan].status == 0 || userData[selectedPaymentPlan].status == 5 ) ">
+                                            <i _ngcontent-pay-c148="" class="material-icons lock-style">lock</i>
+                                        </div>
+                                        <div class="status-txt">
+                                            <ng-container *ngFor="let status of statuses">
+                                                <ng-container *ngIf="userData[selectedPaymentPlan].status == status.Status">
+                                                    <p [ngStyle]="{color: status.Color }">
+                                                        {{ status.Name | translate }}
+                                                    </p>
+                                                </ng-container>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div class="row header-buttons">
+                                        <div class="icon-txt">
+                                            <p>{{ "TSC_PAYMENT_PLAN" | translate }}</p>
+                                        </div>
+                                        <div class="btns-div row" *ngIf="userData[selectedPaymentPlan] as projectD">
+                                    <div class="three-btns-div"
+                                        *ngIf="userDetails.create_project_Paymentplan"
+                                    >
+                                        <button type="button" [ngClass]="{
+                                              can: (project?.data.debit_Id != 1 && projectD.isLocked == 1 && projectD.status == 2 && userData[selectedPaymentPlan].allow_create_revision && userData[selectedPaymentPlan].final_invoice_status == 0) || (projectD.status == 2 && userData[selectedPaymentPlan].markulerad && userData[selectedPaymentPlan].final_invoice_status == 0)
+                                            }" [attr.disabled]="disabledEdit()"
+                                            class="three-btns edit-btn" (click)="triggerOfEdit()"
+                                            >
+                                                {{ "TSC_EDIT" | translate }}
+                                        </button>
+                                    </div>
+                                    <div class="three-btns-div"
+                                        *ngIf="userDetails.create_project_Paymentplan"
+                                    >
+                                                <button class="three-btns" (click)="postPlan()" [ngClass]="{
+                      can: project?.data.debit_Id != 1 && projectD.isLocked == 0 && projectD.isSaved == 0
+                    }" [disabled]="project?.data.debit_Id == 1 ||
+                      !f.valid || isDisabled || projectD.isLocked == 1 || projectD.isDeleted == 1 || !userDetails.create_project_Paymentplan
+                    ">
+                                                    {{ "TSC_SAVE_PLAN" | translate }}
+                                                </button>
+                                    </div>
+                                    <div class="three-btns-div"
+                                        *ngIf="userDetails.create_project_Paymentplan"
+                                    >
+                                                <button type="button" [ngClass]="{
+                      can: project?.data.debit_Id != 1 && projectD.isSaved == 1 && projectD.isLocked == 0
+                    }" [disabled]="project?.data.debit_Id == 1 || projectD.isSaved == 0 || projectD.isLocked == 1 || projectD.isDeleted == 1 || !userDetails.create_project_Paymentplan" class="three-btns" (click)="lockPaymentPlan()">
+                                                    {{ "TSC_LOCK_PLAN" | translate }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="options-div" *ngIf="userDetails.create_project_Paymentplan">
+
+                                          <app-dropdown-threedot-payplan
+
+                                          [AcceptCondition]="userData[selectedPaymentPlan].status == 0 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 5"
+                                          [CancelCondition]="userData[selectedPaymentPlan].status == 1"
+                                          [DeclineCondition]="userData[selectedPaymentPlan].status == 0 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 5"
+                                          [Disabled]="project?.data.debit_Id == 1 || !userDetails.create_project_Paymentplan"
+                                          [DisabledWhenLock]="userData[selectedPaymentPlan].isLocked == 0"
+                                          [EnableWhenUnlock]="userData[selectedPaymentPlan].isLocked == 1"
+                                          [Option]="optionsDown"
+                                          (Decline)="manuallyRejectPaymentPlan()"
+                                          (Accepted)="manuallyAcceptPaymentPlan()"
+                                          (Cancel)="manuallyCancelPaymentPlan()"
+                                          >
+
+                                          </app-dropdown-threedot-payplan>
+
+                                            <!-- <button type="button"
+                                            [ngClass]="optionsDown == true ? 'optionsDown-class': ''"
+                                            [disabled]="
+                                            project?.data.debit_Id == 1
+                                            " class="btn-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="optionsDownDiv()">
+                                                <div class="dots-div row">
+                                                    <svg class="dots-opt" id="Group_3094" data-name="Group 3094" xmlns="http://www.w3.org/2000/svg" width="28.87" height="6.175" viewBox="0 0 28.87 6.175">
+                                                        <ellipse id="Ellipse_655" data-name="Ellipse 655" cx="2.862" cy="3.087" rx="2.862" ry="3.087" transform="translate(23.145)" [attr.fill]="dotsColor" />
+                                                        <ellipse id="Ellipse_656" data-name="Ellipse 656" cx="2.862" cy="3.087" rx="2.862" ry="3.087" transform="translate(11.647)" [attr.fill]="dotsColor" />
+                                                        <ellipse id="Ellipse_657" data-name="Ellipse 657" cx="2.707" cy="2.931" rx="2.707" ry="2.931" transform="translate(0 0.156)" [attr.fill]="dotsColor" />
+                                                    </svg>
+                                                    <svg class="arrow-down-opt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="8" viewBox="0 0 15 8">
+                                                        <defs>
+                                                            <clipPath id="clip-path">
+                                                                <path id="Path_758" data-name="Path 758" d="M0,.274H15v-8H0Z" transform="translate(0 7.726)" fill="#82a7e2" />
+                                                            </clipPath>
+                                                        </defs>
+                                                        <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+                                                            <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+                                                                <path id="Path_757" data-name="Path 757" d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5" transform="translate(0.136 1.156)" [attr.fill]="dotsColor" />
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </button>
+
+                                            <div class="dropdown-menu opt-dd show" id="dropdown-the-items" *ngIf="optionsDown">
+                                                <a class="dropdown-item" [ngClass]="{
+                      disableCss: userData[selectedPaymentPlan].isLocked == 0,
+                      enableCss: userData[selectedPaymentPlan].isLocked == 1
+                    }" *ngIf="
+                      userData[selectedPaymentPlan].status == 0 ||
+                      userData[selectedPaymentPlan].status == 1 ||
+                      userData[selectedPaymentPlan].status == 5
+                    " (click)="manuallyAcceptPaymentPlan()">{{ "TSC_ACCEPT_MANUALLY" | translate }}
+                                                </a>
+                                                <a class="dropdown-item" *ngIf="userData[selectedPaymentPlan].status == 1" (click)="manuallyCancelPaymentPlan()">{{ "TSC_CANCEL_FLOW" | translate }}</a>
+                                                <a class="dropdown-item" [ngClass]="{
+                      disableCss: userData[selectedPaymentPlan].isLocked == 0,
+                      enableCss: userData[selectedPaymentPlan].isLocked == 1
+                    }" *ngIf="
+                      userData[selectedPaymentPlan].status == 0 ||
+                      userData[selectedPaymentPlan].status == 1 ||
+                      userData[selectedPaymentPlan].status == 5
+                    "
+                    (click)="manuallyRejectPaymentPlan()"
+                    >{{ "TSC_NOT_ACCEPTED" | translate }}</a
+                  >
+                </div> -->
+                <!-- <div
+                  *ngIf="userData[selectedPaymentPlan].isLocked == 0"
+                  class="hidden_status"
+                >
+                  {{ "You have to lock paymantplan" | translate }}
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <!---Input fields--->
+          <div
+            class="max-w-inpt"
+            *ngIf="userData[selectedPaymentPlan] as projectD"
+          >
+            <div class="input-fields mt-3">
+              <!--First row-->
+              <div class="first-row-inpt">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="inpt1"
+                      >{{ "TSC_CONTRACT_AMOUNT" | translate }}
+                      <span class="orange-txt">*</span></label
+                    >
+                    <input
+                      [disabled]="projectD.status != 5 || userData[selectedPaymentPlan].isLocked != 0 || !userDetails.create_project_Paymentplan || !userDetails.create_project_Paymentplan"
+                      number-format-directive
+                      type="text"
+                      [(ngModel)]="projectD.editContractAmount != 0 ? projectD.editContractAmount : project.data.contractAmount"
+                      (ngModelChange)="getContractAmount($event)"
+                      [value]="projectD.editContractAmount != 0 ? projectD.editContractAmount : project?.data.contractAmount"
+                      class="form-control"
+                      [name]="'contractAmount' + i"
+                      id="inpt1"
+                      (change)="updateSaveStatus(projectD, $event)"
+                      [ngStyle]="{'border-color':projectD.status != 5 || userData[selectedPaymentPlan].isLocked != 0 ? 'white': ''}"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <!-- <label for="inpt2">{{ "TSC_STATUS" | translate }} </label>
+                    <select
+                      disabled
+                      [(ngModel)]="projectD.status"
+                      class="form-control"
+                      id="inpt2"
+                      [name]="'status' + i"
+                    >
+                      <ng-container *ngFor="let status of statuses">
+                        <ng-container *ngIf="projectD.status == status.Status">
+                          <option value="{{ status.Status }}">
+                            {{ status.Name | translate }}
+                          </option>
+                        </ng-container>
+                      </ng-container>
+                    </select> -->
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="inpt3">{{ "TSC_DATE" | translate }}
+                                                        <span class="orange-txt">*</span></label>
+                                                    <div class="row borders-row">
+                                                        <img src="../../../../../../assets/img/Kalender tom icon.png" class="calender" width="22px" alt="" />
+                                                        <div class="border-cal"></div>
+                                                        <input (change)="isDirty = true" type="text" [disabled]="true" class="form-control" [(ngModel)]="projectD.date" [value]="projectD.date" id="inpt3" [name]="'date' + i" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!---Second row-->
+                                        <div class="second-row-inpt mt-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="inpt4">{{ "TSC_PERCENTAGE_OF_FUNDS" | translate }}
+                                                        <span class="orange-txt">*</span></label>
+                                                    <div class="row">
+                                                        <input type="number" class="form-control" (ngModelChange)="getPerc($event)" [(ngModel)]="projectD.percentage" id="inpt4" [disabled]="project?.data.debit_Id == 1 || projectD.isLocked == 1 || !userDetails.create_project_Paymentplan || !userDetails.create_project_Paymentplan" (change)="updateSaveStatus(projectD, $event)" maxlength="3" [name]="'percentagePerLift' + i" [value]="projectD.percentage" [ngStyle]="{'border-color':projectD.isLocked == 1 ? 'white': ''}" />
+                                                        <span class="procent"> %</span>
+                                                    </div>
+                                                    <span class="procent-validation" *ngIf="percentage_invoiced">
+                                                        {{ "TSC_You_must_enter_a_number" | translate }} : {{ percentage_invoiced }}
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-4">
+                                                    <label for="inpt5">{{ "TSC_REVISION" | translate }}</label>
+                                                    <div class="row borders-row">
+                                                        <img src="../../../../../../assets/img/Kalender tom icon.png" class="calender" width="22px" alt="" />
+                                                        <div class="border-cal"></div>
+                                                        <input type="text" class="form-control" [(ngModel)]="projectD.revisionDate" id="inpt5" disabled [disabled]="true" (change)="updateSaveStatus(projectD, $event)" [value]="projectD.revisionDate" [name]="'revisionDate' + i" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-----Third row---->
+                                        <div class="third-row-inpt mt-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="inpt6">{{ "TSC_PERC_CONTRACT" | translate }}
+                                                        <span class="orange-txt">*</span></label>
+                                                    <div class="row align-row">
+                                                        <div>
+                                                            <input type="number" (ngModelChange)="getPercCa($event)" [(ngModel)]="projectD.percentage_ca" class="form-control" id="inpt6" maxlength="3" [value]="projectD.percentage_ca" [name]="'percentageWithheld' + i" [disabled]="project?.data.debit_Id == 1 || projectD.isLocked == 1 || !userDetails.create_project_Paymentplan || !userDetails.create_project_Paymentplan" (change)="updateSaveStatus(projectD, $event)" [ngStyle]="{'border-color':projectD.isLocked == 1 ? 'white': ''}" />
+                                                        </div>
+                                                        <div>
+                                                            <p class="procent">%</p>
+                                                        </div>
+                                                        <div>
+                                                            <input number-format-directive type="text" [(ngModel)]="projectD.amount_by_percentage" [value]="projectD.amount_by_percentage" class="form-control disabled" id="inpt7" disabled [name]="'percGreyDisabled' + i" />
+                                                        </div>
+                                                    </div>
+                                                    <span class="procent-validation" *ngIf="percentage_ca_invoiced">
+                                                        {{ "TSC_You_must_enter_a_number" | translate }} : {{ percentage_ca_invoiced }}
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-4 middle-empty-div"></div>
+                                                <div class="col-md-4">
+                                                    <label for="inpt8">{{ "TSC_LAST_MESSAGE" | translate }}
+                                                        <span class="orange-txt">*</span>
+                                                    </label>
+                                                    <div class="row borders-row">
+                                                        <img src="../../../../../../assets/img/Kalender tom icon.png" class="calender" width="22px" alt="" />
+                                                        <div class="border-cal"></div>
+                                                        <input type="text" id="inpt8" #inpt8 (change)="updateSaveStatus(projectD, $event)" class="form-control" [(ngModel)]="projectD.dueDate" [value]="projectD.dueDate" [name]="'lastMessage' + i" [disabled]="project?.data.debit_Id == 1 || projectD.isAccepted == 1 || !userDetails.create_project_Paymentplan || !userDetails.create_project_Paymentplan" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!----Text Area---->
+                                    <div *ngIf="userData[selectedPaymentPlan]">
+                                        <div class="text-area-div">
+                                            <label for="text-area">{{ "TSC_DESC" | translate }}</label><br />
+                                            <textarea maxlength="230" [disabled]="project?.data.debit_Id == 1 || projectD.isLocked == 1 || !userDetails.create_project_Paymentplan" (change)="updateSaveStatus(projectD, $event) || !userDetails.create_project_Paymentplan" class="text-area-place" [(ngModel)]="projectD.description" [name]="'description' + i" [value]="projectD.description" id="text-area" #desc [maxlength]="maxChars" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 ? '#C7C6C4' : '#ffffff',
+                  'border-color':userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2? 'white': '#858585'}"></textarea>
+                                            <img src="../../../../../../assets/img/dots-textarea.svg" width="42px" alt="" class="dots-textarea" />
+                                        </div>
+                                        <span class="counter-span">{{ desc.value.length }} / {{ maxChars }}</span>
+                                        <!------Edit------>
+                                        <div *ngIf="projectD.clientResponses.length > 0">
+                                            <div *ngIf="
+                    projectD.clientResponses[0].Status == 2 &&
+                    projectD.clientResponses[0].manualReplay == 0
+                  ">
+                                                <div class="text-area-div">
+                                                    <label for="text-area">{{
+                                                        "TSC_EDIT_MESS" | translate
+                                                        }}</label><br />
+                                                    <textarea maxlength="230" name="editTextarea" [ngClass]="
+                        projectD.status == 2
+                          ? 'green-text-area'
+                          : 'red-text-area'
+                      " [value]="projectD.clientComment" id="text-area" disabled></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!----------------------Calendar table----------------------->
+
+                            <div class="calendar-table">
+                                <div class="btn-div">
+                                    <button class="lyftplan-btn">
+                                        {{ "TSC_LYFTPLAN" | translate }}
+                                    </button>
+                                </div>
+                                <div class="main-calendar-div">
+                                    <div class="main-table-div mt-3">
+                                        <!----Table--->
+                                        <div class="table-wrapper">
+                                            <!--Table header-->
+                                            <div class="table-header row">
+                                                <div class="border-head text-align-left height-head shadow-drop-table">
+                                                    {{ "TSC_DESCRIPTION" | translate }}
+                                                </div>
+                                                <div class="border-head text-align-left height-head shadow-drop-table">
+                                                    {{ "TSC_INVOICE_DAY" | translate }}
+                                                </div>
+                                                <div class="border-head text-align-center height-head shadow-drop-table">
+                                                    {{ "TSC_AMOUNT" | translate }}
+                                                </div>
+                                                <div class="border-head text-align-right height-head shadow-drop-table pr-10">
+                                                    {{ "TSC_BALANCE" | translate }}
+                                                </div>
+                                                <div class="border-head text-align-right height-head shadow-drop-table pr-10">
+                                                    {{ "TSC_ARREARS" | translate }}
+                                                </div>
+                                                <div class="border-head text-align-right height-head shadow-drop-table pr-10">
+                                                    {{ "TSC_INVOICED" | translate }}
+                                                </div>
+                                                <div class="border-head text-align-center height-head shadow-drop-table">
+                                                    {{ "TSC_ACTIVITY" | translate }}
+                                                </div>
+                                                <div class="border-head text-align-center height-head shadow-drop-table">
+                                                    {{ "TSC_INVOICE_DATE" | translate }}
+                                                </div>
+                                                <div class="border-head height-head shadow-drop-table"></div>
+                                                <div class="border-head height-head shadow-drop-table">
+                                                    <img src="../../../../../../assets/img/white-transh.png" width="13px" class="white-trash" alt="" />
+                                                </div>
+                                                <div class="border-head height-head shadow-drop-table"></div>
+                                            </div>
+                                            <!--Table body-->
+                                            <div class="table-body" *ngIf="userData[selectedPaymentPlan]">
+                                                <ng-container *ngFor="
+                      let month of userData[selectedPaymentPlan].month_span;
+                      let monthIndex = index
+                    ">
+                                                    <div class="article-wrapper row" [ngStyle]="{ background: project?.data.debit_Id == 1 || userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4
+                        || month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 ? '#C7C6C4' : 'transparent' }">
+                                                            <img src="../../../../../../assets/img/Kalender tom icon.png" class="calendar-img-table" alt="" />
+                                                            {{ month.month | translate | truncate: [3] }}-{{
+                                                            month.year
+                                                            }}
+                                                        </div>
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 ? '#C7C6C4' : 'transparent' }">
+                                                            <img src="../../../../../../assets/img/Kalender tom icon.png" class="calendar-img-table" alt="" />
+                                                        </div>
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 ? '#C7C6C4' : 'transparent' }"></div>
+                                                        <div class="border-tb avst" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">Avst.{{ month.avst }}</div>
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }"></div>
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2  && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }"></div>
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }"></div>
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }"></div>
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }"></div>
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">
+                                                            <a *ngIf="project?.data.debit_Id == 1 && month.articleKeys.length > 1 && month.articles[month.articleKeys[0]][0].Invoice_date === ''">
+                                                                <div>
+                                                                    <svg class="month-trashe" xmlns="http://www.w3.org/2000/svg" width="11.665" height="17.045" viewBox="0 0 11.665 17.045">
+                                                                        <g id="Group_4809" data-name="Group 4809" transform="translate(0)">
+                                                                            <path id="Path_800" data-name="Path 800" d="M33.629,16.408a.3.3,0,0,0-.3-.294H30.18v-.7a.3.3,0,0,0-.3-.294H25.752a.3.3,0,0,0-.3.294v.7H22.276a.3.3,0,0,0-.3.294v.863H33.629Z" transform="translate(-21.973 -15.119)" fill="#000000" />
+                                                                            <path id="Path_801" data-name="Path 801" d="M21.973,23.209,23.4,36.993c.036.2.136.307.3.307h8.207c.167,0,.267-.1.3-.307l1.426-13.784ZM24.65,36.3l-.987-10.371h1.316L25.507,36.3Zm3.791,0H27.058l-.195-10.371h1.745Zm2.407,0H29.99l.528-10.371h1.316Z" transform="translate(-21.973 -20.256)" fill="#000000" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                            </a>
+                                                            <div *ngIf="project?.data.debit_Id != 1 && userData[selectedPaymentPlan].isLocked == 0 && userDetails.create_project_Paymentplan">
+                                                                <a *ngIf="month.articleKeys.length == 1 && month.articles[month.articleKeys[0]][0].Invoice_date === ''" data-toggle="modal" [attr.data-target]="
+                              '#exampleModalCenter2' + month.id
+                            ">
+                                                                    <div>
+                                                                        <svg class="month-trash" xmlns="http://www.w3.org/2000/svg" width="11.665" height="17.045" viewBox="0 0 11.665 17.045">
+                                                                            <g id="Group_4810" data-name="Group 4810" transform="translate(0)">
+                                                                                <path id="Path_800" data-name="Path 800" d="M33.629,16.408a.3.3,0,0,0-.3-.294H30.18v-.7a.3.3,0,0,0-.3-.294H25.752a.3.3,0,0,0-.3.294v.7H22.276a.3.3,0,0,0-.3.294v.863H33.629Z" transform="translate(-21.973 -15.119)" fill="#fd4444" />
+                                                                                <path id="Path_801" data-name="Path 801" d="M21.973,23.209,23.4,36.993c.036.2.136.307.3.307h8.207c.167,0,.267-.1.3-.307l1.426-13.784ZM24.65,36.3l-.987-10.371h1.316L25.507,36.3Zm3.791,0H27.058l-.195-10.371h1.745Zm2.407,0H29.99l.528-10.371h1.316Z" transform="translate(-21.973 -20.256)" fill="#fd4444" />
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                            <div *ngIf="project?.data.debit_Id != 1 && userData[selectedPaymentPlan].isLocked == 1">
+                                                                <a *ngIf="month.articleKeys.length == 1">
+                                                                    <div>
+                                                                        <svg class="month-trash" xmlns="http://www.w3.org/2000/svg" width="11.665" height="17.045" viewBox="0 0 11.665 17.045">
+                                                                            <g id="Group_4810" data-name="Group 4810" transform="translate(0)">
+                                                                                <path id="Path_800" data-name="Path 800" d="M33.629,16.408a.3.3,0,0,0-.3-.294H30.18v-.7a.3.3,0,0,0-.3-.294H25.752a.3.3,0,0,0-.3.294v.7H22.276a.3.3,0,0,0-.3.294v.863H33.629Z" transform="translate(-21.973 -15.119)" fill="#fd4444" />
+                                                                                <path id="Path_801" data-name="Path 801" d="M21.973,23.209,23.4,36.993c.036.2.136.307.3.307h8.207c.167,0,.267-.1.3-.307l1.426-13.784ZM24.65,36.3l-.987-10.371h1.316L25.507,36.3Zm3.791,0H27.058l-.195-10.371h1.745Zm2.407,0H29.99l.528-10.371h1.316Z" transform="translate(-21.973 -20.256)" fill="#fd4444" />
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="border-tb" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }"></div>
+                                                    </div>
+                                                    <!------>
+                                                    <div class="modal fade" [id]="'exampleModalCenter2' + month.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    {{ "TSC_ARE_YOU_SURE" | translate }}
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-success modal-btn" (click)="deleteTheMonth(month, monthIndex)" data-dismiss="modal">
+                                                                        {{ "TSC_YES" | translate }}
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-danger modal-btn" data-dismiss="modal">
+                                                                        {{ "TSC_NO" | translate }}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!---End of delete month modal--->
+                                                    <div [ngStyle]="{ background:project?.data.debit_Id == 1 || month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent'}" cdkDropList (cdkDropListDropped)="drop($event, month, monthIndex)">
+
+
+                                                        <div style="position: relative;" *ngFor='let key of month.articleKeys; let keyIndex = index;'>
+                                                            <div [ngClass]="key == selectedArticle && dotsDiv == true ? 'borderOrange': ''" class="for-activ-border" style="position:absolute">
+                                                            </div>
+                                                            <div cdkDrag [cdkDragDisabled]="project?.data.debit_Id == 1 ||
+                            userData[selectedPaymentPlan].isLocked == 1 || (userData[selectedPaymentPlan].isLocked == 0 && month.articles[month.articleKeys[0]][0].Invoice_date != '' ) || !userDetails.create_project_Paymentplan
+                          " style="transition: all 20ms">
+                                                                <div class="article-div example-box" *ngFor="
+                            let article of month.articles[key];
+                            let index = index;
+                          " [id]="'calendar-table-' + index + keyIndex + month.date" (click)="
+                            addNewArticleClick(month, index + keyIndex + month.date)
+                          ">
+                                                                    <div class="border-tb" [ngClass]="{
+                              bgR:
+                                article.Name ? article.Name.length == 0 : '' &&
+                                (name.dirty || name.touched)
+                                  ? '#e30e0ea6'
+                                  : 'transparent'
+                            }" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4 || userData[selectedPaymentPlan].status == 2 ? '#C7C6C4' : 'transparent' }">
+                                                                 <input [disabled]=" project?.data.debit_Id == 1 ||
+                                userData[selectedPaymentPlan].isLocked == 1 || article.Invoice_date != '' || !userDetails.create_project_Paymentplan || !userDetails.create_project_Paymentplan
+                              " (change)="
+                                updateSaveStatus(
+                                  userData[selectedPaymentPlan],
+                                  $event
+                                )
+                              " type="text" class="table-input-field backgroundName" maxlength="50" [(ngModel)]="article.Name" [value]="article.Name" [name]="'name' + index + keyIndex +  month.date" [id]="'name' + index + keyIndex + month.date" #name="ngModel" />
+                                                                    </div>
+                                                                    <div class="border-tb text-align-center" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4  || userData[selectedPaymentPlan].status == 2 ? '#C7C6C4' : 'transparent' }">
+                                                                        <input #input [disabled]="project?.data.debit_Id == 1 ||
+                                userData[selectedPaymentPlan].isLocked == 1 || index !=  0 || article.Invoice_date != '' || !userDetails.create_project_Paymentplan" (dateChange)="
+                                updateSaveStatus(
+                                  userData[selectedPaymentPlan],
+                                  $event
+                                )
+                              " [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4 ? '#C7C6C4' : 'transparent' }" type="text" class="tableCalendar" #tableCalendar [(ngModel)]="article.Invoice_day" [value]="article.Invoice_day" [name]="'invoice_day' + index + keyIndex + month.date" [id]="'invoice_day' + index + keyIndex + month.date" />
+                                                                    </div>
+                                                                    <div class="border-tb text-align-right p-t" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4 || userData[selectedPaymentPlan].status == 2 ? '#C7C6C4' : 'transparent' }">
+                                                                        <app-amount-input *ngIf="userData[selectedPaymentPlan]" [userData]="userData" [selectedPaymentPlan]="selectedPaymentPlan" [article]="article" [articleAmount]="article.Amount" [index]="index" [keyIndex]="keyIndex" [month]="month" [clickedArticle]="clickedArticle" [project]="project" (getSameEvent)="getSameEvent($event)" (updateSaveStatusEvent)="updateSaveStatusEvent($event)" (onPasteEvent)="onPasteEvent($event)" [setAmount]="setAmount"></app-amount-input>
+                                                                    </div>
+                                                                    <div class="border-tb text-align-right p-t" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4
+                              || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">
+                                                                       <input disabled number-format-directive type="text" class="form-control inpt-table" id="balance" [(ngModel)]="userData[selectedPaymentPlan].status == 2 && article.Invoice_date == '' ? 0 : article.Balance" [value]="article.Balance" [name]="'balance' + index + keyIndex + month.date" />
+                                                                    </div>
+                                                                    <div class="border-tb text-align-right p-t" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4
+                              || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">
+                                                                        <input disabled number-format-directive type="text" class="form-control inpt-table" [(ngModel)]="userData[selectedPaymentPlan].status == 2 && article.Invoice_date == '' ? 0 : article.Arrears" [value]="article.Arrears" id="arrears" [name]="'arrears' + index + keyIndex + month.date" />
+                                                                    </div>
+                                                                    <div class="border-tb text-align-right p-t" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4
+                              || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== ''? '#C7C6C4' : 'transparent' }">
+                                                                        <input disabled number-format-directive type="text" class="form-control inpt-table" id="invoiced" [(ngModel)]="userData[selectedPaymentPlan].status == 2 && article.Invoice_date == '' ? 0 : article.Invoiced" [value]="article.Invoiced" [name]="'invoiced_table' + index + keyIndex + month.date" />
+                                                                    </div>
+                                                                    <div class="border-tb text-align-left p-t slct" *ngIf="project as project_num" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4
+                              || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">
+                                                                        <div>
+                                                                          <ng-container>
+
+                                                                    <!--Dropdown PayPlan Table Activity-->
+                                                                      <div class="input-wrapper3" [ngStyle]="{
+                                                                        'pointer-events': project?.data.debit_Id == 1 || userData[selectedPaymentPlan].isLocked == 1 || index != 0 || article.Invoice_date != '' ? 'none' : 'auto',
+                                                                        'background-color': project?.data.debit_Id == 1 || userData[selectedPaymentPlan].isLocked == 1 || index != 0 || article.Invoice_date != '' ? 'transparent' : '#fff'
+                                                                      }">
+                                                                       <app-simple-select-in-table
+                                                                        [ClientItem]= "activities"
+                                                                        [fontSize]="14"
+                                                                        [width]="115"
+                                                                        [placeholder]="article.Activity"
+                                                                        [type1]="'ActivityPayPlan'"
+                                                                        [PayPlanActivity]="true"
+                                                                        [userData]="userData"
+                                                                        [selectedPaymentPlan]="selectedPaymentPlan"
+                                                                        (ActivityPayPlan)="updateSaveStatus(article,$event)"
+                                                                        >
+                                                                        </app-simple-select-in-table>
+                                                                      </div>
+                                                                    <!--End Dropdown PayPlan Table Activity-->
+
+
+                                                                            <!-- <select type="text" [title]="article.Activity" [(ngModel)]="userData[selectedPaymentPlan].status == 2 && article.Invoice_date == '' ? '' : article.Activity" [disabled]=" project?.data.debit_Id == 1 ||
+                                  userData[selectedPaymentPlan].isLocked == 1 || index != 0 || article.Invoice_date != ''
+                                " (change)="
+                                  updateSaveStatus(
+                                    userData[selectedPaymentPlan],
+                                    $event
+                                  )
+                                " [value]="article.Activity" [name]="'Activity' + index + keyIndex + month.date" class="form-select select-activity selectpicker noselect" aria-label="Default select example">
+                                                                                <option *ngFor="let acc of activities; let i = index" [value]="acc.CustomName + acc.name" class="special"
+                                                                                style="cursor: pointer;" >
+                                                                                    {{ acc.CustomName }} {{ acc.name }}
+                                                                                </option>
+                                                                            </select> -->
+                                                                          </ng-container>
+                                                                        </div>
+                                                                        <!-- <div
+                          style="
+                            width: 330px;
+                            height: 40px;
+                            position: relative;
+                            z-index: 1;
+                          "
+                        >
+                          <app-custom-simple-select
+                            [items]="projectStatusOptions"
+                            [label]="'Activity' + index + keyIndex + month.date"
+                            [hasDefaultValue]="false"
+                            [defaultValue]="false"
+                            [hasFirstMinusLine]="false"
+                            (toggleSelectedOption)="
+                              projectStatusSelected($event, 'Activity' + index + keyIndex + month.date)
+                            "
+                          >
+                          </app-custom-simple-select>
+                        </div> -->
+                                                                        <div class="svg-drop">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="9.058" viewBox="0 0 14 9.058">
+                                                                                <defs>
+                                                                                    <clipPath id="clip-path">
+                                                                                        <path id="Path_758" data-name="Path 758" d="M0,1.332H14V-7.726H0Z" transform="translate(0 7.726)" fill="none" />
+                                                                                    </clipPath>
+                                                                                </defs>
+                                                                                <g id="Group_4748" data-name="Group 4748" transform="translate(0)">
+                                                                                    <g id="Group_308" data-name="Group 308" transform="translate(0 0)">
+                                                                                        <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+                                                                                            <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+                                                                                                <path id="Path_757" data-name="Path 757" d="M.024.2l6.19,7.421a.741.741,0,0,0,.633.281h.07a.741.741,0,0,0,.633-.281L13.706.2a.858.858,0,0,0,.158-.563.593.593,0,0,0-.3-.492L13.354-1a1,1,0,0,0-.6-.158.688.688,0,0,0-.528.3L6.882,5.475,1.536-.856a.688.688,0,0,0-.528-.3A1,1,0,0,0,.41-1L.164-.856a.593.593,0,0,0-.3.492A.858.858,0,0,0,.024.2" transform="translate(0.136 1.156)" fill="#858585" />
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="border-tb text-align-center p-t" [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 || userData[selectedPaymentPlan].status == 1 || userData[selectedPaymentPlan].status == 3 || userData[selectedPaymentPlan].status == 4
+                              || userData[selectedPaymentPlan].status == 2 && month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">
+                                                                        <input type="text" class="inpt-table fakturaDatum" disabled (dateChange)="
+                                updateSaveStatus(
+                                  userData[selectedPaymentPlan],
+                                  $event
+                                )
+                              " #fakturaDatum [(ngModel)]="userData[selectedPaymentPlan].status == 2 && article.Invoice_date == '' ? '' : article.Invoice_date" [value]="
+                                article.Amount != '' ? article.Invoice_date : ''
+                              " [name]="'invoice_date' + index + keyIndex + month.date" [id]="'invoice_date' + index + keyIndex + month.date" />
+
+                                                                    </div>
+                                                                    <ng-container>
+                                                                        <div class="border-tb"
+                                                                          [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 ||
+                                                                                                 userData[selectedPaymentPlan].status == 1 ||
+                                                                                                 userData[selectedPaymentPlan].status == 3 ||
+                                                                                                 userData[selectedPaymentPlan].status == 4 ||
+                                                                                                 userData[selectedPaymentPlan].status == 2 &&
+                                                                                                 month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">
+                                                                            <img *ngIf="(index == 0 || month.articles[key][index - 1] &&
+                                                                                        month.articles[key][index - 1].randomGroup != article.randomGroup)"
+                                                                                        [ngClass]="(userData[selectedPaymentPlan].isLocked == 1 ||
+                                                                                                    userData[selectedPaymentPlan].status == 1 ||
+                                                                                                    userData[selectedPaymentPlan].status == 3 ||
+                                                                                                    userData[selectedPaymentPlan].status == 4 ||
+                                                                                                    userData[selectedPaymentPlan].status == 2 &&
+                                                                                                    month.articles[month.articleKeys[0]][0].Invoice_date !== '' )? 'disable-icon': ''"
+                                                                                                    src="../../../../../../assets/img/arrows-move.png" type="button"
+                                                                                                    [cdkDragDisabled]="userData[selectedPaymentPlan].isLocked == 0 && article.Invoice_date != ''" class="move" alt="" />
+                                                                        </div>
+                                                                        <div class="border-tb"
+                                                                            [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 ||
+                                                                                                     userData[selectedPaymentPlan].status == 1 ||
+                                                                                                     userData[selectedPaymentPlan].status == 3 ||
+                                                                                                     userData[selectedPaymentPlan].status == 4 ||
+                                                                                                     userData[selectedPaymentPlan].status == 2 &&
+                                                                                                     month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">
+                                                                            <div *ngIf="project?.data.debit_Id != 1 && userData[selectedPaymentPlan].isLocked == 0 && article.Invoice_date == '' && userDetails.create_project_Paymentplan">
+                                                                                <a data-toggle="modal" type="button" [attr.data-target]="'#exampleModalCenter' + monthIndex + index + keyIndex">
+                                                                                    <img src="../../../../../../assets/img/red-trash.png" class="red-trash" alt="" />
+                                                                                </a>
+                                                                            </div>
+                                                                            <div *ngIf="userData[selectedPaymentPlan].isLocked == 1"
+                                                                                [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 ||
+                                                                                                         userData[selectedPaymentPlan].status == 1 ||
+                                                                                                         userData[selectedPaymentPlan].status == 3 ||
+                                                                                                         userData[selectedPaymentPlan].status == 4 ||
+                                                                                                         userData[selectedPaymentPlan].status == 2 &&
+                                                                                                         month.articles[month.articleKeys[0]][0].Invoice_date !== ''? '#C7C6C4' : 'transparent' }">
+                                                                                <a type="button" *ngIf="(index == 0 || month.articles[key][index - 1] && month.articles[key][index - 1].randomGroup != article.randomGroup)">
+                                                                                    <img [ngClass]="(userData[selectedPaymentPlan].isLocked == 1 ||
+                                                                                                    userData[selectedPaymentPlan].status == 1 ||
+                                                                                                    userData[selectedPaymentPlan].status == 3 ||
+                                                                                                    userData[selectedPaymentPlan].status == 4 ||
+                                                                                                    userData[selectedPaymentPlan].status == 2 &&
+                                                                                                    month.articles[month.articleKeys[0]][0].Invoice_date !== '' )? 'disable-icon': ''"
+                                                                                                    src="../../../../../../assets/img/red-trash.png" class="red-trash" alt="" />
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="border-tb"
+                                                                        [ngStyle]="{ background: userData[selectedPaymentPlan].isLocked == 1 ||
+                                                                                                 userData[selectedPaymentPlan].status == 1 ||
+                                                                                                 userData[selectedPaymentPlan].status == 3 ||
+                                                                                                 userData[selectedPaymentPlan].status == 4 ||
+                                                                                                 userData[selectedPaymentPlan].status == 2 &&
+                                                                                                 month.articles[month.articleKeys[0]][0].Invoice_date !== '' ? '#C7C6C4' : 'transparent' }">
+                                                                            <button *ngIf="(index == 0 || month.articles[key][index - 1] && month.articles[key][index - 1].randomGroup != article.randomGroup)"
+                                                                                    class="dots-btn" type="button" [disabled]="project?.data.debit_Id == 1 ||
+                                                                                                                    userData[selectedPaymentPlan].isLocked == 1 || article.Invoice_date != '' || !userDetails.create_project_Paymentplan || !userDetails.create_project_Paymentplan
+                                " [ngClass]="(project?.data.debit_Id == 1 || userData[selectedPaymentPlan].isLocked == 1 || article.Invoice_date != '' )? 'disable-icon': ''" (click)="
+                                  popUp(
+                                    index,
+                                    keyIndex,
+                                    month,
+                                    monthIndex,
+                                    key,
+                                    $event
+                                  )
+                                ">
+                                                                                <img src="../../../../../../assets/img/dotss.png" class="dt-btn" alt="" />
+                                                                            </button>
+                                                                        </div>
+                                                                    </ng-container>
+
+                                                                    <!-----Delete modal row----->
+
+                                                                    <div class="modal fade" [id]="'exampleModalCenter' + monthIndex + index + keyIndex" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    {{ "TSC_ARE_YOU_SURE" | translate }}
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-success modal-btn" (click)="
+                                      deleteThisRow(article, monthIndex, index, keyIndex)
+                                    " data-dismiss="modal">
+                                                                                        {{ "TSC_YES" | translate }}
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-danger modal-btn" data-dismiss="modal">
+                                                                                        {{ "TSC_NO" | translate }}
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!---End of delete month modal-->
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <!----end of table--->
+                                        <div class="total-summa-div mt-2" *ngIf="userData[selectedPaymentPlan] as total">
+                                            <div class="first-summa">
+                                                <div class="black-bg-summa text-align-left p-t border-bottom-table line-h">
+                                                    {{ "TSC_FINAL_INVOICE" | translate }}
+                                                </div>
+                                                <div class="border-tb white-bg text-align-right p-t"></div>
+                                                <div class="border-tb white-bg text-align-right p-t"></div>
+                                                <div class="border-tb white-bg text-align-right p-t"></div>
+                                                <div class="border-tb white-bg text-align-right width-row p-t">
+                                                    <div class="padding-top10">
+                                                        {{ userData[selectedPaymentPlan].status == 2 ? sumArrearsInvoiced : total.sumArrears }}
+                                                    </div>
+                                                </div>
+                                                <div class="border-tb white-bg text-align-right p-t">
+                                                    <div class="padding-top10" *ngIf="userData[selectedPaymentPlan].final_invoice_status == 1">
+                                                        {{userData[selectedPaymentPlan].total_of_final_invoices | number:'1.2-2': 'fr-FR'}}
+                                                    </div>
+                                                </div>
+                                                <div class="border-tb white-bg text-align-right p-t"></div>
+                                            </div>
+                                            <div class="second-summa">
+                                                <div class="black-bg-summa text-align-right p-t">
+                                                    {{ "TSC_TOTAL" | translate }}
+                                                </div>
+                                                <div class="border-tb white-bg text-align-right p-t">
+                                                    <input type="text" class="summa-inpt" disabled />
+                                                </div>
+                                                <div class="border-tb white-bg text-align-right p-t">
+                                                    <div class="padding-top10">
+                                                        {{ total.sumAmount }}
+                                                    </div>
+                                                </div>
+                                                <div class="border-tb white-bg text-align-right p-t">
+                                                    <div class="padding-top10">{{ userData[selectedPaymentPlan].status == 2 ? sumBalanceInvoiced : total.sumAmount }}</div>
+                                                </div>
+                                                <div class="border-tb white-bg text-align-right width-row p-t">
+                                                </div>
+                                                <div class="border-tb white-bg text-align-right p-t">
+                                                    <div class="padding-top10"> {{ userData[selectedPaymentPlan].status == 2 ? sumAcceptedInvoiced : total.sumInvoiced }}</div>
+                                                </div>
+                                                <div class="border-tb white-bg text-align-right p-t"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedTab == 1">
+                            <email-log
+                              [logs]="logs"
+                              [appPart]="'other'"
+                              [haveQuestionStatus]="false"
+                          ></email-log>
+                        </div>
+                        <div *ngIf="selectedTab == 2">
+                            <app-comment-section
+
+                            content_type="paymentplan"
+                            [project]="project"
+                            [parentId]="project.data.id"
+                            [status]="userData[selectedPaymentPlan].isDeleted"
+                            (informParent)="changeStatus($event)"
+                            [saveComment]="saveComment"
+
+                            ></app-comment-section>
+                        </div>
+                        <!-- <div class="border-right-scroll"></div> -->
+                    </div>
+
+                    <div class="thin-red-line-bottom"></div>
+                    <div class="thin-red-line-right"></div>
+
+                </div>
+                <!---Pop up table--->
+                <div class="cover-pop" (click)="closeP()" *ngIf="dotsDiv">
+                    <div class="popUp-div" [ngStyle]="{
+          display: modalPosition.top !== 0 ? 'block' : 'none',
+          top: modalPosition.top + 'px',
+          left: modalPosition.left + 'px'
+        }">
+                        <app-dots-popup [modalInfo]="modalInfo" (addEmptyGroup)="addEmptyGroupSplice($event)"></app-dots-popup>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="spinner" *ngIf="spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <div class="modal fade" [id]="'sureModal'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ "TSC_ARE_YOU_SURE" | translate }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success modal-btn" (click)="goBack()" data-dismiss="modal">
+                        {{ "TSC_YES" | translate }}
+                    </button>
+                    <button type="button" class="btn btn-danger modal-btn" data-dismiss="modal">
+                        {{ "TSC_NO" | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

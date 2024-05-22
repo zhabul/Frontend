@@ -1,0 +1,47 @@
+<div class="row row1X tab-content tab-content-stats">
+    <div class="calendar-header-container">
+        <div class="calendar-header">
+          <div class="header-back-button">
+            <div>
+              <div
+
+                (click)="redirectToUserDetails()"
+                class="btn mr-2 lh09 hideUnder800 "
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+
+              >
+                <app-back-button-svg-ud></app-back-button-svg-ud>
+              </div>
+            </div>
+          </div>
+          <div [ngClass]="isEnglish ? 'header-filters-eng' : 'header-filters-sw'">
+            <!-- <app-date-range-select (emitRange)="setDateRange($event)"></app-date-range-select> -->
+            <h1 class="title-name">{{"Settings" | translate | uppercase}}</h1>
+            <div class="select-container-220 margin-right">
+              <app-company-select ></app-company-select>
+            </div>
+          </div>
+          <div class="buttons-container">
+            <div class="flex-buttons">
+                <div class="green-button green-button-active">
+                    {{ 'TSC_Wage_types' | translate }}
+                </div>
+                <div class="green-button" (click)="navigateToAbsenceTypes()">
+                    {{ 'TSC_Absence_types' | translate }}
+                </div>
+                <div class="green-button" (click)="navigateToErsattningsvarotyper()">
+                    {{ 'TSC_Mileage_types' | translate }}
+                </div>
+            </div>
+            <div class="center-content">
+              <app-options-menu [settings]="true" [userId]="puserid" [date]="pdate"></app-options-menu>
+            </div>
+          </div>
+        </div>
+    </div>
+    <app-nav-tabs [tabs]="tabs" (emitValue)="setSelectedTab($event)"></app-nav-tabs>
+    <div class="tab-container">
+      <app-lonetyper-editor></app-lonetyper-editor>
+    </div>
+  </div>

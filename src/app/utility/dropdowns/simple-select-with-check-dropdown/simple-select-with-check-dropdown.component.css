@@ -1,0 +1,220 @@
+.toogle-dropdown {
+  margin-left: -15px;
+  border-right: 1px solid var(--border-color);
+  /* position: absolute; */
+  width: calc(100% + 12px);
+  background-color: white;
+  max-height: 195px;
+  overflow: auto;
+  z-index: 999999;
+  border-bottom: 1px solid var(--border-color);
+  /* box-shadow: -3px 10px 0px 0px var(--orange-dark), 4px -11px 0px -2px var(--orange-dark), 2px 10px 0px 0px var(--orange-dark), -3px -1px 0px 0px var(--orange-dark); */
+
+  overflow-x: hidden;
+  border-bottom: 2px solid var(--orange-dark);
+  border-right: 2px solid var(--orange-dark);
+  border-left: 2px solid var(--orange-dark);
+  border-top: 1px solid var(--main-bg);
+  /* width: calc(100% + 16px);*/
+  position: relative;
+}
+
+.toogle-dropdown::-webkit-scrollbar {
+  width: 10px;
+}
+
+.toogle-dropdown::-webkit-scrollbar-thumb {
+  opacity: 0.5;
+  background-color: var(--border-color);
+  border-width: 4px;
+  border-radius: 10px !important;
+}
+
+.toogle-dropdown::-webkit-scrollbar-track {
+  background: black;
+}
+
+/*Za FireFox preglednik*/
+.toogle-dropdown {
+  scrollbar-width: thin;
+  scrollbar-color: black #f1f1f1;
+}
+
+.toogle-dropdown::-moz-scrollbar {
+  width: 10px;
+}
+
+.toogle-dropdown::-moz-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-width: 4px;
+  border-radius: 10px !important;
+}
+
+.toogle-dropdown::-moz-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.item-name:hover {
+  color: #ff7000;
+  cursor: pointer;
+}
+.item-name1 {
+  text-align: left;
+  border-top: 1px solid #858585;
+  height: auto;
+  /* padding: 5px 4px 0px 15px; */
+  z-index: 3;
+  position: relative;
+}
+
+p {
+  margin-bottom: 0px !important;
+  font-size: 14px;
+}
+
+.toggle-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.selected-item {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* max-width: 225px; */
+  cursor: pointer;
+  /* padding: 10px 15px 9px 15px; */
+  width: 100%;
+  height: 100%;
+  min-height: 39px;
+}
+
+.select-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.toogle-dropdown {
+  position: absolute;
+  /* top: 46.5px; */
+  /* left: 18px; */
+  left: 15px;
+  /* min-width: 250px; */
+  /* top: 35px; */
+  /* min-width: 240px; */
+}
+
+.border-hover {
+  width: 100%;
+  /* height: calc(100% + 30px); */
+  /* background: white; */
+  /* border: 2px solid var(--orange-dark); */
+  border-top: 2px solid var(--orange-dark);
+  border-right: 2px solid var(--orange-dark);
+  border-left: 2px solid var(--orange-dark);
+  /* z-index: 9999999999999999999999999999999999999999999; */
+  /* max-height: 46.5px; */
+  /* min-height: 46.5px; */
+  min-height: 35px;
+}
+
+.div-vertical-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  background: #858585;
+}
+
+.toggle-on {
+  float: right;
+  position: absolute;
+  right: 10px;
+}
+
+.span-selected {
+  display: grid;
+  padding-left: 15px;
+  padding-right: 10px;
+  padding-top: 7px;
+  gap: 10px;
+  grid-template-columns: 1fr 15px;
+  /* height: 100%; */
+  align-content: center;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.time-atest-pos {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 176px;
+  color: #1a1a1a;
+}
+
+.time-atest-p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 183px;
+}
+
+.border-on-scroll {
+  position: absolute;
+  bottom: 0;
+  /* right: -16px; */
+  height: 2px;
+  background-color: var(--orange-dark);
+  /* width: 17px; */
+  border-radius: 4px 4px 0px 0px;
+  width: 16px;
+  right: -16px;
+}
+
+input.check {
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+.item-name {
+  text-align: left;
+  border-top: 1px solid #858585;
+  height: 34px;
+  padding: 6px 5px 0px 10px;
+  z-index: 3;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #1a1a1a;
+  width: 273px;
+  padding-right: 33px;
+}
+
+.item-name:hover {
+  color: #ff7000;
+  cursor: pointer;
+}
+
+.check-button-wrapp-one {
+  float: right;
+  margin-top: -30px;
+  margin-right: 12px;
+}

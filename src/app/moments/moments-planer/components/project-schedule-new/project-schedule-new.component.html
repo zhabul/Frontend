@@ -1,0 +1,91 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Create planner" | translate }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="createProjectMoments()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div class="form-row">
+    <label for="name" class="required">{{ "Choose moment" | translate }}</label>
+    <select
+      class="moment-nav-select form-control"
+      id="project-users"
+      #moment
+      (change)="onChangeSetMoment(moment.value)"
+      formControlName="MomentId"
+    >
+      <option *ngFor="let moment of defaultMoments" value="{{ moment.id }}">
+        {{ moment.Name }}
+      </option>
+    </select>
+  </div>
+  <div class="form-row">
+    <div class="form-group projects-date col-md-6">
+      <label for="phone">{{ "Start Date" | translate }}</label>
+      <div class="input-group date">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"
+            ><i class="material-icons">calendar_today</i></span
+          >
+        </div>
+        <input
+          id="dateSelectStartDate"
+          autocomplete="off"
+          type="text"
+          class="form-control project-date"
+          aria-describedby="basic-addon1"
+          placeholder="{{ 'Choose Start Date' | translate }}"
+          #StartDate
+          formControlName="StartDate"
+          name="StartDate"
+        />
+      </div>
+    </div>
+    <div class="form-group projects-date col-md-6">
+      <label for="phone">{{ "End Date" | translate }}</label>
+      <div class="input-group date">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"
+            ><i class="material-icons">calendar_today</i></span
+          >
+        </div>
+        <input
+          id="dateSelectEndDate"
+          autocomplete="off"
+          type="text"
+          class="form-control project-date"
+          aria-describedby="basic-addon1"
+          placeholder="{{ 'Choose End Date' | translate }}"
+          #EndDate
+          formControlName="EndDate"
+          name="EndDate"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>{{ "Color" | translate }}</label>
+    <input
+      name="directory"
+      class="form-control"
+      formControlName="Color"
+      type="color"
+    />
+  </div>
+
+  <div class="row">
+    <div class="button-group text-center">
+      <button type="submit" class="btn btn-success lh09">
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Save" | translate }}</span>
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,406 @@
+.ata-pdf {
+  width: 770px;
+  height: 95vh;
+  overflow-y: auto;
+  background-color: white;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Arial Narrow";
+}
+
+.grid {
+  display: grid;
+  /* grid-template-columns: repeat(3, minmax(100px, 1fr)); */
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  grid-gap: 0.5em;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(100px, 1fr));
+  grid-gap: 0.5em;
+}
+.my-grid-2 {
+  display: grid;
+  /* grid-template-columns: 40%,60%; */
+  /* grid-template-columns: repeat(1, 40% 2fr) ; */
+  grid-template-columns: repeat(1, 295px 2fr);
+  grid-auto-rows: 1fr;
+  grid-gap: 0.5em;
+}
+
+.grid p {
+  margin-bottom: 0rem;
+}
+
+.grid-2 p {
+  margin-bottom: 0px;
+}
+
+.grid img {
+  width: 100%;
+  max-width: 250px;
+  margin-bottom: 1em;
+}
+
+.grid .section + .section {
+  margin-top: 1.5em;
+}
+
+.brief {
+  margin-top: 2em;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.brife-2 {
+  /* background-color: #eee; */
+  background-color: #f8f8f8;
+  padding: 0.2em;
+  padding-bottom: 1em;
+  border-radius: 5px;
+  border: 1px solid #7070708a;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+
+.article-table {
+  margin-top: 1em;
+  background: white;
+  /* border: 1px solid grey; */
+  /* border-collapse: collapse; */
+  border-collapse: unset;
+  border-spacing: unset;
+  width: 100%;
+  line-height: normal;
+}
+
+.article-table th {
+  white-space: nowrap;
+}
+
+table caption {
+  padding: 0.5em;
+}
+
+table,
+th,
+td {
+  padding: 0.35em;
+  border: 1px solid lightgrey;
+  border-collapse: collapse;
+  /* Dž.K. 03.03.2021 Pocetak*/
+  border: hidden;
+  letter-spacing: 1px;
+  padding-bottom: 0px;
+  /* Dž.K. 03.03.2021 Kraj*/
+}
+
+.total-sum {
+  margin-top: 1em;
+  text-align: right;
+}
+
+.total-table td {
+  padding: 0;
+}
+
+.article-name {
+  min-width: 300px;
+}
+
+/* .table-total {
+    margin-top: 1em;
+    width: 70%;
+    margin-left: auto;
+}
+
+.table-total > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-total > div > * {
+    flex: 1;
+}
+
+.table-total > div > *:nth-child(2) {
+    text-align: right;
+} */
+.table-total {
+  text-align: end;
+  margin-inline-start: auto;
+}
+
+.footer p {
+  margin: 0.5em 0;
+}
+
+.footer .signature-field {
+  border-bottom: 1px solid #333;
+  padding-bottom: 20px;
+  font-size: 0.8em;
+}
+
+.date-and-signature {
+  display: flex;
+  border: 1px solid #777;
+}
+
+.date-and-signature > div {
+  flex: 1;
+  padding: 0.5em;
+  padding-bottom: 3em;
+}
+
+.date-and-signature > div + div {
+  border-left: 1px solid #777;
+}
+
+.input-section {
+  padding: 0.2em;
+  border: 1px solid #aaa;
+  white-space: pre-line;
+}
+
+.digital-answer {
+  /* padding: 10px; */
+  padding: 5px;
+  background-color: #f8f8f8;
+  border: 1px solid #7070708a;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+.digital-answer-message {
+  /* padding: 10px; */
+  padding: 2px;
+  background-color: #f8f8f8;
+  border: 1px solid #7070708a;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  padding-top: 0px;
+}
+
+.footer-right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.deviation-number {
+  margin-left: 30px;
+}
+
+.footer-section {
+  font-size: 0.8em;
+  padding-left: 5px;
+  line-height: normal;
+}
+
+.client-message {
+  padding: 0.45em 0.9em;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #7070708a;
+  display: inline-block;
+  margin-top: 0.2em;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+/*Dž.K. 03.03.2021 Pocetak*/
+
+.align-right {
+  text-align: right !important;
+}
+.aligin-left {
+  text-align: left;
+}
+.first-letter-up {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.img {
+  width: 100%;
+}
+.ata-nub {
+  text-align: right;
+  /* padding-right: 0%; */
+  padding-left: 0%;
+}
+.container-fluid {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 5%;
+}
+
+.no-pad-left {
+  padding-left: 0px;
+}
+.no-pad-right {
+  padding-right: 0px;
+}
+.no-pad-top {
+  padding-top: 0px;
+}
+
+.marg-left {
+  margin-left: -12%;
+}
+
+.marg-inl-end {
+  margin-inline-end: auto;
+}
+
+.border-table {
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-color: #7070708a;
+  border-spacing: unset;
+  font-family: "Arial Narrow";
+  font-size: small;
+  font-weight: normal;
+  padding-bottom: 2px;
+}
+.border-tot-sum {
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-color: #7070708a;
+  border-spacing: unset;
+  font-family: "Arial Narrow";
+  letter-spacing: 1px;
+  margin-right: 5px;
+  margin-left: 5px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  font-size: 17px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.marg-left-9 {
+  /* margin-left: 9%; */
+  letter-spacing: 0.5px;
+}
+.marg-inl {
+  margin-inline: auto;
+}
+.marg-right-16 {
+  margin-right: 16%;
+}
+.marg-right-m16 {
+  margin-right: -16%;
+}
+.hed {
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: 26px;
+}
+.leetsp {
+  letter-spacing: 1px;
+}
+/* .section-height{
+    height: 112vh !important;
+    min-height: 112vh;
+    overflow: auto;
+    
+    
+} */
+.img-p-m-sign {
+  height: 9px;
+  vertical-align: unset;
+}
+
+.accepted-answ {
+  color: #fff;
+  background-color: #4cb185;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 2px;
+}
+
+h5,
+h6 {
+  font-weight: bold;
+}
+.answ-delinced {
+  color: #fff;
+  background-color: #dc3545;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 2px;
+}
+.answ-question {
+  color: #fff;
+  background-color: #ffc107;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 2px;
+}
+.answ-accepted {
+  color: #fff;
+  background-color: #4cb185;
+  margin-inline-start: auto;
+  padding-left: 3px;
+  padding-right: 3px;
+  width: 32%;
+  text-align: center;
+  border-radius: 3px;
+}
+.alla-priser {
+  text-align: end;
+  font-family: "Arial Narrow";
+  font-size: small;
+  padding-right: 5px;
+  margin-bottom: 0;
+}
+
+.beskriving {
+  padding-left: 15px;
+}
+
+.msg-descr {
+  font-size: smaller;
+  font-weight: bold;
+}
+.art-lop-r {
+  font-size: inherit;
+}
+
+.reminder {
+  font-size: initial;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.no-pr-minl {
+  padding-right: 0px;
+  margin-inline-start: auto;
+}
+.hr {
+  margin-bottom: 0.5rem;
+}
+/*Dž.K. 03.03.2021 Kraj*/
+
+.labeling-requierments {
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+.right-side-row {
+    cursor: pointer;
+    display: flex;
+    position: absolute;
+    right: 32px;
+    top: -5px;
+    width: 85px;
+    align-items: center;
+    justify-content: space-between;
+}

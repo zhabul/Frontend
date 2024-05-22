@@ -1,0 +1,64 @@
+<div class="schedule-grid">
+  <div class="schedule-container">
+    <div class="header-box">
+      <div>
+        <ng-container *ngIf="visibleCalendar[4]">
+          V.{{ visibleCalendar[4].week }}
+        </ng-container>
+      </div>
+      <div class="header-nav">
+        <div id="arrow" (click)="previousMonth()"><app-sd-arrow-left-sm></app-sd-arrow-left-sm></div>
+        <div>
+          <ng-container *ngIf="visibleCalendar[4]">
+            {{ visibleCalendar[4].monthName | translate }} {{ visibleCalendar[4].year }}
+          </ng-container>
+        </div>
+        <div id="arrow" (click)="nextMonth()"><app-sd-arrow-right-sm></app-sd-arrow-right-sm></div>
+      </div>
+      <div></div>
+    </div>
+    <div class="calendar-box">
+      <div class="arrow-left-box center-content">
+        <div id="arrow" (click)="previousDate()">
+          <app-sd-arrow-left-lg></app-sd-arrow-left-lg>
+        </div>
+        <div class="box-shadow-div-right"></div>
+      </div>
+      <div class="calendar-body" >
+        <div [ngStyle]="calendarBodyStyle">
+          <app-calendar-day
+            *ngFor="let day of visibleCalendar; let index = index;"
+            [index]="index"
+            [day]="day"
+            [selectedDate]="selectedDate"
+            [disabledDateForRaportTime]="disabledDateForRaportTime"
+            [project]="project"
+            (activeDateListener)="setActiveDate($event)"
+          ></app-calendar-day>
+        </div>
+      </div>
+      <div class="arrow-right-box center-content">
+        <div id="arrow" (click)="nextDate()">
+          <app-sd-arrow-right-lg></app-sd-arrow-right-lg>
+        </div>
+        <div class="box-shadow-div-left"></div>
+      </div>
+    </div>
+    <div class="buttons-box">
+      <ng-container *ngIf="userDetails.create_timesheets_recordtime">
+        <div class="add-button" *ngIf="enableTimeButton" [queryParams]="{date: selectedDate}" routerLink="/timesheets/time-registration-users-registration" >
+          <div><app-add-icon-svg></app-add-icon-svg></div>
+          <div>{{ "Add Time" | translate }}</div>
+        </div>
+        <div class="add-button" *ngIf="showAbsenceButton
+        " routerLink="/timesheets/time-registration-users-absence" >
+          <div><app-add-icon-svg></app-add-icon-svg></div>
+          <div >{{ "Add Absence" | translate }}</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="mini-calendar">
+    <app-mini-schedule></app-mini-schedule>
+  </div>
+</div>

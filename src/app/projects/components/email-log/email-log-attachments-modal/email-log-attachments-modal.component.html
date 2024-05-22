@@ -1,0 +1,69 @@
+<div clas="edit-email-log-mat-dialog">
+    <div class="container">
+    <div class="modal-top-wrapper">
+        <h5>{{ "Attachments" | translate }}</h5>
+        <app-close-icon [mat-dialog-close]="true"></app-close-icon>
+    </div>
+    <div class="previews-container">
+        <app-file-preview
+        *ngFor="let pdf of pdfs; let index = index"
+        type="pdf"
+        [file]="pdf"
+        [index]="index"
+        (openSwiper)="openSwiper(index, pdfs, albumKey)"
+        [canRemove]="false"
+        modalType="file"
+        [showDate]="false"
+        width="540"
+        ></app-file-preview>
+        <!-- <app-pdfjs-preview
+        style="cursor:pointer; margin-left: 5px;"
+        *ngFor="let pdf of pdfs; let index = index"
+        type="pdf"
+        (click)="openSwiper(index, pdfs, albumKey)"
+        [pdfUrls]="[pdf['file_path']]"
+        [deleted]=""
+        [canRemove]="false"
+        [index]="index"
+        [active]="index"
+        [width]="68"
+        [height]="43"
+        [borderRadius]="'0px 0px 0px 0px'"
+        [folder]="true"
+        >
+        </app-pdfjs-preview> -->
+        <app-file-preview
+        *ngFor="let image of images; let index = index"
+        type="image"
+        [file]="image"
+        [index]="index"
+        (openSwiper)="openSwiper(index, images, albumKey)"
+        [canRemove]="false"
+        modalType="file"
+        [showDate]="false"
+        width="540"
+        ></app-file-preview>
+        <p *ngIf="attachments.length < 1">
+        {{ "No attachments sent" | translate }}
+        </p>
+    </div>
+    </div>
+    <ng-template #otherComponent>
+    <app-gallery
+        *ngIf="swiper.images.length"
+        [swiper]="swiper"
+        [canRemove]="false"
+        (closeSwiperEvent)="closeSwiper($event)"
+        [server]="true"
+    ></app-gallery>
+    </ng-template>
+    <ng-container *ngIf="isPDFViewer; else otherComponent">
+    <app-pdfjs-viewer
+        *ngIf="swiper.images.length"
+        [swiper]="swiper"
+        [canRemove]="false"
+        (closeSwiperEvent)="closeSwiper($event)"
+        [server]="true"
+    ></app-pdfjs-viewer>
+    </ng-container>
+</div>

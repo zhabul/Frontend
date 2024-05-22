@@ -1,0 +1,104 @@
+<div class="sps-work-week-box" *ngIf="workWeekForm">
+    <form class="flex-row sps-work-week-days day-padding">
+        <div class="day-wrapper">
+            <div class="day-name-pos">{{ 'Mon' | translate }}</div>
+            <div class="day-checkbox-pos">
+                <app-white-select 
+            
+                    title=""
+                    [control]="monControl"
+                    (changeEvent)="updateItem(monControl, 'mon')"
+                    [disabled]="disabled"
+                
+                >
+                </app-white-select>
+            </div>
+        </div>
+        <div class="day-wrapper">
+            <div class="day-name-pos">{{ 'Tue' | translate }}</div>
+            <div class="day-checkbox-pos">
+                <app-white-select 
+                
+                    title=""
+                    [control]="tueControl"
+                    (changeEvent)="updateItem(tueControl, 'tue')"
+                    [disabled]="disabled"
+    
+                >
+                </app-white-select>
+            </div> 
+        </div>
+        <div class="day-wrapper">
+            <div class="day-name-pos">{{ 'Wed' | translate }}</div>
+            <div class="day-checkbox-pos">
+                <app-white-select 
+                
+                    title=""
+                    [control]="wedControl"
+                    (changeEvent)="updateItem(wedControl, 'wed')"
+                    [disabled]="disabled"
+                    
+                >
+                </app-white-select>
+            </div>
+        </div>
+        <div class="day-wrapper">
+            <div class="day-name-pos">{{ 'Thu' | translate }}</div>
+            <div class="day-checkbox-pos">
+                <app-white-select 
+    
+                    title=""
+                    [control]="thuControl"
+                    (changeEvent)="updateItem(thuControl, 'thu')"
+                    [disabled]="disabled"
+                    
+                >
+                </app-white-select>
+            </div>
+        </div> 
+        <div class="day-wrapper">
+            <div class="day-name-pos">{{ 'Fri' | translate }}</div>
+            <div class="day-checkbox-pos">
+                <app-white-select 
+    
+                    title=""
+                    [control]="friControl"
+                    (changeEvent)="updateItem(friControl, 'fri')"
+                    [disabled]="disabled"
+                    
+                >
+                </app-white-select>
+            </div>
+        </div>
+        <div class="day-wrapper">
+            <div class="day-name-pos">{{ 'Sat' | translate }}</div>
+            <div class="day-checkbox-pos">
+                <app-white-select 
+    
+                    title=""
+                    [control]="satControl"
+                    (changeEvent)="updateItem(satControl, 'sat')"
+                    [disabled]="disabled"
+                
+                >
+                </app-white-select>
+            </div>
+        </div>
+        <div class="day-wrapper">
+            <div class="day-name-pos">{{ 'Sun' | translate }}</div>
+            <div class="day-checkbox-pos">
+                <app-white-select 
+    
+                    title=""
+                    [control]="sunControl"
+                    (changeEvent)="updateItem(sunControl, 'sun')"
+                    [disabled]="disabled"
+                    
+                >
+                </app-white-select>
+            </div>
+        </div>
+    </form>
+</div>
+
+

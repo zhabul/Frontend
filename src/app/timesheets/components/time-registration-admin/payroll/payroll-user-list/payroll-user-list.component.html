@@ -1,0 +1,50 @@
+<div class="table-width border-top-stats " >
+    <div class="name-container">
+        <div class="payroll-type-table-search-bar">
+            <div>
+                <app-input-text-filter (emitValue)="setSearchValue($event)" [width]="550" [disableQueryParams]="true" prefix="pul"></app-input-text-filter>
+            </div>
+        </div>  
+        <div class="payroll-type-name-grid"> 
+            <div class="font-small">{{  numberWithLine }}</div> 
+            <div>{{ 'CUD_Name' | translate }}</div>
+            <div>{{ 'CUD_Type' | translate }}</div>
+            <div class="alla-container">
+                <div>{{ 'CUD_All' | translate }}</div>
+                <div *ngIf="users.length">
+                    <app-green-select [all]="true" [value]="allSelected" (changeEvent)="toggleSelectedUsers($event)"></app-green-select>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="thin-left-line" ></div> 
+</div> 
+<div class="table-width relative">
+    <div 
+        class="body-planner-moments-wrapper no-border-top blu-scroll blu-scroll4 dynamic-height no-b-left" 
+        #wrapper 
+        appScrollDetector 
+        [spinner]="spinner"
+        [allFetched]="true" 
+        (emitTrigger)="getUserData()"
+        (emitScrollLeft)="setTranslateXForHeader($event)"
+    >
+        <div>
+            <div class="payroll-type-name-grid user-colum"  *ngFor="let user of users" >
+                <div class="nr-black">{{ user.id }}</div>
+                <div class="white-column">{{ user.firstName }} {{ user.lastName }}</div>
+                <div class="white-column">{{ user.roleName }}</div>
+                <div class="white-column checkbox-container-center"><app-green-select  (changeEvent)="setUserChecked($event, user)" [value]="user.checked"></app-green-select></div>
+            </div> 
+            <div class="spinner-container-absolute" *ngIf="spinner">
+                <app-pulse-spinner></app-pulse-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="grey-filler-long"></div>
+    <div class="thin-right-line" [ngStyle]="rightLineStyles"></div>
+    <div class="thin-left-line" ></div>
+    <div class="thin-bottom-line" ></div>
+    <div class="thin-top-line" ></div>
+    <div class="thin-bottom-left-scroll-line" ></div>
+</div>

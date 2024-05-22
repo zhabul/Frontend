@@ -1,0 +1,18 @@
+<div class="absence-type-grid child-white-bck" >
+    <div class="sticky-column stck-cl-0 absence-type-box" >{{ nr + 1 }}</div>
+    <div class="sticky-column stck-cl-1 absence-type-box left-algin">
+        <div class="floating-stats" *ngIf="showStats">
+            <app-white-select [control]="statsControl" (changeEvent)="toggleStats($event)" ></app-white-select>
+        </div>
+        {{ absence.Name }}
+    </div>
+    <div class="absence-type-box">{{ absence.ShortName }}</div>
+    <div class="absence-type-box">{{ absence.timeCodeVisma }}</div>
+    <div class="absence-type-box">{{ absence.timeCode }}</div> 
+    <div class="absence-type-box">{{ (absence.active == 1 ? 'Active' : 'Inactive') | translate }}</div>
+    <div class="absence-type-box" [style.backgroundColor]="absence.color"></div>
+    <div class="absence-type-box"><app-checked-icon-svg *ngIf="absence.paid == 1"></app-checked-icon-svg></div>
+    <div class="absence-type-box"><app-checked-icon-svg *ngIf="absence.flex == 1"></app-checked-icon-svg></div>
+    <div (click)="openEditAbsenceModal(absence)" [title]="'Edit' | translate" class="pointer absence-type-box"><app-edit-icon-svg></app-edit-icon-svg></div>
+    <div (click)="removeAbsence(absence)" [title]="'Remove' | translate" class="pointer absence-type-box"><app-trash-can-icon-svg></app-trash-can-icon-svg></div>
+</div>

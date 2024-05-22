@@ -1,0 +1,97 @@
+<div class="main-wrapper" *ngIf="prognosis">
+  <div class="left-prognos-title">
+    <div>{{ "TSC_Forecast" | translate | uppercase }}</div>
+  </div>
+  <div class="left-wrapper">
+    <ng-container *ngFor="let property of prognosis.properties">
+      <div class="row">
+        <div class="item item-yellow">{{ property.project_name }}:</div>
+        <div class="item item-right">
+          {{
+            property["project_du_totals"].prognosis | number : "1.2-2" : "fr"
+          }}
+        </div>
+        <div class="item item-yellow">{{ property.project_name }} ÄTA:</div>
+        <div class="item item-right">
+          {{ property.ataTotal | number : "1.2-2" : "fr" }}
+        </div>
+        <div class="line" colspan="2"></div>
+      </div>
+    </ng-container>
+
+    <div class="row">
+      <strong class="item" style="color: #fdc224"
+        >{{ "TCS_Prognossumma" | translate | uppercase }}:</strong
+      >
+      <strong class="item-right item">{{
+        prognosis["total"] | number : "1.2-2" : "fr"
+      }}</strong>
+    </div>
+  </div>
+  <div class="vertical-line"></div>
+  <div class="right-wrapper">
+    <div class="up-wrapper">
+      <div class="title">{{ "Contract_sum_including_Rikt" | translate }}</div>
+      <div class="row row2">
+        <div class="item" style="color: #82a7e2">
+          <strong>{{ "TCS_Contract_Sum" | translate }}:</strong>
+        </div>
+        <div class="item">
+          {{
+            prognosis.total_project_contract_amount | number : "1.2-2" : "fr"
+          }}
+        </div>
+      </div>
+      <div class="row row2">
+        <div class="item" style="color: #fdc224">
+          <strong>{{ "TCS_Contract_prognos" | translate }}:</strong>
+        </div>
+        <div class="item">
+          {{ prognosis.projects_total_prognos | number : "1.2-2" : "fr" }}
+        </div>
+      </div>
+      <div class="row row2">
+        <div class="item" style="color: #fdc224">
+          <strong>{{ "TCS_Diferens" | translate }}:</strong>
+        </div>
+        <div class="item">
+          <strong>
+            {{
+              prognosis.total_project_contract_amount -
+                prognosis.projects_total_prognos | number : "1.2-2" : "fr"
+            }}</strong
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="button-wrapper">
+      <button
+        [ngClass]="{
+          button: true,
+          'disabled-btn': prognosis.locked || prognosis.saved || disabeButtons || spinner || !userDetails.create_project_Forecast
+        }"
+        class="button"
+        [disabled]="
+                  prognosis.locked || prognosis.saved || disabeButtons || spinner
+                "
+        (click)="onSavePrognosis()"
+      >
+        {{ "TSC_save_prognosis" | translate | uppercase }}
+      </button>
+      <button
+        [ngClass]="{
+          button: true,
+          'disabled-btn': prognosis.locked || !prognosis.saved || disabeButtons || spinner || !userDetails.create_project_Forecast
+        }"
+        [disabled]="
+          prognosis.locked || !prognosis.saved || disabeButtons || spinner
+        "
+        (click)="onLockPrognosis()"
+      >
+        {{ "TSC_lock_forecast" | translate | uppercase }}
+      </button>
+    </div>
+  </div>
+</div>
+

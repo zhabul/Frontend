@@ -1,0 +1,85 @@
+<div class="blue-top-nav">
+    <div class="blue-top-nav-text"></div>
+    <div class="row" style="justify-content: space-between; position: relative;height: 48px;">
+        <div class="column-container">
+            <div class="flex-center-all">
+                <app-svg-statuses [iconColor]="iconColor" *ngIf="(iconStatusName==='Under pricing')"></app-svg-statuses>
+                <app-svg-sent-only [iconColor]="iconColor" *ngIf="(iconStatusName==='Sent')"></app-svg-sent-only>
+                <app-svg-for-accepterad *ngIf="(iconStatusName==='Accepterad')"></app-svg-for-accepterad>
+                <app-svg-statuses [iconColor]="iconColor" *ngIf="(iconStatusName==='Declined')"></app-svg-statuses>
+                <app-svg-statuses [iconColor]="iconColor" *ngIf="(iconStatusName==='In Progress')"></app-svg-statuses>
+                <app-svg-statuses [iconColor]="iconColor" *ngIf="(iconStatusName==='Invoiced')"></app-svg-statuses>
+                <p [ngStyle]="{'color': iconColor}" style="font-size:15px ;margin-bottom: -15px; margin-left: 10px;">{{iconStatusName | translate}}</p>
+            </div>
+            <div class="line-between"></div>
+            <div class="icon-txt" ></div>
+        </div>
+        <div class="new-options">
+            <div class="dubutton" *ngIf="allowCreateNrwWeeklyReport()">
+                <button
+                    type="button"
+                    (mouseover)="mouseOver()" (mouseleave)="mouseleave()"
+                    class="btn ata-btn ata-btn__color"
+                    (click)="manuallyCreateWeeklyReport()"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22.627" height="22.627" viewBox="0 0 22.627 22.627">
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path id="Path_736" data-name="Path 736" d="M0,9.951H16v-16H0Z" transform="translate(0 6.049)" />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon" data-name="X icon" transform="translate(11.314) rotate(45)">
+                    <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+                      <g id="Group_289" data-name="Group 289" transform="translate(-0.001 0.002)">
+                        <path id="Path_734" data-name="Path 734" d="M9.951,4.975a8,8,0,1,1-8-8,8,8,0,0,1,8,8" transform="translate(6.049 3.024)" [attr.fill]="fill"/>
+                      </g>
+                      <g id="Group_290" data-name="Group 290" transform="translate(3.313 3.326)">
+                        <path id="Path_735" data-name="Path 735" d="M5.68,4.93,2.4,1.653l3.283-3.29a.63.63,0,0,0,.005-.923L5.455-2.8a.629.629,0,0,0-.947.053L1.255.505-2.059-2.8A.641.641,0,0,0-3-2.783l-.246.243a.641.641,0,0,0,.032.968L.062,1.7S-3.112,4.891-3.221,5a.63.63,0,0,0-.005.923l.235.235A.629.629,0,0,0-2.044,6.1L1.207,2.849,4.524,6.158a.642.642,0,0,0,.944-.016L5.714,5.9A.639.639,0,0,0,5.68,4.93" transform="translate(3.453 2.997)" fill="#44484c"/>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <div>{{ "DU" | translate }}</div>
+                <div *ngIf="allow_supplier" class="exclamation-mark-worring"><span>{{number_of_invoices}}</span></div>
+              </button>
+            </div>
+            <div class="newpositiondropdown" *ngIf="(userDetails.create_project_WeeklyReport && weekly_report) || (userDetails.create_project_WeeklyReport && selectedTab == 1)">
+                <app-dropdown-select-print-for-du
+                    [allowSendGroupOfWeeklyReport]="allowSendGroupOfWeeklyReport"
+                    [SendPrintUT1] = "client_workers"
+                    [placeholder]="'TSC_SEND_PRINT' | translate"
+                    [Print]="'Print' | translate"
+                    [Send]="'Send' | translate"
+                    [HaveSend]="0"
+                    (SendButton)="initializeSendWeeklyReport($event)"
+                    (sendWeeklyReports)="sendWeeklyReports($event)"
+                    (PrintButton)="initializePrintWeeklyReport($event)"
+                    [project]="project"
+                    [sendCopy]="sendCopy"
+                >
+                </app-dropdown-select-print-for-du>
+            </div>
+            <div *ngIf="buttonToggle" (click)="closeToggle(1)" class="hide-data"></div>
+            <div class="dropdownstatus" *ngIf="weekly_report && userDetails.create_project_WeeklyReport && selectedTab == 0">
+                <app-dropdown-for-status
+                    [ATAStatus]="weekly_report_status"
+                    (Selected)="setSelectedStatus($event)"
+                    [disableSelect]="weekly_report.Status != 0 && weekly_report.Status != 1"
+                >
+                </app-dropdown-for-status>
+            </div>
+            <div *ngIf="buttonToggleDots" (click)="closeToggle(2)" class="hide-data"></div>
+        </div>
+    </div>
+</div>
+<img style="display: none;" src="../../../../assets/img/check_orange.svg" alt=""/>
+<img style="display: none;" src="../../../../assets/img/uncheck.svg" alt=""/>
+<img style="display:none;" class="send-svg"/>
+<img style="display:none;" class="send-svg"/>
+<app-data-of-ks-weekly
+   (status)="GetStatus($event)"
+   [weekly_report_names]="weekly_report_names"
+   (active_weekly_report_data)="getActiveWeeklyReport($event)"
+   [selectedTab]="selectedTab"
+>
+</app-data-of-ks-weekly>

@@ -1,0 +1,166 @@
+<mat-dialog-content class="mat-dialog-supplier-inv-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+<div class="container-fluidX px-0X" style="position:relative">
+  <div class="header-wrapp">
+    <div>
+      <div class="blue-text posRel mb-0 fs-18">
+        {{ "Leverantörsfakturor" | translate }}
+      </div>
+    </div>
+    <div>
+      <svg class="closewithx" (click)="close()" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" viewBox="0 0 25 25">
+        <defs>
+          <clipPath id="clip-path">
+            <path id="Path_782" data-name="Path 782" d="M0,9.757H25v-25H0Z" transform="translate(0 15.243)" fill="none"/>
+          </clipPath>
+        </defs>
+        <g id="Stäng_Close_" data-name="Stäng (Close)" transform="translate(0 0)">
+          <g id="Group_6898" data-name="Group 6898">
+            <g id="Group_341" data-name="Group 341" clip-path="url(#clip-path)">
+              <g id="Group_340" data-name="Group 340" transform="translate(0 0.001)">
+                <path id="Path_781" data-name="Path 781" d="M4.878,9.114A10.752,10.752,0,0,1-5.878-1.723,10.752,10.752,0,0,1,4.878-12.561,10.752,10.752,0,0,1,15.634-1.723,10.752,10.752,0,0,1,4.878,9.114m0,1.647a12.534,12.534,0,0,0,12.5-12.5,12.533,12.533,0,0,0-12.5-12.5,12.533,12.533,0,0,0-12.5,12.5,12.534,12.534,0,0,0,12.5,12.5" transform="translate(7.621 14.239)" fill="#b8b8b8"/>
+              </g>
+            </g>
+            <path id="Path_783" data-name="Path 783" d="M1.478,1.782l-5.1,5.108,1.057,1.069L2.548,2.851,7.661,7.959,8.719,6.89,3.606,1.782,8.719-3.313,7.648-4.369,2.548.726-2.565-4.382-3.622-3.313Z" transform="translate(9.952 10.712)" fill="#b8b8b8"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+    <div class="paddingaroundtable">
+      <form>
+      <table class="table invoice-table table-bordered additional_work">
+        <thead>
+          <tr>
+            <th scope="col" class="desc">{{ "Invoice Number" | translate }}</th>
+            <th scope="col" class="quan2">{{ "Supplier Name" | translate }}</th>
+            <th scope="col" class="unit">{{ "Invoice nr" | translate }}</th>
+            <th scope="col" class="price">
+              {{ "Invoice date" | translate }}
+            </th>
+            <th scope="col" class="summa">{{ "Total" | translate }}</th>
+            <th scope="col" class="summa2">{{ "Add" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let supplier_invoice of supplierInvoices; let index = index">
+            <tr>
+              <th class="dataleft colorbgBlue">{{supplier_invoice.OrderNR}}</th>
+                <th class="pdfcolumn colorbgBlue">
+                  <svg (click)="openSwiperSupplierInvoice(supplier_invoice, null)"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15.77" height="23.962" padding="5" viewBox="0 0 15.77 23.962">
+                    <defs>
+                      <clipPath id="clip-path">
+                        <path id="Path_874" data-name="Path 874" d="M0,11.04H15.77V-12.922H0Z" transform="translate(0 12.922)" fill="#82a7e2"/>
+                      </clipPath>
+                    </defs>
+                    <g id="Group_9017" data-name="Group 9017" transform="translate(-313 -419)">
+                      <g id="Component_73_50" data-name="Component 73 – 50" transform="translate(313 419)">
+                        <g id="Group_3949" data-name="Group 3949" transform="translate(8.632 0.003)">
+                          <path id="Path_869" data-name="Path 869" d="M0,3.241H7L0-3.793Z" transform="translate(0 3.793)" fill="#82a7e2"/>
+                        </g>
+                        <g id="Group_3950" data-name="Group 3950">
+                          <path id="Path_870" data-name="Path 870" d="M0,0V11.981H14.677v8.484H0v3.5H15.77V8.476H7.2V0Z" fill="#82a7e2"/>
+                        </g>
+                        <g id="Group_3954" data-name="Group 3954" transform="translate(0 0)" clip-path="url(#clip-path)">
+                          <g id="Group_3951" data-name="Group 3951" transform="translate(0.06 13.286)">
+                            <path id="Path_871" data-name="Path 871" d="M.3,2.7a.389.389,0,0,0,.41-.412V.417h.562A4.366,4.366,0,0,0,2.415.292,1.594,1.594,0,0,0,3.6-1.382a1.554,1.554,0,0,0-.929-1.6,4.086,4.086,0,0,0-1.433-.185H.567a.836.836,0,0,0-.922.959v4.5A.381.381,0,0,0,.04,2.7Zm.41-4.821a.315.315,0,0,1,0-.045h.56a2.444,2.444,0,0,1,.9.1c.174.074.337.211.337.707a.679.679,0,0,1-.345.677,2.32,2.32,0,0,1-.844.1H.713Z" transform="translate(0.355 3.166)" fill="#82a7e2"/>
+                          </g>
+                          <g id="Group_3952" data-name="Group 3952" transform="translate(4.718 13.286)">
+                            <path id="Path_872" data-name="Path 872" d="M.706,2.7a4.838,4.838,0,0,0,1.472-.2A2.637,2.637,0,0,0,3.723-.289C3.723-1.8,3.211-2.709,2.2-3A4.947,4.947,0,0,0,.767-3.158H.11A.833.833,0,0,0-.826-2.2V1.763A.816.816,0,0,0,.1,2.7ZM.24-2.1a.225.225,0,0,1,0-.043H.819a2.675,2.675,0,0,1,1.092.158c.5.234.721.757.721,1.7,0,1-.241,1.556-.781,1.808a2.511,2.511,0,0,1-1.011.159H.275l-.032,0a.38.38,0,0,1,0-.057Z" transform="translate(0.826 3.158)" fill="#82a7e2"/>
+                          </g>
+                          <g id="Group_3953" data-name="Group 3953" transform="translate(10.144 13.287)">
+                            <path id="Path_873" data-name="Path 873" d="M.494.47H2.537A.37.37,0,0,0,2.947.08V-.153a.374.374,0,0,0-.41-.4H.36c-.63,0-.938.317-.938.972V4.907a.378.378,0,0,0,.395.412H.088A.384.384,0,0,0,.49,4.9V2.955H2.222a.374.374,0,0,0,.41-.388V2.332a.375.375,0,0,0-.41-.4H.49V.52a.307.307,0,0,1,0-.05" transform="translate(0.578 0.55)" fill="#82a7e2"/>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                  <div class="textafterpdf">{{supplier_invoice.SupplierName}}</div>
+                </th>
+              <th class="dataleft colorbgBlue">{{supplier_invoice.Ocr}}</th>
+              <th class="dataleft colorbgBlue">{{supplier_invoice.InvoiceDate}}</th>
+              <th class="dataright colorbgBlue">{{supplier_invoice.Total  | number: "1.2-2":"fr" }}</th>
+              <th class="datacenter colorbgBlue">
+                <label class="circle-width" for="{{'check_invoice-' + index}}">
+                  <input
+                    type="checkbox"
+                    id="{{'check_invoice-' + index}}"
+                    class="hidden"
+                    #addedCheckbox
+                    [checked]="supplier_invoice.isChecked"
+                    (click)="supplierInvoiceChecked(addedCheckbox.checked, index)"
+                  />
+                    <svg *ngIf="supplier_invoice.isChecked" id="Group_6934" data-name="Group 6934" xmlns="http://www.w3.org/2000/svg" width="17.647" height="17.647" viewBox="0 0 17.647 17.647">
+                      <path id="Path_1723" data-name="Path 1723" d="M8.824,0A8.824,8.824,0,1,1,0,8.824,8.824,8.824,0,0,1,8.824,0Z" transform="translate(0)" fill="#ff7000"/>
+                      <path id="Path_1724" data-name="Path 1724" d="M24.307,20.577l-.162-.163a.427.427,0,0,0-.646.026l-.3.3h0l-4.77,4.8-2-2.027h0l-.177-.178-.1-.1h0l-.048-.049a.422.422,0,0,0-.626.006l-.162.163a.433.433,0,0,0,.026.649l.3.3h0l2.795,2.8,5.564-5.594.307-.308A.427.427,0,0,0,24.307,20.577Z" transform="translate(-11.006 -14.638)" fill="#fff" stroke="#fff" stroke-width="0.75"/>
+                    </svg>
+                    <svg *ngIf="!supplier_invoice.isChecked" xmlns="http://www.w3.org/2000/svg" [style.width.px]="widthParams" [style.height.px]="heightParams" viewBox="0 0 26 26">
+                      <g id="Ellipse_758" data-name="Ellipse 758" fill="#fff" stroke="#858585" stroke-width="1.5">
+                        <circle cx="13" cy="13" r="13" stroke="none"/>
+                        <circle cx="13" cy="13" r="12.25" fill="none"/>
+                      </g>
+                    </svg>
+                </label>
+              </th>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+        <div class="row btn-position" (click)="close()">
+          <button type="submit" class="btn btn-save">
+            <span  style=" left: -7px; top: -2px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11.484" height="15" viewBox="0 0 11.484 15">
+                <path id="Path_5160" data-name="Path 5160" d="M31,32.3l.463-.784a.937.937,0,0,0,.089-.695.947.947,0,0,0-.41-.588L23.7,25.206l7.447-5.024a.947.947,0,0,0,.41-.588.937.937,0,0,0-.089-.695L31,18.116a.763.763,0,0,0-.552-.392.9.9,0,0,0-.695.142L20.7,24a1.362,1.362,0,0,0-.605,1.176v.071a1.362,1.362,0,0,0,.605,1.176l9.05,6.128a.9.9,0,0,0,.695.143A.763.763,0,0,0,31,32.3" transform="translate(-20.098 -17.707)" fill="#4cb185"/>
+              </svg>
+            </span>
+            <span  >{{ "TILLBAKA" | translate }}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>
+  <!--
+<div *ngIf="offDiv" class="gallery"
+  style="position: fixed;
+      width: 100%;
+      padding-right: 126px;
+      background-color: transparent;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 50px;
+      z-index: 5000;
+      flex-direction: row-reverse;"
+>
+    <app-pdfjs-viewer
+        style="flex: 1; overflow:hidden;"
+        *ngIf="swiperSupplierInvoice.images.length"
+        [swiper]="swiperSupplierInvoice"
+        [canRemove]="false"
+        (removeImageEvent)="removeSwiperImage($event)"
+        (closeSwiperEvent)="closeSwiperSupplierInvoice()"
+        [server]="true"
+        position="relative"
+    ></app-pdfjs-viewer>
+</div> !-->
+
+<ng-template #otherComponent>
+  <app-gallery
+  *ngIf="swiperSupplierInvoice.images.length"
+  [swiper]="swiperSupplierInvoice"
+  [canRemove]="false"
+  (closeSwiperEvent)="closeSwiperSupplierInvoice($event)"
+  [server]="true"
+>
+</app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+  *ngIf="swiperSupplierInvoice.images.length"
+  [swiper]="swiperSupplierInvoice"
+  [canRemove]="false"
+  (closeSwiperEvent)="closeSwiperSupplierInvoice($event)"
+  [server]="true"
+  ></app-pdfjs-viewer>
+</ng-container>

@@ -1,0 +1,6 @@
+app-close-svg-client {
+    position: absolute;
+    z-index: 1000000000;
+    height: 100%;
+    width: 100%;
+}

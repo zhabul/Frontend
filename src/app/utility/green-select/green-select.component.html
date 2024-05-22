@@ -1,0 +1,13 @@
+<div class="select-container pointer" (click)="toggleSelect()">
+    <div class="label center-flex" *ngIf="text">
+        {{ text | translate }}
+    </div>
+    <div class="icon-container">
+        <div class="icon center-flex">
+            <app-green-checked-all-svg *ngIf="value && all"></app-green-checked-all-svg>
+            <app-green-checked-circle-svg *ngIf="value && !all"></app-green-checked-circle-svg>
+            <app-green-unchecked-circle-svg *ngIf="!value"></app-green-unchecked-circle-svg>
+        </div>
+    </div> 
+</div>
+ 

@@ -1,0 +1,127 @@
+* {
+  font-family: "PT-Sans-Pro-Regular";
+  margin: 0px;
+  padding: 0px;
+}
+
+.units-container {
+  overflow: scroll;
+  height: calc(100vh - 262px);
+  /* height: auto;
+  min-height: 700px;
+  max-height: 800px; */
+  border-top-left-radius: 10px;
+}
+
+.thin-red-line-bottom {
+  bottom: 14px;
+  left: 0px;
+  right: 0px;
+  background-color: var(--border-color);
+  height: 1px;
+  position: absolute;
+}
+
+.list-head {
+  width: 1013px;
+  height: 30px;
+  background-color: #1a1a1a !important;
+  display: grid;
+  grid-template-columns: auto 330px 330px;
+  font-size: 14px;
+  color: white;
+  position: sticky;
+  top: 0px;
+}
+
+.list-head > div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #858585;
+}
+
+.hidden {
+  display: none;
+}
+.list {
+  width: 1013px;
+  font-size: 14px;
+}
+
+.list-row {
+  display: grid;
+  height: 40px;
+  grid-template-columns: auto 330px 330px;
+  align-items: center;
+  justify-items: center;
+  border: 1px solid #858585;
+  border-right: none;
+}
+
+.list-row > div {
+  border-right: 1.5px solid #858585;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 10px;
+  position: relative;
+}
+
+.time {
+  padding-left: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.time:hover {
+  color: #ff7f00;
+}
+.list-row > div:first-child {
+  justify-content: start;
+  padding-left: 10px;
+}
+
+.list > div:nth-child(odd) {
+  background-image: linear-gradient(0deg, #efefef 0%, #f6f6f7 74%);
+}
+.list > div:nth-child(even) {
+  background-image: -webkit-linear-gradient(
+    top,
+    rgb(245, 245, 245) 0%,
+    white 10px
+  );
+}
+
+.list-element > div:first-child {
+  width: 70%;
+  border-right: 1px solid #858585;
+}
+
+.list-element > div:last-child {
+  width: 30%;
+}
+
+.icon {
+  cursor: pointer;
+  height: 17px;
+  width: 17px;
+  position: absolute;
+  right: 10px;
+}
+
+::ng-deep ngx-material-timepicker-content {
+  --dial-background-color: #ff7f00;
+  --button-color: #ff7f00;
+  --dial-editable-active-color: #ff7f00;
+  --clock-hand-color: #ff7f00;
+}
+
+.spinner {
+  position: absolute;
+  top: 40%;
+  left: 45%;
+}

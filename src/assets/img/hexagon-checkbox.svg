@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="29.725" height="26.13" viewBox="0 0 29.725 26.13">
+  <g id="Group_8744" data-name="Group 8744" transform="translate(-17.137 -5.763)">
+    <g id="Group_8698" data-name="Group 8698" transform="translate(18 6.513)">
+      <g id="Group_5549" data-name="Group 5549">
+        <g id="sök_icon" data-name="sök icon">
+          <g id="Polygon_Grey" data-name="Polygon Grey">
+            <g id="röd">
+              <path id="Path_577" data-name="Path 577" d="M21.2,4.31H7.2L.2,16.625l7,12.315h14l7-12.315Z" transform="translate(-0.2 -4.31)" fill="#fcb267" stroke="#ff7000" stroke-width="1.5"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="Bocka_av_icon" data-name="Bocka av icon" transform="translate(26.438 14.581)">
+      <g id="Group_6297" data-name="Group 6297">
+        <path id="Path_746" data-name="Path 746" d="M22.1,19.544l-.268-.26a.832.832,0,0,0-.577-.246.952.952,0,0,0-.653.288l-5.953,5.657L12.7,23.048v0l-.618-.6a.856.856,0,0,0-.589-.249.894.894,0,0,0-.609.257l-.268.26a.776.776,0,0,0,.044,1.183l4,3.873L21.6,21.186l.507-.489a.768.768,0,0,0-.009-1.152" transform="translate(-10.364 -19.038)" fill="#373b40"/>
+      </g>
+    </g>
+  </g>
+</svg>

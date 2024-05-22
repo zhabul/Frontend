@@ -1,0 +1,43 @@
+
+
+<div class="modal-content lax">
+    <div class="modal-header heahea">
+    <span class="modal-heading">
+        {{ "Create a new offer" | translate }}
+    </span>
+    <button
+        type="button"
+        class="the-drip-button"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="closeModal()"
+    >
+        <app-close-icon-svg></app-close-icon-svg>
+    </button>
+    </div>
+    <div class="modal-body">
+    <a
+        class="btn-modal"
+        routerLinkActive="active"
+        routerLink="/offer/new"
+    >
+        <span class="ml-2">
+        {{ "Default template" | translate }}
+        </span>
+    </a>
+    <div>
+        <div *ngFor="let offer of offers" class="eget" >
+            <a class="btn-modal" style="border: none; width: 100%;" (click)="createOfferFromTemplate(offer.id)" >
+                <span class="ml-2">{{ offer.name }}</span>
+            </a>
+            <div class="the-icon-flex" (click)="deleteOffer(offer.id)" >
+                <app-bin-icon-svg></app-bin-icon-svg>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="modal-background2"></div>
+
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>

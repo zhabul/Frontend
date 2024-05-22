@@ -1,0 +1,72 @@
+.register-wrapper {
+  height: auto;
+  width: 1500px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 27px;
+  position: fixed;
+}
+
+.header {
+  height: 71px;
+  width: 3000px;
+  border: 1.5px solid var(--border-color);
+  margin-top: -10px;
+}
+
+.border-item {
+  border: 2px solid;
+  border-radius: 1rem;
+  border-color: var(--border-color);
+}
+.border-item:hover {
+  border-color: var(--border-item-hover) !important;
+}
+
+.clients-color {
+  color: var(--home-title-color) !important;
+}
+
+.clients-color-hover {
+  color: var(--text-color) !important;
+}
+
+.suppliers-color {
+  color: var(--home-title-color) !important;
+}
+
+.suppliers-color-hover {
+  color: var(--text-color) !important;
+}
+
+.products-color {
+  color: var(--home-title-color) !important;
+}
+
+.products-color-hover {
+  color: var(--text-color) !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+.component-wrapper {
+  display: flex;
+  flex-direction: row;
+  left: 24px;
+  position: absolute;
+  padding-top: 150px;
+  gap: 65px;
+}
+
+.nav-wrapper {
+  display: flex;
+  flex-direction: row;
+  left: 24px;
+  position: absolute;
+  gap: 65px;
+}
+.title-project {
+  color: var(--project-color);
+}

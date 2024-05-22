@@ -1,0 +1,23 @@
+<ng-container *ngIf="visible">
+  <div class="superior-positioning" [id]="index">
+    <app-user-name
+      [calendarStyle]="calendarStyle"
+      [user]="user"
+      [index]="index"
+      [users]="users"
+    >
+    </app-user-name>
+  </div>
+  <div>
+    <app-calendar-user-row
+      [momentsWrapper]="momentsWrapper"
+      [calendarStyle]="calendarStyle"
+      [user]="user"
+      [index]="index"
+      [calendar]="calendar"
+      [hideScreen]="hideScreen"
+      (hideScreenFunc)="hideScreenFunc($event)"
+      (updateUser)="updateUser($event)"
+    ></app-calendar-user-row>
+  </div>
+</ng-container>

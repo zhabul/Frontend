@@ -1,0 +1,46 @@
+<div class="form-d">
+  <input
+  [ngStyle]="colors"
+  type="text"
+  aria-label="Number"
+  #input_autocomplete
+  matInput
+  [class.select-arrow-grey]="matchColor === '#C7C6C4'"
+  class="project-nav-select form-control select-arrow-grey sps-autocomplete-select"
+  [formControl]="inputText"
+  [matAutocomplete]="auto"
+  [ngClass]="{'select-arrow-click': clicked, 'select-arrow': !clicked, 'zero-right-radius': hasZeroRadius, 'add-font-size-18': addFontSize18, 'make-border-orange': makeBorderOrange}"
+  (keydown)="selectTopOption($event)"
+  (blur)="checkIfEmpty()"
+  (click)="setupEmptyInput()"
+  [placeholder]="placeholderText"
+  [readOnly]="disableSelect"
+/>
+  <mat-autocomplete
+    (optionSelected)="selectedOption($event)"
+    #auto="matAutocomplete"
+    #selectList 
+    class="orange-scroll"
+    matAutocompletePosition="below"
+    (closed)="handleClose()"
+  >
+    <mat-option
+      class="custom-option"
+      *ngFor="let item of filteredOptions | async; let index = index"
+      [attr.data-id]="item[id]"
+      [attr.data-index]="index" 
+      [attr.data-name]="item['finalName']"
+      [attr.data-impName]="item[impId]"
+      [attr.data-ataType]="item['AtaType'] ? item['AtaType'] : item['ataType']"
+      [value]="item['finalName']"
+      [ngClass]="{'selected-option': item['selected'] }"
+    >
+      {{ item["finalName"] | translate | titlecase }}
+    </mat-option>
+  </mat-autocomplete>
+</div>
+<span class="help-block" *ngIf="displayError()">
+  <span class="text-danger">
+    {{ errorText | translate }}
+  </span>
+</span>

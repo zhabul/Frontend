@@ -1,0 +1,34 @@
+<div class="header-custom email-signup-thankyou">
+  <div class="content">
+    <div class="left-hole"></div>
+    <div class="right-hole"></div>
+    <div class="main-content">
+      <div class="txt-header">
+        <span *ngIf="response == 'success'" class="material-icons done-symbol">
+          done
+        </span>
+        <span *ngIf="response == 'fail'" class="material-icons done-symbol">
+          error
+        </span>
+      </div>
+
+      <div class="txt-header" *ngIf="response == 'success'">
+        <h1>{{ "Thank you for your confirmation." | translate }}</h1>
+      </div>
+      <div class="txt-header" *ngIf="response == 'fail'">
+        <h1>{{ "The confirmation has already been sent." | translate }}</h1>
+      </div>
+      <div class="txt-header" *ngIf="response == 'success-psw'">
+        <h1>{{ "You have successfully changed password." | translate }}</h1>
+      </div>
+      <div class="txt-header" *ngIf="response == 'fail-psw'">
+        <h1>
+          {{
+            "You have alredy changed password or you do not have permission to access"
+              | translate
+          }}
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>

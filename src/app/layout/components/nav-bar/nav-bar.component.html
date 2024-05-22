@@ -1,0 +1,241 @@
+<section class="mobileTopNav t0 shadow3X">
+  <section class="innerNav space-evenly">
+    <button
+      routerLink="/home"
+      class="btn btn0sm btn-light border-primary p-2 h34px material-icons shadow3X br50 cursor-pointer"
+      [ngClass]="{ z2019: !filterMenu }"
+      (click)="goBack()"
+    >
+      navigate_before
+    </button>
+    <div class="notification-section">
+      <button
+        *ngIf="!userDetails.show_notice_Global"
+        (click)="toggleAllNotifications()"
+        class="btn btn0sm btn-light border-primary p-2 h34px material-icons shadow3X br50 cursor-pointer"
+        [ngClass]="{ z2019: !filterMenu }"
+      >
+        notifications
+      </button>
+      <span *ngIf="unseenNotifications > 0" class="notification-number">
+        <span>{{ unseenNotifications }}</span>
+      </span>
+    </div>
+  </section>
+</section>
+
+<section class="mobileBottomNav b0 shadow3">
+  <section class="innerNav space-evenly">
+    <button
+      (click)="goToHome()"
+      class="btn btn-sm btn-light border-primary p-2 h34px material-icons shadow3X br50 cursor-pointer"
+      [ngClass]="{ z2019: !filterMenu }"
+    >
+      home
+    </button>
+    <button
+      *ngIf="showAddRoute"
+      class="btn btn-sm btn-light border-primary p-2 h34px material-icons shadow3X br50 cursor-pointer"
+      [ngClass]="{ z2019: !filterMenu }"
+      id="customTogglerX"
+      (click)="goToAddRoute()"
+    >
+      add
+    </button>
+    <button
+      *ngIf="!filterMenu"
+      class="btn btn-sm btn-light border-primary p-2 h34px material-icons shadow3X br50 cursor-pointer"
+      [ngClass]="{ z2019: !filterMenu }"
+      id="customTogglerX"
+      (click)="toggleFilterMenu()"
+    >
+      menu
+    </button>
+    <button
+      *ngIf="filterMenu"
+      class="btn btn-sm btn-light border-primary p-2 h34px material-icons shadow3X br50 cursor-pointer"
+      [ngClass]="{ z2019: !filterMenu }"
+      id="customTogglerX"
+      (click)="toggleFilterMenu()"
+    >
+      close
+    </button>
+    <button
+      *ngIf="showCartIcon"
+      class="btn btn-sm btn-light border-primary p-2 h34px material-icons shadow3X br50 cursor-pointer"
+      [ngClass]="{ z2019: !filterMenu }"
+      id="customTogglerX"
+      (click)="toggleCartComponent()"
+    >
+      shopping_cart
+    </button>
+  </section>
+</section>
+
+<div
+  *ngIf="filterMenu"
+  class="card col-12X col-lg-6X mb70 z2020"
+  id="looksLikeModal"
+>
+  <article
+    class="card minw300 minh70p w-100X h-100X px-3 d-flex flex-column justify-content-start"
+    [ngClass]="{ whatevs: filterMenu }"
+    style="overflow-y: scroll"
+  >
+    <section class="d-flex justify-content-center">
+      <h2 class="h5 pt-5 mt-3">{{ "Menu" | translate }}</h2>
+    </section>
+
+    <section class="maxw400">
+      <ul
+        class="navbar-section navbar-navX d-flex justify-content-between flex-direction-column pis0 mb-5"
+      >
+        <li
+          routerLinkActive="active"
+          class="w-50X p-1X d-flex justify-content-around"
+        >
+          <a
+            routerLink="/projects"
+            (click)="toggleFilterMenu()"
+            class="btn btn-sm d-flex align-items-center bg-lightX borderX border-successX shadow1 p-3 mb-2 mt-3 w-75"
+            *ngIf="userDetails.show_project_Global"
+          >
+            <span class="material-icons">assignment</span>sdfs
+            {{ "Projects" | translate }}</a
+          >
+        </li>
+        <li
+          routerLinkActive="active"
+          class="w-50X p-1X d-flex justify-content-around"
+          *ngIf="userDetails.show_register_products"
+        >
+          <a
+            routerLink="/materials"
+            (click)="toggleFilterMenu()"
+            class="btn btn-sm d-flex align-items-center bg-lightX borderX border-successX shadow1 p-3 my-2 w-75"
+          >
+            <span class="material-icons">add_shopping_cart</span>
+            {{ "Products" | translate }}</a
+          >
+        </li>
+        <li
+          routerLinkActive="active"
+          class="w-50X p-1X d-flex justify-content-around"
+          *ngIf="userDetails.show_users_Manageusers"
+        >
+          <a
+            routerLink="/users"
+            (click)="toggleFilterMenu()"
+            class="btn btn-sm d-flex align-items-center bg-lightX borderX border-primaryX shadow1 p-3 my-2 w-75"
+          >
+            <span class="material-icons">supervised_user_circle</span>
+            {{"Users" | translate }}</a
+          >
+        </li>
+        <li
+          routerLinkActive="active"
+          class="w-50X p-1X d-flex justify-content-around"
+          *ngIf="userDetails.show_users_Contactdetails"
+        >
+          <a
+            routerLink="/contacts"
+            (click)="toggleFilterMenu()"
+            class="btn btn-sm d-flex align-items-center bg-lightX borderX border-primaryX shadow1 p-3 my-2 w-75"
+          >
+            <span class="material-icons">contact_page</span>
+            {{ "Contacts" | translate }}</a
+          >
+        </li>
+        <li
+          routerLinkActive="active"
+          class="w-50X p-1X d-flex justify-content-around"
+          *ngIf="userDetails.show_settings_Global"
+        >
+          <a
+            routerLink="/generals"
+            (click)="toggleFilterMenu()"
+            class="btn btn-sm d-flex align-items-center bg-lightX borderX border-warningX shadow1 p-3 my-2 w-75"
+          >
+            <span class="material-icons">settings</span>
+            {{ "Settings" | translate }}</a
+          >
+        </li>
+        <li
+          routerLinkActive="active"
+          class="w-50X p-1X d-flex justify-content-around"
+          *ngIf="!userDetails.show_users_Manageusers"
+        >
+          <a
+            routerLink="/my-account"
+            (click)="toggleFilterMenu()"
+            class="btn btn-sm d-flex align-items-center bg-lightX borderX border-dangerX shadow1 p-3 my-2 w-75"
+          >
+            <span class="material-icons"> account_circle </span>
+            {{ "My Account" | translate }}</a
+          >
+        </li>
+        <li
+          routerLinkActive="active"
+          class="w-50X p-1X d-flex justify-content-around"
+          *ngIf="userDetails.create_register_customers"
+        >
+          <a
+            routerLink="/clients"
+            (click)="toggleFilterMenu()"
+            class="btn btn-sm d-flex align-items-center bg-lightX borderX border-infoX shadow1 p-3 my-2 w-75"
+          >
+            <span class="material-icons">people</span>
+            {{ "Clients" | translate }}</a
+          >
+        </li>
+        <li
+          routerLinkActive="active"
+          class="w-50X p-1X d-flex justify-content-around"
+          *ngIf="userDetails.show_register_suppliers"
+        >
+          <a
+            routerLink="/suppliers"
+            (click)="toggleFilterMenu()"
+            class="btn btn-sm d-flex align-items-center bg-lightX borderX border-secondaryX shadow1 p-3 my-2 w-75"
+          >
+            <span class="material-icons">local_shipping</span>
+            {{ "Suppliers" | translate }}</a
+          >
+        </li>
+        <li
+          routerLinkActive="active"
+          class="w-50X p-1X d-flex justify-content-around"
+        >
+          <a
+            (click)="logout()"
+            (click)="toggleFilterMenu()"
+            class="btn btn-sm d-flex align-items-center bg-lightX borderX border-successX shadow1 p-3 my-2 w-75"
+          >
+            <span class="material-icons">exit_to_app</span>
+            {{ "Logout" | translate }}</a
+          >
+        </li>
+      </ul>
+    </section>
+  </article>
+</div>
+<div *ngIf="showNotifications && !userDetails.show_notice_Global" class="all-notifications">
+  <div>
+    <header>
+      <h5>{{ "All Notifications" | translate }}</h5>
+    </header>
+    <ul>
+      <li *ngFor="let notification of notifications">
+        <span
+          (click)="visitLink(notification)"
+          [ngClass]="{
+            'notification-opened': notification.opened == 1,
+            'notification-unseen': notification.seen == 0
+          }"
+          >{{ printNameCanBeTranslated(notification.message) | translate }}:
+          {{ printTypeName(notification.message) }}</span
+        >
+      </li>
+    </ul>
+  </div>
+</div>

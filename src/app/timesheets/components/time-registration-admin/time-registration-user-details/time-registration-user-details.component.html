@@ -1,0 +1,10 @@
+<div class="warring-wrapper" *ngIf="!showCalendar">
+  <h1>{{ "There are no any Timesheets yet2" | translate }}</h1>
+</div>
+<div *ngIf="showCalendar">
+  <app-syncfusion-calendar
+    [dataArray]="dataArray"
+    [componentName]="componentName"
+    [userId]="userId"
+  ></app-syncfusion-calendar>
+</div>

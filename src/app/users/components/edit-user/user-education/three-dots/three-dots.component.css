@@ -1,0 +1,135 @@
+.three-dots {
+  color: black;
+  background-color: white;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.three-dots-permit-dialog {
+  color: black;
+  background-color: white;
+  height: 73px;
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.three-dots-clicked{
+  color: white;
+  background-color: #FF7000;
+  margin-right: 0px;
+  padding-right: 0px;
+  border-right: 5px solid #FF7000;
+  border-left: 2px solid #FF7000;
+  border-radius: 5px 3px 0 2px;
+}
+
+.option-modal-wrapper {
+  position: absolute;
+  left: 19px;
+  bottom: -132px;
+  z-index: 1;
+}
+
+.box-option {
+  width: 215px;
+  height: 76px;
+  margin: 50px auto;
+  background: #373B40;
+  border: 2px solid var(--orange-dark);
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 900;
+  color: #fff;
+  font-family: arial;
+  position:relative;
+}
+
+.box-option-sb::before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  rotate: 29deg;
+  border-left: 15px solid var(--orange-dark);
+  border-right: 15px solid transparent;
+  border-top: 15px solid var(--orange-dark);
+  border-bottom: 15px solid transparent;
+  right: 191px;
+  top: 64px;
+}
+
+.options-btns-wrapper {
+  width: 105px;
+  height: 113px;
+  position: relative;
+  background-color: #373B40;
+  right: 22px;
+  bottom: 22px;
+  border: 2px solid var(--orange-dark);
+  border-radius: 5px;
+  color: black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.redigera-btn {
+  background-color: #94EFFD;
+  width: 99px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radera-btn {
+  background-color: #FF8787;
+  width: 99px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.spara-btn {
+  background-color: #BFE29C;
+  width: 99px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.redigera-radera-btns {
+  display: flex;
+  margin-bottom: 4px;
+}
+.is-my-account{
+  background-color: #b8b8b8;
+}
+.is-my-account svg{
+ fill:#44484c;
+}
+
+
+

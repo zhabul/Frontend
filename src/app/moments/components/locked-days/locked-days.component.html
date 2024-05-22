@@ -1,0 +1,16 @@
+<div class="modal-top-wrapper">
+  <h4>{{ userName }}</h4>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<div class="wrapper-container">
+  <div class="row row1X tab-content">
+    <h5>{{ "Raport time" }}: {{ date }}</h5>
+  </div>
+  <div class="row row-content">
+    <button class="btn btn-dark" (click)="approveRaportTime()">
+      {{ "Approve" | translate }}
+    </button>
+  </div>
+</div>

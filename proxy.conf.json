@@ -1,0 +1,28 @@
+{
+    "/api/*": {
+
+        "target": "http://localhost:80/WEMAX/",
+        "secure": false,
+        "changeOrigin": true
+    },
+    "/orders/*": {
+        "target": "http://localhost:80/WEMAX/",
+        "secure": false,
+        "changeOrigin": true
+    },
+    "/uploads/*": {
+        "target": "http://localhost:80/WEMAX/",
+        "secure": false,
+        "changeOrigin": true
+    },
+    "/pdf/*": {
+        "target": "http://localhost:80/WEMAX/",
+        "secure": false,
+        "changeOrigin": true
+    },
+    "/file/*": {
+        "target": "http://localhost:80/WEMAX/",
+        "secure": false,
+        "changeOrigin": true
+    }
+}

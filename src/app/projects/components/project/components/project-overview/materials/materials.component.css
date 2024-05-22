@@ -1,0 +1,4 @@
+.menu-wrapp {
+  display: flex;
+  flex-direction: column;
+}

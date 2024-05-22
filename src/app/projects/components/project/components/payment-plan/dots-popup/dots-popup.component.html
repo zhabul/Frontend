@@ -1,0 +1,43 @@
+<div class="pop-ev">
+  <div class="pop-up-div">
+    <ul class="list">
+      <li class="list-item text-center top-border">
+        {{ "TSC_MAKE_ROW" | translate }}
+      </li>
+      <li class="list-item">
+        <a (click)="createRowAbove()"
+          ><img
+            src="../../../../../../../assets/img/green-add.png"
+            width="20px" 
+            alt=""
+          />{{ "TSC_INSERT_NEW_ROW_ABOVE" | translate }}</a
+        >
+      </li>
+      <li class="list-item bottom-border">
+        <a (click)="createRowBelow()"
+          ><img
+            src="../../../../../../../assets/img/green-add.png"
+            width="20px"
+            alt=""
+          />{{ "TSC_INSERT_NEW_ROW_BELOW" | translate }}</a
+        >
+      </li>
+    </ul>
+  </div>
+  <svg
+    class="arrow"
+    xmlns="http://www.w3.org/2000/svg"
+    width="27.781"
+    height="41.324"
+    viewBox="0 0 27.781 41.324"
+  >
+    <path
+      id="Polygon_3"
+      data-name="Polygon 3"
+      d="M6,0l6,40H0Z"
+      transform="translate(10.876 41.324) rotate(-155)"
+      fill="#ff7000"
+    />
+  </svg>
+</div>
+

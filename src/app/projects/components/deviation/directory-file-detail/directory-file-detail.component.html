@@ -1,0 +1,141 @@
+<div style="position: fixed">
+  <div class="row">
+    <div class="card py-2 bgGrayBlue col-12X col-lg-6X col-lg-8W">
+      <div
+        class="project-content d-flex"
+        style="width: 100%; justify-content: space-between"
+      >
+        <div>
+          <a
+            routerLink="{{
+              directory.belongs_to == '0'
+                ? '/projects/view/' + directory.project_id
+                : '/projects/directory/' +
+                  directory.belongs_to +
+                  '/' +
+                  directory.project_id
+            }}"
+            class="btn btn-dark lh09 hideUnder800 nowrap mr-2"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            id="topFeeder"
+            style="color: white"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="create-attachment" style="flex: 1">
+          <button
+            class="btn mrW-auto btn-dark"
+            type="button"
+            (click)="openCommentModal()"
+          >
+            {{ "Comment" | translate }}
+          </button>
+          <a
+            class="btn btn-dark mrW-auto"
+            download="{{ getFileName(directory.name) }}"
+            href="{{ directory.file_path }}"
+            >{{ "Download file" | translate }}</a
+          >
+          <button
+            [ngClass]="{
+              disabled: !userDetails.create_project_Attachment,
+              'btn-brown': directory.lock == 1,
+              'btn-danger': directory.lock != 1
+            }"
+            class="btn mrW-auto"
+            type="button"
+            [disabled]="directory.lock == 1"
+            (click)="removeFile()"
+          >
+            {{ "Delete" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-controls d-flex justify-content-center">
+    <button [disabled]="currentImage === 0" (click)="previousPage()">
+      {{ "Previous" | translate }}
+    </button>
+    <span>{{ currentImage + 1 }} / {{ images.length }}</span>
+    <button
+      [disabled]="currentImage === images.length - 1"
+      (click)="nextPage()"
+    >
+      {{ "Next" | translate }}
+    </button>
+    <span class="rotate-icon-left cursor-pointer" (click)="rotateLeft()"
+      ><i class="material-icons">rotate_left</i></span
+    >
+    <span class="rotate-icon cursor-pointer" (click)="rotateRight()"
+      ><i class="material-icons">rotate_right</i></span
+    >
+  </div>
+  <div class="row" style="margin: 0" *ngIf="viewType">
+    <div
+      class="page pinch-zoom-parent"
+      [ngStyle]="{ height: elementHeight + 'px' }"
+    >
+      <div id="image-gallery">
+        <div class="image-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!viewType">
+    <div class="col-12X col-lg-6X col-lg-8W">
+      <div id="image-gallery">
+        <div class="image-container"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="showCommentModal"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="closeCommentModal($event)"
+>
+  <article
+    class="card narrow1000 minh70p p-4 d-flex flex-column justify-content-between mw-80"
+  >
+    <h4 class="mb-2">{{ "Comment" | translate }}</h4>
+    <div>
+      <div class="my-2">
+        <span [innerHtml]="directory.comment" *ngIf="!showUpdate"></span>
+        <div class="my-2" *ngIf="showUpdate">
+          <div>
+            <div class="form-group">
+              <label for="fileComment">{{ "Comment" | translate }}</label>
+
+              <editor
+                [(ngModel)]="directory.comment"
+                placeholder="Write a comment..."
+                apiKey="ax2wjk08u3z9xbhe9evtxcvn0anzrdbsdrztus135wiqa4ez"
+                [init]="{ pluggins: 'link', height: '480' }"
+                (onKeyDown)="textEditorKeyDown($event)"
+                (onPaste)="textEditorOnPaste($event)"
+              ></editor>
+              <small style="opacity: 0.75"
+                >{{ directory.comment.length }}/500</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-info" type="button" (click)="updateComment()">
+        {{
+          !showUpdate ? ("Update comment" | translate) : ("Confirm" | translate)
+        }}
+      </button>
+    </div>
+  </article>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

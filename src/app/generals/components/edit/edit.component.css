@@ -1,0 +1,16 @@
+.card {
+  width: 100%;
+  padding: 10px;
+}
+
+.message {
+  padding: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.form-group-upload label {
+  margin-right: 10px;
+}

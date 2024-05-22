@@ -1,0 +1,49 @@
+.btn-directory {
+  margin-top: 33px;
+}
+
+.icon-size {
+  font-size: 70px;
+}
+
+.row-attacment-content-wrapper {
+  padding: 20px;
+}
+
+.attachment-header {
+  padding: 20px;
+  text-align: right;
+}
+
+.collapse-attachment-wrapper {
+  border-top: 1px solid #6c757d;
+}
+
+.collapse-attachment-wrapper form {
+  background-color: #f9f9f9;
+}
+
+.card-wrapper {
+  cursor: pointer;
+}
+
+.card-wrapper .card:hover {
+  background-color: #406488 !important;
+  color: #ffffff;
+}
+
+.hide {
+  display: none !important;
+}
+
+.modal-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  color: black;
+}
+
+.modal-content-wrapper h4 {
+  color: black;
+}

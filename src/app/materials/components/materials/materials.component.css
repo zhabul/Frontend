@@ -1,0 +1,114 @@
+.card {
+  width: 100%;
+  padding: 10px;
+}
+
+.card-body {
+  padding: 0 !important;
+}
+
+.material-item {
+  width: 242px;
+  height: 242px;
+  margin: 5px;
+}
+
+.material-image {
+  width: 100%;
+  height: 214px;
+}
+
+.material-text {
+  height: 25px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.button-text {
+  position: absolute;
+  transform: translateX(-50%);
+  bottom: 10px;
+  width: 100%;
+  left: 50%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.nav-wrapper {
+  background-color: #003469;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.js-grid,
+.js-grid * {
+  outline: none;
+}
+
+.show-edit-btn {
+  position: absolute;
+  top: 0.25em;
+  right: 0.25em;
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+.js-item {
+  height: 220px;
+  position: relative;
+}
+
+.js-item:not(.draggable--over):hover .show-edit-btn {
+  opacity: 1;
+}
+
+.edit-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  padding: 0.75em;
+  transition: all 0.3s ease-out;
+  font-size: 0.9em;
+}
+
+.edit-section span.exit-edit {
+  cursor: pointer;
+}
+
+.image-crop {
+  max-height: 225px;
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 800px) {
+  .show-edit-btn {
+    opacity: 1;
+  }
+  #toast-container.toast-top-right.toast-container {
+    pointer-events: none !important;
+    position: fixed !important;
+    top: 30px !important;
+    left: 39% !important;
+    z-index: 999999 !important;
+    transform: translateX(-50%) !important;
+  }
+  .ml-3 {
+    margin-left: 0 !important;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1400px) {
+  .row1 {
+    margin-left: 20px;
+  }
+}
+
+.menu-wrapp {
+  display: flex;
+  flex-direction: column;
+}

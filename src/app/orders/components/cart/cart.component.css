@@ -1,0 +1,282 @@
+.card {
+  width: 100%;
+  padding: 10px;
+}
+
+.list-group {
+  width: 100%;
+}
+
+.list-group-item i {
+  float: right;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+html {
+  font-size: 15px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
+}
+
+td {
+  padding: 0px;
+}
+
+th.cart,
+td.cart {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid black;
+}
+
+th.cart {
+  background-color: #ffff;
+}
+
+tr:nth-child(odd) {
+  background-color: #d2eef4;
+}
+
+#suma:nth-child(even) {
+  background-color: rgba(121, 203, 223, 0.5);
+}
+
+.qty .count {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 30px;
+  padding: 0 2px;
+  min-width: 35px;
+  text-align: center;
+}
+
+.qty .plus {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  color: black;
+  width: 30px;
+  height: 30px;
+  font: 30px/1 Arial, sans-serif;
+  text-align: center;
+  background-color: white;
+}
+
+.qty .minus {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  color: black;
+  width: 30px;
+  height: 30px;
+  font: 30px/1 Arial, sans-serif;
+  text-align: center;
+  background-color: white;
+  background-clip: padding-box;
+}
+
+.minus:hover {
+  background-color: #6c757d !important;
+}
+
+.plus:hover {
+  background-color: #6c757d !important;
+}
+
+/*Prevent text selection*/
+
+span {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input {
+  border: 0;
+  width: 2%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:disabled {
+  background-color: white;
+}
+
+th.qty {
+  padding-left: 35px;
+}
+
+img.btn-scs {
+  filter: brightness(500%);
+  width: 20px;
+  height: 20px;
+}
+
+img.btn-dng {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
+}
+
+.fs48 {
+  font-size: 48px;
+}
+
+.fs31 {
+  font-size: 31px;
+}
+
+.fs24 {
+  font-size: 24px;
+}
+
+.fs18 {
+  font-size: 18px;
+}
+
+.fs14 {
+  font-size: 14px;
+}
+
+.fs12 {
+  font-size: 14px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.rightThing {
+  margin-right: 20px;
+  font-size: 1rem !important;
+}
+
+.rightdate {
+  margin-right: 20px;
+  float: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.borderX.border-muted.d-inline-block.pl-2.pr-2.text-left.ng-star-inserted {
+  min-width: 25%;
+  position: relative;
+}
+
+tr.no_background {
+  background-color: white !important;
+}
+
+.text-title {
+  padding-top: 15px;
+}
+
+.text-right {
+  margin-right: 20px;
+}
+
+#looksLikeModal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: hsla(0, 0%, 0%, 0.4);
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*********************
+  Media Query Classes
+**********************/
+
+@media only screen and (max-width: 801px) {
+  .fs10 {
+    font-size: 10px;
+  }
+  .fs13 {
+    font-size: 13px;
+  }
+  .d-flex {
+    display: block !important;
+  }
+  .flex {
+    display: flex;
+  }
+  .ml-20 {
+    margin-left: 20px !important;
+  }
+  .letter-spacing {
+    letter-spacing: -1px;
+  }
+  .leftdate {
+    margin-right: 20px;
+    float: left;
+  }
+  .row {
+    margin-top: 10px !important;
+  }
+  .text-right {
+    text-align: left !important;
+  }
+  .table-responsive-under800 {
+    /* display: block; */
+    overflow-x: auto;
+  }
+  .mw-100 {
+    min-width: 100px;
+  }
+  .parent-wrap {
+    overflow: auto;
+    min-height: 530px;
+    position: relative;
+  }
+  .child-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  .btn-pos {
+    position: fixed !important;
+    bottom: 70px !important;
+  }
+  .mr-4M {
+    margin-right: 1.5rem !important;
+  }
+  .w96M {
+    width: 96%;
+  }
+  .btn-smM {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+  }
+}

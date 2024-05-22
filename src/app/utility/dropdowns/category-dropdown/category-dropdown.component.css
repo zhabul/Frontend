@@ -1,0 +1,53 @@
+.name-of-multselect{
+  height: 35px;
+  width: 150px;
+  padding: 6px 5px 0px 10px;
+  border-radius: 4px 4px 0px 0px;
+  display: flex;
+ /* justify-content: space-between;*/
+  position: relative;
+}
+
+.arrow{
+  position: absolute;
+  margin-left: 116px;
+  /*margin-right: 10px;*/
+  cursor: pointer;
+}
+
+.users-list{
+  height: 38px;
+  background-color: white;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 10px 5px 10px;
+  border-top: 1px solid var(--main-bg);
+  cursor: pointer;
+}
+
+.users-list:hover{
+  color: var(--orange-dark);
+}
+
+.dropdown-scroll{
+  /*max-height: 195px;
+    /overflow: scroll;
+    overflow-x: hidden;*/
+    border: 2px solid var(--orange-dark);
+    border-top: 0px;
+    /*width: calc(100% + 16px);
+    position: relative;*/
+}
+
+.shadow{
+  box-shadow: 0 5px 4px 1.5px var(--border-color), 0px 0px 0px 0px var(--border-color) !important;
+  z-index: 1;
+  width: 145px;
+  margin-left: 2px;
+  height: 0px;
+  background-color: white;
+  padding-top: 0px;
+  margin-top: -3px;
+  position: absolute;
+}

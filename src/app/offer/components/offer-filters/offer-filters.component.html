@@ -1,0 +1,105 @@
+<div class="status-filters">
+<ng-container *ngFor="let statusFilter of statusFilters">
+  <div
+    class="d-flex border-item p-1 mr-2 cursor-pointer"
+    (click)="onStatusChange(statusFilter)"
+  >
+    <div style="margin-bottom: 2px">
+      <svg
+        *ngIf="!statusFilter.checked"
+        id="X_icon"
+        data-name="X icon"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="13"
+        height="13"
+        viewBox="0 0 12 12"
+      >
+        <defs>
+          <clipPath id="clip-path">
+            <path
+              id="Path_736"
+              data-name="Path 736"
+              d="M0,5.951H12v-12H0Z"
+              transform="translate(0 6.049)"
+              fill="#fff"
+            />
+          </clipPath>
+        </defs>
+        <g id="X_icon-2" data-name="X icon">
+          <g id="Group_291" data-name="Group 291" clip-path="url(#clip-path)">
+            <g
+              id="Group_289"
+              data-name="Group 289"
+              transform="translate(-0.001 0.002)"
+            >
+              <path
+                id="Path_734"
+                data-name="Path 734"
+                d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                transform="translate(6.049 3.024)"
+                fill="#fcf4ec"
+              />
+            </g>
+            <g
+              id="Group_290"
+              data-name="Group 290"
+              transform="translate(2.484 2.494)"
+            >
+              <path
+                id="Path_735"
+                data-name="Path 735"
+                d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                transform="translate(3.453 2.997)"
+                [fill]="statusFilter.color"
+              />
+            </g>
+          </g>
+        </g>
+      </svg>
+
+      <svg
+        *ngIf="statusFilter.checked"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="13"
+        height="13"
+        viewBox="0 0 12 12"
+      >
+        <defs>
+          <clipPath id="clip-path">
+            <rect
+              id="Rectangle_60"
+              data-name="Rectangle 60"
+              width="13"
+              height="13"
+              fill="none"
+            />
+          </clipPath>
+        </defs>
+        <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+          <path
+            id="Path_745"
+            data-name="Path 745"
+            d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+            transform="translate(0.056 0.053)"
+            [attr.fill]="statusFilter.color"
+          />
+          <path
+            id="Path_746"
+            data-name="Path 746"
+            d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+            transform="translate(-8.669 -15.967)"
+            fill="#44484c"
+          />
+        </g>
+      </svg>
+    </div>
+    <div class="align-button-title">
+      <span class="text-uppercase mr-1">{{ statusFilter.title | translate }}</span>
+    </div>
+  </div>
+</ng-container>
+</div>
+
+<mat-spinner class="spinner" *ngIf="loading"></mat-spinner>

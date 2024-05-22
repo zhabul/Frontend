@@ -1,0 +1,32 @@
+* {
+  font-family: "PT Sans Pro", sans-serif;
+}
+
+.sum-container {
+  height: 36px;
+  background-color: red;
+  display: grid;
+  grid-template-columns: 926px 135px 130px 125px 98px;
+}
+
+.sum-container > div {
+  border: 1px solid #6d7173;
+  border-left: none;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  padding-right: 11px;
+
+}
+
+.white-cell {
+  background-color: white;
+  box-shadow: inset 0 -10px 10px -5px #EFEFEF;
+}
+
+.black-cell {
+  background-color: #1a1a1a;
+  color: #cac3bc;
+  font-weight: 700;
+  box-shadow: inset 0 -10px 10px -5px #151515;
+}

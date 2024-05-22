@@ -1,0 +1,10 @@
+<div class="start-time-box">
+    <div id="title">
+        {{ title | translate }}:
+    </div>
+    <div>
+        <app-time-input [disabled]="disabled" [value]="data.value" (saveEvent)="save($event)"></app-time-input>
+    </div> 
+</div> 
+
+

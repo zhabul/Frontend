@@ -1,0 +1,15 @@
+.btn-modal{
+  font-family: "PT Sans" !important;
+  font-weight: normal;
+}
+
+.modal-heading{
+  font-family: "PT Sans" !important;
+  font-weight: normal;
+}
+
+.spinner{
+  position: absolute;
+  top:40vh;
+  left: 536px;
+}

@@ -1,0 +1,106 @@
+.three-dots-wrapper {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+.three-dots-wrapper-clicked{
+  background-color: #ff7000;
+}
+.three-dots-wrapper-clicked svg ellipse{
+  fill:white ;
+}
+
+.option-modal-wrapper {
+  position: absolute;
+  left: 36px;
+  bottom: -88px;
+}
+
+.box-option {
+  width: 99px;
+  height: 76px;
+  margin: 50px auto;
+  background: #373B40;
+  border: 2px solid var(--orange-dark);
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  color: #fff;
+  font-family: arial;
+  position:relative;
+}
+
+.box-option-sb::before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  rotate: 29deg;
+  border-left: 15px solid var(--orange-dark);
+  border-right: 15px solid transparent;
+  border-top: 15px solid var(--orange-dark);
+  border-bottom: 15px solid transparent;
+  right: 191px;
+  top: 64px;
+}
+
+.options-btns-wrapper {
+  width: 105px;
+  height: 113px;
+  position: relative;
+  background-color: #373B40;
+  right: 22px;
+  bottom: 22px;
+  border: 2px solid var(--orange-dark);
+  border-radius: 3px;
+  color: black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.redigera-btn {
+  background-color: #94EFFD;
+  width: 99px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radera-btn {
+  background-color: #FF8787;
+  width: 99px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 1px;
+}
+
+.spara-btn {
+  background-color: #BFE29C;
+  width: 99px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.redigera-radera-btns {
+  display: flex;
+  margin-bottom: 4px;
+}
+

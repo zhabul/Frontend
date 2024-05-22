@@ -1,0 +1,8 @@
+<div class="holiday-type-grid child-white-bck" >
+    <div class="sticky-column stck-cl-0 holiday-type-box" >{{ nr + 1 }}</div>
+    <div class="sticky-column stck-cl-1 holiday-type-box">{{ holiday.name }}</div>
+    <div class="holiday-type-box">{{ holiday.start_date }}</div>
+    <div class="holiday-type-box">{{ holiday.end_date }}</div>
+    <div (click)="openEditHolidayModal(holiday)" [title]="'Edit' | translate" class="pointer holiday-type-box"><app-edit-icon-svg></app-edit-icon-svg></div>
+    <div (click)="removeHoliday(holiday)" [title]="'Remove' | translate" class="pointer holiday-type-box"><app-trash-can-icon-svg></app-trash-can-icon-svg></div>
+</div>

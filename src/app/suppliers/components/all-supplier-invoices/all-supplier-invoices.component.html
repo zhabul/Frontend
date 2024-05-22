@@ -1,0 +1,620 @@
+<!-- <div class="row row1X mb-3">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav class="nav nav-pills nav-justified">
+      <a
+        routerLink="/suppliers"
+        class="btn btn-dark mr-2 lh09 hideUnder800"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="badgeX badge-darkX material-icons top1px posRel"
+          >arrow_back</span
+        >
+      </a>
+    </nav>
+  </div>
+</div> -->
+<div class="row border-nav d-flex mb-3">
+  <div class="d-flex align-items-center border-h-project py-2">
+    <a
+      routerLink="/suppliers"
+      class="lh09 hideUnder800"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <span class="back-icon-position">
+        <app-back-icon-svg
+          [width]="34"
+          [height]="29"
+          [color]="'82a7e2'"
+        ></app-back-icon-svg>
+      </span>
+    </a>
+    <span class="ml-3 mt-2 h2 font-weight-normal title-project">{{
+      "Supplier Invoices" | translate
+    }}</span>
+  </div>
+</div>
+
+<div class="row row1X">
+  <div class="col-12 col-lg-6X col-lg-6 mb70">
+    <div class="blu-scroll-wrapp">
+      <div class="blu-scroll skrollbar">
+        <div class="mt-1" id="notMuchPaddingTill800">
+          <section class="d-flex justify-content-between mb-2">
+            <div class="first-supplierer-name">
+              {{ "Supplier Invoices" | translate }}
+            </div>
+          </section>
+
+          <div style="display: flex; flex-wrap: wrap">
+            <section class="mb-2 search-wrapper">
+              <div
+                class="select-toggle mb-10 margin-right"
+                style="display: none"
+              >
+                <select
+                  class="project-nav-select select-filter w100Under800 minw160Over800 h38 pt2px pl5px text-muted select-width"
+                  id="project-status"
+                  #selectStatus
+                  (change)="setData(selectStatus.value)"
+                >
+                  <option value="0">{{ "All" | translate }}</option>
+                  <option value="1">{{ "Ongoing" | translate }}</option>
+                  <option value="2">{{ "Not billed" | translate }}</option>
+                  <option value="3">{{ "Completed" | translate }}</option>
+                </select>
+              </div>
+              <div class="select-toggle mb-10 margin-right">
+                <!--  <select
+                  class="project-nav-select w100Under800 minw160Over800 h38 pt2px pl5px text-muted select-width"
+                  #changeProjectSelect
+                  (change)="setProject(projectVar.value)"
+                  #projectVar
+                >
+                   <option value="0">{{ "All" | translate }}</option>
+                  <option
+                    [value]="project.CustomName"
+                    *ngFor="let project of projects"
+                  >
+                    {{ project.CustomName }} {{ project.Name }}
+                  </option>
+
+                </select>  -->
+
+                <div class="input-wrapper1">
+                  <app-counter-dropdown-multiselect
+                    [from_component]="'all-supplier-invoices'"
+                    [selectedItem]="projects"
+                    [selectedCoworkers]=""
+                    [EnableSearch]="true"
+                    [placeholder]="'Select Project' | translate"
+                    [width]="250"
+                    [type]="'SupplierInvoice'"
+                    (SelectedUser)="setProject($event)"
+                    (SelectedUserAll)="setProject('1')"
+                    (OnDeSelectAll)="setProject('0')"
+                    [PermitActive]="false"
+                  >
+                  </app-counter-dropdown-multiselect>
+                </div>
+              </div>
+              <span class="searchdiv">
+                <div class="input-group mb-3" class="responsiveInput1">
+                  <span class="search-icon">
+                    <app-search-icon-with-params-svg
+                      [width]="13"
+                      [height]="13.06"
+                      [color]="'fcf4ec'"
+                    ></app-search-icon-with-params-svg>
+                  </span>
+                  <input
+                    class="search-form form-control mr-sm-2"
+                    type="search"
+                    placeholder="{{ 'Search' | translate }}"
+                    aria-label="Search"
+                    name="search"
+                    autocomplete="off"
+                    (input)="onSearchInputChange($event.target.value)"
+                    [(ngModel)]="inputValue"
+                    #searchInput
+                  />
+
+                  <span class="clear-icon" (click)="clearInput()">
+                    <app-clean-search-input-icon-svg
+                      [width]="10.189"
+                      [height]="10.189"
+                      [color]="'fcf4ec'"
+                    ></app-clean-search-input-icon-svg>
+                  </span>
+                </div>
+              </span>
+            </section>
+            <form class="buttons-form">
+              <div class="group-status" (click)="onStatusChangeExternal('0')">
+                <div class="svg-wrapp">
+                  <app-not-selected-icon-svg
+                    *ngIf="statusSupplier[0] == false"
+                  ></app-not-selected-icon-svg>
+                  <app-selected-icon-svg
+                    *ngIf="statusSupplier[0] == true"
+                    color="#F0E264"
+                  ></app-selected-icon-svg>
+                </div>
+                <div style="text-transform: uppercase" class="filter-name">
+                  {{ "To handle" | translate }}
+                </div>
+              </div>
+              <div class="group-status" (click)="onStatusChangeExternal('1')">
+                <div class="svg-wrapp">
+                  <app-not-selected-icon-svg
+                    *ngIf="statusSupplier[1] == false"
+                  ></app-not-selected-icon-svg>
+                  <app-selected-icon-svg
+                    *ngIf="statusSupplier[1] == true"
+                    color="#94EFFD"
+                  ></app-selected-icon-svg>
+                </div>
+
+                <div style="text-transform: uppercase" class="filter-name">
+                  {{ "Worked but not approved" | translate }}
+                </div>
+              </div>
+
+              <div class="group-status" (click)="onStatusChangeExternal('2'); setData('1')">
+                <div class="svg-wrapp">
+                  <app-not-selected-icon-svg
+                    *ngIf="statusSupplier[2] == false"
+                  ></app-not-selected-icon-svg>
+                  <app-selected-icon-svg
+                    *ngIf="statusSupplier[2] == true"
+                    color="#03D156"
+                  ></app-selected-icon-svg>
+                </div>
+                <div style="text-transform: uppercase" class="filter-name">
+                  {{ "Approved" | translate }}
+                </div>
+              </div>
+              <div class="group-status" (click)="onStatusChangeExternal('3'); setData('2')">
+                <div class="svg-wrapp">
+                  <app-not-selected-icon-svg
+                    *ngIf="statusSupplier[3] == false"
+                  ></app-not-selected-icon-svg>
+                  <app-selected-icon-svg
+                    *ngIf="statusSupplier[3] == true"
+                    color="#FFFFFF"
+                  ></app-selected-icon-svg>
+                </div>
+                <div style="text-transform: uppercase" class="filter-name">
+                  {{ "Not re-invoicing" | translate }}
+                </div>
+              </div>
+              <!-- <div
+                class="group-status"
+                (click)="completedStatus(); setData('3')"
+              >
+                <div class="svg-wrapp">
+                  <app-not-selected-icon-svg
+                    *ngIf="this.completed == false"
+                  ></app-not-selected-icon-svg>
+                  <app-selected-icon-svg
+                    *ngIf="this.completed == true"
+                    color="#A5A513"
+                  ></app-selected-icon-svg>
+                </div>
+
+                <div class="filter-name">{{ "Completed" | translate }}</div>
+              </div> -->
+              <div class="group-status" (click)="onStatusChangeExternal('4'); setData('0')">
+                <div class="svg-wrapp">
+                  <app-not-selected-icon-svg
+                    *ngIf="statusSupplier[4] == false"
+                  ></app-not-selected-icon-svg>
+                  <app-selected-icon-svg
+                    *ngIf="statusSupplier[4] == true"
+                    color="#707070"
+                  ></app-selected-icon-svg>
+                </div>
+
+                <div class="filter-name">
+                  {{ "Canceled" | translate | uppercase }}
+                </div>
+              </div>
+            </form>
+            <!--    <form style="justify-content: inherit; display: flex">
+              <div class="group-status" (click)="setData('0')">
+                <p class="radio-button-container">
+                  <input
+                    type="radio"
+                    name="all"
+                    [checked]="statusObject['0']"
+                  />
+                  <label class="label-color-default">{{
+                    "All" | translate
+                  }}</label>
+                </p>
+              </div>
+              <div class="group-status" (click)="setData('1')">
+                <p class="radio-button-container">
+                  <input
+                    type="radio"
+                    name="On Hold"
+                    [checked]="statusObject['1']"
+                  />
+                  <label class="label-color-green">{{
+                    "Ongoing" | translate
+                  }}</label>
+                </p>
+              </div>
+              <div class="group-status" (click)="setData('2')">
+                <p class="radio-button-container">
+                  <input
+                    type="radio"
+                    name="In Progress"
+                    [checked]="statusObject['2']"
+                  />
+                  <label class="label-color-purple">{{
+                    "Not billed" | translate
+                  }}</label>
+                </p>
+              </div>
+              <div (click)="setData('3')" class="group-status">
+                <p class="radio-button-container">
+                  <input
+                    type="radio"
+                    name="Completed"
+                    [checked]="statusObject['3']"
+                  />
+                  <label class="label-color-yellow">{{
+                    "Completed" | translate
+                  }}</label>
+                </p>
+              </div>
+            </form> -->
+          </div>
+          <div>
+            <table
+              class="table tab-responsive table-hover table-lightX table-sm invoice-table"
+              id="theTable"
+              style="table-layout: fixed"
+            >
+              <thead class="table-bordered">
+                <tr>
+                  <th class="inc-num left-alignment" scope="col">
+                    {{ "Invoice Number" | translate }}
+                  </th>
+                  <th class="acc-num left-alignment" scope="col">
+                    {{ "Account" | translate }}
+                  </th>
+                  <th class="inc-type left-alignment" scope="col">
+                    {{ "Project" | translate }}
+                  </th>
+                  <th class="col-name left-alignment" scope="col">
+                    {{ "Supplier Name" | translate }}
+                  </th>
+                  <th class="col-fakturanr left-alignment" scope="col">
+                    {{ "OCR / fakturanr." | translate }}
+                  </th>
+                  <th class="col-invoice-data text-ceneter" scope="col">
+                    {{ "Invoice Date" | translate }}
+                  </th>
+                  <th
+                    [ngClass]="{
+                      'col-work-up left-alignment':
+                        this.persentNumber.toString().length === 1,
+                      'col-work-up-sec left-alignment':
+                        this.persentNumber.toString().length === 2,
+                      'col-work-up-three left-alignment':
+                        this.persentNumber.toString().length === 3
+                    }"
+                  >
+                    {{ "Worked up" | translate }}
+                  </th>
+                  <!--  <th #colPersentElement class="col-persent" scope="col">
+                    {{ "+%" | translate }}
+                  </th> -->
+                  <th
+                    #colPersentElement
+                    [ngClass]="{
+                      'col-persent': this.persentNumber.toString().length === 1,
+                      'col-persent-sec':
+                        this.persentNumber.toString().length === 2,
+                      'col-persent-three':
+                        this.persentNumber.toString().length === 3
+                    }"
+                  >
+                    {{ "+%" | translate }}
+                  </th>
+                  <th
+                    class="col-amount left-alignment"
+                    scope="col"
+                    style="text-align: right"
+                  >
+                    {{ "Amount" | translate }}
+                  </th>
+                  <th
+                    class="col-last-regulate left-alignment"
+                    scope="col"
+                    style="text-align: right"
+                  >
+                    {{ "Last regulate" | translate }}
+                  </th>
+                  <th
+                    class="col-last-aproven left-alignment"
+                    scope="col"
+                    style="text-align: right"
+                  >
+                    {{ "Approved" | translate }}
+                  </th>
+                  <th class="col-comment" scope="col">
+                    <!-- {{ "Comment" | translate }}  -->
+                  </th>
+                  <!-- <th scope="col">{{ "Due Date" | translate }}</th>
+                  <th scope="col">{{ "Sum" | translate }}</th> -->
+                  <!--   <th scope="col">{{ 'Change project' | translate }}</th> !-->
+                </tr>
+              </thead>
+              <tbody class="table-bordered">
+                <tr
+                  class="cursor-pointer"
+                  *ngFor="let invoice of supplierInvoices"
+                  [ngClass]="{
+                    'wemax-green': accounts[invoice.Account] == '0',
+                    'wemax-purple': accounts[invoice.Account] == '1',
+                    'wemax-white': invoice.Completed == 1
+                  }"
+                >
+                  <td
+                    class="first-row-order-nr left-alignment"
+                    (click)="Edit(invoice)"
+                  >
+                    {{ invoice.OrderNR }}
+                  </td>
+                  <td class="left-alignment" (click)="Edit(invoice)">
+                    {{ invoice.Account }}
+                  </td>
+                  <td class="left-alignment" (click)="Edit(invoice)">
+                    {{ invoice.Project }}
+                  </td>
+                  <td class="left-alignment" (click)="Edit(invoice)">
+                    <span style="margin-right: 10px; margin-left: -6px"
+                      ><svg
+                        ngcontent-uyk-c125=""
+                        id="Group_8917"
+                        data-name="Group 8917"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14.81"
+                        height="25"
+                        viewBox="0 0 13 21.947"
+                        style="margin: 0px 10px"
+                      >
+                        <g
+                          ngcontent-uyk-c125=""
+                          id="Group_7764"
+                          data-name="Group 7764"
+                        >
+                          <g
+                            ngcontent-uyk-c125=""
+                            id="Group_7318"
+                            data-name="Group 7318"
+                          >
+                            <g
+                              ngcontent-uyk-c125=""
+                              id="Group_7312"
+                              data-name="Group 7312"
+                            >
+                              <g
+                                ngcontent-uyk-c125=""
+                                id="Component_260_13"
+                                data-name="Component 260 – 13"
+                              >
+                                <path
+                                  ngcontent-uyk-c125=""
+                                  id="Path_4767"
+                                  data-name="Path 4767"
+                                  d="M28.384,42.891a.311.311,0,0,0,.328-.329v-1.5h.45a3.568,3.568,0,0,0,.912-.1,1.277,1.277,0,0,0,.948-1.341,1.245,1.245,0,0,0-.743-1.28,3.278,3.278,0,0,0-1.147-.147H28.6a.668.668,0,0,0-.738.766v3.6a.305.305,0,0,0,.316.329Zm.328-3.859c0-.014,0-.025,0-.034h.449a1.978,1.978,0,0,1,.718.081c.14.059.269.169.269.566a.544.544,0,0,1-.276.542,1.885,1.885,0,0,1-.676.081h-.486Z"
+                                  transform="translate(-25.852 -28.38)"
+                                  fill="#707070"
+                                ></path>
+                                <path
+                                  ngcontent-uyk-c125=""
+                                  id="Path_4768"
+                                  data-name="Path 4768"
+                                  d="M35.685,42.879a3.882,3.882,0,0,0,1.179-.158A2.111,2.111,0,0,0,38.1,40.487c0-1.205-.41-1.936-1.218-2.171a4.006,4.006,0,0,0-1.149-.123h-.525a.666.666,0,0,0-.75.766v3.172a.653.653,0,0,0,.738.748Zm-.372-3.841a.273.273,0,0,1,0-.034h.461a2.139,2.139,0,0,1,.874.127c.4.188.578.606.578,1.357,0,.8-.193,1.247-.625,1.448a2.012,2.012,0,0,1-.809.127h-.477a.251.251,0,0,1,0-.045Z"
+                                  transform="translate(-29.646 -28.378)"
+                                  fill="#707070"
+                                ></path>
+                                <path
+                                  ngcontent-uyk-c125=""
+                                  id="Path_4769"
+                                  data-name="Path 4769"
+                                  d="M43,39.01h1.636a.3.3,0,0,0,.328-.311V38.51a.3.3,0,0,0-.328-.317H42.9c-.5,0-.75.255-.75.778v3.591a.3.3,0,0,0,.316.329h.217A.308.308,0,0,0,43,42.556V41h1.385a.3.3,0,0,0,.328-.311V40.5a.3.3,0,0,0-.328-.317H43V39.05A.32.32,0,0,1,43,39.01Z"
+                                  transform="translate(-33.878 -28.38)"
+                                  fill="#707070"
+                                ></path>
+                                <g
+                                  ngcontent-uyk-c125=""
+                                  id="Order_pos"
+                                  data-name="Order pos"
+                                >
+                                  <path
+                                    ngcontent-uyk-c125=""
+                                    id="Path_4772"
+                                    data-name="Path 4772"
+                                    d="M28.058,15.768H23.234V35.02h2.525l-.8-.787-.013-.013-.012-.014a1.076,1.076,0,0,1-.2-.344h-.309V16.926h2.806V24.6h7.829v9.265H34.74a.935.935,0,0,1-.233.348l-.831.81h2.558V23.779ZM28.4,23.44v-5.7l5.812,5.7Z"
+                                    transform="translate(-23.234 -15.768)"
+                                    fill="#707070"
+                                  ></path>
+                                </g>
+                                <g
+                                  ngcontent-uyk-c125=""
+                                  id="Group_7294"
+                                  data-name="Group 7294"
+                                  transform="translate(1.984 13.777)"
+                                >
+                                  <path
+                                    ngcontent-uyk-c125=""
+                                    id="Path_4773"
+                                    data-name="Path 4773"
+                                    d="M30.677,52.222a.672.672,0,0,0-.482-.265.66.66,0,0,0-.379.15l-.23.217a.551.551,0,0,0-.21.411.61.61,0,0,0,.175.388l3.9,3.914a.521.521,0,0,0,.413.171.548.548,0,0,0,.437-.184l3.928-3.932a.531.531,0,0,0,.182-.371.537.537,0,0,0-.2-.4l-.262-.23a.516.516,0,0,0-.761.03c-1,1.037-1.812,1.876-2.4,2.5l-.21.22,0-.3c.011-1.484.011-1.408.011-4.886a.555.555,0,0,0-.567-.615h-.3a.547.547,0,0,0-.579.565l.009,5.218-.209-.226C32.4,54.011,31.641,53.214,30.677,52.222Z"
+                                    transform="translate(-29.376 -49.038)"
+                                    fill="#707070"
+                                  ></path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </span>
+                    {{ invoice.SupplierName }}
+                  </td>
+                  <td class="left-alignment">{{ invoice.Ocr }}</td>
+                  <td class="text-ceneter" (click)="Edit(invoice)">
+                    {{ invoice.InvoiceDate }}
+                  </td>
+
+                  <td
+                    class="text-right padding-right-15"
+                    (click)="Edit(invoice)"
+                  >
+                    {{ 712 | number : "1.2-2" : "fr" }}
+                  </td>
+                  <!-- uzmimam 712 da dodam Upparbetat sa dizajna ne postoji podatak u arrayu -->
+
+                  <td class="persent-width" (click)="Edit(invoice)">
+                    {{ this.persentNumber }}
+                  </td>
+                  <!-- uzmimam 0 da dodam postotke sa dizajna ne postoji podatak u arrayu -->
+                  <td
+                    class="text-right padding-right-15"
+                    (click)="Edit(invoice)"
+                  >
+                    {{ 712 | number : "1.2-2" : "fr" }}
+                  </td>
+                  <!-- uzmimam 712 da dodam Belopp sa dizajna ne postoji podatak u arrayu -->
+                  <td
+                    class="text-right padding-right-15"
+                    (click)="Edit(invoice)"
+                  >
+                    {{ 712 | number : "1.2-2" : "fr" }}
+                  </td>
+                  <!-- uzmimam 712 da dodam Ej Reglerat sa dizajna ne postoji podatak u arrayu -->
+                  <td
+                    class="text-right padding-right-15"
+                    (click)="Edit(invoice)"
+                  >
+                    {{ 712 | number : "1.2-2" : "fr" }}
+                  </td>
+                  <!-- uzmimam 712 da dodam Godkänt sa dizajna ne postoji podatak u arrayu -->
+                  <td
+                    class="ata-td-comment"
+                    contenteditable="true"
+                    (blur)="onBlur($event)"
+                  ></td>
+                  <!--  <td>{{ invoice.DueDate }}</td>
+                     <td>{{ invoice.Total | number: "1.2-2":"fr" }}</td> -->
+
+                  <!--<td>
+                        <select class="form-control form-control-sm" #changeProjectSelect (focus)="saveOldSelectedIndex($event)" (change)="changeSupplierInvoiceProject(invoice, changeProjectSelect.value, $event)">
+                          <option [value]="project.ProjectID" *ngFor="let project of projects" [selected]="project.ProjectID == invoice.ProjectID">{{ project.CustomName }}</option>
+                        </select>
+                      </td> !-->
+                </tr>
+                <!--    <tr class="total-row">
+                  <td colspan="7" style="text-align: right">
+                    <b>{{ "Total" | translate }}</b>
+                  </td>
+                  <td>
+                    <b>{{ getTotal() | number : "1.2-2" : "fr" }}</b>
+                  </td>
+                </tr> -->
+              </tbody>
+            </table>
+            <div class="sticky-total">
+              <div class="mastersuma">
+                <div class="suma">
+                  <span class="total-text"
+                    ><span class="pdv-text">
+                      {{ "All prices are excluding VAT" | translate }}
+                    </span>
+                    {{ "Total" | translate }}:</span
+                  >
+                </div>
+
+                <div class="first-blank-digit-suma">
+                  <span class="numbers"></span>
+                </div>
+
+                <div
+                  [ngClass]="[
+                    this.persentNumber.toString().length === 2
+                      ? 'total-with-out-vat total-with-out-vat-sec'
+                      : this.persentNumber.toString().length === 3
+                      ? 'total-with-out-vat total-with-out-vat-three'
+                      : 'total-with-out-vat'
+                  ]"
+                >
+                  <span class="numbers">{{
+                    74924 | number : "1.2-2" : "fr"
+                  }}</span>
+                </div>
+
+                <div
+                  [ngClass]="[
+                    this.persentNumber.toString().length === 2
+                      ? 'amount-total am-total-sec'
+                      : this.persentNumber.toString().length === 3
+                      ? 'amount-total am-total-three'
+                      : 'amount-total am-total-first'
+                  ]"
+                >
+                  <span class="numbers">{{
+                    74924 | number : "1.2-2" : "fr"
+                  }}</span>
+                </div>
+
+                <div
+                  [ngClass]="[
+                    this.widthpersent == false
+                      ? 'not-regulated-total n-regulated-total-first'
+                      : 'not-regulated-total n-regulated-total-sec'
+                  ]"
+                >
+                  <span class="numbers">{{ 0 | number : "1.2-2" : "fr" }}</span>
+                </div>
+
+                <div
+                  [ngClass]="[
+                    this.widthpersent == false
+                      ? 'approved-total approved-total-first'
+                      : 'approved-total approved-total-sec'
+                  ]"
+                >
+                  <span class="numbers">{{ 0 | number : "1.2-2" : "fr" }}</span>
+                </div>
+                <div
+                  [ngClass]="[
+                    this.widthpersent == false
+                      ? 'second-blank-digit-suma left-first-blank'
+                      : 'second-blank-digit-suma left-second-blank'
+                  ]"
+                >
+                  <span class="numbers"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-line"></div>
+      <div class="horizontal-line"></div>
+    </div>
+  </div>
+  <div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

@@ -1,0 +1,403 @@
+.weekly-report-pdf {
+  width: 750px;
+  height: 95vh;
+  overflow-y: auto;
+  background-color: white;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Arial Narrow";
+}
+
+.grid {
+  display: grid;
+  /* grid-template-columns: repeat(3, minmax(100px, 1fr)); */
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  grid-gap: 0.5em;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(100px, 1fr));
+  grid-gap: 0.5em;
+}
+
+.grid p {
+  margin-bottom: 0;
+}
+
+.grid-2 p {
+  margin-bottom: 0px;
+}
+
+.grid img {
+  width: 100%;
+  max-width: 250px;
+  margin-bottom: 1em;
+}
+
+.grid .section + .section {
+  margin-top: 1.5em;
+}
+
+.brief {
+  margin-top: 2em;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.brife-2 {
+  /* background-color: #eee; */
+  background-color: #f8f8f8;
+  padding: 0.2em;
+  padding-bottom: 1em;
+  border-radius: 5px;
+  border: 1px solid #7070708a;
+}
+
+.article-table {
+  margin-top: 1em;
+  background: white;
+  /* border: 1px solid grey; */
+  /* border-collapse: collapse; */
+  border-collapse: unset;
+  border-spacing: unset;
+  width: 100%;
+  line-height: normal;
+}
+
+.article-table th {
+  white-space: nowrap;
+}
+
+table,
+th,
+td {
+  padding: 0.35em;
+  border: 1px solid lightgrey;
+  border-collapse: collapse;
+}
+.article-name {
+  width: 400px;
+}
+
+.total-sum {
+  margin-top: 1em;
+  text-align: right;
+}
+
+/* .table-total {
+    margin-top: 1em;
+    width: 70%;
+    margin-left: auto;
+}
+
+.table-total > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-total > div > * {
+    flex: 1;
+}
+
+.table-total > div > *:nth-child(2) {
+    text-align: right;
+} */
+
+.table-total {
+  text-align: end;
+  margin-inline-start: auto;
+  font-size: small;
+}
+
+.footer p {
+  margin: 0.5em 0;
+}
+
+.footer .signature-field {
+  border-bottom: 1px solid #333;
+  padding-bottom: 20px;
+  font-size: 0.8em;
+}
+
+.date-and-signature {
+  display: flex;
+  border: 1px solid #777;
+}
+
+.date-and-signature > div {
+  flex: 1;
+  padding: 0.5em;
+  padding-bottom: 3em;
+}
+
+.date-and-signature > div + div {
+  border-left: 1px solid #777;
+}
+
+.input-section {
+  padding: 0.2em;
+  border: 1px solid #aaa;
+  white-space: pre-line;
+}
+
+.digital-answer {
+  /* padding: 10px; */
+  padding: 5px;
+  background-color: #f8f8f8;
+  border: 1px solid #7070708a;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+
+.footer-right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.footer-section {
+  font-size: 0.8em;
+  line-height: normal;
+}
+
+.client-message {
+  padding: 0.45em 0.9em;
+  background-color: #fff;
+  border-radius: 16px;
+  display: inline-block;
+  margin-top: 0.2em;
+}
+
+/*************** Dz.K. ****************/
+.no-pad-left {
+  padding-left: 0px;
+}
+.no-pad-right {
+  padding-right: 0px;
+}
+.leetsp {
+  letter-spacing: 1px;
+}
+.ata-nub {
+  text-align: right;
+  /* padding-right: 0%; */
+  padding-left: 0%;
+  padding-right: 0;
+}
+.img {
+  width: 100%;
+}
+.hed {
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: 26px;
+}
+.marg-inl-end {
+  margin-inline-end: auto;
+}
+table caption {
+  padding: 0.5em;
+}
+
+table,
+th,
+td {
+  padding: 0.35em;
+  border: 1px solid lightgrey;
+  border-collapse: collapse;
+  /* Dž.K. 03.03.2021 Pocetak*/
+  border: hidden;
+  letter-spacing: 1px;
+  padding-bottom: 0px;
+  /* Dž.K. 03.03.2021 Kraj*/
+}
+
+.total-sum {
+  margin-top: 1em;
+  text-align: right;
+}
+
+.table-wrapper {
+  /* min-height: 200px; */
+  min-height: 280px;
+}
+
+.align-right {
+  text-align: right;
+}
+.aligin-left {
+  text-align: left;
+}
+
+.no-pad-top {
+  padding-top: 0px;
+}
+
+.marg-left-5 {
+  /* margin-left: 9%; */
+  letter-spacing: 0.5px;
+}
+
+.container-fluid {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 5%;
+}
+.beskriving {
+  padding-left: 15px;
+}
+.border-table {
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-color: #7070708a;
+  border-spacing: unset;
+  font-family: "Arial Narrow";
+  font-size: small;
+  font-weight: normal;
+  padding-bottom: 2px;
+}
+.img-p-m-sign {
+  height: 9px;
+  vertical-align: unset;
+}
+.border-tot-sum {
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-color: #7070708a;
+  border-spacing: unset;
+  font-family: "Arial Narrow";
+  letter-spacing: 1px;
+  margin-right: 5px;
+  margin-left: 5px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  font-size: 17px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.alla-priser {
+  text-align: end;
+  font-family: "Arial Narrow";
+  font-size: small;
+  padding-right: 5px;
+  margin-bottom: 0;
+}
+.hr {
+  margin-bottom: 0.5rem;
+}
+
+.marg-inl-end {
+  margin-inline-end: auto;
+}
+.marg-right-16 {
+  margin-right: 16%;
+}
+.marg-right-m16 {
+  margin-right: -16%;
+}
+.grid p {
+  margin-bottom: 0rem;
+}
+.marg-inl {
+  margin-inline-start: auto;
+}
+
+.answ-delinced {
+  font-weight: bold;
+  color: #fff;
+  background-color: #dc3545;
+  margin-inline-start: auto;
+  width: 32%;
+  text-align: center;
+  border-radius: 1px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.answ-question {
+  font-weight: bold;
+  color: #fff;
+  background-color: #ffc107;
+  margin-inline-start: auto;
+  width: 32%;
+  text-align: center;
+  border-radius: 1px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.answ-accepted {
+  font-weight: bold;
+  color: #fff;
+  background-color: #4cb185;
+  margin-inline-start: auto;
+  width: 32%;
+  text-align: center;
+  border-radius: 1px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.my-grid-2 {
+  display: grid;
+  /* grid-template-columns: 40%,60%; */
+  /* grid-template-columns: repeat(1, 40% 2fr) ; */
+  grid-template-columns: repeat(1, 295px 2fr);
+  grid-auto-rows: 1fr;
+  grid-gap: 0.5em;
+}
+
+.col12 {
+  margin-inline-start: auto;
+  padding-right: 0;
+}
+.foot {
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+.labeling-requierments {
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+.preview-btn {
+  color: var(--main-bg);
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+
+.preview-btn:hover {
+  color: var(--brand-color);
+}
+/**************************************/
+
+
+.buton-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.buton-wrapper > div {
+  padding: 0.10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.left-side-row > div:first-child {
+  margin-right: 1rem;
+}
+
+.right-side-row > div:first-child {
+  margin-right: 1rem;
+}

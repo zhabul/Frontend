@@ -1,0 +1,92 @@
+<div class="component-wrapper" *ngIf="items">
+<div class="dropdown-header-wrapper" (click)="toggleDropdown()">
+  <div>{{placeholder | translate}}</div>
+
+  <div>
+    <svg *ngIf="isOpen" style="rotate: 180deg;" id="Group_306" data-name="Group 306" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="8" viewBox="0 0 15 8">
+      <defs>
+        <clipPath id="clip-path">
+          <path id="Path_758" data-name="Path 758" d="M0,.274H15v-8H0Z" transform="translate(0 7.726)" fill="#e6e4e4"/>
+        </clipPath>
+      </defs>
+      <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+        <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+          <path id="Path_757" data-name="Path 757" d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5" transform="translate(0.136 1.156)" fill="#e6e4e4"/>
+        </g>
+      </g>
+    </svg>
+    <svg *ngIf="!isOpen" id="Group_306" data-name="Group 306" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="8" viewBox="0 0 15 8">
+      <defs>
+        <clipPath id="clip-path">
+          <path id="Path_758" data-name="Path 758" d="M0,.274H15v-8H0Z" transform="translate(0 7.726)" fill="#e6e4e4"/>
+        </clipPath>
+      </defs>
+      <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+        <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+          <path id="Path_757" data-name="Path 757" d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5" transform="translate(0.136 1.156)" fill="#e6e4e4"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+<div class="list" [ngStyle]="containerStyle">
+  <ng-container *ngIf="!isStatus">
+    <div class="list-item" *ngFor="let item of items; let i=index;" (click)="toggleItem(i)">
+      <div class="list-item-text">{{item | translate}}</div>
+      <div class="list-item-check">
+        <input
+          type="checkbox"
+          class="checkbox-round"
+          [checked]="checkedItems.includes(i)">
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="isStatus">
+    <div class="list-item" (click)="toggleActive()">
+      <div class="list-item-text">{{'Active' | translate}}</div>
+      <div class="list-item-check">
+        <input
+          type="checkbox"
+          class="checkbox-round"
+          [checked]="statusSelected.active"
+          [ngStyle]="{'background-color': statusSelected.active ? '#bfe29c' : 'white'}"
+        >
+      </div>
+    </div>
+    <div class="list-item" (click)="toggleInactive()">
+      <div class="list-item-text">{{'Inactive' | translate}}</div>
+      <div class="list-item-check">
+        <input
+          type="checkbox"
+          class="checkbox-round"
+          [checked]="statusSelected.inactive"
+          [ngStyle]="{'background-color': statusSelected.inactive ? '#f3cdcd' : 'white'}"
+        >
+      </div>
+    </div>
+    <div class="list-item" (click)="toggleIncoming()">
+      <div class="list-item-text">{{'Incoming' | translate}}</div>
+      <div class="list-item-check">
+        <input
+          type="checkbox"
+          class="checkbox-round"
+          [checked]="statusSelected.incoming"
+          [ngStyle]="{'background-color': statusSelected.incoming ? '#fcb267' : 'white'}"
+        >
+      </div>
+    </div>
+    <div class="list-item" (click)="toggleLocked()">
+      <div class="list-item-text">{{'Locked' | translate}}</div>
+      <div class="list-item-check">
+        <input
+          type="checkbox"
+          class="checkbox-round"
+          [checked]="statusSelected.locked"
+          [ngStyle]="{'background-color': statusSelected.locked ? '#e0ebeb' : 'white'}"
+        >
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+</div>

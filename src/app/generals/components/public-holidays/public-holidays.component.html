@@ -1,0 +1,44 @@
+<div class="bg-white default-moment-wrapper">
+  <div class="d-flex align-items-center justify-content-between">
+    <h1 class="h4 mb-0">
+      {{ "TSC_Public_Holidays" | translate }}
+    </h1>
+    <button class="btn btn-success" (click)="openModal()">+</button>
+  </div>
+  <div class="col-lg-12 bg-white p-4">
+    <table class="table table-darkX table-striped table-sm">
+      <thead>
+        <tr>
+          <th>{{ "Name" | translate }}</th>
+          <th>{{ "Start Date" | translate }}</th>
+          <th>{{ "End Date" | translate }}</th>
+          <th>{{ "Edit" | translate }}</th>
+          <th>{{ "Remove" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let holiday of holidays; let i = index">
+          <td>{{ holiday.name }}</td>
+          <td>{{ holiday.start_date }}</td>
+          <td>{{ holiday.end_date }}</td>
+          <td>
+            <span (click)="openEditModal(holiday, i)">
+              <i class="material-icons btn-icon">edit</i>
+            </span>
+          </td>
+          <td>
+            <span
+              class="btn-delete btn-icon"
+              (click)="removeHoliday(holiday, i)"
+            >
+              <i class="material-icons">clear</i>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

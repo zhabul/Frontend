@@ -1,0 +1,22 @@
+* {
+    font-family: "PT-Sans-Pro-Regular";
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  .notes-container {
+    overflow: scroll;
+    height: calc(100vh - 262px);
+    /* min-height: 700px;
+    height: auto;
+    max-height: 800px; */
+  }
+  
+  .thin-red-line-bottom {
+    bottom: 14px;
+    left: 0px;
+    right: 0px;
+    background-color: var(--border-color);
+    height: 1px;
+    position: absolute;
+  }

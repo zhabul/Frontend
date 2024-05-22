@@ -1,0 +1,199 @@
+<form
+  *ngIf="generals"
+  id="createForm"
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="updateGenerals()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div formGroupName="generals" class="form-row">
+    <div class="col-md-6">
+      <label for="Company_Name" class="required">{{
+        "Company name" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_Name"
+        placeholder="{{ 'Enter company name' | translate }}"
+        formControlName="Company_Name"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Company_City" class="required">{{
+        "Company city" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_City"
+        placeholder="{{ 'Enter company city' | translate }}"
+        formControlName="Company_City"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Company_Address" class="required">{{
+        "Company address" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_Address"
+        placeholder="{{ 'Enter company address' | translate }}"
+        formControlName="Company_Address"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Company_Zip" class="required">{{
+        "Company zip" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_Zip"
+        placeholder="{{ 'Enter company zip' | translate }}"
+        formControlName="Company_Zip"
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="Company_Phone" class="required">{{
+        "Company phone" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_Phone"
+        placeholder="{{ 'Enter company name' | translate }}"
+        formControlName="Company_Phone"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Company_Mobile" class="required">{{
+        "Company mobile" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_Mobile"
+        placeholder="{{ 'Enter company mobile' | translate }}"
+        formControlName="Company_Mobile"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Company_Email" class="required">{{
+        "Company email" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_Email"
+        placeholder="{{ 'Enter company email' | translate }}"
+        formControlName="Company_Email"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Company_Site" class="required">{{
+        "Company site" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_Site"
+        placeholder="{{ 'Enter company site' | translate }}"
+        formControlName="Company_Site"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Fortnox_Api_Key" class="required">{{
+        "Fortnox api key" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Fortnox_Api_Key"
+        placeholder="{{ 'Enter fortnox api key' | translate }}"
+        formControlName="Fortnox_Api_Key"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="vat" class="required">{{ "Vat" | translate }}</label>
+      <input
+        type="number"
+        class="form-control"
+        id="vat"
+        placeholder="{{ 'Enter vat' | translate }}"
+        formControlName="vat"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="working_hours" class="required">{{
+        "Working hours" | translate
+      }}</label>
+      <input
+        type="number"
+        class="form-control"
+        id="working_hours"
+        placeholder="{{ 'Enter constant' | translate }}"
+        formControlName="working_hours"
+      />
+    </div>
+    <div class="col-md-6">
+      <label
+        for="Multiplication_constant_for_social_security_contributions"
+        class="required"
+        >{{
+          "Multiplication constant for social security contributions"
+            | translate
+        }}</label
+      >
+      <input
+        type="number"
+        class="form-control"
+        id="Multiplication_constant_for_social_security_contributions"
+        placeholder="{{ 'Enter constant' | translate }}"
+        formControlName="Multiplication_constant_for_social_security_contributions"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Company_VAT_number" class="required">{{
+        "Company VAT number" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_VAT_number"
+        placeholder="{{ 'Enter company VAT number' | translate }}"
+        formControlName="Company_VAT_number"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Company_Bank_Account" class="required">{{
+        "Company bank account" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Company_Bank_Account"
+        placeholder="{{ 'Enter company bank account' | translate }}"
+        formControlName="Company_Bank_Account"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="Logo" class="required">{{ "Logo" | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Logo"
+        placeholder="{{ 'Enter logo' | translate }}"
+        formControlName="Logo"
+      />
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success lh09">
+    <span class="material-icons left-3px top1px posRel">save</span>
+    <span class="posRel top-5px">{{ "Save" | translate }}</span>
+  </button>
+</form>

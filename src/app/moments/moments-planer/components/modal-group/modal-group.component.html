@@ -1,0 +1,42 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Group Name" | translate }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="createGroup()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <div
+    class="form-group col-xs-12"
+    [ngClass]="{
+      'has-error':
+        (createForm.get('Description').touched ||
+          createForm.get('Description').dirty) &&
+        !createForm.get('Description').valid
+    }"
+  >
+    <label>{{ "Name " | translate }}</label>
+    <textarea
+      maxlength="100"
+      class="form-control"
+      id="Description"
+      rows="2"
+      formControlName="Description"
+      required="true"
+    ></textarea>
+  </div>
+  <div class="row">
+    <div class="button-group text-center">
+      <button type="submit" class="btn btn-success lh09">
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Save" | translate }}</span>
+      </button>
+    </div>
+  </div>
+</form>

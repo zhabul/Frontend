@@ -1,0 +1,832 @@
+
+<div class="mb-2">
+    <div class="header-wrapp">
+        <!-- <div class="header-left-content">
+      <div class="mr-4 group-status">
+        <span class="wemax-legend legend-green"> </span>
+        <span class="posRelX btm-4pxX">{{ "Active" | translate }}</span>
+      </div>
+      <div class="mr-4 group-status">
+        <span class="wemax-legend legend-white"></span>
+        <span class="posRelX btm-4pxX">{{ "Inactive" | translate }}</span>
+      </div>
+      <div class="mr-4 group-status">
+        <span class="wemax-legend legend-blue"></span>
+        <span class="posRelX btm-4pxX">{{ "Contact person" | translate }}</span>
+      </div>
+    </div> -->
+        <div class="search-input-wrapper" style="position:relative;">
+            <span class="aterial-icons search-icon">
+                <svg _ngcontent-hxk-c357="" id="Sök_icon" data-name="Sök icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15.07" viewBox="0 0 15 15.07">
+                    <path _ngcontent-hxk-c357="" id="Path_737" data-name="Path 737" d="M32.9,30.59l-.09-.091h0l-3.616-3.636a5.982,5.982,0,0,0-5.106-8.973h-.039a5.977,5.977,0,0,0-.037,11.954h.039a5.892,5.892,0,0,0,2.994-.814l3.613,3.633h0l.09.091a.7.7,0,0,0,.99,0L32.9,31.585A.706.706,0,0,0,32.9,30.59ZM24.017,28.32a4.453,4.453,0,0,1,.028-8.905h.03A4.387,4.387,0,0,1,27.2,20.739a4.47,4.47,0,0,1-.031,6.287,4.387,4.387,0,0,1-3.12,1.294Z" transform="translate(-18.101 -17.89)" fill="#44484c"></path>
+                </svg>
+            </span>
+            <input type="text" id="searchInput" class="form-control search-fc" style="width: 300px" placeholder="{{ 'Search' | translate }}" #searchInput (input)="filterUsers(searchInput.value)" />
+            <span class="clear-icon" (click)="clearSearchText($event)" *ngIf="existString">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10.189"
+                    height="10.189"
+                    viewBox="0 0 10.189 10.189"
+                >
+                <path
+                    id="Path_783"
+                    data-name="Path 783"
+                    d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z"
+                    transform="translate(3.622 4.382)"
+                    fill="#000000"
+                />
+                </svg>
+            </span>
+        </div>
+        <div class="button-wrapper" *ngIf="userDetails.create_project_Permit">
+            <a class="btn border-brand projekt btn-icon-postion text-white" routerLinkActive="active" (click)="openModal()" [hidden]="project.status == 3 || userDetails.create_project_Permit == 0" [routerLinkActiveOptions]="{ exact: true }" (mouseenter)="enter()" (mouseleave)="leave()">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="add-icon" [ngClass]="currentClass" width="25" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                </svg>
+                <span class="ml-2 title-new-project text-uppercase" [ngClass]="currentClass">{{ "Add user" | translate }}</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="line-top"></div>
+    <div class="line-bottom"></div>
+    <div class="line-bottom2"></div>
+    <!-- <div class="line-left"></div> -->
+    <div class="line-right"></div>
+
+    <div class="line-right-plug"></div>
+    <div style="position: absolute;
+    top: 41px;
+    bottom: 20px;
+    left: -34px;
+    background-color: #1a1a1a;
+    width: 40px;"></div>
+    <div class="table-wrapper blu-scroll table-view blu-scroll2" [ngStyle]="{ height: container_height }" style="overflow-x: hidden;">
+
+
+
+        <div class="border-fix">
+
+            <div class="gray-line">
+                <div>
+                    <span   *ngIf="
+                            responsiblePersons.length > 0 ||
+                            (users.length > 0 && lastActive != null)"
+                            class="list-wrappeer-right cursor-pointer  attest-align active active-color"
+                            [ngStyle]="langItem == 'sw' ? {'left': '-12px'}: langItem == 'hr' ? {'left': '-19px'}:{'left': '-15px'}"
+                    >
+                        {{ "Active" | translate }}
+                    </span>
+
+                    <div *ngIf="users.length > 0 && firstInactive != null" class="only-border" [ngStyle]="{ top: lenghtMax(29) + 'px' , 'visibility': allHidden ? 'hidden': 'visible'}"></div>
+
+                    <span   *ngIf="users.length > 0 && firstInactive != null"
+                            [ngStyle]="{ top: lenghtMax(73) + 'px', 'visibility': allHidden ? 'hidden': 'visible'}"  class="inactive inactive-color"
+                            [ngClass]="langItem == 'sw' ? 'sw-class': langItem == 'hr' ? 'hr-class':'en-class'"
+                    >
+                        {{ "Inactive" | translate }}
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="grid-box">
+            <div style="background-color: #1a1a1a;height: 32px;width: 15px;">
+            </div>
+            <div class="bor" [ngStyle]="{'height': lenMaxForAll + 'px'}"></div>
+        </div>
+
+        <div style="position:relative;margin-bottom: 0px; max-width: 1364px!important; width: calc(100vw - 0px - 171px); overflow: scroll;overflow-y: hidden;" class="table-wrapper-imag" #tableWraperImag (scroll)="onImaginaryScroll2($event)">
+            <div class="top-line"></div>
+            <table class="table table-hover table-sm table-tab tab-responsive table-permit">
+                <thead>
+                    <tr>
+                        <th scope="col" style="border-left: none!important;" class="name-th">{{ "Full name" | translate }}</th>
+                        <th scope="col"  style="width: 10px;">{{ "Education" | translate }}</th>
+                        <th scope="col" class="type-th">{{ "Type" | translate }}</th>
+                        <th scope="col date-size" class="start-end-date">{{ "Start Date" | translate }}</th>
+                        <th scope="col date-size" class="start-end-date">{{ "End Date" | translate }}</th>
+                        <th scope="col" style="width: 700px;">{{ "Function" | translate }}</th>
+                        <th scope="col" class="dell-th"></th>
+                    </tr>
+                </thead>
+                <tbody class="tbody-permit">
+                    <tr *ngIf="users.length < 1 && responsiblePersons.length < 1" class="text-center">
+                        <td colspan="5">{{ "No users assigned to project" | translate }}</td>
+                    </tr>
+                    <tr *ngFor="let worker of responsiblePersons; let resIndex = index" class="resonsible-persons">
+
+                        <td style="padding-left: 15px!important;">{{ worker.Name }}</td>
+
+
+                        <td>
+                            <div class="folder" (click)="openEducationDialog(worker, 'responsible person')" >
+                                <div class="folder-1">
+                                </div>
+                                <div class="folder-2">
+                                    {{worker.number_of_educations}}
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="padding-left: 5px!important;">{{ "Contact person" | translate }}</td>
+                        <td>
+                            <div class="input-group form-group-permit">
+                                <div class="input-group-prepend" style="background-color: #B6CBED;">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img  src="assets/img/permit-icons/calendar.svg" alt="calendar">
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control permit-date" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="{{ worker.StartDate }}" disabled="true" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group  form-group-permit">
+                                <div class="input-group-prepend" style="background-color: #B6CBED;">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="assets/img/permit-icons/calendar.svg" alt="calendar">
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control permit-date" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="{{ worker.EndDate }}" disabled="true" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox-wrapper">
+                                <div style="border-right:1px solid var(--border-color);padding: 0px;position:relative;background: white;">
+                                    <label class="mb-1" for="hours">{{ "Hours" | translate }}</label>
+
+                                    <div *ngIf="worker.tableName == 'Project'" style="width: 100%;" class="lock">
+                                        <input class="d-block mx-auto hide" type="checkbox" checked disabled="true" />
+                                        <img *ngIf="worker.tableName == 'Project'" src="assets/img/check-permit-white.svg" alt="check-white" style="margin-top:8px" />
+                                    </div>
+                                    <div *ngIf="worker.tableName != 'Project'" style="width: 100%;">
+                                        <ng-container>
+                                            <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(worker) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="hours" type="checkbox" #activeCheckboxResponsiblePerson (click)="
+                      toggleUserFunction(
+                        'Active',
+                        activeCheckboxResponsiblePerson.checked,
+                        worker.Id,
+                        worker.StartDate,
+                        worker.EndDate,
+                        worker.responsiblePersonId,
+                        'responsible_person'
+                      )
+                    " [checked]="worker.Active" />
+                                            <div *ngIf="activeCheckboxResponsiblePerson.checked" style="background-color:#B6CBED;height:100%">
+                                                <img src="assets/img/check-permit-blue.svg" alt="check-blue" style="margin-top:8px" />
+                                            </div>
+                                            <div *ngIf="!activeCheckboxResponsiblePerson.checked" class="white-bcg max-wh" style="background-color:white;height:100%">
+                                                <img src="assets/img/check-permit-empty.svg" alt="check-no" style="margin-top:8px" />
+                                            </div>
+                                        </ng-container>
+                                    </div>
+
+                                </div>
+
+                                <div style="border-right:1px solid var(--border-color);padding: 0px;position:relative;background: white;">
+                                    <label class="mb-1" for="hours">{{ "Attest" | translate }}</label>
+                                    <div *ngIf="worker.tableName == 'Project'" style="width: 100%;" class="lock">
+                                        <input class="d-block mx-auto hide" type="checkbox" checked *ngIf="worker.tableName == 'Project'" disabled="true" />
+                                        <img *ngIf="worker.tableName == 'Project'" src="assets/img/check-permit-white.svg" alt="check-white" style="margin-top:8px" />
+                                    </div>
+                                    <ng-container *ngIf="worker.tableName != 'Project'">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(worker) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="hours" type="checkbox" #atestCheckboxResponsiblePerson (click)="
+                      toggleUserFunction(
+                        'Atest',
+                        atestCheckboxResponsiblePerson.checked,
+                        worker.Id,
+                        worker.StartDate,
+                        worker.EndDate,
+                        worker.responsiblePersonId,
+                        'responsible_person'
+                      )
+                    " [checked]="worker.Atest" />
+                                        <div *ngIf="atestCheckboxResponsiblePerson.checked" style="background-color:#B6CBED;height:100%">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-blue" style="margin-top:8px" />
+                                        </div>
+                                        <div *ngIf="!atestCheckboxResponsiblePerson.checked" class="white-bcg max-wh" style="background-color:white;height:100%">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" style="margin-top:8px" />
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div style="border-right:1px solid var(--border-color);padding: 0px;position:relative;background: white;">
+                                    <label class="mb-1" for="hours">{{ "ÄTA" | translate }} ({{ "External" | translate }})</label>
+                                    <div *ngIf="worker.tableName == 'Project'" style="width: 100%;" class="lock">
+                                        <input class="d-block mx-auto hide" type="checkbox" checked *ngIf="worker.tableName == 'Project'" disabled="true" />
+                                        <img *ngIf="worker.tableName == 'Project'" src="assets/img/check-permit-white.svg" alt="check-white" style="margin-top:8px" />
+                                    </div>
+                                    <ng-container *ngIf="worker.tableName != 'Project'">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(worker) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="hours" type="checkbox" #ataCheckboxResponsiblePerson (click)="
+                      toggleUserFunction(
+                        'Ata_External',
+                        ataCheckboxResponsiblePerson.checked,
+                        worker.Id,
+                        worker.StartDate,
+                        worker.EndDate,
+                        worker.responsiblePersonId,
+                        'responsible_person'
+                      )
+                    " [checked]="worker.Ata_External" />
+                                        <div *ngIf="ataCheckboxResponsiblePerson.checked" style="background-color:#B6CBED;height:100%">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-blue" style="margin-top:8px" />
+                                        </div>
+                                        <div *ngIf="!ataCheckboxResponsiblePerson.checked" class="white-bcg max-wh" style="background-color:white;height:100%">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" style="margin-top:8px" />
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div style="border-right:1px solid var(--border-color);padding: 0px;position:relative;background: white;">
+                                    <label class="mb-1" for="hours">{{ "ÄTA" | translate }} ({{ "Internal" | translate }})</label>
+                                    <div *ngIf="worker.tableName == 'Project'" style="width: 100%;" class="lock">
+                                        <input class="d-block mx-auto hide" type="checkbox" checked *ngIf="worker.tableName == 'Project'" disabled="true" />
+                                        <img *ngIf="worker.tableName == 'Project'" src="assets/img/check-permit-white.svg" alt="check-white" style="margin-top:8px" />
+                                    </div>
+                                    <ng-container *ngIf="worker.tableName != 'Project'">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(worker) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="hours" type="checkbox" #ataCheckboxResponsiblePerson (click)="
+                      toggleUserFunction(
+                        'Ata_Internal',
+                        ataCheckboxResponsiblePerson.checked,
+                        worker.Id,
+                        worker.StartDate,
+                        worker.EndDate,
+                        worker.responsiblePersonId,
+                        'responsible_person'
+                      )
+                    " [checked]="worker.Ata_Internal" />
+                                        <div *ngIf="ataCheckboxResponsiblePerson.checked" style="background-color:#B6CBED;height:100%">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-blue" style="margin-top:8px" />
+                                        </div>
+                                        <div *ngIf="!ataCheckboxResponsiblePerson.checked" class="white-bcg max-wh" style="background-color:white;height:100%">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" style="margin-top:8px" />
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div style="border-right:1px solid var(--border-color);padding: 0px;position:relative;background: white;">
+                                    <label class="mb-1" for="hours">{{ devName }} ({{
+                                        "External" | translate
+                                        }})</label>
+                                    <div *ngIf="worker.tableName == 'Project'" style="width: 100%;" class="lock">
+                                        <input class="d-block mx-auto hide" type="checkbox" checked *ngIf="worker.tableName == 'Project'" disabled="true" />
+
+                                        <img *ngIf="worker.tableName == 'Project'" src="assets/img/check-permit-white.svg" alt="check-white" style="margin-top:8px" />
+                                    </div>
+                                    <ng-container *ngIf="worker.tableName != 'Project'">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(worker) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="hours" type="checkbox" #deviationCheckboxResponsiblePerson (click)="
+                      toggleUserFunction(
+                        'Deviation_External',
+                        deviationCheckboxResponsiblePerson.checked,
+                        worker.Id,
+                        worker.StartDate,
+                        worker.EndDate,
+                        worker.responsiblePersonId,
+                        'responsible_person'
+                      )
+                    " [checked]="worker.Deviation_External" />
+                                        <div *ngIf="deviationCheckboxResponsiblePerson.checked" style="background-color:#B6CBED;height:100%">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-blue" style="margin-top:8px" />
+                                        </div>
+                                        <div *ngIf="!deviationCheckboxResponsiblePerson.checked" class="white-bcg max-wh" style="background-color:white;height:100%">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" style="margin-top:8px" />
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div style="border-right:1px solid var(--border-color);padding: 0px;position:relative;background: white;">
+                                    <label class="mb-1" for="hours">{{ devName }} ({{
+                                        "Internal" | translate
+                                        }})</label>
+                                    <div *ngIf="worker.tableName == 'Project'" style="width: 100%;" class="lock">
+                                        <input class="d-block mx-auto hide" type="checkbox" checked *ngIf="worker.tableName == 'Project'" disabled="true" />
+                                        <img *ngIf="worker.tableName == 'Project'" src="assets/img/check-permit-white.svg" alt="check-white" style="margin-top:8px" />
+                                    </div>
+                                    <ng-container *ngIf="worker.tableName != 'Project'">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(worker) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="hours" type="checkbox" #deviationCheckboxResponsiblePerson (click)="
+                      toggleUserFunction(
+                        'Deviation_Internal',
+                        deviationCheckboxResponsiblePerson.checked,
+                        worker.Id,
+                        worker.StartDate,
+                        worker.EndDate,
+                        worker.responsiblePersonId,
+                        'responsible_person'
+                      )
+                    " [checked]="worker.Deviation_Internal" />
+                                        <div *ngIf="deviationCheckboxResponsiblePerson.checked" style="background-color:#B6CBED;height:100%">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-blue" style="margin-top:8px" />
+                                        </div>
+                                        <div *ngIf="!deviationCheckboxResponsiblePerson.checked" class="white-bcg max-wh" style="background-color:white;height:100%">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" style="margin-top:8px" />
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div style="border-right:1px solid var(--border-color);padding: 0px;position:relative;background: white;">
+                                    <label class="mb-1" for="hours">{{
+                                        "Quality Control" | translate
+                                        }}</label>
+                                    <div style="width: 100%;" class="lock">
+                                        <input class="d-block mx-auto hide" type="checkbox" checked disabled />
+                                        <img src="assets/img/check-permit-white.svg" alt="check-white" style="margin-top:8px" />
+                                    </div>
+                                </div>
+                                <div style="padding: 0px;position:relative;background: white;">
+                                    <label class="mb-1" for="resource-planning">{{
+                                        "Resource Pl." | translate
+                                        }}</label>
+                                    <input [disabled]="
+                    project.status == 3 ||
+                    activityExpired(worker) ||
+                    this.userDetails.create_project_Permit == 0 ||
+                    !userDetails.create_project_Permit
+                  " class="d-block mx-auto hide" name="resource-planning" #resourcePlanningCheckbox type="checkbox" [checked]="worker.showInResourcePlanning == 1" (click)="
+                    toggleUserFunction(
+                      'showInResourcePlanning',
+                      resourcePlanningCheckbox.checked,
+                      worker.Id,
+                      worker.StartDate,
+                      worker.EndDate,
+                      worker.responsiblePersonId,
+                      'responsible_person'
+                  )
+                  " />
+                                    <div *ngIf="resourcePlanningCheckbox.checked" style="background-color:#B6CBED;height:100%">
+                                        <img src="assets/img/check-permit-blue.svg" alt="check-blue" style="margin-top:8px" />
+                                    </div>
+                                    <div *ngIf="!resourcePlanningCheckbox.checked" class="white-bcg max-wh" style="background-color:white;height:100%">
+                                        <img src="assets/img/check-permit-empty.svg" alt="check-no" style="margin-top:8px" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="delete-svg-position" *ngIf="userDetails.create_project_Permit && responsiblePersons.length > 1">
+                                <app-delete-svg (click)="removeResponsableUser('ResponsiblePerons', worker, resIndex)"></app-delete-svg>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr [ngClass]="[
+            user.isActive == 1 ? 'worker-rows-active' : 'worker-rows-inactive'
+          ]" *ngFor="let user of users; let index = index" [ngStyle]="{
+            background:
+              user.isActive == 1 ? '#E3E9DD' : '#FFFFFF'
+          }" [hidden]="user.hidden" class="border" [class.inactive-border]="isInactive(user)">
+                        <td>{{ user.Surname }} {{ user.Lastname }} </td>
+
+                        <td>
+                            <div class="folder" (click)="openEducationDialog(user, 'user')">
+                                <div class="folder-1">
+                                </div>
+                                <div class="folder-2">
+                                    {{user.number_of_educations}}
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="padding-left: 5px !important;" >{{ user.Type | translate }}</td>
+                        <td>
+                            <!-- <div class="form-group form-group-permit mb-0">
+              <div class="input-group date input-group-{{ index }}">
+                <div class="input-group-prepend permit-date">
+                  <span class="input-group-text" id="basic-addon1">
+                    <img  src="assets/img/calendar.svg" alt="calendar">
+                  </span>
+                </div>
+                <input
+                  autocomplete="off"
+                  type="text"
+                  class="form-control project-date permit-date"
+                  [ngClass]="index === index ? 'startDate-' + user.UserID : ''"
+                  aria-describedby="basic-addon1"
+                  #StartDate
+                  [attr.data-index]="index"
+                  value="{{ user.StartDate }}"
+                  (click)="setProjectUserScheduleDate(user, index)"
+                  [readonly]="true"
+                  [disabled]="this.userDetails.create_project_Permit == 0"
+                  (blur)="visualFix($event, user, 'StartDate')"
+                />
+              </div>
+            </div> -->
+
+
+
+                            <div class="input-group form-group-permit">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="assets/img/permit-icons/calendar.svg" alt="calendar">
+                                    </span>
+                                </div>
+                                <input autocomplete="off" type="text" class="form-control project-date permit-date" [ngClass]="index === index ? 'startDate-' + user.UserID : ''" aria-describedby="basic-addon1" #StartDate [attr.data-index]="index" value="{{ user.StartDate }}" (click)="setProjectUserScheduleDate(user, index)" [readonly]="true" [disabled]="this.userDetails.create_project_Permit == 0 || !userDetails.create_project_Permit" (blur)="visualFix($event, user, 'StartDate')" />
+                            </div>
+                        </td>
+                        <td>
+                            <!-- <div class="form-group form-group-permit mb-0">
+              <div class="input-group date input-group-end-date-{{ index }}">
+                <div class="input-group-prepend permit-date">
+                  <span class="input-group-text" id="basic-addon1">
+                    <img  src="assets/img/calendar.svg" alt="calendar">
+                  </span>
+                </div>
+                <input
+                  autocomplete="off"
+                  type="text"
+                  class="form-control project-date permit-date"
+                  [ngClass]="index === index ? 'endDate-' + user.UserID : ''"
+                  aria-describedby="basic-addon1"
+                  #EndDate
+                  value="{{ user.EndDate }}"
+                  (click)="setProjectUserScheduleDate(user, index)"
+                  [readonly]="true"
+                  [disabled]="this.userDetails.create_project_Permit == 0"
+                  (blur)="visualFix($event, user, 'EndDate')"
+                />
+              </div>
+            </div> -->
+                            <div class="input-group form-group-permit">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+
+                                        <img src="assets/img/permit-icons/calendar.svg" alt="calendar">
+                                    </span>
+                                </div>
+                                <input autocomplete="off" type="text" class="form-control project-date permit-date" [ngClass]="index === index ? 'endDate-' + user.UserID : ''" aria-describedby="basic-addon1" #EndDate value="{{ user.EndDate }}" (click)="setProjectUserScheduleDate(user, index)" [readonly]="true" [disabled]="userDetails.create_project_Permit == 0 || !userDetails.create_project_Permit" (blur)="visualFix($event, user, 'EndDate')" />
+                            </div>
+
+                        </td>
+                        <td style="max-width: 250px">
+                            <div class="d-flex justify-content-between checkbox-wrapper">
+                                <div class="functions">
+                                    <div class="white-bcg">
+                                        <label class="mb-1" for="hours">{{ "Hours" | translate }}</label>
+                                    </div>
+                                    <div style="position: relative" [ngClass]="{'active-users': user.isActive == 1,'inactive-users': user.isActive != 1}">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(user) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="hours" type="checkbox" #activeCheckbox (click)="
+                      toggleUserFunction(
+                        'Active',
+                        activeCheckbox.checked,
+                        user.UserID,
+                        user.StartDate,
+                        user.EndDate,
+                        user.ProjectUserScheduleDateId,
+                        'worker',
+                        index
+                      )
+                    " [checked]="user.Active" />
+                                        <div *ngIf="user.Active == 1 && user.isActive != 1" class="gray-bcg max-wh">
+                                            <img src="assets/img/check-permit-white.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="user.Active == 0 && user.isActive != 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-white" class="pt-2" />
+                                        </div>
+
+                                        <div *ngIf="activeCheckbox.checked && user.isActive == 1">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-green" class="pt-2" />
+                                        </div>
+
+                                        <div *ngIf="!activeCheckbox.checked && user.isActive == 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" class="pt-2" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="functions">
+                                    <div class="white-bcg">
+                                        <label class="mb-1" for="atest">{{ "Attest" | translate }}</label>
+                                    </div>
+                                    <div style="position: relative" [ngClass]="{'active-users': user.isActive == 1,'inactive-users': user.isActive != 1}">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(user) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="atest" #atestCheckbox type="checkbox" [checked]="user.Atest" (click)="
+                      toggleUserFunction(
+                        'Atest',
+                        atestCheckbox.checked,
+                        user.UserID,
+                        user.StartDate,
+                        user.EndDate,
+                        user.ProjectUserScheduleDateId,
+                        'worker',
+                        index
+                      )
+                    " />
+                                        <div *ngIf="user.Atest == 1 && user.isActive != 1" class="gray-bcg max-wh">
+                                            <img src="assets/img/check-permit-white.svg" alt="check-white" class="pt-2" />
+                                        </div>
+
+                                        <div *ngIf="user.Atest == 0 && user.isActive != 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="atestCheckbox.checked && user.isActive == 1">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-green" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="!atestCheckbox.checked && user.isActive == 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" class="pt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="functions">
+                                    <div class="white-bcg">
+                                        <label class="mb-1" for="ata">
+                                            {{ "ÄTA" | translate }} ({{ "External" | translate }})
+                                        </label>
+                                    </div>
+                                    <div style="position: relative" [ngClass]="{'active-users': user.isActive == 1,'inactive-users': user.isActive != 1}">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(user) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="ata" #ataCheckboxExternal type="checkbox" [checked]="user.Ata_External" (click)="
+                      toggleUserFunction(
+                        'Ata_External',
+                        ataCheckboxExternal.checked,
+                        user.UserID,
+                        user.StartDate,
+                        user.EndDate,
+                        user.ProjectUserScheduleDateId,
+                        'worker',
+                        index
+                      )
+                    " />
+                                        <div *ngIf="user.Ata_External == 1 && user.isActive != 1" class="gray-bcg max-wh">
+                                            <img src="assets/img/check-permit-white.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="user.Ata_External == 0 && user.isActive != 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="ataCheckboxExternal.checked && user.isActive == 1">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-green" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="!ataCheckboxExternal.checked && user.isActive == 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" class="pt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="functions">
+                                    <div class="white-bcg">
+                                        <label class="mb-1" for="ata">
+                                            {{ "ÄTA" | translate }} ({{ "Internal" | translate }})
+                                        </label>
+                                    </div>
+                                    <div style="position: relative" [ngClass]="{'active-users': user.isActive == 1,'inactive-users': user.isActive != 1}">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(user) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="ata" #ataCheckboxInternal type="checkbox" [checked]="user.Ata_Internal" (click)="
+                      toggleUserFunction(
+                        'Ata_Internal',
+                        ataCheckboxInternal.checked,
+                        user.UserID,
+                        user.StartDate,
+                        user.EndDate,
+                        user.ProjectUserScheduleDateId,
+                        'worker',
+                        index
+                      )
+                    " />
+                                        <div *ngIf="user.Ata_Internal == 1 && user.isActive != 1" class="gray-bcg max-wh">
+                                            <img src="assets/img/check-permit-white.svg" alt="check-white" class="pt-2" />
+                                        </div>
+
+                                        <div *ngIf="user.Ata_Internal == 0 && user.isActive != 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="ataCheckboxInternal.checked && user.isActive == 1">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-green" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="!ataCheckboxInternal.checked && user.isActive == 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" class="pt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="functions">
+                                    <div class="white-bcg">
+                                        <label class="mb-1" for="underrattelse">
+                                            {{ "U" | translate }} ({{"External" | translate}})
+                                        </label>
+                                    </div>
+                                    <div style="position: relative" [ngClass]="{'active-users': user.isActive == 1,'inactive-users': user.isActive != 1}">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(user) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="underrattelse" #deviationCheckboxExternal type="checkbox" [checked]="user.Deviation_External" (click)="
+                      toggleUserFunction(
+                        'Deviation_External',
+                        deviationCheckboxExternal.checked,
+                        user.UserID,
+                        user.StartDate,
+                        user.EndDate,
+                        user.ProjectUserScheduleDateId,
+                        'worker',
+                        index
+                      )
+                    " />
+                                        <div *ngIf="user.Deviation_External == 1 && user.isActive != 1" class="gray-bcg max-wh">
+                                            <img src="assets/img/check-permit-white.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="user.Deviation_External == 0 && user.isActive != 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="deviationCheckboxExternal.checked && user.isActive == 1">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-green" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="!deviationCheckboxExternal.checked && user.isActive == 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" class="pt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="functions">
+                                    <div class="white-bcg">
+                                        <label class="mb-1" for="underrattelse">
+                                            {{ "U" | translate }} ({{"Internal" | translate}})
+                                        </label>
+                                    </div>
+                                    <div style="position: relative" [ngClass]="{'active-users': user.isActive == 1,'inactive-users': user.isActive != 1}">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(user) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="underrattelse" #deviationCheckboxInternal type="checkbox" [checked]="user.Deviation_Internal" (click)="
+                      toggleUserFunction(
+                        'Deviation_Internal',
+                        deviationCheckboxInternal.checked,
+                        user.UserID,
+                        user.StartDate,
+                        user.EndDate,
+                        user.ProjectUserScheduleDateId,
+                        'worker',
+                        index
+                      )
+                    " />
+                                        <div *ngIf="user.Deviation_Internal == 1&& user.isActive != 1" class="gray-bcg max-wh">
+                                            <img src="assets/img/check-permit-white.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="user.Deviation_Internal == 0 && user.isActive != 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="deviationCheckboxInternal.checked && user.isActive == 1">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-green" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="!deviationCheckboxInternal.checked && user.isActive == 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" class="pt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="functions">
+                                    <div class="white-bcg">
+                                        <label class="mb-1" for="own-control">
+                                            {{"Quality Control" | translate}}
+                                        </label>
+                                    </div>
+                                    <div style="position: relative" [ngClass]="{'active-users': user.isActive == 1,'inactive-users': user.isActive != 1}">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(user) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="own-control" #owncontrolCheckbox type="checkbox" [checked]="user.QualityControl" (click)="
+                      toggleUserFunction(
+                        'QualityControl',
+                        owncontrolCheckbox.checked,
+                        user.UserID,
+                        user.StartDate,
+                        user.EndDate,
+                        user.ProjectUserScheduleDateId,
+                        'worker',
+                        index
+                      )
+                    " />
+                                        <div *ngIf="user.QualityControl == 1 && user.isActive != 1" class="gray-bcg max-wh">
+                                            <img src="assets/img/check-permit-white.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="user.QualityControl == 0 && user.isActive != 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="owncontrolCheckbox.checked && user.isActive == 1">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-green" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="!owncontrolCheckbox.checked && user.isActive == 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" class="pt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="functions">
+                                    <div class="white-bcg">
+                                        <label class="mb-1" for="resource-planning">
+                                            {{"Resource Pl." | translate}}
+                                        </label>
+                                    </div>
+                                    <div style="position: relative" [ngClass]="{'active-users': user.isActive == 1,'inactive-users': user.isActive != 1}">
+                                        <input [disabled]="
+                      project.status == 3 ||
+                      activityExpired(user) ||
+                      this.userDetails.create_project_Permit == 0 ||
+                      !userDetails.create_project_Permit
+                    " class="d-block mx-auto hide" name="resource-planning" #resourcePlanningCheckbox type="checkbox" [checked]="user.showInResourcePlanning" (click)="
+                      toggleUserFunction(
+                        'showInResourcePlanning',
+                        resourcePlanningCheckbox.checked,
+                        user.UserID,
+                        user.StartDate,
+                        user.EndDate,
+                        user.ProjectUserScheduleDateId,
+                        'worker',
+                        index
+                      )
+                    " />
+                                        <div *ngIf="user.showInResourcePlanning == 1 && user.isActive != 1" class="gray-bcg max-wh">
+                                            <img src="assets/img/check-permit-white.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="user.showInResourcePlanning == 0 && user.isActive != 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-white" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="resourcePlanningCheckbox.checked && user.isActive == 1">
+                                            <img src="assets/img/check-permit-blue.svg" alt="check-green" class="pt-2" />
+                                        </div>
+                                        <div *ngIf="!resourcePlanningCheckbox.checked && user.isActive == 1" class="white-bcg max-wh">
+                                            <img src="assets/img/check-permit-empty.svg" alt="check-no" class="pt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="delete-svg-position" *ngIf="userDetails.create_project_Permit">
+                                <app-delete-svg (click)="removeUser('Worker', user, index)"></app-delete-svg>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="
+            position:absolute;
+            max-width: 1364px;
+            width: 1364px;
+            min-width: 1321px;
+            height: 1px;
+            border-bottom: 2px solid var(--border-color);"
+            [ngStyle]="{'top': lenMaxForAll+25 + 'px'}"
+                >
+            </div>
+        </div>
+
+    </div>
+    <div class="imaginary-scroll blu-scroll " style="overflow-y:none;margin-left: 20px;" #tableWraperImag2 (scroll)="onImaginaryScroll($event)">
+        <div style=" max-width: 1364px;width: 1364px;
+        min-width: 1321px;">
+
+        </div>
+    </div>
+    <div class="line-left"></div>
+</div>
+
+
+
+
+<img style="display:none" src="assets/img/check-permit-blue.svg" />
+<img style="display:none" src="assets/img/check-permit-empty.svg" />

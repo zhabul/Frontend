@@ -1,0 +1,20 @@
+
+.item {
+    border-bottom: 1.5px solid var(--main-bg);
+    cursor: pointer;
+    transition: opacity 250ms ease-in-out; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+  
+.item:hover {
+    opacity: 0.5;
+}
+  
+.pos {
+    margin: 4px 5px 4px 8px;
+    font-size: 14px;
+}
+  

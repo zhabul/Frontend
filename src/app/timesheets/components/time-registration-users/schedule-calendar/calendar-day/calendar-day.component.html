@@ -1,0 +1,11 @@
+<div class="day-box" [ngStyle]="containerStyle" (click)="emitActiveDate()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+    <ng-container *ngIf="showLock">
+      <div class="lock-icon-fixed">
+        <app-lock-icon-svg></app-lock-icon-svg>
+      </div> 
+    </ng-container>
+    <div class="day-content center-content">
+      {{ day.dayName | translate }} {{ day.day }}
+    </div>
+</div>
+

@@ -1,0 +1,58 @@
+<!--<div class="select-section">
+  <div class="plus-btn" (click)="GetBtnSelect()">
+    <div class="new-select-btn">
+      <span class="Plus-img">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="27" viewBox="0 0 14 27">
+          <text id="_" data-name="+" transform="translate(0 22)" fill="#858585" font-size="20" font-family="SegoeUI, Segoe UI" letter-spacing="0.014em"><tspan x="0" y="0">+</tspan></text>
+        </svg>
+      </span>
+    </div>
+  </div>
+</div>-->
+    <!-- 'pointer-events': 'auto' -->
+
+
+    <div (click)="onToggleMenu()" #dropdown [style.width.px]="width" class="name-of-multselect"
+    [ngStyle]="{
+      'border': (isHovered && toggle == false) ? borderHoverColor : border,
+      'border-radius': toggle ? radius :'4px 4px 4px 4px',
+      'border-bottom':toggle ? border4 : border,
+      'padding': padding
+      }">
+      <input [ngStyle]="{'color': color }" (keydown.enter)="getSelected(filteredClient[0],0)" #search type1="text" class="search" placeholder="{{ ref }}" [(ngModel)]="filterText" *ngIf="show && EnableSearch" [style.font-size.px]="fontSize">
+      <div *ngIf="ref !== placeholder" [ngStyle]="{'color': color }" [ngClass]="{'TitleName': true, 'disabledTitleName': show && EnableSearch}" [style.font-size.px]="fontSize">{{ ref }}</div>
+      <div *ngIf="ref === placeholder" [ngStyle]="{'color': 'var(--border-color)' }" [ngClass]="{'TitleName': true, 'disabledTitleName': show && EnableSearch}" [style.font-size.px]="14">{{ ref }}</div>
+      <div class="arrow">
+          <app-arrow-for-dropdown
+              [fill]="fill"
+              [rotate]="rotate"
+          >
+          </app-arrow-for-dropdown>
+      </div>
+  </div>
+    <div [style.width.px]="width - 5" class="shadow" *ngIf="toggle && havedata"></div>
+  <div>
+      <div [ngStyle]="{
+        'border-bottom': border1,
+        'border-right': border1,
+        'border-left': border1,
+        'border-top': border2,
+        'border-radius': toggle ?'0px 0px 4px 4px': '4px 4px 0px 0px'
+        }" *ngIf="toggle" class="dropdown-scroll">
+        <div [disabled]="disabled" [value]="selectedValue" (change)="onChange($event.target.value)">
+          <div class="users-list"  *ngFor="let client of filteredClient; let i=index;" [value]="client.id" (click)="getSelected(client, i)" [style.font-size.px]="14">
+              <div *ngIf="!StatusActive && !ConstructionDebitItem" class="users" title="{{client.finalName}}"> {{client.finalName}}</div>
+              <div *ngIf="StatusActive && !ConstructionDebitItem" class="users" title="{{client.status}}"> {{client.status}}</div>
+              <div *ngIf="ConstructionDebitItem && !StatusActive" class="users" title="{{client.Name}}"> {{client.Name}}</div>
+          </div>
+        </div>
+      </div>
+      <span class="help-block" *ngIf="showError">
+        <span class="text-danger">
+          {{ errorText | translate }}
+        </span>
+      </span>
+  </div>
+
+
+

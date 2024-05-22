@@ -1,0 +1,182 @@
+<div class="parent-wrap">
+  <div class="child-wrap">
+    <div class="container-fluid mt-5X">
+      <div class="text-title d-flex align-items-center">
+        <div class="leftThing">
+          <img src="{{ orderData.generalImage }}" />
+        </div>
+        <div class="fs31 fs13 rightThing">
+          <span class="bold mb-0">{{ "Order number" | translate }}</span>
+          <span
+            class="bold mb-0 text-uppercase ml-20"
+            style="margin-left: 20px"
+            >NR: {{ orderData.orderID }}</span 
+          >
+        </div>
+      </div>
+      <div class="fs12 fs10 no_background rightdate leftdate">
+        <div style="margin-left: 5px">{{ "Order date" | translate }}:</div>
+        <div  style="margin-left: 5px">{{ currentDate("date") }}</div>
+        <div  style="margin-left: 5px">{{ "Time" | translate }}:</div>
+        <div style="margin-left: 5px">{{ currentDate("time") }}</div>
+      </div>
+      <br />
+      <br />
+
+      <div class="row">
+        <div class="col-sm-6">
+          <br />
+          <label class="bold fs10"
+            >{{ "Delivery Address" | translate }}:
+          </label>
+          <p class="fs14 fs10 mb-0">{{ orderData.street }}</p>
+          <p class="fs14 fs10 mb-0">{{ orderData.zip }} {{ orderData.city }}</p>
+          <p class="fs14 fs10 mb-0">
+            <span class="bold"> {{ "Project Number" | translate }}: </span>
+            <span class="bold">{{ orderData.projectNumber }}</span
+            ><span *ngIf="orderData.ataId != -1">{{
+              orderData.other?.trim() != ""
+                ? (", ATA-" | translate) + orderData.ataNumber
+                : ""
+            }}</span>
+          </p>
+          <p class="fs14 fs10 mb-0">
+            <span class="bold"> {{ "Other" | translate }}: </span
+            >{{
+              (orderData.other && orderData.other?.trim()) == ""
+                ? "ATA-" + orderData.ataId
+                : orderData.other
+            }}
+          </p>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="text-right">
+            <table class="fs14 fs10 borderX">
+              <tr class="no_background m-0 borderX">
+                <td class="text-right borderX">
+                  {{ "Contact person" | translate }} 1:
+                </td>
+                <td class="text-right borderX">{{ orderData.contactName1 }}</td>
+                <td class="text-right borderX">
+                  {{ orderData.contactPhone1 }}
+                </td>
+              </tr>
+              <tr class="fs14 fs10 no_background p-0 borderX">
+                <td class="text-right borderX">
+                  {{ "Contact person" | translate }} 2:
+                </td>
+                <td class="text-right borderX">{{ orderData.contactName2 }}</td>
+                <td class="text-right">{{ orderData.contactPhone2 }}</td>
+              </tr>
+              <tr class="fs14 fs10 no_background p-0 borderX">
+                <td class="text-right borderX">
+                  {{ "Way of delivery" | translate }} :
+                </td>
+                <td class="borderX">&nbsp;</td>
+                <td class="borderX text-right">
+                  {{
+                    orderData.deliveryName != undefined
+                      ? orderData.deliveryName
+                      : ("No" | translate)
+                  }}
+                </td>
+              </tr>
+              <tr class="fs14 fs10 no_background borderX">
+                <td class="text-right">{{ "Delivery Order" | translate }}:</td>
+                <td class="borderX">&nbsp;</td>
+                <td class="text-right">
+                  {{
+                    orderData.date != "1"
+                      ? orderData.date
+                      : ("Immediate" | translate)
+                  }}
+                </td>
+              </tr>
+              <tr class="fs14 fs10 no_background borderX">
+                <td class="text-right">{{ "Delivery Time" | translate }}:</td>
+                <td class="borderX">&nbsp;</td>
+                <td class="text-right">
+                  {{ orderData.time ? orderData.time : ("No" | translate) }}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="container-fluid" style="overflow-x: auto">
+      <section class="padding">
+        <table
+          class="striped fs14 fs10 table-responsive-under800 letter-spacing"
+        >
+          <thead>
+            <tr>
+              <th class="bold cart">{{ "Article Number" | translate }}</th>
+              <th class="bold cart mw-100">{{ "Article Name" | translate }}</th>
+              <th class="bold cart">{{ "Quantity" | translate }}</th>
+              <th class="bold cart">{{ "Unit" | translate }}</th>
+              <th class="bold cart">{{ "Remove" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of orderData.items; let i = index"
+              class="cart"
+            >
+              <td class="cart">{{ item.article }}</td>
+              <td class="cart">{{ item.name }}: {{ item.prop }}</td>
+              <td class="qty cart">{{ item.quantity }}</td>
+              <td class="cart">{{ item.unit }}</td>
+              <td class="cart">
+                <button
+                  class="btn waves-effect waves-light red"
+                  (click)="removeItem(i)"
+                >
+                  <i class="material-icons">delete_forever</i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          class="row px-3 mb-4 mt-4 btn-pos flex d-flexX justify-content-between w96M"
+          *ngIf="sendEmail"
+        >
+          <button
+            class="btn btn-danger btn-smM mr-4M"
+            (click)="removeData($event)"
+          >
+            <img
+              class="btn-dng"
+              src="assets/img/cancel-order.png"
+              width="40"
+              height="40"
+            />
+            {{ "Cancel order" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="btn btn-success btn-smM"
+            (click)="makeOrder()"
+            [disabled]="orderData.items.length < 1"
+          >
+            <img
+              class="btn-scs"
+              src="assets/img/make-order.png"
+              width="40"
+              height="40"
+            />
+            {{ "Make order" | translate }}
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

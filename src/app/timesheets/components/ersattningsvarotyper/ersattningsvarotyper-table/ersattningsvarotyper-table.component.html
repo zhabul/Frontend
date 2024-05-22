@@ -1,0 +1,57 @@
+<div class="erst-type-table-grid border-top-stats " [ngStyle]="erstTypeTableGrid" >
+    <div class="name-container">
+        <div class="erst-type-table-search-bar">
+            <div class="search-container">
+                <app-input-text-filter (emitValue)="setSearchValue($event)" [width]="329" prefix="ettt"></app-input-text-filter>
+                <div class="add-erst-button" (click)="openNewErstModal()">
+                    <div>{{ 'Add' | translate }}</div>
+                    <div class="absolute-icon"><app-plus-icon-svg></app-plus-icon-svg></div>
+                </div>
+            </div>
+            <div class="erst-type-grid blck-bckg">
+                <div class="erst-type-box blck-bckg on-top"><div></div></div>
+                <div class="erst-type-box flex-align-start" id="description" >{{ 'Description' | translate }}</div>
+                <div class="erst-type-grid-2" [ngStyle]="headerGrid">
+                    <div class="erst-type-box">{{ "Quantity" | translate }}</div>
+                    <div class="erst-type-box">{{ "Unit" | translate }}</div>
+                    <div class="erst-type-box">{{ "Timecode" | translate }} {{ 'Salary System' | translate }}</div>
+                    <div class="erst-type-box">{{ "Timecode" | translate }} SPS360
+
+                    </div>
+                    <div class="erst-type-box">{{ "Status" | translate }}</div>
+                    <div class="erst-type-box">{{ "Edit" | translate }}</div>
+                    <div class="erst-type-box"><app-trash-can-icon-svg></app-trash-can-icon-svg></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relative">
+    <div
+        appScrollDetector
+        (emitScrollLeft)="setTranslateXForHeader($event)"
+        class="body-planner-moments-wrapper no-border-top blu-scroll blu-scroll4 dynamic-height-335 no-b-left"
+        #wrapper
+    >
+        <div>
+            <app-ersattningsvarotyper-row
+
+                *ngFor="let type of erstTypes; let nr = index;"
+                [type]="type"
+                [nr]="nr"
+                (removeListener)="removeErstType($event)"
+                [disabled]="inputDisabled"
+
+            ></app-ersattningsvarotyper-row>
+            <div class="spinner-container-absolute" *ngIf="spinner">
+                <app-pulse-spinner></app-pulse-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="grey-filler-long"></div>
+    <div class="thin-right-line" [ngStyle]="rightLineStyles"></div>
+    <div class="thin-left-line" ></div>
+    <div class="thin-bottom-line" ></div>
+    <div class="thin-top-line" ></div>
+    <div class="thin-bottom-left-scroll-line" ></div>
+</div>

@@ -1,0 +1,17 @@
+.placeholder {
+  position: absolute;
+  left: 0;
+  color: white;
+  z-index: 1500;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.week-placeholder {
+  position: absolute;
+  right: 0;
+  background-color: var(--main-bg);
+  pointer-events: none;
+  z-index: 500;
+  opacity: 0.7;
+}

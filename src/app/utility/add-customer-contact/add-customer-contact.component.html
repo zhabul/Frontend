@@ -1,0 +1,155 @@
+<div class="card" style="padding: 0">
+    <form
+      class="p-4 m-2 form-column-wrapper"
+    >
+      <h2 class="h5 text-secondary">{{ "Add New Employee" | translate }}</h2>
+      <hr />
+      <div class="form-group row pb-4 mb-2">
+        <div class="col-lg-4">
+          <!-- Title -->
+          <label for="validationNewEmployee01" class="mb-0 mt-1"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Title" | translate
+            }}</small></label
+          >
+          <!-- OK -->
+          <input
+            type="text"
+            class="form-control form-control-custom"
+            id="validationNewEmployee01"
+            spellcheck="false"
+            formControlName="Title"
+          />
+          <div class="invalid-feedback">
+            {{ "Please enter Title" | translate }}
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <!-- First name -->
+          <label for="validationNewEmployee01" class="mb-0 mt-1"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "First Name" | translate
+            }}</small></label
+          >
+          <!-- OK -->
+          <input
+            type="text"
+            class="form-control form-control-custom"
+            id="validationNewEmployee01"
+            required
+            spellcheck="false"
+            formControlName="FirstName"
+          />
+          <div class="invalid-feedback">
+            {{ "Please enter first name" | translate }}
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <!-- Last name -->
+          <label for="validationNewEmployee02" class="mb-0 mt-1"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Last Name" | translate
+            }}</small></label
+          >
+          <!-- OK -->
+          <input
+            type="text"
+            class="form-control form-control-custom"
+            id="validationNewEmployee02"
+            required
+            spellcheck="false"
+            formControlName="LastName"
+          />
+          <div class="invalid-feedback">
+            {{ "Please enter last name" | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group pb-4 mb-2">
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- Mobile -->
+            <label for="validationNewEmployee04" class="mb-0 mt-1"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Mobile" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+            <input 
+              type="text"
+              class="form-control form-control-custom"
+              id="validationNewEmployee04"
+              spellcheck="false"
+              formControlName="Mobile"
+            />
+            <div class="invalid-feedback">
+              {{ "Enter mobile number" | translate }}
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <!-- Email -->
+            <label for="validationNewEmployee05" class="mb-0 mt-1"
+              ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+                "Email" | translate
+              }}</small></label
+            >
+            <!-- OK -->
+            <input
+              type="text"
+              class="form-control form-control-custom"
+              id="validationNewEmployee05"
+              required
+              spellcheck="false"
+              formControlName="email"
+              [ngClass]="{
+                'is-invalid': createFormNewEmployee.get('email').invalid
+              }"
+            />
+            <div class="invalid-feedback">
+              {{ "Please enter email" | translate }}
+            </div>
+          </div>
+        </div>
+        <!--`Status` new -->
+        <div>
+          <label for="validationNewEmployee06" class="mb-0 mt-1"
+            ><small [ngClass]="{ 'font-weight-bold': boldOrNot }">{{
+              "Status" | translate
+            }}</small></label
+          >
+          <div class="form-group">
+            <div class="custom-control custom-radio">
+              <input
+                type="radio"
+                class="custom-control-input"
+                id="status1"
+                value="Active"
+                formControlName="status"
+              />
+              <label class="custom-control-label" for="status1">{{
+                "Active" | translate
+              }}</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input
+                type="radio"
+                class="custom-control-input"
+                id="status2"
+                value="Inactive"
+                formControlName="status"
+              />
+              <label class="custom-control-label" for="status2">{{
+                "Inactive" | translate
+              }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group btn-position" *ngIf="createFormNewEmployee.valid">
+        <button type="button" class="btn btn-dark" (click)="addOneWorker()">
+          {{ "Add New Employee" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+  

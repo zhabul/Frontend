@@ -1,0 +1,129 @@
+<div class="units-container blu-scroll">
+  <div class="list-head">
+    <div>
+      <p>{{ "Unit" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Additional work" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Material" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "UE/Other" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Mileage" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Remove" | translate }}</p>
+    </div>
+  </div>
+
+  <div class="list">
+    <form class="list-row new-unit">
+      <div style="padding-left: 0px">
+        <input
+          placeholder="{{ 'New' | translate }}"
+          type="text"
+          name="name"
+          [(ngModel)]="newUnit"
+          spellcheck="false"
+          autocomplete="off"
+        />
+      </div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div>
+        <img
+          class="icon"
+          src="../../../../assets/img/save.svg"
+          alt="edit"
+          (click)="addUnit()"
+        />
+      </div>
+    </form>
+
+    <div class="list-row" *ngFor="let unit of units; let i = index">
+      <div>
+        <p>{{ unit.unit | translate }}</p>
+      </div>
+      <div>
+        <img
+          [ngClass]="{ hidden: !unit.additionalWorkUnits }"
+          (click)="changeAdditionalWork(unit)"
+          src="../../../../assets/img/round-checkbox.svg"
+          alt="checkbox"
+        />
+
+        <img
+          class="icon-small"
+          [ngClass]="{ hidden: unit.additionalWorkUnits }"
+          (click)="changeAdditionalWork(unit)"
+          src="../../../../assets/img/round-uncheckbox.svg"
+          alt="checkbox"
+        />
+      </div>
+      <div>
+        <img
+          [ngClass]="{ hidden: !unit.materialUnits }"
+          (click)="changeMaterial(unit)"
+          src="../../../../assets/img/round-checkbox.svg"
+          alt="checkbox"
+        />
+
+        <img
+          class="icon-small"
+          [ngClass]="{ hidden: unit.materialUnits }"
+          (click)="changeMaterial(unit)"
+          src="../../../../assets/img/round-uncheckbox.svg"
+          alt="checkbox"
+        />
+      </div>
+      <div>
+        <img
+          [ngClass]="{ hidden: !unit.otherUEUnits }"
+          (click)="changeUE(unit)"
+          src="../../../../assets/img/round-checkbox.svg"
+          alt="checkbox"
+        />
+
+        <img
+          class="icon-small"
+          [ngClass]="{ hidden: unit.otherUEUnits }"
+          (click)="changeUE(unit)"
+          src="../../../../assets/img/round-uncheckbox.svg"
+          alt="checkbox"
+        />
+      </div>
+      <div>
+        <img
+          [ngClass]="{ hidden: !unit.mileageUnits }"
+          (click)="changeMileage(unit)"
+          src="../../../../assets/img/round-checkbox.svg"
+          alt="checkbox"
+        />
+
+        <img
+          class="icon-small"
+          [ngClass]="{ hidden: unit.mileageUnits }"
+          (click)="changeMileage(unit)"
+          src="../../../../assets/img/round-uncheckbox.svg"
+          alt="checkbox"
+        />
+      </div>
+      <div>
+        <img
+          class="icon"
+          src="../../../../assets/img/trashcan.svg"
+          alt="remove"
+          (click)="deleteUnit(i)"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="thin-red-line-bottom"></div>
+<mat-spinner class="spinner" *ngIf="loading"></mat-spinner>

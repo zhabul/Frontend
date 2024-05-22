@@ -1,0 +1,183 @@
+<div class="wrapperSchedule blu-scroll">
+
+<div class="e-schedule-toolbar e-control e-toolbar e-lib e-toolpop e-keyboard" role="toolbar" aria-disabled="false" aria-haspopup="false" aria-orientation="horizontal" tabindex="0" style="height: auto; width: auto;">
+    <div class="e-toolbar-items e-tbar-pos">
+        <div class="top-toolbar">
+            <div class="e-toolbar-item e-today e-overflow-show" aria-disabled="false">
+                <button class="e-tbar-btn e-tbtn-txt e-control e-btn e-lib" type="button" id="e-tbr-btn_3" tabindex="-1" aria-label="Today" style="width: auto;"
+                (click)="CurrentDay()">
+                    
+                    <span class="e-tbar-btn-text today"
+                    >Today</span>
+                </button>
+            </div>
+            <div class="e-toolbar-item e-schedule-seperator e-separator" aria-disabled="false">
+
+            </div>
+            <div class="e-toolbar-item e-views e-month e-active-view" aria-disabled="false">
+                <button class="e-tbar-btn e-tbtn-txt e-control e-btn e-lib" type="button" id="e-tbr-btn_4" tabindex="-1" aria-label="Month" style="width: auto;">
+                
+                    <span class="e-tbar-btn-text month"  (click)="setSelectedTab(0)" [ngStyle]="{'color':selectedTab == 0 ? 'red' : '' }">Month</span>
+                   
+                </button>
+            </div>
+            <!-- <div class="e-toolbar-item e-views e-week" aria-disabled="false">
+                <button class="e-tbar-btn e-tbtn-txt e-control e-btn e-lib" type="button" id="e-tbr-btn_5" tabindex="-1" aria-label="Week" style="width: auto;">
+                
+                    <span class="e-tbar-btn-text week"  (click)="setSelectedTab(1)" [ngStyle]="{'color':selectedTab == 0 ? '' : 'red' }">Week</span>
+                </button>
+            </div> -->
+        </div>
+        <div class="bottom-toolbar">
+            <div class="e-toolbar-item e-prev e-tbtn-align e-overflow-show" aria-disabled="false" aria-label="previous period" role="navigation" title="Previous">
+                <button   (click)="previousmonth()" class="btnArrow" type="button" id="e-tbr-btn_0" tabindex="-1" aria-label="Previous"  title="Previous">
+                    <span class="arrow">
+                        <svg stroke="currentColor" transform="rotate(180)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            <div class="e-toolbar-item e-next e-tbtn-align e-overflow-show" aria-disabled="false" aria-label="next period" role="navigation" title="Next">
+                <button  (click)="nextmonth()" class="btnArrow" type="button" id="e-tbr-btn_1" tabindex="-1" aria-label="Next"  title="Next">
+                    <span class="arrow">
+                        <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            <div class="e-toolbar-item e-date-range e-overflow-show" aria-disabled="false" aria-atomic="true" aria-live="assertive" aria-label="June 2022" role="navigation">
+                <button class="e-tbar-btn e-tbtn-txt e-control e-btn e-lib" type="button" id="e-tbr-btn_2" tabindex="-1" aria-label="June 2022" style="width: auto; height: 25px;">
+                    <span class="e-tbar-btn-text" >
+                        <div style="position: relative;"  id="dateSelectStartDate datepicker">{{ currentDate.format("MMMM") | translate }} {{ currentDate.format("YYYY ") }} 
+                        <!-- <mat-icon style="padding-top: 6px;">arrow_drop_down</mat-icon> -->
+                        
+                    </div>
+                        
+                    </span>
+                    
+                </button>
+            </div>
+           
+           
+        </div>
+        <div class="e-toolbar-center" style="margin-left: 597px;">
+        </div>
+        
+    </div>
+</div>
+
+<div class="flex-container flex-wrap blu-scroll" *ngIf="selectedTab == 0">
+    <div >
+        <div class="daysOfWeek">
+            <div class="emptyDiv">   
+            </div>
+            <div class="saturday" *ngFor="let key of objectKeys(days_in_week)">
+                <div [ngStyle]="days_in_week[key] == day_now ? { color: '#e3165b' } : { color: '' }"  >
+                    {{days_in_week[key]}}
+                </div>
+            </div>
+        </div>
+
+        <div class="calendarData">
+            <div *ngFor="let weekNumber of weeks | slice: 0:5; let i = index" class="weekNumber">
+                <p class="v-weekNumber">{{ weekNumber }}</p>
+            </div>
+
+            <div class="columns-calendar">
+
+      
+                <ng-container *ngFor="let day of daysarr; let index = index">
+
+                    <div class="workDay">
+                        <h5>
+                            <div class="number">
+                                <div  [ngClass]="day.dayInFormat == date_now ? 'currentDate' : 'regularDate'">
+                                    {{ day.number }}
+                                </div>
+                            </div>
+                        </h5>
+
+                        <div class="projectShow" [ngStyle]="{
+                        'box-shadow': selectedIndex == day.day.format('YYYY-MM-DD') ? '0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%)': ''
+                        }">
+              
+                                
+                                <div *ngIf=" getThreeFirstProjects(day.day.format('YYYY-MM-DD')).length > 0 && !hours_for_calendar[day.dayInFormat] && getHoursAndProjectName(day.day.format('YYYY-MM-DD')).length == 0" 
+                                    class="divProjectShow" (click)="showAllProjects(day.day.format('YYYY-MM-DD'), index, $event)" 
+                                    [ngStyle]="{ 'height': selectedIndex == day.day.format('YYYY-MM-DD') ? 'auto' : '55px', 
+                                    'z-index': selectedIndex == day.day.format('YYYY-MM-DD') ? '99': '',
+                                    'background': selectedIndex == day.day.format('YYYY-MM-DD') ? 'white': ''   
+                                }">
+                                  
+
+                                    <div *ngFor="let userProjects of schemaProjects[day.day.format('YYYY-MM-DD')].projects; let index = index" class="toggle" >
+                                        <div class="project" >{{userProjects.CustomName}} {{userProjects.Name}}</div>
+                                    </div>
+                                   
+                                </div>
+                                <div>
+                                    <div 
+                                    
+                                        class=" atestStatus" 
+                                        *ngFor="let userHours of getHoursAndProjectName(day.day.format('YYYY-MM-DD')) | slice: 0:3" 
+                                        [ngStyle]="{ 'background-color': userHours.Color }"
+                                     
+                                     >
+                                        
+                                        <div style="font-weight: 500; color: black; font-size: 13px; top: -3px;position: relative;">
+                                            <div
+                                                class="type col-name-1"
+                                                style="align-items: center; color: green;"
+                                                *ngIf="userHours.status == 2"
+                                              >
+                                                <mat-icon class="icon-small">check</mat-icon>
+                                              </div>
+                                              <div
+                                                class="type col-name-1"
+                                                style="align-items: center; color: red;"
+                                                *ngIf="userHours.status == 3"
+                                              >
+                                                <mat-icon class="icon-small">close</mat-icon>
+                                              </div>
+                                            <div>{{userHours.ProjectName}}</div>
+                                        </div> &nbsp;&nbsp; 
+                                        <div style="font-size: 13px; top: -3px;position: relative;" >
+                                            {{userHours.Subject}}
+                                        </div> 
+                                        <i
+                                        *ngIf="userHours.Type == 'Moments'"
+                                        class="material-icons lockOpen"
+                                        style="font-size: 13px; color: black"
+                                        [ngClass]="{
+                                        'text-danger': userHours.AtestStatus == '1',
+                                        'text-success': userHours.AtestStatus != '1'
+                                        }">
+                                            {{ userHours.AtestStatus == "1" ? "lock" : "lock_open" }}
+                                        </i> 
+                                    </div>              
+                                </div>
+                        </div>
+                    </div>
+                </ng-container> 
+            </div>
+            <div *ngIf="showProjects == false"> 
+                <div  *ngFor="let projects of projectWhitDate">{{projects.CustomName}}</div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="flex-container flex-wrap" *ngIf="selectedTab == 1">
+
+    kalendar week
+</div> -->
+<!-- <div class="spinner" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+  </div> -->
+
+</div>
+
+

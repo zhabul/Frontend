@@ -1,0 +1,17 @@
+<div class="filter-container">
+    <div class="search-container" [style.width.px]="width">
+        <div class="search-icon">
+            <app-search-icon-svg></app-search-icon-svg>
+        </div>
+        <input 
+        
+            type="text" 
+            class="text-filter-input" 
+            [placeholder]="placeholder" 
+            maxlength="100"
+            [(ngModel)]="value"
+            (ngModelChange)="searchValueUpdate.next($event)"
+            
+        />
+    </div>
+</div>

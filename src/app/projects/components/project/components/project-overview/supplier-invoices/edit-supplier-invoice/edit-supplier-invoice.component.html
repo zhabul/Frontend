@@ -1,0 +1,636 @@
+<div class="row row1X mb-3 menu-wrapp">
+  <div class="border-nav">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <a
+        [routerLink]="[]"
+        (click)="returnBack()"
+        style="padding-left: 22px"
+        class="home"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+      <app-back-icon-svg
+      [width]="34"
+      [height]="29"
+      [color]="'82a7e2'"
+    ></app-back-icon-svg>
+      </a>
+
+      <span class="border-h-project-sec"></span>
+      <span class="ml-3 mt-2 h2 font-weight-normal name-of-projects">
+        {{ "Project" | translate | uppercase }}{{ ": " }}
+        <!-- {{ project.CustomName }} {{ project.name }} -->
+        {{ project ? project.CustomName + " " + project.name : "" }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="master-left">
+  <div class="blu-scroll-wrapp">
+    <div class="blu-scroll skrollbar">
+      <div class="title-table-wrapper">
+        <span class="title-table">Leverantörsfaktura</span>
+      </div>
+      <div class="test" style="margin-left: 10px">
+        <div class="form-bg-c pre-form">
+          <form
+            novalidate
+            autocomplete="off"
+            [formGroup]="createForm"
+            class="form-content invoice-form form-bg-c"
+            #myform="ngForm"
+            style="margin-top: 17px"
+          >
+            <div class="row">
+              <!-- Prva kolona -->
+              <div class="col-md-4">
+                <div
+                  class="form-group"
+                >
+                  <label class="ata"
+                    >{{ "Supplier Name" | translate }}
+                  </label>
+                  <span
+                    class="form-control border-summe"
+                    [ngClass]="{
+                      'disabled-input': !allowEditSupplierInvoice()
+                    }"
+                    style="cursor: text"
+                  >
+                    {{ supplierInvoice.SupplierName }}
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                >
+                  <label class="ata"
+                    >{{ "InvoiceNumber" | translate }}
+                  </label>
+                  <span
+                    class="form-control border-summe"
+                    [ngClass]="{
+                      'disabled-input': !allowEditSupplierInvoice()
+                    }"
+                    style="cursor: text"
+                  >
+                    {{ supplierInvoice.InvoiceNumber }}
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                >
+                  <label class="ata"
+                    >{{ "OCR / fakturanr." | translate }}
+                  </label>
+                  <span
+                    class="form-control border-summe"
+                    [ngClass]="{
+                      'disabled-input': !allowEditSupplierInvoice()
+                    }"
+                    style="cursor: text"
+                  >
+                    {{ supplierInvoice.Ocr }}
+                  </span>
+                </div>
+              </div>
+              <!-- Druga kolona -->
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="lable-white-color" for="phone">{{
+                    "Invoice Date" | translate
+                  }}</label>
+                  <div class="input-group date">
+                    <div class="input-group-prepend">
+                      <span
+                        style="
+                          border: 2px solid #858585;
+                          border-right: none;
+                          background-color: white;
+                          height: 96%;
+                        "
+                        class="input-group-text"
+                        id="basic-addon1"
+                        ><i class="material-icons icon-color"
+                          >calendar_today</i
+                        ></span
+                      >
+                    </div>
+                    <input
+                      (keydown)="$event.preventDefault()"
+                      id="dateSelectStartDate"
+                      autocomplete="off"
+                      type="text"
+                      class="form-control project-date"
+                      aria-describedby="basic-addon1"
+                      placeholder="{{ 'Choose Invoice Date' | translate }}"
+                      #InvoiceDate
+                      formControlName="InvoiceDate"
+                      name="InvoiceDate"
+                      [ngClass]="{ 'input-disable': supplierInvoice.Completed === '1' }"
+                    />
+                  </div>
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      myform.submitted &&
+                      this.createForm.get('InvoiceDate').hasError('required')
+                    "
+                  >
+                    <span class="text-danger">
+                      {{ "Please choose Invoice Date" | translate }}.
+                    </span>
+                  </span>
+                </div>
+                <div class="form-group">
+                  <label class="lable-white-color" for="phone">{{
+                    "Supplier_Due_Date" | translate
+                  }}</label>
+                  <div class="input-group date">
+                    <div class="input-group-prepend">
+                      <span
+                        style="
+                          border: 2px solid #858585;
+                          border-right: none;
+                          background-color: white;
+                          height: 96%;
+                        "
+                        class="input-group-text"
+                        id="basic-addon1"
+                        ><i class="material-icons icon-color"
+                          >calendar_today</i
+                        ></span
+                      >
+                    </div>
+                    <input
+                      (keydown)="$event.preventDefault()"
+                      id="dateSelectEndDate"
+                      autocomplete="off"
+                      type="text"
+                      class="form-control project-date"
+                      aria-describedby="basic-addon1"
+                      placeholder="{{ 'Choose_Due_Date' | translate }}"
+                      #DueDate
+                      formControlName="DueDate"
+                      name="DueDate"
+                      [ngClass]="{ 'input-disable': supplierInvoice.Completed === '1' }"
+                    />
+                  </div>
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      myform.submitted &&
+                      this.createForm.get('DueDate').hasError('required')
+                    "
+                  >
+                    <span class="text-danger">
+                      {{ "Please choose Due Date" | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Treća kolona -->
+              <div class="col-md-4">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('AtaID').touched ||
+                        createForm.get('AtaID').dirty) &&
+                      !createForm.get('AtaID').valid
+                  }"
+                >
+                  <label class="ata"
+                    >{{ "Invoice" | translate }} {{ "Total" | translate }} ({{
+                      "Without VAT" | translate
+                    }})
+                  </label>
+                  <span
+                    class="form-control border-summe"
+                    [ngClass]="{
+                      'disabled-input': !allowEditSupplierInvoice()
+                    }"
+                    style="cursor: text"
+                  >
+                    {{ supplierInvoice.TotalExl | number : "1.2-2" : "fr" }}
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('AtaID').touched ||
+                        createForm.get('AtaID').dirty) &&
+                      !createForm.get('AtaID').valid
+                  }"
+                  [ngClass]="{ 'disabled-input': !allowEditSupplierInvoice() }"
+                >
+                  <label class="ata">{{ "VAT" | translate }}</label>
+                  <span class="form-control border-summe" style="cursor: text">
+                    {{ supplierInvoice.VAT | number : "1.2-2" }}
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('AtaID').touched ||
+                        createForm.get('AtaID').dirty) &&
+                      !createForm.get('AtaID').valid
+                  }"
+                  [ngClass]="{ 'disabled-input': !allowEditSupplierInvoice() }"
+                >
+                  <label class="ata">{{ "Total" | translate }}</label>
+                  <span class="form-control border-summe" style="cursor: text">
+                    {{ supplierInvoice.Total | number : "1.2-2" : "fr" }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <label
+              style="margin-left: 14px"
+              class="lable-white-color"
+              for="name"
+              >{{ "Inter kommentar" | translate }}</label
+            >
+
+            <div style="margin-left: 14px" class="form-group">
+              <textarea
+                (input)="updateCharacterCount()"
+                (keyup)="autoGrowTextZone($event)"
+                maxlength="150"
+                class="form-control"
+                id="intercommment"
+                placeholder="Inter kommentartext"
+                formControlName="interComment"
+                [ngClass]="{ 'input-disable': supplierInvoice.Completed === '1' }"
+              ></textarea>
+              <small style="color: #44484c; margin-left: 10px"
+                >{{ characterCount }}/150</small
+              >
+            </div>
+          </form>
+
+          <table>
+            <thead>
+              <tr>
+                <th class="konto-w for-left-text">
+                  {{ "Account" | translate }}
+                </th>
+                <th class="project-w for-left-text">
+                  {{ "Project" | translate }}
+                </th>
+                <th class="belopp-w for-left-text">
+                  {{ "Amount" | translate }}
+                </th>
+                <th class="paslag-w for-center-text">
+                  {{ "Deduct" | translate }}{{ " %" }}
+                </th>
+                <th class="total-sum-w for-left-text">
+                  {{ "Total invoice" | translate }}
+                </th>
+                <th class="delete-w for-center-text">
+                  <app-delete-icon
+                  [width]="10"
+                  [height]="15"
+                  [color]="'E3DBD3'"
+                  ></app-delete-icon>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="main-row">
+                <td class="bg-first-row">
+                  <span class="for-left-text">{{
+                    supplierInvoice.Account
+                  }}</span>
+                </td>
+                <td class="bg-first-row">
+                  <span class="for-left-text">
+                    {{ supplierInvoice.InvoiceName }}
+                  </span>
+                </td>
+                <td>
+                  <span *ngIf="supplierInvoice.credit == 0">
+                    <span
+                      class="for-left-text"
+                      *ngIf="supplierInvoice.TotalForInvoce - sumTotal >= 0"
+                    >
+                      {{
+                        supplierInvoice.TotalForInvoce - sumTotal
+                          | number : "1.2-2"
+                      }}
+                    </span>
+                    <p
+                      class="text-danger"
+                      *ngIf="supplierInvoice.TotalForInvoce - sumTotal < 0"
+                    >
+                      *{{ "Too much allocated" | translate }}
+                    </p>
+                  </span>
+                  <span *ngIf="supplierInvoice.credit > 0">
+                    <span
+                      class="for-left-text"
+                      *ngIf="supplierInvoice.TotalForInvoce - sumTotal <= 0"
+                    >
+                      {{
+                        supplierInvoice.TotalForInvoce - sumTotal
+                          | number : "1.2-2"
+                      }}
+                    </span>
+                    <p
+                      class="text-danger"
+                      *ngIf="supplierInvoice.TotalForInvoce - sumTotal > 0"
+                    >
+                      *{{ "Too much allocated" | translate }}
+                    </p>
+                  </span>
+                </td>
+                <td class="for-center-text">
+                  <span class="">
+                    {{ masterPDV }}
+                  </span>
+                </td>
+                <td>
+                  <span class="" *ngIf="supplierInvoice.credit == 0">
+                    <span
+                      class="for-left-text"
+                      *ngIf="supplierInvoice.TotalForInvoce - sumTotal >= 0"
+                    >
+                      {{
+                        supplierInvoice.TotalForInvoce -
+                          sumTotal +
+                          (supplierInvoice.TotalForInvoce - sumTotal) *
+                            (masterPDV / 100) | number : "1.2-2"
+                      }}
+                    </span>
+                    <p
+                      class="text-danger total-text-align"
+                      *ngIf="supplierInvoice.TotalForInvoce - sumTotal < 0"
+                    >
+                      *{{ "Too much allocated" | translate }}
+                    </p>
+                  </span>
+                  <span
+                    class="for-left-text"
+                    *ngIf="
+                      supplierInvoice.credit > 0 &&
+                      supplierInvoice.TotalForInvoce - sumTotal <= 0
+                    "
+                  >
+                    {{
+                      supplierInvoice.TotalForInvoce - sumTotal
+                        | number : "1.2-2"
+                    }}
+                  </span>
+                  <p
+                    class="text-danger"
+                    *ngIf="
+                      supplierInvoice.credit > 0 &&
+                      supplierInvoice.TotalForInvoce - sumTotal > 0
+                    "
+                  >
+                    *{{ "Too much allocated" | translate }}
+                  </p>
+                </td>
+
+                <td></td>
+              </tr>
+              <ng-container *ngFor="let row of invoiceRows; let i = index">
+                <tr>
+                  <td style="max-width: 5.938rem">
+                    <div class="positiondropdown">
+                      <app-simple-select-with-check-dropdown
+                        *ngIf="
+                          row.Invoiced != '1' && supplierInvoice.Invoiced != '1'
+                        "
+                        [disabled_click]="!allowEditSupplierInvoice()"
+                        [items]="accounting_plans"
+                        [selected]="row"
+                        type="Supplier-Number"
+                        [borderwidth]="12"
+                        (emitSelectChanged)="selectedAccount($event, i)"
+                        [width]="98"
+                      >
+                      </app-simple-select-with-check-dropdown>
+                      <span
+                        class="form-control form-control-sm ml-1"
+                        *ngIf="
+                          row.Invoiced == '1'
+                        "
+                        [disabled]="!allowEditSupplierInvoice()"
+                      >
+                        {{ row.Account }}
+                      </span>
+                    </div>
+                  </td>
+                  <td style="max-width: 33.938rem">
+                    <div class="select-wrapper">
+                      <div class="positiondropdown">
+                        <app-simple-select-with-check-dropdown
+
+                          [disabled_click]="!allowEditSupplierInvoice() || row.Invoiced == '1'"
+                          [project]="projects"
+                          [items]="projects"
+                          [selected]="row"
+                          type="Supplier-project"
+                          [borderwidth]="12"
+                          (emitSelectChanged)="
+                            updateSelectProjectOptionsfirtstDropdDown($event, i)
+                          "
+                          [width]="271"
+                        >
+                        </app-simple-select-with-check-dropdown>
+                      </div>
+                      <div class="positiondropdown">
+                        <app-simple-select-with-check-dropdown
+                          [disabled_click]="!allowEditSupplierInvoice() || row.Invoiced == '1'"
+                          [project]="selectionOptions"
+                          [items]="getFilteredOptions(row)"
+                          [selected]="row"
+                          type="Supplier-subproject"
+                          [borderwidth]="12"
+                          (emitSelectChanged)="
+                            updateSelectProjectOptionssecondDropdDown($event, i)
+                          "
+                          [width]="273"
+                        >
+                        </app-simple-select-with-check-dropdown>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="max-width: 8.75rem">
+                    <input
+                      class="inputamount amount-{{ i }}"
+                      type="text"
+                      [(ngModel)]="row.Price"
+                      [disabled]="
+                        row.Project == '' ||
+                        row.CanEdit == '0' ||
+                        row.Invoiced == '1' ||
+                        supplierInvoice.Invoiced == '1' ||
+                        !allowEditSupplierInvoice()
+                      "
+                      number-format-directive
+                      (blur)="addRow()"
+                      (change)="updateRow(i, row)"
+                      placeholder="Amount"
+                    />
+                  </td>
+                  <td style="max-width: 3.75rem">
+                    <input
+                      [disabled]="
+                        row.Price == '' ||
+                        row.CanEdit == '0' ||
+                        row.Invoiced == '1' ||
+                        supplierInvoice.Invoiced == '1' ||
+                        !allowEditSupplierInvoice()
+                      "
+                      type="number"
+                      class="inputdeduced deduct-{{ i }}"
+                      [(ngModel)]="row.Deduct"
+                      (keyup)="updateRow(i, row)"
+                    />
+                  </td>
+                  <td style="min-width: 8.125rem">
+                    <span disabled type="text" class="for-left-text">
+                      {{ row.Total | number : "1.2-2" : "fr" }}</span
+                    >
+                  </td>
+
+                  <td class="text-center" style="min-width: 2.688rem">
+                    <span class="delete-icon-hover">
+                    <app-delete-icon
+                    [width]="10"
+                    [height]="15"
+                    [color]="'44484c'"
+                    *ngIf="
+                        row.CanEdit != '0' &&
+                        row.Invoiced != '1' &&
+                        supplierInvoice.Invoiced != '1' &&
+                        allowEditSupplierInvoice()
+                      "
+                    (click)="removeRow(row, i)"
+                  ></app-delete-icon>
+                </span>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div class="sticky-total">
+            <div class="mastersuma">
+              <div class="suma">
+                <span class="total-text"> {{ "Total" | translate }}:</span>
+              </div>
+              <div class="first-blank-digit-suma">
+                <span class="numbers"></span>
+              </div>
+            </div>
+          </div>
+          <div class="button-wrap">
+            <div class="form-group text-center">
+              <button
+                class="save-button s-button"
+                (click)="update()"
+                [disabled]="
+                  (supplierInvoice.TotalForInvoce - sumTotal < 0 &&
+                    supplierInvoice.credit == 0) ||
+                  supplierInvoice.Invoiced == '1' ||
+                  supplierInvoice.Completed == '1' ||
+                  (supplierInvoice.TotalForInvoce - sumTotal > 0 &&
+                    supplierInvoice.credit > 0) ||
+                  supplierInvoice.TotalForInvoce - sumTotal != 0 ||
+                  !allowEditSupplierInvoice()
+                "
+                [style.opacity]="
+                  (supplierInvoice.TotalForInvoce - sumTotal < 0 &&
+                    supplierInvoice.credit == 0) ||
+                  supplierInvoice.Invoiced == '1' ||
+                  supplierInvoice.Completed == '1' ||
+                  (supplierInvoice.TotalForInvoce - sumTotal > 0 &&
+                    supplierInvoice.credit > 0) ||
+                  supplierInvoice.TotalForInvoce - sumTotal != 0 ||
+                  !allowEditSupplierInvoice()
+                    ? '0.5'
+                    : '1'
+                "
+                [style.pointer-events]="
+                  (supplierInvoice.TotalForInvoce - sumTotal < 0 &&
+                    supplierInvoice.credit == 0) ||
+                  supplierInvoice.Invoiced == '1' ||
+                  supplierInvoice.Completed == '1' ||
+                  (supplierInvoice.TotalForInvoce - sumTotal > 0 &&
+                    supplierInvoice.credit > 0) ||
+                  supplierInvoice.TotalForInvoce - sumTotal != 0 ||
+                  !allowEditSupplierInvoice()
+                    ? 'none'
+                    : 'auto'
+                "
+                type="button"
+              >
+                <div class="save-title">
+                  {{ "Save" | translate }}
+                </div>
+              </button>
+            </div>
+          </div>
+          <ng-template #otherComponent>
+            <app-gallery
+              *ngIf="swiper.images.length"
+              [swiper]="swiper"
+              [canRemove]="false"
+              (closeSwiperEvent)="closeSwiper()"
+              [server]="true"
+              [updateComment]="false"
+            ></app-gallery>
+          </ng-template>
+
+          <ng-container *ngIf="isPDFViewer; else otherComponent">
+            <app-pdfjs-viewer
+              *ngIf="swiper.images.length"
+              [swiper]="swiper"
+              [canRemove]="false"
+              (closeSwiperEvent)="closeSwiper()"
+              [server]="true"
+              [updateComment]="false"
+            ></app-pdfjs-viewer>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="vertical-line"></div>
+    <div class="horizontal-line"></div>
+  </div>
+</div>
+
+<div
+  *ngIf="documents.length > 0"
+  class="aside text-center"
+  [ngClass]="showPdfPreview ? 'aside-show' : ''"
+>
+  <div class="buttons">
+    <button type="button" (click)="openSwiper()">
+      {{ "Preview" | translate }}
+    </button>
+  </div>
+  <button
+    [disabled]="documentToShow <= 0"
+    class="btn btn-dark mr-3"
+    (click)="toggleDocument('-1')"
+  >
+    {{ "Previous" | translate }}
+  </button>
+  <span> {{ documentToShow + 1 }} / {{ documents.length }} </span>
+  <button
+    [disabled]="documentToShow >= documents.length - 1"
+    class="btn btn-dark ml-3"
+    (click)="toggleDocument('+1')"
+  >
+    {{ "Next" | translate }}
+  </button>
+  <div class="invoice-pdf mt-1">
+    <iframe class="pdfDisplay" [src]="whichPdfPreview"></iframe>
+  </div>
+</div>

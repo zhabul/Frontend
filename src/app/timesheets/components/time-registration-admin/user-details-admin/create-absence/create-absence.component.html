@@ -1,0 +1,97 @@
+<div class="modal-top-wrapper">
+  <h4>{{ "Create absence for user" | translate }}</h4>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+
+<div class="lock-days">
+  <div class="form-row d-flex justify-content-around">
+    <div class="row">
+      <div class="form-group col-sm-12">
+        <label class="required"
+          >{{ "Absence" | translate }} {{ "Type" | translate }}</label
+        >
+        <select
+          class="project-nav-select form-control"
+          id="project-AbsenceType" 
+          #AbsenceType
+          [(ngModel)]="selectedAbsenceID"
+        >
+          <option
+            *ngFor="let absence of absenceTypes"
+            [attr.data-user-id]="absence.AbsenceTypeID"
+            value="{{ absence.AbsenceTypeID }}"
+            [attr.selected]="detail.key === absence.Name ? true : null"
+          >
+            {{ absence.Name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div style="text-align: center">
+      <label for="phone">{{ "Start Date" | translate }}</label>
+      <div class="input-group date">
+        <div matDialogContent>
+          <mat-form-field>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              (focus)="picker.open()"
+              (keydown)="$event.preventDefault()"
+              id="dateSelectStartDate"
+              [(ngModel)]="dateSelectStartDate"
+              autocomplete="off"
+              type="text"
+              class="form-control project-date"
+              aria-describedby="basic-addon1"
+              #selectedDate
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker #teste jpDatepickerSwitch></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center">
+      <label for="phone">{{ "End Date" | translate }}</label>
+      <div class="input-group date">
+        <div matDialogContent>
+          <mat-form-field>
+            <input
+              matInput
+              [matDatepicker]="picker2"
+              (focus)="picker2.open()"
+              (keydown)="$event.preventDefault()"
+              id="dateSelectEndDate"
+              [(ngModel)]="dateSelectEndDate"
+              autocomplete="off"
+              type="text"
+              class="form-control project-date"
+              aria-describedby="basic-addon1"
+              #selectedDate
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2 #teste jpDatepickerSwitch></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row btn-position">
+    <button
+      type="submit"
+      class="btn btn1 btn-success lh09"
+      (click)="createAbsence()"
+    >
+      <span class="material-icons left-3px top1px posRel">save</span>
+      <span class="posRel top-5px">{{ "Save" | translate }}</span>
+    </button>
+  </div>
+</div>

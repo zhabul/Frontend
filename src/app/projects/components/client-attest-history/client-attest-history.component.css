@@ -1,0 +1,42 @@
+tr {
+    cursor: pointer;
+  }
+  table thead{
+    position: sticky;
+    top: 0px;
+    z-index: 9999;
+  }
+  table {
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: #1A1A1A;
+  }
+  table thead tr th {
+    vertical-align: bottom;
+    background-color: #1A1A1A;
+    border: 1px solid var(--border-color) !important;
+    border-top: none !important;
+    color: var(--info-change-text);
+    font-size: 12px;
+    font-weight: normal;
+    padding: 4px 16px 5px 15px;
+  }
+  
+  table th, table td {
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+  tbody td{
+    height: 40px;
+    font-size: 13px;
+    font-family: "PT-Sans-Pro-Regular";
+    background: white;
+  }
+  table td, table th {
+    vertical-align: middle !important;
+  }
+  table td, table th {
+    padding: 0px 10px 0px 15px;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }

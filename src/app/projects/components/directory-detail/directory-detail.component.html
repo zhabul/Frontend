@@ -1,0 +1,262 @@
+<div class="row">
+  <div class="card col-md-6X col-lg-8W">
+    <div class="form-heading bgGrayBlue">
+      <div
+        class="project-content d-flex"
+        style="width: 100%; justify-content: space-between"
+      >
+        <div>
+          <a
+            (click)="routeBack()"
+            class="btn btn-dark lh09 hideUnder800 nowrap mr-2"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            id="topFeeder"
+          >
+            <span class="badgeX badge-darkX material-icons top1px posRel"
+              >arrow_back</span
+            >
+          </a>
+        </div>
+        <div class="create-attachment" style="flex: 1">
+          <a
+            *ngIf="directories.length > 0"
+            style="color: white"
+            href="/api/attachment/downloadFolder/{{ directory.Id }}/{{
+              projectId
+            }}"
+            ><button
+              class="btn btn-dark mrW-auto"
+              type="button"
+              [disabled]="directory.lock == 1"
+            > 
+              {{ "Download folder" | translate }}
+            </button></a
+          >
+          <button
+            *ngIf="deletedDocuments.length > 0"
+            class="btn btn-danger"
+            type="button"
+            (click)="removeSelectedDocuments()"
+          >
+            {{ "Delete" | translate }}
+          </button>
+          <button
+            [ngClass]="{
+              disabled: !userDetails.create_project_Attachment
+            }"
+            class="btn btn-outline-info"
+            type="button"
+            (click)="toggleCreateFile(null)"
+          >
+            {{ "New file" | translate }}
+          </button>
+          <button
+            [ngClass]="{
+              disabled: !userDetails.create_project_Attachment
+            }"
+            class="btn btn-outline-info"
+            type="button"
+            (click)="toggleCreateFolder(null)"
+          >
+            {{ "New folder" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="message" *ngIf="showComment">
+      <span *ngIf="directory.comment" class="buttonEdit" (click)="editComment()"
+        ><i class="material-icons">edit</i></span
+      >
+      <div
+        class="btn btn-dark mrW-auto"
+        *ngIf="!directory.comment"
+        (click)="editComment()"
+      >
+        <span> {{ "Add folder comment" | translate }} </span>
+      </div>
+      <div [innerHtml]="directory.comment_san" *ngIf="!showUpdate"></div>
+    </div>
+    <div *ngIf="showUpdate">
+      <editor
+        [(ngModel)]="directory.comment"
+        apiKey="ax2wjk08u3z9xbhe9evtxcvn0anzrdbsdrztus135wiqa4ez"
+        [init]="{
+          height: 300,
+          menubar: false,
+          plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+          ],
+          toolbar:
+            'undo redo | formatselect | bold italic underline strikethrough | \
+       alignleft aligncenter alignright alignjustify | \ 
+       bullist numlist outdent indent'
+        }"
+        (onKeyDown)="textEditorKeyDown($event)"
+        (onPaste)="textEditorOnPaste($event)"
+      ></editor>
+      <small style="opacity: 0.75">{{ directory.comment.length }}/4000</small>
+      <button
+        class="btn btn-dark mrW-auto updateBtn"
+        type="button"
+        (click)="doEdit()"
+      >
+        {{ "Save" | translate }}
+      </button>
+      <button
+        class="btn btn-dark mrW-auto updateBtn"
+        type="button"
+        (click)="cancelEdit()"
+      >
+        {{ "Cancel " | translate }}
+      </button>
+    </div>
+    <div class="attachment-content">
+      <div
+        class="row row-attacment-content-wrapper"
+        *ngIf="directories.length > 0"
+      >
+        <div
+          class="col-md-3 card-wrapper"
+          *ngFor="let directory of directories; let i = index"
+        >
+          <div *ngIf="directory.category == attachmentCategory">
+            <div
+              class="card bg-light mb-3"
+              (click)="openSwiper(i, directory, 0)"
+            >
+              <div
+                class="card-header d-flex justify-content-between align-items-center card-header-padding"
+                title="{{ directory.name }}"
+              >
+                <div
+                  data-id="noNavigate"
+                  class="collapsible-header"
+                  style="display: flex"
+                  (click)="changeLock($event, directory, i)"
+                >
+                  <i
+                    data-id="noNavigate"
+                    class="material-icons"
+                    *ngIf="directory.lock == 1"
+                    >lock</i
+                  >
+                  <i
+                    data-id="noNavigate"
+                    class="material-icons"
+                    *ngIf="directory.lock != 1"
+                    >lock_open</i
+                  >
+                </div>
+
+                <span class="ellipsis">{{ formatName(directory.name) }} </span>
+
+                <div class="icon-container">
+                  <div>
+                    <input
+                      *ngIf="directory.lock == 0"
+                      type="checkbox"
+                      id="checkFilesAndFolders"
+                      name="checkFilesAndFolders"
+                      class="material-icons preview-image-new-xi-absolute-input toggle-delete-input"
+                      (click)="selectDocumentsForRemove($event, directory)"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <p class="card-text text-center">
+                  <i class="material-icons icon-size">{{
+                    directory.type === "folder" ? "folder" : "insert_drive_file"
+                  }}</i>
+                </p>
+
+                <div
+                  class="download-button-position"
+                  (click)="stopClickPropagation($event)"
+                >
+                  <a
+                    data-id="noNavigate"
+                    class="card-text text-center download-icon"
+                    *ngIf="directory.type === 'folder'"
+                    href="/api/attachment/downloadFolder/{{ directory.Id }}/{{
+                      projectId
+                    }}"
+                    ><i data-id="noNavigate" class="material-icons"
+                      >download</i
+                    ></a
+                  >
+                  <a
+                    href="{{ directory.file_path }}"
+                    data-id="noNavigate"
+                    class="card-text text-center download-icon"
+                    download="{{ getFileName(directory.name) }}"
+                    *ngIf="directory.type === 'file'"
+                    ><i data-id="noNavigate" class="material-icons"
+                      >download</i
+                    ></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="directories.length < 1">
+        <p class="text-center pt-3">
+          {{ "No folders and files here" | translate }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="showCreateFolder"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="toggleCreateFolder($event)"
+>
+  <article
+    style="width: 30%"
+    class="card minh70p p-4 d-flex flex-column justify-content-between"
+  >
+    <h4 class="mb-3">{{ "Enter folder name" | translate }}</h4>
+    <div>
+      <input
+        type="text"
+        class="form-control mb-2"
+        maxlength="64"
+        placeholder="{{ 'Enter new folder name' | translate }}"
+        #newFolderName
+      />
+      <button
+        class="btn btn-outline-info"
+        type="button"
+        (click)="addNewFolder(newFolderName.value)"
+        [hidden]="!canPressSave"
+        [disabled]="newFolderName.value.trim() === ''"
+      >
+        {{ "Create folder" | translate }}
+      </button>
+    </div>
+  </article>
+</div>
+
+<div class="progress-loader" *ngIf="progress">
+  <mat-spinner mode="determinate" [value]="progress"></mat-spinner>
+  <div class="progress-percentage">{{ progress + "%" }}</div>
+</div>
+
+<app-gallery
+  *ngIf="swiper.images.length"
+  [swiper]="swiper"
+  [canRemove]="false"
+  (removeImageEvent)="removeSwiperImage($event)"
+  (closeSwiperEvent)="closeSwiper()"
+  [server]="true"
+  [updateComment]="true"
+  (updateCommentEvent)="editCommentSwiper($event)"
+></app-gallery>

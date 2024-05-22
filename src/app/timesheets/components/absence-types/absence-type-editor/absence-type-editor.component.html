@@ -1,0 +1,57 @@
+<div class="absence-type-table-grid border-top-stats " [ngStyle]="absenceTypeTableGrid" >
+    <div class="name-container">
+        <div class="absence-type-table-search-bar">
+            <div class="search-container">
+                <app-input-text-filter (emitValue)="setSearchValue($event)" [width]="329" prefix="ate"></app-input-text-filter>
+            </div>
+            <div class="absence-type-grid blck-bckg ">
+                <div class="absence-type-box blck-bckg on-top"><div></div></div>
+                <div class="absence-type-box left-algin" id="description" >{{ 'Description' | translate }}</div>
+                <div class="absence-type-grid-2" [ngStyle]="headerGrid">
+                    <div class="absence-type-box">{{ "Short name" | translate }}</div>
+                    <div class="absence-type-box">{{ "Timecode" | translate }} {{ 'Salary System' | translate }}</div>
+                    <div class="absence-type-box">{{ "Timecode" | translate }} SPS360</div>
+                    <div class="absence-type-box">{{ "Status" | translate }}</div>
+                    <div class="absence-type-box">{{ "Colorcode" | translate }}</div>
+                    <div class="absence-type-box">{{ "ABS_Betalda" | translate }}</div>
+                    <div class="absence-type-box">{{ "Flex" | translate }}</div>
+                    <div class="absence-type-box">{{ "Edit" | translate }}</div>
+                    <div class="absence-type-box"><app-trash-can-icon-svg></app-trash-can-icon-svg></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relative">
+    <div
+        appScrollDetector
+        (emitScrollLeft)="setTranslateXForHeader($event)"
+        class="body-planner-moments-wrapper no-border-top blu-scroll blu-scroll4 dynamic-height-335 no-b-left"
+        #wrapper
+    >
+        <div>
+            <app-absence-type
+                *ngFor="let absence of absences; let nr = index;"
+                [absence]="absence"
+                [nr]="nr"
+                [disabled]="inputDisabled"
+                [numberOfStats]="numberOfStats"
+                [numberOfFlex]="numberOfFlex"
+                [statsSending]="statsSending"
+                (toggleStatsSending)="toggleStatsSending()"
+                (removeListener)="removeAbsence($event)"
+                (refreshStatsCounter)="refreshStatsCounter($event)"
+                (updateParentAbsence)="updateParentAbsence($event)"
+            ></app-absence-type>
+            <div class="spinner-container-absolute" *ngIf="spinner">
+                <app-pulse-spinner></app-pulse-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="grey-filler-long"></div>
+    <div class="thin-right-line" [ngStyle]="rightLineStyles"></div>
+    <div class="thin-left-line" ></div>
+    <div class="thin-bottom-line" ></div>
+    <div class="thin-top-line" ></div>
+    <div class="thin-bottom-left-scroll-line" ></div>
+</div>

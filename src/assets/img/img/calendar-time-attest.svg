@@ -1,0 +1,13 @@
+<svg id="Kalender_icon" data-name="Kalender icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 28.711 30">
+  <g id="Group_302" data-name="Group 302" transform="translate(0 3.058)">
+    <path id="Path_747" data-name="Path 747" d="M44.158,18.483H40.522v3.068c0,.022,0,.042,0,.063s0,.045,0,.068v.08h0a2.454,2.454,0,0,1-4.9,0h0v-.082c0-.022,0-.045,0-.067s0-.041,0-.062V18.483H25.789v3.041c0,.03,0,.059,0,.09s0,.065,0,.1v.051h0a2.454,2.454,0,0,1-4.9,0h-.005v-.11c0-.013,0-.026,0-.038s0-.024,0-.036v-3.1H17.025a.791.791,0,0,0-.789.788V44.636a.791.791,0,0,0,.789.788H44.158a.791.791,0,0,0,.789-.788V19.271A.791.791,0,0,0,44.158,18.483ZM42.325,42.016a.791.791,0,0,1-.789.788H19.648a.791.791,0,0,1-.789-.788V26.453a.791.791,0,0,1,.789-.788H41.536a.791.791,0,0,1,.789.788Z" transform="translate(-16.236 -18.483)" fill="#fcf4ec"/>
+  </g>
+  <rect id="Rectangle_85" data-name="Rectangle 85" width="4.949" height="4.973" transform="translate(11.746 13.286)" fill="#fcf4ec"/>
+  <rect id="Rectangle_86" data-name="Rectangle 86" width="4.945" height="4.973" transform="translate(18.624 20.106)" fill="#fcf4ec"/>
+  <rect id="Rectangle_87" data-name="Rectangle 87" width="4.946" height="4.973" transform="translate(4.868 20.106)" fill="#fcf4ec"/>
+  <rect id="Rectangle_88" data-name="Rectangle 88" width="4.949" height="4.973" transform="translate(11.746 20.106)" fill="#fcf4ec"/>
+  <rect id="Rectangle_89" data-name="Rectangle 89" width="4.945" height="4.973" transform="translate(18.624 13.286)" fill="#fcf4ec"/>
+  <rect id="Rectangle_90" data-name="Rectangle 90" width="4.946" height="4.974" transform="translate(4.868 13.285)" fill="#fcf4ec"/>
+  <path id="Path_748" data-name="Path 748" d="M47.887,22.467A1.312,1.312,0,0,0,49.2,21.152V16.414a1.308,1.308,0,1,0-2.616,0v4.738A1.312,1.312,0,0,0,47.887,22.467Z" transform="translate(-26.027 -15.099)" fill="#fcf4ec"/>
+  <path id="Path_749" data-name="Path 749" d="M26.2,22.467a1.312,1.312,0,0,0,1.308-1.315V16.414a1.308,1.308,0,1,0-2.616,0v4.738A1.312,1.312,0,0,0,26.2,22.467Z" transform="translate(-19.064 -14.999)" fill="#fcf4ec"/>
+</svg>

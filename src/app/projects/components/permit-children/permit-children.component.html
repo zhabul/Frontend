@@ -1,0 +1,28 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>{{ "First Name" | translate }}</th>
+      <th>{{ "Last Name" | translate }}</th>
+      <th>{{ "Type" | translate }}</th>
+      <th>{{ "Assigned" | translate }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="text-center" *ngIf="users.length < 1">
+      <td colspan="6">{{ "No workers to assign" | translate }}</td>
+    </tr>
+    <tr *ngFor="let user of users; let i = index">
+      <td>{{ user.firstname }}</td>
+      <td>{{ user.lastname }}</td>
+      <td>{{ user.Type }}</td>
+      <td>
+        <input
+          type="checkbox"
+          (change)="addUserToChildProject(i, isChecked.checked)"
+          #isChecked
+          [checked]="user.isChecked"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>

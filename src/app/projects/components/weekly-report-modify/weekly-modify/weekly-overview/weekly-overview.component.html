@@ -1,0 +1,312 @@
+
+<div class="tabs-wrapper tabs-wrapper-position" style="display:flex">
+  <ul class="nav-ata-tabs" [ngStyle]="{'margin-left': false ? '7px': '75px'}">
+      <ng-container>
+          <li  class="nav-item" [ngStyle]="{'margin-left': false ? '20px': ''}"><!-- ATAs and ATAs revisions-->
+              <button type="button"
+                  class="btn-position-title"
+                  [ngClass]="{active: active_tab == 1 }"
+                  (click)="setActiveAta(1)"
+              >
+                  <div >
+                      {{ 'TSC_Summary' | translate }}
+                  </div>
+                  <div class="hidden-shadow"></div>
+              </button>
+          </li>
+          <li  class="nav-item" [ngStyle]="{'margin-left': false ? '20px': ''}"><!-- ATAs and ATAs revisions-->
+              <button type="button"
+                  class="btn-position-title"
+                  [ngClass]="{active: active_tab == 2 }"
+                  (click)="setActiveAta(2)"
+              >
+                  <div >
+                      {{ 'Images' | translate }}
+                  </div>
+                  <div class="hidden-shadow"></div>
+              </button>
+          </li>
+      </ng-container>
+  </ul>
+</div>
+<div class="content-wrapper">
+  <div *ngIf="active_tab == 1">
+    <div >
+      <div class="nav-wrapper" >
+          <div class="bg-transparent clearfix">
+            <div class="ata-search mr-3">
+              <span class="search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13.06" viewBox="0 0 13 13.06">
+                  <path id="Path_737" data-name="Path 737" d="M30.923,28.9l-.078-.079h0l-3.134-3.151a5.185,5.185,0,0,0-4.425-7.777h-.034a5.18,5.18,0,0,0-.032,10.36h.034a5.106,5.106,0,0,0,2.595-.706l3.131,3.149h0l.078.079a.6.6,0,0,0,.858,0l1.007-1.013A.612.612,0,0,0,30.923,28.9Zm-7.695-1.968a3.859,3.859,0,0,1,.024-7.718h.026a3.8,3.8,0,0,1,2.707,1.148,3.874,3.874,0,0,1-.027,5.449,3.8,3.8,0,0,1-2.7,1.121Z" transform="translate(-18.101 -17.89)" fill="#fcf4ec"/>
+                </svg>
+              </span>
+              <input type="text" id="searchInput" class="form-control mt-2 search-input" placeholder="{{ 'Search' | translate }}" [(ngModel)]="searchQuery" />
+              <span class="clear-icon" (click)="clearSearchText($event)" *ngIf="existString">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10.189" height="10.189" viewBox="0 0 10.189 10.189">
+                  <path id="Path_783" data-name="Path 783" d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z" transform="translate(3.622 4.382)" fill="#fcf4ec"/>
+                </svg>
+              </span>
+            </div>
+            <form class="buttons-form" style="justify-content: inherit">
+              <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('all')">
+                  <div class="margin-svg-buttons">
+                      <app-not-selected-icon-svg *ngIf="statusObjectDUOverview['all'] == false">
+                      </app-not-selected-icon-svg>
+                      <app-selected-icon-svg *ngIf="statusObjectDUOverview['all'] == true" color='#ff7000'>
+                      </app-selected-icon-svg>
+                  </div>
+                  <div class="align-button-title">
+                      <span class="text-uppercase mr-1">{{ "All" | translate }}</span>
+                  </div>
+              </div>
+
+              <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('0')">
+                  <div class="margin-svg-buttons">
+                      <app-not-selected-icon-svg *ngIf="statusObjectDUOverview['0'] == false">
+                      </app-not-selected-icon-svg>
+                      <app-selected-icon-svg *ngIf="statusObjectDUOverview['0'] == true" color='#f0e264'>
+                      </app-selected-icon-svg>
+                  </div>
+                  <div class="align-button-title">
+                      <span class="text-uppercase mr-1">
+                        {{ "Under pricing" | translate }}
+                      </span>
+                  </div>
+              </div>
+
+              <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('1')">
+                  <div class="margin-svg-buttons">
+                      <app-not-selected-icon-svg *ngIf="statusObjectDUOverview['1'] == false">
+                      </app-not-selected-icon-svg>
+                      <app-selected-icon-svg *ngIf="statusObjectDUOverview['1'] == true" color='#94effd'>
+                      </app-selected-icon-svg>
+                  </div>
+                  <div class="align-button-title">
+                      <span class="text-uppercase mr-1">{{ "Sent" | translate }}</span>
+                  </div>
+              </div>
+              <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('2')">
+                  <div class="margin-svg-buttons">
+                      <app-not-selected-icon-svg *ngIf="statusObjectDUOverview['2'] == false">
+                      </app-not-selected-icon-svg>
+                      <app-selected-icon-svg *ngIf="statusObjectDUOverview['2'] == true" color='#03d156'>
+                      </app-selected-icon-svg>
+                  </div>
+                  <div class="align-button-title">
+                      <span class="text-uppercase mr-1">
+                        {{"Accepted" | translate}}
+                      </span>
+                  </div>
+              </div>
+
+              <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('5')">
+                  <div class="margin-svg-buttons">
+                      <app-not-selected-icon-svg *ngIf="statusObjectDUOverview['5'] == false">
+                      </app-not-selected-icon-svg>
+                      <app-selected-icon-svg *ngIf="statusObjectDUOverview['5'] == true" color='#C7C6C4'>
+                      </app-selected-icon-svg>
+                  </div>
+                  <div class="align-button-title">
+                      <span class="text-uppercase mr-1">{{ "Completed" | translate }}</span>
+                  </div>
+              </div>
+          </form>
+          </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="active_tab == 2">
+    <div class="table-wrapper">
+    <table class="table table-bordered table-body-transparent doc-table tableImageTop">
+        <thead>
+            <tr>
+                <th class="image-head-wrapper" colspan="2">{{'Bilder' | translate}}</th>
+                <th class="image-head-wrapper" colspan="3">{{'Beskriving' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let document of documentsImagesList;  let index = index">
+                    <tr>
+                        <td class="first-td"><div class="td-content changeToWhite">{{document.wrName}} ( {{document.wrYear}} )</div></td>
+                        <td class="second-td">
+                            <div class="td-content">
+                              <ng-container *ngIf="document.row_type == 'Image'">
+                                <div class="td-image-preview">
+                                    <img
+                                      class="preview-image-new white-bordered absolute-position"
+                                      [src]="document.image_path?.split(',')[0]"
+                                      (click)="openSwiper(index, documentsImagesList, 0)"
+                                    />
+                                    <div class="folder-svg">
+                                        <svg id="Group_4062" data-name="Group 4062" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 67.478 58.682">
+                                            <g id="Skapad_mapp" data-name="Skapad mapp">
+                                                <path id="Path_754" data-name="Path 754" d="M78.268,25.318l-30.907-.084-3.809-4.348a2.346,2.346,0,0,0-2.023-1.257H22.056a6.874,6.874,0,0,0-7.063,7.2V73.687a4.4,4.4,0,0,0,4.1,4.625H78.268a4.4,4.4,0,0,0,4.1-4.625V29.943A4.4,4.4,0,0,0,78.268,25.318Z" transform="translate(-14.891 -19.629)" fill="#fff"/>
+                                                <path id="Path_755" data-name="Path 755" d="M78.268,25.318l-30.907-.084-3.809-4.348a2.346,2.346,0,0,0-2.023-1.257H22.056a6.874,6.874,0,0,0-7.063,7.2V73.687a4.4,4.4,0,0,0,4.1,4.625H78.268a4.4,4.4,0,0,0,4.1-4.625V29.943A4.4,4.4,0,0,0,78.268,25.318Z" transform="translate(-14.891 -19.629)" fill="#82a7e2" opacity="0.999"/>
+                                                <path id="Path_756" data-name="Path 756" d="M78.182,26.544H19.016a3.881,3.881,0,0,0-4.1,3.587l.09,27.223a3.161,3.161,0,0,0,.324,1.393,3.771,3.771,0,0,0,1.489,1.58,4.483,4.483,0,0,0,2.288.615H78.272a3.882,3.882,0,0,0,4.1-3.588l-.09-27.223A3.88,3.88,0,0,0,78.182,26.544Z" transform="translate(-14.916 -4.818)" fill="#82a7e2"/>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                              </ng-container>
+                              <ng-container *ngIf="document.row_type == 'Pdf'">
+                                <div class="td-image-preview">
+                                  <div class="absolute-position-pdf">
+                                    <app-pdfjs-preview
+                                      style="display: flex; cursor: pointer; width: 68px;"
+                                      type="pdf"
+                                      (click)="openSwiper(index, documentsImagesList, 0)"
+                                      [pdfUrls]="[document['Url']]"
+                                      [deleted]=""
+                                      [canRemove]="false"
+                                      [index]="index"
+                                      [active]="index"
+                                      [canvas_width]="26"
+                                      [canvas_height]="20"
+                                      [canvas_left]="2"
+                                      [canvas_top]="7"
+                                      [borderRadius]="'0px 0px 0px 0px'"
+                                      [folder]="true"
+                                      [svg_width]="30"
+                                      [svg_height]="30"
+                                      >
+                                    </app-pdfjs-preview>
+                                  </div>
+                                </div>
+                              </ng-container>
+                              <span class="td-desc changeToWhite">{{ document.name }}</span>
+                            </div>
+                        </td>
+                        <td class="thrth-td"><div class="td-content changeToWhite">{{ document.description }}</div></td>
+                        <td class="fourth-td"><div class="td-content changeToWhite">{{document.created_at}}</div></td>
+                        <td class="fiveth-td">
+                            <div class="td-content">
+                                <a class="btn btn-border" (click)="downloadActive(document)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="21.947" viewBox="0 0 13 21.947">
+                                        <g id="Group_8914" data-name="Group 8914" transform="translate(0 0)">
+                                            <g id="Group_7764" data-name="Group 7764">
+                                              <g id="Group_7318" data-name="Group 7318">
+                                                <g id="Group_7312" data-name="Group 7312">
+                                                  <g id="Component_260_14" data-name="Component 260 – 14">
+                                                    <path id="Path_4767" data-name="Path 4767" d="M28.384,42.891a.311.311,0,0,0,.328-.329v-1.5h.45a3.568,3.568,0,0,0,.912-.1,1.277,1.277,0,0,0,.948-1.341,1.245,1.245,0,0,0-.743-1.28,3.278,3.278,0,0,0-1.147-.147H28.6a.668.668,0,0,0-.738.766v3.6a.305.305,0,0,0,.316.329Zm.328-3.859c0-.014,0-.025,0-.034h.449a1.978,1.978,0,0,1,.718.081c.14.059.269.169.269.566a.544.544,0,0,1-.276.542,1.885,1.885,0,0,1-.676.081h-.486Z" transform="translate(-25.852 -28.38)" fill="#fff"/>
+                                                    <path id="Path_4768" data-name="Path 4768" d="M35.685,42.879a3.882,3.882,0,0,0,1.179-.158A2.111,2.111,0,0,0,38.1,40.487c0-1.205-.41-1.936-1.218-2.171a4.006,4.006,0,0,0-1.149-.123h-.525a.666.666,0,0,0-.75.766v3.172a.653.653,0,0,0,.738.748Zm-.372-3.841a.273.273,0,0,1,0-.034h.461a2.139,2.139,0,0,1,.874.127c.4.188.578.606.578,1.357,0,.8-.193,1.247-.625,1.448a2.012,2.012,0,0,1-.809.127h-.477a.251.251,0,0,1,0-.045Z" transform="translate(-29.646 -28.378)" fill="#fff"/>
+                                                    <path id="Path_4769" data-name="Path 4769" d="M43,39.01h1.636a.3.3,0,0,0,.328-.311V38.51a.3.3,0,0,0-.328-.317H42.9c-.5,0-.75.255-.75.778v3.591a.3.3,0,0,0,.316.329h.217A.308.308,0,0,0,43,42.556V41h1.385a.3.3,0,0,0,.328-.311V40.5a.3.3,0,0,0-.328-.317H43V39.05A.32.32,0,0,1,43,39.01Z" transform="translate(-33.878 -28.38)" fill="#fff"/>
+                                                    <g id="Order_pos" data-name="Order pos">
+                                                      <path id="Path_4772" data-name="Path 4772" d="M28.058,15.768H23.234V35.02h2.525l-.8-.787-.013-.013-.012-.014a1.076,1.076,0,0,1-.2-.344h-.309V16.926h2.806V24.6h7.829v9.265H34.74a.935.935,0,0,1-.233.348l-.831.81h2.558V23.779ZM28.4,23.44v-5.7l5.812,5.7Z" transform="translate(-23.234 -15.768)" fill="#fff"/>
+                                                    </g>
+                                                    <g id="Group_7294" data-name="Group 7294" transform="translate(1.984 13.777)">
+                                                      <path id="Path_4773" data-name="Path 4773" d="M30.677,52.222a.672.672,0,0,0-.482-.265.66.66,0,0,0-.379.15l-.23.217a.551.551,0,0,0-.21.411.61.61,0,0,0,.175.388l3.9,3.914a.521.521,0,0,0,.413.171.548.548,0,0,0,.437-.184l3.928-3.932a.531.531,0,0,0,.182-.371.537.537,0,0,0-.2-.4l-.262-.23a.516.516,0,0,0-.761.03c-1,1.037-1.812,1.876-2.4,2.5l-.21.22,0-.3c.011-1.484.011-1.408.011-4.886a.555.555,0,0,0-.567-.615h-.3a.547.547,0,0,0-.579.565l.009,5.218-.209-.226C32.4,54.011,31.641,53.214,30.677,52.222Z" transform="translate(-29.376 -49.038)" fill="#fff"/>
+                                                    </g>
+                                                  </g>
+                                                </g>
+                                              </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+              </ng-container>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div *ngIf="active_tab == 1 && projectWeeklyReports.length > 0">
+  <table class="du-table">
+    <thead>
+      <tr>
+          <th class="first-column" scope="col">{{ "TSC_YEAR" | translate }}</th>
+          <th class="second-column" scope="col">{{ "DU" | translate }}</th>
+          <th class="third-column" scope="col">{{ "Accrued costs" | translate }}</th>
+          <th class="fourth-column" scope="col">{{ "Last regulate" | translate }}</th>
+          <th class="fifth-column" scope="col">{{ "Sent" | translate }}</th>
+          <th class="fifth-column" scope="col">{{ "Approved to invoice" | translate }}</th>
+          <th class="sixth-column" scope="col">{{ "Invoiced" | translate }}</th>
+        <th class="eighth-column" scope="col">{{ "Comment" | translate }}</th>
+      </tr>
+    </thead>
+    <tfoot>
+       <tr>
+        <th class="summa">SUMMA</th>
+        <th class="accuredcost">{{ sumAllTotallyWorkedUp | number: "1.2-2":"fr" }}</th>
+        <th class="lastregulate">{{ sumAllWorkedButNotApproved | number: "1.2-2":"fr" }}</th>
+        <th class="sent">{{ sumAllSentWr | number: "1.2-2":"fr" }}</th>
+        <th class="approvedtoinvoice">{{ sumAllApprovedForInvoice | number: "1.2-2":"fr" }}</th>
+        <th class="invoice">{{ sumAllInvoicedTotal | number: "1.2-2":"fr" }}</th>
+        <th class="comment"></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <ng-container *ngFor="let report of getFilteredProjectWeeklyReports; let i = index">
+        <tr [ngClass]="setColorByStatus(report['WrStatus'])">
+          <td class="total-text-align first-column textforcenter datacolor" (click)="changeWeek(report)">{{ report["year"] }}</td>
+          <td class="total-text-align second-column textforcenter datacolor" (click)="changeWeek(report)">{{ report["WrName"] }}</td>
+          <td class=" third-column textforright datacolor" (click)="changeWeek(report)">
+            {{ report["totallyWorkedUp"] | number: "1.2-2":"fr" }}
+          </td>
+          <td class="total-text-align fourth-column textforright datacolor" (click)="changeWeek(report)">
+            {{ report["workedButNotApproved"] | number: "1.2-2":"fr" }}
+          </td>
+          <td class="total-text-align fifth-column textforright datacolor" (click)="changeWeek(report)">
+            {{ report["total_sent"] | number: "1.2-2":"fr" }}
+          </td>
+          <td class="total-text-align sixth-column textforright datacolor" (click)="changeWeek(report)">
+            {{ report["approvedForInvoice"] | number: "1.2-2":"fr" }}
+          </td>
+          <td class="total-text-align seventh-column textforright datacolor" (click)="changeWeek(report)">
+            {{ report["invoicedTotal"] | number: "1.2-2":"fr" }}
+          </td>
+          <td
+            class="padding-right-td eighth-column datacolor comment-wrapper"
+            [attr.contenteditable]= "true"
+            (keyup)="checkedLengthRequirements($event)"
+            (blur)="setOrUpdateComment($event, report['wr_id'])"
+            (click)="setComment(report['comment'])"
+          >
+            {{report['comment']}}
+          <!--  <input class="no-outline rowforunderpricing inputcomment" type="text" [value]=" report['comment']"
+              #CommentVal
+              (keyup.enter)="setOrUpdateComment(CommentVal.value,report['wr_id'])"
+              (blur)="setOrUpdateComment(CommentVal.value,report['wr_id'])"
+            />
+          !-->
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+<div  *ngIf="offDiv" class="gallery" style="position: fixed;
+    /*max-width: 1543px;*/
+    width: 100%;
+    padding-right: 126px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 50px;
+    z-index: 5000;
+    flex-direction: row-reverse;"
+>
+    <app-gallery
+      *ngIf="swiper.images.length && document_type == 'image'"
+      [swiper]="swiper"
+      [canRemove]="false"
+      (removeImageEvent)="removeSwiperImage($event)"
+      (closeSwiperEvent)="closeSwiper()"
+      [server]="true"
+    ></app-gallery>
+    <app-pdfjs-viewer
+        style="flex: 1; overflow:auto;"
+        *ngIf="swiper.images.length && document_type == 'pdf'"
+        [swiper]="swiper"
+        [canRemove]="false"
+        (removeImageEvent)="removeSwiperImage($event)"
+        (closeSwiperEvent)="closeSwiper()"
+        [server]="true"
+        position="relative"
+    ></app-pdfjs-viewer>
+</div>

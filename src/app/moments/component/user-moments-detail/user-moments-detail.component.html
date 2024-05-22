@@ -1,0 +1,98 @@
+<div class="modal-top-wrapper">
+  <h4>{{ userName }}</h4>
+  <button
+    class="btn btn-outline-danger"
+    *ngIf="lockedDay && user.show_callendar_Unlockdays"
+    (click)="unLockDay()"
+  >
+    <i class="material-icons calendar-lock-style">lock</i>
+  </button>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<div class="wrapper-container">
+  <div class="row row1X tab-content" *ngIf="summary.length">
+    <h5>{{ "Work Time" | translate }}</h5>
+    <table class="table bordered">
+      <thead>
+        <tr>
+          <th>{{ "Hours" | translate }}</th>
+          <th>{{ "Project" | translate }}</th>
+          <th>{{ "Ata" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let moment of summary">
+          <tr
+            class="modal-link"
+            [ngStyle]="setStyle(moment)"
+            (click)="redirectToProject(moment.ProjectID)"
+          >
+            <td>{{ moment.time }}</td>
+            <td>{{ moment.projectName }}</td>
+            <td>
+              <span *ngIf="moment.AtaID != '0'"
+                >ÄTA-{{ moment.AtaNumber }}</span
+              >
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row row1X tab-content" *ngIf="absences.length">
+    <h5>{{ "Absence" | translate }}</h5>
+    <table class="table bordered">
+      <thead>
+        <tr>
+          <th>{{ "Hours" | translate }}</th>
+          <th>{{ "Absence Type" | translate }}</th>
+          <th style="text-align: center">{{ "Delete" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let absence of absences">
+          <tr class="modal-link">
+            <td>{{ absence.absenceHours }}</td>
+            <td>{{ absence.AbsenceType }}</td>
+            <td
+              (click)="removeAbsence(absence)"
+              style="color: #a9323e; text-align: center"
+            >
+              <i class="material-icons">clear</i>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="wrapper-container"
+    *ngIf="!lockedDay && user.show_callendar_Unlockdays"
+  >
+    <div class="row row1X tab-content">
+      <h5>
+        {{ "Send notification to" | translate }}: {{ userName }}, {{ date }}
+      </h5>
+    </div>
+    <div class="col-sm-12">
+      <label for="name" class="required">{{
+        "Write a message" | translate
+      }}</label>
+      <textarea
+        class="form-control"
+        id="details"
+        rows="3"
+        [(ngModel)]="message"
+      ></textarea>
+    </div>
+    <div class="row row-content">
+      <button class="btn btn-dark" (click)="sendNotification()">
+        {{ "Send" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

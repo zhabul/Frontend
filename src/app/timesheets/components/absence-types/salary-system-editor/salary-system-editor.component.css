@@ -1,0 +1,109 @@
+.green-button {
+
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border: 1px solid #BFE29C;
+    margin-right: 32px;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    color: #BFE29C;
+    transition: all 250ms ease-in-out;
+}
+
+.green-button:hover {
+    background-color: var(--brand-color);
+    border: 1px solid var(--brand-color);
+    color: white;
+}
+
+.green-button-active {
+    background-color: var(--brand-color);
+    border: 1px solid var(--brand-color);
+    color: white;
+}
+
+.black-td,
+.tr-dark td {
+    background-color: black !important;
+    color: #fff !important;
+}
+
+.table-default-payment {
+    width: 100%;
+}
+
+.white-td {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+.salary_system-input {
+    border: 0 !important;
+    background-color: transparent;
+}
+
+.align-content {
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.tr-head-salary {
+    font-size: 12px;
+}
+
+.table-default-payment tbody tr td {
+    padding: 0px !important;
+}
+
+.tr-search td {
+    padding: 0px 0 0 26px !important;
+}
+
+.add-erst-button {
+    width: 180px;
+    background-color: var(--brand-color);
+    color: white;
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 250ms ease-in-out;
+    position: relative;
+}
+
+.absolute-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 10px;
+    padding-bottom: 4px;
+}
+
+.add-erst-button:hover {
+    opacity: 0.5;
+}
+
+.div-group {
+    display: flex;
+}
+
+.div-group app-input-text-filter {
+    padding-top: 0px !important;
+}
+
+.div-group .add-erst-button {
+    height: 31px !important;
+}

@@ -1,0 +1,70 @@
+<div class="revisited-dnd">
+  <div class="attachment-container-transition-fix" style="height: 80px">
+    <div
+      class="attachment-dot-container"
+      [ngClass]="
+        type == 'edit-ata' || 'add-ata' ? 'attachment-dot__options' : ''
+      "
+      [ngStyle]="{
+        height: inFileUploadDialog ? '6rem' : ''
+      }"
+      [style.margin-left.px]="widthAndHeight.marginRight"
+    >
+      <!-- <div
+        class="container-dots"
+        [ngStyle]="{ 'border-bottom': inFileUploadDialog ? 'none' : '' }"
+      ></div> -->
+
+      <div
+        class="attachment-container"
+        [style.padding.px]="widthAndHeight.padding"
+      >
+        <div
+          class="btn btn-outline-info mr-2 choose-file-button"
+          [style.width.px]="widthAndHeight.blueWidth"
+          for="image"
+        >
+          {{ "Choose file" | translate }}
+        </div>
+        <input
+          type="file"
+          [accept]="fileType"
+          class="form-control-file hide"
+          id="document"
+          (change)="documentsOnChange($event)"
+          #fileDropRef
+          multiple="true"
+        />
+        <div
+          class="dropzone fileover upload-files"
+          [style.width.px]="widthAndHeight.greyWidht"
+          [style.height.px]="widthAndHeight.height"
+        >
+          <div></div>
+          <div class="attach-text" for="document">
+            {{ "Drop files here" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="some-wrapper"
+      [ngClass]="{
+        'some-wrapper-border': isInDragZone
+      }"
+      (click)="fileDropRef.click()"
+      (fileDropped)="onFileDropped($event)"
+      (dragenter)="onMouseEnterDragZone($event)"
+      (dragleave)="onMouseLeaveDragZone($event)"
+      appDnd
+    ></div>
+  </div>
+</div>
+
+<app-gallery
+  *ngIf="swiper.images.length"
+  [swiper]="swiper"
+  [canRemove]
+  (removeImageEvent)="removeSwiperImage($event)"
+  (closeSwiperEvent)="closeSwiper()"
+></app-gallery>

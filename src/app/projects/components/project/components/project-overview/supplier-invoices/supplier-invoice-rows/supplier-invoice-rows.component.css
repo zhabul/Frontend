@@ -1,0 +1,59 @@
+.card {
+  width: 100%;
+  padding: 10px;
+}
+
+.invoice-pdf {
+  width: 750px;
+  height: 85vh;
+  overflow-y: auto;
+  background-color: white;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pdfDisplay {
+  max-height: 85vh;
+  width: 100%;
+  height: 100%;
+}
+
+.aside {
+  position: fixed;
+  right: 0;
+  top: 10px;
+  transform: translateX(100%);
+  transition: transform 0.25s ease-out;
+  z-index: 998;
+}
+
+.aside.aside-show {
+  transform: translateX(0px);
+}
+
+.aside .buttons {
+  position: absolute;
+  right: calc(100% + 30px);
+  transform-origin: right;
+  top: 125px;
+  transform: rotate(-90deg) translateZ(0);
+}
+
+.aside .buttons button {
+  width: 160px;
+  background: orange;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  outline: 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.aside .buttons button + button {
+  margin-left: 1em;
+}

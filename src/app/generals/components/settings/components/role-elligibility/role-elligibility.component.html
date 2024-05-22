@@ -1,0 +1,26 @@
+<ng-container *ngIf="!spinner">
+  <div class="dropdown-container">
+    <app-dropdown
+      [dropdownValues]="roleDropdown"
+      (selectedOption)="changeRoleOption($event)"
+      [disableSelect]="false"
+    ></app-dropdown>
+  </div>
+  <div class="eligibility-list-container blu-scroll">
+    <!-- <div class="table-head">
+      <div>{{ "Permit" | translate }}</div>
+      <div>{{ "Read" | translate }}</div>
+      <div>{{ "Write" | translate }}</div>
+    </div>
+   -->
+    <app-role-eligibility-list *ngIf="!spinner && role"
+      [role]="role"
+      [eligibilities]="eligibilities"
+      [rang]="rang"
+    ></app-role-eligibility-list>
+  </div>
+  <div class="thin-red-line-bottom"></div>
+</ng-container>
+
+
+<mat-spinner class="spinner" *ngIf="spinner" ></mat-spinner>

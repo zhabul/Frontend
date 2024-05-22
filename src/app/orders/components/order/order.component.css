@@ -1,0 +1,136 @@
+.card {
+  width: 100%;
+  padding: 10px;
+}
+
+.nav-wrapper {
+  background-color: #003469;
+}
+
+.btn-custom:hover {
+  color: #fff !important;
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.btn-custom {
+  background-color: #003469 !important;
+  color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.pdf-viewer-container {
+  height: calc(100vh - 84px - 0px);
+  background-color: var(--main-bg);
+  overflow: auto;
+  border: 1px solid var(--border-color);
+  position: relative;
+  width: 1410px;
+}
+
+@media (max-width: 7680px){
+  .pdf-viewer-container {
+    max-width: 1410px!important;
+    width: calc(100vw - 0px - 125px);
+    height: calc(100vh - 84px - 0px);
+}
+
+}
+
+::ng-deep .ng2-pdf-viewer-container {
+  overflow-x: auto !important;
+  position: absolute;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.thin-red-line-right {
+
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background-color: var(--border-color);
+  width: 1px;
+  height: 100%;
+}
+
+@media (max-width: 801px) {
+  .space-betweenW {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+
+
+
+/***header****/
+.border-nav {
+  border: 1.5px solid;
+  border-right: none;
+  margin-right: -23px;
+  border-color: var(--border-color);
+  height: 61px;
+}
+.border-h-project {
+  /* border-right: 1.5px solid; */
+  border-color: var(--border-color);
+  height: 59px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  justify-content: space-between;
+  display: flex!important;
+}
+
+.nyProject {
+  padding-left: 55px !important;
+}
+
+a.home {
+  margin-left: 30px;
+}
+
+.title-project {
+  color: var(--project-color);
+  margin-left: 30px !important;
+  margin-right: 55px !important;
+  font-size: 25px !important;
+  font-family: "PT-Sans-Pro-Regular";
+}
+
+.title-new-project {
+  color: var(--project-color);
+  font-size: 25px !important;
+  font-family: "PT-Sans-Pro-Regular";
+}
+/*******end*********/
+
+.border-h-project div:last-child {
+  float: right;
+  margin-right: 300px;
+  gap: 10px;
+    display: flex;
+}
+
+.btn-custom-blue{
+  border: 1px solid var(--project-color);
+  color: var(--project-color);
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 2px 10px 2px 10px;
+  height: 26px;
+}
+
+.btn-custom-blue:hover{
+  border: 2px solid;
+  height: 26px;
+}
+
+.progress-loader {
+  position: fixed;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+}

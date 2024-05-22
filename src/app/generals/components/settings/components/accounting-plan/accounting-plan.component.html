@@ -1,0 +1,72 @@
+<div class="plan-container blu-scroll">
+  <div class="list-head" *ngIf="!loading">
+    <div>
+      <p>{{ "Enabled" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Fixed Cost" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Number" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Description" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "Status" | translate }}</p>
+    </div>
+    <div>
+      <p>{{ "SRU" | translate }}</p>
+    </div>
+  </div>
+
+  <div class="list" *ngIf="!loading">
+    <div class="list-row" *ngFor="let account of accounts">
+      <div>
+        <img
+          [ngClass]="{ hidden: account.Enabled == 0 }"
+          (click)="isEnabled(account)"
+          src="../../../../assets/img/round-checkbox.svg"
+          alt="checkbox"
+        />
+        <img
+          [ngClass]="{ hidden: account.Enabled == 1 }"
+          (click)="isEnabled(account)"
+          class="icon-small"
+          src="../../../../assets/img/round-uncheckbox.svg"
+          alt="checkbox"
+        />
+      </div>
+      <div>
+        <img
+          [ngClass]="{ hidden: account.FixedCost == 0 || account.Enabled == 0 }"
+          (click)="changeFixedCost(account)"
+          src="../../../../assets/img/round-checkbox.svg"
+          alt="checkbox"
+        />
+        <img
+          [ngClass]="{ hidden: account.FixedCost == 1 || account.Enabled == 0 }"
+          class="icon-small"
+          (click)="changeFixedCost(account)"
+          src="../../../../assets/img/round-uncheckbox.svg"
+          alt="checkbox"
+        />
+      </div>
+
+      <div>
+        <p>{{ account.Number }}</p>
+      </div>
+      <div>
+        <p>{{ account.Description }}</p>
+      </div>
+      <div>
+        <p>{{ account.Status == 1 ? "Active" : ("Inactive" | translate) }}</p>
+      </div>
+      <div>
+        <p>{{ account.SRU }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="thin-red-line-bottom"></div>
+<mat-spinner class="spinner" *ngIf="loading"></mat-spinner>

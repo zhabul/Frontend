@@ -1,0 +1,35 @@
+<div class="time-input-box">
+    <div (click)="focus('hours')" >
+        <input 
+        
+            id='hours'
+            #hours
+            class="time-hours" 
+            type="number" 
+            placeholder="00" 
+            (keypress)="validateInput($event)"
+            (keyup)="validateTime($event, 'hours')"
+            (blur)="resetValue($event, 'hours')"
+            (focus)="focus('hours')"
+            [disabled]="disabled"
+
+        />
+    </div>
+    <div class="time-seperator">:</div>
+    <div (click)="focus('minutes')">
+        <input 
+         
+            id='minutes'
+            #minutes
+            class="time-minutes" 
+            type="number" 
+            placeholder="00" 
+            (keypress)="validateInput($event)"
+            (keyup)="validateTime($event, 'minutes')"
+            (blur)="resetValue($event, 'minutes')"
+            (focus)="focus('minutes')"
+            [disabled]="disabled"
+            
+        />
+    </div>
+</div>

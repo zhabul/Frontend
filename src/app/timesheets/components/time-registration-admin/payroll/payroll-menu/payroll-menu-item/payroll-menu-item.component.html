@@ -1,0 +1,9 @@
+<div (click)="dispatchAction()" class="payroll-link" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
+    <div>
+      <span>{{ title | translate }}</span>
+    </div>
+    <div>
+      <ng-container *ngIf="type === 'download'"><app-download-icon-svg [color]="color"></app-download-icon-svg></ng-container>
+      <ng-container *ngIf="type === 'send'"><app-send-icon-svg [color]="color"></app-send-icon-svg></ng-container>
+    </div>
+  </div>

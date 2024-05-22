@@ -1,0 +1,40 @@
+<!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20.233" viewBox="0 0 24 20.233">
+  <g id="Group_9531" data-name="Group 9531" transform="translate(-0.792 0)">
+    <path id="Path_5583" data-name="Path 5583" d="M3.67,0,.792,3.272v.235L3.67,6.779,6.653,3.39Z"/>
+    <path id="Path_5584" data-name="Path 5584" d="M48.264,0,45.282,3.39l2.982,3.389L51.247,3.39Z" transform="translate(-38.516)"/>
+    <path id="Path_5585" data-name="Path 5585" d="M93.546,0,90.564,3.39l2.982,3.389L96.528,3.39Z" transform="translate(-77.717)"/>
+    <path id="Path_5586" data-name="Path 5586" d="M138.829,0,135.846,3.39l2.982,3.389L141.714,3.5V3.279Z" transform="translate(-116.922)"/>
+    <path id="Path_5587" data-name="Path 5587" d="M.792,54.806v.235l2.879,3.272,2.982-3.389L3.671,51.534Z" transform="translate(0 -44.807)"/>
+    <path id="Path_5588" data-name="Path 5588" d="M48.264,58.313l-2.982-3.39,2.982-3.389,2.982,3.389Z" transform="translate(-38.516 -44.807)"/>
+    <path id="Path_5589" data-name="Path 5589" d="M93.546,58.313l-2.982-3.39,2.982-3.389,2.982,3.389Z" transform="translate(-77.717 -44.807)"/>
+    <path id="Path_5590" data-name="Path 5590" d="M135.847,54.924l2.982,3.389,2.885-3.279v-.221l-2.885-3.279Z" transform="translate(-116.922 -44.807)"/>
+    <path id="Path_5591" data-name="Path 5591" d="M.792,106.341v.235l2.879,3.272,2.982-3.39-2.982-3.389Z" transform="translate(0 -89.615)"/>
+    <path id="Path_5592" data-name="Path 5592" d="M45.283,106.458l2.982,3.39,2.982-3.39-2.982-3.389Z" transform="translate(-38.517 -89.615)"/>
+    <path id="Path_5593" data-name="Path 5593" d="M90.564,106.458l2.982,3.39,2.982-3.39-2.982-3.389Z" transform="translate(-77.718 -89.615)"/>
+    <path id="Path_5594" data-name="Path 5594" d="M135.847,106.458l2.982,3.39,2.885-3.279v-.221l-2.885-3.279Z" transform="translate(-116.922 -89.615)"/>
+  </g>
+</svg> -->
+<!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" viewBox="0 0 15 15">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="15" height="15" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Repeat_Grid_65" data-name="Repeat Grid 65" clip-path="url(#clip-path)">
+    <g id="Group_9606" data-name="Group 9606" transform="translate(-1194.518 -416.7)">
+      <rect id="Rectangle_23587" data-name="Rectangle 23587" width="3.741" height="3.741" transform="translate(1198.25 416.7)"/>
+      <rect id="Rectangle_23591" data-name="Rectangle 23591" width="3.741" height="3.741" transform="translate(1205.715 416.7)"/>
+      <rect id="Rectangle_23586" data-name="Rectangle 23586" width="3.741" height="3.741" transform="translate(1194.518 420.494)"/>
+      <rect id="Rectangle_23590" data-name="Rectangle 23590" width="3.741" height="3.741" transform="translate(1201.983 420.494)"/>
+      <rect id="Rectangle_23584" data-name="Rectangle 23584" width="3.741" height="3.741" transform="translate(1194.518 427.959)"/>
+      <rect id="Rectangle_23588" data-name="Rectangle 23588" width="3.741" height="3.741" transform="translate(1201.983 427.959)"/>
+      <rect id="Rectangle_23585" data-name="Rectangle 23585" width="3.741" height="3.741" transform="translate(1198.25 424.227)"/>
+      <rect id="Rectangle_23589" data-name="Rectangle 23589" width="3.741" height="3.741" transform="translate(1205.715 424.227)"/>
+    </g>
+  </g>
+</svg> -->
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="13" viewBox="0 0 15 13">
+  <g transform="translate(0 13) rotate(-90)">
+  <path id="Path_5701" data-name="Path 5701" d="M7.185,15,0,0H13Z" fill="#fff"/>
+  </g>
+</svg>

@@ -1,0 +1,96 @@
+<div class="educations-container" style="max-width: 1041px;" *ngIf="!loading && educations?.length>0">
+  <table>
+    <div class="caption-row">
+      <div class="cap-1">{{ "Description" | translate }}</div>
+      <div class="cap-2">{{ "Expires" | translate }}</div>
+      <div class="cap-3">{{ "Appendices"  | translate }}</div>
+   </div>
+    <ng-container *ngFor="let education of educations; let i = index">
+    <tr>
+       <div class="col-num">
+            <div class="td">
+               <div class="number"> {{educations.length - i}}</div>
+            </div>
+            <div class="td">
+                <div class="three-dot">
+                    <app-three-dots
+                    [education]="education"
+                    [isMyAccount]="true"
+                    [disabled]="true"
+                       >
+                    </app-three-dots>
+                </div>
+             </div>
+             <div class="td">
+                <div class="education-name">{{ education.name }}</div>
+             </div>
+             <div class="td">
+                <div class="time">{{ education.expires }}</div>
+             </div>
+             <div class="td">
+               <div class="education-files">
+                    <ng-container
+                    *ngIf="education.images.length"
+                    >
+                    <app-file-preview
+                      *ngFor="let image of education.images; let index = index"
+                      type="image"
+                      [file]="image"
+                      [index]="index"
+                      [active]="index"
+                      (openSwiper)="openSwiper(index, education.images, 1)"
+                      [canRemove]="false"
+                      (removeFile)="toggleRemoveFile(education, image)"
+                    ></app-file-preview>
+                  </ng-container>
+
+                  <ng-container *ngIf="education.pdfs.length">
+                     <app-pdfjs-preview
+                      *ngFor="let pdf of education.pdfs; let index = index"
+                      style="display: flex; cursor: pointer; width: 68px;"
+                      type="pdf"
+                      (click)="openSwiper(index, education.pdfs, 1)"
+                      [pdfUrls]="[pdf]"
+                      [deleted]=""
+                      [canRemove]="false"
+                      [index]="index"
+                      [active]="index"
+                      [width]="68"
+                      [height]="43"
+                      [borderRadius]="'0px 0px 0px 0px'"
+                      [folder]="true"
+                      (removeFile)="toggleRemoveFile(education, pdf)"
+                      [showcheckbox]="true"
+                      >
+                    </app-pdfjs-preview>
+                  </ng-container>
+               </div>
+            </div>
+      </div>
+    </tr>
+  </ng-container>
+  </table>
+</div>
+
+<div class="progress-loader" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<ng-template #otherComponent>
+  <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="true"
+  ></app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (closeSwiperEvent)="closeSwiper()"
+    [server]="true"
+  ></app-pdfjs-viewer>
+</ng-container>

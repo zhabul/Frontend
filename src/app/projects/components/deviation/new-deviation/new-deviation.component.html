@@ -1,0 +1,412 @@
+<div class="ata-modify-header" >
+  <app-ata-modify-header
+  [project]="project"
+  (emitValueToggleProject)="containerHeightToggle($event)"
+  ></app-ata-modify-header>
+</div>
+
+<div class="container-fluid" style="position: absolute;margin-top: 30px;">
+        <div class="tab-navigation ">
+          <ul class="nav2 nav-tabs2 nav-pills">
+            <li
+              class="nav-item approveItem"
+            >
+            <a class="nav-link active"     [ngClass]="{ active: selectedTab == 0 }"
+            id="approveItem">
+            {{ renderText()| translate }} <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 0, 'bottom-shadow-button': selectedTab !== 0 }"></div></a>
+
+            </li>
+            <li
+              class="nav-item align-l"
+              *ngIf="type == 0"
+
+            >
+            <a style="margin-bottom:-5px" class="nav-link attest " [ngClass]="{ active: selectedTab == 2 }"
+             style="z-index: 1;margin-left: -19px;">
+            {{ "Email Logs" | translate }}<div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 2, 'bottom-shadow-button': selectedTab !== 2 }"></div></a>
+
+            </li>
+            <li class="nav-item align-l">
+          <a style="margin-bottom:-5px; z-index: 0; margin-left: -16px;" class="nav-link attest " [ngClass]="{ active: selectedTab == 3 } "
+          >
+          {{ "Comment" | translate }}<div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 3, 'bottom-shadow-button': selectedTab !== 3 }"></div></a>
+
+          </li>
+          </ul>
+        </div>
+  <div class="row progres-wrapper">
+        <div style="position: relative;">
+      <div #bluScroll class="ata-border new-deviation-form shadow-top-div blu-scroll blu-scroll-width">
+         <div class="blue-top-nav">
+          <div  class="blue-top-nav-text"> {{ataTypeName | translate}} </div>
+            <div class="row" style="justify-content: space-between; position: relative;height: 100%;
+            align-items: center;">
+              <div class="column-container">
+                <div class="flex-center-all">
+                  <app-hex-status-icon iconColor="yellow" ></app-hex-status-icon>
+                   <span class="statusName">{{"Under pricing" | translate}}</span>
+                </div>
+                <div  class="line-between"></div>
+                <div class="icon-txt" >
+                  <p>{{ 'U - ' | translate }} <span> {{ nextNumber }} : {{ createForm.get('Title').value }}</span> </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form  novalidate autocomplete="off" [formGroup]="createForm" (ngSubmit)="createDeviation()"
+              class="form-content" #myform="ngForm">
+              <div class="form-wrapper mb-3">
+                  <div class="panel panel-default w-100 bordered">
+                      <fieldset class="fieldset shadow-top-div">
+                          <legend class="w-auto section-tab input-label u-dev"
+                            style="height: 30px;top: -15px;padding: 5px 9px 0px;color: var(--brand-color);z-index: 2000;"
+                          >
+                            U-{{ nextNumber }}
+                          </legend>
+                          <div class=" form-column-wrapper-position">
+                              <div class="form-column  panel panel-default p-8">
+                                  <div class="form-row">
+                                      <div class="heading">
+                                          <label for="heading" class="required input-label">{{'Heading' | translate}}</label>
+                                          <input type="text" class="form-control heading fs-18 "
+                                              [ngClass]="{'is-invalid': (createForm.get('Title').touched || myform.submitted) && createForm.get('Title').invalid }"
+                                              id="heading" placeholder="{{'Enter Heading' | translate}}"
+                                              formControlName="Title"
+                                              maxlength="50" >
+                                          <div class="justify-right">
+                                            <div>
+                                              <span class="help-block"
+                                              *ngIf="(createForm.get('Title').touched || myform.submitted) && createForm.get('Title').invalid">
+                                              <span *ngIf="createForm.get('Title').errors.required"
+                                                  class="text-danger input-label">
+                                                  {{ 'Enter Heading' | translate }}
+                                              </span>
+                                              <span class="text-danger" *ngIf="createForm.get('Title').errors.maxlength">
+                                                  {{ 'Maximum length of characters is' | translate }} {{ createForm.get('Title').errors.maxlength.requiredLength }}
+                                              </span>
+                                              </span>
+                                            </div>
+                                            <small style="opacity: .75" class="input-label">{{createForm.get('Title').value.length}}/50</small>
+                                          </div>
+
+
+                                      </div>
+                                      <div class="status">
+                                          <div class="form-group">
+                                              <label for="typedev"
+                                                  class="required input-label">{{'Select deviation type' | translate}}</label>
+
+                                                <!--Dropdown Deviation Type-->
+                                                  <div class="input-wrapper2">
+                                                    <app-simple-select
+                                                    [ClientItem]= "DeviationTypes"
+                                                    [defaultValue]="{
+                                                      id: '3',
+                                                      Name: 'Projektering'
+                                                    }"
+                                                    [fontSize]="18"
+                                                    formControlName="DeviationType"
+                                                    [width]="302"
+                                                    [type1]="'DevType'"
+                                                    [disableSelect]="false"
+                                                    >
+                                                    </app-simple-select>
+                                                  </div>
+                                                <!--End Dropdown Deviation Type-->
+<!--
+                                              <select class="project-nav-select form-control status fs-18 "
+                                                  [ngClass]="{'is-invalid': (createForm.get('DeviationType').touched || myform.submitted) && createForm.get('DeviationType').invalid }"
+                                                  id="typedev" #selectDeviationType formControlName="DeviationType">
+                                                  <option class="select-option" *ngFor="let type of DeviationTypes" value="{{type.id}}">
+                                                      {{type.Name}}</option>
+                                              </select>
+-->
+                                              <span class="help-block"
+                                                  *ngIf="(createForm.get('DeviationType').touched || myform.submitted) && createForm.get('DeviationType').invalid">
+                                                  <span class="text-danger input-label">
+                                                      {{ 'Please select type deviation' | translate }}
+                                                  </span>
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="status">
+                                        <label for="heading" class="input-label">{{'Created by' | translate}}</label>
+                                        <input disabled type="text" class="form-control status fs-18 "
+                                        value="{{username}}"
+                                            [placeholder]="username">
+                                        <div class="justify-right">
+                                        </div>
+
+                                    </div>
+                                    <div class="status">
+                                        <div class="form-group">
+                                            <label for="typedev"
+                                                class="input-label">{{'Status' | translate}}</label>
+                                            <select disabled class="project-nav-select form-control status fs-18 ">
+                                                <option value="utkast">
+                                                    {{ 'Under pricing' | translate }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="form-row">
+                                      <div class="status">
+                                          <div class="form-group projects-date status">
+                                              <label for="startDate"
+                                                  class="required input-label">{{'Start Date' | translate}}</label>
+                                              <div class="input-group date">
+                                                  <div class="input-group-prepend">
+                                                      <span class="input-group-text" id="basic-addon1"><i
+                                                              class="material-icons">calendar_today</i></span>
+                                                  </div>
+                                                  <input (keydown)="$event.preventDefault();"
+                                                      [ngClass]="{'is-invalid': (createForm.get('StartDate').touched || myform.submitted) && createForm.get('StartDate').invalid }"
+                                                      id="startDate" autocomplete="off" type="text"
+                                                      class="form-control project-date status fs-18 "
+                                                      aria-describedby="basic-addon1"
+                                                      placeholder="{{'Choose Start Date' | translate}}"
+                                                      formControlName="StartDate" #startDate>
+                                              </div>
+                                              <span class="help-block"
+                                                  *ngIf="(createForm.get('StartDate').touched || myform.submitted) && createForm.get('StartDate').invalid">
+                                                  <span class="text-danger input-label">
+                                                      {{ 'Please enter start date' | translate }}
+                                                  </span>
+                                              </span>
+                                          </div>
+                                      </div>
+                                      <div class="status">
+                                          <div class="form-group projects-date">
+                                              <label for="dueDate" class="required input-label">{{'Due Date' | translate}}</label>
+                                              <div class="input-group date status">
+                                                  <div class="input-group-prepend">
+                                                      <span class="input-group-text" id="basic-addon1"><i
+                                                              class="material-icons">calendar_today</i></span>
+                                                  </div>
+                                                  <input  (keydown)="$event.preventDefault();"
+                                                      id="dueDate" autocomplete="off" type="text"
+                                                      [ngClass]="{'is-invalid': (createForm.get('DueDate').touched || myform.submitted) && createForm.get('DueDate').invalid }"
+                                                      class="form-control project-date status fs-18 "
+                                                      aria-describedby="basic-addon1"
+                                                      placeholder="{{'Choose Due Date' | translate}}"
+                                                      formControlName="DueDate" #dueDate>
+                                              </div>
+                                              <span class="help-block"
+                                                  *ngIf="(createForm.get('DueDate').touched || myform.submitted) && createForm.get('DueDate').invalid">
+                                                  <span class="text-danger input-label">
+                                                      {{ 'Please enter due date' | translate }}
+                                                  </span>
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </fieldset>
+                  </div>
+                  <div class="form-new-row">
+
+                    <div class="fake-image-modal-container">
+                    <app-image-modal
+
+                        (updateAlbums)="updateAlbums($event)"
+                        [infoObject]="infoObject"
+                        fileType="application/pdf, image/*"
+                        [key]="key"
+
+                    ></app-image-modal>
+                    </div>
+                </div>
+              </div>
+              <div class="form-wrapper mb-3">
+                  <div class="panel panel-default w-100">
+                      <fieldset class="fieldset shadow-top-div">
+                          <legend (click)="desMenuToggle = !desMenuToggle" class="w-auto section-tab input-label section-tab-description">
+                            <span style="margin-right: 1rem;">{{'Description' | translate}}</span>
+                            <app-arrow-toggle-svg [opened]="desMenuToggle"></app-arrow-toggle-svg>
+                          </legend>
+                          <div *ngIf="desMenuToggle" class=" form-column-wrapper-position">
+                              <div class="form-column2 panel panel-default p-8 clear-padding">
+                                <div class="form-row2 col-md-12"
+                                    [ngClass]="{'has-error': (createForm.get('Description').touched || createForm.get('Description').dirty) && !createForm.get('Description').valid }">
+                                    <label class="input-label" for="description">{{'Description' | translate}}</label>
+                                        <textarea
+                                             (keyup)="autoGrowTextZone($event)"
+                                            type="text"
+                                            class="form-control blu-scroll new-textarea"
+                                            id="description"
+                                            placeholder="{{'Enter Description' | translate}}"
+                                            formControlName="Description"
+                                            maxlength="500"
+
+                                        ></textarea>
+                                        <small style="opacity: .75" class="input-label rem-margin-left">{{createForm.get('Description').value.length}}/500</small>
+                                    <span class="help-block" *ngIf="(createForm.get('Description').touched || createForm.get('Description').dirty) && createForm.get('Description').errors
+                                        ||  createForm.get('Description').hasError('required') && myform.submitted">
+                                        <span *ngIf="createForm.get('Description').errors.required"
+                                            class="text-danger input-label">
+                                            {{ 'Enter Description' | translate }}.
+                                        </span>
+                                    </span>
+                                </div>
+                                  <div class="form-row2 col-md-12">
+                                      <div class="form-group col-md-12"
+                                          [ngClass]="{'has-error': (createForm.get('Reason').touched || createForm.get('Reason').dirty) && !createForm.get('Reason').valid }">
+                                          <label class="input-label" for="reason">{{'Reason' | translate}}</label>
+                                          <textarea
+                                          (keyup)="autoGrowTextZone($event)"
+                                            type="text"
+                                            class="form-control blu-scroll new-textarea"
+                                            id="reason"
+                                            placeholder="{{'Enter Reason' | translate}}"
+                                            formControlName="Reason"
+                                            maxlength="500"
+
+                                        ></textarea>
+                                              <small style="opacity: .75" class="input-label rem-margin-left">{{createForm.get('Reason').value.length}}/500</small>
+                                          <span class="help-block" *ngIf="(createForm.get('Reason').touched || createForm.get('Reason').dirty) && createForm.get('Reason').errors
+            ||  createForm.get('Reason').hasError('required') && myform.submitted">
+                                              <span *ngIf="createForm.get('Reason').errors.required"
+                                                  class="text-danger input-label">
+                                                  {{ 'Enter Reason' | translate }}.
+                                              </span>
+                                          </span>
+                                      </div>
+                                  </div>
+
+                                  <div class="form-row2 col-md-12" style="margin-bottom: 1rem;">
+                                    <div class="form-group col-md-12">
+                                        <label for="state" class="required input-label">{{'State' | translate}}</label>
+                                        <input type="text" class="form-control" id="state" maxlength="255"
+                                            placeholder="{{'Enter State' | translate}}" formControlName="State" [ngClass]="{'is-invalid': (createForm.get('State').touched || myform.submitted) && createForm.get('State').invalid }">
+                                              <small style="opacity: .75" class="input-label rem-margin-left">{{createForm.get('State').value.length}}/255</small>
+                                              <div class="rem-margin-bottom">
+                                                  <span class="help-block"
+                                                  *ngIf="(createForm.get('State').touched || myform.submitted) && createForm.get('State').invalid">
+                                                  <span class="text-danger input-label">
+                                                      {{ 'Please enter state' | translate }}
+                                                  </span>
+                                                  </span>
+                                              </div>
+                                      </div>
+                                 </div>
+
+                                  <div class="form-row2 col-md-12">
+                                      <div class="form-group col-md-12"
+                                          [ngClass]="{'has-error': (createForm.get('Suggestion').touched || createForm.get('Suggestion').dirty) && !createForm.get('Suggestion').valid }">
+                                          <label class="input-label" for="suggestion">{{'Suggestion' | translate}}</label>
+                                          <textarea
+                                                 (keyup)="autoGrowTextZone($event)"
+                                                type="text"
+                                                class="form-control blu-scroll new-textarea"
+                                                id="suggestion"
+                                                placeholder="{{'Enter Suggestion' | translate}}"
+                                                formControlName="Suggestion"
+                                                maxlength="500"
+
+                                            ></textarea>
+                                              <small style="opacity: .75" class="input-label rem-margin-left">{{createForm.get('Suggestion').value.length}}/500</small>
+                                          <span class="help-block" *ngIf="(createForm.get('Suggestion').touched || createForm.get('Suggestion').dirty) && createForm.get('Suggestion').errors
+            ||  createForm.get('Suggestion').hasError('required') && myform.submitted">
+                                              <span *ngIf="createForm.get('Suggestion').errors.required"
+                                                  class="text-danger input-label">
+                                                  {{ 'Enter Suggestion' | translate }}.
+                                              </span>
+                                          </span>
+                                      </div>
+                                  </div>
+                                                     
+                              </div>
+                          </div>
+                            <div class="form-group text-center" style="margin-top: 3rem; margin-left: 50px;">
+                                <button
+                                    class="save-button"
+                                    type="submit"
+                                    [attr.disabled]="!createForm.valid ? true : null"
+                                >
+                                <div class="button-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="23.5" height="18.548" viewBox="0 0 23.5 18.548">
+                                        <g id="Skapad_mapp" data-name="Skapad mapp" transform="translate(0.75 0.75)">
+                                            <path id="Path_754" data-name="Path 754" d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z" transform="translate(-14.993 -19.629)" fill="#373b40"/>
+                                            <ng-container *ngIf="!createForm.valid">
+                                                <path id="Path_755" data-name="Path 755" d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z" transform="translate(-14.993 -19.629)" fill="none" stroke="#cccccc" stroke-width="1.5" opacity="0.973"/>
+                                            </ng-container>
+                                            <ng-container *ngIf="createForm.valid">
+                                                <path id="Path_755" data-name="Path 755" d="M35.654,21.282l-10.092-.025-1.244-1.263a.782.782,0,0,0-.661-.365H17.3a2.129,2.129,0,0,0-2.306,2.091V35.333a1.345,1.345,0,0,0,1.339,1.344H35.654a1.345,1.345,0,0,0,1.339-1.344V22.625A1.345,1.345,0,0,0,35.654,21.282Z" transform="translate(-14.993 -19.629)" fill="none" stroke="#ff7000" stroke-width="1.5" opacity="0.973"/>
+                                            </ng-container>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div>
+                                    {{ "Save" | translate }}
+                                </div>
+                            </button>
+                            </div>
+                      </fieldset>
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="thin-red-line-bottom" ></div>
+      <div class="thin-red-line-right" ></div>
+    </div>
+  </div>
+  <div class="progress-loader" *ngIf="spinner">
+      <mat-spinner mode="determinate" [value]="progress"></mat-spinner>
+      <div *ngIf="progress > 0" class="progress-percentage">{{progress + "%"}}</div>
+  </div>
+  <div class="aside" [ngClass]="{ 'aside-show': showPdfPreview }">
+    <div class="container-box1">
+      <div class="container-preview-icon">
+        <!-- Dodaj ikone za printanje, preuzimanje i broj stranica -->
+        <div class="icon-container">
+          <div class="icon">
+          <div class="total-container">
+            {{  currentPage }} / {{ totalPage }}
+          </div>
+        </div>
+          <div class="icon" style="opacity:0">
+            <svg class="svg-hover" id="Component_268_8" data-name="Component 268 – 8" xmlns="http://www.w3.org/2000/svg" width="21.347" height="19.391" viewBox="0 0 21.347 19.391">
+              <g id="Group_4091" data-name="Group 4091">
+                <g id="Group_3988" data-name="Group 3988" transform="translate(6.225 5.063)">
+                  <rect id="Rectangle_15585" data-name="Rectangle 15585" width="8.844" height="1.024" transform="translate(0 2.541)" fill="#fff"/>
+                  <rect id="Rectangle_15586" data-name="Rectangle 15586" width="8.844" height="1.024" fill="#fff"/>
+                </g>
+                <path id="Path_1752" data-name="Path 1752" d="M36.228,20.046a1.076,1.076,0,0,0-1.073-1.078h-19.2a1.076,1.076,0,0,0-1.073,1.078v9.159h4.054v.808l8.3,8.345h4.9v-9.1h4.1Zm-19.263,7.4V23.165h1.97v4.278ZM26.883,36.3l-5.9-5.932h5.9Zm1.2.853V29.161H20.135v-6h10.8V37.153Zm6.06-9.658H32.133V23.165h2.011Z" transform="translate(-14.881 -18.968)" fill="#fff"/>
+              </g>
+            </svg>
+          </div>
+          <div class="icon" style="opacity:0">
+            <svg class="svg-hover" id="Component_260_22" data-name="Component 260 – 22" xmlns="http://www.w3.org/2000/svg" width="13.957" height="23.564" viewBox="0 0 13.957 23.564">
+              <path id="Path_4767" data-name="Path 4767" d="M28.384,42.891a.311.311,0,0,0,.328-.329v-1.5h.45a3.568,3.568,0,0,0,.912-.1,1.277,1.277,0,0,0,.948-1.341,1.245,1.245,0,0,0-.743-1.28,3.278,3.278,0,0,0-1.147-.147H28.6a.668.668,0,0,0-.738.766v3.6a.305.305,0,0,0,.316.329Zm.328-3.859c0-.014,0-.025,0-.034h.449a1.978,1.978,0,0,1,.718.081c.14.059.269.169.269.566a.544.544,0,0,1-.276.542,1.885,1.885,0,0,1-.676.081h-.486Z" transform="translate(-25.657 -27.46)" fill="#fff"/>
+              <path id="Path_4768" data-name="Path 4768" d="M35.685,42.879a3.882,3.882,0,0,0,1.179-.158A2.111,2.111,0,0,0,38.1,40.487c0-1.205-.41-1.936-1.218-2.171a4.006,4.006,0,0,0-1.149-.123h-.525a.666.666,0,0,0-.75.766v3.172a.653.653,0,0,0,.738.748Zm-.372-3.841a.273.273,0,0,1,0-.034h.461a2.139,2.139,0,0,1,.874.127c.4.188.578.606.578,1.357,0,.8-.193,1.247-.625,1.448a2.012,2.012,0,0,1-.809.127h-.477a.251.251,0,0,1,0-.045Z" transform="translate(-29.153 -27.459)" fill="#fff"/>
+              <path id="Path_4769" data-name="Path 4769" d="M43,39.01h1.636a.3.3,0,0,0,.328-.311V38.51a.3.3,0,0,0-.328-.317H42.9c-.5,0-.75.255-.75.778v3.591a.3.3,0,0,0,.316.329h.217A.308.308,0,0,0,43,42.556V41h1.385a.3.3,0,0,0,.328-.311V40.5a.3.3,0,0,0-.328-.317H43V39.05A.32.32,0,0,1,43,39.01Z" transform="translate(-33.1 -27.46)" fill="#fff"/>
+              <g id="Order_pos" data-name="Order pos">
+                <path id="Path_4772" data-name="Path 4772" d="M28.414,15.768h-5.18V36.637h2.711l-.863-.853-.014-.014-.013-.016a1.169,1.169,0,0,1-.219-.373H24.5V17.023h3.013v8.316h8.406V35.382h-.335a1.014,1.014,0,0,1-.25.377l-.892.878h2.747V24.452Zm.372,8.316V17.911l6.24,6.174Z" transform="translate(-23.234 -15.768)" fill="#fff"/>
+              </g>
+              <g id="Group_7294" data-name="Group 7294" transform="translate(2.463 15.394)">
+                <path id="Path_4773" data-name="Path 4773" d="M30.677,52.222a.672.672,0,0,0-.482-.265.66.66,0,0,0-.379.15l-.23.217a.551.551,0,0,0-.21.411.61.61,0,0,0,.175.388l3.9,3.914a.521.521,0,0,0,.413.171.548.548,0,0,0,.437-.184l3.928-3.932a.531.531,0,0,0,.182-.371.537.537,0,0,0-.2-.4l-.262-.23a.516.516,0,0,0-.761.03c-1,1.037-1.812,1.876-2.4,2.5l-.21.22,0-.3c.011-1.484.011-1.408.011-4.886a.555.555,0,0,0-.567-.615h-.3a.547.547,0,0,0-.579.565l.009,5.218-.209-.226C32.4,54.011,31.641,53.214,30.677,52.222Z" transform="translate(-29.376 -49.038)" fill="#fff"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" (click)="togglePdfPreview()" [ngStyle]="{'background-color': showPdfPreview ? 'var(--orange-dark)' : 'rgb(130, 167, 226)'}">
+        {{ (showPdfPreview ? "Close Preview" : "Preview") | translate }}
+      </button>
+
+      <div class="container-pdf-preview cream-scroll">
+        <app-deviation-pdf
+        [formValues]="createForm.value"
+        [project]="project"
+        [generalImage]="generalImage"
+        [nextDeviationNumber]="nextDeviationNumber"
+        [files]="files"
+        (totalPage)="updateTotalPageDeviationPdfPreview($event)"
+      ></app-deviation-pdf>
+      </div>
+    </div>
+  </div>

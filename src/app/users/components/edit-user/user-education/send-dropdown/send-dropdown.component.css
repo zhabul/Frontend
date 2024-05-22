@@ -1,0 +1,255 @@
+.black-btn-wrapper {
+  display: flex;
+  width: 255px;
+  height: 35px;
+  border: 2px solid var(--orange-dark);
+  color: var(--orange-dark);
+  background-color: black;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.blue-btn-wrapper-close {
+  display: flex;
+  width: 245px;
+  height: 35px;
+  border: 2px solid #82a7e2;
+  color: #82a7e2;
+  background-color: black;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.blue-btn-wrapper-close:hover {
+  display: flex;
+  width: 245px;
+  height: 35px;
+  border: 2px solid var(--orange-dark);
+  color: var(--orange-dark);
+  background-color: black;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.blue-btn-wrapper-close svg path{
+  fill:#82a7e2;
+}
+
+.blue-btn-wrapper-close:hover svg path{
+  fill:var(--orange-dark);
+}
+
+.blue-btn-wrapper-open {
+  display: flex;
+  width: 245px;
+  height: 35px;
+  border: 2px solid var(--orange-dark);
+  color: var(--orange-dark);
+  background-color: black;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.list-of-items{
+  border: 2px solid var(--orange-dark);
+}
+
+.item {
+  margin:0;
+  padding:0;
+  display: flex;
+  background-color: white;
+  border: 1px solid #B8B8B8;
+  height: 35px;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.item-send{
+  background-color: white;
+  border: 1px solid #B8B8B8;
+  height: 35px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.item-send:hover svg{
+  fill:#ff7000;
+}
+
+.item-contact {
+  margin-left: 18px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.item-checkbox {
+  margin-right: 20px;
+}
+
+.checkbox-round {
+  margin: -10px;
+  width: 28px;
+  height: 28px;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 2px solid #373b40;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.checkbox-round:disabled {
+  border: 2px solid var(--home-title-color);
+}
+
+.checkbox-round:disabled {
+  border: 2px solid var(--home-title-color);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+.checkbox-round:checked {
+  border:none;
+  background-color: #ff7000;
+
+  padding: 4px;
+}
+/* content: url('/assets/img/checkbox-icon.svg'); */
+
+.checkbox-round {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+svg {
+  pointer-events: none;
+}
+
+
+.checkbox-input[type="checkbox"]:before {
+  content: "";
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1px;
+} 
+
+.checkbox-input[type="checkbox"]:checked:after {
+  content: "";
+  width: 6px;
+  height: 11px;
+  border: solid white;
+  background-color: #ff7000;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 4px;
+  left: 8px;
+}
+
+.form-check-input {
+  height: 22px;
+  width: 2px;
+  cursor: pointer;
+}
+
+.orange-scroll{
+  max-height: 175px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border: 2px solid var(--orange-dark);
+  border-top: 0px;
+  width: calc(100% + 2px);
+  position: relative;
+  border-radius: 0px 0px 4px 4px;
+  z-index: 3;
+}
+
+.orange-scroll-permit{
+  max-height: 145px;
+}
+
+.orange-scroll::-webkit-scrollbar {
+width: 10px;
+}
+
+.orange-scroll::-webkit-scrollbar-thumb {
+opacity: 0.5;
+background-color: var(--border-color);
+border-width: 4px;
+border-radius: 10px !important;
+}
+
+.orange-scroll::-webkit-scrollbar-track {
+background: black;
+}
+
+/*Za FireFox preglednik*/
+.orange-scroll {
+scrollbar-width: thin;
+scrollbar-color: black #f1f1f1;
+}
+
+.orange-scroll::-moz-scrollbar {
+width: 10px;
+}
+
+.orange-scroll::-moz-scrollbar-thumb {
+background-color: var(--border-color);
+border-width: 4px;
+border-radius: 10px !important;
+}
+
+.orange-scroll::-moz-scrollbar-track {
+background: #f1f1f1;
+}
+/*Za FireFox preglednik*/
+
+/* Definiraj boju strelica */
+::-webkit-scrollbar-button:vertical:before {
+content: "";
+height: 50%;
+width: 50%;
+border-top: 2px solid #ccc;
+border-left: 2px solid #ccc;
+transform: translate(25%, 25%) rotate(-45deg);
+}
+
+::-webkit-scrollbar-button:vertical:after {
+content: "";
+height: 50%;
+width: 50%;
+border-bottom: 2px solid #ccc;
+border-right: 2px solid #ccc;
+transform: translate(25%, -25%) rotate(45deg);
+}
+
+.border-on-scroll{
+  position: absolute;
+  bottom: 0;
+  right: -14px;
+  height: 2px;
+  background-color: var(--orange-dark);
+  width: 13px;
+  border-radius: 4px 4px 0px 0px;
+}

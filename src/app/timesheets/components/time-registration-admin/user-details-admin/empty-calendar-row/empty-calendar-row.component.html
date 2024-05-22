@@ -1,0 +1,14 @@
+<div class="height-field-cal moment-wrraper">
+    <div class="calendar-content-box-cal empty-height">
+      <ng-container
+        *ngFor="let day of calendar; let dayIndex = index"
+      >
+        <div
+          class="calendar-content-field-box-cal calendar-content-field-box-cal-position"
+          [style.background-color]="day.backgroundColor"
+        >
+          <span></span>
+        </div>
+      </ng-container>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+<div class="holidays-container blu-scroll" *ngIf="!loading">
+    <div class="list-head">
+        <div>
+            <p>{{ "Name" | translate }}</p>
+        </div>
+        <div>
+            <p>{{ "Start Date" | translate }}</p>
+        </div>
+        <div>
+            <p>{{ "End Date" | translate }}</p>
+        </div>
+        <div>
+            <p>{{ "Hours" | translate }}</p>
+        </div>
+        <div>
+            <p>{{ "Color" | translate }}</p>
+        </div>
+        <div>
+            <p>{{ "Edit" | translate }}</p>
+        </div>
+        <div>
+            <p>{{ "Remove" | translate }}</p>
+        </div>
+    </div>
+    <div class="list-element">
+        <div>
+        <input
+            placeholder="{{ 'New' | translate }}"
+            type="text"
+            [(ngModel)]="newHoliday.name"
+            name="holiday"
+            autocomplete="off"
+        />
+        </div>
+        <div
+            (click)="openCloseNewStartDate()"
+            class="point calendar-container"
+            [ngClass]="{ 'calendar-open': newHoliday.startDateOpen }"
+        >
+        <input
+            type="text"
+            class="datepicker-input"
+            id="StartDateInput"
+            autocomplete="off"
+        >
+        </div>
+        <div
+            (click)="openCloseNewEndDate()"
+            class="point calendar-container"
+            [ngClass]="{ 'calendar-open': newHoliday.endDateOpen }"
+        >
+        <input
+            type="text"
+            class="datepicker-input"
+            id="EndDateInput"
+            autocomplete="off"
+        >
+        </div>
+        <div>
+        <input
+            placeholder="{{ 'Hours' | translate }}"
+            type="text"
+            [(ngModel)]="newHoliday.hours"
+            (keyup)="checkHour(newHoliday.hours)"
+            name="hours"
+        />
+        </div>
+        <div
+            style="cursor: pointer"
+        >
+            <ng-container *ngIf="userDetails.create_settings_Global">
+                <input
+                    class="color-picker-input"
+                    [(colorPicker)]="color"
+                    [style.background]="presetColors"
+                    [cpWidth]="'210px'"
+                    [cpOutputFormat]="'rgba'"
+                    [cpPresetColors]="refreshColor(color)"
+                    [cpPresetLabel]="''"
+                    [cpCmykEnabled]="'false'"
+                    (colorPickerSelect)="changeColor($event)"
+                />
+            </ng-container>
+        </div>
+        <div>
+        <img
+            class="icon"
+            src="../../../../assets/img/save.svg"
+            alt="edit"
+            (click)="addHoliday()"
+        />
+        </div>
+    </div>
+    <div
+        class="list-element"
+        *ngFor="let holiday of publicHolidays; let i = index"
+        [ngClass]="{ edit_style: holiday.edit }"
+    >
+        <div>
+            <p *ngIf="!holiday.edit">{{ holiday.name }}</p>
+            <input
+                *ngIf="holiday.edit"
+                type="text"
+                [(ngModel)]="holiday.name"
+                name="holiday"
+                autocomplete="off"
+            />
+        </div>
+        <div
+            (click)="openCloseHolidayStartDate(holiday, i)"
+            class="point calendar-container"
+            [ngClass]="{ 'calendar-open': holiday.startDateOpen }"
+            [ngStyle]="{'pointer-events' : !holiday.edit ? 'none' : 'auto' }"
+        >
+            <input
+                type="text"
+                class="datepicker-input"
+                id="StartEditDateInput{{i}}"
+                [(ngModel)]="holiday.start_date "
+                [readonly]="!holiday.edit"
+                autocomplete="off"
+            >
+        </div>
+        <div
+            (click)="openCloseHolidayEndDate(holiday, i)"
+            class="point calendar-container"
+            [ngClass]="{ 'calendar-open': holiday.endDateOpen }"
+            [ngStyle]="{'pointer-events' : !holiday.edit ? 'none' : 'auto' }"
+        >
+            <input
+                type="text"
+                class="datepicker-input"
+                id="EndEditDateInput{{i}}"
+                [(ngModel)]="holiday.end_date"
+                [readonly]="!holiday.edit"
+                autocomplete="off"
+            >
+        </div>
+        <div>
+            <p *ngIf="!holiday.edit">{{ holiday.hours }} </p>
+            <input
+                *ngIf="holiday.edit"
+                type="text"
+                [(ngModel)]="holiday.hours"
+                name="hours"
+                autocomplete="off"
+            />
+        </div>
+        <div
+            [style.background]="presetColors"
+            style="cursor: pointer"
+        >
+            <ng-container *ngIf="userDetails.create_settings_Global">
+                <input
+                    class="color-picker-input"
+                    [(colorPicker)]="color"
+                    [style.background]="presetColors"
+                    [cpWidth]="'210px'"
+                    [cpOutputFormat]="'rgba'"
+                    [cpPresetColors]="refreshColor(color)"
+                    [cpPresetLabel]="''"
+                    [cpCmykEnabled]="'false'"
+                    (colorPickerSelect)="changeColor($event)"
+                    autocomplete="off"
+                />
+            </ng-container>
+        </div>
+        <div>
+            <img
+                *ngIf="!holiday.edit"
+                class="icon"
+                src="../../../../assets/img/edit-icon.svg"
+                alt="edit"
+                (click)="editHoliday(holiday, i)"
+            />
+            <img
+                *ngIf="holiday.edit"
+                class="icon"
+                src="../../../../assets/img/save.svg"
+                alt="edit"
+                (click)="saveHoliday(holiday)"
+            />
+        </div>
+        <div>
+            <ng-container *ngIf="holiday.allow_delete == 1">
+                <img
+                    *ngIf="!holiday.edit"
+                    class="icon"
+                    src="../../../../assets/img/trashcan.svg"
+                    alt="edit"
+                    (click)="deleteHoliday(i)"
+                />
+                <img
+                    *ngIf="holiday.edit"
+                    class="icon-x"
+                    src="../../../../assets/img/close-button.svg"
+                    alt="close"
+                    (click)="editHoliday(holiday)"
+                />
+            </ng-container>
+        </div>
+    </div>
+</div>
+<div class="thin-red-line-bottom"></div>
+<mat-spinner class="spinner" *ngIf="loading || secondLoading"></mat-spinner>

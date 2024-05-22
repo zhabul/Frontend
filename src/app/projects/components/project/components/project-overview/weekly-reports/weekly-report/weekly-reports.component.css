@@ -1,0 +1,39 @@
+table tr {
+  cursor: pointer;
+}
+
+.btn-all,
+.btn-approved {
+  border: 1px solid transparent !important;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px 50px;
+}
+
+.btn-all:hover,
+.btn-approved:hover {
+  border: 1px solid hsl(207, 27%, 37%) !important;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.btn-approved:visited,
+.btn-all:visited,
+.btn-all:focus,
+.btn-approved:focus {
+  border: 1px solid transparent !important;
+  border-radius: 0;
+}
+
+.btn-all.active,
+.btn-approved.active {
+  background-color: hsl(207, 27%, 37%) !important;
+  border: 1px solid hsl(207, 27%, 37%) !important;
+  border-radius: 0;
+  color: #ffffff !important;
+}
+
+.menu-wrapp {
+  display: flex;
+  flex-direction: column;
+}

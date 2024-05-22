@@ -1,0 +1,8 @@
+
+
+
+.nav-link:hover {
+    color: white !important;
+    border-color: var(--border-color) !important;
+    text-transform: uppercase;
+}

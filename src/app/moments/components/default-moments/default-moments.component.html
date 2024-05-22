@@ -1,0 +1,108 @@
+<div class="row row1X">
+  <div class="bg-white default-moment-wrapper">
+    <div class="d-flex align-items-center justify-content-between">
+        <h1 class="h4 mb-0">
+            {{ "Default moments" | translate }}
+        </h1>
+        <div class="form-check">
+            <input
+                type="checkbox"
+                (change)="onchangeValue()"
+                [checked]="check_default_moments"
+            />
+            <label for="internal-project-checkbox">{{"Connect with moments" | translate}}</label>
+        </div>        
+        <button class="btn btn-success" (click)="openModal('Category', null, null, null, null, null)">+</button>
+    </div>
+    <div cdkDropListGroup>
+      <table
+        class="business-table table-moments  table-res800 table-darkX table-striped col-md-8 col-lg-12 mt-3 example-list"
+        cdkDropList
+        (cdkDropListDropped)="onDrop($event)"
+      >
+        <thead>
+          <th>{{ "Name" | translate }}</th>
+          <th>{{ "Type" | translate }}</th>
+          <th>{{ "Edit" | translate }}</th>
+          <th>{{ "Remove" | translate }}</th>
+          <th>{{ "Add" | translate }}</th>
+        </thead>
+
+        <ng-container *ngFor="let moment of moments['data']; index as i">
+          <tbody [id]="moment.id" cdkDrag>
+            <tr>
+              <td class="text_postion_parent">
+                {{ moment.moment_number }} {{ moment.Name }}
+              </td>
+              <td>
+                {{
+                  moment.type == "1"
+                    ? ("Worker" | translate)
+                    : ("Skilled Worker" | translate)
+                }}
+              </td>
+              <td class="btn-edit">
+                <span (click)="openEditModal(moment, i, null)"
+                  ><i class="material-icons">edit</i></span
+                >
+              </td>
+              <td style="width: 20px" class="btn-delete">
+                <span (click)="openDeleteModal(moment, moment.id, i)"
+                  ><i class="material-icons">clear</i></span
+                >
+              </td>
+              <td *ngIf="moment.parent == '0'" class="btn-add">
+                <span
+                  (click)="
+                    openModal(
+                      'Moment',
+                      moment.id,
+                      moment.sort,
+                      moment.childrens ? moment.childrens.length : 0,
+                      i,
+                      moment.moment_number
+                    )
+                  "
+                  ><i class="material-icons">+</i></span
+                >
+              </td>
+            </tr>
+          </tbody>
+          <tbody
+            cdkDropList
+            (cdkDropListDropped)="
+              onDropChild(moment.moment_number, moment.childrens, $event)
+            "
+          >
+            <tr
+              class="example-box"
+              *ngFor="let momentchild of moment.childrens; index as j"
+              cdkDrag
+            >
+              <td class="text_postion_child">
+                {{ momentchild.moment_number }} {{ momentchild.Name }}
+              </td>
+              <td>
+                {{
+                  momentchild.type == "1"
+                    ? ("Worker" | translate)
+                    : ("Skilled Worker" | translate)
+                }}
+              </td>
+              <td class="btn-edit">
+                <span (click)="openEditModal(momentchild, i, j)"
+                  ><i class="material-icons">edit</i></span
+                >
+              </td>
+              <td style="width: 20px" class="btn-delete">
+                <span (click)="openDeleteModal(momentchild, momentchild.id, i)"
+                  ><i class="material-icons">clear</i></span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</div>

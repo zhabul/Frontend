@@ -1,0 +1,132 @@
+
+.grid-columns{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.page-info{
+  margin-top: 635px;
+  margin-left: 20px;
+}
+
+.page-number{
+  color: #FF7000;
+  font-size: 20px;
+  margin-left: 34px;
+}
+
+#form-container {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.response-form {
+    position: relative;
+    width: 1000px;
+    background-color: #FCF7EF;
+    padding: 50px 30px 50px 30px;
+    border-radius: 10px;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.cur-default {
+    cursor: default;
+}
+
+#response-title {
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+#textarea-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+#textarea {
+    margin: 1rem 0rem 1rem 0rem;
+    height: 150px;
+    max-height: 150px;
+    min-height: 150px;
+    resize: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#textarea-header {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#textarea-footer {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+#response-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.response-button-container {
+    padding: 20px;
+    border-style: solid;
+    border-width: 1px;
+    margin-right: 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 220px;
+    height: 137px;
+    background-color: white;
+}
+
+.response-button {
+    border-style: none;
+    padding: 8px 0px 8px 0px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 250ms ease-in-out;
+    margin-bottom: 23px;
+    font-size: 14px;
+}
+
+.grey-txt {
+    color: #666666;
+    font-size: 16px;
+    font-family: 'PT Sans';
+    font-weight: normal;
+}
+
+.response-button:hover {
+    opacity: 0.5;
+}
+
+.image-modal {
+    margin-top: 2rem;
+}
+
+
+.spinner2 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000000;
+  }

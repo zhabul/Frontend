@@ -1,0 +1,152 @@
+<div
+  [ngStyle]="{ 'background-color': item.background_color }"
+  [style.border-left]="getIndent()"
+  [ngClass]="isExpanded && lavel == 0 ? 'blue-background' : 'grey-background'"
+>
+  <span
+    [ngStyle]="{ 'background-color': item.background_color }"
+    [ngClass]="
+      isExpanded && lavel == 0
+        ? 'title-wrapper-without-border'
+        : 'title-wrapper'
+    "
+  >
+    <div class="tablemain1">
+      <div class="border1"></div>
+      <div class="project-name item-border" [title]="item.project_name">
+        <span class="project-name-text">{{ item.project_name }}</span>
+      </div>
+      <div class="border2"></div>
+      <div class="project-number item-border" [title]="item.project_number">
+        {{ item.project_number }}
+      </div>
+      <div class="border3"></div>
+      <div class="project-activity item-border" [title]="item.project_activity">
+        {{ item.project_activity }}
+      </div>
+
+      <div class="border4"></div>
+      <div class="project-chareable item-border" title="{{ item.Chargeable }}">
+        {{ item.project_chargeable | number : "1.2-2" : "fr" }}
+      </div>
+
+      <div class="border5"></div>
+      <div class="project-personal item-border" title="{{ item.Personal }}">
+        {{ item.project_user_total_cost | number : "1.2-2" : "fr" }}
+      </div>
+
+      <div class="border6"></div>
+      <div class="project-matlev item-border" title="{{ item.Mat_Lev_F }}">
+        {{ item.project_material | number : "1.2-2" : "fr" }}
+      </div>
+
+      <div class="border7"></div>
+      <div class="project-ovrigt item-border">
+        {{ item.project_fixed_material | number : "1.2-2" : "fr" }}
+      </div>
+
+      <div class="border8"></div>
+      <div class="project-summa item-border">
+        {{ item.project_other | number : "1.2-2" : "fr" }}
+      </div>
+
+      <div class="border9"></div>
+      <div class="project-invoiced item-border">
+        {{ item.project_total | number : "1.2-2" : "fr" }}
+       <!-- {{ item.project_invoiced | number : "1.2-2" : "fr" }} !-->
+      </div>
+
+      <div class="border10"></div>
+      <div class="project-tb item-border">
+        {{ item.project_invoiced | number : "1.2-2" : "fr" }}
+      </div>
+
+      <div class="border11"></div>
+      <div class="project-res item-border">
+        {{ item.project_result | number : "1.2-2" : "fr" }}
+      </div>
+      <div class="border12"></div>
+      <div class="project-tg item-border">
+        {{ item.project_result_percentage | number : "1.2-2" : "fr"  }}
+      </div>
+      <div class="project-tg2 item-border">
+        {{ item.project_result_percentage_internal_cost_percentage | number : "1.2-2" : "fr"  }}
+      </div>
+      <div class="zunzo"></div>
+    </div>
+  </span>
+  <div class="grey-background">
+    <ng-container *ngIf="item.exist_atas">
+      <span>
+        <div [ngClass]="isExpanded && lavel == 0 ? 'tablemain2' : 'tablemain'">
+          <div class="border1"></div>
+
+          <div class="project-name item-border">
+            <span class="project-name-text">{{ "Change & Addition work" | translate }}</span>
+          </div>
+          <div class="border2"></div>
+          <div class="project-number item-border">
+            {{ item.project_number }}
+          </div>
+          <div class="border3"></div>
+          <div class="project-activity item-border">
+            {{ item.project_activity }}
+          </div>
+
+          <div class="border4"></div>
+          <div class="project-chareable item-border">
+            {{ item.ata_chargeable | number : "1.2-2" : "fr" }}
+          </div>
+
+          <div class="border5"></div>
+          <div class="project-personal item-border">
+            {{ item.ata_user_total | number : "1.2-2" : "fr" }}
+          </div>
+          <div class="border6"></div>
+          <div class="project-matlev item-border">
+            {{ item.ata_material | number : "1.2-2" : "fr" }}
+          </div>
+          <div class="border7"></div>
+          <div class="project-ovrigt item-border">
+            {{ item.ata_fixed_material | number : "1.2-2" : "fr" }}
+          </div>
+
+          <div class="border8"></div>
+          <div class="project-summa item-border">
+            {{ item.ata_other | number : "1.2-2" : "fr" }}
+          </div>
+
+          <div class="border9"></div>
+          <div class="project-invoiced item-border">
+            {{ item.ata_total | number : "1.2-2" : "fr" }}
+          </div>
+
+          <div class="border10"></div>
+          <div class="project-tb item-border">
+            {{ item.ata_invoiced | number : "1.2-2" : "fr" }}
+          </div>
+
+          <div class="border11"></div>
+          <div class="project-res item-border">
+            {{ item.ata_result | number : "1.2-2" : "fr" }}
+          </div>
+          <div class="border12"></div>
+          <div class="project-tg item-border">
+              {{ item.ata_result_percentage | number : "1.2-2" : "fr"  }}
+          </div>
+          <div class="project-tg2 item-border">
+              {{ item.ata_result_percentage_internal_cost_percentage | number : "1.2-2" : "fr"  }}
+          </div>
+          <div class="zunzo"></div>
+        </div>
+      </span>
+    </ng-container>
+    <div *ngIf="isExpanded">
+      <app-tree-item-for-results
+        *ngFor="let child of item.activities"
+        [item]="child"
+        [lavel]="lavel + 1"
+      ></app-tree-item-for-results>
+    </div>
+  </div>
+</div>

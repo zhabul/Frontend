@@ -1,0 +1,365 @@
+<div class="header-nav">
+  <div>
+    <div class="form-heading">
+      <div class="d-flex align-items-center border-h-project px-4 py-2">
+        <div
+          class="home"
+          (click)="goBack()"
+          routerLinkActive="active"
+          id="topFeeder"
+        >
+          <svg
+            _ngcontent-dfb-c33=""
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            height="29.342"
+            viewBox="0 0 34.604 29.342"
+            width="34.604"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs _ngcontent-dfb-c33="">
+              <clipPath _ngcontent-dfb-c33="" id="clip-path">
+                <rect
+                  _ngcontent-dfb-c33=""
+                  data-name="Rectangle 15829"
+                  fill="none"
+                  height="29.342"
+                  id="Rectangle_15829"
+                  width="34.604"
+                ></rect>
+              </clipPath>
+            </defs>
+            <g
+              _ngcontent-dfb-c33=""
+              data-name="Group 4372"
+              id="Group_4372"
+              transform="translate(0 0)"
+            >
+              <g
+                _ngcontent-dfb-c33=""
+                clip-path="url(#clip-path)"
+                data-name="Group 4371"
+                id="Group_4371"
+                transform="translate(0 0)"
+              >
+                <path
+                  _ngcontent-dfb-c33=""
+                  d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7"
+                  data-name="Path 1822"
+                  fill="#82a7e2"
+                  id="Path_1822"
+                  transform="translate(0 0)"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="project text-muted w-100 ml-3 mt-1">
+          <h4
+            class="posRel fs-18 title-project-color title-head-wrapp"
+          >
+            {{ selectStartedValue }}
+            <i
+              class="material-icons email"
+              *ngIf="projects_for_select.length > 1"
+              >expand_more</i
+            >
+          </h4>
+          <div
+            class="custom-select-for-project"
+            *ngIf="projects_for_select.length > 1 && selectOpen"
+          >
+            <ul>
+              <ng-container
+                *ngFor="let project_for_select of projects_for_select"
+              >
+                <li
+                  *ngIf="project.id != project_for_select.id"
+                  (click)="selectProject(project_for_select.id)"
+                >
+                  {{ project_for_select.custom_name }}
+                  {{ project_for_select.name }}
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="triangle project-management" (click)="buttonNameToggle()">
+        <a
+          [class.border-brand-press]="buttonToggle == true"
+          class="btn border-brand projekt btn-icon-postion ml-4"
+          (mouseenter)="enter()"
+          (mouseleave)="leave()"
+        >
+          <div class="project-content">
+            <button
+              [class.button-press]="buttonToggle == true"
+              [ngClass]="currentClass"
+              class="btn project-button bg-transparent"
+            >
+              {{ buttonName | translate }}
+            </button>
+            <svg
+              [ngClass]="currentClass"
+              id="Group_306"
+              *ngIf="buttonToggle == false"
+              data-name="Group 306"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="15"
+              height="8"
+              viewBox="0 0 15 8"
+            >
+              <defs>
+                <clipPath id="clip-path">
+                  <path
+                    id="Path_758"
+                    data-name="Path 758"
+                    d="M0,.274H15v-8H0Z"
+                    transform="translate(0 7.726)"
+                    fill="#82a7e2"
+                  />
+                </clipPath>
+              </defs>
+              <g
+                id="Group_305"
+                data-name="Group 305"
+                clip-path="url(#clip-path)"
+              >
+                <g
+                  id="Group_304"
+                  data-name="Group 304"
+                  transform="translate(0 0)"
+                >
+                  <path
+                    id="Path_757"
+                    data-name="Path 757"
+                    d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5"
+                    transform="translate(0.136 1.156)"
+                    fill="currentColor"
+                  />
+                </g>
+              </g>
+            </svg>
+
+            <svg
+              transform="rotate(180)"
+              id="Group_306"
+              *ngIf="buttonToggle == true"
+              data-name="Group 306"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="15"
+              height="8"
+              viewBox="0 0 15 8"
+            >
+              <defs>
+                <clipPath id="clip-path">
+                  <path
+                    id="Path_758"
+                    data-name="Path 758"
+                    d="M0,.274H15v-8H0Z"
+                    transform="translate(0 7.726)"
+                    fill="#82a7e2"
+                  />
+                </clipPath>
+              </defs>
+              <g
+                id="Group_305"
+                data-name="Group 305"
+                clip-path="url(#clip-path)"
+              >
+                <g
+                  id="Group_304"
+                  data-name="Group 304"
+                  transform="translate(0 0)"
+                >
+                  <path
+                    id="Path_757"
+                    data-name="Path 757"
+                    d="M.035.041,6.668,6.6a.872.872,0,0,0,.678.249h.075A.872.872,0,0,0,8.1,6.6L14.695.041a.665.665,0,0,0,.17-.5.52.52,0,0,0-.32-.435l-.226-.124a1.251,1.251,0,0,0-.641-.14.784.784,0,0,0-.565.264L7.384,4.7,1.655-.891a.784.784,0,0,0-.565-.264,1.251,1.251,0,0,0-.641.14L.186-.891a.52.52,0,0,0-.32.435.665.665,0,0,0,.17.5"
+                    transform="translate(0.136 1.156)"
+                    fill="#FF7F00"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </a>
+
+        <ng-container *ngIf="buttonToggle && (project.status != 3 && project.status != 5) && userDetails.create_project_Settings">
+          <a
+            class="btn sub-project-button btn-icon-postion text-uppercase"
+            routerLinkActive="active"
+            [routerLink]="['/projects/newSubProject', project.id]"
+            (mouseenter)="enterSub()"
+            (mouseleave)="leaveSub()"
+            [ngClass]="subsClass"
+            (click)="buttonNameToggle()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="add-icon"
+              width="30"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            {{ "New sub project/activity" | translate }}</a
+          >
+        </ng-container>
+      </div>
+    </div>
+
+
+      <div class="tab-navigation">
+        <div class="text-uppercase" role="tablist">
+          <a
+            *ngIf="userDetails.show_project_Settings"
+            class="nav-item txt-color active"
+            [routerLink]="[
+              '/projects/view/project',
+              project.id,
+              'project-information'
+            ]"
+          >
+            {{ "Project Settings" | translate }}</a
+          >
+
+
+          <a
+            class="nav-item txt-color"
+            *ngIf="userDetails.show_project_Organization"
+            [routerLink]="[
+              '/projects/view/project-org',
+              project.id,
+              'project-organisation'
+            ]"
+          >
+            {{ "Project Organisation" | translate }}</a
+          >
+          <!-- Izbriši style="cursor: pinter;" kada se doda routerLink za "Share Projects" -->
+          <a
+            *ngIf="userDetails.show_project_ShareProjects"
+            class="nav-item txt-color"
+            style="cursor: pointer;"
+            >{{ "Share Projects" | translate }}</a
+          >
+          <a
+            *ngIf="userDetails.show_project_Paymentplan && ((project?.debit_Id == 4 && project.payment_type == 'PAYMENT') || (project?.debit_Id == 1 && project?.paymentplanids?.length > 0 && project.payment_type == 'PAYMENT') || project?.debit_Id == 2) "
+            class="nav-item txt-color"
+            [routerLink]="['/projects/view', project.id, 'payment-plan']"
+            >{{ "Payment Plan" | translate }}</a
+          >
+          <a
+            *ngIf="userDetails.show_project_Purchases"
+            class="nav-item txt-color"
+            [routerLink]="['/projects/view', project.id, 'purchases', 'supplier']"
+            >{{ "Purchases" | translate }}</a
+          >
+
+          <!-- Izbriši style="cursor: pinter;" kada se doda routerLink za "Work Manual" -->
+          <a
+            *ngIf="userDetails.show_project_WorkManual"
+            class="nav-item txt-color"
+            style="cursor: pointer;"
+            >{{ "Work Manual" | translate }}</a
+          >
+          <a
+            *ngIf="userDetails.show_project_Summary"
+            class="nav-item txt-color"
+            [routerLink]="['/projects/view', project.id, 'project-summary']"
+          >
+            {{ "Project Summary" | translate }}</a
+          >
+        </div>
+      </div>
+  </div>
+</div>
+<div class="container-fluid px-0X w-100 info-container" style="position: relative; margin-left: 3rem">
+  <div class="row">
+    <div class="card">
+      <div class="tab-navigation-wrapper">
+        <div class="tab-navigation mt-3 ml-3">
+          <ul class="nav nav-tabs nav-pills" role="tablist">
+            <li class="nav-item" (click)="setSelectedTab(0)">
+              <a
+                class="nav-link"
+                [routerLinkActive]="['active']"
+                [routerLink]="['./project-information']"
+                role="tab"
+              >
+              <div [ngClass]="{'bottom-shadow-button': selectedTab != 0, 'hide-bottom-box-shadow': selectedTab == 0}"></div>
+                {{ "Project Settings" | translate }}</a
+              >
+            </li>
+            <li class="nav-item" (click)="setSelectedTab(1)">
+              <a
+                class="nav-link"
+                [routerLinkActive]="['active']"
+                [routerLink]="['./agreement']"
+                role="tab"
+                id=""
+                >{{ "Agreement" | translate }}
+                <div [ngClass]="{'bottom-shadow-button': selectedTab != 1, 'hide-bottom-box-shadow': selectedTab == 1}"></div>
+              </a
+              >
+            </li>
+            <li class="nav-item" (click)="setSelectedTab(2)">
+              <a
+                class="nav-link"
+                [routerLinkActive]="['active']"
+                [routerLink]="['./security']"
+                role="tab"
+                >{{ "Security" | translate }}
+                <div [ngClass]="{'bottom-shadow-button': selectedTab != 2, 'hide-bottom-box-shadow': selectedTab == 2}"></div>
+              </a
+              >
+            </li>
+            <li class="nav-item" (click)="setSelectedTab(3)">
+              <a
+                class="nav-link"
+                [routerLinkActive]="['active']"
+                [routerLink]="['./information']"
+                role="tab"
+                >{{ "Information" | translate }}
+                <div [ngClass]="{'bottom-shadow-button': selectedTab != 3, 'hide-bottom-box-shadow': selectedTab == 3}"></div>
+              </a
+              >
+            </li>
+          </ul>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <div class="card col-md-12X col-lg-6X col-lg-8W popup-card" style="
+    background-color: #eff3f6;
+    border: 0;
+    z-index: 5;
+    position: absolute;
+    height: 100%;
+    padding: 0;
+  " *ngIf="componentVisibility > 0">
+      <div class="pdfX">
+        <button style="position: absolute; top: 35px; right: 35px; z-index: 100" type="button" class="close" aria-label="Close" (click)="onCloseClick()">
+          <span aria-hidden="true">x</span>
+        </button>
+        <project-new-client
+        [returnToAfterSave]="2"
+        [clientCategories]="clientCategories"
+        *ngIf="componentVisibility == 1"
+      ></project-new-client>
+      <project-client-details
+      *ngIf="componentVisibility == 2"
+    ></project-client-details>
+      </div>
+    </div>
+  </div>
+</div>
+

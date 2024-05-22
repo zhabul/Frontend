@@ -1,0 +1,78 @@
+.nav-wrapp {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-pdf thead tr th {
+  padding-bottom: 30px;
+}
+
+.nav-wrapp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/************************PDF********************************/
+
+.btn-pdf {
+  color: #ffffff;
+}
+
+.pdf-page-wrapp {
+  background: #ffffff;
+}
+
+@media print {
+  .pdf-page-wrapp {
+    page-break-after: always;
+  }
+}
+
+.pdf-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.before {
+  page-break-before: always;
+}
+.after {
+  page-break-after: always;
+}
+.avoid {
+  page-break-inside: avoid;
+}
+
+/************************PDF********************************/
+
+.pdf-wrapp {
+  position: relative;
+}
+
+.progress-loader {
+  position: absolute;
+  top: 300px;
+  left: 42%;
+  z-index: 200;
+}
+
+.progress-loader-wrapp {
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border: 0;
+  border: 0;
+  background: #ccc;
+  opacity: 0.2;
+  z-index: 100;
+}
+
+.pdf-icon {
+  color: #ffffff;
+}

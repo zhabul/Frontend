@@ -1,0 +1,1794 @@
+
+.icon-sps {
+  position: absolute;
+  margin-left: 0;
+  margin-top: 35px;
+}
+
+.icon-sps-opera {
+  margin-left: 40px !important;
+}
+
+.container-m {
+    margin: auto;
+    width: 1360px;
+}
+
+.mainframe
+{
+  background-color: #FCF7EF;
+    width: 1360px;
+  /*  margin-left: 206px;*/
+   /*  height: 100%!important; */
+
+    border-radius: 5px;
+    display:block;
+
+overflow:hidden;
+
+height: 100%;
+
+
+
+}
+.center
+{
+  text-align: center !important;
+}
+.mastercenter
+{
+
+    width: 1265px;
+
+    display: inline-block;
+}
+ .headertext
+{
+  justify-content: left;
+    display: flex;
+    margin-left: 86px;
+    position: relative;
+    top: 35px;
+    font-size: 14px;
+    font-family: PT-Sans-Pro-Regular;
+}
+/* _________________________
+ */
+ .head
+ {
+  width:1360px;
+ /* margin-left: 206px;*/
+  padding-left: 45px;
+  padding-right: 45px;
+  background-color: #FCF7EF !important;
+  height: 100% !important;
+  border-radius: 5px;
+
+ }
+
+ .header-wrappper
+ {
+    min-width: 1360px;
+   /* margin-left: 206px;*/
+    background-color: transparent;
+    height: 100% !important;
+    border-radius: 5px;
+}
+
+ .headsecontable
+ {
+  width: 1500px;
+  margin-left: 126px;
+  padding-left: 45px;
+  background-color: #FCF7EF !important;
+  height: 100% !important;
+  border-radius: 5px;
+ }
+
+ .headUEtable
+ {
+  width: 1070px;
+  margin-left: 358px;
+  padding-left: 45px;
+  background-color: #FCF7EF !important;
+  height: 100% !important;
+  border-radius: 5px;
+ }
+
+ .headtreetable
+ {
+  width: 1040px;
+  margin-left: 329px;
+  padding-left: 45px;
+  background-color: #FCF7EF !important;
+  height: 100% !important;
+  border-radius: 5px;
+ }
+ .mainhead
+ {
+  width:1265px;
+ }
+ .firstheadtext
+ {
+
+
+  padding-top: 27px;
+    font-size: 30px;
+    font-family: 'PT Sans Pro Demi';
+    color: #000000;
+    font-family: "PT-Sans-Pro-Demi";
+    font-weight: normal;
+    font-weight: normal;
+
+
+ }
+
+.secondheadtext
+{
+    padding-top: 45px;
+    font-size: 18px !important;
+    color: #000000;
+    font-family: "PT-Sans-Pro-Demi";
+    font-weight: normal;
+
+}
+.treeheadtext
+{
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  font-family: "PT-Sans-Pro-Demi";
+  font-weight: normal !important;
+
+}
+
+.fortable
+{
+  /*padding-top: 30px;*/
+  width:1265px;
+}
+.forsecondtable
+{
+  padding-top: 30px;
+
+  width:1410px;
+}
+.forUEtable
+{
+  padding-top: 30px;
+
+  width:980px;
+}
+.forthreetable
+{
+  padding-top: 30px;
+
+  width:950px;
+}
+/*
+.table > tbody > tr > td {
+  border: 1px solid yellow !important;
+}
+.table-bordered td, .table-bordered th {
+  border: 1px solid #858585 ;
+}
+*/
+.namncol
+{
+  width: 180px;
+}
+.momentcol
+{
+  width: 270px;
+}
+.lagecol
+{
+  width: 342px;
+}
+.tidcol
+{
+  width: 70px;
+
+
+}
+.okcol
+{
+  width: 68px;
+  text-align: center;
+  background-color: black;
+  border-right: none !important;
+}
+.notokcol
+{
+  width: 68px;
+  text-align: center;
+  background-color: black;
+  border-left: none !important;
+}
+.commcolhead
+{
+  width: 265px;
+    text-align: center;
+    background-color: black;
+    border-left: none !important;
+    border-right: none !important;
+
+}
+.headcol
+{
+  width: 860px;
+}
+.coltext
+{
+  text-align: left;
+  padding-left: 10px;
+  color: white;
+  background-color: black;
+}
+table thead tr {
+
+  height: 40px;
+}
+table tbody tr {
+  height: 35px;
+}
+.secondproject
+{
+  background-color: black;
+    color: white;
+    height: 26px;
+    position: absolute;
+    width: 863px;
+    padding-left: 10px;
+    border-left: 1px solid  #858585;/* var(--border-color);*/
+    border-right: 1px solid  #858585; /* var(--border-color);*/
+    left: 275px;
+}
+.secondproject2
+{
+    background-color: black;
+    color: white;
+    height: 26px;
+    position: absolute;
+    width: 1265px;
+    padding-left: 10px;
+    border-left: 1px solid #858585; /*var(--border-color);*/
+    border-right: 1px solid #858585; /*var(--border-color);*/
+    left: 275px;
+}
+.nameofproject
+{
+  color: white;
+    position: absolute;
+    top: 6px;
+    padding-left: 32px;
+
+}
+.nameofsumma
+{
+  font-size: 10px;
+  top: 6px;
+  padding-top: 6px;
+  text-align: right;
+  padding-right: 14px;
+  font-family: "PT-Sans-Pro-Regular";
+  font-weight: normal;
+
+}
+.sumaofproject
+{
+  background-color: black;
+    color: white;
+    height: 26px;
+    position: absolute;
+    width: 793px;
+    padding-left: 10px;
+    border-left: 1px solid #707070!important;
+    border-right: 1px solid #707070;
+    left: 275px;
+
+}
+.numworkhours
+{
+  background-color: black;
+    color: white;
+    height: 26px;
+    position: absolute;
+    width: 473px;
+    padding-left: 10px;
+    border-left: 1px solid #707070!important;
+    border-right: 1px solid #707070;
+    left: 1067px;
+
+}
+.textworkhours
+{
+  color: white;
+  padding-top: 4px;
+  font-size: 13px;
+  padding-left: 14px;
+  font-family: "PT-Sans-Pro-Regular";
+  font-weight: normal;
+}
+.textsizehead
+{
+  font-size: 10px !important;
+  font-family: "PT-Sans-Pro-Regular";
+  font-weight: normal;
+}
+.nameemployer
+{
+  color: #44484C;
+    padding-left: 10px;
+    font-size: 13px;
+    font-family: 'PT-Sans-Pro-Bold';
+}
+
+.timeemployer
+{
+  color: #44484C;
+  font-size: 13px;
+  font-family: 'PT-Sans-Pro-Demi';
+ /* text-align: center;*/
+}
+
+.text-center {
+    text-align: center;
+}
+
+.workmployer
+{
+  font-size: 13px;
+  font-family: 'PT-Sans-Pro-Regular';
+  color: #44484C;
+  padding-left:10px;
+
+}
+.bgfirst
+{
+  background-color:#EBEBEB;
+}
+.bgsecond
+{
+  background-color: #FFFFFF;
+}
+.iconpdf
+{
+  display: inline-block;
+    margin-left: 48px;
+}
+
+ .checAllkposition
+ {
+  position: relative;
+  top: 6px;
+  z-index: 1;
+
+ }
+
+.checAllkpositionMaterialWrapper {
+  position: relative;
+}
+
+.checAllkpositionMaterial {
+    position: absolute;
+    top: -9px;
+    bottom: -8px;
+    background: #000;
+    right: -7px;
+    padding-top: 12px;
+}
+
+.checAllkpositionMaterialLeft {
+    position: absolute;
+    top: -9px;
+    bottom: -8px;
+    background: #000;
+    left: -25px;
+    padding-top: 12px;
+}
+
+ .checkposition
+ {
+  position: relative;
+  top: 0px;
+  z-index: 1;
+  margin-left: 21px;
+
+ }
+ .checkpositionthretable
+ {
+  position: relative;
+  top: 0px;
+  z-index: 1;
+  margin-left: 19px;
+
+ }
+
+ .okposition
+ {
+  background-color: black;
+    position: relative;
+    left: 862px;
+    width: 68px;
+    height: 26px;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'PT-Sans-Pro-Regular';
+    margin-top: -1px;
+        border-right:  1px solid #707070;
+
+
+ }
+.oktekst
+{
+  font-size: 12px;
+    padding-top: 7px;
+    font-family: "PT-Sans-Pro-Regular";
+    font-weight: normal;
+
+}
+.textundercom
+{
+  color: white;
+  font-size: 10px;
+  height: 1px;
+  font-family: "PT-Sans-Pro-Regular";
+  font-weight: normal;
+
+}
+.composition
+{
+  background-color: black;
+  position: absolute;
+  left: 1205px;
+  width: 266px;
+  height: 27px;
+  margin-top: -1px;
+  border: 1px solid #707070;
+  top: 336px;
+
+
+}
+.comtekst
+{
+
+  padding-top: 6px;
+  color: white;
+  font-size: 10px !important;
+  padding-left: 18px;
+  font-family: "PT-Sans-Pro-Regular";
+  font-weight: normal;
+
+}
+.selectallposition
+{
+  position: relative;
+    right: 15px;
+    width: 56px;
+}
+.selectallpostionreject
+{
+  height: 1px;
+    position: relative;
+    top: -17px;
+    left: 235px
+}
+.displaynone
+{
+  display: none;
+}
+
+.inputcomment
+{
+  width: 100%;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  padding-left: 10px;
+  color: #44484C;
+  height: 32px;
+
+  font-size: 13px;
+  font-family: 'PT-Sans-Pro-Regular';
+}
+.no-outline:focus {
+  outline: none;
+}
+
+.textattestera
+{
+  color: white;
+  font-size: 12px !important;
+  font-family: "";
+  position: absolute;
+  top: 0px;
+  left: 117px;
+  font-family: "PT-Sans-Pro-Regular";
+  font-weight: normal;
+
+
+
+}
+.rejectok
+{
+
+  background-color: black;
+  position: relative;
+  left: 1195px;
+  width: 68px;
+  height: 26px;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 12px;
+  font-family: 'PT-Sans-Pro-Regular';
+  margin-top: -26px;
+  border-right: 1px solid #707070;
+
+
+}
+.pointeventno
+{
+  pointer-events: none;
+}
+/* .enable-outline
+{
+  outline:1px solid red !important;
+} */
+
+.carret-position-right {
+
+    position: absolute;
+    font-size: 36px;
+    /* margin-left: 30px; */
+    right: 7px;
+    top: 12px;
+}
+
+.nextbtn
+{
+    position: relative;
+    width: 140px;
+    height: 60px;
+    border: 2px solid #707070;
+    font-family: PT Sans Pro;
+    font-size: 20PX;
+    color: #8A8B8D;
+    border-radius: 6px;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: 'PT-Sans-Pro-Regular';
+}
+
+.prevbtn
+{
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #707070;
+  font-family: PT Sans Pro;
+  font-size: 20PX;
+  color: #8A8B8D;
+  border-radius: 6px;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.prevbtnlayer
+{
+  padding-bottom: 30px;
+  padding-top: 30px;
+  text-align: left;
+  padding-right: 50px;
+}
+
+.nextbtnlayer
+{
+  padding-bottom: 30px;
+  padding-top: 30px;
+  text-align: right;
+  padding-right: 50px;
+
+
+}
+.nextbtn:hover
+{
+  border: 2px solid #FF7000;
+   color: #FF7000;
+   outline: 1px solid #FF7000;
+
+}
+/* .nextbtnlayer a
+{
+  background-color: #FF7000;
+} */
+.nextbtn a
+{
+  font-size: 20px;
+  font-family: PT Sans Pro;
+}
+.newlink
+{
+  position: relative;
+    top: -3px;
+    left: 10px;
+}
+.newlink:hover
+{
+  fill: #FF7000;
+}
+
+/*DRUGA TABLEA*/
+
+.prevbtnUE:hover
+{
+  border: 2px solid #FF7000;
+   color: #FF7000;
+   outline: 1px solid #FF7000;
+}
+
+.prevbtn:hover
+{
+  border: 2px solid #FF7000;
+   color: #FF7000;
+   outline: 1px solid #FF7000;
+
+}
+.forsecondtable table thead tr th
+{
+  height: 35px;
+    font-size: 10px;
+    font-family: "PT-Sans-Pro-Regular";
+    font-weight: normal;
+}
+.supplier
+{
+  width: 250px;
+  border-bottom: hidden !important;
+}
+.supplierheadtext
+{
+  text-align: left;
+  padding-left: 44px;
+  color: white;
+  background-color: black;
+}
+.invoiceno
+{
+  width: 180px;
+}
+.invoicenoxt
+{
+  text-align: left;
+  padding-left: 7px;
+  color: white;
+  background-color: black;
+}
+.description
+{
+  width: 260px;
+
+}
+.descriptiontext
+{
+  text-align: left;
+  padding-left: 22px;
+  color: white;
+  background-color: black;
+}
+.kvantitet
+{
+  width: 70px;
+
+}
+.aprice
+{
+  width: 100px;
+}
+.apricetext
+{
+  text-align: center;
+  color: white;
+  background-color: black;
+}
+.percent
+{
+  width: 50px;
+
+}
+.subtotal
+{
+  width: 105px;
+}
+.oksecondtab
+{
+    width: 62px;
+    text-align: center;
+    background-color: black;
+    border-right: none !important;
+    padding-left: 5px;
+}
+.commcolheadsecondtab
+{
+  width: 261px;
+  text-align: center;
+  background-color: black;
+  border-left: none !important;
+  border-right: none !important;
+}
+.notokcolsecondtab
+{
+  width: 58px;
+  text-align: center;
+  background-color: black;
+  border-left: none !important;
+}
+.totalsuma
+{
+
+  background-color: black;
+  color: white;
+  height: 34px;
+  position: absolute;
+  width: 912px;
+  padding-left: 7px;
+  border-left: 1px solid #707070!important;
+ left: 194px;
+
+}
+
+ .totalsumanumber
+{
+  background-color: black;
+  color: white;
+  height: 34px;
+  position: absolute;
+  width: 492px;
+  padding-left: 10px;
+  border-right: 1px solid #707070;
+  left: 1105px;
+
+}
+.totalsumaatext
+{
+    font-size: 14px;
+    text-align: right;
+    padding-top: 7px;
+    padding-right: 10px;
+    font-family: "PT-Sans-Pro-Demi";
+    font-weight: normal;
+}
+.sumadigit
+{
+  font-size: 14px;
+  text-align: left;
+  padding-top: 7px;
+  padding-left: 24px;
+  font-family: "PT-Sans-Pro-Demi";
+  font-weight: normal;
+}
+.pdfcolumn
+{
+  font-family: PT-Sans-Pro-Regular;
+  padding-top: 6px !important;
+  color: #44484C !important;
+  font-size: 14px;
+  text-align: left;
+  padding-left: 10px !important;
+
+}
+
+
+.secinputcom
+{
+  width: 100%;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  padding-left: 10px;
+  color: #44484C;
+  height: 34px;
+
+  font-size: 13px;
+  font-family: 'PT-Sans-Pro-Regular';
+}
+.textafterpdf
+{
+  padding-left: 14px !important;
+  display: inline-block;
+}
+.forsecondtable table tbody tr
+{
+  height: 37px;
+}
+.dataright
+{
+  font-family: PT-Sans-Pro-Regular;
+  padding-top: 6px !important;
+  color: #44484C !important;
+  font-size: 14px;
+  text-align: right;
+  padding-right: 10px !important;
+}
+.datacenter
+{
+  font-family: PT-Sans-Pro-Regular;
+  padding-top: 6px !important;
+  color: #44484C !important;
+  font-size: 14px;
+  text-align: center;
+
+}
+.checAllkpositionSecTable
+ {
+  position: relative;
+  z-index: 1;
+
+ }
+.selectallpositionSecTable
+{
+  position: relative;
+  right: 29px;
+  width: 56px;
+}
+.textundercomSecTable
+{
+  color: white;
+    font-size: 14px;
+    font-family: "PT-Sans-Pro-Regular";
+    height: 4px;
+    font-weight: normal;
+}
+
+.rejecttext
+{
+  /* color: white;
+    position: absolute;
+    right: 321px;
+
+    margin-top: 3px;
+    font-family: PT Sans Pro Regular;
+    font-size: 14px; */
+    color: white;
+    position: absolute;
+    margin-left: -35px;
+    margin-top: 3px;
+    font-family: PT Sans Pro Regular;
+    font-size: 14px;
+}
+.rejecttext2
+{
+
+  font-family: "PT-Sans-Pro";
+  font-size: 14px !important;
+  color: white;
+  text-transform: uppercase;
+  position: relative;
+  height: 0px;
+  left: -40px;
+  top: 2px;
+  font-family: "PT-Sans-Pro-Regular";
+  font-weight: normal;
+}
+.checkpositionSecondTab
+{
+  position: relative;
+  z-index: 1;
+  margin-left: 16px;
+}
+.threecheckpositionSecondTab
+{
+  position: relative;
+  z-index: 1;
+  margin-left: 15px;
+}
+.nextbtnlayerSecondTable
+{
+  padding-bottom: 30px;
+  padding-top: 225px;
+  text-align: right;
+  padding-right: 50px;
+}
+/*zavrsna tabela*/
+.prevbtnThreeTable
+{
+  width: 60px;
+    height: 60px;
+    border: 2px solid #707070;
+    font-family: PT Sans Pro;
+    font-size: 20PX;
+    color: #8A8B8D;
+    border-radius: 6px;
+    outline: none;
+    position: relative;
+}
+.nextbtnlayerTreeTable
+{
+  padding-bottom: 30px;
+  padding-top: 115px;
+  text-align: left;
+}
+.beskrivning
+{
+
+  width: 473px;
+  border-bottom: hidden !important;
+  text-align: left;
+  padding-left: 10px;
+   color: white;
+  background-color: black;
+
+
+}
+
+.antal
+{
+  width: 70px;
+  text-align: right;
+  padding-right: 10px;
+   color: white;
+  background-color: black;
+
+}
+.enhet
+{
+  width: 45px;
+  text-align: center;
+   color: white;
+  background-color: black;
+
+}
+.apricethreetable
+{
+  width: 102px;
+  text-align: right;
+  padding-right: 10px;
+   color: white;
+  background-color: black;
+
+}
+.ejaccepterat
+{
+  width: 132px;
+  text-align: right;
+  padding-right: 10px;
+   color: white;
+  background-color: black;
+
+}
+.accepterat
+{
+  width: 128px;
+  text-align: right;
+  padding-right: 10px;
+   color: white;
+  background-color: black;
+
+}
+
+.dataleftboldfont
+{
+  font-family: PT-Sans-Pro-Bold;
+  padding-top: 6px !important;
+  color: #44484C !important;
+  font-size: 14px;
+  text-align: left;
+  padding-left: 10px !important;
+}
+.dataleft
+{
+  font-family: PT-Sans-Pro-Regular;
+  padding-top: 6px !important;
+  color: #44484C !important;
+  font-size: 14px;
+  text-align: left;
+  padding-left: 10px !important;
+}
+.statusaccept
+{
+  font-family: PT-Sans-Pro-Regular;
+  color: #02B94C !important;
+  font-size: 14px;
+  float: right;
+  padding-right: 10px;
+}
+.statusrejact
+{
+  font-family: PT-Sans-Pro-Regular;
+  color: #FD4444 !important;
+  font-size: 14px;
+  float: right;
+  padding-right: 10px;
+
+}
+.totalsumathreetable
+{
+
+  background-color: black;
+    color: white;
+    position: absolute;
+    width: 824px;
+    border: 1px solid #707070!important;
+    border-right:none !important;
+    border-top:none !important;
+    height: 26px;
+    margin-left: -2px;
+
+
+}
+.totaltext
+{
+  float: right;
+  padding-right: 10px;
+
+  font-family: PT-Sans-Pro-Bold;
+  font-size: 13px;
+  padding-top: 4px;
+}
+.digitsum
+{
+  background-color: white;
+    color: black;
+    position: absolute;
+    width: 129px;
+    height: 26px;
+    left: 1219px;
+    border: 1px solid #707070!important;
+    border-top: none !important;
+
+}
+.pdvtext
+{
+  float: right;
+  padding-right: 37px;
+  font-family: PT-Sans-Pro-Light;
+  font-size: 14px;
+  color: #242424;
+  padding-top: 5px;
+
+
+
+}
+.footerline
+{
+  background-color: yellow;
+
+
+}
+.thefirstline
+{
+  background-color: #373B40;
+  width: 40px;
+  height: 17px;
+  margin-top: 78px;
+  position: absolute;
+  border-radius: 15px;
+  left: 345px;
+}
+.thesecondline
+{
+  background-color: #373B40;
+  width: 116px;
+  height: 17px;
+  margin-top: 80px;
+  position: absolute;
+  border-radius: 15px;
+  margin-left: 9px;
+}
+.threefotterline
+{
+  background-color: #373B40;
+    width: 665px;
+    height: 17px;
+    border-radius: 15px;
+    margin-top: 80px;
+    position: absolute;
+    margin-left: 142px;
+
+
+
+
+
+}
+.fourfotterline
+{
+  background-color: #373B40;
+  width: 116px;
+  height: 17px;
+  border-radius: 15px;
+  margin-top: 80px;
+  position: absolute;
+  margin-left: 821px;
+}
+.thelastline
+{
+  background-color: #373B40;
+    width: 40px;
+    height: 17px;
+    margin-top: 80px;
+    position: absolute;
+    border-radius: 15px;
+    margin-left: 963px;
+
+}
+.sentbtn
+{
+    width: 255px;
+    height: 44px;
+    /* border: 2px solid #707070; */
+    font-size: 20PX;
+    color: #8A8B8D;
+    border-radius: 6px;
+    outline: none;
+    margin-top: 6px;
+    border: none;
+    background-color: #3EA87A;
+    color: white;
+    font-family: Segoe UI Semibold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sentbtn span
+{
+  color: white;
+  font-family: Segoe UI Semibold;
+  font-size: 16px;
+}
+
+.sentsvg
+{
+  position: relative;
+  top: -3px;
+  left: 2px;
+}
+
+.prevbtnThreeTable:hover
+{
+  border: 2px solid #FF7000;
+  color: #FF7000;
+  outline: 1px solid #FF7000;
+}
+.svgnext
+{
+  position: relative;
+  top: -2px;
+  left: 10px;
+}
+.text-danger
+{
+  color: #dc3545;
+}
+.uetotal
+{
+
+  background-color: black;
+  color: white;
+  height: 34px;
+  position: absolute;
+  width: 482px;
+  border-left: 1px solid #707070!important;
+  margin-left: -1px;
+
+}
+
+ .uetotalsumanumber
+{
+  background-color: black;
+  color: white;
+  height: 34px;
+  position: absolute;
+  width: 490px;
+  padding-left: 10px;
+  border-right: 1px solid #707070;
+  margin-left: 480px;
+
+}
+.prevbtnUE
+{
+  width: 60px;
+    height: 60px;
+    border: 2px solid #707070;
+    font-family: PT Sans Pro;
+    font-size: 20PX;
+    color: #8A8B8D;
+    border-radius: 6px;
+    outline: none;
+    position: relative;
+    right: 775px;
+}
+.image-wrapper
+{
+     position: absolute;
+     margin-left: 1591px;
+     margin-top: 104px;
+     border: 2px solid #707070;
+     background-color: transparent;
+     height: auto;
+     border-right-style: none !important;
+     border-top-left-radius:5px;
+     border-bottom-left-radius:5px;
+     padding-top: 10px;
+     width: 180px;
+     color: #fff;
+}
+
+.firsimgwraper
+{
+  width: 238px;
+
+}
+.secondimgwrapper
+{
+
+  width: 197px;
+  left: 82px;
+
+}
+.threeimgwraper
+{
+  width: 255px;
+
+}
+.textbilagor
+{
+  font-style: FF Unit Rounded Pro Regular;
+  font-size: 14px;
+  color: white;
+  padding-left: 20px;
+
+}
+.sentbtn:hover
+{
+  opacity: 0.8;
+}
+/*manualyyAddTable*/
+.manuallyAdded
+{
+  margin-top: 34px;
+
+}
+.manuallyAdded thead tr
+{
+  height: 34px;
+}
+.withoutname
+{
+  width: 123px;
+}
+.mandescription
+{
+  width: 440px;
+}
+.mankvantitet
+{
+  width: 70px;
+}
+.mansubtotal
+{
+  width: 105px;
+}
+.mannotokcolsecondtab
+{
+  width: 51px;
+  text-align: center;
+  background-color: black;
+  border-left: none !important;
+}
+.manuallyAddDataRight
+{
+  font-size: 13px;
+  font-family: 'PT-Sans-Pro-Regular';
+  color: #44484C;
+  text-align: right;
+  padding-right: 10px;
+
+}
+.manuallyAddDataCenter
+{
+  font-size: 13px;
+  font-family: 'PT-Sans-Pro-Regular';
+  color: #44484C;
+  text-align: center;
+
+}
+.mantotalsuma {
+  background-color: black;
+  color: white;
+  height: 34px;
+  position: absolute;
+  width: 782px;
+  border-left: 1px solid #707070!important;
+  margin-left: -1px;
+}
+
+
+
+.mantotalsumanumber {
+  background-color: black;
+  color: white;
+  height: 34px;
+  position: absolute;
+  width: 484px;
+  padding-left: 10px;
+  border-right: 1px solid #707070;
+  margin-left: 781px;
+}
+
+.mancheckposition
+{
+ position: relative;
+ top: 0px;
+ z-index: 1;
+ margin-left: 18px;
+
+}
+.manrejectcheckposition
+{
+  position: relative;
+  z-index: 1;
+  margin-left: 12px;
+}
+.textformanuallytable
+{
+
+  font-size: 10px !important;
+  font-family: "PT-Sans-Pro-Regular";
+  font-weight: normal;
+  text-transform: uppercase;
+
+}
+.forrightpdf
+{
+
+  padding-left: 19px;
+  padding-top: 7px;
+}
+/* @media (max-width: 7680px)
+{
+  .head {
+  max-width: 1042px!important;
+  width: calc(100vw - 0px - 125px)!important;
+  height: calc(99vh - 132px - 0px);
+  background-color: red !important;
+  }
+  .ata-border-wrapper{
+      max-width: 1042px!important;
+      width: calc(100vw - 0px - 125px)!important;
+      height: calc(99vh - 132px - 0px);
+      position: relative;
+  }
+} */
+
+
+.row-black td {
+  background-color: #000000;
+  color: #ffffff;
+  text-align: center;
+}
+
+.row-black-last td {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000 !important;
+  font-size: 16px;
+}
+
+
+.without-top-border {
+  border-top: none !important;
+}
+
+.td-wrapper {
+  position: relative;
+}
+
+.td-border-position{
+    position: absolute;
+    top: -12px;
+    left: -1px;
+    right: -1px;
+    height: 10px;
+    border: 5px;
+    background: #000;
+}
+
+
+.row-position {
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.checkbox-wrapper {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.th-postion-material-1 {
+  width: 250px;
+}
+
+.th-postion-material-2 {
+  width: 155px;
+}
+
+.th-postion-1 {
+    width: 155px;
+}
+
+.th-postion-2 {
+    width: 323px;
+}
+
+.th-postion-3 {
+    width: 80px;
+}
+
+.th-postion-4 {
+    width: 150px;
+}
+
+.th-postion-5 {
+    width: 55px;
+}
+
+.th-postion-6 {
+    width: 123px;
+}
+
+.th-postion-7 {
+    width: 67px;
+}
+
+.th-postion-8 {
+    width: 240px;
+}
+
+.th-postion-9 {
+    width: 67px;
+}
+
+.th-postion-10 {
+  width: 300px;
+}
+
+.table-manual-moments {
+    margin-top: 50px;
+}
+
+.margin-bottom {
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.padding-left {
+    padding-left: 10px;
+}
+
+.padding-right {
+    padding-right: 10px;
+}
+
+.moment-comment:focus,
+.moment-comment {
+    border: none !important;
+    background-color: transparent;
+}
+
+.right {
+    text-align: right !important;
+}
+
+.left {
+    text-align: left !important;
+}
+
+.table-bottom {
+  margin-bottom: 100px;
+}
+
+.pdf-wraper {
+
+    padding: 10px;
+    border-left: 1px solid #707070;
+    border-top: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 220px;
+   /* position: fixed;
+    right: 0;
+    top: 100px;*/
+    margin-bottom: 30px;
+    margin-top: 100px;
+}
+
+.pdf-wraper-position {
+  position: absolute;
+  right: 0;
+  z-index: 70000;
+}
+
+.total-table-th-1 {
+    width: 570px;
+}
+.total-table-th-2 {
+    width: 100px;
+}
+.total-table-th-3 {
+    width: 55px;
+}
+.total-table-th-4 {
+    width: 130px;
+}
+.total-table-th-5 {
+    width: 130px;
+}
+.total-table-th-6 {
+    width: 130px;
+}
+
+.btn-send {
+  flex-grow: 1;
+}
+
+.btn-back {
+  flex-grow: 1;
+}
+
+.total-td {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.inline-group {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image-icon-container{
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.container-documents {
+    display: flex;
+    border-right: 1px solid #707070;
+    border-top: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 200px;
+    position: absolute;
+    left: -50px;
+    top: 245px;
+    margin-bottom: 30px;
+    padding: 10px;
+    z-index: 7777777777;
+    flex-direction: column;
+}
+
+.document-card {
+  margin-left: 10px;
+}
+
+.math-spinner {
+    position: fixed;
+    right: 50%;
+    top: 30%;
+    z-index: 8888888888;
+}
+
+.column-wrapper {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.secondheadtext-head-wrapper{
+  margin-top: -15px;
+}
+
+.border-red {
+  border: 1px solid red !important;
+}
+
+.document-wrapper {
+    width: 220px;
+    margin-left: 55px;
+}
+
+.document-wrapper-opera {
+  margin-left: 132px !important;
+}
+
+.card-wrapper {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.card-wrapper-clicked {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 5px 5px 0px 5px;
+    border-color: var(--brand-color);
+}
+
+.card-wrapper-active {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 5px 5px 0px 5px;
+    border-color: #e1af8b;
+}
+
+.file-name {
+  width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+}
+
+.check-cursor {
+  cursor: pointer;
+}
+
+.description-position {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accept {
+  color: #02B94C;
+}
+
+.decline {
+  color: #FD4444;
+}
+
+.footnote-table {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  font-size: 14px;
+  font-family: 'PT-Sans-Pro-Regular';
+  color: #242424;
+}
+
+.pdf-wraper-overflow {
+  overflow-x: hidden;
+}
+
+.btn-primary-1 {
+
+    background: #007730;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'PT-Sans-Pro-Demi';
+    border-radius: 5px;
+    border: 0;
+    width: 202px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    svg {
+        margin-left: 10px;
+    }
+}
+
+.svg-wrapper {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.table-head-dark {
+    background: #1A1A1A;
+    text-align: center;
+    color: #ffffff;
+}
+
+.table-head-dark tr th {
+    border: 0px !important;
+}
+
+.table-head-dark tr th span {
+    padding-right: 10px;
+}
+
+.tbody-properties {
+    background-color: #ffffff;
+}
+
+.table-dark tr td {
+    /*border: 1px solid #44484C !important;*/
+    color: #373B40;
+}
+
+.second-td {
+    width: 50px !important;
+    border-left: 1px solid #44484C !important;
+}
+
+.second-td svg {
+    cursor: pointer;
+}
+
+.first-td svg {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.first-td {
+    display: flex;
+    align-items: center;
+}
+
+.first-td app-pdfjs-preview {
+    height: 35px !important;
+}
+
+.first-td app-pdfjs-preview .pdf-preview-container {
+    padding-bottom: 0px !important;
+}
+
+.first-td app-file-preview {
+    margin-left: -9px !important;
+}
+
+.table-dark td, .table-dark th {
+    padding: 5px 10px !important;
+}
+
+.footer-wrapper {
+    width: 1360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: auto;
+}
+
+.content-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.fotter-bottom {
+    color: #ffffff;
+    font-size: 24px;
+}

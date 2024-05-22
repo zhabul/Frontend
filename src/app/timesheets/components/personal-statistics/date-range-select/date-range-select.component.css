@@ -1,0 +1,14 @@
+.date-input-container {
+    position: relative;
+}
+
+.floating-title {
+    position: absolute;
+    top: -25px;
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    font-weight: normal;
+    padding-left: 15px;
+    color: lightgray;
+}

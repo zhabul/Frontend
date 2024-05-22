@@ -1,0 +1,80 @@
+<div class="row row1X ng-star-inserted">
+  <div class="bg-white default-moment-wrapper secondWrapper">
+    <div class="d-flex align-items-center justify-content-between">
+      <h1 class="h4 mb-0">
+        {{ "Units" | translate }}
+      </h1>
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ 'Search' | translate }}"
+          #searchInput
+          [(ngModel)]="searchText"
+        />
+      </div>
+      <button class="btn btn-success" (click)="openModal()">+</button>
+    </div>
+    <form [formGroup]="form" novalidate>
+      <table
+        class="business-table table table-res800 table-darkX table-striped col-md-8 col-lg-12 mt-3"
+        width="100%"
+      >
+        <thead>
+          <th>{{ "Unit" | translate }}</th>
+          <th>{{ "Additional work" | translate }}</th>
+          <th>{{ "Material" | translate }}</th>
+          <th>{{ "UE/Other" | translate }}</th>
+          <th>{{ "Mileage" | translate }}</th>
+          <th>{{ "Remove" | translate }}</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let unit of units | filter: searchText; let i = index">
+            <td>{{ unit }}</td>
+            <td>
+              <label>
+                <input
+                  type="checkbox"
+                  (change)="onCheckboxChangeAdditional(i)"
+                  [checked]="data[i].additionalWorkUnits === units[i]"
+                />
+              </label>
+            </td>
+            <td>
+              <label>
+                <input
+                  type="checkbox"
+                  (change)="onCheckboxChangeMaterial(i)"
+                  [checked]="data[i].materialUnits === units[i]"
+                />
+              </label>
+            </td>
+            <td style="width: 20px" class="btn-delete">
+              <label>
+                <input
+                  type="checkbox"
+                  (change)="onCheckboxChangeOther(i)"
+                  [checked]="data[i].otherUEUnits === units[i]"
+                />
+              </label>
+            </td>
+            <td style="width: 20px" class="btn-delete">
+              <label>
+                <input
+                  type="checkbox"
+                  (change)="onCheckboxChangeMileage(i)"
+                  [checked]="data[i].mileageUnits === units[i]"
+                />
+              </label>
+            </td>
+            <td style="width: 40px" class="btn-delete">
+              <span (click)="removeUnit(i)"
+                ><i class="material-icons">clear</i></span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+.dynamic-height-335 {
+    max-height: calc(100vh - 330px);
+    min-height: 100px;
+}
+
+.erst-type-grid {
+    display: grid;
+    grid-template-columns: 63px 512px 120px 180px repeat(3, 200px) repeat(2, 100px) 50px;
+    grid-template-rows: auto;
+}
+
+.erst-type-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    border-right: 1px solid var(--border-color);
+}
+
+.flex-align-start {
+    justify-content: flex-start;
+    align-items: center;
+    text-align: start;
+    padding-left: 15px;
+}
+
+.erst-type-grid-2 {
+    display: grid;
+    grid-template-columns: 120px 180px repeat(3, 200px) repeat(2, 100px) 50px;
+    grid-template-rows: auto;
+}
+
+#description {
+    position: relative;
+    z-index: 100;
+    background: black;
+}
+
+.erst-type-table-search-bar {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 32px 40px;
+    overflow: hidden;
+}
+
+.blck-bckg {
+    background-color: black;
+    color: white;
+}
+
+.on-top {
+    position: inherit;
+    z-index: 100;
+}
+
+.child-white-bck > div {
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid var(--border-color);
+    height: 36px;
+    position: relative;
+}
+
+.child-white-bck > div:first-child {
+    background-color: black;
+    color: white;
+}
+
+.pointer {
+    cursor: pointer !important;
+    transition: opacity 250ms ease-in-out;
+}
+
+.pointer:hover {
+    opacity: 0.5;
+}
+
+.search-container {
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    background-color: black;
+}
+
+.spinner-container-absolute {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.sticky-column {
+    position: sticky !important;
+    z-index: 100;
+}
+
+.stck-cl-0 {
+    left: 0px;
+}
+
+.stck-cl-1 {
+    left: 64px;
+}
+
+.add-erst-button {
+    width: 180px;
+    background-color: var(--brand-color);
+    color: white;
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 250ms ease-in-out;
+    position: relative;
+}
+
+.absolute-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 10px;
+    padding-bottom: 4px;
+}
+
+.add-erst-button:hover {
+    opacity: 0.5;
+}
+
+:host .mat-dialog-container {
+    background-color: #C7C6C4 !important;
+    padding: 0px !important;
+}
+
+.grey-filler-long {
+    position: absolute;
+    right: 0;
+    top: -72px;
+    height: 72px;
+    width: 16px;
+    background-color: var(--main-bg);
+    z-index: 1000;
+}
+
+.relative {
+    position: relative;
+}
+
+.thin-left-line {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 15px;
+}
+
+.thin-top-line {
+    position: absolute;
+    top: 0px;
+    right: 1px;
+    height: 1px;
+    width: 15px;
+    background-color: var(--border-color);
+}
+
+.thin-bottom-left-scroll-line {
+    position: absolute;
+    left: 0px;
+    bottom: 1px;
+    height: 15px;
+    width: 1px;
+    background-color: var(--border-color);
+}

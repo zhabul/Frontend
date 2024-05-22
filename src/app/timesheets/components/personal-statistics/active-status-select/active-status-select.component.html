@@ -1,0 +1,14 @@
+<div class="multiselect-container">
+    <app-counter-dropdown-multiselect
+        [selectedItem]="userTypes"
+        [width]="200"
+        [EnableSearch]="true"
+        [disableSelect]="false"
+        [chooseAll]="false"
+        (SelectedUser)="onItemSelect($event)"
+        (DeSelectUser)="onItemSelect($event)"
+        [selected_from]="'user_personal_data'"
+    >
+    </app-counter-dropdown-multiselect>
+    <div class="selected-name">{{ selectedName }}</div>
+</div>

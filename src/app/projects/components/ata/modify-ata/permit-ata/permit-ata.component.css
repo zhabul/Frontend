@@ -1,0 +1,61 @@
+table{
+    border-collapse: collapse; 
+    margin-top: 10px;
+    color: #1A1A1A;
+}
+table thead{
+    position: sticky;
+    top: 0px;
+    z-index: 9999;
+}
+
+table thead tr th {
+    vertical-align: bottom;
+    background-color: #1A1A1A;
+    border: 1px solid var(--border-color) !important;
+    border-top: none !important;
+    color: var(--info-change-text);
+    font-size: 12px;
+    font-weight: normal;
+    padding: 4px 16px 5px 15px;
+}
+
+table td, table th {
+    vertical-align: middle !important;
+}
+
+tbody td {
+    height: 40px;
+    font-size: 13px;
+    font-family: "PT-Sans-Pro-Regular";
+}
+
+table th, table td {
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+td.ata-td {
+    height: 40px !important;
+}
+.ata-td {
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+.assigned{
+    width: 80px;
+    max-width: 80px;
+    min-width: 80px;
+}
+
+.inputClass{
+    opacity: 0 !important;
+    position: absolute !important;
+    z-index: 9999;
+    bottom: 10px;
+    left: 28px;
+    right: 29px;
+    height: 24px;
+    display: block!important;
+    cursor: pointer;
+}

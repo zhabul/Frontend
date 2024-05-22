@@ -1,0 +1,814 @@
+<div
+  class="container-fluidW px-0W l0 hideUnder1400 mt-3 pl-5 project-container"
+>
+  <div class="row border-nav d-flex">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <a class="home" routerLink="/home">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="34.604"
+          height="29.342"
+          viewBox="0 0 34.604 29.342"
+        >
+          <defs>
+            <clipPath id="clip-path">
+              <rect
+                id="Rectangle_15829"
+                data-name="Rectangle 15829"
+                width="34.604"
+                height="29.342"
+                fill="none"
+              />
+            </clipPath>
+          </defs>
+          <g id="Group_4372" data-name="Group 4372" transform="translate(0 0)">
+            <g
+              id="Group_4371"
+              data-name="Group 4371"
+              transform="translate(0 0)"
+              clip-path="url(#clip-path)"
+            >
+              <path
+                id="Path_1822"
+                data-name="Path 1822"
+                d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7"
+                transform="translate(0 0)"
+                fill="#82a7e2"
+              />
+            </g>
+          </g>
+        </svg>
+      </a>
+
+      <span
+        class="ml-3 mt-2 h2 text-uppercase font-weight-normal title-project"
+        >{{ "Project" | translate }}</span
+      >
+    </div>
+    <div class="d-flex align-items-center px-4 py-2 nyProject">
+      <a
+        class="btn border-brand projekt btn-icon-postion text-white"
+        (mouseenter)="enter()"
+        (mouseleave)="leave()"
+        *ngIf="userDetails.create_project_Information"
+        routerLinkActive="active"
+        routerLink="/projects/new"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="add-icon"
+          [ngClass]="currentClass"
+          width="25"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <span
+          class="ml-2 title-new-project text-uppercase"
+          [ngClass]="currentClass"
+          >{{ "New Project" | translate }}</span
+        >
+      </a>
+    </div>
+  </div>
+  <ng-container>
+    <div class="d-flex mt-4 buttons-cont">
+      <div class="d-flex" style="margin-top: 6px;">
+        <div
+          class="d-flex border-item p-1 mr-4 cursor-pointer"
+          style="border-style: none"
+        >
+          <form
+            style="
+              display: flex;
+
+              grid-gap: 5px;
+            "
+          >
+
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChange('all')"
+            >
+              <div style=" margin-bottom: 2px">
+                <svg
+                  *ngIf="statusObjectProjects['all'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="statusObjectProjects['all'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#ff7000"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{ "All" | translate }}</span>
+              </div>
+            </div>
+
+
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChange('1')"
+            >
+              <div style=" margin-bottom: 2px">
+                <svg
+                  *ngIf="statusObjectProjects['1'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+
+                <svg
+                  *ngIf="statusObjectProjects['1'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#f0e264"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "On Hold" | translate
+                }}</span>
+              </div>
+            </div>
+            <div
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+              (click)="onStatusChange('2')"
+            >
+              <div style=" margin-bottom: 2px">
+                <svg
+                  *ngIf="statusObjectProjects['2'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+
+                <svg
+                  *ngIf="statusObjectProjects['2'] == true"
+                  _ngcontent-mxh-c8=""
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  data-name="Bocka av icon"
+                  height="13"
+                  id="Bocka_av_icon"
+                  viewBox="0 0 12 12"
+                  width="13"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="ng-star-inserted"
+                >
+                  <defs _ngcontent-mxh-c8="">
+                    <clipPath _ngcontent-mxh-c8="" id="clip-path">
+                      <rect
+                        _ngcontent-mxh-c8=""
+                        data-name="Rectangle 60"
+                        fill="none"
+                        height="13"
+                        id="Rectangle_60"
+                        width="13"
+                      ></rect>
+                    </clipPath>
+                  </defs>
+                  <g
+                    _ngcontent-mxh-c8=""
+                    clip-path="url(#clip-path)"
+                    data-name="Group 301"
+                    id="Group_301"
+                  >
+                    <path
+                      _ngcontent-mxh-c8=""
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      data-name="Path 745"
+                      fill="#03d156"
+                      id="Path_745"
+                      transform="translate(0.056 0.053)"
+                    ></path>
+                    <path
+                      _ngcontent-mxh-c8=""
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      data-name="Path 746"
+                      fill="#44484c"
+                      id="Path_746"
+                      transform="translate(-8.669 -15.967)"
+                    ></path>
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "In Progress" | translate
+                }}</span>
+              </div>
+            </div>
+            <div
+              (click)="onStatusChange('4')"
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+            >
+              <div style=" margin-bottom: 2px">
+                <svg
+                  *ngIf="statusObjectProjects['4'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+
+                <svg
+                  *ngIf="statusObjectProjects['4'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#fca85e"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "Awaiting inspection" | translate
+                }}</span>
+              </div>
+            </div>
+
+            <div
+              (click)="onStatusChange('3')"
+              class="d-flex border-item p-1 mr-4 cursor-pointer"
+            >
+              <div style=" margin-bottom: 2px">
+                <svg
+                  *ngIf="statusObjectProjects['3'] == false"
+                  id="X_icon"
+                  data-name="X icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13"
+                  height="13
+                  "
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_736"
+                        data-name="Path 736"
+                        d="M0,5.951H12v-12H0Z"
+                        transform="translate(0 6.049)"
+                        fill="#fff"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g id="X_icon-2" data-name="X icon">
+                    <g
+                      id="Group_291"
+                      data-name="Group 291"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_289"
+                        data-name="Group 289"
+                        transform="translate(-0.001 0.002)"
+                      >
+                        <path
+                          id="Path_734"
+                          data-name="Path 734"
+                          d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                          transform="translate(6.049 3.024)"
+                          fill="#fcf4ec"
+                        />
+                      </g>
+                      <g
+                        id="Group_290"
+                        data-name="Group 290"
+                        transform="translate(2.484 2.494)"
+                      >
+                        <path
+                          id="Path_735"
+                          data-name="Path 735"
+                          d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                          transform="translate(3.453 2.997)"
+                          fill="#44484c"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+
+                <svg
+                  *ngIf="statusObjectProjects['3'] == true"
+                  id="Bocka_av_icon"
+                  data-name="Bocka av icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="13
+                  "
+                  height="13"
+                  viewBox="0 0 12 12"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_60"
+                        data-name="Rectangle 60"
+                        width="13"
+                        height="13"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_301"
+                    data-name="Group 301"
+                    clip-path="url(#clip-path)"
+                  >
+                    <path
+                      id="Path_745"
+                      data-name="Path 745"
+                      d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                      transform="translate(0.056 0.053)"
+                      fill="#fff"
+                    />
+                    <path
+                      id="Path_746"
+                      data-name="Path 746"
+                      d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                      transform="translate(-8.669 -15.967)"
+                      fill="#44484c"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div class="align-button-title">
+                <span class="text-uppercase mr-1">{{
+                  "Completed" | translate
+                }}</span>
+              </div>
+            </div>
+
+            <div
+            (click)="onStatusChange('5')"
+            class="d-flex border-item p-1 mr-4 cursor-pointer"
+          >
+            <div style=" margin-bottom: 2px">
+              <svg
+                *ngIf="statusObjectProjects['5'] == false"
+                id="X_icon"
+                data-name="X icon"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="13"
+                height="13
+                "
+                viewBox="0 0 12 12"
+              >
+                <defs>
+                  <clipPath id="clip-path">
+                    <path
+                      id="Path_736"
+                      data-name="Path 736"
+                      d="M0,5.951H12v-12H0Z"
+                      transform="translate(0 6.049)"
+                      fill="#fff"
+                    />
+                  </clipPath>
+                </defs>
+                <g id="X_icon-2" data-name="X icon">
+                  <g
+                    id="Group_291"
+                    data-name="Group 291"
+                    clip-path="url(#clip-path)"
+                  >
+                    <g
+                      id="Group_289"
+                      data-name="Group 289"
+                      transform="translate(-0.001 0.002)"
+                    >
+                      <path
+                        id="Path_734"
+                        data-name="Path 734"
+                        d="M5.951,2.975a6,6,0,0,1-6,6,6,6,0,0,1-6-6,6,6,0,0,1,6-6,6,6,0,0,1,6,6"
+                        transform="translate(6.049 3.024)"
+                        fill="#fcf4ec"
+                      />
+                    </g>
+                    <g
+                      id="Group_290"
+                      data-name="Group 290"
+                      transform="translate(2.484 2.494)"
+                    >
+                      <path
+                        id="Path_735"
+                        data-name="Path 735"
+                        d="M3.4,2.948.939.491,3.4-1.977a.472.472,0,0,0,0-.692l-.177-.177a.472.472,0,0,0-.71.04L.078-.37-2.408-2.848a.48.48,0,0,0-.706.012l-.184.183a.481.481,0,0,0,.024.726L-.817.526S-3.2,2.919-3.279,3a.472.472,0,0,0,0,.692l.177.177a.472.472,0,0,0,.71-.04L.042,1.387,2.53,3.869a.481.481,0,0,0,.708-.012l.184-.183A.48.48,0,0,0,3.4,2.948"
+                        transform="translate(3.453 2.997)"
+                        fill="#44484c"
+                      />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+
+              <svg
+                *ngIf="statusObjectProjects['5'] == true"
+                id="Bocka_av_icon"
+                data-name="Bocka av icon"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="13
+                "
+                height="13"
+                viewBox="0 0 12 12"
+              >
+                <defs>
+                  <clipPath id="clip-path">
+                    <rect
+                      id="Rectangle_60"
+                      data-name="Rectangle 60"
+                      width="13"
+                      height="13"
+                      fill="none"
+                    />
+                  </clipPath>
+                </defs>
+                <g
+                  id="Group_301"
+                  data-name="Group 301"
+                  clip-path="url(#clip-path)"
+                >
+                  <path
+                    id="Path_745"
+                    data-name="Path 745"
+                    d="M11.894,5.947A5.95,5.95,0,1,1,5.945,0a5.948,5.948,0,0,1,5.949,5.949"
+                    transform="translate(0.056 0.053)"
+                    fill="#b8b8b8"
+                  />
+                  <path
+                    id="Path_746"
+                    data-name="Path 746"
+                    d="M18.228,19.391l-.18-.182a.546.546,0,0,0-.387-.172.626.626,0,0,0-.437.2l-3.989,3.95-1.306-1.351v0l-.414-.418a.563.563,0,0,0-.394-.174.587.587,0,0,0-.408.18l-.18.182a.557.557,0,0,0,.029.826l2.683,2.7,4.649-4.6.34-.342a.551.551,0,0,0-.006-.8"
+                    transform="translate(-8.669 -15.967)"
+                    fill="#44484c"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div class="align-button-title">
+              <span class="text-uppercase mr-1">{{
+                "Aborted" | translate
+              }}</span>
+            </div>
+          </div>
+
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="row ml-2 searchdiv">
+
+        <form class="form-inline my-2X my-lg-0">
+          <span class="material-icons search-icon"> search </span>
+          <input
+            class="search-form form-control text-uppercase"
+            type="search"
+            id="searchInput"
+            placeholder=" {{ 'Search' | translate }}"
+            aria-label="Search"
+            name="search"
+            autocomplete="off"
+            (input)="onSearch('', selectedStatus, searchInput.value)"
+            #searchInput
+          />
+        </form>
+      </div>
+    </div>
+  </ng-container>
+  <!-- end row -->
+
+  <!---->
+
+  <app-project-list
+    [top_menu_status]="buttonToggle"
+    origin="projects"
+    [projects]="projects"
+    [showPagination]="showPagination"
+  >
+  </app-project-list>
+</div>
+<!-- end row -->

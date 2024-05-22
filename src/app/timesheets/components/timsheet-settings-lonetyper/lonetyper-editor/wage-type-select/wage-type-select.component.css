@@ -1,0 +1,73 @@
+
+.title {
+    color: white;
+    font-size: 18px;
+    cursor: default;
+    margin-bottom: 10px;
+}
+
+.wage-type-select {
+    width: 535px;
+    border-color: #555;
+    padding: 5px 15px 5px 15px;
+    color: black;
+    background-color: white;
+    border-bottom: 1px solid #B8B8B8;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    border-radius: 5px;
+}
+
+.select-wrapper {
+    width: 100%;
+    min-height: 50px;
+    border-radius: 25px;
+    border-color: #555;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.wage-type-select option:checked {
+  background: var(--brand-color) !important;
+  color: var(--brand-color) !important;
+}
+
+.select-list {
+    max-height: 150px;
+    background-color: white;
+    color: black;
+    overflow-y: scroll;
+}
+
+.list-container {
+    position: relative;
+    bottom: 3px;
+    border-top: 1px solid #B8B8B8;
+}
+
+.grey-line {
+    position: absolute;
+    right: 15px;
+    top: 0px;
+    bottom: 0px;
+    height: 100%;
+    z-index: 10000;
+    width: 1px;
+    background: #B8B8B8;
+}
+
+.select-list > div {
+    width: 100%;
+    padding: 5px 15px 5px 15px;
+    border-bottom: 1px solid #B8B8B8;
+}
+
+.select-list > div:hover {
+    color: var(--brand-color);
+}
+
+.flex-justify {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,2377 @@
+<div style="position:relative" class="scroll-wrapper">
+  <div class="skroll shadow-top-div" id="skrollbar">
+    <form
+      [hidden]="!createForm"
+      class="pt-2"
+      novalidate
+      autocomplete="off"
+      [formGroup]="createForm"
+      (ngSubmit)="updateProject()"
+      #myform="ngForm"
+      style="width: 1024px;"
+    >
+      <input
+        type="hidden"
+        id="id"
+        name="id"
+        formControlName="id"
+        #ProjectId
+        value="{{ ProjectId.value }}"
+      />
+
+      <div class="form-wrapper mb-3 mt-5">
+        <div class="panel panel-default w-100">
+          <!-- <fieldset class="field"> -->
+          <!-- <legend class="w-auto ml-2">{{ 'Project' | translate }}</legend> -->
+          <div class="form-column-wrapper-position">
+            <div class="form-column col-4 offer-data" style="width: 302px;">
+              <div class="form-group">
+                <label>{{ "Offer Number" | translate }} </label>
+                <!-- <select
+                  [attr.disabled]="
+                    !userDetails.create_project_Settings
+                      ? 'disabled'
+                      : null
+                  "
+                  class="project-nav-select form-control"
+                  id="project-offers"
+                  #offerId
+                  formControlName="offerId"
+                >
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="8"
+                      viewBox="0 0 15 8"
+                    >
+                      <path
+                        id="Path_758"
+                        data-name="Path 758"
+                        d="M0,.274H15v-8H0Z"
+                        transform="translate(0 7.726)"
+                        fill="#44484c"
+                      />
+                    </svg>
+                  </span>
+                  <option
+                    *ngFor="let offer of offers"
+                    [attr.data-user-id]="offer.offerId"
+                    value="{{ offer.offerNum }}"
+                  >
+                    {{ offer.offerNum }}
+                  </option>
+                </select> -->
+                <div
+                          style="
+                            width: 302px;
+                            height: 35px;
+                          "
+                        >
+                          <div class="input-wrapper1" >
+                            <app-select-dropdown-with-plus
+                            [ClientItem]="offerList"
+                            [placeholder]="offerPlaceholder | translate"
+                            [defaultValue]="project.offerName"
+                            [width]="302"
+                            [fontSize]="18"
+                            [StatusActive]="true"
+                            [EnableSearch]="false"
+                            [type1]="'status'"
+                            formControlName="offerId"
+                            [allPlaceholder]="true"
+                            (Status)="offerSelected($event, 'status')"
+                            [disableSelect]="project.offerId"
+                            >
+                            </app-select-dropdown-with-plus>
+                        </div>
+                      </div>
+                <span
+                  class="help-block"
+                  *ngIf="
+                    myform.submitted &&
+                    createForm.get('offerId').hasError('offerId')
+                  "
+                >
+                  <span class="text-danger">
+                    {{ "Please select offer" | translate }}.
+                  </span>
+                </span>
+              </div>
+
+
+              <div
+                class="form-group"
+                [ngClass]="{
+                  'has-error':
+                    (createForm.get('name').touched ||
+                      createForm.get('name').dirty) &&
+                    !createForm.get('name').valid
+                }"
+              >
+                <label for="name" class="required">{{
+                  "Project Name" | translate
+                }}</label>
+                <input
+                  [class.bg-input]="createForm.get('name').touched"
+                  [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                  type="text"
+                  class="form-control"
+                  #projectNameElement
+                  id="name"
+                  placeholder="{{ 'Enter project name' | translate }}"
+                  formControlName="name"
+                  [ngClass]="{
+                    'is-invalid':
+                      (myform.submitted && createForm.get('name').invalid) ||
+                      (createForm.get('name').dirty &&
+                        createForm.get('name').invalid)
+                  }"
+                  tabIndex="1"
+                  maxlength="45"
+                />
+                <span
+                  class="help-block"
+                  *ngIf="
+                    (myform.submitted && createForm.get('name').invalid) ||
+                    (createForm.get('name').dirty &&
+                      createForm.get('name').invalid)
+                  "
+                >
+                  <span
+                    *ngIf="createForm.get('name').errors.required"
+                    class="text-danger"
+                  >
+                    {{ "Please enter project name" | translate }}.
+                  </span>
+                </span>
+              </div>
+
+
+              <!-- <div class="form-group"
+                  [ngClass]="{'has-error': (createForm.get('CustomName').touched || createForm.get('CustomName').dirty) && !createForm.get('CustomName').valid }">
+                  <label for="CustomName" class="required">{{'Project Number' | translate}}</label>
+                  <input [class.bg-input]="createForm.get('CustomName').touched" readonly
+                    [attr.disabled]="!userDetails.create_project_Settings ? 'disabled' : null" type="text"
+                    class="form-control"" id="name" placeholder="{{'Enter project Custom Name' | translate}}"
+                    formControlName="CustomName"
+                    [ngClass]="{'is-invalid': (myform.submitted && createForm.get('CustomName').invalid) || (createForm.get('CustomName').dirty && createForm.get('CustomName').invalid) }">
+                  <span class="help-block"
+                    *ngIf="(createForm.get('CustomName').touched || createForm.get('CustomName').dirty) && createForm.get('CustomName').errors">
+                    <span
+                      *ngIf="(myform.submitted && createForm.get('CustomName').invalid) || (createForm.get('CustomName').dirty && createForm.get('CustomName').invalid)"
+                      class="text-danger">
+                      {{ 'Please enter project number' | translate }}.
+                    </span>
+                  </span>
+                </div> -->
+
+
+
+
+              <div
+                class="form-group"
+                [ngClass]="{
+                  'has-error':
+                    (createForm.get('CustomName').touched ||
+                      createForm.get('CustomName').dirty) &&
+                    !createForm.get('CustomName').valid
+                }"
+              >
+                <label for="CustomName" class="required">{{
+                  "Project Number" | translate
+                }}</label>
+                <input
+                  [class.bg-input]="createForm.get('CustomName').touched"
+                  [attr.disabled]="
+                    !userDetails.create_project_Settings
+                      ? 'disabled'
+                      : null
+                  "
+                  type="text"
+                  class="form-control"
+                  style="background-color: #c7c6c4;"
+                  id="CustomName"
+                  placeholder="{{ 'Enter project number' | translate }}"
+                  formControlName="CustomName"
+                  [ngClass]="{
+                    'is-invalid':
+                      (myform.submitted && createForm.get('CustomName').invalid) ||
+                      (createForm.get('CustomName').dirty &&
+                        createForm.get('CustomName').invalid)
+                  }"
+                />
+                <span
+                  class="help-block"
+                  *ngIf="
+                    (myform.submitted && createForm.get('CustomName').invalid) ||
+                    (createForm.get('CustomName').dirty &&
+                      createForm.get('CustomName').invalid)
+                  "
+                >
+                  <span
+                    *ngIf="createForm.get('CustomName').errors.required"
+                    class="text-danger"
+                  >
+                    {{ "Please enter project number" | translate }}.
+                  </span>
+                </span>
+              </div>
+      <!--    <div class="form-group form-group-relation" *ngIf="project_relation.length > 0">
+                <label for="name">{{ "Project Relation" | translate }}</label>
+                <div
+                  style="
+                    width: 302px;
+                    height: 35px;
+                  "
+                >
+                  <div class="input-wrapper1" >
+                    <app-select-dropdown-with-plus
+                    [ClientItem]= "project_relation"
+                    [defaultValue]="getProjectSelectedRelation()"
+                    [width]="302"
+                    [fontSize]="18"
+                    (project_relation)="setSelectedField($event,'project_relation')"
+                    [type1]="'project_relation'"
+                    [ConstructionDebitItem]="true"
+                    [EnableSearch]="false"
+                    [disableSelect]="disableProjectRelation()"
+                    >
+                    </app-select-dropdown-with-plus>
+                  </div>
+                </div>
+              </div>
+-->
+              <div
+                class="form-group"
+                [ngClass]="{
+                  'is-invalid': myform.submitted && selectedCoworkers.length < 1
+                }"
+              >
+                <label for="responsiblePerson" class="required">{{
+                  "Contact person" | translate
+                }}</label>
+
+                <!--Dropdown Contact person-->
+
+                <div class="input-wrapper1"  >
+                  <app-counter-dropdown-multiselect
+                    name="Contact person"
+                    [selectedItem]="company_workers"
+                    [selectedCoworkers]="selectedCoworkers"
+                    [EnableSearch]="true"
+                    [placeholder]="'Add contact people' | translate"
+                    [width]="302"
+                    [type]="'newProject'"
+                    (SelectedUser)="onItemSelectContactPersone($event)"
+                    (SelectedUserAll)="onSelectAllContactPersone($event)"
+                    (OnDeSelectAll)="onDeSelectAllContactPersone()"
+                    (click)="makeFormDirty()"
+                    [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                    [changed]="checkids(selectedCoworkers,initForm.responsiblePeople)"
+                  >
+                  </app-counter-dropdown-multiselect>
+                </div>
+                <span
+                  class="help-block"
+                  *ngIf="myform.submitted && selectedCoworkers.length < 1"
+                >
+                  <span class="text-danger">
+                    {{ "Please select Contact Person" | translate }}.
+                  </span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label class="ws-nowrap required">{{
+                  "Delivery Contact" | translate
+                }}</label>
+            <div class="input-wrapper1" >
+              <app-select-dropdown-with-plus
+              [ClientItem]= "responsiblePersons"
+              [placeholder]="'Select delivery contact' | translate"
+              [width]="302"
+              [fontSize]="18"
+              (DeliveryContact)="GetDeliveryContact($event)"
+              [type1]="'delivery'"
+              [EnableSearch]="true"
+              errorText="Please select delivery contact"
+              formControlName="deliveryContact"
+              [disableSelect]="!userDetails.create_project_Settings ? true : false"
+              >
+              </app-select-dropdown-with-plus>
+            </div>
+                <span
+                class="help-block"
+                *ngIf="myform.submitted && selectedClientWorkers.length < 1"
+              >
+                <span class="text-danger">
+                  {{ "Please select delivery contact" | translate }}.
+                </span>
+              </span>
+              </div>
+            </div>
+            <div class="form-column col-4 project-status-data" style="width: 302px;">
+              <div
+                class="form-group"
+                [ngClass]="{
+                  'has-error':
+                    (createForm.get('skvId').touched ||
+                      createForm.get('skvId').dirty) &&
+                    !createForm.get('skvId').valid
+                }"
+              >
+                <label for="skvId">{{ "SKV ID" | translate }}</label>
+                <div class="input-group" (click)="isProjectLopande()">
+                  <input
+                    [class.bg-input]="createForm.get('skvId').touched"
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    type="text"
+                    class="form-control"
+                    id="chargeUE"
+                    placeholder="{{ 'SKV ID' | translate }}"
+                    formControlName="skvId"
+                    tabIndex="2"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="required">{{ "Project Status" | translate }}</label>
+                <div
+                  style="
+                    width: 302px;
+                    height: 35px;
+                  "
+                >
+                  <div class="input-wrapper1" >
+                    <app-select-dropdown-with-plus
+                    [ClientItem]="projectStatusOptions"
+                    [placeholder]="getDefaultProjectStatus()"
+                    [width]="302"
+                    [fontSize]="18"
+                    [StatusActive]="true"
+                    [EnableSearch]="false"
+                    [type1]="'status'"
+                    (Status)="projectStatusSelected($event, 'status')"
+                    [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                    >
+                    </app-select-dropdown-with-plus>
+                  </div>
+                </div>
+                <span
+                  class="help-block"
+                  *ngIf="
+                    (myform.submitted && createForm.get('status').invalid) ||
+                    (createForm.get('status').dirty &&
+                      createForm.get('status').invalid)
+                  "
+                >
+                  <span class="text-danger">
+                    {{ "Please select project status" | translate }}.
+                  </span>
+                </span>
+              </div>
+              <div class="form-group" *ngIf="project.activity != 0">
+                <label for="project-activity" class="required">{{
+                  "Activity" | translate
+                }}</label>
+                <div class="select-section1">
+                  <!-- <select
+                    class="project-nav-select form-control"
+                    id="project-activity"
+                    #Activity
+                    formControlName="activity"
+                    [ngClass]="{
+                      'is-invalid':
+                        (myform.submitted &&
+                          createForm.get('activity').invalid) ||
+                        (createForm.get('activity').dirty &&
+                          createForm.get('activity').invalid)
+                    }"
+                    readonly
+                  >
+                    <option value="{{ project.activity }}">
+                      {{ project.activityNumber }}
+                      {{ project.activityDescription }}
+                    </option>
+                  </select> -->
+
+                    <!--Dropdown Project Status-->
+                    <div class="input-wrapper1">
+                      <app-select-dropdown-with-plus
+                      id="Activity"
+                      [ClientItem]="activities"
+                      [placeholder]="project.activityNumber + ' ' + project.activityDescription "
+                      [width]="302"
+                      [fontSize]="18"
+                      [StatusActive]="false"
+                      [EnableSearch]="false"
+                      [type1]="'subproject'"
+                      (SubProject)="selectProjectActivity($event, 'activity')"
+                      [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                      >
+                      </app-select-dropdown-with-plus>
+                    </div>
+                    <!--End Dropdown Project Status-->
+
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (myform.submitted && createForm.get('activity').invalid) ||
+                      (createForm.get('activity').dirty &&
+                        createForm.get('activity').invalid)
+                    "
+                  >
+                    <span class="text-danger">
+                      {{ "Activity is required" | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-check custom-check">
+                {{ "Internal Project" | translate }}
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="internal-project-checkbox"
+                  formControlName="internalProject"
+                  checked="checked"
+                  [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                  (change)="setValidation()"
+                />
+                <label for="internal-project-checkbox" class="checkmark"></label>
+              </div>
+            </div>
+
+
+            <div class="form-column col-4 date-status-data" style="width: 302px;">
+              <div class="form-group">
+                <label class="required">{{ "Start date" | translate }}</label>
+                <div class="input-group date">
+                  <div class="input-group-prepend new-height-35">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="material-icons" style="color: black">calendar_today</i></span
+                    >
+                  </div>
+                  <input
+                    [class.bg-input]="createForm.get('StartDate').touched"
+                    (keydown)="$event.preventDefault()"
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    id="dateSelectStartDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control new-width-230 custom-datepicker"
+                    project-date
+                    aria-describedby="basic-addon1"
+                    placeholder="{{ 'Choose Start Date' | translate }}"
+                    #StartDate
+                    formControlName="StartDate"
+                    name="StartDate"
+                    [ngClass]="{
+                      'is-invalid':
+                        (myform.submitted &&
+                          createForm.get('StartDate').invalid) ||
+                        (createForm.get('StartDate').dirty &&
+                          createForm.get('StartDate').invalid)
+                    }"
+                    tabIndex="3"
+                  />
+                </div>
+                <span
+                  class="help-block"
+                  *ngIf="
+                    (myform.submitted && createForm.get('StartDate').invalid) ||
+                    (createForm.get('StartDate').dirty &&
+                      createForm.get('StartDate').invalid)
+                  "
+                >
+                  <span class="text-danger">
+                    {{ "Start date is required" | translate }}.
+                  </span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label class="required">{{ "End date" | translate }}</label>
+                <div class="input-group date">
+                  <div class="input-group-prepend new-height-35">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="material-icons" style="color: black">calendar_today</i></span
+                    >
+                  </div>
+                  <input
+                    [class.bg-input]="createForm.get('EndDate').touched"
+                    (keydown)="$event.preventDefault()"
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    id="dateSelectEndDate"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control new-width-230"
+                    project-date
+                    aria-describedby="basic-addon1"
+                    placeholder="{{ 'Choose End Date' | translate }}"
+                    #EndDate
+                    formControlName="EndDate"
+                    name="EndDate"
+                    [ngClass]="{
+                      'is-invalid':
+                        (myform.submitted && createForm.get('EndDate').invalid) ||
+                        (createForm.get('EndDate').dirty &&
+                          createForm.get('EndDate').invalid)
+                    }"
+                    tabIndex="4"
+                  />
+                </div>
+                <span
+                  class="help-block"
+                  *ngIf="
+                    (myform.submitted && createForm.get('EndDate').invalid) ||
+                    (createForm.get('EndDate').dirty &&
+                      createForm.get('EndDate').invalid)
+                  "
+                >
+                  <span class="text-danger">
+                    {{ "End date is required" | translate }}.
+                  </span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label>{{ "Tehnic Review" | translate }}</label>
+                <div class="input-group date">
+                  <div class="input-group-prepend new-height-35">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="material-icons" style="color: black">calendar_today</i></span
+                    >
+                  </div>
+                  <input
+                    [class.bg-input]="createForm.get('TehnicReview').touched"
+                    (keydown)="$event.preventDefault()"
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    id="dateSelectTehnicReview"
+                    autocomplete="off"
+                    type="text"
+                    class="form-control new-width-230"
+                    project-date
+                    aria-describedby="basic-addon1"
+                    placeholder="{{ 'Choose Date' | translate }}"
+                    #TehnicReview
+                    formControlName="TehnicReview"
+                    tabIndex="5"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- </fieldset> -->
+        </div>
+      </div>
+
+      <div class="form-wrapper mb-3 mt-5">
+        <div class="panel panel-default w-100" style="margin-bottom: 15px">
+          <fieldset class="field client-field">
+          <legend
+              class="w-auto ml-2"
+              style="cursor: pointer; margin-left: 60px !important"
+              (click)="toggleClient()"
+            >
+              {{ "Client" | translate }}
+              <span style="padding-left: 10px">
+                <svg
+                  *ngIf="isShownClient == true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="11.975"
+                  height="7.748"
+                  viewBox="0 0 11.975 7.748"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_758"
+                        data-name="Path 758"
+                        d="M0,.022H11.975V-7.726H0Z"
+                        transform="translate(0 7.726)"
+                        fill="#e3dbd3"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_4455"
+                    data-name="Group 4455"
+                    transform="translate(11.975 7.748) rotate(180)"
+                  >
+                    <g
+                      id="Group_305"
+                      data-name="Group 305"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_304"
+                        data-name="Group 304"
+                        transform="translate(0 0)"
+                      >
+                        <path
+                          id="Path_757"
+                          data-name="Path 757"
+                          d="M0,0,5.3,6.351a.634.634,0,0,0,.542.241H5.9a.634.634,0,0,0,.542-.241L11.7,0a.734.734,0,0,0,.135-.481A.507.507,0,0,0,11.583-.9L11.4-1.02a.856.856,0,0,0-.511-.135A.588.588,0,0,0,10.44-.9L5.867,4.516,1.294-.9a.588.588,0,0,0-.451-.256.856.856,0,0,0-.511.135L.121-.9a.507.507,0,0,0-.256.421A.734.734,0,0,0,0,0"
+                          transform="translate(0.136 1.156)"
+                          fill="#e3dbd3"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  *ngIf="isShownClient == false"
+                  id="Group_4455"
+                  data-name="Group 4455"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="11.975"
+                  height="7.748"
+                  viewBox="0 0 11.975 7.748"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_758"
+                        data-name="Path 758"
+                        d="M0,.022H11.975V-7.726H0Z"
+                        transform="translate(0 7.726)"
+                        fill="#e3dbd3"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_305"
+                    data-name="Group 305"
+                    clip-path="url(#clip-path)"
+                  >
+                    <g
+                      id="Group_304"
+                      data-name="Group 304"
+                      transform="translate(0 0)"
+                    >
+                      <path
+                        id="Path_757"
+                        data-name="Path 757"
+                        d="M0,0,5.3,6.351a.634.634,0,0,0,.542.241H5.9a.634.634,0,0,0,.542-.241L11.7,0a.734.734,0,0,0,.135-.481A.507.507,0,0,0,11.583-.9L11.4-1.02a.856.856,0,0,0-.511-.135A.588.588,0,0,0,10.44-.9L5.867,4.516,1.294-.9a.588.588,0,0,0-.451-.256.856.856,0,0,0-.511.135L.121-.9a.507.507,0,0,0-.256.421A.734.734,0,0,0,0,0"
+                        transform="translate(0.136 1.156)"
+                        fill="#e3dbd3"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </span>
+            </legend>
+            <div class="form-column-wrapper-position" *ngIf="isShownClient">
+              <div class="form-column col-4 pt-5 mt-1 client-data" style="width: 302px;">
+                <div class="form-group">
+                  <label for="name" class="required">{{ "Client" | translate }}</label>
+                  <div class="select-and-btn-wrapper">
+                  <div class="select-section" style="width: 262px; float: left;">
+                    <app-input-autocomplete
+                      [control]="createForm.get('client_id')"
+                      [inputText]="createForm.get('client_id_name')"
+                      [list]="clients"
+                      [myform]="myform"
+                      id="Id"
+                      [addFontSize18]="true"
+                      [colors]="{
+                        backgroundColor: '#C7C6C4',
+                        color: 'black',
+                        border: '1.5px solid white'
+                      }"
+                      (getEvent)="setContactPersons($event)"
+                      errorText="Client is required"
+                      type="ata"
+                      [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                    >
+                    </app-input-autocomplete>
+                  </div>
+                  <div class="new-select-button-wrapper" (click)="openComponentDetail($event)" style="pointer-events: none;">
+                    <div class="new-select-btn" style="height: 35px;">
+                      <span class="plus-btn">+</span>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'is-invalid':
+                      myform.submitted && selectedClientWorkers.length < 1
+                  }"
+                  style="width: 302px;"
+                >
+                  <label for="name" class="required">{{ "Contact people" | translate }}</label>
+                  <div class="select-section" style="width: 262px; display: inline-block;">
+                    <div class="input-wrapper"  >
+                      <app-counter-dropdown-multiselect
+                        name="Contact people"
+                        [selectedItem]="client_workers"
+                        [selectedCoworkers]="this.selectedClientWorkers"
+                        [EnableSearch]="true"
+                        [placeholder]="'Add client contact people' | translate"
+                        [type]="'newProject'"
+                        (DeSelectUser)="onItemDeSelect($event)"
+                        (SelectedUser)="onItemSelect($event)"
+                        (SelectedUserAll)="onSelectAll($event)"
+                        (OnDeSelectAll)="onDeSelectAll($event)"
+                        (click)="makeFormDirty()"
+                        [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                        [changed]="checkids(this.contactPeopleSelected,initForm.client_workers)"
+                      >
+                      </app-counter-dropdown-multiselect>
+                    </div>
+                  </div>
+                  <div class="new-select-button-wrapper floating-btn"
+                  (click)="openProjectClientDetailsModal($event)"
+                  >
+                  <div class="new-select-btn" style="height: 35px;">
+                    <span class="plus-btn">+</span>
+                  </div>
+                </div>
+                  <span
+                    class="help-block"
+                    *ngIf="myform.submitted && selectedClientWorkers.length < 1"
+                  >
+                    <span class="text-danger">
+                      {{ "Please select contact people" | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-column col-4 pt-5 mt-1 client-data" style="width: 302px;">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('clientsProjectName').touched ||
+                        createForm.get('clientsProjectName').dirty) &&
+                      !createForm.get('clientsProjectName').valid
+                  }"
+                >
+                  <label for="clientsProjectName">{{
+                    "Client Project Name" | translate
+                  }}</label>
+                  <input
+                    [class.bg-input]="
+                      createForm.get('clientsProjectName').touched
+                    "
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    type="text"
+                    class="form-control"
+                    id="clientsProjectName"
+                    placeholder="{{ 'Enter  client project name' | translate }}"
+                    formControlName="clientsProjectName"
+                    tabIndex="6"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('clientsProjectName').touched ||
+                        createForm.get('clientsProjectName').dirty) &&
+                      createForm.get('clientsProjectName').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('clientsProjectName').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter client project name" | translate }}.
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('clientProjectNumber').touched ||
+                        createForm.get('clientProjectNumber').dirty) &&
+                      !createForm.get('clientProjectNumber').valid
+                  }"
+                >
+                  <label for="clientProjectNumber" class="required">{{
+                    "Project Number" | translate
+                  }}</label>
+                  <input
+                    [class.bg-input]="
+                      createForm.get('clientProjectNumber').touched
+                    "
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    type="text"
+                    class="form-control"
+                    id="clientProjectNumber"
+                    placeholder="{{ 'Enter project Custom Number' | translate }}"
+                    formControlName="clientProjectNumber"
+                    tabIndex="7"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('clientProjectNumber').touched ||
+                        createForm.get('clientProjectNumber').dirty) &&
+                      createForm.get('clientProjectNumber').errors
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        createForm.get('clientProjectNumber').errors.required
+                      "
+                      class="text-danger"
+                    >
+                      {{ "Please enter Project Number" | translate }}.
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-column col-4 panel panel-default p-0 resource-top" style="width: 302px;">
+                <fieldset class="resource-accound-field-set">
+                  <legend style="margin-left: 26px" class="w-auto">
+                    {{ "Resource account" | translate }}
+                  </legend>
+
+                  <div
+                    class="panel panel-default"
+                    style="gap: 19px; display: grid"
+                  >
+                    <div
+                      class="form-group panel-body"
+                      style="padding-bottom: 20px"
+                      [ngClass]="{
+                        'has-error':
+                          (createForm.get('resursKonto1').touched ||
+                            createForm.get('resursKonto1').dirty) &&
+                          !createForm.get('resursKonto1').valid
+                      }"
+                    >
+                      <label for="resursKonto1">{{
+                        "Name and number 1" | translate
+                      }}</label>
+                      <input
+                        style="width: 280px;"
+                        [class.bg-input]="createForm.get('resursKonto1').touched"
+                        [attr.disabled]="
+                          !userDetails.create_project_Settings
+                            ? 'disabled'
+                            : null
+                        "
+                        type="text"
+                        class="form-control"
+                        id="resursKonto1"
+                        placeholder="{{
+                          'Enter 1 Resource account Name and number' | translate
+                        }}"
+                        formControlName="resursKonto1"
+                        tabIndex="8"
+                      />
+                    </div>
+                  </div>
+                </fieldset>
+                 <div class="form-group invoice-position">
+                    <label class="ws-nowrap required">{{
+                      "Faktura referens" | translate
+                    }}</label>
+                    <div class="input-wrapper1" >
+                      <app-select-dropdown-with-plus
+                      [ClientItem]= "client_workers"
+                      [placeholder]="'Select' + ' ' +'faktura' + ' ' + 'referens' | translate"
+                      [width]="302"
+                      [fontSize]="18"
+                      (FakturaRef)="GetFakturaRef($event)"
+                      [type1]="'invoiceref'"
+                      [EnableSearch]="true"
+                      errorText="Please select delivery contact"
+                      formControlName="invoice_reference"
+                      [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                      >
+                      </app-select-dropdown-with-plus>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-column panel panel-default d-flex flex-row justify-content-center"
+              style="margin-left: -13px; margin-right: 13px;"
+              *ngIf="isShownClient"
+            >
+              <fieldset style="padding-left: 22px; padding-right: 22px; margin-left: 42px; margin-right: -3px;">
+                <legend class="w-auto required">
+                  {{ "Certificate flow for ATA and Notification" | translate }}
+                </legend>
+
+                <div
+                  class="panel panel-default d-flex flex-row justify-content-between mb-5 linija"
+                >
+                  <div class="line-between-select-area"></div>
+
+                  <div class="form-group pl-13 mr-4 panel-body">
+                    <div class="select-section" style="width: 195px; height: 35px;">
+                      <app-custom-select
+                        [items]="contactPeopleSelected"
+                        id="main-contact-person"
+                        style="position: relative; z-index: 1;"
+                        #AttestWorker1
+                        [hasOrangeBorder]="needToHaveOrangeBorder1"
+                        (toggleAttestWorker)="toggleAttestWorkerHidden($event, 'mainContactPerson')"
+                        [hasDefault]="true"
+                        [defaultValue]="getDefaultMainContactPerson()"
+                        (toggleEmptyWorker)="toggleEmptyWorkerParent(0)"
+                        (toggleDeletedFromArray)="toggleDeletedFromArrayParent(0)"
+                        (click)="makeFormDirty()"
+                        [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                      >
+                    </app-custom-select>
+                    </div>
+                    <div class="form-check d-flex justify-content-center">
+                      <label
+                        class="cursor-pointer"
+                        *ngIf="
+                          createForm.get('mainContactPerson').value?.length != 0
+                        "
+                        for="attestWorker1radio"
+                      >
+                        <svg
+                          *ngIf="
+                            createForm.get('mainContactPerson').value ==
+                              this.createForm.get('selectedMainContact').value &&
+                              this.createForm.get('selectedMainContact').value;
+                            else elseBlock
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="20px"
+                          viewBox="0 0 20 20"
+                          fill="#E37831"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                        <ng-template #elseBlock>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="20px"
+                            viewBox="0 0 24 24"
+                            width="24px"
+                            fill="#7a7e7f"
+                          >
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path
+                              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                            />
+                          </svg>
+                        </ng-template>
+                      </label>
+                      <input
+                        hidden
+                        type="radio"
+                        id="attestWorker1radio"
+                        class="form-check-input cursor-pointer"
+                        [value]="createForm.get('mainContactPerson').value"
+                        formControlName="selectedMainContact"
+                        *ngIf="
+                          createForm.get('mainContactPerson').value?.length > 0
+                        "
+                        [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group mr-4 panel-body">
+                    <div class="select-section" style="width: 195px; height: 35px">
+
+                      <app-custom-select
+                      [items]="contactPeopleSelected"
+                      id="main-contact-person"
+                      [isGrey]="true"
+                      style="position: relative; z-index: 1;"
+                      #AttestWorker2
+                      [hasOrangeBorder]="needToHaveOrangeBorder2"
+                      (toggleAttestWorker)="toggleAttestWorkerHidden($event, 'attestWorker2')"
+                      [hasDefault]="true"
+                      [defaultValue]="getDefaultAttestWorker2()"
+                      (toggleEmptyWorker)="toggleEmptyWorkerParent(1)"
+                      (toggleDeletedFromArray)="toggleDeletedFromArrayParent(1)"
+                      (click)="makeFormDirty()"
+                      [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                    >
+                    </app-custom-select>
+                    </div>
+                    <div class="form-check d-flex justify-content-center">
+                      <label
+                        class="cursor-pointer"
+                        *ngIf="createForm.get('attestWorker2').value?.length != 0"
+                        for="attestWorker2radio"
+                      >
+                        <svg
+                          *ngIf="
+                            createForm.get('attestWorker2').value ==
+                              this.createForm.get('selectedMainContact').value &&
+                              this.createForm.get('selectedMainContact').value;
+                            else elseBlock
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="20px"
+                          viewBox="0 0 20 20"
+                          fill="#E37831"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                        <ng-template #elseBlock>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="20px"
+                            viewBox="0 0 24 24"
+                            width="24px"
+                            fill="#7a7e7f"
+                          >
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path
+                              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                            />
+                          </svg>
+                        </ng-template>
+                      </label>
+                      <input
+                        hidden
+                        type="radio"
+                        id="attestWorker2radio"
+                        class="form-check-input cursor-pointer"
+                        [value]="createForm.get('attestWorker2').value"
+                        formControlName="selectedMainContact"
+                        *ngIf="createForm.get('attestWorker2').value?.length > 0"
+                        [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                      />
+                      <span
+                        class="mt-1"
+                        *ngIf="createForm.get('attestWorker2').value?.length == 0"
+                        >-</span
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group panel-body mr-4">
+                    <div class="select-section" style="width: 195px; height: 35px">
+                      <app-custom-select
+                        [items]="contactPeopleSelected"
+                        id="main-contact-person"
+                        [isGrey]="true"
+                        style="position: relative; z-index: 1;"
+                        #AttestWorker3
+                        [hasOrangeBorder]="needToHaveOrangeBorder3"
+                        (toggleAttestWorker)="toggleAttestWorkerHidden($event, 'attestWorker3')"
+                        [hasDefault]="true"
+                        [defaultValue]="getDefaultAttestWorker3()"
+                        (toggleEmptyWorker)="toggleEmptyWorkerParent(2)"
+                        (toggleDeletedFromArray)="toggleDeletedFromArrayParent(2)"
+                        (click)="makeFormDirty()"
+                        [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                      >
+                      </app-custom-select>
+                    </div>
+                    <div class="form-check d-flex justify-content-center">
+                      <label
+                        class="cursor-pointer"
+                        *ngIf="createForm.get('attestWorker3').value?.length != 0"
+                        for="attestWorker3radio"
+                      >
+                        <svg
+                          *ngIf="
+                            createForm.get('attestWorker3').value ==
+                              this.createForm.get('selectedMainContact').value &&
+                              this.createForm.get('selectedMainContact').value;
+                            else elseBlock
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="20px"
+                          viewBox="0 0 20 20"
+                          fill="#E37831"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                        <ng-template #elseBlock>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="20px"
+                            viewBox="0 0 24 24"
+                            width="24px"
+                            fill="#7a7e7f"
+                          >
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path
+                              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                            />
+                          </svg>
+                        </ng-template>
+                      </label>
+                      <input
+                        hidden
+                        type="radio"
+                        id="attestWorker3radio"
+                        class="form-check-input cursor-pointer"
+                        [value]="createForm.get('attestWorker3').value"
+                        formControlName="selectedMainContact"
+                        *ngIf="createForm.get('attestWorker3').value?.length > 0"
+                        [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                      />
+                      <span
+                        class="mt-1"
+                        *ngIf="createForm.get('attestWorker3').value?.length == 0"
+                        >-</span
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group panel-body" style="margin-right: -30px">
+                    <div class="select-section" style="width: 195px; height: 35px">
+                      <app-custom-select
+                          [items]="contactPeopleSelected"
+                          id="main-contact-person"
+                          [isGrey]="true"
+                          style="position: relative; z-index: 1;"
+                          #AttestWorker4
+                          [hasOrangeBorder]="needToHaveOrangeBorder4"
+                          (toggleAttestWorker)="toggleAttestWorkerHidden($event, 'attestWorker4')"
+                          [hasDefault]="true"
+                          [defaultValue]="getDefaultAttestWorker4()"
+                          (toggleEmptyWorker)="toggleEmptyWorkerParent(3)"
+                          (toggleDeletedFromArray)="toggleDeletedFromArrayParent(3)"
+                          (click)="makeFormDirty()"
+                          [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                      >
+                      </app-custom-select>
+                    </div>
+                    <div class="form-check d-flex justify-content-center">
+                      <label
+                        class="cursor-pointer"
+                        *ngIf="createForm.get('attestWorker4').value?.length != 0"
+                        for="attestWorker4radio"
+                      >
+                        <svg
+                          *ngIf="
+                            createForm.get('attestWorker4').value ==
+                              this.createForm.get('selectedMainContact').value &&
+                              this.createForm.get('selectedMainContact').value;
+                            else elseBlock
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="20px"
+                          viewBox="0 0 20 20"
+                          fill="#E37831"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+
+                        <ng-template #elseBlock>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="20px"
+                            viewBox="0 0 24 24"
+                            width="24px"
+                            fill="#7a7e7f"
+                          >
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path
+                              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                            />
+                          </svg>
+                        </ng-template>
+                      </label>
+                      <input
+                        hidden
+                        id="attestWorker4radio"
+                        type="radio"
+                        class="form-check-input cursor-pointer"
+                        [value]="createForm.get('attestWorker4').value"
+                        formControlName="selectedMainContact"
+                        *ngIf="createForm.get('attestWorker4').value?.length > 0"
+                        [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                      />
+                      <span
+                        class="mt-1"
+                        *ngIf="createForm.get('attestWorker4').value?.length == 0"
+                        >-</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <span
+                  class="cert-border d-flex justify-content-center align-items-center"
+                >
+                  {{ "Välj ansvarig huvudperson" | translate }}
+                </span>
+                <div
+                  *ngIf="createForm.get('selectedMainContact').errors?.required"
+                  class="text-danger"
+                  [ngClass]="{
+                    'is-invalid': createForm.get('selectedMainContact').errors
+                      ?.required
+                  }"
+                >
+                  {{ "Please select  Contact Person" | translate }}
+                </div>
+              </fieldset>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+      <div class="form-wrapper mb-3 mt-5">
+        <div class="panel panel-default w-100">
+          <fieldset class="field">
+            <legend
+              class="w-auto ml-2"
+              style="cursor: pointer; margin-left: 90px !important"
+              (click)="toggleAddress()"
+            >
+              {{ "Address" | translate }}
+              <span style="padding-left: 10px">
+                <svg
+                  *ngIf="isShownAddress == true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="11.975"
+                  height="7.748"
+                  viewBox="0 0 11.975 7.748"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_758"
+                        data-name="Path 758"
+                        d="M0,.022H11.975V-7.726H0Z"
+                        transform="translate(0 7.726)"
+                        fill="#e3dbd3"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_4455"
+                    data-name="Group 4455"
+                    transform="translate(11.975 7.748) rotate(180)"
+                  >
+                    <g
+                      id="Group_305"
+                      data-name="Group 305"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_304"
+                        data-name="Group 304"
+                        transform="translate(0 0)"
+                      >
+                        <path
+                          id="Path_757"
+                          data-name="Path 757"
+                          d="M0,0,5.3,6.351a.634.634,0,0,0,.542.241H5.9a.634.634,0,0,0,.542-.241L11.7,0a.734.734,0,0,0,.135-.481A.507.507,0,0,0,11.583-.9L11.4-1.02a.856.856,0,0,0-.511-.135A.588.588,0,0,0,10.44-.9L5.867,4.516,1.294-.9a.588.588,0,0,0-.451-.256.856.856,0,0,0-.511.135L.121-.9a.507.507,0,0,0-.256.421A.734.734,0,0,0,0,0"
+                          transform="translate(0.136 1.156)"
+                          fill="#e3dbd3"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+
+                <svg
+                  *ngIf="isShownAddress == false"
+                  id="Group_4455"
+                  data-name="Group 4455"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="11.975"
+                  height="7.748"
+                  viewBox="0 0 11.975 7.748"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_758"
+                        data-name="Path 758"
+                        d="M0,.022H11.975V-7.726H0Z"
+                        transform="translate(0 7.726)"
+                        fill="#e3dbd3"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_305"
+                    data-name="Group 305"
+                    clip-path="url(#clip-path)"
+                  >
+                    <g
+                      id="Group_304"
+                      data-name="Group 304"
+                      transform="translate(0 0)"
+                    >
+                      <path
+                        id="Path_757"
+                        data-name="Path 757"
+                        d="M0,0,5.3,6.351a.634.634,0,0,0,.542.241H5.9a.634.634,0,0,0,.542-.241L11.7,0a.734.734,0,0,0,.135-.481A.507.507,0,0,0,11.583-.9L11.4-1.02a.856.856,0,0,0-.511-.135A.588.588,0,0,0,10.44-.9L5.867,4.516,1.294-.9a.588.588,0,0,0-.451-.256.856.856,0,0,0-.511.135L.121-.9a.507.507,0,0,0-.256.421A.734.734,0,0,0,0,0"
+                        transform="translate(0.136 1.156)"
+                        fill="#e3dbd3"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </span>
+            </legend>
+
+            <div class="form-column-wrapper-position" *ngIf="isShownAddress">
+              <div class="form-column col-4 panel panel-default p-8">
+                <fieldset class="fieldset-working-place">
+                  <legend style="margin-left: 26px" class="w-auto">
+                    {{ "Working place address" | translate }}
+                  </legend>
+
+                  <div class="panel panel-default div-working-adress">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'has-error':
+                          (createForm.get('street').touched ||
+                            createForm.get('street').dirty) &&
+                          !createForm.get('street').valid
+                      }"
+                    >
+                      <label for="clientStreet">{{
+                        "Street and Number" | translate
+                      }}</label>
+                      <input
+                        [class.bg-input]="createForm.get('street').touched"
+                        [attr.disabled]="
+                          !userDetails.create_project_Settings
+                            ? 'disabled'
+                            : null
+                        "
+                        type="text"
+                        class="form-control"
+                        id="street"
+                        placeholder="{{ 'Enter Street and Number' | translate }}"
+                        formControlName="street"
+                        tabIndex="10"
+                      />
+                      <span
+                        class="help-block"
+                        *ngIf="
+                          (createForm.get('street').touched ||
+                            createForm.get('street').dirty) &&
+                          createForm.get('street').errors
+                        "
+                      >
+                        <span
+                          *ngIf="createForm.get('street').errors.required"
+                          class="text-danger"
+                        >
+                          {{ "Please enter Street and Number" | translate }}
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'has-error':
+                          (createForm.get('zip').touched ||
+                            createForm.get('zip').dirty) &&
+                          !createForm.get('zip').valid
+                      }"
+                    >
+                      <label for="clientZip">{{ "Zip code" | translate }}</label>
+                      <input
+                        [class.bg-input]="createForm.get('zip').touched"
+                        [attr.disabled]="
+                          !userDetails.create_project_Settings
+                            ? 'disabled'
+                            : null
+                        "
+                        type="text"
+                        class="form-control"
+                        id="zip"
+                        placeholder="{{ 'Enter zip code' | translate }}"
+                        formControlName="zip"
+                        tabIndex="11"
+                      />
+                      <span
+                        class="help-block"
+                        *ngIf="
+                          (createForm.get('zip').touched ||
+                            createForm.get('zip').dirty) &&
+                          createForm.get('zip').errors
+                        "
+                      >
+                        <span
+                          *ngIf="createForm.get('zip').errors.required"
+                          class="text-danger"
+                        >
+                          {{ "Please enter zip code" | translate }}.
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'has-error':
+                          (createForm.get('city').touched ||
+                            createForm.get('city').dirty) &&
+                          !createForm.get('city').valid
+                      }"
+                    >
+                      <label for="clientCity">{{ "City" | translate }}</label>
+                      <input
+                        [class.bg-input]="createForm.get('city').touched"
+                        [attr.disabled]="
+                          !userDetails.create_project_Settings
+                            ? 'disabled'
+                            : null
+                        "
+                        type="text"
+                        class="form-control"
+                        id="city"
+                        placeholder="{{ 'Enter city' | translate }}"
+                        formControlName="city"
+                        tabIndex="12"
+                      />
+                      <span
+                        class="help-block"
+                        *ngIf="
+                          (createForm.get('city').touched ||
+                            createForm.get('city').dirty) &&
+                          createForm.get('city').errors
+                        "
+                      >
+                        <span
+                          *ngIf="createForm.get('city').errors.required"
+                          class="text-danger"
+                        >
+                          {{ "Please enter city" | translate }}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="form-column col-4 pt-5 adress-information" style="width: 302px;">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('clientStreet').touched ||
+                        createForm.get('clientStreet').dirty) &&
+                      !createForm.get('clientStreet').valid
+                  }"
+                >
+                  <label for="clientStreet">{{
+                    "Street and Number" | translate
+                  }}</label>
+                  <input
+                    [class.bg-input]="createForm.get('clientStreet').touched"
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    type="text"
+                    class="form-control"
+                    id="clientStreet"
+                    placeholder="{{ 'Enter Street and Number' | translate }}"
+                    formControlName="clientStreet"
+                    tabIndex="13"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('clientStreet').touched ||
+                        createForm.get('clientStreet').dirty) &&
+                      createForm.get('clientStreet').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('clientStreet').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter Street and Number" | translate }}
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('clientZip').touched ||
+                        createForm.get('clientZip').dirty) &&
+                      !createForm.get('clientZip').valid
+                  }"
+                >
+                  <label for="clientZip">{{ "Zip code" | translate }}</label>
+                  <input
+                    [class.bg-input]="createForm.get('clientZip').touched"
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    type="text"
+                    class="form-control"
+                    id="clientZip"
+                    placeholder="{{ 'Enter zip code' | translate }}"
+                    formControlName="clientZip"
+                    tabIndex="14"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('clientZip').touched ||
+                        createForm.get('clientZip').dirty) &&
+                      createForm.get('clientZip').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('clientZip').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter zip code" | translate }}.
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('clientCity').touched ||
+                        createForm.get('clientCity').dirty) &&
+                      !createForm.get('clientCity').valid
+                  }"
+                >
+                  <label for="clientCity">{{ "City" | translate }}</label>
+                  <input
+                    [class.bg-input]="createForm.get('clientCity').touched"
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    type="text"
+                    class="form-control"
+                    id="clientCity"
+                    placeholder="{{ 'Enter city' | translate }}"
+                    formControlName="clientCity"
+                    tabIndex="15"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      (createForm.get('clientCity').touched ||
+                        createForm.get('clientCity').dirty) &&
+                      createForm.get('clientCity').errors
+                    "
+                  >
+                    <span
+                      *ngIf="createForm.get('clientCity').errors.required"
+                      class="text-danger"
+                    >
+                      {{ "Please enter city" | translate }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="form-wrapper mb-3 mt-5">
+        <div class="panel panel-default w-100">
+          <fieldset class="field">
+            <legend
+              class="w-auto ml-2"
+              style="cursor: pointer; margin-left: 120px !important"
+              (click)="toggleEconomy()"
+            >
+              {{ "Economy" | translate }}
+              <span style="padding-left: 10px">
+                <svg
+                  *ngIf="isShownEconomy == true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="11.975"
+                  height="7.748"
+                  viewBox="0 0 11.975 7.748"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_758"
+                        data-name="Path 758"
+                        d="M0,.022H11.975V-7.726H0Z"
+                        transform="translate(0 7.726)"
+                        fill="#e3dbd3"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_4455"
+                    data-name="Group 4455"
+                    transform="translate(11.975 7.748) rotate(180)"
+                  >
+                    <g
+                      id="Group_305"
+                      data-name="Group 305"
+                      clip-path="url(#clip-path)"
+                    >
+                      <g
+                        id="Group_304"
+                        data-name="Group 304"
+                        transform="translate(0 0)"
+                      >
+                        <path
+                          id="Path_757"
+                          data-name="Path 757"
+                          d="M0,0,5.3,6.351a.634.634,0,0,0,.542.241H5.9a.634.634,0,0,0,.542-.241L11.7,0a.734.734,0,0,0,.135-.481A.507.507,0,0,0,11.583-.9L11.4-1.02a.856.856,0,0,0-.511-.135A.588.588,0,0,0,10.44-.9L5.867,4.516,1.294-.9a.588.588,0,0,0-.451-.256.856.856,0,0,0-.511.135L.121-.9a.507.507,0,0,0-.256.421A.734.734,0,0,0,0,0"
+                          transform="translate(0.136 1.156)"
+                          fill="#e3dbd3"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+
+                <svg
+                  *ngIf="isShownEconomy == false"
+                  id="Group_4455"
+                  data-name="Group 4455"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="11.975"
+                  height="7.748"
+                  viewBox="0 0 11.975 7.748"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path
+                        id="Path_758"
+                        data-name="Path 758"
+                        d="M0,.022H11.975V-7.726H0Z"
+                        transform="translate(0 7.726)"
+                        fill="#e3dbd3"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_305"
+                    data-name="Group 305"
+                    clip-path="url(#clip-path)"
+                  >
+                    <g
+                      id="Group_304"
+                      data-name="Group 304"
+                      transform="translate(0 0)"
+                    >
+                      <path
+                        id="Path_757"
+                        data-name="Path 757"
+                        d="M0,0,5.3,6.351a.634.634,0,0,0,.542.241H5.9a.634.634,0,0,0,.542-.241L11.7,0a.734.734,0,0,0,.135-.481A.507.507,0,0,0,11.583-.9L11.4-1.02a.856.856,0,0,0-.511-.135A.588.588,0,0,0,10.44-.9L5.867,4.516,1.294-.9a.588.588,0,0,0-.451-.256.856.856,0,0,0-.511.135L.121-.9a.507.507,0,0,0-.256.421A.734.734,0,0,0,0,0"
+                        transform="translate(0.136 1.156)"
+                        fill="#e3dbd3"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </span>
+            </legend>
+            <div class="form-column-wrapper-position" *ngIf="isShownEconomy">
+              <div class="form-column col-4 economy" style="width: 302px;">
+                <div class="form-group">
+                  <label for="name">{{ "Construction form" | translate }}</label>
+                  <div
+                    style="
+                      width: 302px;
+                      height: 35px;
+                      position: relative;
+                      z-index: 2;
+                    "
+                  >
+                    <div class="input-wrapper1" >
+                      <app-select-dropdown-with-plus
+                      [ClientItem]= "constructionForms"
+                      [defaultValue]="getDefaultConstructionForm()"
+                      [width]="302"
+                      [fontSize]="18"
+                      (Construction)="constructionFormSelected($event,'construction_Id')"
+                      [type1]="'construction'"
+                      [ConstructionDebitItem]="true"
+                      [EnableSearch]="false"
+                      [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                      >
+                      </app-select-dropdown-with-plus>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="name">{{ "Debit Form" | translate }}</label>
+                  <div
+                    style="
+                      width: 302px;
+                      height: 35px;
+                      position: relative;
+                      z-index: 1;
+                    "
+                  >
+                  <!--Dropdown Debit Form-->
+                  <div class="input-wrapper1 debit-form-wrapper" >
+                    <app-select-dropdown-with-plus
+                      [ClientItem]= "getDebitForms"
+                      [defaultValue]="getDefaultDebitForm()"
+                      [width]="302"
+                      [fontSize]="18"
+                      (Debit)="selectDebitForm($event, 'debit_Id')"
+                      [placehoderDebit]="placeholderDebit"
+                      [type1]="'debit'"
+                      [ConstructionDebitItem]="true"
+                      [EnableSearch]="false"
+                      (click)="setVisiblePaymentType()"
+                      [disableSelect]="!userDetails.create_project_Settings ? true : false"
+                    >
+                    </app-select-dropdown-with-plus>
+                    <div class="payment-type-wrapper" *ngIf="createForm.get('debit_Id').value == 4 && visible_payment_type">
+                      <div class="payment-type-left" (click)="setPaymentType('PAYMENT')">
+                        <span>
+                          {{'Payment plan' | translate}}
+                        </span>
+                        <ng-conteiner>
+                          <svg
+                            *ngIf="createForm.get('payment_type').value == 'PAYMENT'"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="20px"
+                            viewBox="0 0 20 20"
+                            fill="#E37831"
+                          >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"
+                          />
+                          </svg>
+                          <svg
+                            *ngIf="createForm.get('payment_type').value != 'PAYMENT'"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="20px"
+                            viewBox="0 0 24 24"
+                            width="24px"
+                            fill="#7a7e7f"
+                          >
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path
+                              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                            />
+                          </svg>
+                        </ng-conteiner>
+                      </div>
+                      <div class="payment-type-right" (click)="setPaymentType('WEEKLY_REPORT')">
+                        <span>
+                          {{'DU' | translate}}
+                        </span>
+                        <ng-conteiner>
+                          <svg
+                            *ngIf="createForm.get('payment_type').value == 'WEEKLY_REPORT'"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="20px"
+                            viewBox="0 0 20 20"
+                            fill="#E37831"
+                          >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"
+                          />
+                          </svg>
+                          <svg
+                            *ngIf="createForm.get('payment_type').value != 'WEEKLY_REPORT'"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="20px"
+                            viewBox="0 0 24 24"
+                            width="24px"
+                            fill="#7a7e7f"
+                          >
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path
+                              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                            />
+                          </svg>
+                        </ng-conteiner>
+                      </div>
+                    </div>
+                  </div>
+                <!--End Dropdown Debit Form-->
+<!--
+                    <app-custom-simple-select
+                        [items]="isProjectLopande()"
+                        [label]="'Name'"
+                        [hasDefaultValue]="true"
+                        [defaultValue]="getDefaultDebitForm()"
+                        [isSelectedFont]="true"
+                        [hasFirstMinusLine]="false"
+                        (toggleSelectedOption)="
+                          selectDebitForm($event, 'debit_Id')
+                        "
+                      >
+                    </app-custom-simple-select>
+-->
+                  </div>
+
+                  <!-- <select
+                    [class.bg-input]="createForm.get('debit_Id').value != 1"
+                    [attr.disabled]="
+                      !userDetails.create_project_Settings
+                        ? 'disabled'
+                        : null
+                    "
+                    class="project-nav-select form-control"
+                    id="project-PaymentType"
+                    #PaymentType
+                    formControlName="debit_Id"
+                    style="background-color: #C7C6C4; border-color: white;"
+                  >
+
+                      <option
+                      *ngFor="let getDebitForm of isProjectLopande()"
+                      value="{{ getDebitForm.Id }}"
+                    >
+                      {{ getDebitForm.Name }}
+                    </option>
+                  </select> -->
+                </div>
+
+
+
+                <div style="
+                background-color: #373b40;
+                height: 5px;
+                margin-bottom: 20px;">
+              </div>
+
+
+
+                <div
+                  class="form-group mt-5"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('ProjectSkilledHourlyRate').touched ||
+                        createForm.get('ProjectSkilledHourlyRate').dirty) &&
+                      !createForm.get('ProjectSkilledHourlyRate').valid
+                  }"
+                >
+                  <label for="ProjectSkilledHourlyRate">{{
+                    "Project Skilled Worker Hourly Rate" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="
+                        createForm.get('ProjectSkilledHourlyRate').touched
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="ProjectSkilledHourlyRate"
+                      placeholder="{{
+                        'Project Skilled Worker Hourly Rate' | translate
+                      }}"
+                      formControlName="ProjectSkilledHourlyRate"
+                      number-format-directive
+                      tabIndex="16"
+                      [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">{{generals['Currency']['short']}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('ProjectWorkerHourlyRate').touched ||
+                        createForm.get('ProjectWorkerHourlyRate').dirty) &&
+                      !createForm.get('ProjectWorkerHourlyRate').valid
+                  }"
+                >
+                  <label for="ProjectWorkerHourlyRate">{{
+                    "Project Worker Hourly Rate" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="
+                        createForm.get('ProjectWorkerHourlyRate').touched
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="ProjectWorkerHourlyRate"
+                      placeholder="{{ 'Project Worker Hourly Rate' | translate }}"
+                      formControlName="ProjectWorkerHourlyRate"
+                      number-format-directive
+                      tabIndex="17"
+                      [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">{{generals['Currency']['short']}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('chargeMaterial').touched ||
+                        createForm.get('chargeMaterial').dirty) &&
+                      !createForm.get('chargeMaterial').valid
+                  }"
+                >
+                  <label for="chargeMaterial">{{
+                    "TSC_Project_extra_charge_material" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="createForm.get('chargeMaterial').touched"
+                      [attr.disabled]="
+                        !userDetails.create_project_Settings
+                          ? 'disabled'
+                          : null
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="chargeMaterial"
+                      placeholder="{{ 'TSC_Project_extra_charge_material' | translate }}"
+                      formControlName="chargeMaterial"
+                      number-format-directive
+                      tabIndex="18"
+                      [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('chargeUE').touched ||
+                        createForm.get('chargeUE').dirty) &&
+                      !createForm.get('chargeUE').valid
+                  }"
+                >
+                  <label for="chargeUE">{{ "TSC_Project_extra_charge_UE" | translate }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="createForm.get('chargeUE').touched"
+                      [attr.disabled]="
+                        !userDetails.create_project_Settings
+                          ? 'disabled'
+                          : null
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="chargeUE"
+                      placeholder="{{ 'TSC_Project_extra_charge_UE' | translate }}"
+                      formControlName="chargeUE"
+                      value="0"
+                      number-format-directive
+                      tabIndex="19"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-column col-4 economy-tender" style="width: 302px;">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('tenderSum').touched ||
+                        createForm.get('tenderSum').dirty) &&
+                      !createForm.get('tenderSum').valid
+                  }"
+                >
+                  <label for="tenderSum">{{ "Tender Sum" | translate }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="createForm.get('tenderSum').touched"
+                      [attr.disabled]="
+                        !userDetails.create_project_Settings
+                          ? 'disabled'
+                          : null
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="tenderSum"
+                      placeholder="{{ 'Enter Tender Sum' | translate }}"
+                      formControlName="tenderSum"
+                      value="0"
+                      number-format-directive
+                      tabIndex="20"
+                      #tenderSumElement
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">{{generals['Currency']['short']}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('contractAmount').touched ||
+                        createForm.get('contractAmount').dirty) &&
+                      !createForm.get('contractAmount').valid
+                  }"
+                >
+                  <label for="contractAmount">{{
+                    "Contract Amount" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="createForm.get('contractAmount').touched"
+                      [attr.disabled]="
+                        !userDetails.create_project_Settings
+                          ? 'disabled'
+                          : null
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="contractAmount"
+                      placeholder="{{ 'Enter Contract Amount' | translate }}"
+                      formControlName="contractAmount"
+                      number-format-directive
+                      tabIndex="21"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">{{generals['Currency']['short']}}</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div style="
+                background-color: #373b40;
+                height: 5px;
+                margin-bottom: 20px;">
+              </div>
+
+
+
+                <div
+                  class="form-group mt-5"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('AtaSkilledHourlyRate').touched ||
+                        createForm.get('AtaSkilledHourlyRate').dirty) &&
+                      !createForm.get('AtaSkilledHourlyRate').valid
+                  }"
+                >
+                  <label for="AtaSkilledHourlyRate">{{
+                    "ATA Skilled Worker Hourly Rate" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="
+                        createForm.get('AtaSkilledHourlyRate').touched
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="AtaSkilledHourlyRate"
+                      placeholder="{{
+                        'ATA Skilled Worker Hourly Rate' | translate
+                      }}"
+                      formControlName="AtaSkilledHourlyRate"
+                      number-format-directive
+                      tabIndex="22"
+                      [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">{{generals['Currency']['short']}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('AtaWorkerHourlyRate').touched ||
+                        createForm.get('AtaWorkerHourlyRate').dirty) &&
+                      !createForm.get('AtaWorkerHourlyRate').valid
+                  }"
+                >
+                  <label for="AtaWorkerHourlyRate">{{
+                    "ATA Worker Hourly Rate" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="
+                        createForm.get('AtaWorkerHourlyRate').touched
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="AtaWorkerHourlyRate"
+                      placeholder="{{ 'ATA Worker Hourly Rate' | translate }}"
+                      formControlName="AtaWorkerHourlyRate"
+                      number-format-directive
+                      tabIndex="23"
+                      [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">{{generals['Currency']['short']}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('ataChargeMaterial').touched ||
+                        createForm.get('ataChargeMaterial').dirty) &&
+                      !createForm.get('ataChargeMaterial').valid
+                  }"
+                >
+                  <label for="ataChargeMaterial">{{
+                    "TSC_Ata_extra_charge_material" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control new-width-230"
+                      id="ataChargeMaterial"
+                      placeholder="{{ 'TSC_Ata_extra_charge_material' | translate }}"
+                      formControlName="ataChargeMaterial"
+                      number-format-directive
+                      tabIndex="24"
+                      [attr.disabled]="!userDetails.create_project_Settings ? true : null"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">{{generals['Currency']['short']}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('ataChargeUE').touched ||
+                        createForm.get('ataChargeUE').dirty) &&
+                      !createForm.get('ataChargeUE').valid
+                  }"
+                >
+                  <label for="ataChargeUE">{{
+                    "TSC_Ata_extra_charge_UE" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      [attr.disabled]="
+                        !userDetails.create_project_Settings
+                          ? 'disabled'
+                          : null
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="ataChargeUE"
+                      placeholder="{{
+                        'TSC_Ata_extra_charge_UE' | translate
+                      }}"
+                      formControlName="ataChargeUE"
+                      number-format-directive
+                      tabIndex="25"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-column col-4 economy-time" style="width: 302px;">
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('estimatedRunTime').touched ||
+                        createForm.get('estimatedRunTime').dirty) &&
+                      !createForm.get('estimatedRunTime').valid
+                  }"
+                >
+                  <label for="estimatedRunTime">{{
+                    "Estimated running time" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="
+                        createForm.get('estimatedRunTime').touched
+                      "
+                      [attr.disabled]="
+                        !userDetails.create_project_Settings
+                          ? 'disabled'
+                          : null
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="estimatedRunTime"
+                      placeholder="{{ 'Estimated running time' | translate }}"
+                      formControlName="estimatedRunTime"
+                      number-format-directive
+                      tabIndex="26"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">Tim</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="form-group"
+                  [ngClass]="{
+                    'has-error':
+                      (createForm.get('estimatedFixTime').touched ||
+                        createForm.get('estimatedFixTime').dirty) &&
+                      !createForm.get('estimatedFixTime').valid
+                  }"
+                >
+                  <label for="estimatedFixTime">{{
+                    "Estimated fixed time" | translate
+                  }}</label>
+                  <div class="input-group">
+                    <input
+                      [class.bg-input]="
+                        createForm.get('estimatedFixTime').touched
+                      "
+                      [attr.disabled]="
+                        !userDetails.create_project_Settings
+                          ? 'disabled'
+                          : null
+                      "
+                      type="text"
+                      class="form-control new-width-230"
+                      id="estimatedFixTime"
+                      placeholder="{{ 'Estimated fixed time' | translate }}"
+                      formControlName="estimatedFixTime"
+                      number-format-directive
+                      tabIndex="27"
+                    />
+                    <div class="input-group-append new-height-35">
+                      <span class="input-group-text">Tim</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+
+
+      <div class="form-group btn-position m-5">
+        <button
+            [attr.disabled]="
+            (createForm.invalid && myform.submitted) ||
+            !userDetails.create_project_Settings || !createForm.dirty
+              ? 'disabled'
+              : null
+          "
+          type="submit"
+          class="btn btn-create btn-save d-flex pr-5"
+        >
+          <img
+            style="padding: 2px 0px 0px 0px"
+            class="spacing"
+            src="assets/img/spara.svg"
+            alt="spara"
+          />
+          <span class="btn-span">{{ "Save" | translate }}</span>
+        </button>
+
+        <!-- ukoliko zatreba dugme za brisanje -->
+
+        <!-- <button
+          (click)="removeProject()"
+          [attr.disabled]="
+            !userDetails.create_project_Settings ? 'disabled' : null
+          "
+          type="submit"
+          class="btn btn-create btn-delete d-flex pr-5"
+        >
+          <img
+            style="padding: 3px 0px 0px 0px"
+            class="spacing"
+            src="assets/img/radera.svg"
+            alt="radera"
+          />
+          <span class="btn-span">{{ "Delete" | translate }}</span>
+        </button> -->
+
+      </div>
+
+      <!-- <div class="form-group btn-position m-5">
+        <button type="submit" class="btn btn-success lh09 mr-auto"
+          [attr.disabled]="(createForm.invalid && myform.submitted) || !userDetails.create_project_Settings ? 'disabled' : null">
+          <span class="material-icons left-3px top1px posRel">save</span>
+          <span class="posRel top-5px">{{'Save' | translate}}</span>
+        </button>
+        <button type="button" class="btn btn-danger lh09" (click)="removeProject()"
+          [attr.disabled]="!userDetails.create_project_Settings ? 'disabled' : null">
+          <span class="material-icons left-3px top1px posRel">delete</span>
+          <span class="posRel top-5px">{{'Remove' | translate}}</span>
+        </button>
+      </div> -->
+
+    </form>
+
+
+  </div>
+
+  <div class="thin-red-line-bottom"></div>
+  <div class="thin-red-line-right"></div>
+
+
+  <div class="uploader-status progress-loader" *ngIf="spinner">
+    <mat-spinner [diameter]="100" ></mat-spinner>
+  </div>
+
+</div>
+
+
+

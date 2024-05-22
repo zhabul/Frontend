@@ -1,0 +1,37 @@
+<div class="three-dots"
+   (click)="toggleThreeDots()" 
+  *ngIf="education" 
+   [ngClass]="{
+    'three-dots-clicked':isOpen,
+    'is-my-account':isMyAccount,
+    'three-dots-permit-dialog':isPermitDialog
+  }"
+   >
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" id="threeDotsSvg" height="30" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16"> 
+    <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+  </svg>
+  <div class="option-modal-wrapper" *ngIf="isOpen">
+      <div class="options-btns-wrapper">
+          <div class="redigera-btn" (click)="onEdit()">{{"EDIT" | translate}}</div>
+          <div class="radera-btn" (click)="onDelete()">{{"DELETE" | translate}}</div>
+        <div class="spara-btn" (click)="onSave()">{{"SAVE" | translate}}</div>
+      </div>
+  </div>
+</div>
+
+<!-- <div class="three-dots" (click)="toggleThreeDots()" *ngIf="education">
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" id="threeDotsSvg" height="30" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16"> <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+  </svg>
+  <div class="option-modal-wrapper" *ngIf="isOpen">
+    <div class="box-option box-option-sb">
+      <div class="options-btns-wrapper">
+        <div class="redigera-radera-btns">
+          <div class="redigera-btn" (click)="onEdit()">{{"EDIT" | translate}}</div>
+          <div class="radera-btn" (click)="onDelete()">{{"DELETE" | translate}}</div>
+        </div>
+        <div class="spara-btn" (click)="onSave()">{{"SAVE" | translate}}</div>
+      </div>
+    </div>
+  </div>
+</div> -->
+

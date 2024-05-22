@@ -1,0 +1,32 @@
+<div id="form-container">
+  <div class="grid-columns">
+    <form class="response-form" (submit)="sendOfferResponse($event)">
+      <div id="textarea-container">
+        <div id="response-title" class="align-left cur-default" >Besked från beställare</div>
+        <div id="textarea-header" class="align-left cur-default" >Beskrivning / Åtgärd / Fråga</div>
+        <textarea (input)="validateTextarea($event)" [style.border-color]="msgBorder" standalone name="message" maxlength="500" [(ngModel)]="message" id="textarea"></textarea>
+        <div id="textarea-footer" class="align-left cur-default" >Svara genom att välja ett av följande alternativ</div>
+      </div>
+      <div id="response-buttons">
+        <div [style.border-color]="button.borderColor" class="response-button-container" *ngFor="let button of buttons; let i = index;">
+          <button
+            [attr.data-status]="button.status"
+            class="response-button"
+            [ngStyle]="{'background-color' : button.color,
+                        'color' : i % 2 != 0 ? 'black' : 'white'}"
+            >{{ button.name }}</button>
+          <div class="cur-default grey-txt">{{ button.msg }}</div>
+        </div>
+      </div>
+      <div class="image-modal">
+        <app-image-modal-small (setFiles)="setFiles($event)"></app-image-modal-small>
+      </div>
+    </form>
+  </div>
+  <div class="page-number">{{pageTotal}}/{{pageTotal}}</div>
+</div>
+
+
+<div class="spinner2" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+</div>

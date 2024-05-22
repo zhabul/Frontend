@@ -1,0 +1,255 @@
+.wrapper{
+    width:813px;
+    /* height: 291px; */
+    padding: 0px 8px 0px 8px;
+}
+
+.head-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.text-name{
+    text-align: left;
+    color: #FF7000;
+    font-size:  18px;
+}
+.close-modal{
+    text-align: right;
+    border: 1px solid #B8B8B8;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    color: #B8B8B8;
+    cursor: pointer;
+}
+
+.form-wrapp{
+    display: flex;
+    gap: 30px;
+}
+
+.pos{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+.pos2{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+input{
+    width: 100%;
+    height: 33px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 18px;
+
+}
+
+
+input::placeholder {
+    font: 18px;
+}
+input:focus, input:focus-visible{
+    outline: none;
+}
+label{
+    font-size: 12px;
+    color:#B8B8B8;
+    margin-bottom: 5px;
+    
+
+}
+
+.inputs-wrapper{
+    gap: 20px;
+    display: grid;
+    margin-top: 13px;
+}
+
+.check-wrapper, .activity{
+    display: flex;
+    color: #E3DBD3;
+
+}
+
+.check-wrapper{
+    gap:7px;
+ 
+}
+.check-button-wrapp{
+    width: 25px;
+    height: 25px;
+    position: relative;
+}
+
+input.check {
+    width: 100%;
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+}
+
+.save-wrapper {
+    display: flex;
+    float: right;
+}
+
+.button-save-custom {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: var(--orange-dark);
+    border: 1px solid var(--orange-dark);
+    padding: 3px 11px 3px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+::ng-deep .cdk-overlay-dark-backdrop {
+  background: rgb(128 128 128 / 50%);
+}
+
+
+.wrapp-positions{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap:15px
+}
+.wrapp-positions2{
+    display: grid;
+    grid-template-rows: 18px 1fr 1fr;
+    gap:8px
+}
+
+.wrapp-positions3{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.flex-directions{
+    display: flex;
+    gap: 20px;
+    max-height:58px
+}
+.flex-directions1{
+    display: flex;
+    gap: 23px;
+}
+.w280{
+    width: 280px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+
+.w130{
+    width: 130px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+
+.w253{
+    width: 253px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+.w280{
+    width:280px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+.w271{
+    width: 271px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+
+.w272{
+    width: 271px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+
+.w279{
+    width:279px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+
+}
+
+.w125px{
+    width: 125px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+.w232{
+    width: 232px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+
+.w250{
+    width: 250px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+
+.w523{
+    width: 523px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+.w200{
+    width:200px;
+    display: grid;
+    grid-template-rows: 25px 1fr 0px;
+}
+
+.stat{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.save-btn-custom{
+    border: 1px solid var(--orange-dark);
+    border-radius: 4px;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: var(--orange-dark);
+    padding: 3px 10px 3px 10px;
+    background: var(--main-bg);
+    cursor: pointer;
+}
+
+button:focus{
+    /* outline:none; */
+    outline:1px solid var(--orange-dark)
+}
+.clean-btn-custom{
+    border: 1px solid #FD4444;
+    border-radius: 4px;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #FD4444;
+    padding: 3px 10px 3px 10px;
+    cursor: pointer;
+}
+
+.text-danger{
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.position-error{
+    margin-top: -5px;
+    
+}

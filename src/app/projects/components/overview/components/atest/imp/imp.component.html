@@ -1,0 +1,525 @@
+<mat-dialog-content class="mat-dialog-imp-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="schedRespon ">
+    <div class="row">
+        <div style="background-color: var(--project-color)" class="top-information">
+        <nav
+            style="
+            background-color: var(--project-color);
+            display: flex;
+            justify-content: space-between;
+            "
+            class="nav nav-pills nav-justified nav-style"
+        >
+            <div class="nav-title">
+            <div class="f-s-11">{{ "Name" | translate }}:</div>
+            <div class="f-s-18">{{ user.name }}</div>
+
+
+            </div>
+            <a (click)="closeModal()">
+            <svg id="Stäng_Close_" data-name="Stäng (Close)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24.27" height="24.269" viewBox="0 0 24.27 24.269">
+                <defs>
+                <clipPath id="clip-path">
+                    <path id="Path_782" data-name="Path 782" d="M0,9.026H24.269V-15.243H0Z" transform="translate(0 15.243)" fill="#fff"/>
+                </clipPath>
+                </defs>
+                <g id="Group_341" data-name="Group 341" clip-path="url(#clip-path)">
+                <g id="Group_340" data-name="Group 340" transform="translate(0 0.001)">
+                    <path id="Path_781" data-name="Path 781" d="M4.513,8.432A10.438,10.438,0,0,1-5.929-2.089,10.438,10.438,0,0,1,4.513-12.61,10.438,10.438,0,0,1,14.954-2.089,10.438,10.438,0,0,1,4.513,8.432m0,1.6A12.168,12.168,0,0,0,16.647-2.105,12.167,12.167,0,0,0,4.513-14.239,12.167,12.167,0,0,0-7.621-2.105,12.168,12.168,0,0,0,4.513,10.03" transform="translate(7.621 14.239)" fill="#fff"/>
+                </g>
+                </g>
+                <g id="Group_342" data-name="Group 342" transform="translate(5.611 5.611)">
+                <path id="Path_783" data-name="Path 783" d="M1.77,2.135l-5.392,5.4L-2.5,8.664,2.9,3.265l5.405,5.4,1.118-1.13-5.405-5.4L9.424-3.252,8.293-4.369,2.9,1.018-2.5-4.382l-1.118,1.13Z" transform="translate(3.622 4.382)" fill="#fff"/>
+                </g>
+            </svg>
+            </a>
+        </nav>
+        </div>
+    </div>
+
+    <div>
+        <form
+        novalidate
+        autocomplete="off"
+        [formGroup]="createForm"
+        (ngSubmit)="createScheduleDate()"
+        class="form-content schedule-form"
+        #myform="ngForm"
+
+        >
+
+        <div class="form-row-wrapper row" *ngIf="!deadLineDate">
+            <div class="form-group input-date">
+            <label>{{ "Date" | translate }}</label>
+            <input
+                style="background-color: #C7C6C4; color: #44484C; border: 1px solid var(--border-color);"
+                type="text"
+                class="form-control"
+                id="Date"
+                [value]="date"
+                readonly
+            />
+            </div>
+            <div
+            class="form-group input-project"
+            >
+            <label class="project">{{ "Projects" | translate }}</label>
+
+        <!--Dropdown Project Attest-->
+        <div class="input-wrapper7" *ngIf="createForm && !editable">
+            <app-simple-select
+            [control]="createForm.get('ProjectID')"
+            [myform]="myform"
+            [ClientItem]= "projectManagerProjects"
+            [fontSize]="14"
+            formControlName="ProjectID"
+            [width]="310"
+            [type1]="'ata invoice_editor'"
+            [AttestActive]="true"
+            [EnableSearch]="true"
+            errorText=""
+            (ProjectAttest)="getMomentsOfProject($event)"
+            >
+            </app-simple-select>
+        </div>
+        <!--End Dropdown Project Attest-->
+
+    <!--
+            <app-input-autocomplete
+                [colors]="colors"
+                *ngIf="createForm && !editable"
+                [control]="createForm.get('ProjectID')"
+                [inputText]="createForm.get('ProjectID_name')"
+                [list]="projectManagerProjects"
+                [myform]="myform"
+                id="ProjectID"
+                errorText=""
+                (getEvent)="getMomentsOfProject($event)"
+                type="ata invoice_editor"
+            ></app-input-autocomplete>
+    -->
+            <input
+                *ngIf="editable"
+                type="text"
+                class="form-control"
+                style="width: 100%; border:1px solid var(--border-color); background-color: '#C7C6C4';"
+                maxlength="255"
+                disabled = true;
+                [value]="project.finalName"
+            />
+
+            </div>
+            <div
+            *ngIf="childrenProjects.length > 0 && allowChildrenProjects"
+            class="form-group input-project"
+            [ngClass]="{
+                'has-error':
+                (createForm.get('ProjectID').touched ||
+                    createForm.get('ProjectID').dirty) &&
+                !createForm.get('ProjectID').valid
+            }"
+            >
+            <label class="project">{{ "Activity" | translate }}</label>
+            <select
+
+                formControlName="ChildProjectID"
+                id="project"
+                class="form-control input-project"
+                #projectChildren
+                (change)="setProject(projectChildren.value)"
+            >
+                <option value="0">{{ "Select activity" | translate }}</option>
+                <option
+                [value]="projectChild.ProjectID"
+                *ngFor="let projectChild of childrenProjects"
+                >
+                {{ projectChild.activityNumber }}
+                {{ projectChild.activityDescription }}
+                </option>
+            </select>
+            </div>
+            <div
+            class="form-group input-project"
+            [ngClass]="{
+                'has-error':
+                (createForm.get('AtaID').touched ||
+                    createForm.get('AtaID').dirty) &&
+                !createForm.get('AtaID').valid
+            }"
+            *ngIf="projectManagerProjects.length > 0"
+            >
+            <label class="ata">{{ "Ata" | translate }}</label>
+
+        <!--Dropdown Ata Attest-->
+        <div class="input-wrapper7" *ngIf="createForm">
+            <app-simple-select
+            [control]="createForm.get('AtaID')"
+            [myform]="myform"
+            [ClientItem]= "workerAtas"
+            [fontSize]="14"
+            formControlName="AtaID"
+            [width]="310"
+            [type1]="'ata-users-reg'"
+            [AttestActive]="true"
+            [EnableSearch]="true"
+            (ProjectAttest)="getAtaType($event)"
+            errorText=""
+            >
+            </app-simple-select>
+        </div>
+        <!--End Dropdown Ata Attest-->
+
+    <!--
+            <app-input-autocomplete
+                [colors]="colors"
+                class="input-project"
+                *ngIf="createForm"
+                [control]="createForm.get('AtaID')"
+                [inputText]="createForm.get('AtaID_name')"
+                [list]="workerAtas"
+                [myform]="myform"
+                id="ataId"
+                errorText=""
+                (getEvent)="getAtaType($event)"
+                type="ata-users-reg"
+            ></app-input-autocomplete>
+    -->
+            </div>
+        </div>
+        <div
+        class="form-group text-area-comment  "
+        [ngClass]="{
+            'has-error':
+            (createForm.get('Comment').touched ||
+                createForm.get('Comment').dirty) &&
+            !createForm.get('Comment').valid
+        }"
+        >
+        <label for="details"
+            ><small>{{ "Comment" | translate }}</small></label
+        >
+        <textarea
+            class="form-control form-control-textarea"
+            id="Comment"
+            rows="3"
+            formControlName="Comment"
+            maxlength="500"
+            [readonly]="editable ? true : null"
+        ></textarea>
+        </div>
+        <div class="time-wrapper form-row">
+            <div
+            class="form-group col-md-4 date-work col-sm-12"
+            [ngClass]="{
+                'has-error':
+                (createForm.get('Work').touched ||
+                    createForm.get('Work').dirty) &&
+                !createForm.get('Work').valid
+            }"
+            *ngIf="!deadLineDate"
+            >
+            <label class="required">{{ "Moment" | translate }}</label>
+
+            <!--Dropdown Attest Moment-->
+                <div class="input-wrapper8">
+                <app-simple-select
+                [placeholder]="'Select Moment' | translate "
+                [ClientItem]= "projectMoments"
+                [fontSize]="14"
+                formControlName="Work"
+                [width]="370"
+                [type1]="'AttestMoment'"
+                [AttestMoment]="true"
+                [EnableSearch]="false"
+                (MomentAttest)="chooseMoment($event)"
+                >
+                </app-simple-select>
+                </div>
+            <!--End Dropdown Attest Moment-->
+
+    <!--
+            <select
+            [ngClass]="(openSelect && typeString== 'Work') ? 'arrow-none-1' : 'arrow-none'" (click)="selectopen('Work')"
+                class="project-nav-select form-control"
+                id="project-ProjectID"
+                #work
+                formControlName="Work"
+                (change)="chooseMoment(work)"
+            >
+                <option value="">{{ "Select Moment" | translate }}</option>
+                <option
+                *ngFor="let moment of projectMoments"
+                [attr.data-user-id]="moment.id"
+                [attr.data-type]="moment.type"
+                [attr.data-momentid]="moment.Id"
+                [attr.data-default_moment_id]="moment.default_moment_id"
+                value="{{ moment.Description }}"
+                [disabled]="moment.parent == '0'"
+                >
+                {{ moment.moment_number }} {{ moment.Description | translate }}
+                </option>
+            </select>
+    -->
+            <div
+                class="help-block"
+                *ngIf="workValidator && myform.submitted && moments.length === 0"
+            >
+                <span class="text-danger">
+                {{ "Select Moment" | translate }}.
+                </span>
+            </div>
+            </div>
+            <div
+            class="form-group col-md-1 col-sm-6"
+            [ngClass]="{
+                'has-error':
+                (createForm.get('Hours').touched ||
+                    createForm.get('Hours').dirty) &&
+                !createForm.get('Hours').valid
+            }"
+            >
+            <label class="required">{{ "Hours" | translate }}</label>
+
+            <!--Dropdown Attest Hours-->
+            <div class="input-wrapper9">
+                <app-simple-select
+                [placeholder]="'00'"
+                [ClientItem]= "HoursArray"
+                [fontSize]="14"
+                formControlName="Hours"
+                [width]="85"
+                [type1]="'AttestHours'"
+                [AttestHours]="true"
+                [EnableSearch]="false"
+                (HoursAttest)="selectopen('Hours')"
+                >
+                </app-simple-select>
+            </div>
+            <!--End Dropdown Attest Hours-->
+    <!--
+            <select
+            [ngClass]="(openSelect && typeString== 'Hours') ? 'arrow-none-1' : 'arrow-none'" (click)="selectopen('Hours')"
+                class="project-nav-select form-control"
+                id="project-ProjectID"
+                formControlName="Hours"
+            >
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+            </select>
+    -->
+            </div>
+            <div
+            class="form-group col-md-1 col-sm-6"
+            [ngClass]="{
+                'has-error':
+                (createForm.get('Minutes').touched ||
+                    createForm.get('Minutes').dirty) &&
+                !createForm.get('Minutes').valid
+            }"
+            >
+            <label>{{ "Minutes" | translate }}</label>
+            <!--Dropdown Attest Minutes-->
+            <div class="input-wrapper9">
+            <app-simple-select
+            [placeholder]="'00'"
+            [ClientItem]= "MinutesArray"
+            [fontSize]="14"
+            formControlName="Minutes"
+            [width]="85"
+            [type1]="'MinutesAtt'"
+            [AttestHours]="true"
+            [EnableSearch]="false"
+            (MinutesAttest)="selectopen('Minutes')"
+            >
+            </app-simple-select>
+            </div>
+        <!--End Dropdown Attest Minutes-->
+    <!--
+            <select
+            [ngClass]="(openSelect && typeString== 'Minutes') ? 'arrow-none-1' : 'arrow-none'" (click)="selectopen('Minutes')"
+                class="project-nav-select form-control"
+                id="project-ProjectID"
+                formControlName="Minutes"
+            >
+                <option value="00">00</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
+            </select>
+    -->
+            </div>
+            <div
+            class="form-group col-md-5 col-sm-12"
+            [ngClass]="{
+                'has-error':
+                (createForm.get('State').touched ||
+                    createForm.get('State').dirty) &&
+                !createForm.get('State').valid
+            }"
+            >
+            <label class="required">{{ "State" | translate }}</label>
+            <input
+
+                type="text"
+                formControlName="State"
+                class="form-control clear-text"
+                placeholder="{{ 'Enter State' | translate }}"
+                style="width: 98%; border:1px solid var(--border-color)"
+                maxlength="255"
+            />
+            </div>
+        </div>
+        <div class="display-time">
+            <table class="table">
+            <thead style="cursor: default" class="thead-white">
+                <tr>
+                <th scope="col" style="max-width: 105px; min-width: 105px; width: 105px;"><div class="wrapper-th wrapper-th-1">{{ "Project" | translate }}</div></th>
+                <th scope="col" style="max-width: 148px; min-width: 148px; width: 148px;"><div class="wrapper-th m-2p">{{ "ÄTA / DU" | translate }}</div></th>
+                <th style="max-width: 195px; min-width: 195px; width: 195px;"><div class="wrapper-th m-2p">{{ "Moment" | translate }}</div></th>
+                <th scope="col" style="max-width: 95px; min-width: 95px; width: 95px;"><div class="wrapper-th m-2p">{{ "Time" | translate }}</div></th>
+                <th scope="col" ><div class="wrapper-th m-2p">{{ "State" | translate }}</div></th>
+                <th scope="col" style="max-width: 170px; min-width: 170px; width: 170px;"><div class="wrapper-th m-2p">{{ 'Comment' | translate}}</div></th>
+                <th scope="col"  style="max-width: 50px; min-width: 50px; width: 50px;text-align: center;">
+                    <div class="wrapper-th m-2p" style="min-height:40px;padding: 6px;">
+                    <app-dellete-icon2-svg></app-dellete-icon2-svg>
+
+                    </div>
+                </th>
+                <!-- <th scope="col"><div class="wrapper-th wrapper-th-n m-2p" style="min-height:40px"></div></th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                app-moment-editor
+                *ngFor="let moment of moments; let index = index"
+                [moment]="moment"
+                [index]="index"
+                [indexArr]="moments"
+                [UserRoleID]="user['User_roleID']"
+                [UserID]="user['id']"
+                class="editable-moment-class"
+                [projectManagerProjects]="projectManagerProjects"
+                (dispatchMoment)="updateMoment($event)"
+                (dispatchRemoveMoment)="removeProperty($event)"
+                [projectMoments]="projectMoments"
+                [editable]="editable"
+                [availableAtasOrDu]="availableAtasOrDu"
+                [project]="project"
+                [disable_select_edit]="disable_select_edit"
+                ></tr>
+            </tbody>
+            </table>
+        </div>
+            <div class="buttons-wrapper">
+            <div class="form-group input-project" style="margin-bottom: 0rem;">
+                <label class="ata"></label>
+                <div class="button-wrapper">
+                <button
+                    type="button"
+                    class="mileage-button"
+                    data-toggle="collapse"
+                    data-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                    (click)="toggleON()"
+                    *ngIf="types && types.length > 0"
+                >
+                <span class="" style="position: relative;">
+                    <app-arrow-down-svg *ngIf="toggle" class="arrows"></app-arrow-down-svg>
+                    <app-arrow-up-svg *ngIf="!toggle" class="arrows"></app-arrow-up-svg>
+                </span>
+                <span class="">{{ "Mileage" | translate }}</span>
+                </button>
+                </div>
+            </div>
+            <div class="three-buttons">
+                <div class=" button-position form-group">
+                <div class="">
+                    <button
+                    style="cursor: pointer"
+                    type="button"
+                    class="add-button"
+                    (click)="setMoments()"
+                    [disabled]="
+                        createForm.invalid ||
+                        (createForm.get('Hours').value == '00' &&
+                        createForm.get('Minutes').value == '00') ||
+                        projectManagerProjects.length == 0
+                    "
+                    [ngStyle]="{'opacity': createForm.invalid ||
+                    (createForm.get('Hours').value == '00' &&
+                    createForm.get('Minutes').value == '00')? '0.5': '1', 'cursor':createForm.invalid ||
+                    (createForm.get('Hours').value == '00' &&
+                    createForm.get('Minutes').value == '00')? 'not-allowed': 'pointer'  }"
+                    >
+                    <span>
+                        <app-add-icon-svg></app-add-icon-svg>
+                    </span>
+                    <span class="button-name">{{ "Add" | translate }}</span>
+                    </button>
+                </div>
+                </div>
+                <div class="connect-buttons-wrapper" *ngIf="projectManagerProjects.length > 0">
+                <div class="redigera" (click)="editAll()">
+                    {{ "Edit" | translate }}
+                </div>
+                <div class="spara" (click)="createScheduleDate()">
+                    {{ "Save" | translate }}
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="row collapse" id="collapseOne" aria-labelledby="headingOne" *ngIf="toggle">
+            <div class="form-group wrap">
+                <label for="type">{{ "Select Type" | translate }}</label>
+            <div class="input-wrapper7">
+            <app-simple-select
+            [placeholder]="'Select Type' | translate "
+            [ClientItem]= "types"
+            [fontSize]="14"
+            formControlName="MileageType"
+            [width]="310"
+            [type1]="'AttestMilla'"
+            [AttestMillage]="true"
+            [EnableSearch]="false"
+            (MomentAttest)="selectopen('type')"
+            >
+            </app-simple-select>
+            </div>
+        </div>
+            <div class="form-group">
+                <label for="mileage">{{ "Set Mileage" | translate }}</label>
+                <div class="input-group mb-3">
+                <input
+                    style="width:35px; height:35px ;background-color: white;border:1px solid var(--border-color)"
+                    type="text"
+                    class="form-control clear-text"
+                    id="mileage"
+                    formControlName="Mileage"
+                    #Mileage
+                    pattern="^(\d+[,.])?\d+"
+                    [class.is-invalid]="
+                    (createForm.get('Mileage').touched ||
+                        createForm.get('Mileage').dirty) &&
+                    createForm.get('Mileage').invalid
+                    "
+                />
+                </div>
+            </div>
+            </div>
+        <div class="progress-loader" *ngIf="spinner">
+            <mat-spinner></mat-spinner>
+        </div>
+        </form>
+    </div>
+    </div>
+</mat-dialog-content>

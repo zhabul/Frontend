@@ -1,0 +1,157 @@
+.modal-wrapper {
+    background-color: #373B40;
+    border: 3px solid #82A7E2;
+    border-radius: 10px;
+    padding: 60px 15px;
+    position: relative;
+    user-select: none;
+}
+
+.table-header {
+    height: 26px;
+    background-color: black;
+    color: white;
+    display: grid;
+    grid-template-columns: 90px 345px 150px 195px 80px 50px;
+    font-size: 10px;
+}
+
+.header-item {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    border-left: 1px solid grey;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 90px 345px 150px 195px 80px 50px;
+    min-height: 38px;
+    border-bottom: 1px solid grey;
+}
+
+.table-row:nth-child(odd) {
+    background-color: #eaf2ff;
+}
+
+.table-row:nth-child(even) {
+    background-color: white;
+}
+
+.row-item {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    border-left: 1px solid grey;
+}
+
+.row-item:nth-child(3) {
+    padding: 0px;
+}
+
+.modal-title {
+    position: absolute;
+    color: #82A7E2;
+    font-size: 20px;
+    top: 15px;
+    left: 15px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.modal-close svg {
+    pointer-events: none;
+}
+
+.btn-wrapper-ata {
+    color: grey;
+    border: 1px solid grey;
+    border-radius: 5px;
+    display: flex;
+    width: 115px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: absolute;
+    user-select: none;
+    cursor: pointer;
+    bottom: 15px;
+    right: 15px;
+    pointer-events: none;
+}
+
+.btn-wrapper-ata svg {
+    pointer-events: none;
+}
+
+.row-item:nth-child(5) {
+    justify-content: center;
+}
+
+/* Ovo ispod je za okrugli checkbox */
+.checkbox-round {
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid grey;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-round:checked {
+    background-image: url("data:image/svg+xml,%3Csvg id='Bocka_av_icon' data-name='Bocka av icon' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='16' height='16' viewBox='0 0 16 16'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Crect id='Rectangle_60' data-name='Rectangle 60' width='16' height='16' fill='none'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_301' data-name='Group 301' clip-path='url(%23clip-path)'%3E%3Cpath id='Path_745' data-name='Path 745' d='M15.86,7.93A7.933,7.933,0,1,1,7.928,0,7.931,7.931,0,0,1,15.86,7.93' transform='translate(0.073 0.07)' fill='%23ff7000'/%3E%3Cpath id='Path_746' data-name='Path 746' d='M20.849,19.509l-.239-.242a.729.729,0,0,0-.515-.229.835.835,0,0,0-.583.268l-5.318,5.266-1.741-1.8v0l-.552-.557a.75.75,0,0,0-.526-.232.783.783,0,0,0-.544.239l-.239.242a.742.742,0,0,0,.039,1.1l3.577,3.605,6.2-6.13.453-.456a.735.735,0,0,0-.008-1.072' transform='translate(-8.104 -14.943)' fill='%23fff'/%3E%3C/g%3E%3C/svg%3E%0A");
+    border: none;
+}
+
+.checkbox-round-all {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid grey;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-round-all:checked {
+    border: none;
+    background-image: url("data:image/svg+xml,%3Csvg id='Bocka_av_icon' data-name='Bocka av icon' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='22' height='22' viewBox='0 0 22 22'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Crect id='Rectangle_60' data-name='Rectangle 60' width='22' height='22' fill='none'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='Group_301' data-name='Group 301' clip-path='url(%23clip-path)'%3E%3Cpath id='Path_745' data-name='Path 745' d='M19.827,9.913A9.916,9.916,0,1,1,9.912,0a9.914,9.914,0,0,1,9.915,9.915' transform='translate(0.09 0.087)' fill='%23ff7000'/%3E%3Cpath id='Path_746' data-name='Path 746' d='M23.47,19.627l-.3-.3a.911.911,0,0,0-.644-.286,1.044,1.044,0,0,0-.729.335L15.15,25.956,12.973,23.7v0l-.69-.7a.938.938,0,0,0-.657-.29.978.978,0,0,0-.68.3l-.3.3a.928.928,0,0,0,.049,1.376L15.166,29.2l7.748-7.663.566-.57a.919.919,0,0,0-.01-1.34' transform='translate(-7.539 -13.919)' fill='%23fff'/%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+/*************************************************/
+
+.btn-wrapper-green {
+    color: #4CB185;
+    border: 1px solid #4CB185;
+    pointer-events: auto;
+}
+
+.format-number-and-position {
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding-right: 25px;
+}
+
+.edit-new-bill-ata-mat-dialog {
+    width: 950px !important;
+    height: 100% !important;
+    max-height: 1100px !important;
+    overflow: auto !important;
+}

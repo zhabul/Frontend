@@ -1,0 +1,123 @@
+::ng-deep .e-schedule .e-schedule-toolbar .e-toolbar-items.e-tbar-pos {
+  height: 100%;
+  min-height: 115px;
+  display: flex;
+  flex-direction: column-reverse;
+  padding-top: 10px;
+  align-items: center;
+  padding-bottom: 20px;
+  justify-content: space-between;
+  margin-top: -10px;
+}
+
+::ng-deep .e-toolbar .e-toolbar-items.e-tbar-pos .e-toolbar-right,
+::ng-deep .e-toolbar .e-toolbar-items.e-tbar-pos .e-toolbar-left {
+  position: static !important;
+}
+
+/* ::ng-deep .e-schedule .e-schedule-toolbar .e-toolbar-items.e-tbar-pos>div {
+    height: 0 !important;
+} */
+
+.e-toolbar-right {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 27px;
+  background: #00ca77;
+}
+
+::ng-deep .e-content-wrap {
+  height: 360px !important;
+}
+
+::ng-deep .template-wrap {
+  width: 100% !important;
+  position: relative;
+  height: 15px;
+  line-height: 15px;
+  background-color: white;
+  box-sizing: content-box;
+}
+
+.template-wrap + .template-wrap {
+  padding-top: 0.25em;
+}
+
+.absence {
+  background-color: #8b4513;
+  width: 20px;
+  height: 20px;
+  margin-left: 50px;
+}
+
+.header-legend {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep
+  .e-schedule
+  .e-vertical-view
+  .e-day-wrapper
+  .e-appointment
+  .e-appointment-details {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  background-color: white;
+  z-index: 100;
+}
+
+::ng-deep
+  .e-schedule
+  .e-vertical-view
+  .e-day-wrapper
+  .e-appointment
+  .e-appointment-details
+  .template-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+.header-legend .btn-postion {
+  width: 50%;
+}
+
+.header-legend .table-position {
+  width: 50%;
+}
+
+.table-first-td {
+  width: 50px;
+}
+
+.content-wrapper {
+  padding: 20px;
+}
+
+.btn-success {
+  padding-bottom: 0 !important;
+}
+
+::ng-deep .e-schedule .e-month-view .e-appointment {
+  height: unset !important;
+  width: 221px !important;
+  top: -22px !important;
+  left: 25px !important;
+  background: white;
+  border: 0 !important;
+}
+
+::ng-deep .e-schedule .e-month-view .e-appointment .e-appointment-details {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  line-height: 20px;
+  overflow: hidden;
+  padding: 0.25em;
+}

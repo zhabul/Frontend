@@ -1,0 +1,21 @@
+<div *ngIf="isSelectedCompany">
+  <app-main-company
+    [isSelectedCompany]="isSelectedCompany"
+    [CompanyNames]="CompanyNames"
+    [userDetails]="userDetails"
+    [loadData]="loadData"
+    [initProvider]="initProvider"
+    [authService]="authService"
+    [selectId]="selectId"
+  ></app-main-company>
+</div>
+<div *ngIf="!isSelectedCompany">
+  <app-main-login
+    [isSelectedCompany]="isSelectedCompany"
+    [CompanyNames]="CompanyNames"
+    [userDetails]="userDetails"
+    [loadData]="loadData"
+    [initProvider]="initProvider"
+    [authService]="authService"
+  ></app-main-login>
+</div>

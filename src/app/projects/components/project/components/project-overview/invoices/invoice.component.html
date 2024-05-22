@@ -1,0 +1,257 @@
+<div class="row row1X mb-3 menu-wrapp">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-lightX bgGrayBlueX br3 pl-em"
+      style="padding: 10px"
+    >
+      <ul class="navbar-nav flex-container wrap justify-content">
+        <div class="navbar-collapse custom-800" id="navbarSupportedContent">
+          <li class="nav-item active flex-item mr-2">
+            <div class="d-flex">
+              <div>
+                <a
+                  [routerLink]="['/projects/view/', project.id]"
+                  class="btn btn-dark lh09 hideUnder800 mr-3"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                >
+                  <span class="badgeX badge-darkX material-icons top1px posRel"
+                    >arrow_back</span
+                  >
+                </a>
+              </div>
+              <div class="project text-muted w-100">
+                <span class="d-block text-uppercase" style="font-size: 0.9em">{{
+                  (project.parent == "0" ? "Project" : "Subproject") | translate
+                }}</span>
+                <h4 class="textDarkBlue posRel mb-0 fs-18">
+                  {{ project.CustomName }} {{ project.name }}
+                </h4>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </nav>
+  </div>
+  <div class="tab-navigation col-lg-8W bgGrayBlue">
+    <ul class="nav nav-tabs nav-pills" role="tablist">
+      <li class="nav-item" *ngIf="userDetails.show_project_SupplierInvoices">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'supplier-invoices']"
+          role="tab"
+        >
+          {{ "Supplier Invoices" | translate }}</a
+        >
+      </li> 
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          [routerLink]="['/projects/view', project.id, 'invoices']"
+          role="tab"
+          id=""
+          >{{ "Invoices History" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'works']"
+          role="tab"
+          >{{ "Work Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'materials']"
+          role="tab"
+          >{{ "Materials Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'reports']"
+          role="tab"
+          >{{ "Weekly Reports" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'project-summary']"
+          role="tab"
+          >{{ "Project Summary" | translate }}</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row row1X">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70"
+    id="notMuchPaddingTill800"
+  >
+    <div class="py-2">
+      <section class="d-flex justify-content-between">
+        <h1 class="h4">{{ "Invoices History" | translate }}</h1>
+        <div class="d-flex">
+          <div class="projects-date mr-2">
+            <div class="input-group date w100Under800 maxw170Over800">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="material-icons">calendar_today</i></span
+                >
+              </div>
+              <input
+                (keydown)="$event.preventDefault()"
+                id="dateSelect"
+                autocomplete="off"
+                type="text"
+                class="form-control project-date"
+                aria-describedby="basic-addon1"
+                placeholder="{{ 'Choose date' | translate }}"
+                #selectedDate
+                (change)="onSelected(selectedDate, selectStatus)"
+              />
+            </div>
+          </div>
+          <div class="select-toggle mb-10">
+            <select
+              class="project-nav-select w100Under800 minw160Over800 h38 pt2px pl5px text-muted"
+              id="project-status"
+              #selectStatus
+              (change)="onSelected(selectedDate, selectStatus)"
+              style="display: none"
+            >
+              <option value="0" selected>{{ "All" | translate }}</option>
+              <option value="1">{{ "Not sent" | translate }}</option>
+              <option value="2">{{ "Sent" | translate }}</option>
+              <option value="4">{{ "TSC_Booked" | translate }}</option>
+              <option value="6">{{ "Paid" | translate }}</option>
+              <option value="3">{{ "Unpaid due" | translate }}</option>
+              <option value="5">{{ "Canceled" | translate }}</option>
+            </select>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <form
+      class="buttons-form"
+      style="display: flex; padding-top: 0.5rem; padding-bottom: 0.5rem"
+    >
+      <div class="group-status" (click)="onStatusChange(selectedDate, 0)">
+        <p class="radio-button-container">
+          <input type="radio" name="all" [checked]="statusObject['0']" />
+          <label class="label-color-default">{{ "All" | translate }}</label>
+        </p>
+      </div>
+      <div class="group-status" (click)="onStatusChange(selectedDate, 6)">
+        <p class="radio-button-container">
+          <input type="radio" name="created" [checked]="statusObject['6']" />
+          <label class="label-color-green">{{ "Paid" | translate }}</label>
+        </p>
+      </div>
+      <div class="group-status" (click)="onStatusChange(selectedDate, 3)">
+        <p class="radio-button-container">
+          <input type="radio" name="Sent" [checked]="statusObject['3']" />
+          <label class="label-color-red">{{ "Unpaid due" | translate }}</label>
+        </p>
+      </div>
+      <div (click)="onStatusChange(selectedDate, 2)" class="group-status">
+        <p class="radio-button-container">
+          <input
+            type="radio"
+            name="In Progress"
+            [checked]="statusObject['2']"
+          />
+          <label class="label-color-purple">{{ "Sent" | translate }}</label>
+        </p>
+      </div>
+      <div (click)="onStatusChange(selectedDate, 1)" class="group-status">
+        <p class="radio-button-container">
+          <input type="radio" name="Clear" [checked]="statusObject['1']" />
+          <label class="label-color-clear">{{ "Not Sent" | translate }}</label>
+        </p>
+      </div>
+      <div (click)="onStatusChange(selectedDate, 4)" class="group-status">
+        <p class="radio-button-container">
+          <input type="radio" name="Completed" [checked]="statusObject['4']" />
+          <label class="label-color-white">{{
+            "TSC_Booked" | translate
+          }}</label>
+        </p>
+      </div>
+      <div (click)="onStatusChange(selectedDate, 5)" class="group-status">
+        <p class="radio-button-container">
+          <input type="radio" name="Aborted" [checked]="statusObject['5']" />
+          <label class="label-color-yellow">{{ "Canceled" | translate }}</label>
+        </p>
+      </div>
+    </form>
+
+    <div class="row row-sm">
+      <table
+        class="table table-res800 table-darkX table-sm table-bordered table-hover invoice-table"
+      >
+        <thead>
+          <tr>
+            <th>{{ "Number" | translate }}</th>
+            <th>{{ "Project" | translate }}</th>
+            <th>{{ "Client" | translate }}</th>
+            <th>{{ "Date" | translate }}</th>
+            <th>{{ "Type" | translate }}</th>
+            <th>{{ "Total" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody class="txt-color">
+          <tr
+            class="invoice-row"
+            *ngFor="let invoice of invoices; let index = index"
+            (click)="viewEditInvoice(invoice.Id, invoice.Status, invoice.Url, invoice.index, invoice.parent)"
+            [ngClass]="{
+              'wemax-purple': invoice.Status == '2',
+              'wemax-red': invoice.Status == '3',
+              'wemax-yellow': invoice.Status == '4',
+              'wemax-green': invoice.Status == '6',
+              'wemax-grey': invoice.Status == '5'
+            }"
+          >
+            <td>
+              {{ invoice.Id }}
+            </td>
+            <td>
+              {{ invoice.Project }}
+            </td>
+            <td>
+              {{ invoice.Client }}
+            </td>
+            <td>
+              {{ invoice.InvoiceDate }}
+            </td>
+            <td>
+              {{ invoice.Type | translate }}
+            </td>
+            <td style="text-align: end">
+              {{ invoice.Total | number: "1.2-2":"fr" }}
+            </td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="5" style="text-align: right">
+              <b>{{ "Total" | translate }}</b>
+            </td>
+            <td style="text-align: end">
+              <b>{{ getTotal() | number: "1.2-2":"fr" }}</b>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

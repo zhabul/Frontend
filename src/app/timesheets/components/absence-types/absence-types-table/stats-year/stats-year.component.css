@@ -1,0 +1,30 @@
+.year-container {
+    background-color: black;
+    color: white;
+    display: grid;
+    grid-template-columns: 0.9fr 0.1fr;
+    grid-template-rows: auto;
+    border-bottom: 1px solid var(--border-color);
+    height: 31px;
+}
+
+.year-container div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.year-container div:first-child {
+    border-right: 1px solid var(--border-color);
+}
+
+.trash-icon {
+    cursor: pointer;
+    transition: opacity 250ms ease-in-out;
+}
+
+.trash-icon:hover {
+    opacity: 0.5;
+}
+

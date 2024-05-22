@@ -1,0 +1,77 @@
+<div class="schedRespon card col-md-12X col-lg-6X col-lg-8W mb-4">
+  <div class="row form-heading bgGrayBlue py-1 d-flex">
+    <div>
+      <button
+        (click)="goBack()"
+        class="btn btn-dark mt-2 mb-2 ml-3 lh09 float-leftX hideUnder800"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        id="topFeeder"
+      >
+        <span class="badgeX badge-darkX material-icons top1px posRelx"
+          >arrow_back</span
+        >
+      </button>
+    </div>
+    <div class="project text-muted ml-100X w-100X ml-2 mt-3">
+      <h4 class="textDarkBlue posRelx fs-18 b-28x l-15x">
+        {{ "Schedule Detail Calendar" | translate }}
+      </h4>
+    </div>
+  </div>
+  <ejs-schedule
+    [selectedDate]="currentDate"
+    timezone="UTC"
+    [currentView]="newViewMode"
+    (actionBegin)="onActionBegin($event)"
+    (dataBound)="onDataBound()"
+    [readonly]="readonly"
+    #scheduleObj
+    locale="sv"
+    [showWeekNumber]="showWeekNumber"
+    timezone="UTC"
+  >
+    <e-views>
+      <e-view option="Month" [showWeekend]="showWeekend">
+        <ng-template #eventTemplate let-data>
+          <div
+            class="template-wrap"
+            [ngStyle]="{ 'background-color': data.Color }"
+          >
+            <div class="subject">
+              <span>{{ data.Subject }}</span
+              >&nbsp;&nbsp;
+              <span
+                ><b>{{ data.ProjectName }}</b></span
+              >
+            </div>
+          </div>
+        </ng-template>
+      </e-view>
+      <e-view option="Week" dateFormat="dd-MMM-yyyy">
+        <ng-template #eventTemplate let-data>
+          <div
+            class="template-wrap"
+            [ngStyle]="{ 'background-color': data.Color }"
+          >
+            <div class="subject">
+              <span>{{ data.SameTimeSubjects }}</span>
+            </div>
+          </div>
+        </ng-template>
+      </e-view>
+      <e-view option="Day">
+        <ng-template #eventTemplate let-data>
+          <div
+            class="template-wrap"
+            [ngStyle]="{ 'background-color': data.Color }"
+          >
+            <div class="subject">
+              <span>{{ data.SameTimeSubjects }}</span>
+            </div>
+          </div>
+        </ng-template>
+      </e-view>
+    </e-views>
+  </ejs-schedule>
+</div>

@@ -1,0 +1,22 @@
+.value {
+    cursor: text;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.value-input {
+    height: 100%;
+    width: 100%;
+    border-style: none;
+    text-align: center;
+}
+
+:host {
+    height: 100%;
+    width: 100%;
+}
+

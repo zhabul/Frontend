@@ -1,0 +1,64 @@
+<div class="table-header"  *ngIf="allAbsences.length">
+    <div class="sticky-columns">
+        <div class="font-small" >{{  numberWithLine }}</div> 
+        <div class="left-algin">{{ 'Name' | translate }}</div> 
+    </div>
+    <div class="dynamic-grid" [ngStyle]="headerGrid">
+        <div class="left-algin">{{ 'Profession' | translate }}</div>
+        <div>{{ 'Worked hours' | translate }}</div>
+        <div *ngFor="let absence of allAbsences">
+            {{ absence.name }}
+        </div>
+        <div>{{ 'Total' | translate }}</div>
+        <div>{{ 'Cost' | translate }}</div>
+    </div>
+</div>
+<div 
+    class="body-planner-moments-wrapper blu-scroll blu-scroll3 dynamic-height no-b-left" 
+    #wrapper  
+    appScrollDetector 
+    [spinner]="spinner"
+    [allFetched]="allFetched"
+    (emitTrigger)="getUserData()"
+    (emitScrollLeft)="setTranslateXForHeader($event)" 
+>
+    <div class="stat-table-container" >
+        <!--65px 255px  -->
+        <div class="table-row" *ngFor="let user of users">
+            <div class="sticky-columns"> 
+                <div class="nr-black">{{ user.nr }}</div>
+                <div class="left-algin">{{ user.username }}</div>
+            </div>  
+            <div class="dynamic-grid" [ngStyle]="tableGrid">
+                <div class="left-algin">{{ user.roleName }}</div>
+                <div>{{ user.momentsTotal | number: '1.2-2':'fr' }}</div>
+                <div *ngFor="let absence of user.absences">
+                    {{ absence.total | number: '1.2-2':'fr' }} 
+                </div>
+                <div>{{ user.totalAbsences | number: '1.2-2':'fr' }}</div>
+                <div></div>
+            </div>
+        </div>
+        <div  *ngIf="users.length" class="table-row sticky-totals">
+            <div class="sticky-columns"> 
+                <div>(32 St.)</div>
+                <div>{{ 'Total' | translate }}</div>
+            </div>
+            <div class="dynamic-grid" [ngStyle]="tableGrid">
+                <div></div>
+                <div>{{ totals.moments | number: '1.2-2':'fr' }}</div>
+                <div *ngFor="let absence of totals.absences.absences">
+                    {{ absence.total | number: '1.2-2':'fr' }}
+                </div>
+                <div>{{ totals.total | number: '1.2-2':'fr' }} </div>
+                <div></div>
+            </div>
+        </div>
+        <div class="spinner-container-absolute" *ngIf="spinner">
+            <app-pulse-spinner></app-pulse-spinner>
+        </div>
+    </div>
+</div>
+<div class="grey-filler" *ngIf="users.length"></div>
+<div class="thin-right-line" [ngStyle]="rightLineStyles"></div>
+<div class="thin-bottom-line" ></div>

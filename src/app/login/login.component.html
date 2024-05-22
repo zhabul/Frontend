@@ -1,0 +1,235 @@
+<div class="container spacer">
+  <div class="row">
+    <img
+      src="assets/img/sidebar-menu-icons/sps-logo-type.svg"
+      class="img-fluid mx-auto"
+      alt=""
+    />
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="mt-5 w-50">
+      <form
+        *ngIf="loginForm"
+        novalidate
+        autocomplete="off"
+        class="login-form"
+        (ngSubmit)="submit()"
+        [formGroup]="loginForm"
+      >
+        <div class="row border-login">
+          <div class="col-9 text-white px-0">
+            <div class="row">
+              <div class="col-12 px-0 py-1 border-login-bottom">
+                <div class="form-group text-white">
+                  <input
+                  spellcheck="false"
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    formControlName="email"
+                    placeholder="{{ 'Enter email' | translate }}"
+                  />
+                </div>
+              </div>
+              <div class="col-12 px-0 py-1 border-login-bottom">
+                <div class="form-group text-white">
+                  <input
+                  spellcheck="false"
+                    #passInput
+                    (click)="passInputClick()"
+                    [type]="showPassword ? 'password' : 'text'"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    formControlName="password"
+                    placeholder="{{ 'Password' | translate }}"
+                  />
+                  <button id="toggle_button" (click)="changeShowPassword()" type="button">
+                    <svg
+                    [ngClass]="{'show-password':passInputTouched}"
+                      *ngIf="showPassword"
+                      [ngClass]=""
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 36 36"
+                      width="30"
+                      height="30"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                    <svg
+                        [ngClass]="{'show-password':passInputTouched}"
+                      *ngIf="!showPassword"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 36 36"
+                      width="30"
+                      height="30"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="icon col-3 text-white p-0 d-flex justify-content-center">
+            <button type="submit" [class.valid-button]="loginForm.valid" *ngIf="!loading">
+              <img
+
+                src="assets/img/login-icons/login.svg"
+                width="60"
+                alt=""
+              />
+            </button>
+            <mat-spinner [diameter]="40" *ngIf="loading" class="login-spinner"></mat-spinner>
+          </div>
+          <div
+            class="help-block"
+            *ngIf="
+              (loginForm.get('email').touched ||
+                loginForm.get('email').dirty) &&
+              loginForm.get('email').errors &&
+              email_error
+            "
+          >
+            <span
+              *ngIf="loginForm.get('email').errors.required"
+              class="text-danger"
+            >
+              {{ "Please enter email" | translate }}.
+            </span>
+
+            <span
+              *ngIf="loginForm.get('email').errors.email && email_error"
+              class="text-danger"
+            >
+              {{ email_error | translate }}
+            </span>
+          </div>
+
+          <div
+            class="help-block" *ngIf="password_error">
+            <span
+              *ngIf="
+                loginForm.get('password').errors.password
+              "
+              class="text-danger"
+            >
+              {{ password_error | translate }}.
+            </span>
+          </div>
+
+          <div class="help-block" *ngIf="error_message">
+            <span class="text-danger"> {{ error_message | translate }}. </span>
+          </div>
+
+          <div class="mt-3">
+            <div class="above-login px-3 py-4">
+              <div
+                routerLinkActive="active"
+                [ngClass]="isOpen ? 'is-active' : ''"
+                class="d-flex cursor-pointer"
+                (click)="displayLanguage()"
+              >
+                <div class="color-hover">
+                  <span class="material-icons dot mr-1">
+                    fiber_manual_record
+                  </span>
+                  {{ "Choose the language" | translate }}
+                </div>
+
+                <div class="" *ngIf="!isOpen && lang" style="margin-top: -4px">
+                  <img
+                    class="ml-3 mr-3"
+                    src="assets/img/flags/sweden.svg"
+                    width="30"
+                    *ngIf="lang === 'sw'"
+                  />
+                  <img
+                    class="ml-3"
+                    src="assets/img/flags/united-kingdom.svg"
+                    width="30"
+                    *ngIf="lang === 'en'"
+                  />
+                  <img
+                    class="ml-3"
+                    src="assets/img/flags/croatia.svg"
+                    width="30"
+                    *ngIf="lang === 'hr'"
+                  />
+                </div>
+
+                <div *ngIf="isOpen" style="margin-top: -4px">
+                  <img
+                    class="ml-3 mr-3"
+                    src="assets/img/flags/sweden.svg"
+                    width="30"
+                    alt=""
+                    (click)="changeLang('sw')"
+                  />
+                  <img
+                    src="assets/img/flags/united-kingdom.svg"
+                    width="30"
+                    alt=""
+                    (click)="changeLang('en')"
+                  />
+                  <img
+                    class="ml-3 mr-3"
+                    src="assets/img/flags/croatia.svg"
+                    width="30"
+                    alt=""
+                    (click)="changeLang('hr')"
+                  />
+                </div>
+              </div>
+
+              <div class="mt-2 color-hover" routerLinkActive="active">
+                <span class="material-icons dot mr-2">
+                  fiber_manual_record
+                </span>
+                <a (click)="openProjectClientDetailsModal()" class="color-hover">{{
+                  "Forgot password?" | translate
+                }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="bottom-contact">
+  <div class="line-top"></div>
+  <div class="wrapp-contact">
+    <div class="empty-now"></div>
+    <div class="text-contact">
+      <div>{{ "© 2023 SPS360 All rights reserved." | translate }}&nbsp;</div>
+      <div>
+        {{
+          "Structure Project System 360 AB, Box 2024, 433 02 Sävedalen, Sweden"
+            | translate
+        }}.&nbsp;
+      </div>
+      <div>
+        {{ "Contact us" | translate }}:
+        <a href="mailto:admin@sps360.com">admin@sps360.com</a>
+      </div>
+    </div>
+  </div>
+</div>

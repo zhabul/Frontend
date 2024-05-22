@@ -1,0 +1,30 @@
+<ng-container >
+    <div
+
+      *ngIf="data.message && data.message.trim()"
+      class="chat-cont"
+      [ngStyle]="chatStyle"
+
+    >
+      <div
+        [style.text-align]="chatTextAlign"
+        class="chat-user-date"
+      >
+        {{ user.id !== data.user_id ? data.full_name : "" }}
+        {{ data.created_message }}
+      </div> 
+      <div [class]="chatType">
+        <div class="msg">{{ data.message | translate }}</div>
+        <div class="floating-icon-image"> 
+          <span class="material-icons icon-image" *ngFor="let file of data.images; let index = index" (click)="openSwiper(index, data.images)">
+            image  
+          </span> 
+        </div>
+        <app-chat-bubble-arrow [type]="chatType"></app-chat-bubble-arrow>
+      </div>
+
+      <div class="seen-block" *ngIf="seenVisible">
+        {{ 'Seen' | translate }}: {{ data.updated_at }}
+      </div>
+    </div>
+  </ng-container>

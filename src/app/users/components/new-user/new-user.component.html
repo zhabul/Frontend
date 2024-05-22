@@ -1,0 +1,1285 @@
+
+<div class="heading-div">
+  <div class="row border-nav d-flex justify-content-start">
+    <div class="d-flex align-items-center border-h-project back-block">
+      <a
+        routerLink="/users"
+        class="btn mr-2 lh09 hideUnder800 back-link"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <img src="/assets/img/arrow_back.svg" alt="" />
+        <span class="back-button">{{ "Users" | translate }}</span>
+      </a>
+    </div>
+
+    <div class="d-flex align-items-center border-h-project mngProject">
+      <img src="/assets/img/user-icon-disable.svg" alt="" />
+      <span
+        class="text-uppercase font-weight-normal title-user-header"
+        style="padding-left: 13px"
+        >{{ "My Account" | translate }}</span
+      >
+    </div>
+
+    <!-- <div class="d-flex align-items-center py-2 mngProject">
+      <div class="user-btn mngBtnSearch">
+        <a
+          class="btn border-brand projekt btn-icon-postion"
+          routerLink="#"
+          routerLinkActive="active"
+        >
+          <span class="text-uppercase font-weight-normal save-button">{{
+            "Create new user" | translate
+          }}</span>
+        </a>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<div
+  *ngIf="filterMenu"
+  class="card col-12X col-lg-6X mb70"
+  id="looksLikeModal"
+  (click)="
+    toggleFilterMenu(
+      currentUserOpts['name'],
+      currentUserOpts['type'],
+      'cancel',
+      $event
+    )
+  "
+>
+  <article
+    class="card narrow400 minh70p p-4 d-flex flex-column justify-content-between"
+  >
+    <section>
+      <h4>{{ formatOptionName(currentUserOpts["name"]) | translate }}</h4>
+      <div
+        *ngFor="
+          let item of userOpts[currentUserOpts['name']][
+            currentUserOpts['type']
+          ];
+          let i = index
+        "
+        class="custom-control custom-checkbox"
+      >
+        <div
+          *ngIf="
+            !(
+              currentUserOpts['name'] === 'project' &&
+              item['subname'] === 'Global'
+            )
+          "
+        >
+          <input
+            (change)="
+            subRoleClicked(
+              currentUserOpts['name'],
+              currentUserOpts['type'],
+              item['subname'],
+              item['status'],
+              $event
+            )
+            "
+            type="checkbox"
+            class="custom-control-input"
+            id="customCheck{{ i }}"
+            name="customCheck{{ i }}"
+            [checked]="item['status']"
+            [(ngModel)]="item['status']"
+          />
+          <label class="custom-control-label" for="customCheck{{ i }}">{{
+            formatOptionName(item["subname"]) | translate
+          }}</label>
+        </div>
+      </div>
+    </section>
+  </article>
+</div>
+
+
+<div class="row row1X user-details" style="align-items: flex-start">
+  <div class="col-md-12X col-lg-6X col-lg-8W px-0">
+    <!-- TABS -->
+    <div class="tab-navigation tabs">
+      <div class="nav-tabs tab-navigation">
+        <ul class="nav nav-tabs nav-pills">
+          <li class="nav-item approveItem">
+             <a
+              class="nav-link active text-uppercase"
+              style="margin-bottom: -1px"
+              [ngClass]="{ active: selectedTab == 0 }"
+              (click)="changeSelectedTab(0)"
+              id="approveItem"
+            >
+              {{ "Personuppgifter" | translate }}
+              <div
+                [ngClass]="{
+                  'hide-bottom-box-shadow': selectedTab == 0,
+                  'bottom-shadow-button': selectedTab !== 0
+                }"
+              ></div>
+            </a>
+          </li>
+
+          <li class="nav-item align-l">
+             <a
+              style="margin-bottom: -5px"
+              class="nav-link attest text-uppercase"
+              style="z-index: 3"
+            >
+              {{ "Permit" | translate }}
+              <div
+                [ngClass]="{
+                  'hide-bottom-box-shadow': selectedTab == 2,
+                  'bottom-shadow-button': selectedTab !== 2
+                }"
+              ></div>
+            </a>
+          </li>
+
+          <li class="nav-item align-l">
+             <a
+              style="margin-bottom: -5px"
+              class="nav-link attest text-uppercase"
+              style="z-index: 2"
+            >
+              {{ "Hourly Rate" | translate }}
+              <div
+                [ngClass]="{
+                  'hide-bottom-box-shadow': selectedTab == 3,
+                  'bottom-shadow-button': selectedTab !== 3
+                }"
+              ></div>
+            </a>
+          </li>
+
+          <li class="nav-item align-l">
+             <a
+              style="margin-bottom: -5px"
+              class="nav-link attest text-uppercase"
+              style="z-index: 1"
+            >
+              {{ "Kompetens" | translate }}
+              <div
+                [ngClass]="{
+                  'hide-bottom-box-shadow': selectedTab == 4,
+                  'bottom-shadow-button': selectedTab !== 4
+                }"
+              ></div>
+            </a>
+          </li>
+
+          <li class="nav-item align-l">
+            <div  class="comment-icon">
+              <!-- *ngIf="comments.length > 0" ahmed ubaciti -->
+              <svg
+                [ngClass]="{ notnot2: selectedTab == 2 }"
+                class="notnot"
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="14"
+                viewBox="0 0 15 14"
+                *ngIf=""
+              >
+                <g
+                  id="Group_4125"
+                  data-name="Group 4125"
+                  transform="translate(14.489 14.485) rotate(180)"
+                >
+                  <g
+                    id="Group_4021"
+                    data-name="Group 4021"
+                    transform="translate(-0.121 0)"
+                  >
+                    <g
+                      id="Anteckning_information_låst"
+                      data-name="Anteckning/information låst"
+                      transform="translate(0 0)"
+                    >
+                      <g
+                        id="Group_325"
+                        data-name="Group 325"
+                        transform="translate(0 0)"
+                      >
+                        <ellipse
+                          id="Ellipse_658"
+                          data-name="Ellipse 658"
+                          cx="7.5"
+                          cy="7"
+                          rx="7.5"
+                          ry="7"
+                          transform="translate(-0.389 0.485)"
+                          fill="#b63418"
+                        />
+                      </g>
+                      <g
+                        id="Group_346"
+                        data-name="Group 346"
+                        transform="translate(5.947 1.709)"
+                      >
+                        <path
+                          id="Path_784"
+                          data-name="Path 784"
+                          d="M33.07,12.225a1.067,1.067,0,0,0,.788-.312,1.048,1.048,0,0,0,.312-.773,1.067,1.067,0,0,0-.312-.788,1.049,1.049,0,0,0-.773-.312,1.037,1.037,0,0,0-.773.32,1.075,1.075,0,0,0-.312.78,1.049,1.049,0,0,0,.312.773A1.031,1.031,0,0,0,33.07,12.225Z"
+                          transform="translate(-32 -10.04)"
+                          fill="#fff"
+                        />
+                        <path
+                          id="Path_785"
+                          data-name="Path 785"
+                          d="M34.666,26.974a.445.445,0,0,0-.327-.134h-.8a.457.457,0,0,0-.461.461v6.6a.457.457,0,0,0,.461.461h.8A.457.457,0,0,0,34.8,33.9V27.3A.444.444,0,0,0,34.666,26.974Z"
+                          transform="translate(-32.868 -23.417)"
+                          fill="#fff"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+             <a
+              style="margin-bottom: -5px"
+              class="nav-link attest text-uppercase"
+              style="z-index: 0"
+            >
+              {{ "Anteckningar" | translate }}
+              <div
+                [ngClass]="{
+                  'hide-bottom-box-shadow': selectedTab == 5,
+                  'bottom-shadow-button': selectedTab !== 5
+                }"
+              ></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+
+
+    <div
+      class="deviationWrapper"
+      style="margin-top: -6px; width: 1059px; position: relative"
+    >
+      <form
+        novalidate
+        autocomplete="off"
+        [formGroup]="createForm"
+        (ngSubmit)="createUser()"
+        #myform="ngForm"
+      >
+
+        <div class="ata-border shadow-top-div blu-scroll" id="skrollbar">
+          <div *ngIf="selectedTab == 0" class="user-info-tab">
+              <app-form-user
+                  [user]="user"
+                  [disabled]="disabled"
+                  [timTaxMsgShown]="timTaxMsgShown"
+                  [userOpts]="userOpts"
+                  (dataForStore)="saveUser($event)"
+                  (predefined_roles)="setPredefinedRole($event)"
+                  [component_type]="'new'"
+                >
+              </app-form-user>
+          </div>
+
+
+<div *ngIf="selectedTab == 2" class="user-permit-tab">
+            <div class="row">
+              <div class="col-4" style="padding: 15px 0 0 27px">
+                <!-- <p class="user-detail-name">
+                  {{ editForm.controls["firstName"].value }}
+                  {{ editForm.controls["lastName"].value }}
+                </p> -->
+
+                <div class="form-group">
+                  <label for="status">aaaa {{ "Status" | translate }}</label>
+
+                  <div
+                    style="
+                      width: 302px;
+                      height: 35px;
+                      position: relative;
+                      z-index: 3;
+                    "
+                  >
+                    <app-custom-simple-select
+                      [items]="statusOfUser"
+                      [label]="'status'"
+                      [hasDefaultValue]="true"
+                      [defaultValue]="getDefaultUserStatus()"
+                      [isSelectedFont]="true"
+                      [hasFirstMinusLine]="false"
+                      (toggleSelectedOption)="
+                        selectUserStatus($event, 'status')
+                      "
+                    >
+                    </app-custom-simple-select>
+                  </div>
+
+                  <!-- <select class="form-control" id="status" formControlName="status">
+                    <option value="Active">{{ "Active" | translate }}</option>
+                    <option value="Inactive">{{ "Inactive" | translate }}</option>
+                    <option value="Incoming">{{ "Incoming" | translate }}</option>
+                    <option value="Locked">{{ "Locked" | translate }}</option>
+                  </select> -->
+                </div>
+
+                <div
+                  class="form-group multiselect"
+                  style="width: 302px !important"
+                >
+                  <label for="moments">{{ "Moments" | translate }}</label>
+
+                  <ng-multiselect-dropdown
+                    style="flex: 1"
+                    name="defaultMoments"
+                    [settings]="dropdownSettings"
+                    [data]="defaultMoments"
+                    id="defaultMoments"
+                    placeholder="{{
+                      'Choose default moments for user' | translate
+                    }}"
+                    [(ngModel)]="chosenDefaultMoments"
+                    [ngModelOptions]="{ standalone: true }"
+                    (onSelect)="onMomentSelect($event)"
+                    (onDeSelect)="onMomentDeSelect($event)"
+                    (onSelectAll)="onMomentSelectAll()"
+                    (onDeSelectAll)="onMomentDeSelectAll()"
+                  >
+                  </ng-multiselect-dropdown>
+                </div>
+              </div>
+
+              <div class="col-4" style="padding: 61px 0 0 30px">
+                <div
+                  class="form-group"
+
+                >
+                <!-- [ngClass]="{
+                  'has-error':
+                    (editForm.get('type').touched ||
+                      editForm.get('type').dirty) &&
+                    !editForm.get('type').valid
+                }" -->
+                  <label for="type">{{ "Type" | translate }}</label>
+
+                  <div
+                    style="
+                      width: 302px;
+                      height: 35px;
+                      position: relative;
+                      z-index: 3;
+                    "
+                  >
+                    <app-custom-simple-select
+                      [items]="typesItems"
+                      [label]="'status'"
+                      [hasDefaultValue]="true"
+                      [defaultValue]="getDefaultType()"
+                      [isSelectedFont]="true"
+                      [hasFirstMinusLine]="false"
+                      (toggleSelectedOption)="selectType($event, 'type')"
+                    >
+                    </app-custom-simple-select>
+                  </div>
+
+                  <!-- <select class="form-control" id="type" formControlName="type">
+                    <option value="Own Personal">
+                      {{ "Own Personal" | translate }}
+                    </option>
+                    <option value="Hired">{{ "Hired" | translate }}</option>
+                    <option value="Subcontractor">
+                      {{ "Subcontractor" | translate }}
+                    </option>
+                    <option value="Others">{{ "Others" | translate }}</option>
+                  </select> -->
+                </div>
+              </div>
+
+              <div class="col-4" style="padding: 61px 0 0 30px">
+                <div class="form-group" *ngIf="userDetails.type == '1'">
+                  <label for="roleInput">{{ "Role" | translate }}</label>
+                  <div class="input-group" *ngIf="showNewUserRoleInput">
+                    <input type="text" class="form-control" #newUserRoleName />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary py-0"
+                        (click)="newUserRolePermission(newUserRoleName.value)"
+                        type="button"
+                      >
+                        <span
+                          class="badgeX badge-darkX material-icons posRel"
+                          style="top: 3px"
+                          >save</span
+                        >
+                      </button>
+                    </div>
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary py-0"
+                        (click)="toggleNewUserRoleInput()"
+                        type="button"
+                      >
+                        <span
+                          class="badgeX badge-darkX material-icons posRel"
+                          style="top: 3px"
+                          >arrow_forward</span
+                        >
+                      </button>
+                    </div>
+                  </div>
+                  <div class="input-group" *ngIf="!showNewUserRoleInput">
+                    <!-- <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon"
+                      formControlName="role" (change)="userRoleChange(userRoleSelected)" #userRoleSelected>
+                      <option *ngFor="let role of userRoles" [value]="role.id" [selected]="user.role == role.id">
+                        {{ role.roles | translate }}
+                      </option>
+                    </select> -->
+
+                   <app-role-dropdown
+                      [items]="userRoles"
+                      (toggleItemSelected)="toggleRole($event)"
+                    ></app-role-dropdown>
+
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary py-0 threesome-button"
+                        (click)="toggleNewUserRoleInput()"
+                        type="button"
+                      >
+                        <span
+                          class="badgeX badge-darkX material-icons posRel"
+                          style="top: 3px"
+                          >add</span
+                        >
+                      </button>
+                    </div>
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary py-0 threesome-button"
+                        (click)="editUserRolePermissions()"
+                        type="button"
+                      >
+                        <span
+                          class="badgeX badge-darkX material-icons posRel"
+                          style="top: 3px"
+                          >create</span
+                        >
+                      </button>
+                    </div>
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary py-0 threesome-button"
+                        (click)="editRoleMoments()"
+                        type="button"
+                      >
+                        <span
+                          class="badgeX badge-darkX material-icons posRel"
+                          style="top: 3px"
+                          >supervised_user_circle</span
+                        >
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="button-block-permit">
+                  <a (click)="updatePermission()">
+                    <!-- <span class="material-icons left-3px top1px posRel">save</span> -->
+                    {{ "Save" | translate }}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+    <div class="table-responsive">
+             <div class="table-header-permit">
+                <div class="table-header-item">{{ "RIGHTS" | translate }}</div>
+                <div class="table-header-item">{{ "READ" | translate }}</div>
+                <div class="table-header-item">{{ "WRITE" | translate }}</div>
+              </div>
+              <div class="table-body-permit">
+                <!-- Ovo je za parent bijeli -->
+                <ng-container
+                *ngFor="let user_role of user_roles; let parent_index = index"
+                >
+                  <div class="table-row-permit">
+                    <div class="row-rights">
+                      <div style="margin-right: 10px">
+                        <input
+                          [ngClass]="{
+                            'show-icon': user_role.read && !user_role.write,
+                            'write-icon': user_role.write,
+                            'default-icon': !user_role.read && !user_role.write
+                          }"
+                          type="checkbox"
+                          class="checkbox-icon"
+                          (click)="setValueForPermissions(user_role, 'parent', parent_index, null, null)"
+                        />
+                      </div>
+                      <div
+                        style="margin-right: 10px"
+                        (click)="toggleChildrenArticles(user_role)"
+                      >
+                        <i
+                          class="material-icons arrow_down"
+                          *ngIf="user_role.children.length > 0"
+                        >
+                          {{
+                            user_role.visible
+                              ? "keyboard_arrow_up"
+                              : "keyboard_arrow_down"
+                          }}
+                        </i>
+                      </div>
+                      <div>{{ user_role?.eligibility | translate }}</div>
+                    </div>
+                    <div class="row-read">
+                      <div>
+                        <input
+                          (change)="
+                            updateUserPermissionStatus(
+                              user_role,
+                              'read',
+                              $event,
+                              parent_index,
+                              null
+                            )
+                          "
+                          type="checkbox"
+                          [checked]="user_role?.read"
+                          class="checkbox-round"
+                          [ngClass]="{
+                            'checkbox-round-child-grey': user_role.write
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div class="row-write">
+                      <div>
+                        <input
+                          (change)="
+                            updateUserPermissionStatus(
+                              user_role,
+                              'write',
+                              $event,
+                              parent_index,
+                              null
+                            )
+                          "
+                          type="checkbox"
+                          [checked]="user_role?.write"
+                          class="checkbox-round"
+                          [ngClass]="{
+                            'checkbox-round-child-grey': user_role.write
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--***********************************************************************-->
+
+                  <ng-container
+                    *ngFor="
+                      let user_children_role_1 of user_role.children;
+                      let children_index_1 = index
+                    "
+                  >
+                    <ng-container *ngIf="user_role.visible">
+                      <!-- Ovo je za child bijeli -->
+
+                      <div class="table-row-permit-child">
+                        <div class="row-rights-child">
+                          <input
+                            type="checkbox"
+                            class="checkbox-icon checkbox-icon-child"
+                            [ngClass]="{
+                              'show-icon':
+                                user_children_role_1.read &&
+                                !user_children_role_1.write,
+                              'write-icon': user_children_role_1.write,
+                              'default-icon':
+                                !user_children_role_1.read &&
+                                !user_children_role_1.write
+                            }"
+                            (click)="setValueForPermissions(user_children_role_1, 'children1', parent_index, children_index_1, null)"
+                          />
+
+                          <div
+                            style="margin-right: 10px"
+                            (click)="
+                              toggleChildrenArticles(user_children_role_1)
+                            "
+                          >
+                            <i
+                              class="material-icons arrow_down"
+                              *ngIf="user_children_role_1.children.length > 0"
+                            >
+                              {{
+                                user_children_role_1.visible
+                                  ? "keyboard_arrow_up"
+                                  : "keyboard_arrow_down"
+                              }}
+                            </i>
+                          </div>
+                          <div>
+                            {{ user_children_role_1?.eligibility | translate }}
+                          </div>
+                        </div>
+                        <div class="row-read row-read-child">
+                          <div>
+                            <input
+                              type="checkbox"
+                              (change)="
+                                updateUserPermissionStatus(
+                                  user_children_role_1,
+                                  'read',
+                                  $event,
+                                  parent_index,
+                                  null
+                                )
+                              "
+                              [checked]="user_children_role_1?.read"
+                              class="checkbox-round checkbox-round-child"
+                              [ngClass]="{
+                                'checkbox-round-child-grey':
+                                  user_children_role_1.write
+                              }"
+                            />
+                          </div>
+                        </div>
+                        <div class="row-write row-write-child">
+                          <div>
+                            <input
+                              type="checkbox"
+                              (change)="
+                                updateUserPermissionStatus(
+                                  user_children_role_1,
+                                  'write',
+                                  $event,
+                                  parent_index,
+                                  null
+                                )
+                              "
+                              [checked]="user_children_role_1?.write"
+                              class="checkbox-round checkbox-round-child"
+                              [ngClass]="{
+                                'checkbox-round-child-grey':
+                                  user_children_role_1.write
+                              }"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--************************************************************************-->
+
+                      <ng-container
+                        *ngFor="
+                          let user_children_role_2 of user_children_role_1.children;
+                          let children_index = index
+                        "
+                      >
+                        <!-- Ovo je za grandchild bijeli -->
+
+                        <div
+                          class="table-row-permit-child"
+                          *ngIf="user_children_role_1.visible"
+                        >
+                          <div class="row-rights-grandchild">
+                            <div style="margin-right: 10px">
+                              <input
+                                type="checkbox"
+                                class="checkbox-icon checkbox-icon-child"
+                                [ngClass]="{
+                                  'show-icon':
+                                    user_children_role_2.read &&
+                                    !user_children_role_2.write,
+                                  'write-icon': user_children_role_2.write,
+                                  'default-icon':
+                                    !user_children_role_2.read &&
+                                    !user_children_role_2.write
+                                }"
+                                (click)="setValueForPermissions(user_children_role_2, 'children2', parent_index, children_index_1, children_index)"
+                              />
+                            </div>
+                            <div>
+                              {{
+                                user_children_role_2?.eligibility | translate
+                              }}
+                            </div>
+                          </div>
+                          <div class="row-read row-read-child">
+                            <div>
+                              <input
+                                type="checkbox"
+                                (change)="
+                                  updateUserPermissionStatus(
+                                    user_children_role_2,
+                                    'read',
+                                    $event,
+                                    parent_index,
+                                    children_index_1
+                                  )
+                                "
+                                [checked]="user_children_role_2.read"
+                                class="checkbox-round checkbox-round-child"
+                                [ngClass]="{
+                                  'checkbox-round-child-grey':
+                                    user_children_role_2.write
+                                }"
+                              />
+                            </div>
+                          </div>
+                          <div class="row-write row-write-child">
+                            <div>
+                              <input
+                                type="checkbox"
+                                (change)="
+                                  updateUserPermissionStatus(
+                                    user_children_role_2,
+                                    'write',
+                                    $event,
+                                    parent_index,
+                                    children_index_1
+                                  )
+                                "
+                                [checked]="user_children_role_2.write"
+                                class="checkbox-round checkbox-round-child"
+                                [ngClass]="{
+                                  'checkbox-round-child-grey':
+                                    user_children_role_2.write
+                                }"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+ <div *ngIf="selectedTab == 3" class="user-hourly-tab">
+            <div class="row">
+              <div style="padding: 15px 0 0 27px">
+                <!-- <p class="user-detail-name">
+                  {{ editForm.controls["firstName"].value }}
+                  {{ editForm.controls["lastName"].value }}
+                </p> -->
+
+                <div
+                  class="form-group"
+
+                >
+                <!-- [ngClass]="{
+                  'has-error':
+                    (editForm.get('hourlyRate').touched ||
+                      editForm.get('hourlyRate').dirty) &&
+                    !editForm.get('hourlyRate').valid
+                }" -->
+                  <label for="hourlyRate" class="required">{{
+                    "Hourly Rate" | translate
+                  }}</label>
+                  <div
+                    class="d-flex align-items-center justify-content-between"
+                  >
+                    <input
+                      type="number"
+                      step="0.01"
+                      class="form-control"
+                      id="hourlyRate"
+                      placeholder="{{ 'Enter hourly rate' | translate }}"
+                      formControlName="hourlyRate"
+                    />
+                    <span
+                    class="help-block"
+                    *ngIf="
+                      displayError('hourlyRate') &&
+                      createForm.get('hourlyRate').errors
+                    "
+                  >
+                    <span
+                    *ngIf="createForm.get('hourlyRate').errors.required"
+                    class="text-danger"
+                  >
+                    {{ "Please enter hourly rate" | translate }}.
+                  </span>
+                    </span>
+
+                    <input
+                      type="text"
+                      class="form-control ml-5"
+                      id="hourlyRateDate"
+                      placeholder="{{ 'Enter hourly rate date' | translate }}"
+                      formControlName="hourlyRateDate"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row" style="padding: 0 0 0 27px">
+              <div class="button-block-hourly" style="min-width: 647px">
+                <a>
+                  <!-- <span class="material-icons left-3px top1px posRel">save</span> -->
+                  {{ "Save" | translate }}
+                </a>
+              </div>
+            </div>
+
+
+   <div class="hourly-table">
+              <div>
+                <button (click)="toggleHourlyRateEdit()" class="btn btn-success btn-sm" style="height: 28px"
+                  type="button">
+                  <span class="material-icons" style="font-size: 1.25em">{{
+                    canEditHourlyRate ? "save" : "create"
+                    }}</span>
+                </button>
+              </div>
+              <label>{{ "Employment" | translate }}</label>
+
+              <table class="table table-sm">
+
+                <thead class="table-header">
+                  <tr>
+                    <th class="w-325">{{ "Date" | translate }}</th>
+                    <th class="w-280">{{ "Hourly Rate" | translate }}</th>
+                    <th class="w-37"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <!--ubaciti u row ispod
+                     *ngFor="let rate of user.hourlyRates; let i = index" -->
+                  <tr
+                    class="table-row"
+                    [ngClass]="{ 'table-row-first-row': i == 0 }"
+                  >
+                  <!--ubaciti td ispod
+                    *ngIf="i != whichIndexCanYouEdit"  -->
+                    <td >
+                      <!-- {{ rate.created | date : "yyyy-MM-dd" }} -->
+                    </td>
+                     <!--ubaciti td ispod
+                    *ngIf="i != whichIndexCanYouEdit"  -->
+                    <td>
+                      <!-- {{ rate.hourlyRate }} -->
+                    </td>
+                    <!--ubaciti u td ispod
+                    *ngIf="i == whichIndexCanYouEdit"  -->
+                    <td >
+                      <!-- u input ispod
+                        [value]="rate.created | date : 'yyyy-MM-dd'"
+                        [min]="today"
+                        [disabled]="rate.locked"
+                        (change)="
+                          changeRateData(i, 'created', createdInput.value)
+                        "-->
+                      <input
+                        type="date"
+                        #createdInput
+                      />
+                    </td>
+                     <!--ubaciti u td ispod
+                    *ngIf="i == whichIndexCanYouEdit"  -->
+                    <td >
+                      <!-- u input ispod
+                        [value]="rate.hourlyRate"
+                           [disabled]="rate.locked"
+                        (input)="
+                          changeRateData(i, 'hourlyRate', hourlyRateInput.value)
+                        "
+                       -->
+                      <input
+                        type="number"
+                        #hourlyRateInput
+
+                      />
+                    </td>
+
+                    <td class="text-center" [id]="'hourly-table-' + i">
+                      <!-- u comp ispod
+                          [item]="rate"
+                        [indexOfItem]="i"
+                       -->
+                      <app-three-dots-hourly
+
+                        (toggleOnEdit)="toggleOnEditThreeDotsHourly($event)"
+                        (toggleOnDelete)="toggleOnDeleteThreeDotsHourly($event)"
+                        (toggleOnSave)="toggleOnSaveThreeDotsHourly()"
+                      >
+                      </app-three-dots-hourly>
+
+                       <button class="dots-btn" type="button" (click)="
+                          popUp(i, rate)">
+                        <img src="assets/img/hourly-menu.svg" alt="">
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="cover-pop" (click)="closeP()" *ngIf="dotsDiv">
+                <div
+                  class="popUp-div"
+                  [ngStyle]="{
+                    display: modalPosition.top !== 0 ? 'block' : 'none',
+                    top: modalPosition.top + 'px',
+                    left: modalPosition.left + 'px'
+                  }"
+                >
+                  <app-dots-popup-hourly
+                    [modalInfo]="modalInfo"
+                    [rateId]="rate"
+                  >
+                  </app-dots-popup-hourly>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+    <div *ngIf="selectedTab == 4" class="user-education-tab">
+            <div class="name-and-attachment-btn">
+               <p style="margin: 0 0 0 27px" class="user-detail-name">
+                <!-- {{ editForm.controls["firstName"].value }}
+                {{ editForm.controls["lastName"].value }} -->
+              </p>
+
+              <div
+                class="upper-btn"
+                (click)="toggleNewAttachment()"
+                *ngIf="!isNewAttachmentDialogOpen"
+              >
+                {{ "ADD NEW ATTACHMENT" | translate }}
+              </div>
+              <div
+                class="new-attachment-wrapper"
+                *ngIf="isNewAttachmentDialogOpen"
+              >
+                <div class="x-btn" (click)="toggleNewAttachment()">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="25.02"
+                    height="25.02"
+                    viewBox="0 0 25.02 25.02"
+                  >
+                    <defs>
+                      <clipPath id="clip-path">
+                        <rect
+                          id="Rectangle_15354"
+                          data-name="Rectangle 15354"
+                          width="25.02"
+                          height="25.02"
+                          fill="rgba(32,31,31,0.82)"
+                        />
+                      </clipPath>
+                    </defs>
+                    <g
+                      id="Group_6469"
+                      data-name="Group 6469"
+                      transform="translate(-86 89)"
+                    >
+                      <g
+                        id="Group_3139"
+                        data-name="Group 3139"
+                        transform="translate(86 -89)"
+                        clip-path="url(#clip-path)"
+                      >
+                        <path
+                          id="Path_2479"
+                          data-name="Path 2479"
+                          d="M13.038.753A12.293,12.293,0,1,0,25.331,13.046,12.309,12.309,0,0,0,13.038.753Zm0,1.314A10.98,10.98,0,1,1,2.054,13.046,10.992,10.992,0,0,1,13.038,2.067Z"
+                          transform="translate(-0.528 -0.535)"
+                          fill="rgba(32,31,31,0.82)"
+                        />
+                        <path
+                          id="Path_2480"
+                          data-name="Path 2480"
+                          d="M27.985,26.3l-4.727-4.727,4.735-4.747A.908.908,0,0,0,28,15.491l-.339-.339a.907.907,0,0,0-1.366.076L21.6,19.913l-4.781-4.766a.924.924,0,0,0-1.358.023l-.355.351a.925.925,0,0,0,.046,1.4l4.727,4.72-4.735,4.754a.908.908,0,0,0-.007,1.332l.339.339a.908.908,0,0,0,1.366-.076l4.689-4.693,4.784,4.773a.926.926,0,0,0,1.362-.023l.355-.351a.923.923,0,0,0-.05-1.4"
+                          transform="translate(-9.063 -9.094)"
+                          fill="rgba(32,31,31,0.82)"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                <div class="labels">
+                  <div class="item">{{ "Issued" | translate }}</div>
+                  <div class="item">{{ "Description" | translate }}</div>
+                  <div class="item">{{ "Expires" | translate }}</div>
+                  <div class="item item-4">{{ "Appendix" | translate }}</div>
+                </div>
+                <div class="inputs">
+                  <input type="text" class="item" />
+                  <input type="text" class="item" />
+                  <input type="text" class="item" />
+                  <div class="item-4"></div>
+                </div>
+                <div class="new-attachment-orange-spara-btn">
+                  {{ "SAVE" | translate }}
+                </div>
+
+              </div>
+            </div>
+
+            <user-education
+              *ngIf="selectedTab === 4"
+            ></user-education>
+            <!--
+              ubaciti u komponentu iznad
+               [username]="user.firstname + ' ' + user.lastname"
+              [userId]="user.id"
+             -->
+
+          </div>
+
+
+      <div *ngIf="selectedTab == 5" class="comment-tab">
+           <p style="margin: 0 0 0 27px" class="user-detail-name">
+              <!-- {{ editForm.controls["firstName"].value }}
+              {{ editForm.controls["lastName"].value }} -->
+            </p>
+            <div style="z-index: 99; position: relative; color: #444444">
+              <app-comment-section
+
+              ></app-comment-section>
+              <!--
+                ubaciti u komponentu iznad!
+                 content_type="user"
+                [parentId]="user.id"
+               -->
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="thin-red-line-bottom"></div>
+      <div class="thin-red-line-right"></div>
+    </div>
+
+
+
+
+
+
+
+    <div
+      *ngIf="showPasswordChange"
+      class="card col-12X col-lg-6X mb70"
+      id="looksLikeModal"
+      (click)="togglePasswordChange($event)"
+    >
+      <form
+        novalidate
+        autocomplete="off"
+        [formGroup]="changePasswordForm"
+        (ngSubmit)="savePassword()"
+      >
+        <article
+          class="card narrow400 minh70p p-4 d-flex flex-column justify-content-between"
+        >
+          <h3>{{ "Change Password" | translate }}</h3>
+          <div class="p-1">
+            <div
+              class="form-group"
+              [ngClass]="{
+                'has-error':
+                  (changePasswordForm.get('password').touched ||
+                    changePasswordForm.get('password').dirty) &&
+                  !changePasswordForm.get('password').valid
+              }"
+            >
+              <label for="password">{{ "New Password" | translate }}</label>
+              <div class="input-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="{{ 'New Password' | translate }}"
+                  formControlName="password"
+                  [readonly]="userDetails.type !== '1'"
+                />
+                <div class="input-group-append">
+                  <span
+                    class="input-group-text"
+                    style="padding-left: 0.5em; padding-right: 0.5em"
+                  >
+                    <span
+                      (click)="togglePasswordVisibility($event)"
+                      style="cursor: pointer"
+                      class="material-icons"
+                      >remove_red_eye</span
+                    >
+                  </span>
+                </div>
+              </div>
+              <span
+                class="help-block"
+                *ngIf="
+                  (changePasswordForm.get('password').touched ||
+                    changePasswordForm.get('password').dirty) &&
+                  changePasswordForm.get('password').errors
+                "
+              >
+                <span
+                  *ngIf="changePasswordForm.get('password').errors.minlength"
+                  class="text-danger"
+                >
+                  {{ "Password must be min 6 characters long" | translate }}.
+                </span>
+              </span>
+            </div>
+            <div
+              class="form-group"
+              [ngClass]="{
+                'has-error':
+                  (changePasswordForm.get('confirmPassword').touched ||
+                    changePasswordForm.get('confirmPassword').dirty) &&
+                  !changePasswordForm.get('confirmPassword').valid
+              }"
+            >
+              <label for="confirmPassword">{{
+                "Confirm Password" | translate
+              }}</label>
+              <div class="input-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirmPassword"
+                  placeholder="{{ 'Confirm Password' | translate }}"
+                  formControlName="confirmPassword"
+                  [readonly]="userDetails.type !== '1'"
+                />
+                <div class="input-group-append" style="cursor: pointer">
+                  <span
+                    class="input-group-text"
+                    style="padding-left: 0.5em; padding-right: 0.5em"
+                  >
+                    <span
+                      (click)="togglePasswordVisibility($event)"
+                      style="cursor: pointer"
+                      class="material-icons"
+                      >remove_red_eye</span
+                    >
+                  </span>
+                </div>
+              </div>
+              <span
+                class="help-block"
+                *ngIf="
+                  (changePasswordForm.get('confirmPassword').touched ||
+                    changePasswordForm.get('confirmPassword').dirty) &&
+                  changePasswordForm.get('confirmPassword').errors
+                "
+              >
+                <span
+                  *ngIf="
+                    changePasswordForm.get('confirmPassword').errors.notSame
+                  "
+                  class="text-danger"
+                >
+                  {{ "The specified passwords do not match" | translate }}.
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="button-group text-center">
+              <button
+                type="submit"
+                class="btn btn-success lh09"
+                [disabled]="
+                  changePasswordForm.invalid ||
+                  (!(
+                    changePasswordForm.get('password').value == '' &&
+                    changePasswordForm.get('confirmPassword').value == ''
+                  ) &&
+                    (disabled ||
+                      !changePasswordForm.valid ||
+                      (changePasswordForm.get('password').value &&
+                        !changePasswordForm.get('confirmPassword').value) ||
+                      (changePasswordForm.get('confirmPassword').value &&
+                        !changePasswordForm.get('password').value)))
+                "
+              >
+                <span class="material-icons left-3px top1px posRel">save</span>
+                <span class="posRel top-5px">{{ "Save" | translate }}</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      </form>
+    </div>
+
+
+
+
+
+    <div
+      *ngIf="changeRoleMoments"
+      class="card col-12X col-lg-6X mb70 looksLikeModal"
+      id="looksLikeModal"
+      (click)="toggleRoleMoments($event)"
+    >
+      <article
+        class="role-moments card narrow400 minh70p p-4 d-flex flex-column justify-content-between blu-scroll"
+      >
+        <section class="item2">
+          <h4>{{ "Role moments" | translate }}</h4>
+          <div
+            *ngFor="let item of defaultMoments; let i = index"
+            class="custom-control custom-checkbox"
+          >
+            <div>
+              <input
+                (change)="roleMomentClicked(item, $event)"
+                type="checkbox"
+                class="custom-control-input"
+                id="customCheck{{ i }}"
+                name="customCheck{{ i }}"
+                [checked]="
+                  userRolesMoments[editForm.value.role].includes(item.id)
+                "
+              />
+              <label class="custom-control-label" for="customCheck{{ i }}">{{
+                formatOptionName(item.Name) | translate
+              }}</label>
+            </div>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

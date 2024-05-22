@@ -1,0 +1,45 @@
+<div class="list-container">
+  <div class="list-element" *ngFor="let role of roles; let i = index">
+    <div>
+      <p>{{ role.roles }}</p>
+    </div>
+    <div>
+      <p>{{ role.reduction }}</p>
+    </div>
+    <div>
+      <p>{{ role.number }}</p>
+    </div>
+    <div>
+      <p>{{ role.sortingScheme }}</p>
+    </div>
+  <!--  <div>
+      <p>{{ (role.active == 1 ? "Active" : "Inactive") | translate }}</p>
+    </div>-->
+    <div>
+      <p>{{ role.price }}</p>
+    </div>
+    <div [ngStyle]="{ 'background-color': role.color, 'width':'100%', 'height':'100%' }" style="cursor: pointer">
+      <ng-container *ngIf="userDetails.create_settings_Global">
+        <div
+          class="color-picker-input"
+          [(colorPicker)]="role.color"
+          [cpWidth]="'210px'"
+          [cpOutputFormat]="'rgba'"
+          [cpPresetColors]="presetColors"
+          [cpPresetLabel]="''"
+          [cpCmykEnabled]="'false'"
+          [(colorPicker)]="role.color"
+          (colorPickerChange)="changeColor(color, role)"
+        ></div>
+      </ng-container>
+    </div>
+    <div class="icon" (click)="openEditModal(role)">
+      <img src="../../../../assets/img/edit-icon.svg" alt="edit" />
+    </div>
+    <div class="icon">
+        <ng-container *ngIf="role.roles != 'Administrator' && role.allow_delete">
+            <img (click)="deleteRole(i)" src="../../../../assets/img/trashcan.svg" alt="edit" />
+        </ng-container>
+    </div>
+  </div>
+</div>

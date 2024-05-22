@@ -1,0 +1,6 @@
+<div class="year-container">
+    <div>{{ year.year }}</div>
+    <div *ngIf="!sending" class="trash-icon" (click)="removeYear()">
+        <app-trash-can-icon-svg></app-trash-can-icon-svg>
+    </div>
+</div>

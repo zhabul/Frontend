@@ -1,0 +1,927 @@
+<div class="row row1X mb-3 menu-wrapp">
+  <!--   <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-lightX bgGrayBlueX br3 pl-em"
+      style="padding: 10px"
+    >
+      <ul class="navbar-nav flex-container wrap justify-content">
+        <div class="navbar-collapse custom-800" id="navbarSupportedContent">
+          <li class="nav-item active flex-item mr-2">
+            <div class="d-flex">
+              <div>
+                <a
+                  [routerLink]="['/projects/view/', project.id]"
+                  class="btn btn-dark lh09 hideUnder800 mr-3"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                >
+                  <span class="badgeX badge-darkX material-icons top1px posRel"
+                    >arrow_back</span
+                  >
+                </a>
+              </div>
+              <div class="project text-muted w-100">
+                <span class="d-block text-uppercase" style="font-size: 0.9em">{{
+                  (project.parent == "0" ? "Project" : "Subproject") | translate
+                }}</span>
+                <h4 class="textDarkBlue posRel mb-0 fs-18">
+                  {{ project.CustomName }} {{ project.name }}
+                </h4>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </nav>
+  </div> -->
+  <div class="border-nav">
+    <div class="d-flex align-items-center border-h-project px-4 py-2">
+      <a
+        [routerLink]="['/projects/view/', project.id]"
+        style="padding-left: 22px"
+        class="home"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <app-back-icon-svg
+          [width]="34"
+          [height]="29"
+          [color]="'82a7e2'"
+        ></app-back-icon-svg>
+      </a>
+      <!--  <span class="d-block text-uppercase" style="font-size: 0.9em">{{
+        (project.parent == "0" ? "Project" : "Subproject") | translate
+      }}</span> -->
+      <span class="border-h-project-sec"></span>
+      <span class="ml-3 mt-2 h2 font-weight-normal name-of-projects">
+        {{ "Project" | translate | uppercase }}{{ ": " }}
+        {{ project.CustomName }} {{ project.name }}
+      </span>
+    </div>
+
+    <div class="d-flex align-items-center px-4 py-2 nyProject">
+      <a
+        *ngIf="userDetails.create_project_SupplierInvoices"
+        class="btn border-brand projekt btn-icon-postion text-white"
+        (mouseenter)="enter()"
+        (mouseleave)="leave()"
+        (click)="NewSupplierInvoice()"
+      >
+        <span class="add-icon-position">
+          <app-add-icon-with-params-svg
+            #childComponentAddIcon
+            [width]="16"
+            [height]="16"
+            [fill]="fillColor"
+            [fillPuls]="'373b40'"
+          >
+          </app-add-icon-with-params-svg>
+        </span>
+        <span class="title-new-project text-uppercase" [ngClass]="currentClass"
+          >{{ "New" | translate }}{{ " "
+          }}{{ "Supplier Invoices" | translate }}</span
+        >
+      </a>
+      <!--  <a
+        class="title-new-project"
+        style="
+          color: white;
+          padding-left: 5px;
+          cursor: pointer;
+          user-select: none;
+        "
+        (click)="Prikazi()"
+        >Prikaži
+      </a>
+    --></div>
+  </div>
+  <div *ngIf="showMasterMenu" class="tab-navigation col-lg-8W bgGrayBlue">
+    <ul class="nav nav-tabs nav-pills" role="tablist">
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          [routerLink]="['/projects/view', project.id, 'supplier-invoices']"
+          role="tab"
+        >
+          {{ "Supplier Invoices" | translate }}</a
+        >
+      </li>
+      <ng-container *ngIf="showMenu">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/projects/view', project.id, 'invoices']"
+            role="tab"
+            id=""
+            >{{ "Invoices History" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/projects/view', project.id, 'works']"
+            role="tab"
+            >{{ "Work Summary" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/projects/view', project.id, 'materials']"
+            role="tab"
+            >{{ "Materials Summary" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/projects/view', project.id, 'reports']"
+            role="tab"
+            >{{ "Weekly Reports" | translate }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/projects/view', project.id, 'project-summary']"
+            role="tab"
+            >{{ "Project Summary" | translate }}</a
+          >
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
+<div class="row progres-wrapper">
+  <div
+    class="container-fluidW px-0W l0 mb-5 master-margin"
+    id="topFeeder"
+    style="position: absolute"
+  >
+    <div class="blu-scroll-wrapp">
+      <div class="blu-scroll skrollbar">
+        <div class="row position-relativeX">
+          <div class="col-md-12X col-lg-6X">
+            <div class="mt-1" id="notMuchPaddingTill800">
+              <section class="d-flex justify-content-between my-2">
+                <div class="first-supplierer-name">
+                  {{ "Supplier Invoices" | translate }}
+                </div>
+              </section>
+              <div class="btn-wrapp">
+                <span class="searchdiv">
+                  <div class="input-group mb-3" class="responsiveInput1">
+                    <span class="search-icon">
+                      <app-search-icon-with-params-svg
+                        [width]="13"
+                        [height]="13.06"
+                        [color]="'fcf4ec'"
+                      ></app-search-icon-with-params-svg>
+                    </span>
+                    <input
+                      class="search-form form-control mr-sm-2"
+                      type="search"
+                      placeholder="{{ 'Search' | translate }}"
+                      aria-label="Search"
+                      name="search"
+                      autocomplete="off"
+                      (input)="onSearch($event)"
+                      [(ngModel)]="inputValue"
+                      id="filterInput"
+                      #searchInput
+                    />
+                    <span class="clear-icon" (click)="clearInput()">
+                      <app-clean-search-input-icon-svg
+                        [width]="10.189"
+                        [height]="10.189"
+                        [color]="'fcf4ec'"
+                      ></app-clean-search-input-icon-svg>
+                    </span>
+                  </div>
+                </span>
+                <div
+                  class="buttons-wrapper my-2"
+                  style="position: relative; bottom: 8px"
+                >
+                  <form class="buttons-form">
+                    <div
+                      class="group-status"
+                      (click)="filterDataPerStatus('2', 'to_handle')"
+                      [ngClass]="{ active: filterArg == 2 }"
+                    >
+                      <div class="svg-wrapp">
+                        <app-not-selected-icon-svg
+                          *ngIf="fileter_ids['to_handle'] == false"
+                        ></app-not-selected-icon-svg>
+                        <app-selected-icon-svg
+                          *ngIf="fileter_ids['to_handle'] == true"
+                          color="#F0E264"
+                        ></app-selected-icon-svg>
+                      </div>
+
+                      <div
+                        style="text-transform: uppercase"
+                        class="filter-name"
+                      >
+                        {{ "To handle" | translate }}
+                      </div>
+                    </div>
+                    <div
+                      class="group-status"
+                      (click)="
+                        filterDataPerStatus('3', 'worked_but_not_approved')
+                      "
+                      [ngClass]="{ active: filterArg == 3 }"
+                    >
+                      <div class="svg-wrapp">
+                        <app-not-selected-icon-svg
+                          *ngIf="
+                            fileter_ids['worked_but_not_approved'] == false
+                          "
+                        ></app-not-selected-icon-svg>
+                        <app-selected-icon-svg
+                          *ngIf="fileter_ids['worked_but_not_approved'] == true"
+                          color="#94EFFD"
+                        ></app-selected-icon-svg>
+                      </div>
+
+                      <div
+                        style="text-transform: uppercase"
+                        class="filter-name"
+                      >
+                        {{ "Worked but not approved" | translate }}
+                      </div>
+                    </div>
+                    <div
+                      class="group-status"
+                      (click)="filterDataPerStatus('4', 'approved')"
+                      [ngClass]="{ active: filterArg == 4 }"
+                    >
+                      <div class="svg-wrapp">
+                        <app-not-selected-icon-svg
+                          *ngIf="fileter_ids['approved'] == false"
+                        ></app-not-selected-icon-svg>
+                        <app-selected-icon-svg
+                          *ngIf="fileter_ids['approved'] == true"
+                          color="#03D156"
+                        ></app-selected-icon-svg>
+                      </div>
+                      <div
+                        style="text-transform: uppercase"
+                        class="filter-name"
+                      >
+                        {{ "Approved" | translate }}
+                      </div>
+                    </div>
+                    <div
+                      class="group-status"
+                      (click)="filterDataPerStatus('5', 'not_re_invoiced')"
+                      [ngClass]="{ active: filterArg == 5 }"
+                    >
+                      <div class="svg-wrapp">
+                        <app-not-selected-icon-svg
+                          *ngIf="fileter_ids['not_re_invoiced'] == false"
+                        ></app-not-selected-icon-svg>
+                        <app-selected-icon-svg
+                          *ngIf="fileter_ids['not_re_invoiced'] == true"
+                          color="#FFFFFF"
+                        ></app-selected-icon-svg>
+                      </div>
+                      <div
+                        style="text-transform: uppercase"
+                        class="filter-name"
+                      >
+                        {{ "Not re-invoicing" | translate }}
+                      </div>
+                    </div>
+                    <div
+                      class="group-status"
+                      [ngClass]="{ active: allFilterChecked() }"
+                      (click)="filterDataPerStatusAll()"
+                    >
+                      <div class="svg-wrapp">
+                        <app-not-selected-icon-svg
+                          *ngIf="allFilterChecked() == false"
+                        ></app-not-selected-icon-svg>
+                        <app-selected-icon-svg
+                          *ngIf="allFilterChecked() == true"
+                          color="#707070"
+                        ></app-selected-icon-svg>
+                      </div>
+
+                      <div class="filter-name">
+                        {{ "All" | translate | uppercase }}
+                      </div>
+                    </div>
+                  </form>
+                  <!-- <button
+                    class="btn-all"
+                    [ngClass]="{ active: filterArg == 1 }"
+                    (click)="filterDataPerStatus('1')"
+                  >
+                    {{ "All" | translate }}
+                  </button>
+                  <button
+                    class="btn-to-handle"
+                    (click)="filterDataPerStatus('2')"
+                    [ngClass]="{ active: filterArg == 2 }"
+                  >
+                    {{ "To handle" | translate }}
+                  </button>
+                  <button
+                    class="btn-worked-up-but-not-approved"
+                    (click)="filterDataPerStatus('3')"
+                    [ngClass]="{ active: filterArg == 3 }"
+                  >
+                    {{ "Worked but not approved" | translate }}
+                  </button>
+                  <button
+                    class="btn-approved"
+                    (click)="filterDataPerStatus('4')"
+                    [ngClass]="{ active: filterArg == 4 }"
+                  >
+                    {{ "Approved" | translate }}
+                  </button>
+                  <button
+                    class="btn-not-re-invoicing"
+                    (click)="filterDataPerStatus('5')"
+                    [ngClass]="{ active: filterArg == 5 }"
+                  >
+                    {{ "Not re-invoicing" | translate }}
+                  </button> -->
+                </div>
+
+                <!-- <div class="btn-right-wrapper">
+                  <button
+                    class="btn-new"
+                    (click)="NewSupplierInvoice()"
+                    type="button"
+                  >
+                    {{ "New" | translate }}
+                  </button>
+                </div> -->
+              </div>
+              <div>
+                <table
+                  class="table tab-responsive table-hover table-lightX table-sm invoice-table mb-0"
+                  id="theTable"
+                >
+                  <thead>
+                    <tr>
+                      <th class="inc-num padding-left-10" scope="col">
+                        {{ "Invoice Number" | translate }}
+                      </th>
+
+                      <th #accountTd class=" left-alignment acc-num" scope="col">
+                        {{ "Account" | translate }}
+                      </th>
+                      <th class="inc-type left-alignment" scope="col ata-col">
+                        {{ "Invoice Type" | translate }}
+                      </th>
+                      <th class="col-name left-alignment" scope="col">
+                        {{ "Name" | translate }}
+                      </th>
+                      <th class="col-fakturanr left-alignment" scope="col">
+                        {{ "OCR/fakturanr." | translate }}
+                      </th>
+                      <th
+                        style="padding-right: 12px"
+                        class="col-invoice-data text-ceneter"
+                        scope="col"
+                      >
+                        {{ "Invoice Date" | translate }}
+                      </th>
+                      <th class="col-work-up left-alignment" scope="col">
+                        {{ "Worked up" | translate }}
+                      </th>
+                      <th #colPersentElement class="col-persent" scope="col">
+                        {{ "+%" | translate }}
+                      </th>
+                      <th class="col-amount left-alignment" scope="col">
+                        {{ "Amount" | translate }}
+                      </th>
+                      <th class="col-last-regulate left-alignment" scope="col">
+                        {{ "Last regulate" | translate }}
+                      </th>
+                      <th class="col-last-aproven left-alignment" scope="col">
+                        {{ "Approved" | translate }}
+                      </th>
+                      <th class="col-comment" scope="col">
+                        <!-- {{ "Comment" | translate }}  -->
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container
+                      *ngFor="let invoice of supplierInvoices; let i = index"
+                    >
+                      <tr
+                        class="cursor-pointer"
+                        [ngStyle]="setColor2(invoice)"
+                        [ngClass]="[
+                          invoice.childrenInvoices &&
+                          invoice.childrenInvoices.length > 0
+                            ? 'has-children'
+                            : 'no-children',
+                          i === supplierInvoices.length - 1 ? 'last-row' : ''
+                        ]"
+                      >
+                          <td
+                            #orderNumberTd
+                            class="order-number-td first-row-order-nr left-alignment"
+                            (click)="Edit(invoice, 'Part')"
+                          >
+                            {{ invoice.OrderNR }}
+                            <!--<span [ngStyle]="setStatusColor(invoice)">⬤</span> !-->
+                          </td>
+
+                          <td
+                            class="left-alignment"
+                            (click)="Edit(invoice, 'Part')"
+                          >
+                            {{ invoice.Account }}
+                          </td>
+
+                          <td
+                            class="left-alignment"
+                            (click)="Edit(invoice, 'Part')"
+                          >
+                            <ng-container>
+                              {{ invoice.Project }}
+                            </ng-container>
+                          </td>
+                          <td>
+                            <ng-container *ngIf="invoice.document">
+                              <a [href]="invoice.document['PATH']" [download]="invoice.document['NAME']" class="clear-link">
+                                <span style="margin-right: 10px"
+                                  ><svg
+                                    ngcontent-uyk-c125=""
+                                    id="Group_8917"
+                                    data-name="Group 8917"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="14.81"
+                                    height="25"
+                                    viewBox="0 0 13 21.947"
+                                    style="margin: 0px 10px"
+                                  >
+                                    <g
+                                      ngcontent-uyk-c125=""
+                                      id="Group_7764"
+                                      data-name="Group 7764"
+                                    >
+                                      <g
+                                        ngcontent-uyk-c125=""
+                                        id="Group_7318"
+                                        data-name="Group 7318"
+                                      >
+                                        <g
+                                          ngcontent-uyk-c125=""
+                                          id="Group_7312"
+                                          data-name="Group 7312"
+                                        >
+                                          <g
+                                            ngcontent-uyk-c125=""
+                                            id="Component_260_13"
+                                            data-name="Component 260 – 13"
+                                          >
+                                            <path
+                                              ngcontent-uyk-c125=""
+                                              id="Path_4767"
+                                              data-name="Path 4767"
+                                              d="M28.384,42.891a.311.311,0,0,0,.328-.329v-1.5h.45a3.568,3.568,0,0,0,.912-.1,1.277,1.277,0,0,0,.948-1.341,1.245,1.245,0,0,0-.743-1.28,3.278,3.278,0,0,0-1.147-.147H28.6a.668.668,0,0,0-.738.766v3.6a.305.305,0,0,0,.316.329Zm.328-3.859c0-.014,0-.025,0-.034h.449a1.978,1.978,0,0,1,.718.081c.14.059.269.169.269.566a.544.544,0,0,1-.276.542,1.885,1.885,0,0,1-.676.081h-.486Z"
+                                              transform="translate(-25.852 -28.38)"
+                                              fill="#707070"
+                                            ></path>
+                                            <path
+                                              ngcontent-uyk-c125=""
+                                              id="Path_4768"
+                                              data-name="Path 4768"
+                                              d="M35.685,42.879a3.882,3.882,0,0,0,1.179-.158A2.111,2.111,0,0,0,38.1,40.487c0-1.205-.41-1.936-1.218-2.171a4.006,4.006,0,0,0-1.149-.123h-.525a.666.666,0,0,0-.75.766v3.172a.653.653,0,0,0,.738.748Zm-.372-3.841a.273.273,0,0,1,0-.034h.461a2.139,2.139,0,0,1,.874.127c.4.188.578.606.578,1.357,0,.8-.193,1.247-.625,1.448a2.012,2.012,0,0,1-.809.127h-.477a.251.251,0,0,1,0-.045Z"
+                                              transform="translate(-29.646 -28.378)"
+                                              fill="#707070"
+                                            ></path>
+                                            <path
+                                              ngcontent-uyk-c125=""
+                                              id="Path_4769"
+                                              data-name="Path 4769"
+                                              d="M43,39.01h1.636a.3.3,0,0,0,.328-.311V38.51a.3.3,0,0,0-.328-.317H42.9c-.5,0-.75.255-.75.778v3.591a.3.3,0,0,0,.316.329h.217A.308.308,0,0,0,43,42.556V41h1.385a.3.3,0,0,0,.328-.311V40.5a.3.3,0,0,0-.328-.317H43V39.05A.32.32,0,0,1,43,39.01Z"
+                                              transform="translate(-33.878 -28.38)"
+                                              fill="#707070"
+                                            ></path>
+                                            <g
+                                              ngcontent-uyk-c125=""
+                                              id="Order_pos"
+                                              data-name="Order pos"
+                                            >
+                                              <path
+                                                ngcontent-uyk-c125=""
+                                                id="Path_4772"
+                                                data-name="Path 4772"
+                                                d="M28.058,15.768H23.234V35.02h2.525l-.8-.787-.013-.013-.012-.014a1.076,1.076,0,0,1-.2-.344h-.309V16.926h2.806V24.6h7.829v9.265H34.74a.935.935,0,0,1-.233.348l-.831.81h2.558V23.779ZM28.4,23.44v-5.7l5.812,5.7Z"
+                                                transform="translate(-23.234 -15.768)"
+                                                fill="#707070"
+                                              ></path>
+                                            </g>
+                                            <g
+                                              ngcontent-uyk-c125=""
+                                              id="Group_7294"
+                                              data-name="Group 7294"
+                                              transform="translate(1.984 13.777)"
+                                            >
+                                              <path
+                                                ngcontent-uyk-c125=""
+                                                id="Path_4773"
+                                                data-name="Path 4773"
+                                                d="M30.677,52.222a.672.672,0,0,0-.482-.265.66.66,0,0,0-.379.15l-.23.217a.551.551,0,0,0-.21.411.61.61,0,0,0,.175.388l3.9,3.914a.521.521,0,0,0,.413.171.548.548,0,0,0,.437-.184l3.928-3.932a.531.531,0,0,0,.182-.371.537.537,0,0,0-.2-.4l-.262-.23a.516.516,0,0,0-.761.03c-1,1.037-1.812,1.876-2.4,2.5l-.21.22,0-.3c.011-1.484.011-1.408.011-4.886a.555.555,0,0,0-.567-.615h-.3a.547.547,0,0,0-.579.565l.009,5.218-.209-.226C32.4,54.011,31.641,53.214,30.677,52.222Z"
+                                                transform="translate(-29.376 -49.038)"
+                                                fill="#707070"
+                                              ></path>
+                                            </g>
+                                          </g>
+                                        </g>
+                                      </g>
+                                    </g>
+                                  </svg>
+                                </span>
+                              </a>
+                            </ng-container>
+                            <span (click)="Edit(invoice, 'Part')">
+                              {{ invoice.SupplierName }}
+                            </span>
+                          </td>
+                          <td
+                            class="fakturanr left-alignment"
+                            (click)="Edit(invoice, 'Part')"
+                          >
+                            {{ invoice.Ocr }}
+                          </td>
+                          <td
+                            class="text-ceneter"
+                            (click)="Edit(invoice, 'Part')"
+                          >
+                            {{ invoice.InvoiceDate }}
+                          </td>
+
+                          <td
+                            (click)="Edit(invoice, 'Part')"
+                            class="text-right padding-right-15"
+                          >
+                            {{ invoice.TotalExl | number : "1.2-2" : "fr" }}
+                          </td>
+                          <td (click)="Edit(invoice, 'Part')">
+                            <ng-container
+                              *ngIf="
+                                (invoice.childrenInvoices &&
+                                  invoice.childrenInvoices.length == 0) ||
+                                invoice.Deduct != 0
+                              "
+                            >
+                              {{ invoice.Deduct }}
+                            </ng-container>
+                          </td>
+                          <td
+                            (click)="Edit(invoice, 'Part')"
+                            class="text-right padding-right-15"
+                          >
+                            {{ invoice.amount | number : "1.2-2" : "fr" }}
+                          </td>
+                          <td class="text-right padding-right-15">
+                            {{ invoice.notRegulated | number : "1.2-2" : "fr" }}
+                          </td>
+                          <td
+                            class="text-right padding-right-15"
+                            (click)="Edit(invoice, 'Part')"
+                          >
+                            {{
+                              invoice.approvedForInvoice | number : "1.2-2" : "fr"
+                            }}
+                          </td>
+                          <td
+                            class="text-ceneter"
+                            contenteditable="true"
+                            (blur)="onBlur($event)"
+                          >
+                          <i
+                            *ngIf="invoice.manual"
+                            (click)="deleteSupplier(invoice, i)"
+                            class="material-icons text-danger cursor-pointer"
+                          >
+                            <app-delete-icon
+                            [width]="10"
+                            [height]="15"
+                            [color]="'858585'"
+                            ></app-delete-icon>
+                          </i>
+                        </td>
+                      </tr>
+                      <tr
+                        class="child-row cursor-pointer"
+                        *ngFor="
+                          let children_invoice of invoice.childrenInvoices;
+                          let j = index
+                        "
+                        [ngStyle]="setColor2(invoice.childrenInvoices[j])"
+                      >
+                        <td
+                          (click)="Edit(invoice, 'Part')"
+                          class="order-number-td first-row-order-nr left-alignment"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        >
+                          {{ invoice.OrderNR }}
+                          <!--<span [ngStyle]="setStatusColor(children_invoice)">⬤</span>!-->
+                        </td>
+                        <td
+                          class="left-alignment"
+                          (click)="Edit(invoice, 'Part')"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        >
+                          {{ children_invoice.Account }}
+                        </td>
+
+                        <td
+                          class="left-alignment"
+                          (click)="Edit(invoice, 'Part')"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        >
+                          <span
+                            *ngIf="
+                              children_invoice.AtaID &&
+                                children_invoice.AtaNumber;
+                              else elseBlock
+                            "
+                            >{{ children_invoice.AtaNumber }}
+                          </span>
+                          <ng-template #elseBlock>
+                            {{ children_invoice.Project }}
+                          </ng-template>
+                        </td>
+
+                        <td
+                          (click)="Edit(invoice, 'Part')"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        ></td>
+
+                        <td
+                          (click)="Edit(invoice, 'Part')"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        ></td>
+
+                        <!-- <td (click)="Edit(invoice, 'Part')" [ngStyle]="{ 'border-bottom': j === invoice.childrenInvoices.length-1 ? '1px solid grey' : 'none' }"></td> -->
+
+                        <td
+                          (click)="Edit(invoice, 'Part')"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        >
+                          <ng-container
+                            *ngIf="
+                              invoice.childrenInvoices &&
+                              invoice.childrenInvoices.length == 0
+                            "
+                          >
+                            {{ children_invoice.InvoiceDate }}
+                          </ng-container>
+                        </td>
+
+                        <td
+                          (click)="Edit(invoice, 'Part')"
+                          class="text-right padding-right-15"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        >
+                          {{
+                            children_invoice.TotalExl | number : "1.2-2" : "fr"
+                          }}
+                        </td>
+
+                        <td
+                          (click)="Edit(invoice, 'Part')"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        >
+                          {{ children_invoice.Deduct }}
+                        </td>
+
+                        <td
+                          (click)="Edit(invoice, 'Part')"
+                          class="text-right padding-right-15"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        >
+                          {{
+                            children_invoice.amount | number : "1.2-2" : "fr"
+                          }}
+                        </td>
+
+                        <td
+                          class="text-right padding-right-15"
+                          style="width: 85px"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        >
+                          {{
+                            children_invoice.notRegulated
+                              | number : "1.2-2" : "fr"
+                          }}
+                        </td>
+
+                        <td
+                          class="text-right padding-right-15"
+                          (click)="Edit(invoice, 'Part')"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                        >
+                          {{
+                            children_invoice.approvedForInvoice
+                              | number : "1.2-2" : "fr"
+                          }}
+                        </td>
+
+                        <td
+                          class="ata-td-comment"
+                          [ngStyle]="{
+                            'border-bottom':
+                              j === invoice.childrenInvoices.length - 1
+                                ? '1px solid grey'
+                                : 'none'
+                          }"
+                          contenteditable="true"
+                          (blur)="onBlur($event)"
+                        ></td>
+                      </tr>
+                    </ng-container>
+
+                    <!-- <tr class="total-row">
+                      <td style="text-align: start" colspan="5">
+                        <span
+                          style="font-size: 11px"
+                          class="text-right w-100 font-weight-bold p-1"
+                        >
+                          {{ "All prices are excluding VAT" | translate }}
+                        </span>
+                        {{ "Total" | translate }}:
+                      </td>
+
+                      <td>
+                        {{ totalWithoutVat | number : "1.2-2" : "fr" }}
+                      </td>
+
+                      <td></td>
+
+                      <td>
+                        {{ amountTotal | number : "1.2-2" : "fr" }}
+                      </td>
+
+                      <td>
+                        {{ notRegulatedTotal | number : "1.2-2" : "fr" }}
+                      </td>
+
+                      <td>
+                        {{ approvedTotal | number : "1.2-2" : "fr" }}
+                      </td>
+
+                      <td></td>
+                    </tr> -->
+                  </tbody>
+                </table>
+                <div class="sticky-total">
+                  <div class="mastersuma">
+                    <div class="suma">
+                      <span class="total-text"
+                        ><span class="pdv-text">
+                          {{ "All prices are excluding VAT" | translate }}
+                        </span>
+                        {{ "Total" | translate }}:</span
+                      >
+                    </div>
+
+                    <div class="first-blank-digit-suma">
+                      <span class="numbers"></span>
+                    </div>
+
+                    <div class="total-with-out-vat">
+                      <span class="numbers">{{
+                        totalWithoutVat | number : "1.2-2" : "fr"
+                      }}</span>
+                    </div>
+
+                    <div
+                      [ngClass]="[
+                        this.widthpersent === true
+                          ? 'amount-total am-total-sec'
+                          : this.widthpersentSec === true
+                          ? 'amount-total am-total-three'
+                          : 'amount-total am-total-first'
+                      ]"
+                    >
+                      <span class="numbers">{{
+                        amountTotal | number : "1.2-2" : "fr"
+                      }}</span>
+                    </div>
+
+                    <div
+                      [ngClass]="[
+                        this.widthpersent === true
+                          ? 'not-regulated-total n-regulated-total-sec'
+                          : this.widthpersentSec === true
+                          ? 'not-regulated-total n-regulated-total-three'
+                          : 'not-regulated-total n-regulated-total-first'
+                      ]"
+                    >
+                      <span class="numbers">{{
+                        notRegulatedTotal | number : "1.2-2" : "fr"
+                      }}</span>
+                    </div>
+
+                    <div
+                      [ngClass]="[
+                        this.widthpersent === true
+                          ? 'approved-total approved-total-sec'
+                          : this.widthpersentSec === true
+                          ? 'approved-total approved-total-three'
+                          : 'approved-total approved-total-first'
+                      ]"
+                    >
+                      <span class="numbers">{{
+                        approvedTotal | number : "1.2-2" : "fr"
+                      }}</span>
+                    </div>
+
+                    <div
+                      [ngClass]="[
+                        this.widthpersent === true
+                          ? 'second-blank-digit-suma left-second-blank'
+                          : this.widthpersentSec === true
+                          ? 'second-blank-digit-suma left-three-blank'
+                          : 'second-blank-digit-suma left-first-blank'
+                      ]"
+                    >
+                      <span class="numbers"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-line"></div>
+      <div class="horizontal-line"></div>
+    </div>
+  </div>
+  <div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

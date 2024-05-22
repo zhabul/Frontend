@@ -1,0 +1,90 @@
+.triangle {
+  border-style: solid;
+  position: absolute;
+  left: 0;
+  z-index: 40;
+  /* transition: all 150ms ease-in-out;*/
+  border-width: 0px;
+  border-style: solid;
+  border-color: white;
+  opacity: 0.8;
+}
+
+.abs-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  top: 0px;
+  bottom: 1px;
+  left: 0px;
+  right: 1px;
+  /* transition-property: all;*/
+  /*background-color: red;*/
+}
+
+.right-line {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--main-bg);
+  z-index: 50;
+}
+
+.bottom-line {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--main-bg);
+  z-index: 50;
+}
+
+.circle {
+  background-color: white;
+  z-index: 200;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  /* transition: all 250ms ease-in-out;*/
+}
+
+.abs-not-accepted {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  color: red;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.calendar-text-field {
+}
+
+.lock-p-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.lock-p-name > div {
+  margin-left: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.absence-weekend-line {
+}

@@ -1,0 +1,33 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Set completed percentage for moment" | translate }}</h5>
+  <button class="btn btn-outline-dark" [mat-dialog-close]>
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="createForm"
+  (ngSubmit)="changePercent()"
+  class="form-content"
+  #myform="ngForm"
+>
+  <label>{{ "Percentage" | translate }}:</label>
+  <h3>{{ percentageRange.value }}%</h3>
+  <input
+    type="range"
+    class="form-control"
+    min="0"
+    max="100"
+    formControlName="percentage"
+    #percentageRange
+  />
+  <div class="row">
+    <div class="button-group text-center mt-3">
+      <button type="submit" class="btn btn-success lh09">
+        <span class="material-icons left-3px top1px posRel">save</span>
+        <span class="posRel top-5px">{{ "Save" | translate }}</span>
+      </button>
+    </div>
+  </div>
+</form>

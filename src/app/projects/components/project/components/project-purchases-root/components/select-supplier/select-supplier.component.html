@@ -1,0 +1,104 @@
+<div class="row c-card">
+  <div class="row" style="width: 100%">
+    <div class="row" style="width: 100%"
+      *ngIf="userDetails.create_project_Purchases"
+    >
+      <button
+        [ngClass]="
+          !showAddForm
+            ? 'btn-success btn btn-sm mt-2 mb-4'
+            : 'btn-danger btn btn-sm mt-2 mb-4 float-left'
+        "
+        type="button"
+        (click)="toggleAddForm()"
+      >
+        {{
+          !showAddForm ? ("Add New" | translate) : ("Cancel Adding" | translate)
+        }}
+      </button>
+    </div>
+  </div>
+
+  <table
+    class="table tab-responsive table-striped table-hover table-lightX table-sm"
+    id="theTable"
+  >
+    <thead class="table-bordered">
+      <th scope="col" style="width: 45%">
+        {{ "Material Category" | translate }}
+      </th>
+      <th scope="col" style="width: 45%">{{ "Supplier" | translate }}</th>
+      <th scope="col" style="text-align: center">{{ "Action" | translate }}</th>
+    </thead>
+    <tbody class="table-bordered tr-toggleableX">
+      <tr *ngIf="showAddForm">
+        <td>
+          <select
+            class="custom-select custom-select-sm"
+            [(ngModel)]="selectedCategory"
+            (change)="onCateogryChange()"
+            [ngModelOptions]="{ standalone: true }"
+            [attr.disabled] = "userDetails.create_project_Purchases ? null : true"
+          >
+            <option
+              *ngFor="let cateogry of suppliersCategores; let i = index"
+              [selected]="i == 0"
+              [ngValue]="cateogry.Id"
+            >
+              {{ cateogry.name }}
+            </option>
+          </select>
+        </td>
+        <td>
+          <select
+            class="custom-select custom-select-sm"
+            [(ngModel)]="selectdSupplier"
+            [ngModelOptions]="{ standalone: true }"
+            [attr.disabled] = "userDetails.create_project_Purchases ? null : true"
+          >
+            <option
+              *ngFor="let supplier of suppliers; let i = index"
+              [selected]="i == 0"
+              [ngValue]="supplier.Id"
+            >
+              {{ supplier.Name }}
+            </option>
+          </select>
+        </td>
+        <td class="text-center">
+          <i
+
+            class="material-icons text-success cursor-pointer"
+            (click)="onAddClick()"
+            *ngIf="suppliers.length > 0 && userDetails.create_project_Purchases"
+            >save</i
+          >
+        </td>
+      </tr>
+
+      <tr
+        *ngFor="let item of materialSuppliers; let i = index"
+        [ngClass]="showAddForm ? 'opacity20percent' : ''"
+      >
+        <td>
+          {{ item.categoryName }}
+        </td>
+        <td>
+          {{ item.supplierName }}
+        </td>
+        <td class="text-center">
+          <i
+            *ngIf="userDetails.create_project_Purchases"
+            class="material-icons text-danger"
+            [ngClass]="showAddForm ? '' : 'cursor-pointer'"
+            (click)="onRemoveClick(item.Id, i)"
+            >delete_outline</i
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="progress-loader" *ngIf="spinner">
+  <mat-spinner></mat-spinner>
+</div>

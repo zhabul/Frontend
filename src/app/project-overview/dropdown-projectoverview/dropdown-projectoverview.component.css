@@ -1,0 +1,174 @@
+.name-of-multselect{
+  height: 20px;
+
+  width: 68px;
+    display: flex;
+
+     font-size: 16px;
+    position: absolute;
+    top: 0;
+    right: 8px;
+border: 1px solid rgb(246, 236, 221);
+    border-radius: 0px 4px 4px 0px !important;
+    font-size: 12px !important;
+    font-family: "PT-Sans-Pro";
+}
+.name-of-multselect:hover
+{
+  border: 1px solid #FF7F00 !important;
+
+}
+
+.name-of-multselect1
+{
+  height: 33px;
+    width: 150px;
+    padding: 3px 6px 0px 10px;
+    border-radius: 4px 4px 0px 0px;
+    display: flex;
+    position: relative;
+    font-size: 16px;
+  z-index: 1;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 16px !important;
+    font-family: "PT-Sans-Pro-Regular";
+    background-color: #FFFFFF;
+
+}
+
+
+.check-button-wrapp {
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+
+.check-button-wrapp-one{
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+input.check {
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+.orange-scroll{
+  max-height: 195px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border: 2px solid var(--orange-dark);
+  border-top: 0px;
+  width: calc(100% + 16px);
+  position: relative;
+  border-radius: 0px 0px 4px 4px;
+  z-index: 12;
+  background-color: red;
+}
+
+.border-on-scroll{
+    position: absolute;
+    bottom: 0;
+    right: -17px;
+    right: -18px;
+    height: 2px;
+    background-color: var(--orange-dark);
+    width: 18px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.users-list{
+  height: 33px;
+  background-color: white;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px 3px 8px;
+  border-right: 1px solid var(--main-bg);
+}
+.line-scroll{
+  position: absolute;
+  right: 1px;
+  top: 0px;
+  bottom: 3px;
+  width: 1px;
+  background-color: var(--border-color);
+
+}
+
+.counter{
+  position: absolute;
+  margin-left: 201px;
+  margin-right: 2px;
+}
+
+
+.arrow{
+  position: absolute;
+  margin-right: 10px;
+  top: -1px;
+  cursor: pointer;
+  right: -1px;
+}
+
+.refname{
+  cursor: pointer;
+  position: absolute;
+  display: inline-block;
+  width: 200px;
+   white-space: nowrap;
+ width:52px;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  font-size: 12px !important;
+  font-family: "PT-Sans-Pro";
+
+   position: absolute;
+  left: 14px;
+}
+.refname:hover
+{
+  color: #FF7F00 !important;
+}
+
+.refname1
+{
+    color: #FF7F00 !important;
+    position: absolute;
+    top: 5px;
+    left: 14px;
+}
+
+
+.users{
+
+    display: inline-block;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    font-family: 'PT-Sans-Pro';
+    font-size: 14px;
+    position: relative;
+    left: 7px;
+}
+
+.shadow{
+  box-shadow: 0 5px 4px 1.5px var(--border-color), 0px 0px 0px 0px var(--border-color) !important;
+
+  margin-left: 2px;
+  height: 0px;
+  background-color: white;
+  padding-top: 0px;
+  margin-top: -3px;
+  position: absolute;
+}
+

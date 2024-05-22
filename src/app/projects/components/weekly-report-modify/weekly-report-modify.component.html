@@ -1,0 +1,233 @@
+
+<div class="ata-modify-wrapper">
+  <!--Start header -->
+      <div class="ata-modify-header">
+          <app-ata-modify-header
+          [project]="project"
+          (emitValueToggleProject)="buttonNameToggle($event)"
+          ></app-ata-modify-header>
+      </div>
+  <!--End header -->
+  <!-- Start the others data -->
+      <div class="data-modify-wrapper">
+          <!-- Start Navigate tabs on scroll container -->
+          <div class="tab-navigation">
+              <ul class="nav2 nav-tabs2 nav-pills">
+                  <li class="nav-item approveItem">
+                    <a class="nav-link active"
+                      [ngClass]="{ active: selectedTab == 0 }"
+                      (click)="changeSelectedTab(0)"
+                      id="approveItem"
+                      style=" z-index: 6; padding:0px 25px 0px 15px" >
+                      {{ 'Debiteringsunderlag' | translate }}
+                      <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 0, 'bottom-shadow-button': selectedTab != 0 }"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item align-l" >
+                    <a  style=" z-index: 5;margin-left: -19px;" class="nav-link attest "
+                        [ngClass]="{ active: selectedTab == 1 }"
+                        (click)="changeSelectedTab(1)">
+                        {{ "Overview" | translate }}
+                      <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 1, 'bottom-shadow-button': selectedTab != 1 }"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item align-l">
+                    <a style=" z-index: 3; margin-left: -16px;" class="nav-link attest"
+                    [ngClass]="{ active: selectedTab == 2 }"
+                    (click)="changeSelectedTab(2)">
+                      <span>{{ "Email Logs" | translate }}</span>
+
+                      <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 2, 'bottom-shadow-button': selectedTab !== 2 }"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item align-l" style="display:flex">
+                      <a style=" z-index: 1; margin-left: -16px;" class="nav-link attest"
+                        [ngClass]="{ active: selectedTab == 3 }"
+                        (click)="changeSelectedTab(3)">
+                        {{ "Comment" | translate }}
+                        <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 3, 'bottom-shadow-button': selectedTab !== 3 }"></div>
+                      </a>
+                      <span
+                      *ngIf="weekly_report?.hasComment"
+                      class="exclamation-mark-worring"
+                   >!</span>
+                  </li>
+                </ul>
+          </div>
+          <!-- End Navigate tabs on scroll container -->
+          <!-- Start data in scroll container -->
+          <div style="position: relative;" class="ata-border-wrapper" [ngStyle]="{'height':setHeight.height}">
+              <div class="ata-border shadow-top-div blu-scroll blu-scroll-width" [ngStyle]="{'height':setHeight.height}">
+                  <div [ngClass]= "selectedTab == 0 ? '' : 'hidden'"  style="z-index: 99; position: relative;" >
+                    <app-weekly-info-nav
+                      *ngIf="client_workers.length > 0"
+                      [disable]="this.selectedTab"
+                      [project]="project"
+                      [weekly_report_names]="weekly_report_names"
+                      [client_workers]="client_workers"
+                      [supplierInvoices]="supplierInvoices"
+                      [selectedTab]="selectedTab"
+                    >
+                   </app-weekly-info-nav>
+                 </div>
+                  <div *ngIf="selectedTab == 1 && client_workers.length > 0" style="z-index: 99; position:relative;">
+                      <app-weekly-info-nav
+                        [client_workers]="client_workers"
+                        [selectedTab]="selectedTab"
+                      >
+                      </app-weekly-info-nav>
+                      <app-weekly-overview
+                        (onWeekChange)="changeSelectedReportFromOverview($event)"
+                      >
+                      </app-weekly-overview>
+                  </div>
+                  <div *ngIf="selectedTab == 2" style="z-index: 99; position:relative;">
+                    <email-log
+                      [ataid]="17766"
+                      [projectId]="project.id"
+                      [client_workers]="client_workers"
+                      [ItemName]="'selectedAta Number'"
+                      [logs]="email_logs"
+                      [appPart]="'other'"
+                    ></email-log>
+                  </div>
+                  <div *ngIf="selectedTab == 3">
+                    <app-comment-section
+                    content_type="DU"
+                    [parentId]="project.id"
+                    >
+                    </app-comment-section>
+                  </div>
+                  <div *ngIf="selectedTab == 4" style="z-index: 99; position:relative;">
+                </div>
+              </div>
+              <!-- Start Scroll added lines -->
+              <div class="vertical-line"></div>
+              <div class="horizontal-line"></div>
+              <!-- Start Scroll added lines -->
+          </div>
+          <!-- Start data in scroll container -->
+      </div>
+  <!-- End the others data -->
+<div class="progress-loader" *ngIf="spinner">
+    <mat-spinner></mat-spinner>
+</div>
+<ng-container *ngIf="weekly_report && selectedTab == 0">
+  <div (click)="closeAllPdfPrew()" class="hide-prew" *ngIf="this.showPdfPreview"></div>
+  <div class="aside" [ngClass]="{ 'aside-show': showPdfPreview }">
+      <div class="buttons">
+          <button
+              class="articles-material btn-prev"
+              type="button"
+              (click)="togglePdfPreview('other')"
+              [ngClass]="{ 'active-show-button': showPdfPreview && whichPdfPreview === 'other' }"
+              style="z-index: 10"
+              *ngIf="filterWithoutEmptyRow('other')"
+          >
+              {{
+                  (showPdfPreview && whichPdfPreview === "other"
+                  ? "Close Other"
+                  : "Övrigt"
+                  ) | translate
+              }}
+          </button>
+          <button type="button" class="articles-material btn-prev"
+            (click)="togglePdfPreview('material')"
+            [ngClass]="{ 'active-show-button': showPdfPreview && whichPdfPreview === 'material' }"
+            style="z-index: 9"
+            *ngIf="filterWithoutEmptyRow('material')"
+          >
+              {{
+                  (showPdfPreview && whichPdfPreview === "material"
+                  ? "Close Material"
+                  : "Material"
+                  ) | translate
+
+              }}
+          </button>
+          <button
+              type="button"
+              class="additional-work btn-prev"
+              (click)="togglePdfPreview('work')"
+              [ngClass]="{ 'active-show-button': showPdfPreview && whichPdfPreview === 'work' }"
+              style="z-index: 8"
+              *ngIf="filterWithoutEmptyRow('additional_work')"
+          >
+              {{
+                (showPdfPreview && whichPdfPreview === "work" ? "Close TIDER" : "TIDER")
+                  | translate
+              }}
+          </button>
+          <button type="button" (click)="togglePdfPreview('weeklyreport')" class="pdf-preview btn-prev"
+                  [ngClass]="{ 'active-show-button': showPdfPreview && whichPdfPreview === 'weeklyreport' }"
+                  style="z-index: 7"
+          >
+            {{
+              (showPdfPreview && whichPdfPreview === "weeklyreport"
+                ? "Close DU"
+                : "DU"
+              ) | translate
+            }}
+          </button>
+      </div>
+      <div class="buttons" *ngIf="activeComponent == 'ata'">
+          <button type="button" (click)="togglePdfPreview('ata')" class="articles-material btn-prev">
+              {{ (showPdfPreview ? "Close Preview" : "Preview") | translate }}
+          </button>
+      </div>
+        <weekly-report-pdf
+          *ngIf="whichPdfPreview === 'weeklyreport' "
+          [generalImage]="generalImage"
+          [formValues]="formValues"
+          [currentWeeklyReport]="weekly_report"
+          [project]="project"
+          [get_last_email_log_but_first_client_wr]="
+            get_last_email_log_but_first_client_wr
+          "
+          (emitNewAtaChanged)="generatePdf($event)"
+        >
+        </weekly-report-pdf>
+        <additional-work-pdf
+            *ngIf="whichPdfPreview === 'work' && weekly_report.articles.AdditionalWork?.length > 0"
+            [moments]="additionalWorkMoments"
+            [typeKSorDU]="'DU'"
+            [generalImage]="generalImage"
+            [formValues]="formValues"
+            [currentWeeklyReport]="weekly_report"
+            [project]="project"
+            [get_last_email_log_but_first_client_wr]="
+            get_last_email_log_but_first_client_wr
+            "
+            (emitNewAtaChanged)="generatePdf($event)"
+        ></additional-work-pdf>
+        <material-pdf
+            *ngIf="whichPdfPreview === 'material'"
+            [type]="'material'"
+            [typeKSorDU]="'DU'"
+            [materials]="filterArticles(weekly_report?.articles.Material)"
+            [generalImage]="generalImage"
+            [formValues]="formValues"
+            [currentWeeklyReport]="weekly_report"
+            [project]="project"
+            [get_last_email_log_but_first_client_wr]="
+            get_last_email_log_but_first_client_wr
+            "
+            (emitNewAtaChanged)="generatePdf($event)"
+        ></material-pdf>
+        <material-pdf
+            *ngIf="whichPdfPreview === 'other'"
+            [type]="'other'"
+            [typeKSorDU]="'DU'"
+            [materials]="filterArticles(weekly_report?.articles.Other)"
+            [generalImage]="generalImage"
+            [formValues]="formValues"
+            [currentWeeklyReport]="weekly_report"
+            [project]="project"
+            [get_last_email_log_but_first_client_wr]="
+            get_last_email_log_but_first_client_wr
+            "
+            (emitNewAtaChanged)="generatePdf($event)"
+        ></material-pdf>
+    </div>
+  </ng-container>
+</div>

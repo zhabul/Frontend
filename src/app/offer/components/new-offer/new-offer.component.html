@@ -1,0 +1,2147 @@
+
+<div
+  class="container-fluidW px-0W l0 hideUnder1400 mt-3 pl-5 project-container"
+  [class.others-container]="currentTab == 0"
+  (keydown)="changeDetected()"
+>
+  <!-- header div -->
+  <div class="border-nav">
+    <div class="d-flex align-items-center border-h-project">
+      <div class="home" (click)="goBack()">
+        <svg
+          _ngcontent-dfb-c33=""
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          height="29.342"
+          viewBox="0 0 34.604 29.342"
+          width="34.604"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs _ngcontent-dfb-c33="">
+            <clipPath _ngcontent-dfb-c33="" id="clip-path">
+              <rect
+                _ngcontent-dfb-c33=""
+                data-name="Rectangle 15829"
+                fill="none"
+                height="29.342"
+                id="Rectangle_15829"
+                width="34.604"
+              ></rect>
+            </clipPath>
+          </defs>
+          <g
+            _ngcontent-dfb-c33=""
+            data-name="Group 4372"
+            id="Group_4372"
+            transform="translate(0 0)"
+          >
+            <g
+              _ngcontent-dfb-c33=""
+              clip-path="url(#clip-path)"
+              data-name="Group 4371"
+              id="Group_4371"
+              transform="translate(0 0)"
+            >
+              <path
+                _ngcontent-dfb-c33=""
+                d="M33.735,13.5c-14.991,0-24.041,0-28.226.069L3.632,13.6,5,12.316C6.115,11.264,8.731,8.8,15.68,2.068a.625.625,0,0,0,.251-.519c0-.111-.124-.262-.244-.408l-.8-.914C14.716.061,14.615,0,14.483,0c-.044,0-.182.055-.386.259L.293,14.052v0A1.009,1.009,0,0,0,.3,15.481L13.987,29.1a1.016,1.016,0,0,0,.451.238c.153,0,.244-.072.528-.358l.742-.79a.963.963,0,0,0,.177-.445c0-.2-.153-.423-.5-.725-4.779-4.64-8.245-7.92-10.33-9.771L3.613,15.969l1.935.015c4.256.034,12.819.034,28.364.034a.656.656,0,0,0,.691-.743V14.2c0-.209,0-.7-.868-.7"
+                data-name="Path 1822"
+                fill="#82a7e2"
+                id="Path_1822"
+                transform="translate(0 0)"
+              ></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="ml-3 mt-1">
+        <h4 class="posRel fs-18 title-project-color title-head-wrapp text-uppercase">
+          {{ offerName | translate }}
+        </h4>
+      </div>
+    </div>
+    <div class="triangle send_offer" (click)="buttonNameToggle()" #dropdown1>
+      <div class="dropdown-div">
+        <button
+          type="button"
+          (click)="dropSend()"
+          class="btn-options"
+          id="first-btn-drop"
+          [class.btn-options-collapse]="buttonToggleSend"
+          >
+          <span
+          [ngStyle]="{'color': buttonToggleSend ? '#FF7000' : '#82A7E2'}"
+          >
+          {{ "TSC_SEND_PRINT" | translate }} {{ "Offer" | translate }}
+        </span>
+
+        </button>
+        <!-- collapse -->
+        <div class="dropdown-menu show" id="first-drop"
+          [ngClass]="buttonToggleSend ? '' : 'd-none'">
+          <div class="border-summary print-div" (click)="printOffer()">
+            <p>
+              {{ "TSC_PRINT" | translate }}
+            </p>
+            <div class="svg-p">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="pdf-p-icon"
+                width="18.953"
+                height="17.216"
+                viewBox="0 0 18.953 17.216"
+              >
+                <g
+                  id="Group_4091"
+                  data-name="Group 4091"
+                  transform="translate(0 0)"
+                >
+                  <g
+                    id="Group_3988"
+                    data-name="Group 3988"
+                    transform="translate(5.984 4.613)"
+                  >
+                    <rect
+                      id="Rectangle_15585"
+                      data-name="Rectangle 15585"
+                      width="6.934"
+                      height="0.803"
+                      transform="translate(0 1.992)"
+                      fill="#44484c"
+                    />
+                    <rect
+                      id="Rectangle_15586"
+                      data-name="Rectangle 15586"
+                      width="6.934"
+                      height="0.803"
+                      fill="#44484c"
+                    />
+                  </g>
+                  <path
+                    id="Path_1752"
+                    data-name="Path 1752"
+                    d="M33.834,19.925a.955.955,0,0,0-.953-.957H15.833a.955.955,0,0,0-.952.957v8.132h3.6v.718l7.369,7.409H30.2V28.1h3.636Zm-17.1,6.567v-3.8H18.48v3.8Zm8.806,7.864L20.3,29.089h5.238Zm1.066.757v-7.1H19.546V22.694h9.587V35.113Zm5.38-8.575H30.2V22.694h1.786Z"
+                    transform="translate(-14.881 -18.968)"
+                    fill="#44484c"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div *ngIf="userDetails['create_offer_Global'] == 1 && !hasAnswer" class="border-summary send-div" (click)="setOpacity()">
+            <button type="button" class="send-offer-btn">
+                <p> {{ "Send" | translate }} {{ "Offer" | translate }} </p>
+            </button>
+            <button class="send-offer-btn" >
+              <svg id="Group_7734" data-name="Group 7734" xmlns="http://www.w3.org/2000/svg" width="22.04" height="23" viewBox="0 0 22.04 23">
+                <path id="send" d="M16.431,0,0,9.961l5.37,2.3L13.4,3.95,7.352,13.105l.005,0-.006,0,.11,5.063,2.9-3.775,3.815,1.631Z" transform="matrix(0.927, 0.375, -0.375, 0.927, 6.806, 0)" fill="#44484c"/>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- navigation div -->
+  <div class="tab-navigation mt-5 div-grid">
+    <div style="width: 665px; padding-top:5px" class="nav-tabs tab-navigation absolute-tabs">
+      <ul style="width: 605px; padding-left: 19px;" class="nav nav-tabs nav-pills" role=" tablist">
+        <li
+
+          *ngFor="let offer of offers; let index = index;"
+          class="nav-item approveItem"
+          [ngClass]="index > 0 ? 'positioned' : 'positioned1'"
+
+        >
+          <a
+            class="nav-link active"
+            [ngClass]="{ active: activeOffer == index && selectedTab === 0,
+              question: setEmailStatus(offer.emailLogs)?.statusText === 'Question' }"
+            (click)="setActiveOffer(index)"
+            id="approveItem"
+            [title]="offer.offerNum"
+          >
+            <span *ngIf="!index">{{ "Draft" | translate }}</span>
+            <span *ngIf="index">{{ offer.offerNum }}</span>
+            <svg *ngIf="setEmailStatus(offer.emailLogs)?.statusText === 'Sent'"
+            [ngStyle]="{'margin-top': '-3px',
+                        'left': '5px',
+                        'overfllow':'auto',
+                        'position': 'relative'}"
+            xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+              <g id="Group_8805" data-name="Group 8805" transform="translate(-129 -400)">
+                <g id="Group_8745" data-name="Group 8745" transform="translate(129 400)">
+                  <circle id="Ellipse_790" data-name="Ellipse 790" cx="7.5" cy="7.5" r="7.5" fill="#82a7e2"/>
+                </g>
+              </g>
+              <g id="Group_8806" data-name="Group 8806" transform="translate(2.292 1.716)">
+                <path id="send" d="M8.136,0,0,4.514l2.557.881L6.594,1.729,3.5,5.72h0l-.04,2.147L4.934,6.214l1.816.626Z" transform="matrix(0.927, 0.375, -0.375, 0.927, 2.404, 0.459)" fill="#fff"/>
+              </g>
+            </svg>
+            <svg *ngIf="setEmailStatus(offer.emailLogs)?.statusText === 'Accepted'"
+            [ngStyle]="{'margin-top': '-3px',
+                        'left': '5px',
+                        'overfllow':'auto',
+                        'position': 'relative'}"
+            id="Bocka_av_icon" data-name="Bocka av icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" viewBox="0 0 15 15">
+              <defs>
+                <clipPath id="clip-path">
+                  <rect id="Rectangle_60" data-name="Rectangle 60" width="15" height="15" fill="none"/>
+                </clipPath>
+              </defs>
+              <g id="Group_301" data-name="Group 301" clip-path="url(#clip-path)">
+                <path id="Path_745" data-name="Path 745" d="M14.869,7.434A7.437,7.437,0,1,1,7.432,0a7.435,7.435,0,0,1,7.436,7.436" transform="translate(0.069 0.066)" fill="#03d156"/>
+                <path id="Path_746" data-name="Path 746" d="M20.194,19.48l-.224-.227a.683.683,0,0,0-.483-.215.783.783,0,0,0-.547.251l-4.986,4.937-1.633-1.689v0l-.517-.522a.7.7,0,0,0-.493-.217.734.734,0,0,0-.51.224l-.224.227a.7.7,0,0,0,.037,1.032l3.353,3.38,5.811-5.747.425-.427a.689.689,0,0,0-.007-1.005" transform="translate(-8.245 -15.199)" fill="#fff"/>
+              </g>
+            </svg>
+            <svg *ngIf="setEmailStatus(offer.emailLogs)?.statusText === 'Declined'"
+            [ngStyle]="{'margin-top': '-3px',
+                        'left': '5px',
+                        'overfllow':'auto',
+                        'position': 'relative'}"
+            id="Group_8812" data-name="Group 8812" xmlns="http://www.w3.org/2000/svg" width="15" height="15.052" viewBox="0 0 15 15.052">
+              <circle id="Ellipse_792" data-name="Ellipse 792" cx="7.5" cy="7.5" r="7.5" fill="#fff"/>
+              <g id="Group_8813" data-name="Group 8813" transform="translate(0 0)">
+                <path id="Path_5134" data-name="Path 5134" d="M15.155,5.82a7.622,7.622,0,0,0-14.812,0Z" transform="translate(-0.249)" fill="#b63418"/>
+                <path id="Path_5135" data-name="Path 5135" d="M0,44.325a7.452,7.452,0,0,0,7.4,5.82,7.452,7.452,0,0,0,7.405-5.82Z" transform="translate(0 -35.093)" fill="#b63418"/>
+                <g id="Group_8814" data-name="Group 8814" transform="translate(0 0)">
+                  <rect id="Rectangle_18049" data-name="Rectangle 18049" width="15" height="15" fill="none"/>
+                </g>
+              </g>
+            </svg>
+            <div [ngClass]="{ 'hide-bottom-box-shadow': activeOffer == index }"></div>
+            <div [ngClass]="{ 'line-inactive-tab': activeOffer != index }">
+          </div>
+          </a>
+          <div class="fraga" *ngIf="hasQuestion && activeOffer == index && selectedTab === 0" (click)="showQuestion()">
+            {{ 'Question' | translate }}?
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-tabs tab-navigation right" style="padding-top: 5px;">
+      <ul style="margin: 0px;" class="nav nav-tabs nav-pills text-uppercase header-tabs" role="tablist">
+        <li class="nav-item approveItemEmail">
+          <a
+            class="nav-link active right-tabs"
+            [ngClass]="{ active: selectedTab == 2 }"
+            (click)="setSelectedTab(2)"
+            style="padding: 2px 27px  0px 20px;z-index: 12; width: 140px;"
+          >
+            {{ "E-mail logs" | translate }}
+            <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 2 }"></div
+          >
+          <div [ngClass]="{ 'line-inactive-tab': selectedTab != 2 }">
+          </div>
+        </a>
+        </li>
+        <li class="nav-item align-l">
+          <a
+            class="nav-link attest right-tabs"
+            [ngClass]="{ active: selectedTab == 3 }"
+            (click)="setSelectedTab(3)"
+            style="z-index: 13; padding: 2px 27px 0px 20px; width: 140px;"
+          >
+            {{ "Comment" | translate }}
+            <div
+              [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 3 }"
+            ></div
+          >
+          <div [ngClass]="{ 'line-inactive-tab': selectedTab != 3 }">
+          </div></a>
+        </li>
+        <li class="nav-item align-l">
+          <a
+            class="nav-link forecast right-tabs"
+            [ngClass]="{ active: selectedTab == 4 }"
+            (click)="setSelectedTab(4)"
+            style="z-index: 14; padding: 2px 20px 0px 20px; width: 140px;"
+          >
+            {{ "Meeting notes" | translate }}
+            <div
+              [ngClass]="{ 'hide-bottom-box-shadow': selectedTab == 4 }"
+            ></div
+          >
+          <div [ngClass]="{ 'line-inactive-tab': selectedTab != 4 }">
+          </div></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- draft component  selected tab 0 -----------------------------------------------------------------------------  -->
+
+    <div class="blu-scroll-wrapp">
+      <div cdkScrollable class="card-project w-100 blu-scroll"  #blueScroll id="skrollbar" style="min-height: 98%;">
+        <div *ngIf="selectedTab == 0" style="min-height: 98%;">
+          <div class="tab-header">
+
+            <div class="side" style="display: flex;align-items: center;">
+              <app-component-email-status [emailLogs]="offer.emailLogs"></app-component-email-status>
+              <div for="name" class="offer-title">
+                {{ createForm.get('offerNum').value }}
+                <!-- {{ createForm.get('name').value }} -->
+              </div>
+            </div>
+            <div class="side">
+              <div >
+                <!-- <app-deviation-status
+                [CancelCondition]="statusChangable && ata_messages[selectedDeviation].accepted == 4"
+                    [DeclineCondition]="statusChangable"
+                    [AcceptCondition]="statusChangable"
+                    [CreateInternalAtaCondition]="deviationTransformable"
+                    [CreateExternalAtaCondition]="deviationTransformable && type == 'external'"
+                    [CreateExternalDeviationCondition]="deviationTransformable && type == 'internal'"
+                    (Decline)="threeDotsStatusesChange('2')"
+                    (Accepted)="threeDotsStatusesChange('0')"
+                    (Cancel)="threeDotsStatusesChange('1')"
+                    (CIACondition)="createNewAta(0)"
+                    (CEACondition)="createNewAta(1)"
+                    (CEDCondition)="createNewDeviation()">
+
+                </app-deviation-status> -->
+                <button
+                  id="template-options"
+                  class="border-brand button-dots"
+                  [ngClass]="{'pointer-events': userDetails['create_offer_Global'] != 1 }"
+                  [ngStyle]="{'border': templateOptionsOpened ? '2px solid var(--orange-dark)':'', 'padding': templateOptionsOpened ? 'padding: 0px 10px 0px 8px;':''}"
+                  (click)="toggleTamplateOptions()"
+                  #dropdown>
+
+                  <span class="offert-status"  [ngStyle]="{'color': templateOptionsOpened ? 'var(--orange-dark)':''}">
+                    {{ 'Offert status' | translate }}
+                  </span>
+                  <div  *ngIf="!templateOptionsOpened">
+                    <svg id="Group_8200" data-name="Group 8200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10.304" height="6.667" viewBox="0 0 10.304 6.667">
+                      <defs>
+                        <clipPath id="clip-path">
+                          <path id="Path_758" data-name="Path 758" d="M0-1.726H9.273s2.318-4.5,0-6S0-7.726,0-7.726Z" transform="translate(0 8.393)" fill="none"/>
+                        </clipPath>
+                      </defs>
+                      <g id="Group_308" data-name="Group 308" transform="translate(0 0)">
+                        <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+                          <g id="Group_304" data-name="Group 304" transform="translate(0 0.666)">
+                            <path id="Path_757" data-name="Path 757" d="M-.03-.258l4.1,4.916a.491.491,0,0,0,.419.186h.047a.491.491,0,0,0,.419-.186L9.032-.258a.568.568,0,0,0,.1-.373.393.393,0,0,0-.2-.326L8.8-1.05a.663.663,0,0,0-.4-.1.456.456,0,0,0-.349.2L4.513,3.236.971-.957a.456.456,0,0,0-.349-.2.663.663,0,0,0-.4.1L.063-.957a.393.393,0,0,0-.2.326.568.568,0,0,0,.1.373" transform="translate(0.136 1.156)" fill="#82a7e2"/>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                  <div  *ngIf="templateOptionsOpened">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="9.273" height="6" viewBox="0 0 9.273 6">
+                      <defs>
+                        <clipPath id="clip-path">
+                          <path id="Path_758" data-name="Path 758" d="M0,6H9.273V0H0Z" fill="none"/>
+                        </clipPath>
+                      </defs>
+                      <g id="Group_8154" data-name="Group 8154" transform="translate(9.273 6) rotate(180)">
+                        <g id="Group_308" data-name="Group 308" transform="translate(0)">
+                          <g id="Group_305" data-name="Group 305" clip-path="url(#clip-path)">
+                            <g id="Group_304" data-name="Group 304" transform="translate(0 0)">
+                              <path id="Path_757" data-name="Path 757" d="M.106.9l4.1,4.916A.491.491,0,0,0,4.626,6h.047a.491.491,0,0,0,.419-.186L9.169.9a.568.568,0,0,0,.1-.373A.393.393,0,0,0,9.076.2L8.936.106a.663.663,0,0,0-.4-.1A.456.456,0,0,0,8.19.2L4.649,4.393,1.108.2A.456.456,0,0,0,.758,0a.663.663,0,0,0-.4.1L.2.2A.393.393,0,0,0,0,.525.568.568,0,0,0,.106.9" fill="#ff7000"/>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                </button>
+                <div *ngIf="templateOptionsOpened" class="template-options-list">
+                  <div class="bord">
+                    <ng-container *ngIf="activeOffer > 0">
+                      <app-status-dropdown [logs]="offer.emailLogs" (resolve)="manuallyResolveOffer($event)" ></app-status-dropdown>
+                    </ng-container>
+                    <div *ngIf="activeOffer == 0" >
+                      <app-status-dropdown
+                        [logs]="offer.emailLogs"
+                        [showAborted]="false"
+                        (resolve)="manuallyDraftResolveOffer($event)" >
+                      </app-status-dropdown>
+                      <div class="item" (click)="modalAddTemplate()">
+                        <span class="text-uppercase pos">
+                          {{ 'Save as your own template'| translate }}
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-tabs tab-navigation title-tabs">
+            <ul class="nav nav-tabs nav-pills client-ofer-list" role="tablist">
+              <li class="nav-item approveItemClient">
+                <a
+                  class="nav-link active round"
+                  [ngClass]="{ active: selectedTitle == 0 }"
+                  (click)="changeSelectedTabTitle(0)"
+                  id="approveItem"
+                >
+                  {{ "Offer customer" | translate }}
+                  <div
+                    [ngClass]="{ 'hide-bottom-box-shadow': selectedTitle == 0 }"
+                  ></div>
+                  <div [ngClass]="{ 'line-inactive-tab': selectedTitle != 0 }">
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item align-l">
+                <a
+                  class="nav-link attest round"
+                  [ngClass]="{ active: selectedTitle == 1 }"
+                  (click)="changeSelectedTabTitle(1)"
+                  style="z-index: 6"
+                >
+                  {{ "Introduction" | translate }}
+                  <div [ngClass]="{ 'hide-bottom-box-shadow': selectedTitle == 1 }"></div
+                >
+                <div [ngClass]="{ 'line-inactive-tab': selectedTitle != 1 }">
+                </div>
+              </a>
+              </li>
+              <li class="nav-item align-l">
+                <a
+                  class="nav-link forecast round"
+                  [ngClass]="{ active: selectedTitle == 2 }"
+                  (click)="changeSelectedTabTitle(2)"
+                  style="z-index: 5"
+                >
+                  {{ "Lines" | translate }}
+                  <div
+                    [ngClass]="{ 'hide-bottom-box-shadow': selectedTitle == 2 }"
+                  ></div
+                >
+                  <div [ngClass]="{ 'line-inactive-tab': selectedTitle != 2 }">
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item align-l">
+                <a
+                  class="nav-link forecast round"
+                  [ngClass]="{ active: selectedTitle == 3 }"
+                  (click)="changeSelectedTabTitle(3)"
+                  style="z-index: 4"
+                >
+                  {{ "Termination" | translate }}
+                  <div
+                    [ngClass]="{ 'hide-bottom-box-shadow': selectedTitle == 3 }"
+                  ></div>
+                  <div [ngClass]="{ 'line-inactive-tab': selectedTitle != 3 }">
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item align-l">
+                <a
+                  class="nav-link forecast round"
+                  [ngClass]="{ active: selectedTitle == 4 }"
+                  (click)="changeSelectedTabTitle(4)"
+                  style="z-index: 3"
+                >
+                  {{ "Attachments" | translate }}
+                  <div
+                    [ngClass]="{ 'hide-bottom-box-shadow': selectedTitle == 4 }"
+                  ></div>
+                  <div [ngClass]="{ 'line-inactive-tab': selectedTitle != 4 }">
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!------------ client offer ---------------->
+          <form
+
+            *ngIf="selectedTitle == 0"
+            novalidate
+            autocomplete="off"
+            [formGroup]="createForm"
+            (ngSubmit)="submitOffer($event)"
+            #myform="ngForm"
+          >
+            <!-- first tab -->
+            <div class="form-wrapper mb-4">
+              <div class="panel panel-default w-100">
+                <fieldset class="field">
+                  <div class="form-column-wrapper-position">
+
+                    <div class="form-column col-4">
+                      <div
+                        class="form-group"
+                        [ngClass]="{
+                          'has-error':
+                            (createForm.get('offerNum')?.touched ||
+                              createForm.get('offerNum')?.dirty) &&
+                            !createForm.get('offerNum')?.valid
+                        }"
+                      >
+                          <label class="required" for="offerNum">{{ "Number" | translate }}</label>
+                        <div class="number-input-container">
+                          <input
+                            spellcheck="false"
+                            [class.status]="createForm.get('offerNum')?.touched"
+                            type="text"
+                            class="form-control"
+                            id="offerNum"
+                            [placeholder]="offer.offerNum"
+                            formControlName="offerNum"
+                            [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                            tabIndex="1"
+                          />
+                        </div>
+                        <span *ngIf="createForm.get('offerNum')?.startsWithA">
+                          <span style="color: lightskyblue; font-size: 11px; cursor: default;">
+                            {{ "Offer numbers must start with the letter 'A'" | translate }}.
+                          </span>
+                        </span>
+                        <span class="help-block is-invalid" *ngIf="displayError('offerNum')">
+                          <span class="text-danger">
+                            {{ "Please enter an Offer Number." | translate }}
+                          </span>
+                        </span>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="required">{{ "Name" | translate }}</label>
+
+                        <input
+                        spellcheck="false"
+                          [class.status]="createForm.get('name')?.touched"
+                          [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          placeholder="{{ 'Enter offer name' | translate }}"
+                          formControlName="name"
+                          tabIndex="2"
+                        />
+
+                        <span
+                          class="help-block is-invalid"
+                          *ngIf="displayError('name')"
+                        >
+                          <span class="text-danger">
+                            {{ "Please enter a name." | translate }}
+                          </span>
+                        </span>
+                      </div>
+
+                      <div
+                        class="form-group"
+                      >
+                        <label class="required">{{
+                          "Contact person" | translate
+                        }}</label>
+                        <!-- <ng-container *ngIf="usersWithPermission.length">
+                          <app-input-autocomplete
+                            [control]="createForm.get('userWithPermission')"
+                            [inputText]="createForm.get('userWithPermission_name')"
+                            [list]="usersWithPermission"
+                            [myform]="myform"
+                            [placeholderText]="'Select contact person' | translate"
+                            [addFontSize18]="true"
+                            id="id"
+                            [hasZeroRadius]="false"
+                            [colors]="{
+                              backgroundColor: 'white',
+                              color: '#44484C',
+                              border: '1.5px solid white'
+                            }"
+                            errorText="Please select contact person"
+                            type="ata"
+
+                          ></app-input-autocomplete>
+                        </ng-container> -->
+                        <!--Dropdown Contact person-->
+                      <div [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'input-wrapper1-white-background' : 'input-wrapper1-gray-background'">
+                        <app-select-dropdown-with-plus
+                        [ClientItem]= "usersWithPermission"
+                        [placeholder]="'Select delivery contact' | translate"
+                        [width]="302"
+                        [fontSize]="18"
+                        (DeliveryContact)="GetDeliveryContact($event)"
+                        [type1]="'delivery'"
+                        [EnableSearch]="true"
+                        errorText="Please select contact person"
+                        formControlName="userWithPermission"
+                        >
+                        </app-select-dropdown-with-plus>
+                      </div>
+                      <!--End Dropdown Contact person-->
+                      </div>
+                    </div>
+
+                    <!-- second column -->
+                    <div class="form-column col-4">
+                      <div
+                        class="form-group"
+                        [ngClass]="{
+                          'has-error': displayError('skv_id')
+                        }"
+                      >
+                        <label for="skv_id">{{
+                          "SKV ID" | translate
+                        }}</label>
+                        <input
+                        spellcheck="false"
+                          [class.status]="createForm.get('skv_id')?.touched"
+                          [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                          type="number"
+                          class="form-control"
+                          id="skv_id"
+                          formControlName="skv_id"
+                          placeholder="0"
+                          tabIndex="3"
+                        />
+                        <span
+                          class="help-block is-invalid"
+                          *ngIf="displayError('skv_id')"
+
+                        >
+                          <span class="text-danger">
+                            {{ "Please enter SKV ID." | translate }}
+                          </span>
+                        </span>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="name" class="required">{{
+                          "Status" | translate
+                        }}</label>
+
+                        <input
+                        disabled = "true"
+                        spellcheck="false"
+                          type="text"
+                          class="form-control gray-background"
+                          value="{{ setEmailStatus(this.offer.emailLogs)?.statusText | translate}}"
+                        />
+
+                        <!-- <div
+                            style="
+                              width: 302px;
+                              height: 35px;
+                              position: relative;
+                              z-index: 1;
+                            "
+                          >
+                            <div [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'input-wrapper1-white-background' : 'input-wrapper1-gray-background'" >
+                              <app-select-dropdown-with-plus
+                              [ClientItem]="projectStatusOptions"
+                              [placeholder]="findOfferStatus()"
+                              [width]="302"
+                              [fontSize]="18"
+                              [StatusActive]="true"
+                              [EnableSearch]="false"
+                              [type1]="'status'"
+                              (Status)="projectStatusSelected($event, 'status')"
+                              >
+                              </app-select-dropdown-with-plus>
+                            </div>
+                          </div> -->
+
+                        <span
+                          class="help-block is-invalid"
+                          *ngIf="displayError('status')"
+                        >
+                          <span class="text-danger">
+                            {{ "Please select project status." | translate }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- third column -->
+                    <div class="form-column col-4" style="width: 302px;">
+                      <div class="form-group">
+                        <label class="required">{{
+                          "Created" | translate
+                        }}</label>
+                        <div class="input-group date" >
+                          <div class="input-group-prepend new-height-35">
+                            <span
+                              class="input-group-text"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              id="basic-addon1">
+                              <i class="material-icons">calendar_today</i>
+                            </span>
+                          </div>
+                          <input
+                          spellcheck="false"
+                            [class.kalendar]="createForm.get('StartDate')?.value"
+                            (keydown)="$event.preventDefault()"
+                            id="startDate"
+                            autocomplete="off"
+                            type="text"
+                            class="form-control project-date"
+                            style="width: max-content;"
+                            [ngStyle]="{'max-width': displayError('StartDate') ? '247px' : ''}"
+                            aria-describedby="basic-addon1"
+                            #StartDate
+                            formControlName="StartDate"
+                            [ngClass]="{
+                              'is-invalid': displayError('StartDate'),
+                              'smaller-size-date': displayError('StartDate')
+                            }"
+                            [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                            style="height: 35px;"
+                            tabIndex="4"
+                          />
+                        </div>
+                        <span
+                          class="help-block is-invalid"
+                          *ngIf="displayError('StartDate')"
+                        >
+                          <span class="text-danger">
+                            {{ "Date is required." | translate }}
+                          </span>
+                        </span>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label class="required">{{
+                          "Offer validity period" | translate
+                        }}</label>
+                        <div class="input-group date">
+                          <div class="input-group-prepend">
+                            <input
+                            spellcheck="false"
+                              [class.status]="
+                                createForm.get('ValidityPeriod')?.touched
+                              "
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="input-group-text width-center time-input new-height-35"
+                              id="validityPeriod"
+                              #ValidityPeriod
+                              formControlName="ValidityPeriod"
+                              placeholder="30"
+                              tabIndex="5"
+                            />
+                          </div>
+                          <span class="form-control project-date days-left new-widht-262">
+                            {{ "days from the quotation date" | translate }}</span
+                          >
+                        </div>
+                        <span class="help-block is-invalid" *ngIf="displayError('ValidityPeriod')">
+                          <span class="text-danger">
+                            {{ "Please define a validity period." | translate }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <!-- second tab  -->
+            <div class="form-wrapper mb-4">
+              <div class="panel panel-default w-100">
+                <fieldset class="field fieldset-leg">
+                  <legend
+                    class="w-auto mleg-3 text-uppercase client"
+                    (click)="toggleShowClient()"
+                  >
+                    {{ "Client" | translate }}
+                    <img
+                      *ngIf="isShownClient == true"
+                      class="img-sign"
+                      src="assets/img/up-sign.svg"
+                      alt="up-sign"
+                    />
+                    <img
+                      *ngIf="isShownClient == false"
+                      class="img-sign"
+                      src="assets/img/down-sign-white.svg"
+                      alt="up-sign"
+                    />
+                  </legend>
+                  <div class="form-column-wrapper-position" *ngIf="isShownClient">
+                    <!-- first column second tab -->
+                    <div class="form-column col-4">
+                      <div class="form-group">
+                        <label for="project-client_id" class="required">{{
+                          "Client" | translate
+                        }}</label>
+                        <div class="select-section"
+                            style="width: 302px;
+                                   float: left;
+                                   position: relative;
+                                   background-color: #373b40;
+                                   ">
+
+                          <!-- <div class="wrapp-input-add">
+                            <app-input-autocomplete
+
+                              [control]="createForm.get('client_id')"
+                              [inputText]="createForm.get('client_id_name')"
+                              [list]="clients"
+                              [myform]="myform"
+                              [placeholderText]="'Select Client' | translate"
+                              id="Id"
+                              [colors]="{
+                                backgroundColor: 'white',
+                                color: '#44484C',
+                                height: '34px'
+                              }"
+                              [addFontSize18]="true"
+                              [hasZeroRadius]="false"
+                              (getEvent)="setClient($event)"
+                              errorText=""
+                              type="ata"
+
+                            ></app-input-autocomplete>
+                            <div class="add-for-input" (click)="modalAddCustomer()">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="34" viewBox="0 0 21 34">
+                                <text id="_" data-name="+" fill="#858585" font-size="20" font-family="SegoeUI-Light, Segoe UI" font-weight="300" letter-spacing="0.016em"><tspan x="0" y="22">+</tspan></text>
+                              </svg>
+                            </div>
+                          </div>-->
+
+
+
+<!-- </div> -->
+<!-- <div class="add-for-input new-select-button-wrapper" (click)="openNewClientModal($event)">
+<div class="new-select-btn">
+  <span class="plus-btn">+</span>
+</div>
+</div> -->
+
+
+<div class="wrapp-input-add">
+   <!--Dropdown Client-->
+ <div [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'input-wrapper-white-background' : 'input-wrapper-gray-background'" >
+  <app-select-dropdown-with-plus
+  [ClientItem] = "clients"
+  [placeholder]="'Enter customer' | translate"
+  (selected)="setClient($event)"
+  [width]="265"
+  [fontSize]="18"
+  [type1]="'client'"
+  [EnableSearch]="true"
+  formControlName="client_id"
+  >
+  </app-select-dropdown-with-plus>
+</div>
+<!--End Dropdown Client-->
+<!-- <div class="add-for-input" (click)="modalAddCustomer()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="34" viewBox="0 0 21 34">
+    <text id="_" data-name="+" fill="#858585" font-size="20" font-family="SegoeUI-Light, Segoe UI" font-weight="300" letter-spacing="0.016em"><tspan x="0" y="22">+</tspan></text>
+  </svg>
+</div> -->
+
+<div
+[ngStyle]="{'pointer-events': userDetails['create_offer_Global'] == 1 && activeOffer == 0 ? 'auto' : 'none'}"
+class="new-select-button-wrapper"
+(click)="modalAddCustomer()"
+>
+  <div class="new-select-btn">
+    <span class="plus-btn">+</span>
+  </div>
+</div>
+
+</div>
+
+
+                          <span
+                            class="help-block is-invalid"
+                            *ngIf="displayError('client_id_name')"
+                          >
+                            <span class="text-danger">
+                              {{ "Please select Client." | translate }}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+
+                      <div
+                        class="form-group"
+                        [ngClass]="{
+                          'is-invalid':
+                            myform.submitted && selectedClientWorkers.length < 1
+                        }"
+                      >
+                        <label for="name" class="required">{{
+                          "Customer contact person" | translate
+                        }}</label>
+                        <div class="select-section">
+
+
+                          <!-- <div class="wrapp-input-add">
+                            <app-input-autocomplete
+                            (getEvent)="setContactPerson($event)"
+                              [control]="createForm.get('client_worker_id')"
+                              [inputText]="createForm.get('client_worker_name')"
+                              [list]="client_workers"
+                              [myform]="myform"
+                              [placeholderText]="'Enter customer contact person' | translate"
+                              id="Id"
+                              [colors]="{
+                                backgroundColor: 'white',
+                                color: '#44484C',
+                                height: '34px'
+                              }"
+                              [addFontSize18]="true"
+                              [hasZeroRadius]="false"
+                              errorText=""
+                              type="ata"
+                            ></app-input-autocomplete>
+                            <div class="add-for-input" (click)="modalAddCustomerContact()">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="34" viewBox="0 0 21 34">
+                                <text id="_" data-name="+" fill="#858585" font-size="20" font-family="SegoeUI-Light, Segoe UI" font-weight="300" letter-spacing="0.016em"><tspan x="0" y="22">+</tspan></text>
+                              </svg>
+
+                            </div>
+                          </div> -->
+                          <div class="wrapp-input-add">
+                          <!--Dropdown Contact person-->
+
+                        <div [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'input-wrapper-white-background' : 'input-wrapper-gray-background'"  >
+                          <!-- <app-counter-dropdown-multiselect
+                          [selectedItem]="client_workers"
+                          [placeholder]="'Add contact people' | translate"
+                          [width]="302"
+                          [type]="'newProject'"
+                          (DeSelectUser)="onItemDeSelectContactPersone($event)"
+                          (SelectedUser)="onItemSelectContactPersone($event)"
+                          (SelectedUserAll)="onSelectAllContactPersone($event)"
+                          (OnDeSelectAll)="onDeSelectAllContactPersone($event)"
+                          >
+                          </app-counter-dropdown-multiselect> -->
+
+                          <app-select-dropdown-with-plus
+                            [ClientItem] = "client_workers"
+                            [placeholder]="'Enter customer contact person' | translate"
+                            (selected)="setContactPerson($event)"
+                            [width]="265"
+                            [fontSize]="18"
+                            [type1]="'client'"
+                            [EnableSearch]="true"
+                            formControlName="client_worker_id"
+                          >
+                          </app-select-dropdown-with-plus>
+
+                        </div>
+                        <!--End Dropdown Contact person-->
+                          <!-- <div class="add-for-input" (click)="modalAddCustomerContact()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="34" viewBox="0 0 21 34">
+                              <text id="_" data-name="+" fill="#858585" font-size="20" font-family="SegoeUI-Light, Segoe UI" font-weight="300" letter-spacing="0.016em"><tspan x="0" y="22">+</tspan></text>
+                            </svg>
+
+                          </div> -->
+
+                          <div
+                            [ngStyle]="{'pointer-events': userDetails['create_offer_Global'] == 1 && createForm.get('client_id').value != '' && activeOffer == 0 ? 'auto' : 'none'}"
+                            class="new-select-button-wrapper"
+                            (click)="modalAddCustomerContact()"
+                          >
+                            <div class="new-select-btn">
+                              <span class="plus-btn">+</span>
+                            </div>
+                          </div>
+
+                        </div>
+                        </div>
+                        <span class="help-block"
+                          *ngIf="
+                            myform.submitted && selectedClientWorkers.length < 1
+                          "
+                        >
+                          <span class="text-danger">
+                            {{ "Please select contact people." | translate }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- second column second tab -->
+                    <div class="form-column col-4">
+                      <div
+                        class="form-group"
+                        [ngClass]="{
+                          'has-error':
+                            (createForm.get('clientsProjectName')?.touched ||
+                              createForm.get('clientsProjectName')?.dirty) &&
+                            !createForm.get('clientsProjectName')?.valid
+                        }"
+                      >
+                        <label for="clientsProjectName">{{
+                          "Client Project Name" | translate
+                        }}</label>
+                        <input
+                        spellcheck="false"
+                          [class.status]="createForm.get('clientsProjectName')?.touched"
+                          [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                          type="text"
+                          class="form-control"
+                          id="clientsProjectName"
+                          placeholder="{{
+                            'Enter client project name' | translate
+                          }}"
+                          formControlName="clientsProjectName"
+                          tabIndex="6"
+                        />
+                        <span
+                          class="help-block"
+                          *ngIf="
+                            (createForm.get('clientsProjectName')?.touched ||
+                              createForm.get('clientsProjectName')?.dirty) &&
+                            createForm.get('clientsProjectName')?.errors
+                          "
+                        >
+                          <span
+                            *ngIf="
+                              createForm.get('clientsProjectName')?.errors
+                                .required
+                            "
+                            class="text-danger"
+                          >
+                            {{ "Please enter client project name." | translate }}
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="form-group"
+                        [ngClass]="{
+                          'has-error':
+                            (createForm.get('clientProjectNumber')?.touched ||
+                              createForm.get('clientProjectNumber')?.dirty) &&
+                            !createForm.get('clientProjectNumber')?.valid
+                        }"
+                      >
+                        <label for="clientProjectNumber">{{
+                          "Project Number" | translate
+                        }}</label>
+                        <input
+                          [class.status]="createForm.get('clientProjectNumber')?.touched"
+                          [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                          type="text"
+                          class="form-control"
+                          id="clientProjectNumber"
+                          placeholder="{{
+                            'Enter project Custom Number' | translate
+                          }}"
+                          formControlName="clientProjectNumber"
+                          tabIndex="7"
+                        />
+                        <span
+                          class="help-block is-invalid"
+                          *ngIf="displayError('clientProjectNumber')
+                          "
+                        >
+                          <span
+                            class="text-danger"
+                          >
+                            {{ "Enter project Custom Number." | translate }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- third column second tab -->
+                    <div class="form-column col-4">
+                      <div
+                        class="form-group"
+                        [ngClass]="{
+                          'has-error':
+                            (createForm.get('NameNumber1')?.touched ||
+                              createForm.get('NameNumber1')?.dirty) &&
+                            !createForm.get('NameNumber1')?.valid
+                        }"
+                        >
+                        <label for="NameNumber1">{{
+                          "Resource account" | translate
+                        }}</label>
+                        <div class="input-group">
+                          <input
+                            [class.status]="createForm.get('NameNumber1')?.touched"
+                            [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                            type="text"
+                            class="form-control"
+                            id="ResourceAccount"
+                            placeholder="{{
+                              'Resource account' | translate
+                            }}"
+                            formControlName="ResourceAccount"
+                            tabIndex="8"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <!-- third tab  -->
+            <div class="form-wrapper mb-4">
+              <div class="panel panel-default w-100">
+                <fieldset class="field fieldset-leg">
+                  <legend
+                    class="w-auto leg-3 text-uppercase address"
+                    (click)="toggleShowAdress()"
+                  >
+                    {{ "Address" | translate }}
+                    <img
+                      *ngIf="isShownAddress == true"
+                      class="img-sign"
+                      src="assets/img/up-sign.svg"
+                      alt="up-sign"
+                    />
+                    <img
+                      *ngIf="isShownAddress == false"
+                      class="img-sign"
+                      src="assets/img/down-sign-white.svg"
+                      alt="up-sign"
+                    />
+                  </legend>
+                  <div
+                    class="form-column-wrapper-position"
+                    *ngIf="isShownAddress"
+                  >
+                    <!-- first column third tab -->
+                    <div class="form-column col-4 space">
+                      <fieldset class="estimated">
+                        <legend class="w-auto leg-inside text-uppercase ml-15">
+                          {{ "Workplace" | translate }}
+                        </legend>
+                        <div class="panel panel-default"
+                             style="padding: 0px 10px;">
+                          <div class="form-group">
+                            <label for="clientStreet">{{
+                              "Street and Number" | translate
+                            }}</label>
+                            <input
+                            spellcheck="false"
+                            [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control"
+                              id="street"
+                              style="width: 274px;"
+                              placeholder="{{
+                                'Enter the street address' | translate
+                              }}"
+                              formControlName="street"
+                              tabIndex="9"
+                            />
+                            <span
+                              class="help-block"
+                              *ngIf="
+                                (createForm.get('street')?.touched ||
+                                  createForm.get('street')?.dirty) &&
+                                createForm.get('street')?.errors
+                              "
+                            >
+                              <span
+                                *ngIf="createForm.get('street')?.errors.required"
+                                class="text-danger"
+                              >
+                                {{ "Enter Postcode" | translate }}
+                              </span>
+                              <!--   -->
+                            </span>
+                          </div>
+
+                          <div
+                            class="form-group"
+                            [ngClass]="{
+                              'has-error':
+                                (createForm.get('zip')?.touched ||
+                                  createForm.get('zip')?.dirty) &&
+                                !createForm.get('zip')?.valid
+                            }"
+                          >
+                            <label for="clientZip">{{
+                              "Zip code" | translate
+                            }}</label>
+                            <input
+                            spellcheck="false"
+                              [class.status]="createForm.get('zip')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control"
+                              style="width: 274px;"
+                              id="zip"
+                              placeholder="{{ 'Enter Postcode' | translate }}"
+                              formControlName="zip"
+                              tabIndex="10"
+                            />
+                            <span
+                              class="help-block"
+                              *ngIf="
+                                (createForm.get('zip')?.touched ||
+                                  createForm.get('zip')?.dirty) &&
+                                createForm.get('zip')?.errors
+                              "
+                            >
+                              <span
+                                *ngIf="createForm.get('zip')?.errors.required"
+                                class="text-danger"
+                              >
+                                {{ "Please enter zip code." | translate }}
+                              </span>
+                            </span>
+                          </div>
+
+                          <div
+                            class="form-group"
+                            [ngClass]="{
+                              'has-error':
+                                (createForm.get('city')?.touched ||
+                                  createForm.get('city')?.dirty) &&
+                                !createForm.get('city')?.valid
+                            }"
+                          >
+                            <label for="clientCity">{{
+                              "City" | translate
+                            }}</label>
+                            <input
+                            spellcheck="false"
+                              [class.status]="createForm.get('city')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control"
+                              style="width: 274px;"
+                              id="city"
+                              placeholder="{{ 'Enter city' | translate }}"
+                              formControlName="city"
+                              tabIndex="11"
+                            />
+                            <span
+                              class="help-block"
+                              *ngIf="
+                                (createForm.get('city')?.touched ||
+                                  createForm.get('city')?.dirty) &&
+                                createForm.get('city')?.errors
+                              "
+                            >
+                              <span
+                                *ngIf="createForm.get('city')?.errors.required"
+                                class="text-danger"
+                              >
+                                {{ "Please enter city" | translate }}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+
+                    <!-- second column third tab -->
+                    <div class="form-column col-4 space2">
+                      <div
+                        class="form-group mt-10"
+                        [ngClass]="{
+                          'has-error':
+                            (createForm.get('street2')?.touched ||
+                              createForm.get('street2')?.dirty) &&
+                            !createForm.get('street2')?.valid
+                        }"
+                      >
+                        <label for="clientStreet">{{
+                          "Street and Number" | translate
+                        }}</label>
+                        <input
+                        spellcheck="false"
+                          [class.status]="createForm.get('street2')?.touched"
+                          [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                          type="text"
+                          class="form-control"
+                          id="street2"
+                          placeholder="{{
+                            'Enter the street address' | translate
+                          }}"
+                          formControlName="street2"
+                          tabIndex="12"
+                        />
+                        <span
+                          class="help-block"
+                          *ngIf="
+                            (createForm.get('street2')?.touched ||
+                              createForm.get('street2')?.dirty) &&
+                            createForm.get('street2')?.errors
+                          "
+                        >
+                          <span
+                            *ngIf="createForm.get('street2')?.errors.required"
+                            class="text-danger"
+                          >
+                            {{ "Please enter Street and Number" | translate }}
+                          </span>
+                        </span>
+                      </div>
+
+                      <div
+                        class="form-group"
+                        [ngClass]="{
+                          'has-error':
+                            (createForm.get('zip2')?.touched ||
+                              createForm.get('zip2')?.dirty) &&
+                            !createForm.get('zip2')?.valid
+                        }"
+                      >
+                        <label for="clientZip">{{
+                          "Zip code" | translate
+                        }}</label>
+                        <input
+                        spellcheck="false"
+                          [class.status]="createForm.get('zip2')?.touched"
+                          [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                          type="text"
+                          class="form-control"
+                          id="zip2"
+                          placeholder="{{ 'Enter Postcode' | translate }}"
+                          formControlName="zip2"
+                          tabIndex="13"
+                        />
+                        <span
+                          class="help-block"
+                          *ngIf="
+                            (createForm.get('zip2')?.touched ||
+                              createForm.get('zip2')?.dirty) &&
+                            createForm.get('zip2')?.errors
+                          "
+                        >
+                          <span
+                            *ngIf="createForm.get('zip2')?.errors.required"
+                            class="text-danger"
+                          >
+                            {{ "Please enter zip code." | translate }}
+                          </span>
+                        </span>
+                      </div>
+
+                      <div
+                        class="form-group"
+                        [ngClass]="{
+                          'has-error':
+                            (createForm.get('city2')?.touched ||
+                              createForm.get('city2')?.dirty) &&
+                            !createForm.get('city2')?.valid
+                        }"
+                      >
+                        <label for="clientCity">{{ "City" | translate }}</label>
+                        <input
+                        spellcheck="false"
+                          [class.status]="createForm.get('city2')?.touched"
+                          [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                          type="text"
+                          class="form-control"
+                          id="city2"
+                          placeholder="{{ 'Enter city' | translate }}"
+                          formControlName="city2"
+                          tabIndex="14"
+                        />
+                        <span
+                          class="help-block"
+                          *ngIf="
+                            (createForm.get('city2')?.touched ||
+                              createForm.get('city2')?.dirty) &&
+                            createForm.get('city2')?.errors
+                          "
+                        >
+                          <span
+                            *ngIf="createForm.get('city2')?.errors.required"
+                            class="text-danger"
+                          >
+                            {{ "Please enter city" | translate }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <!-- forth tab  -->
+            <div class="form-wrapper">
+              <div class="panel panel-default w-100">
+                <fieldset class="field fieldset-leg">
+
+                  <legend
+                    class="w-auto leg-3 text-uppercase economy"
+                    (click)="toggleShowEconomy()"
+                  >
+                    {{ "Economy" | translate }}
+                    <img
+                      *ngIf="isShownEconomy == true"
+                      class="img-sign"
+                      src="assets/img/up-sign.svg"
+                      alt="up-sign"
+                    />
+                    <img
+                      *ngIf="isShownEconomy == false"
+                      class="img-sign"
+                      src="assets/img/down-sign-white.svg"
+                      alt="up-sign"
+                    />
+                  </legend>
+                  <div
+                    class="form-column-wrapper-position"
+                    *ngIf="isShownEconomy"
+                    >
+                        <!-- first column forth tab -->
+                      <div class="form-column col-4">
+
+
+                        <div class="form-group">
+                          <label for="SkilledHourlyRate">
+                            {{ "Skilled Worker Hourly Rate" | translate }}
+                          </label>
+                          <div class="input-group">
+                            <input
+                              [class.status]="createForm.get('SkilledHourlyRate')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control new-widht-262"
+                              id="SkilledHourlyRate"
+                              placeholder="{{
+                                'Offer Skilled Worker Hourly Rate' | translate
+                              }}"
+                              number-format-directive
+                              formControlName="SkilledHourlyRate"
+                              tabIndex="15"
+                            />
+                            <div class="input-group-append new-height-35">
+                              <span class="input-group-text"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">Kr</span>
+                            </div>
+                          </div>
+                          <span class="help-block is-invalid" *ngIf="displayError('SkilledHourlyRate')">
+                            <span class="text-danger is-invalid">
+                              {{ "Please set hourly rate." | translate }}
+                            </span>
+                          </span>
+                        </div>
+                        <div class="form-group">
+                          <label for="WorkerHourlyRate">{{
+                            "Worker Hourly Rate" | translate
+                          }}</label>
+                          <div class="input-group">
+                            <input
+                              [class.status]="createForm.get('WorkerHourlyRate')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control new-widht-262"
+                              id="WorkerHourlyRate"
+                              placeholder="{{
+                                'Project Worker Hourly Rate' | translate
+                              }}"
+                              number-format-directive
+                              formControlName="WorkerHourlyRate"
+                              tabIndex="16"
+                            />
+                            <div class="input-group-append new-height-35">
+                              <span class="input-group-text"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">Kr</span>
+                            </div>
+                          </div>
+                          <span class="help-block is-invalid" *ngIf="displayError('WorkerHourlyRate')">
+                            <span class="text-danger is-invalid">
+                              {{ "Please set hourly rate." | translate }}
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          class="form-group"
+                          [ngClass]="{
+                            'has-error':
+                              (createForm.get('chargeMaterial')?.touched ||
+                                createForm.get('chargeMaterial')?.dirty) &&
+                              !createForm.get('chargeMaterial')?.valid
+                          }"
+                        >
+                          <label for="chargeMaterial">{{
+                            "Extra charge material" | translate
+                          }}</label>
+                          <div class="input-group">
+                            <input
+                              [class.status]="createForm.get('chargeMaterial')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control new-widht-262"
+                              id="chargeMaterial"
+                              placeholder="{{
+                                'Extra charge material' | translate
+                              }}"
+                              number-format-directive
+                              formControlName="chargeMaterial"
+                              tabIndex="17"
+                            />
+                            <div class="input-group-append new-height-35">
+                              <span class="input-group-text"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">%</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="form-group"
+                          [ngClass]="{
+                            'has-error':
+                              (createForm.get('chargeUE')?.touched ||
+                                createForm.get('chargeUE')?.dirty) &&
+                              !createForm.get('chargeUE')?.valid
+                          }"
+                        >
+                          <label for="chargeUE">{{
+                            "Charge UE" | translate
+                          }}</label>
+                          <div class="input-group">
+                            <input
+                              [class.status]="createForm.get('chargeUE')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control new-widht-262"
+                              id="chargeUE"
+                              placeholder="{{ 'Charge UE' | translate }}"
+                              formControlName="chargeUE"
+                              number-format-directive
+                              value="0"
+                              tabIndex="18"
+                            />
+                            <div class="input-group-append new-height-35" >
+                              <span class="input-group-text"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- second column forth tab -->
+                      <div class="form-column col-4">
+
+
+                        <div class="form-group">
+                          <label for="AtaSkilledHourlyRate">{{
+                            "ATA Skilled Worker Hourly Rate" | translate
+                          }}</label>
+                          <div class="input-group">
+                            <input
+                              [class.status]="createForm.get('AtaSkilledHourlyRate')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control new-widht-262"
+                              id="AtaSkilledHourlyRate"
+                              placeholder="{{
+                                'ATA Skilled Worker Hourly Rate' | translate
+                              }}"
+                              number-format-directive
+                              formControlName="AtaSkilledHourlyRate"
+                              tabIndex="19"
+                            />
+                            <div class="input-group-append new-height-35">
+                              <span class="input-group-text"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">Kr</span>
+                            </div>
+                          </div>
+                          <span class="help-block is-invalid" *ngIf="displayError('AtaSkilledHourlyRate')">
+                            <span class="text-danger is-invalid">
+                              {{ "Please set hourly rate." | translate }}
+                            </span>
+                          </span>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="AtaWorkerHourlyRate">{{
+                            "ATA Worker Hourly Rate" | translate
+                          }}</label>
+                          <div class="input-group">
+                            <input
+                              [class.status]="createForm.get('AtaWorkerHourlyRate')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control new-widht-262"
+                              id="AtaWorkerHourlyRate"
+                              placeholder="{{
+                                'ATA Worker Hourly Rate' | translate
+                              }}"
+                              number-format-directive
+                              formControlName="AtaWorkerHourlyRate"
+                              tabIndex="20"
+                            />
+                            <div class="input-group-append new-height-35">
+                              <span class="input-group-text"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">Kr</span>
+                            </div>
+                          </div>
+                          <span class="help-block is-invalid" *ngIf="displayError('AtaWorkerHourlyRate')">
+                            <span class="text-danger is-invalid">
+                              {{ "Please set hourly rate." | translate }}
+                            </span>
+                          </span>
+                        </div>
+
+                        <div
+                          class="form-group"
+                          [ngClass]="{
+                            'has-error':
+                              (createForm.get('ATAchargeMaterial')?.touched ||
+                                createForm.get('ATAchargeMaterial')?.dirty) &&
+                              !createForm.get('ATAchargeMaterial')?.valid
+                          }"
+                        >
+                          <label for="ATAchargeMaterial">{{
+                            "ATA extra charge material" | translate
+                          }}</label>
+                          <div class="input-group">
+                            <input
+                              [class.status]="createForm.get('ATAchargeMaterial')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control new-widht-262"
+                              id="ATAchargeMaterial"
+                              placeholder="{{ 'ATA charge material' | translate }}"
+                              number-format-directive
+                              formControlName="ATAchargeMaterial"
+                              tabIndex="21"
+                            />
+                            <div class="input-group-append new-height-35">
+                              <span class="input-group-text"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">%</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="form-group"
+                          [ngClass]="{
+                            'has-error':
+                              (createForm.get('ATAchargeUE')?.touched ||
+                                createForm.get('ATAchargeUE')?.dirty) &&
+                              !createForm.get('ATAchargeUE')?.valid
+                          }"
+                        >
+                          <label for="ATAchargeUE">{{
+                            "ATA charge UE" | translate
+                          }}</label>
+                          <div class="input-group">
+                            <input
+                              [class.status]="createForm.get('ATAchargeUE')?.touched"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                              type="text"
+                              class="form-control new-widht-262"
+                              id="ATAchargeUE"
+                              placeholder="{{ 'ATA charge UE' | translate }}"
+                              formControlName="ATAchargeUE"
+                              value="0"
+                              number-format-directive
+                              tabIndex="22"
+                            />
+                            <div class="input-group-append new-height-35">
+                              <span class="input-group-text"
+                              [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- third column forth tab -->
+                      <div class="form-column col-4 flex-column"
+                        >
+                        <fieldset
+                          class="estimated"
+                          [ngClass]="{
+                            'legend-close': isShownEstimatedTime == false
+                          }"
+                        >
+                          <legend
+                            class="w-auto leg-inside text-uppercase ml-15"
+                            (click)="toggleShowEstimatedTime()"
+                          >
+                            {{
+                              "Estimated
+                            time" | translate
+                            }}
+                            <img
+                              *ngIf="isShownEstimatedTime == true"
+                              class="img-sign"
+                              src="assets/img/up-sign.svg"
+                              alt="up-sign"
+                            />
+                            <img
+                              *ngIf="isShownEstimatedTime == false"
+                              class="img-sign"
+                              src="assets/img/down-sign-white.svg"
+                              alt="up-sign"
+                            />
+                          </legend>
+                          <div
+                            class="panel panel-default" style="padding: 0px 10px;"
+                            *ngIf="isShownEstimatedTime"
+                          >
+                            <div
+                              class="form-group"
+                              [ngClass]="{
+                                'has-error':
+                                  (createForm.get('estimatedRunTime')?.touched ||
+                                    createForm.get('estimatedRunTime')?.dirty) &&
+                                  !createForm.get('estimatedRunTime')?.valid
+                              }"
+                            >
+                              <label for="estimatedRunTime">{{
+                                "Estimated running time" | translate
+                              }}</label>
+                              <div class="input-group">
+                                <input
+                                  [class.status]="createForm.get('estimatedRunTime')?.touched"
+                                  [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                                  type="text"
+                                  class="form-control new-widht-262 no-flex"
+                                  id="estimatedRunTime"
+                                  placeholder="{{
+                                    'Estimated running time' | translate
+                                  }}"
+                                  number-format-directive
+                                  formControlName="estimatedRunTime"
+                                  tabIndex="23"
+                                />
+                                <div class="input-group-append new-height-35">
+                                  <span class="input-group-text"
+                                  [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">Tim</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-group"
+                              [ngClass]="{
+                                'has-error':
+                                  (createForm.get('estimatedFixTime')?.touched ||
+                                    createForm.get('estimatedFixTime')?.dirty) &&
+                                  !createForm.get('estimatedFixTime')?.valid
+                              }"
+                            >
+                              <label for="estimatedFixTime">{{
+                                "Estimated fixed time" | translate
+                              }}</label>
+                              <div class="input-group">
+                                <input
+                                  [class.status]="createForm.get('estimatedFixTime')?.touched"
+                                  [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                                  type="text"
+                                  class="form-control new-widht-262 no-flex"
+                                  id="estimatedFixTime"
+                                  placeholder="{{
+                                    'Estimated fixed time' | translate
+                                  }}"
+                                  number-format-directive
+                                  formControlName="estimatedFixTime"
+                                  tabIndex="24"
+                                />
+                                <div class="input-group-append new-height-35">
+                                  <span class="input-group-text"
+                                  [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'">Tim</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </fieldset>
+
+                        <div class="form-group">
+                          <label class="required">{{
+                            "Payment terms" | translate
+                          }}</label>
+                          <div class="input-group date">
+                            <div class="input-group-prepend">
+                              <input
+                                [class.status]="createForm.get('PaymentTerms')?.value"
+                                [ngClass]="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1 ? 'white-background' : 'gray-background'"
+                                id="paymentTerms"
+                                type="text"
+                                #PaymentTerms
+                                formControlName="PaymentTerms"
+                                class="input-group-text width-center time-input new-height-35"
+                                id="basic-addon1"
+                                placeholder="30"
+                                tabIndex="25"
+                              />
+                            </div>
+                            <span class="form-control project-date days-left new-widht-262">{{
+                              "total days" | translate
+                            }}</span>
+                          </div>
+                          <span class="help-block is-invalid" *ngIf="displayError('PaymentTerms')">
+                            <span class="text-danger is-invalid">
+                              {{ "Please define payment terms." | translate }}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <div class="form-group btn-position">
+              <button
+              type="submit"
+              class="btn btn-create btn-save"
+              [ngStyle]="saveStyle"
+              [disabled]="myform.submitted && createForm.invalid">
+                <app-folder-icon-svg [saveStyle]="saveStyle"></app-folder-icon-svg>
+                <span [ngStyle]="saveStyle" >{{
+                  buttonText | translate
+                }}</span>
+              </button>
+
+            </div>
+          </form>
+          <!------------ Introduction ------------->
+          <div *ngIf="selectedTitle == 1"
+          [ngClass]="{'pointer-events': utkastId != id || userDetails['create_offer_Global'] != 1 }">
+            <fieldset class="field fieldset-leg" style="padding: 0px;">
+              <app-comment-section
+                (informParent)="changeOfferSaveStatus($event)"
+                content_type="offer_i"
+                [parentId]="id"
+                [visibility]="false"
+                (dataListener)="setOfferData($event)"
+                [canAttachFiles] = "false"
+              >
+              </app-comment-section>
+
+            </fieldset>
+          </div>
+          <!------------ Lines ------------->
+          <div *ngIf="selectedTitle == 2"
+          [ngClass]="{'pointer-events': utkastId != id || userDetails['create_offer_Global'] != 1 }">
+            <fieldset class="field fieldset-leg" style="padding: 0px;">
+              <app-rows
+                (emitSaveRows)="changeOfferSaveStatus($event)"
+                [id]="id"
+                [service]="offersService"
+                type="offer"
+                (dataListener)="setOfferData($event)"
+
+              ></app-rows>
+            </fieldset>
+          </div>
+           <!------------ Termination ------------->
+          <div *ngIf="selectedTitle == 3"
+          [ngClass]="{'pointer-events': utkastId != id || userDetails['create_offer_Global'] != 1 }">
+            <fieldset class="field fieldset-leg" style="padding: 0px;">
+              <app-comment-section
+              (informParent)="changeOfferSaveStatus($event)"
+                content_type="offer_t"
+                [parentId]="id"
+                [visibility]="false"
+                (dataListener)="setOfferData($event)"
+                [canAttachFiles] = "false"
+              >
+              </app-comment-section>
+            </fieldset>
+          </div>
+          <!------------ Appendices ------------->
+          <form class="bilagor-form" *ngIf="selectedTitle == 4" (submit)="uploadFiles()">
+            <fieldset
+            class="field fieldset-leg"
+            style="padding: 0px;">
+              <div class="imagesWrapper">
+                <app-image-modal-with-filename *ngIf="(id == -1 || utkastId == id) && userDetails['create_offer_Global'] == 1"
+                  (updateAlbums)="updateAlbumsAta($event)"
+                  [infoObject]="infoObject"
+                  fileType=".xlsx, .docx, .png, .jpg, .jpeg, .pdf"
+                  [key]="0"
+                  [clearFiles]="$_clearFiles.asObservable()"
+                >
+                </app-image-modal-with-filename>
+                <div  class="list-heading" *ngIf="utkastId != id" [ngStyle]="{'margin-left': '28px'}"><p class="list-heading-title"> {{ "Attachments" | translate }} </p></div>
+                <div class="fake-image-modal-container">
+                  <div class="form-group-upload form-group-upload2 justify-flex">
+                    <app-file-preview
+
+                      *ngFor="let file of images; let index = index;"
+                      type="image"
+                      [file]="file"
+                      [index]="index"
+                      (openSwiper)="openSwiper(index, images, albumKey)"
+                      (removeFile)="removeFile(file, 'images')"
+                      [canRemove]="file.Category == '1' && utkastId == id && userDetails['create_offer_Global'] == 1"
+                      modalType="file"
+
+                    ></app-file-preview>
+                    <app-file-preview
+
+                      *ngFor="let file of pdf_documents; let index = index;"
+                      type="pdf"
+                      [file]="file"
+                      [index]="index"
+                      (openSwiper)="openSwiper(index, pdf_documents, albumKey)"
+                      [canRemove]="file.Category == '1' && utkastId == id"
+                      (removeFile)="removeFile(file, 'pdf_documents')"
+                      modalType="file"
+
+                    ></app-file-preview>
+                  </div>
+                </div>
+              </div>
+
+            </fieldset>
+            <div class="form-group btn-position">
+              <button [ngStyle]="saveStyle" type="submit" class="btn btn-create btn-save d-flex pr-5">
+                <app-folder-icon-svg [saveStyle]="saveStyle"></app-folder-icon-svg>
+                <span [ngStyle]="saveStyle" >{{ buttonText | translate }}</span>
+              </button>
+            </div>
+          </form>
+          <div *ngIf="selectedTitle == 5">
+            <fieldset class="field fieldset-leg" style="padding: 0px;">
+              <app-reply-to-question
+
+                [item]="offer"
+                [service]="offersService"
+                (emailLogListener)="unshiftEmailLogToOffer($event,true)"
+
+              ></app-reply-to-question>
+            </fieldset>
+          </div>
+        </div>
+
+        <div *ngIf="selectedTab == 2&&!spinner">
+          <email-log [logs]="allEmailLogs" [appPart]="'offer'"> </email-log>
+        </div>
+
+        <div *ngIf="selectedTab == 3">
+          <app-comment-section
+          (informParent)="changeOfferSaveStatus($event)"
+          content_type="offer_comment"
+          [parentId]="utkastId"
+          [canAttachFiles] = "false"
+          ></app-comment-section>
+        </div>
+
+        <div *ngIf="selectedTab == 4">
+          <app-comment-section
+          (informParent)="changeOfferSaveStatus($event)"
+          content_type="offer_meetinglist"
+          [parentId]="utkastId"
+
+          ></app-comment-section>
+        </div>
+      </div>
+      <div  class="thin-red-line-right"></div>
+      <div  class="thin-red-line-bottom"></div>
+    </div>
+</div>
+<div
+  class="modal fade new-modal"
+  id="sendOffer"
+  tabindex="-1"
+  role="dialog"
+  [style.opacity]="opacity"
+  [style.display]="display"
+  [style.transform]="'translateY(' + translateY + ')'"
+  [style.background]="background">
+  <div class="modal-dialog modal-dialog-new" role="document">
+    <form [formGroup]="sendOfferForm" (submit)="sendOffer()">
+      <div class="modal-content lax blu-scroll" #laxContainer>
+        <div class="modal-header-new heahea">
+          <span class="modal-heading">
+            {{ "Send" | translate }} {{ "Offer" | translate }}
+          </span>
+          <button
+            type="button"
+            class="close le"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="setOpacity()"
+            >
+            <app-close-icon-svg></app-close-icon-svg>
+          </button>
+        </div>
+        <div class="modal-body mb-offer">
+          <div class="form-group2">
+            <label class="required modal-send-label" for="to">
+              {{ "To" | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control2"
+              id="to"
+              formControlName="to"
+              maxlength="255"
+            />
+            <div *ngIf="sendOfferForm.get('to').touched && sendOfferForm.get('to').errors" class="error">
+              {{ 'E-Mail is invalid.' }}
+            </div>
+          </div>
+          <div class="form-group2">
+            <label class="required modal-send-label" for="from">
+              {{ "From" | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control2"
+              id="from"
+              formControlName="from"
+              maxlength="255"
+            />
+            <div *ngIf="sendOfferForm.get('from').touched && sendOfferForm.get('from').errors" class="error">
+              {{ 'E-Mail is invalid.' }}
+            </div>
+          </div>
+          <div class="form-group2">
+            <label class="required modal-send-label" for="subject">
+              {{ "Subject" | translate }}
+            </label>
+            <input
+              type="text"
+              class="form-control2"
+              id="subject"
+              formControlName="name"
+              maxlength="255"
+            />
+            <div *ngIf="sendOfferForm.get('name').touched && sendOfferForm.get('name').errors" class="error">
+              {{ 'Subject is required.' }}
+            </div>
+          </div>
+          <div class="">
+            <label class="required modal-send-label" for="message">
+              {{ "Message" | translate }}
+            </label>
+            <textarea
+
+              formControlName="header"
+              (keyup)="textAreaAdjust($event)"
+              class="form-control textarea-part message message-top"
+              maxlength="2450"
+
+            ></textarea>
+            <div class="fake-link-container">
+              <a href="#" style="pointer-events: none" class="fake-link">{{ 'Go to the offer by clicking here' | translate }}</a>
+            </div>
+            <textarea
+
+              formControlName="footer"
+              (keyup)="textAreaAdjust($event)"
+              class="form-control textarea-part message-footer message-bottom"
+              maxlength="1450"
+
+            ></textarea>
+            <div *ngIf="sendOfferForm.get('header').touched && sendOfferForm.get('header').errors" class="error">
+              {{ 'Message is required.' }}
+            </div>
+          </div>
+          <div class="send-button-offer">
+            <button type="submit" class="btn btn-create btn-save d-flex pr-5 send-flex">
+              <span>
+                {{  "Send" | translate }}
+              </span>
+              <div>
+                <app-send-icon-svg
+                [color]='color'
+                ></app-send-icon-svg>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div (click)="closeAllPdfPrew()" class="hide-prew" *ngIf="showPdfPreview"></div>
+<div class="aside" [ngClass]="{ 'aside-show': showPdfPreview || showAppendicesPreview}">
+  <div class="buttons" >
+    <button
+            *ngIf="hasAppendices"
+            class="articles-material btn-prev"
+            type="button"
+            (click)="toggleAppendicesPreview('offer')"
+            [ngClass]="{ 'active-show-button': showAppendicesPreview && whichAppendicesPreview === 'offer' }"
+            style="z-index: 10">
+            {{
+              (showAppendicesPreview
+              ? "Close"
+              : ""
+              ) | translate
+            }} {{ "Attachments" | translate }}
+    </button>
+    <button class="articles-material btn-prev"
+            type="button"
+            (click)="togglePdfPreview('offer')"
+            [ngClass]="{ 'active-show-button': showPdfPreview && whichPdfPreview === 'offer' }"
+            style="z-index: 10">
+
+            {{
+              (showPdfPreview
+              ? "Close"
+              : ""
+              ) | translate
+            }} {{ "Preview" | translate }}
+    </button>
+  </div>
+  <div class="ata-pdf" *ngIf="showPdfPreview">
+    <app-offer-pdf
+
+      *ngIf="whichPdfPreview === 'offer'"
+      [offer]="createForm.value"
+      [logs]="offer.emailLogs"
+      [generals]="generals"
+      [id]="id"
+      [changed] = "showPdfPreview"
+      [offer_i] = "offer.offer_i"
+      [lines] = "offer.lines"
+      [offer_t] = "offer.offer_t"
+
+    ></app-offer-pdf>
+  </div>
+  <div class="offer-appendices" *ngIf="showAppendicesPreview">
+        <div class="imagesWrapper">
+          <div class="fake-image-modal-container">
+            <div  class="list-heading"><p class="list-heading-title"> {{ "Attachments" | translate }} </p></div>
+            <div class="form-group-upload form-group-upload2 justify-flex">
+              <app-file-preview
+
+                *ngFor="let file of images; let index = index;"
+                type="image"
+                [file]="file"
+                [index]="index"
+                (openSwiper)="openSwiper(index, images, albumKey)"
+                (removeFile)="removeFile(file, 'images')"
+                [canRemove]="file.Category == '1' && utkastId == id"
+                modalType="file"
+
+              ></app-file-preview>
+              <app-file-preview
+
+                *ngFor="let file of pdf_documents; let index = index;"
+                type="pdf"
+                [file]="file"
+                [index]="index"
+                (openSwiper)="openSwiper(index, pdf_documents, albumKey)"
+                [canRemove]="file.Category == '1' && utkastId == id"
+                (removeFile)="removeFile(file, 'pdf_documents')"
+                modalType="file"
+
+              ></app-file-preview>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
+<ng-template #otherComponent>
+  <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper($event)"
+    [server]="true"
+  ></app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper($event)"
+    [server]="true"
+  ></app-pdfjs-viewer>
+</ng-container>

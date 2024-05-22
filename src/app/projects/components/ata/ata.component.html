@@ -1,0 +1,880 @@
+<div class="tab-navigation-wrapper mt-2" style="position: relative">
+  <div class="tab-navigation mt-5">
+    <div class="nav-tabs tab-navigation">
+      <ul class="nav nav-tabs nav-pills" role="tablist">
+        <li *ngIf="ensureAtaExternalShow()" class="nav-item approveItem">
+          <a class="nav-link active" style="margin-bottom: -5px" [ngClass]="{ active: selectedTab == 0 }" (click)="setSelectedTab(0)" id="approveItem">
+            {{ "External ATA" | translate }}
+            <div
+              [ngClass]="{'hide-bottom-box-shadow': selectedTab == 0, 'bottom-shadow-button': selectedTab !== 0}">
+            </div>
+          </a>
+        </li>
+        <li *ngIf="ensureAtaInternalShow()" class="nav-item align-l">
+          <a class="nav-link attest" [ngClass]="{ active: selectedTab == 1 }" (click)="setSelectedTab(1)" style="z-index: 1">
+            {{ "Internal ATA" | translate }}
+            <div
+              [ngClass]="{'hide-bottom-box-shadow': selectedTab == 1, 'bottom-shadow-button': selectedTab !== 1}">
+            </div>
+          </a>
+        </li>
+        <li *ngIf="ensureAtaForecast()" class="nav-item align-l">
+          <a class="nav-link forecast" [ngClass]="{ active: selectedTab == 2 }" (click)="setSelectedTab(2)">
+            {{ "TSC_Forecast" | translate }}
+            <div
+              [ngClass]="{'hide-bottom-box-shadow': selectedTab == 2, 'bottom-shadow-button': selectedTab !== 2}">
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+    <div *ngIf="selectedTab == 0 && ensureAtaExternalShow()" style="position:relative;">
+        <div class="ata-border shadow-top-div" [ngStyle]="{ height: container_height }">
+            <div class="nav-wrapper" >
+                <div class="bg-transparent clearfix">
+                  <div class="ata-search mr-3">
+                    <span class="search-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13.06" viewBox="0 0 13 13.06">
+                        <path id="Path_737" data-name="Path 737" d="M30.923,28.9l-.078-.079h0l-3.134-3.151a5.185,5.185,0,0,0-4.425-7.777h-.034a5.18,5.18,0,0,0-.032,10.36h.034a5.106,5.106,0,0,0,2.595-.706l3.131,3.149h0l.078.079a.6.6,0,0,0,.858,0l1.007-1.013A.612.612,0,0,0,30.923,28.9Zm-7.695-1.968a3.859,3.859,0,0,1,.024-7.718h.026a3.8,3.8,0,0,1,2.707,1.148,3.874,3.874,0,0,1-.027,5.449,3.8,3.8,0,0,1-2.7,1.121Z" transform="translate(-18.101 -17.89)" fill="#fcf4ec"/>
+                      </svg>
+                    </span>
+                    <input type="text" id="searchAtaInput" class="form-control mt-2 search-input" placeholder="{{ 'Search' | translate }}" #searchInput [(ngModel)]="searchQuery" (input)="onSearch(searchInput.value)" />
+                    <span class="clear-icon" (click)="clearSearchText()" *ngIf="existString">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10.189" height="10.189" viewBox="0 0 10.189 10.189">
+                        <path id="Path_783" data-name="Path 783" d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z" transform="translate(3.622 4.382)" fill="#fcf4ec"/>
+                      </svg>
+                    </span>
+                  </div>
+                  <form class="buttons-form" style="justify-content: inherit">
+                    <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('all')">
+                        <div class="margin-svg-buttons">
+                            <app-not-selected-icon-svg *ngIf="statusObjectExternal['all'] == false">
+                            </app-not-selected-icon-svg>
+                            <app-selected-icon-svg *ngIf="statusObjectExternal['all'] == true" color='#ff7000'>
+                            </app-selected-icon-svg>
+                        </div>
+                        <div class="align-button-title">
+                            <span class="text-uppercase mr-1">{{ "All" | translate }}</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('0')">
+                        <div class="margin-svg-buttons">
+                            <app-not-selected-icon-svg *ngIf="statusObjectExternal['0'] == false">
+                            </app-not-selected-icon-svg>
+                            <app-selected-icon-svg *ngIf="statusObjectExternal['0'] == true" color='#f0e264'>
+                            </app-selected-icon-svg>
+                        </div>
+                        <div class="align-button-title">
+                            <span class="text-uppercase mr-1">
+                              {{ "Under pricing" | translate }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('4')">
+                        <div class="margin-svg-buttons">
+                            <app-not-selected-icon-svg *ngIf="statusObjectExternal['4'] == false">
+                            </app-not-selected-icon-svg>
+                            <app-selected-icon-svg *ngIf="statusObjectExternal['4'] == true" color='#94effd'>
+                            </app-selected-icon-svg>
+                        </div>
+                        <div class="align-button-title">
+                            <span class="text-uppercase mr-1">{{ "Sent" | translate }}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('2')">
+                        <div class="margin-svg-buttons">
+                            <app-not-selected-icon-svg *ngIf="statusObjectExternal['2'] == false">
+                            </app-not-selected-icon-svg>
+                            <app-selected-icon-svg *ngIf="statusObjectExternal['2'] == true" color='#03d156'>
+                            </app-selected-icon-svg>
+                        </div>
+                        <div class="align-button-title">
+                            <span class="text-uppercase mr-1">
+                              {{"In Progress" | translate}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('7')">
+                        <div class="margin-svg-buttons">
+                            <app-not-selected-icon-svg *ngIf="statusObjectExternal['7'] == false">
+                            </app-not-selected-icon-svg>
+                            <app-selected-icon-svg *ngIf="statusObjectExternal['7'] == true" color='#e7a0fc'>
+                            </app-selected-icon-svg>
+                        </div>
+                        <div class="align-button-title">
+                            <span class="text-uppercase mr-1">{{ "Clear" | translate }}</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('5')">
+                        <div class="margin-svg-buttons">
+                            <app-not-selected-icon-svg *ngIf="statusObjectExternal['5'] == false">
+                            </app-not-selected-icon-svg>
+                            <app-selected-icon-svg *ngIf="statusObjectExternal['5'] == true" color='#fff'>
+                            </app-selected-icon-svg>
+                        </div>
+                        <div class="align-button-title">
+                            <span class="text-uppercase mr-1">
+                              {{ "Completed" | translate}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('3')">
+                        <div class="margin-svg-buttons">
+                            <app-not-selected-icon-svg *ngIf="statusObjectExternal['3'] == false">
+                            </app-not-selected-icon-svg>
+                            <app-selected-icon-svg *ngIf="statusObjectExternal['3'] == true" color='#fd4444'>
+                            </app-selected-icon-svg>
+                        </div>
+                        <div class="align-button-title">
+                          <span class="text-uppercase mr-1">
+                            {{ "Declined" | translate}}
+                          </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex border-item p-1 status-margin cursor-pointer" (click)="onStatusChangeExternal('6')" style="margin:0px">
+                      <div class="margin-svg-buttons">
+                          <app-not-selected-icon-svg *ngIf="statusObjectExternal['6'] == false">
+                          </app-not-selected-icon-svg>
+                          <app-selected-icon-svg *ngIf="statusObjectExternal['6'] == true" color='#b8b8b8'>
+                          </app-selected-icon-svg>
+                      </div>
+                      <div class="align-button-title">
+                        <span class="text-uppercase mr-1">
+                          {{ "Aborted" | translate }}
+                        </span>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="control-buttons">
+                    <div *ngIf="initializeWrite() && allowNewAta">
+                      <!-- (mouseenter) (mouseleave) -->
+                      <a class="btn ata-btn" routerLinkActive="active"
+                        [routerLink]="['/projects/view/ata/new/', project.id]"
+                        [queryParams]="{ type: selectedTab }"
+                        [hidden]="project.status == 3"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        (mouseenter)="enter()"
+                        (mouseleave)="leave()">
+                        <app-new-ata-icon-svg [color]="newAtaIcon"></app-new-ata-icon-svg>
+                        <span class="mt-1 new-ata">
+                          {{ "New Ata" | translate }}
+                        </span>
+                      </a>
+                    </div>
+                    <div class="wr-btn" *ngIf="allowNewAta && initializeWrite()">
+                      <button class="btn ata-btn-sendwr" (click)="openModal()" >{{'Send not regulated' | translate}}</button>
+                    </div>
+                    <div class="button-container wr-btn" *ngIf="checkIfDataExist(selectedTab) && initializeWrite()">
+                    <!-- Dropdown SEND/PRINT SUMM -->
+                      <div class="input-wrapper4"  >
+                        <app-samm-dropdown
+                        [Samm] = "client_workers"
+                        [placeholder]="'TSC_Summary' | translate"
+                        [Print]="'Print ATA' | translate"
+                        [Export]="'Export Documents' | translate"
+                        [Send]="'SEND PDF KOPIA' | translate"
+                        [width]="185"
+                        (PrintButton)="printSummary('externalAta')"
+                        (ExportButton)="sendExportedDocuments($event)"
+                        (SendButton)="sendAtaSummary($event, 'externalAta')"
+                        [HaveExport]="true"
+                        [disableSelect]="false"
+                        >
+                        </app-samm-dropdown>
+                      </div>
+                    <!-- End Dropdown SEND/PRINT SUMM -->
+
+<!--                <button [class.button-open]="buttonToggle" class="btn ata-btn-summary" (click)="buttonNameSummary($event)">
+                        <span class="mt-1 ml-2" style="text-align: left">{{ "TSC_Summary" | translate }}</span>
+                        <!-- <app-summary-icon-svg *ngIf='!buttonToggle'></app-summary-icon-svg> -->
+<!--
+                      </button>
+-->
+                      <div class="summary-dropdown" [ngClass]="buttonToggle ? '' : 'd-none'" >
+                        <div class="p-1 border-summary" (click)="printSummary('externalAta')" (mouseenter)="onMouseEnter()" (mouseleave)="OnMouseLeave()">
+                            <div>
+                                <span class="mt-1 ml-2 fs-10">{{ "Print ATA" | translate }}</span>
+                            </div>
+                            <div>
+                                <app-pdf-icon-svg [color]="color"></app-pdf-icon-svg>
+                            </div>
+                        </div>
+                        <div [ngClass]=" contacts.length == 0 ? 'disabled-icon' : 'enabled-icon' " class="p-1" style="border-bottom: 1px solid var(--border-color);">
+                          <div (click)="sendExportedDocuments()" class="text-icon-align">
+                              <span class="mt-1 ml-2 fs-10">{{ "Export Documents" | translate }}</span>
+                              <img src="../../../../assets/img/disabled-icon.svg" *ngIf="contacts.length == 0 || project.status != 3 && project.status != 4" />
+                              <img src="../../../../assets/img/enabled-icon.svg" *ngIf="contacts.length > 0 && (project.status == 3 || project.status == 4)" />
+                          </div>
+                        </div>
+
+                        <ng-container *ngIf="project.status == 3 || project.status == 4">
+                          <div class="workers d-flex justify-content-start pl-3 workers-border p-1" *ngFor="let worker of client_workers" (click)="buttonNameSummary($event, worker)">
+                            <span class="ml-1 fs-10">{{ worker.Name }}</span>
+                            <span *ngIf="checkIfContactSelected(worker) == false">
+                                <img style="padding: 0px 0px 0px 3px" src="../../../../assets/img/uncheck.svg" alt="" />
+                            </span>
+                            <span *ngIf="checkIfContactSelected(worker)">
+                                <img style="padding: 0px 0px 0px 3px" src="../../../../assets/img/check_orange.svg" alt="" />
+                            </span>
+                          </div>
+                        </ng-container>
+
+                        <div [ngClass]=" contacts.length == 0 ? 'disabled-icon' : 'enabled-icon' " class="p-1">
+                          <div (click)="sendAtaSummary('externalAta')" class="text-icon-align">
+                            <span class="mt-1 ml-2 fs-10">{{ "SEND PDF KOPIA" | translate }}</span>
+                            <img src="../../../../assets/img/disabled-icon.svg" *ngIf="contacts.length == 0 || project.status == 3 || project.status == 4" />
+                            <img src="../../../../assets/img/enabled-icon.svg" *ngIf="contacts.length > 0 && (project.status != 3 && project.status != 4)" />
+                          </div>
+                        </div>
+
+                        <ng-container *ngIf="project.status != 3 && project.status != 4">
+                          <div class="workers d-flex justify-content-start pl-3 workers-border p-1" *ngFor="let worker of client_workers" (click)="buttonNameSummary($event, worker)">
+                            <span class="ml-1 fs-10">{{ worker.Name }}</span>
+                            <span *ngIf="checkIfContactSelected(worker) == false">
+                                <img style="padding: 0px 0px 0px 3px" src="../../../../assets/img/uncheck.svg" alt="" />
+                            </span>
+                            <span *ngIf="checkIfContactSelected(worker)">
+                                <img style="padding: 0px 0px 0px 3px" src="../../../../assets/img/check_orange.svg" alt="" />
+                            </span>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="ata-content">
+                <div>
+                    <table class="table-bordered">
+                        <thead class="sticky">
+                            <tr style="cursor: default">
+                                <th rowspan="2" class="number-width" title="{{ 'TSC_Number' | translate }}">
+                                    {{ "TSC_No" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="name-extern-width" title="{{ 'TSC_Name' | translate }}">
+                                    {{ "TSC_Name" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <!--  <th
+                  rowspan="2"
+                  class="deviation-width"
+                  title="{{ 'External ATA' | translate }}"
+                >
+                  ÄTA
+                  <div class="bottom-shadow-thead"></div>
+                </th> !-->
+                                <th rowspan="2" class="d-width" title="{{ 'Deviation' | translate }}">
+                                    {{ "TSC_D" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="debit-width" title="{{ 'Debit Form' | translate }}">
+                                    {{ "TSC_Debit_form" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="accumulated-width" title="{{ 'TSC_Accumulated_cost_title' | translate }}">
+                                    {{ "TSC_Accumulated_cost" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="last-width" title="{{ 'Last regulate' | translate }}">
+                                    {{ "Last regulate" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" title="{{ 'TSC_Sent' | translate }}" style="min-width: 92px; max-width: 92px; width: 92px">
+                                    {{ "Sent" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="approved-width" title="{{ 'Approved to invoice' | translate }} ">
+                                    {{ "TSC_Approved_to_invoice" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="invoiced-width" title="{{ 'Invoiced' | translate }}"  *ngIf="project.debit_Id == 4">
+                                        Riktpris +/-
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="riktpris-width" title="Riktpris +/-">
+                                    {{ "Invoiced" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="requirements-width" title="{{ 'Labeling requirements' | translate }}">
+                                    {{ "Labeling requirements" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="comment-width" title="{{ 'Comment' | translate }}">
+                                  {{ "Comment" | translate }}
+                                  <div class="bottom-shadow-thead"></div>
+                              </th>
+                            </tr>
+                        </thead>
+                        <thead></thead>
+                        <tbody>
+                            <tr *ngIf="externalAtas.length < 1">
+                                <td colspan="13" class="text-center">
+                                    {{ "No atas created yet" | translate }}
+                                </td>
+                            </tr>
+                            <ng-container *ngFor="let ata of getFilteredExternalAtas; let index = index">
+                                <tr [ngClass]="getAtaStatusClass(ata.Status, index)">
+                                    <td class="ata-td" style="white-space: nowrap" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'external')">
+                                        {{ "ATA" | translate }}-{{ ata.AtaNumber }}
+                                    </td>
+                                    <td class="ata-td" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'external')">
+                                        {{ ata.Name }}
+                                    </td>
+                                    <!--  <td
+                    style="min-width: 60px; max-width: 60px"
+                    class="ata-td"
+                    (click)="redirectTo($event, ata.AtaInternalNumber, ata.ExternalAtaNumber, ata.ataRelation, ata)"
+                  >
+                    <a href="javascript:void(0)">
+                      {{ getRelationKey(ata, 'number', 'ata') | translate }}
+                    </a>
+                  </td> !-->
+                                    <td style="min-width: 50px; max-width: 50px" class="ata-td" (click)="redirectTo($event, ata.AtaInternalNumber, ata.ExternalAtaNumber, ata.deviationRelation, ata)">
+                                        <a href="javascript:void(0)">
+                                            {{ getRelationKey(ata, 'number', 'deviation') | translate }}
+                                        </a>
+                                    </td>
+                                    <td class="ata-td" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'external')">
+                                        {{ ata.PaymentTypeName }}
+                                    </td>
+                                    <td class="ata-td text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'external')" style="min-width: 108px">
+                                        {{
+                                        ata.Status == 3
+                                        ? "0,00"
+                                        : (ata.totallyWorkedUp | number: "1.2-2":"fr")
+                                        }}
+                                    </td>
+                                    <td class="ata-td text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'external')" style="min-width: 92px; max-width: 92px">
+                                        {{
+                                        ata.Status == 3
+                                        ? "0,00"
+                                        : (ata.workedButNotApproved | number: "1.2-2":"fr")
+                                        }}
+                                    </td>
+                                    <td class="text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'external')" style="padding-left: 10px;min-width: 92px;max-width: 92px; cursor:pointer">
+                                        {{
+                                        ata.Status == 3
+                                        ? "0,00"
+                                        : (ata.total_sent_wr | number: "1.2-2":"fr")
+                                        }}
+                                    </td>
+                                    <td style="min-width: 93px; max-width: 93px" class="ata-td text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'external')">
+                                        {{
+                                        ata.Status == 3
+                                        ? "0,00"
+                                        : (ata.approvedForInvoice | number: "1.2-2":"fr")
+                                        }}
+                                    </td>
+                                    <td style="min-width: 93px; max-width: 93px" class="ata-td text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'external')" *ngIf="project.debit_Id == 4">
+                                        {{ ata.ata_total | number: "1.2-2":"fr" }}
+                                    </td>
+                                    <td class="ata-td text-right" style="min-width: 108px; max-width: 108px" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'internal')">
+
+                                        {{
+                                            ata.Status == 3
+                                            ? "0,00"
+                                            : (ata.invoicedTotal | number: "1.2-2":"fr")
+                                            }}
+                                    </td>
+                                    <td class="ata-td position-of-td"
+                                        (click)="setUserTimestamp('Ata', ata.id)"
+
+                                        [attr.contenteditable]="ata.Status == 2"
+                                       >
+                                        {{ ata.labeling_requirements }}
+                                    </td>
+                                    <td class="ata-td-comment edit-row"
+                                      (click)="setUserTimestamp('Ata', ata.id)"
+                                      (keyup)="checkedLengthRequirements($event, ata.id)"
+                                      (blur)="saveCustomComment(ata.id, $event)"
+                                      [attr.contenteditable]= "allowEditAta(ata.id)"
+                                      >
+                                      {{ ata.custom_comment }}
+                                  </td>
+                                </tr>
+                            </ng-container>
+                            <tr class="sticky-total">
+                                <td class="total total-first" colspan="4">
+                                    <strong style="background-color: #1a1a1a; font-size: 16px; font-family: 'PT-Sans-Pro-Regular'; padding-right: 27px;font-weight: 400;">Summa</strong>
+                                </td>
+
+                                <td class="text-right total-second">
+                                    <strong>{{
+                                        totalExternalAtasAccruedCosts | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                                <td class="text-right total-second">
+                                    <strong>{{
+                                        totalExternalAtasWorkedNotApprovedCosts
+                                        | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                                <td class="text-right total-second">
+                                    <strong>{{
+                                        totalExternalAtasATotalSentWr | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                                <td class="text-right total-second">
+                                    <strong>{{
+                                        totalExternalAtasApprovedToInvoiceCosts
+                                        | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                                <td class="text-right total-second" *ngIf="project.debit_Id == 4">
+                                        <strong>{{
+                                            totalRiktExternalAtasInvoicedCosts | number: "1.2-2":"fr"
+                                            }}</strong>
+                                </td>
+                                <td class="text-right total-second" >
+                                    <strong>{{
+                                        totalExternalAtasInvoicedCosts | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                                <td class="text-right total-second"></td>
+                                <td class="text-right total-second"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="ata-prognosis-border"></div>
+        <div class="thin-prognosis-border-bottom"></div>
+    </div>
+    <div *ngIf="selectedTab == 2 && prognosis.length > 0 && ensureAtaForecast()" class="top-btn-div">
+        <ng-container *ngIf="saved_prognosis">
+            <ng-container *ngFor="let saved_prognos of prognosis; let index = index">
+                <button (click)="setActivePrognosis(index)" style="position: relative" [ngClass]="{
+            active: activePrognosis == index,
+            'position-btn-center': saved_prognos?.locked == false
+          }" class="top-btn" [ngStyle]="changePropertyTopBtn(index)">
+                    <div class="revision-btn-position">
+                        <div class="revision-number">
+                            P-<span stlye="font-size:14px!important" *ngIf="saved_prognos?.locked">{{
+                                saved_prognos.prog_number }}</span><span stlye="font-size: 14px!important" *ngIf="!saved_prognos?.locked">{{ prognosis.length }}</span>
+                        </div>
+                        <div class="revision-date">
+                            <span class="date-revsion-font" *ngIf="saved_prognos?.locked">{{
+                                saved_prognos.created_at
+                                }}</span><span class="date-revsion-font" *ngIf="!saved_prognos?.locked">&nbsp; &nbsp;
+                                &nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="hiden-line-nav button-prognos-shadow" [ngClass]="{
+              'hiden-line-nav': activePrognosis == index,
+              'button-prognos-shadow': activePrognosis !== index
+            }"></div>
+                </button>
+            </ng-container>
+        </ng-container>
+    </div>
+    <div *ngIf="selectedTab == 2 && prognosis.length > 0" style="position:relative;">
+        <div class="ata-border shadow-top-div" [ngStyle]="{ height: container_height }" (scroll)="onScroll($event)" id="scroll-container">
+            <app-ata-prognosis [project_id]="project.id" [prognosis]="prognosis" [activePrognosis]="activePrognosis" [contacts]="contacts" [spinner]="spinner" (newPrognosis)="get_prognosis($event)" [onScrollEvent]="onScrollObservable$"></app-ata-prognosis>
+        </div>
+
+        <div class="ata-prognosis-border"></div>
+        <div class="thin-prognosis-border-bottom"></div>
+    </div>
+    <div *ngIf="selectedTab == 1 && ensureAtaInternalShow()" style="position:relative;">
+        <div class="ata-border shadow-top-div" [ngStyle]="{ height: container_height }">
+            <div class="nav-wrapper">
+
+                <div class="ata-search mr-3">
+                    <span class="search-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13.06" viewBox="0 0 13 13.06">
+                        <path id="Path_737" data-name="Path 737" d="M30.923,28.9l-.078-.079h0l-3.134-3.151a5.185,5.185,0,0,0-4.425-7.777h-.034a5.18,5.18,0,0,0-.032,10.36h.034a5.106,5.106,0,0,0,2.595-.706l3.131,3.149h0l.078.079a.6.6,0,0,0,.858,0l1.007-1.013A.612.612,0,0,0,30.923,28.9Zm-7.695-1.968a3.859,3.859,0,0,1,.024-7.718h.026a3.8,3.8,0,0,1,2.707,1.148,3.874,3.874,0,0,1-.027,5.449,3.8,3.8,0,0,1-2.7,1.121Z" transform="translate(-18.101 -17.89)" fill="#fcf4ec"/>
+                      </svg>
+                    </span>
+                    <input type="text" class="form-control mt-2 search-input" placeholder="{{ 'Search' | translate }}" #searchInput [(ngModel)]="searchQuery" (input)="onSearch(searchInput.value)" />
+                    <span class="clear-icon" (click)="clearSearchText()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10.189" height="10.189" viewBox="0 0 10.189 10.189">
+                        <path id="Path_783" data-name="Path 783" d="M.589.708-3.622,4.925l.873.883L1.473,1.59,5.694,5.807l.873-.883L2.346.708,6.567-3.5l-.884-.872L1.473-.165-2.749-4.382l-.873.883Z" transform="translate(3.622 4.382)" fill="#fcf4ec"/>
+                      </svg>
+                    </span>
+                  </div>
+                <ng-container>
+                    <form class="buttons-form" style="justify-content: inherit">
+                        <div class="d-flex border-item p-1 cursor-pointer status-margin" (click)="onStatusChangeInternal('all')">
+                            <div class="margin-svg-buttons">
+                                <app-not-selected-icon-svg *ngIf="statusObjectInternal['all'] == false">
+                                </app-not-selected-icon-svg>
+                                <app-selected-icon-svg *ngIf="statusObjectInternal['all'] == true" color='#ff7000'>
+                                </app-selected-icon-svg>
+                            </div>
+                            <div class="align-button-title">
+                                <span class="text-uppercase mr-1">{{ "All" | translate }}</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex border-item p-1  cursor-pointer status-margin" (click)="onStatusChangeInternal('0')">
+                            <div class="margin-svg-buttons">
+                                <app-not-selected-icon-svg *ngIf="statusObjectInternal['0'] == false">
+                                </app-not-selected-icon-svg>
+                                <app-selected-icon-svg *ngIf="statusObjectInternal['0'] == true" color='#f0e264'>
+                                </app-selected-icon-svg>
+                            </div>
+
+                            <div class="align-button-title">
+                                <span class="text-uppercase mr-1">{{
+                                    "Under pricing" | translate
+                                    }}</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex border-item p-1 cursor-pointer status-margin" (click)="onStatusChangeInternal('4')">
+                            <div class="margin-svg-buttons">
+
+                                <app-not-selected-icon-svg *ngIf="statusObjectInternal['4'] == false">
+                                </app-not-selected-icon-svg>
+                                <app-selected-icon-svg *ngIf="statusObjectInternal['4'] == true" color='#94effd'>
+                                </app-selected-icon-svg>
+
+                            </div>
+
+                            <div class="align-button-title">
+                                <span class="text-uppercase mr-1">{{
+                                    "Sent" | translate
+                                    }}</span>
+                            </div>
+                        </div>
+                        <div class="d-flex border-item p-1 cursor-pointer status-margin" (click)="onStatusChangeInternal('2')">
+                            <div class="margin-svg-buttons">
+
+                                <app-not-selected-icon-svg *ngIf="statusObjectInternal['2'] == false">
+                                </app-not-selected-icon-svg>
+                                <app-selected-icon-svg *ngIf="statusObjectInternal['2'] == true" color='#03d156'>
+                                </app-selected-icon-svg>
+
+                            </div>
+
+                            <div class="align-button-title">
+                                <span class="text-uppercase mr-1">{{
+                                    "In Progress" | translate
+                                    }}</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex border-item p-1 cursor-pointer status-margin" (click)="onStatusChangeInternal('7')">
+                            <div class="margin-svg-buttons">
+
+                                <app-not-selected-icon-svg *ngIf="statusObjectInternal['7'] == false">
+                                </app-not-selected-icon-svg>
+                                <app-selected-icon-svg *ngIf="statusObjectInternal['7'] == true" color='#e7a0fc'>
+                                </app-selected-icon-svg>
+
+                            </div>
+
+                            <div class="align-button-title">
+                                <span class="text-uppercase mr-1">{{
+                                    "Clear" | translate
+                                    }}</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex border-item p-1 cursor-pointer status-margin" (click)="onStatusChangeInternal('5')">
+                            <div class="margin-svg-buttons">
+
+                                <app-not-selected-icon-svg *ngIf="statusObjectInternal['5'] == false">
+                                </app-not-selected-icon-svg>
+                                <app-selected-icon-svg *ngIf="statusObjectInternal['5'] == true" color='#fff'>
+                                </app-selected-icon-svg>
+
+                            </div>
+
+                            <div class="align-button-title">
+                                <span class="text-uppercase mr-1">{{
+                                    "Completed" | translate
+                                    }}</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex border-item p-1 cursor-pointer status-margin" (click)="onStatusChangeInternal('3')">
+                            <div class="margin-svg-buttons">
+                                <app-not-selected-icon-svg *ngIf="statusObjectInternal['3'] == false">
+                                </app-not-selected-icon-svg>
+                                <app-selected-icon-svg *ngIf="statusObjectInternal['3'] == true" color='#fd4444'>
+                                </app-selected-icon-svg>
+                            </div>
+                            <div class="align-button-title">
+                                <span class="text-uppercase mr-1">{{
+                                    "Declined" | translate
+                                    }}</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex border-item p-1 cursor-pointer status-margin" (click)="onStatusChangeInternal('6')">
+                            <div class="margin-svg-buttons">
+
+                                <app-not-selected-icon-svg *ngIf="statusObjectInternal['6'] == false">
+                                </app-not-selected-icon-svg>
+                                <app-selected-icon-svg *ngIf="statusObjectInternal['6'] == true" color='#b8b8b8'>
+                                </app-selected-icon-svg>
+
+                            </div>
+
+                            <div class="align-button-title">
+                                <span class="text-uppercase mr-1">{{
+                                    "Aborted" | translate
+                                    }}</span>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+                <div class="control-buttons">
+                    <div class="intern-ata"></div>
+
+                    <div *ngIf="allowNewAta && initializeWrite()" style="align-self: center;">
+                        <a class="btn ata-btn float-right mr-4 d-flex"
+                        routerLinkActive="active"
+                        [routerLink]="['/projects/view/ata/new/', project.id]" [queryParams]="{ type: selectedTab }" [hidden]="project.status == 3"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        (mouseenter)="enter()"
+                        (mouseleave)="leave()">
+                            <app-new-ata-icon-svg [color]="newAtaIcon"></app-new-ata-icon-svg>
+                           <span class="mt-1 " style="
+                  margin-left: 8px;
+                ">{{ "New Ata" | translate }}</span>
+
+                        </a>
+                    </div>
+
+                    <div class="button-container"  *ngIf="checkIfDataExist(selectedTab) && initializeWrite()" style="align-self: center;">
+
+                    <!-- Dropdown SEND/PRINT SUMM -->
+                    <div class="input-wrapper4"  >
+                      <app-samm-dropdown
+                      [Samm] = "client_workers"
+                      [placeholder]="'TSC_Summary' | translate"
+                      [Print]="'Print ATA' | translate"
+                      [Export]="'Export Documents' | translate"
+                      [Send]="'Send to' | translate"
+                      [width]="185"
+                      (PrintButton)="printSummary('internalAta')"
+                      (ExportButton)="sendExportedDocuments()"
+                      (SendButton)="sendAtaSummary($event, 'internalAta')"
+                      [HaveExport]="false"
+                      [disableSelect]="false"
+                      >
+                      </app-samm-dropdown>
+                    </div>
+                  <!-- End Dropdown SEND/PRINT SUMM -->
+<!--
+                        <button [class.button-open]="buttonToggle" class="btn ata-btn-summary mr-4 d-flex wr-btn" (click)="buttonNameSummary($event)" >
+                            <div class="mt-1 ml-2" style="text-align: left">
+                                {{"TSC_Summary" | translate}}
+                            </div>
+                        </button>
+-->
+                        <div class="summary-dropdown" [ngClass]="buttonToggle ? '' : 'd-none'">
+                            <div class="p-1 border-summary" (click)="printSummary('internalAta')">
+                                <div>
+                                    <span class="mt-1 ml-2  fs-10">{{ "Print ATA" | translate }}</span>
+                                </div>
+                                <div>
+                                    <app-pdf-icon-svg></app-pdf-icon-svg>
+                                </div>
+                            </div>
+
+                            <div [ngClass]="
+                  contacts.length == 0 ? 'disabled-icon' : 'enabled-icon'
+                " class="p-1">
+                                <div (click)="sendAtaSummary('internalAta')" class="text-icon-align">
+                                    <span class="mt-1 ml-2  fs-10">{{ "Send to" | translate }}</span>
+                                    <img src="assets/img/ata-icons/disabled-icon.svg" *ngIf="contacts.length == 0" />
+                                    <img src="assets/img/ata-icons/enabled-icon.svg" *ngIf="contacts.length > 0" />
+                                </div>
+                            </div>
+
+                            <div class="workers d-flex justify-content-start pl-3 workers-border p-1 " *ngFor="let worker of client_workers" (click)="buttonNameSummary($event, worker)">
+                                <span class="ml-1  fs-10">{{ worker.Name }}</span>
+                                <span *ngIf="checkIfContactSelected(worker) == false">
+                                    <img style="padding: 0px 0px 0px 3px" src="assets/img/ata-icons/uncheck.svg" alt="" />
+                                </span>
+
+                                <span *ngIf="checkIfContactSelected(worker)">
+                                    <img style="padding: 0px 0px 0px 3px" src="assets/img/ata-icons/check_orange.svg" alt="" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div >
+                <div>
+                    <table class="ata-tr">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="number-width" title="{{ 'TSC_Number' | translate }}">
+                                    {{ "TSC_No" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="name-width" title="{{ 'TSC_Name' | translate }}">
+                                    {{ "TSC_Name" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="deviation-width" title="{{ 'External ATA' | translate }}">
+                                    ÄTA
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="d-width" title="{{ 'Deviation' | translate }}">
+                                    {{ "Internal" | translate }} {{ "TSC_D" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="d-width" title="{{ 'Deviation' | translate }}">
+                                    {{ "External" | translate }} {{ "TSC_D" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="debit-width" title="{{ 'Debit Form' | translate }}">
+                                    {{ "TSC_Debit_form" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="accumulated-width" title="{{ 'TSC_Accumulated_cost_title' | translate }}">
+                                    {{ "TSC_Accumulated_cost" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="last-width" title="{{ 'Last regulate' | translate }}">
+                                    {{ "Last regulate" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="approved-width" title="{{ 'Approved to invoice' | translate }} ">
+                                    {{ "TSC_Approved_to_invoice" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th rowspan="2" class="invoiced-width" title="{{ 'Invoiced' | translate }}">
+                                    {{ "Invoiced" | translate }}
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                                <th *ngIf="project.debit_Id == 4" rowspan="2" class="rikpris-width" title="Riktpris +/-">
+                                    Riktpris +/-
+                                    <div class="bottom-shadow-thead"></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <thead></thead>
+                        <tbody>
+                            <tr *ngIf="internalAtas.length < 1">
+                                <td colspan="13" class="text-center">
+                                    {{ "No atas created yet" | translate }}
+                                </td>
+                            </tr>
+                            <ng-container *ngFor="let ata of getFilteredInternalAtas; let index = index">
+                                <tr [ngClass]="getAtaStatusClass(ata.Status, index)">
+                                    <td class="ata-td" style="white-space: nowrap" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'internal')">
+                                        {{ "ATA" | translate }}-{{ ata.AtaNumber }}
+                                    </td>
+                                    <td class="ata-td" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'internal')">
+                                        {{ ata.Name }}
+                                    </td>
+                                    <td class="ata-td" (click)="redirectTo($event, ata.AtaInternalNumber, ata.ExternalAtaNumber, ata.ataRelation, ata)">
+                                        <a href="javascript:void(0)">{{
+                                            getRelationKey(ata, 'number', 'ata')
+                                            }}</a>
+                                    </td>
+                                    <td class="ata-td" (click)="redirectTo($event, ata.AtaInternalNumber, ata.ExternalAtaNumber, ata.deviationRelation, ata)">
+                                        <a href="javascript:void(0)">{{
+                                            getRelationKey(ata, 'number', 'deviation', 'internal')
+                                            }}</a>
+                                    </td>
+                                    <td class="ata-td" (click)="redirectTo($event, ata.AtaInternalNumber, ata.ExternalAtaNumber, ata.deviationRelation, ata)">
+                                        <a href="javascript:void(0)">{{
+                                            getRelationKey(ata, 'number', 'deviation', 'external')
+                                            }}</a>
+                                    </td>
+                                    <td class="ata-td" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'internal')">
+                                        {{ ata.PaymentTypeName }}
+                                    </td>
+                                    <td class="ata-td text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'internal')">
+                                        {{
+                                        ata.BecomeExternalAtaFromInternal == "0"
+                                        ? (ata.totallyWorkedUp | number: "1.2-2":"fr")
+                                        : "0,00"
+                                        }}
+                                    </td>
+                                    <td class="ata-td text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'internal')">
+                                        {{
+                                        ata.BecomeExternalAtaFromInternal == "0"
+                                        ? (ata.workedButNotApproved | number: "1.2-2":"fr")
+                                        : "0,00"
+                                        }}
+                                    </td>
+                                    <td class="ata-td text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'internal')">
+                                        {{
+                                        ata.BecomeExternalAtaFromInternal == "0"
+                                        ? (ata.approvedForInvoice | number: "1.2-2":"fr")
+                                        : "0,00"
+                                        }}
+                                    </td>
+                                    <td class="ata-td text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'internal')">
+                                        {{
+                                        ata.BecomeExternalAtaFromInternal == "0"
+                                        ? (ata.invoicedTotal | number: "1.2-2":"fr")
+                                        : "0,00"
+                                        }}
+                                    </td>
+                                    <td *ngIf="project.debit_Id == 4" class="ata-td text-right" (click)="setUserTimestamp('Ata', ata.id)" (click)="edit(ata, 'internal')">
+                                        {{ ata.ata_total | number: "1.2-2":"fr" }}
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <tr class="sticky-total">
+                                <td class="total total-first" colspan="6">
+                                    <strong style="
+                      background-color: #1a1a1a;
+                      font-size: 16px;
+                      font-family: 'PT-Sans-Pro-Regular';
+                      padding-right: 27px;
+                      font-weight: 400;
+                    ">Summa</strong>
+                                </td>
+                                <td class="total total-second">
+                                    <strong>{{
+                                        totalInternalAtasAccruedCosts | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                                <td class="total total-second">
+                                    <strong>{{
+                                        totalInternalAtasWorkedNotApprovedCosts
+                                        | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                                <td class="total total-second">
+                                    <strong>{{
+                                        totalInternalAtasApprovedToInvoiceCosts
+                                        | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                                <td class="total total-second">
+                                    <strong>{{
+                                        totalInternalAtasInvoicedCosts | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                                <td *ngIf="project.debit_Id == 4" class="text-right total-second">
+                                    <strong>{{
+                                        totalRiktInternalAtasInvoicedCosts | number: "1.2-2":"fr"
+                                        }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="ata-prognosis-border"></div>
+        <div class="thin-prognosis-border-bottom"></div>
+    </div>
+</div>
+<div class="progress-loader" *ngIf="emailSending">
+    <mat-spinner></mat-spinner>
+</div>

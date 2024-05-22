@@ -1,0 +1,89 @@
+<div  [ngStyle]="imageModalSmallStyle">
+
+  <div class="dragendropFile" appDnd  (fileDropped)="onFileDropped($event)">
+
+    <div class="selectFileButton" (click)="fileDropRef.click()">{{ "Choose file" | translate }}</div>
+    <div class="deleteFileButton">{{ "Attach or drop files here" | translate }}</div>
+    <input
+
+      type="file"
+      accept="application/pdf, image/*"
+      class="form-control-file hide"
+      id="document"
+      (change)="documentsOnChange($event)"
+      #fileDropRef
+      multiple="false"
+      style="display: none;"
+
+    />
+  </div>
+  <div class="file-preview-container"
+     [ngClass]="{'folders-in-row': foldersInRow}"
+  >
+    <app-file-preview
+
+      *ngFor="let file of file_images"
+      type="image"
+      [file]="file"
+      [index]="'0'"
+      [active]="'0'"
+      (openSwiper)="openAttachmentSwiper(file)"
+      canRemove="true"
+      (removeFile)="removeFile($event, 'file_images')"
+      imageModal="true"
+
+    ></app-file-preview>
+    <!-- <app-file-preview
+
+      *ngFor="let file of file_pdfs"
+      type="pdf"
+      [file]="file"
+      [index]="'0'"
+      [active]="'0'"
+      canRemove="true"
+      (openSwiper)="openAttachmentSwiper(file)"
+      (removeFile)="removeFile($event, 'file_pdfs')"
+      imageModal="true"
+
+    ></app-file-preview> -->
+    <app-pdfjs-preview
+      *ngFor="let file of file_pdfs"
+      style="display: flex; cursor: pointer; width: 68px; margin-left:5px; margin-right: 5px;"
+      type="pdf"
+      (click)="openAttachmentSwiper(file)"
+      [pdfUrls]="[file['previewUrl']]"
+      [deleted]=""
+      [canRemove]="true"
+      [index]="'0'"
+      [active]="'0'"
+      [width]="68"
+      [height]="43"
+      [borderRadius]="'0px 0px 0px 0px'"
+      [folder]="true"
+      (removeFile)="removeFile($event, 'file_pdfs')"
+      [ngStyle]="{ 'opacity': activePdf === index ? '1' : '0.5' }"
+      >
+    </app-pdfjs-preview>
+  </div>
+</div>
+
+<ng-template #otherComponent>
+  <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper($event)"
+    [server]="true"
+  ></app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper($event)"
+    [server]="true"
+  ></app-pdfjs-viewer>
+</ng-container>

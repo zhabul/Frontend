@@ -1,0 +1,45 @@
+<div class="modal-container" *ngIf="salary_system">
+    <form class="add-year-form" (submit)="save()">
+        <table class="table table-bordered table-default table-default-payment">
+            <thead class="tr-dark tr-head-salary">
+                <tr class="tr-search">
+                    <td colspan="4">
+                        <div class="div-group">
+                            <app-input-text-filter (emitValue)="setSearchValue($event)" [width]="329" prefix="ate"></app-input-text-filter>
+                            <div class="add-erst-button">
+                                <div>{{ 'Add' | translate }}</div>
+                                <div class="absolute-icon"><app-plus-icon-svg></app-plus-icon-svg></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{{'Name' | translate}}</td>
+                    <td>{{'Value' | translate}}</td>
+                    <td>{{'Save' | translate}}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="black-td"><div class="align-content">1</div></td>
+                    <td class="white-td"><div class="align-content">{{salary_system.name | translate}}</div></td>
+                    <td class="white-td">
+                        <input
+                            type="text"
+                            pattern="/^-?\d+\.?\d*$/"
+                            [(ngModel)]="code"
+                            name="code"
+                            class="form-control salary_system-input"
+                        >
+                    </td>
+                    <td class="black-td">
+                        <button class="btn green-button" type="submit">
+                            {{ 'Save' | translate }}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

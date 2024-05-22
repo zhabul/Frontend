@@ -1,0 +1,14 @@
+<ng-container *ngFor="let document of selcted_data; let index = index">
+  <div *ngIf="type == 'images'">
+    <img [src]="document.Url" />
+  </div>
+  <div *ngIf="type == 'pdfs'">
+      <iframe
+        style="max-height: 85vh; width: 50%; height: 100%"
+        [src]="document.Url"
+      ></iframe>
+  </div>
+</ng-container>
+
+
+

@@ -1,0 +1,236 @@
+<div class="moments-container blu-scroll" *ngIf="!loading">
+    <div class="list-head">
+      <div>
+        <p>{{ "Name" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "Type" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "Edit" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "Remove" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "Add" | translate }}</p>
+      </div>
+    </div>
+
+    <div class="list">
+      <form class="list-row">
+        <div style="padding-left: 0px">
+          <input
+            placeholder="{{ 'New' | translate }}"
+            type="text"
+            name="name"
+            [(ngModel)]="newName"
+            spellcheck="false"
+            autocomplete="off"
+            [disabled]="!userDetails.create_settings_Global"
+          />
+        </div>
+        <div>
+          <select
+            name="type"
+            class="select .padding-left-0"
+            [(ngModel)]="newType"
+            [disabled]="!userDetails.create_settings_Global"
+          >
+            <option value="1">{{ "Worker" | translate }}</option>
+            <option value="2">
+              {{ "Skilled worker" | translate }}
+            </option>
+          </select>
+        </div>
+        <div></div>
+        <div></div>
+        <div>
+            <img
+                class="icon"
+                src="../../../../assets/img/save.svg"
+                alt="edit"
+                (click)="addMoment()"
+            />
+        </div>
+      </form>
+    <div cdkDropList (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let moment of moments; let i = index" cdkDrag>
+        <form
+          class="list-row"
+          #f="ngForm"
+          [ngClass]="{ selected: moment.edit }"
+          (ngSubmit)="saveMoment(moment, f)"
+        >
+          <div [ngClass]="{ 'padding-left-0': moment.edit }">
+            <i
+              class="material-icons arrow_down"
+              style="position: absolute"
+              [ngClass]="{ hidden: moment.childrens.length == 0 || moment.edit }"
+              (click)="toggleMoment(moment)"
+            >
+              {{ moment.toggle ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+            </i>
+            <input
+              *ngIf="moment.edit"
+              type="text"
+              name="name"
+              spellcheck="false"
+              [ngModel]="moment.name"
+              autocomplete="off"
+              [disabled]="!userDetails.create_settings_Global"
+            />
+            <p *ngIf="!moment.edit" class="moment-name">
+              {{ i+1 }}. {{ moment.name }}
+            </p>
+          </div>
+
+          <div>
+            <select
+              *ngIf="moment.edit"
+              name="type"
+              [selected]="moment.type"
+              class="select .padding-left-0"
+              [ngModel]="moment.type"
+            >
+              <option value="1">{{ "Worker" | translate }}</option>
+              <option value="2">
+                {{ "Skilled worker" | translate }}
+              </option>
+            </select>
+
+            <p *ngIf="!moment.edit">
+              {{
+                moment.type == "1"
+                  ? ("Worker" | translate)
+                  : ("Skilled worker" | translate)
+              }}
+            </p>
+          </div>
+          <div>
+            <img
+              class="icon"
+              src="../../../../assets/img/edit-icon.svg"
+              alt="edit"
+              (click)="editMoment(moment)"
+            />
+          </div>
+          <div>
+            <img
+              *ngIf="!moment.edit"
+              class="icon"
+              src="../../../../assets/img/trashcan.svg"
+              alt="remove"
+              (click)="removeMoment(moment)"
+            />
+            <img
+              class="icon-big"
+              *ngIf="moment.edit"
+              src="../../../../assets/img/close-button.svg"
+              alt="x"
+              (click)="editMoment(moment)"
+            />
+          </div>
+          <div>
+            <img
+              *ngIf="moment.edit"
+              class="icon"
+              src="../../../../assets/img/save.svg"
+              alt="save"
+              (click)="saveMoment(moment, f)"
+            />
+            <img
+              *ngIf="!moment.edit"
+              class="icon"
+              src="../../../../assets/img/add-plus-icon.svg"
+              alt="x"
+              (click)="addSubmoment(moment)"
+            />
+          </div>
+        </form>
+
+      <div  cdkDropList (cdkDropListDropped)="dropchild($event, moment.childrens)">
+        <form
+          *ngFor="let subMoment of moment.childrens; let j = index" cdkDrag
+          (ngSubmit)="saveMoment(submoment, e)"
+          class="list-row list-row-submoment"
+          #e="ngForm"
+          [ngClass]="{ hidden: !moment.toggle, selected: subMoment.edit }"
+        >
+          <div [ngClass]="{ 'padding-left-0': subMoment.edit }">
+            <input
+              placeholder="{{ 'New' | translate }}"
+              *ngIf="subMoment.edit"
+              type="text"
+              name="name"
+              spellcheck="false"
+              [ngModel]="subMoment.name"
+              autocomplete="off"
+            />
+            <p *ngIf="!subMoment.edit" class="submoment-name">
+              {{ i+1 }}.{{ j+1 }}.{{ subMoment.name }}
+            </p>
+          </div>
+          <div *ngIf="!subMoment.edit">
+            <p>
+              {{
+                subMoment.type == "1"
+                  ? ("Worker" | translate)
+                  : ("Skilled worker" | translate)
+              }}
+            </p>
+          </div>
+          <div class="padding-left-0" *ngIf="subMoment.edit">
+            <select
+              name="type"
+              [selected]="subMoment.type"
+              class="select .padding-left-0"
+              [ngModel]="subMoment.type"
+            >
+              <option value="1">{{ "Worker" | translate }}</option>
+              <option value="2">
+                {{ "Skilled worker" | translate }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <img
+              class="icon"
+              src="../../../../assets/img/edit-icon.svg"
+              alt="edit"
+              (click)="editMoment(subMoment)"
+            />
+          </div>
+          <div>
+            <img
+              *ngIf="!subMoment.edit"
+              class="icon"
+              src="../../../../assets/img/trashcan.svg"
+              alt="remove"
+              (click)="removeMoment(subMoment)"
+            />
+            <img
+              class="icon-big"
+              *ngIf="subMoment.edit"
+              src="../../../../assets/img/close-button.svg"
+              alt="x"
+              (click)="editMoment(subMoment)"
+            />
+          </div>
+          <div>
+            <img
+              *ngIf="subMoment.edit"
+              class="icon"
+              src="../../../../assets/img/save.svg"
+              alt="save"
+              (click)="saveMoment(subMoment, e)"
+            />
+          </div>
+        </form>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="thin-red-line-bottom"></div>
+  </div>
+<mat-spinner class="spinner" *ngIf="loading || secondLoading"></mat-spinner>

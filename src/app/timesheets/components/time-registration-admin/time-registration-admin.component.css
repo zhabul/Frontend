@@ -1,0 +1,39 @@
+.footer-buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+}
+
+::ng-deep .e-schedule .e-timeline-view .e-appointment .e-appointment-details,
+::ng-deep
+  .e-schedule
+  .e-timeline-month-view
+  .e-appointment
+  .e-appointment-details,
+::ng-deep .e-appointment-details {
+  padding: 0 !important;
+  background-color: red !important;
+}
+
+::ng-deep .template-wrap {
+  width: 100% !important;
+}
+
+.l-406 {
+  left: 406px;
+}
+
+.absence {
+  background-color: #8b4513;
+  width: 20px;
+  height: 20px;
+  margin-left: 50px;
+}
+
+.e-more-indicator {
+  display: none;
+}
+
+/* .last-nav-item {
+    margin-left: auto;
+} */

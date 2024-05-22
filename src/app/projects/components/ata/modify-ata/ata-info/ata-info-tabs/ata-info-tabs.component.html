@@ -1,0 +1,174 @@
+<div class="tabs-wrapper" style="display:flex">
+    <ul class="nav-ata-tabs" [ngStyle]="{'margin-left': madeOfExist? '29px': '75px'}">
+
+        <li *ngIf="madeOfExist" ><!-- ATA from : ?-->
+            <button type="button" class="from-dev">
+                <app-ata-link [relations]="selectedAta.ata_relations" [type] = "'ata'"></app-ata-link>
+                <app-ata-link-old [ata]="atas[0]" type="Deviation" parent="ata"></app-ata-link-old>
+            </button>
+        </li>
+        <ng-container *ngIf="!ksActive">
+            <li  class="nav-item" [ngStyle]="{'margin-left': madeOfExist ? '20px': ''}"><!-- ATAs and ATAs revisions-->
+                <button type="button"
+                [ngClass]="{active: active_tab == 1 }"
+                (click)="changeSelectedAta(0, 1, true)"
+                [ngStyle]="{'padding': i==0? '':'0px 50px 0px 16px', 'margin-left': i==0? '0px': '-19px'}"
+                >
+                    <div >
+                        {{ 'ÄTA -' | translate }} {{atas[0].AtaNumber}}
+                    </div>
+                    <div class="hidden-shadow" *ngIf="active_tab == 1"></div>
+                </button>
+            </li>
+            <ng-container *ngIf="atas.length > 1 && type == 'external'">
+                <li  class="nav-item"><!-- ATAs and ATAs revisions-->
+                    <button class="flex-button" type="button"
+                    [ngClass]="{active: active_tab == 2 }"
+                    [ngStyle]="{'margin-left': active_tab != 2? '-12px':'','padding': active_tab != 2? '0px 10px 0px 10px':'0px 3px 0px 3px' }"
+                    style="z-index: 10;"
+                    >
+                        <div class="arrowDiv"
+                        style="text-align: right;"
+                        *ngIf="selectedAtaIndex > 1 && type == 'external'"
+                        (click)="setActiveAta(-1)"
+                        >
+                            <img  src="/assets/img/edit-ata-icons/left-arrow.svg" width="6px" class="img-align" >
+                        </div>
+                        <div (click)="changeSelectedAta(selectedAtaIndex, 2, true)"
+                        style="padding: 10px;"
+                        [ngStyle]="{'padding-left': active_tab!=2?'10px':'10px', 'padding-right':active_tab!=2?'15px':'10'}">
+                            {{ 'ÄTA -' | translate }} {{printAtaNumber()}}
+                        </div>
+                        <div class="arrowDiv"
+                        style="text-align: left;"
+                        *ngIf="selectedAtaIndex < atas.length -1 && atas.length > 2 && type == 'external'"
+                        (click)="setActiveAta(1)"
+                         >
+                            <img  src="/assets/img/edit-ata-icons/right-arrow.svg" width="6px" class="img-align" >
+                        </div>
+                        <div class="hidden-shadow" *ngIf="active_tab == 2"></div>
+                    </button>
+                </li>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="ksActive && selectedAta.PaymentType == 1 && type == 'external'">
+            <li class="nav-item">
+              <button type="button"
+              style="padding:0px 50px 2px 15px; z-index:10"
+                class="ata-info"
+                (click)="reloadView()"
+                >
+                <span>{{ 'ÄTA-INFO' | translate }}</span>
+              </button>
+            </li>
+        </ng-container>
+        <ng-container *ngIf="reportsData && reportsData.length > 0 && selectedAta.PaymentType == 1 && type == 'external' && allowViewAta()">
+            <li class="nav-item">
+                <div class="button-wrapper" *ngIf="checkIfExistNotApprovedKS(0, 'tab')">
+                    <button class="flex-button" type="button" [disabled]="spinner"
+                    [ngClass]="{active: active_tab == 3 }" style="margin-left: -3px;z-index: 9;"
+                    [ngStyle]="{'padding': active_tab != 3? '0px 0px 0px 20px':'0px 3px 0px 3px'}"
+
+                    >
+                        <div
+                            (click)="getWeeklyReportByWrId(reportsData[active_weekly_report].id, false, 3)"
+                            style="padding: 10px;"
+                            [ngStyle]="{'padding-left': active_tab!=3?'10px':'10px', 'padding-right':active_tab!=3?'40px':'40px'}"
+                        >
+                            {{reportsData[active_weekly_report]?.nameFromWr | translate}}
+                        </div>
+                        <div class="arrowDiv" style="text-align: left;" *ngIf="checkIfExistNotApprovedKS(0)">
+                            <img  (click)="chooseKS()"
+                                *ngIf="reportsData.length > 1"
+                                [ngStyle]="{'transform': toggleSelect ? 'rotate(270deg)':'rotate(90deg)'}"
+                                src="/assets/img/edit-ata-icons/right-arrow.svg" width="6px" class="img-align"
+                            >
+                        </div>
+                        <div class="hidden-shadow" *ngIf="active_tab == 3"></div>
+                    </button>
+                    <div class="dropdown-items" *ngIf="toggleSelect" [ngStyle]="{'left': ksActive ? '-19px' : '0px'}">
+                        <ul>
+                            <ng-container *ngFor="let report of reportsData; let index = index;">
+                                <ng-container *ngIf="active_weekly_report != index && report.is_visible == 1">
+                                    <li (click)="setActiveKs(index)">
+                                        {{report?.nameFromWr}} <img class="send-icon" src="{{ setButtonIcon(report) }}" [ngClass]="{'accept-icon': report?.status == 2 || report?.status == 4 || report?.status == 3}"/>
+                                    </li>
+                                </ng-container>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item" *ngIf="reportsData[active_weekly_report]?.childrens[active_children_weekly_report]">
+                <button class="flex-button" type="button" [disabled]="spinner" [ngClass]="{active: active_tab == 4 }"
+                [ngStyle]="{'margin-left': active_tab != 4? '-19px':'-2px','padding': active_tab != 4? '0px 0px 0px 20px':'0px 3px 0px 3px' }"
+                style="z-index:8"
+                >
+                    <!--<div
+                        class="arrowDiv"
+                        style="text-align: right;"
+                        >
+                        <img  *ngIf="active_children_weekly_report_index > 0" (click)="setActiveChildrenKs(-1)" src="/assets/img/edit-ata-icons/left-arrow.svg" width="6px" class="img-align" >
+                    </div>!-->
+                    <div style="padding: 10px;"
+                    [ngStyle]="{'padding-left': active_tab!=4?'10px':'10px', 'padding-right':active_tab!=4?'40px':'40px'}"
+                     (click)="getWeeklyReportByWrId(reportsData[active_weekly_report]?.childrens[active_children_weekly_report].id, false, 4)">
+                        {{reportsData[active_weekly_report]?.childrens[active_children_weekly_report].nameFromWr}}
+                    </div>
+                    <!--<div
+                    class="arrowDiv"
+                    style="text-align: left;">
+                        <img *ngIf="active_children_weekly_report_index < max_children_weekly_report" (click)="setActiveChildrenKs(1)" src="/assets/img/edit-ata-icons/right-arrow.svg" width="6px" class="img-align"  >
+                    </div>!-->
+                    <div class="arrowDiv" style="text-align: left;" *ngIf="checkIfExistNotApprovedChildrenKS()">
+                        <img  (click)="chooseChildrenKS()"
+                            *ngIf="reportsData.length > 1"
+                            [ngStyle]="{'transform': toggleChildrenSelect ? 'rotate(270deg)':'rotate(90deg)'}"
+                            src="/assets/img/edit-ata-icons/right-arrow.svg" width="6px" class="img-align"
+                        >
+                    </div>
+                    <div class="hidden-shadow" *ngIf="active_tab == 4"></div>
+                </button>
+                <div class="dropdown-items"  *ngIf="toggleChildrenSelect" [ngStyle]="{'left': ksActive ? '-19px' : '0px'}">
+                    <ul>
+                        <ng-container *ngFor="let report of reportsData[active_weekly_report].childrens | keyvalue ; let index = index;">
+                            <ng-container *ngIf="active_children_weekly_report_index != index">
+                                <li (click)="setActiveChildrenKs2(index)">
+                                    {{report.value?.nameFromWr}} <img class="send-icon" src="{{ setButtonIcon(report?.value) }}" [ngClass]="{'accept-icon': report?.value.status == 2 || report?.value.status == 4 || report?.value.status == 3}"/>
+                                </li>
+                            </ng-container>
+                        </ng-container>
+                    </ul>
+                </div>
+            </li>
+        </ng-container>
+
+
+
+      <!--  <ng-container *ngIf="reportsData.activeReport > 0">
+            <li class="nav-item" >
+                <button type="button"
+                class="flex-button"
+                [ngClass]="{active: reportsData.activeReport === reportsData.activeReport }" >
+                    <img *ngIf="!reportsData.isMin" src="/assets/img/edit-ata-icons/left-arrow.svg" width="6px" class="img-align" (click)="setActiveParentKs(-1)" >
+                    <div>
+                        {{reportsData.data[reportsData.activeReport].parent.name}}
+                    </div>
+                    <img *ngIf="!reportsData.isMax" src="/assets/img/edit-ata-icons/right-arrow.svg" width="6px" class="img-align" (click)="setActiveParentKs(+1)">
+                </button>
+            </li>
+            <li  class="nav-item">
+                <button type="button" class="flex-button" *ngIf="activeKsChild > -1">
+                    <img *ngIf="!ksChild.isMin" src="/assets/img/edit-ata-icons/left-arrow.svg" width="6px" class="img-align" (click)="setActiveChildKs(-1)" >
+                    <div>
+                        {{ksChildren[activeKsChild].name}}
+                    </div>
+                    <img *ngIf="!ksChild.isMax" src="/assets/img/edit-ata-icons/right-arrow.svg" width="6px" class="img-align" (click)="setActiveChildKs(+1)">
+                </button>
+            </li>
+        </ng-container> !-->
+
+
+    </ul>
+
+</div>

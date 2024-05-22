@@ -1,0 +1,157 @@
+<div class="row row1X mb-3 menu-wrapp">
+  <div
+    class="card col-12X col-lg-6X col-lg-8W bgDarkBlueX bgGrayBlue"
+    id="topFeeder"
+  >
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-lightX bgGrayBlueX br3 pl-em"
+      style="padding: 10px"
+    >
+      <ul class="navbar-nav flex-container wrap justify-content">
+        <div class="navbar-collapse custom-800" id="navbarSupportedContent">
+          <li class="nav-item active flex-item mr-2">
+            <div class="d-flex">
+              <div>
+                <a
+                  [routerLink]="['/projects/view/', project.id]"
+                  class="btn btn-dark lh09 hideUnder800 mr-3"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                >
+                  <span class="badgeX badge-darkX material-icons top1px posRel"
+                    >arrow_back</span
+                  >
+                </a>
+              </div>
+              <div class="project text-muted w-100">
+                <span class="d-block text-uppercase" style="font-size: 0.9em">{{
+                  (project.parent == "0" ? "Project" : "Subproject") | translate
+                }}</span>
+                <h4 class="textDarkBlue posRel mb-0 fs-18">
+                  {{ project.CustomName }} {{ project.name }}
+                </h4>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </nav>
+  </div>
+  <div class="tab-navigation col-lg-8W bgGrayBlue">
+    <ul class="nav nav-tabs nav-pills" role="tablist">
+      <li class="nav-item" *ngIf="userDetails.show_project_SupplierInvoices">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'supplier-invoices']"
+          role="tab"
+        >
+          {{ "Supplier Invoices" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'invoices']"
+          role="tab"
+          id=""
+          >{{ "Invoices History" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'works']"
+          role="tab"
+          >{{ "Work Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          [routerLink]="['/projects/view', project.id, 'materials']"
+          role="tab"
+          >{{ "Materials Summary" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'reports']"
+          role="tab"
+          >{{ "Weekly Reports" | translate }}</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/projects/view', project.id, 'project-summary']"
+          role="tab"
+          >{{ "Project Summary" | translate }}</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row row1X">
+  <div
+    class="card col-12 col-lg-6X col-lg-6 col-lg-8W mb70"
+    id="notMuchPaddingTill800"
+  >
+    <div class="card-body">
+      <section class="d-flex justify-content-between">
+        <h1 class="h4">{{ "Materials Summary" | translate }}</h1>
+      </section>
+    </div>
+
+    <!-- <div class="mr-0 d-sm-flex flex-columnX mb-1">
+            <div class="mr-4">
+                <span class = "legenda" style="color: orange;">&#9679;</span>
+                <span class="posRelX btm-4pxX">{{ 'Not Sent' | translate }}</span>
+            </div>
+            <div class="mr-4">
+                <span class = "legenda" style="color: green;">&#9679;</span>
+                <span class="posRelX btm-4pxX">{{ 'Paid' | translate }}</span>
+            </div>
+            <div class="mr-4">
+                <span class = "legenda" style="color: tomato;">&#9679;</span>
+                <span class="posRelX btm-4pxX">{{ 'Unpaid due' | translate }}</span>
+            </div>
+            <div class="mr-4">
+                <span class = "legenda" style="color: grey;">&#9679;</span>
+                <span class="posRelX btm-4pxX">{{ 'Canceled' | translate }}</span>
+            </div>
+        </div> -->
+
+    <div class="row row-sm">
+      <table
+        class="table table-res800 table-darkX table-sm table-bordered table-hover invoice-table table-striped"
+      >
+        <thead>
+          <tr>
+            <th>{{ "Name" | translate }}</th>
+            <th>{{ "Quantity" | translate }}</th>
+            <th>{{ "Unit" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="invoice-row"
+            *ngFor="let material of materials; let i = index"
+          >
+            <!-- [ngClass]="{'table-warning': material.status=='1', 'table-danger':material.status=='3', 'table-success':material.status=='4', 'table-secondary':material.status=='5' }" -->
+            <td>
+              {{ material.Name }}
+            </td>
+            <td>
+              {{ material.Quantity }}
+            </td>
+            <td>
+              {{ material.Units }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

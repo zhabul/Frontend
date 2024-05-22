@@ -1,0 +1,48 @@
+<div class="menu-container">
+    <div class="options-div" (mouseenter)="threeDotsEnter()" (mouseleave)="threeDotsLeave()">
+      <div type="button" class="btn-options" (click)="optionsDownDiv()" [ngStyle]="btnOptionsBorderRadius">
+        <div class="dots-div">
+          <app-three-dots-svg2 [color]="arrowUpColor"></app-three-dots-svg2>
+          <app-arrow-up-svg2 [color]="arrowUpColor" *ngIf="!buttonToggleDots"></app-arrow-up-svg2>
+          <app-arrow-down-svg2 color="#BFE29C" *ngIf="buttonToggleDots"></app-arrow-down-svg2>
+        </div> 
+      </div>
+      <div class="dropdownlist2" *ngIf="buttonToggleDots">
+          <ng-container *ngIf="payrollVisibility">
+            <a 
+            
+              queryParamsHandling="merge" 
+              routerLink="/timesheets/time-registration-admin/user-detail/payroll" 
+              [queryParams]="{puserid: userId, pdate: date, from: from, fromTimeRegistration: fromTimeRegistration}" 
+              
+            ><span>{{ 'Create' | translate }} {{ 'CUD_Payroll_Basis_PDF' | translate }}</span></a>
+          </ng-container>
+          <ng-container *ngIf="calendar || settings">
+            <a 
+            
+              queryParamsHandling="merge" 
+              routerLink="/timesheets/personal-statistics" 
+              [queryParams]="{puserid: userId, pdate: date, fromTimeRegistration: fromTimeRegistration}"
+              
+            ><span>{{ 'Personnel statistics' | translate }}</span></a>
+          </ng-container>  
+          <ng-container *ngIf="calendar || stats">
+            <a 
+            
+              (mouseenter)="settingsMouseEnter()" 
+              (mouseleave)="settingsMouseLeave()" 
+              [queryParams]="{puserid: userId, pdate: date}" 
+              queryParamsHandling="merge" 
+              routerLink="/timesheets/settings/lone" 
+              [queryParams]="{puserid: userId, pdate: date, from: from, fromTimeRegistration: fromTimeRegistration}"
+              
+            >
+              <div>{{ 'Settings' | translate }}</div>
+              <div><app-settings-icon-svg [color]="settingsColor"></app-settings-icon-svg></div>
+            </a>
+          </ng-container>
+          <div class="green-bottom"></div> 
+      </div>
+    </div>
+    <div *ngIf="buttonToggleDots" class="toggle-overlay" (click)="buttonToggleDots = false; threeDotsLeave()"></div>
+</div>

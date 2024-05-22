@@ -1,0 +1,71 @@
+<div>
+  <div (click)="toogleMultiselect()" class="name-of-multselect"
+      [ngStyle]="{
+          'border':border,
+          'border-radius': toggle ?'4px 4px 0px 0px':'4px 4px 4px 4px',
+          'border-bottom':toggle ? '0px':border
+      }">
+
+      <div [ngStyle]="{'color': color}" class="refname" > {{ ref }} </div>
+      <div class="arrow">
+          <app-arrow-for-dropdown
+              [fill]="fill"
+              [rotate]="rotate"
+          >
+          </app-arrow-for-dropdown>
+      </div>
+      <div class="border-on-scroll" *ngIf="toggle" ></div>
+  </div>
+  <div style="position:relative">
+  <div class="shadow" *ngIf="toggle"></div>
+  <div *ngIf="toggle" class="dropdown-scroll">
+    <div class="user-list-grid1">
+      <div class="hala">
+          <div>SGS Studentbostader 1</div>
+          <div class="check-button-wrapp">
+              <input type="checkbox" (click)="selectAll()" class="check">
+              <app-checkin-svg
+              *ngIf="allselected"
+              [width]="26"
+              [height]="26"
+              [color]="'FF7000'"
+              [hatched]="'white'"
+            ></app-checkin-svg>
+            <app-checkout-svg
+            *ngIf="!allselected"
+                [width]="26"
+                [height]="26"
+                [color]="'FF7000'"
+                [hatched]="'white'"
+            ></app-checkout-svg>
+          </div>
+      </div>
+    </div>
+      <div *ngFor="let project of localSelectedItem; let i=index" >
+          <div class="user-list-grid">
+            <div class="users-list" >
+              <div class="users" title="{{project.Name}} "> {{project.Name}} </div>
+              <div class="check-button-wrapp-one">
+                <input type="checkbox" (click)="getSelectedItem(project, i)" class="check" >
+                  <app-checkin-svg
+                      *ngIf="project?.checked"
+                      [width]="18"
+                      [height]="18"
+                      [color]="'FF7000'"
+                      [hatched]="'white'"
+                  ></app-checkin-svg>
+                  <app-checkout-svg
+                  *ngIf="!project?.checked"
+                      [width]="18"
+                      [height]="18"
+                      [color]="'FF7000'"
+                      [hatched]="'white'"
+                  ></app-checkout-svg>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>
+

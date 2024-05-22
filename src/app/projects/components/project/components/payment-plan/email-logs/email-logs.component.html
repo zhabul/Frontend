@@ -1,0 +1,95 @@
+<!-- <div class="container main-email-c blu-scroll">
+  <div class="section-div-email">
+    <h1 class="email-header">E-postlogg</h1>
+    <hr>
+    <div class="email-table">
+      <div class="email-head">
+        <div class="e-head">
+          <p>{{ 'TSC_LOGNAME' | translate}}</p>
+        </div>
+        <div class="e-head">
+          <p>{{ 'TSC_SENT' | translate}}</p>
+        </div>
+        <div class="e-head">
+          <p>{{ 'TSC_USERS' | translate}}</p>
+        </div>
+        <div class="e-head">
+          <p>{{ 'TSC_FROM' | translate}}</p>
+        </div>
+        <div class="e-head">
+          <p>{{ 'TSC_TO' | translate}}</p>
+        </div>
+        <div class="e-head">
+          <p>{{ 'TSC_OPENED' | translate}}</p>
+        </div>
+        <div class="e-head">
+          <p>{{ 'TSC_ANSWERED' | translate}}</p>
+        </div>
+      </div>
+      <div class="email-body">
+        <ng-container *ngFor="let elogs of logs" >
+        <div [ngStyle]="{'background-color': (elogs.Status == 1 ? 'hsl(0, 0%, 96%)' : ((elogs.Status == 2 || elogs.Status == 4) ? 'hsl(154, 79%, 75%, 0.2)' : (elogs.Status == 3 ? 'hsla(0, 58%, 75%, 0.2)' : 'hsla(60, 58%, 75%, 0.15)'))), 'color' : (elogs.Status == 1 ? 'hsl(0, 0%, 0%)':'')}">
+          <div class="e-body">
+            <p>{{elogs.logName}}</p>
+          </div>
+          <div class="e-body">
+            <p>{{elogs.Date}}</p>
+          </div>
+          <div class="e-body">
+            <p>{{elogs.Name}}</p>
+          </div>
+          <div class="e-body">
+            <p>{{elogs.From}}</p>
+          </div>
+          <div class="e-body">
+            <p>{{elogs.To}}</p>
+          </div>
+          <div class="e-body">
+            <p>{{elogs.Opened}}</p>
+          </div>
+          <div class="e-body">
+            <p>{{elogs.Responded}}</p>
+          </div>
+        </div>
+      </ng-container>
+      </div>
+    </div>
+    <div class="border-right-scroll"></div>
+    <div class="border-bottom-scroll"></div>
+  </div>
+</div> -->
+<div style="position: relative; cursor: default;">
+    <div class="inner-email-div" style="color: #FFFFFF">
+    <h3 class="mt-2" style="margin-left: 10px" >{{ 'Email log' | translate }}</h3>
+    <table class="table" >
+      <thead>
+        <tr>
+            <th>{{'TSC_LOGNAME' |translate}}</th>
+            <th>{{'Sent'|translate}}</th>
+            <th>{{'User'|translate}}</th>
+            <th>{{'From'|translate}}</th>
+            <th>{{'To'|translate}}</th>
+            <th>{{'Opened'|translate}}</th>
+            <th>{{'Responded'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+          <!-- <tr class="text-center">
+              <td colspan="8">{{'No logs to display'|translate}}</td>hsl(45, 100%, 51%)
+
+
+          </tr> -->
+          <tr *ngFor="let elogs of logs" [ngStyle]="{'background-color': (elogs.Status == 1 ? 'hsl(0, 0%, 96%)' : ((elogs.Status == 2) ? 'hsl(154, 79%, 75%, 0.2)' : (elogs.Status == 3 ? 'hsla(0, 58%, 75%, 0.2)' : (elogs.Status == 4 ? 'hsla(213, 7%, 46%, 1)' : 'hsla(60, 58%, 75%, 0.15)' )))), 'color' : (elogs.Status == 1 ? 'hsl(0, 0%, 0%)':'')}" (click)="viewAttachmentsSent(elogs.sentFiles)">
+              <td>{{elogs.logName}}</td>
+              <td>{{elogs.Date}}</td>
+              <td>{{elogs.Name}}</td>
+              <td>{{elogs.From}}</td>
+              <td>{{elogs.To}}</td>
+              <td>{{elogs.Opened}}</td>
+              <td>{{elogs.Responded}}</td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+</div>
+

@@ -1,0 +1,7 @@
+path {
+    transition: all 100ms ease-in-out;
+}
+
+app-arrow-up-svg2 {
+    pointer-events: none;
+}

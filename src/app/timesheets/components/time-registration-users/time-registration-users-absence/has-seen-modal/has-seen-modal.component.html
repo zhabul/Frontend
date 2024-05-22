@@ -1,0 +1,24 @@
+<div class="modal-top-wrapper">
+  <h5>{{ "Absence" | translate }}</h5>
+  <div class="absence-type">{{ absence.absenceTypeName }}</div>
+  <div class="date">{{ absence.startDate }} - {{ absence.endDate }}</div>
+</div>
+<div class="row row-content">
+  <b></b>
+  <div
+    class="comment"
+    *ngIf="absence.Answer"
+    [ngStyle]="{ 'border-color': borderColor() }"
+  >
+    <p>{{ "Comment" | translate }}: {{ absence.Answer }}</p>
+  </div>
+</div>
+<div class="row row-content custom-padding">
+  <form novalidate autocomplete="off" class="form-content" #myform="ngForm">
+    <div class="row row-content custom-padding">
+      <button class="btn btn-success butt" (click)="hasSeen()">
+        {{ "OK" | translate }}
+      </button>
+    </div>
+  </form>
+</div>

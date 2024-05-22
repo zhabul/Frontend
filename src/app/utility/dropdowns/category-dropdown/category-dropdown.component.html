@@ -1,0 +1,29 @@
+<div>
+  <div (click)="onToggleMenu()" class="name-of-multselect"
+        [ngStyle]="{
+          'border':border,
+          'border-radius': toggle ?'4px 4px 0px 0px':'4px 4px 4px 4px',
+          'border-bottom':toggle ? '0px':border
+        }"
+        >
+
+    <div [ngStyle]="{'color': color}" class="refname">{{ ref }}</div>
+    <div class="arrow">
+      <app-arrow-for-dropdown
+        [fill]="fill"
+        [rotate]="rotate"
+      >
+      </app-arrow-for-dropdown>
+    </div>
+  </div>
+  <div class="shadow" *ngIf="toggle"></div>
+  <div style="position: relative;">
+    <div *ngIf="toggle" class="dropdown-scroll">
+      <div *ngFor="let category of localCategoryItem; let i=index" >
+        <div class="users-list" (click)="Select(category.Name)" >
+            <div class="users" title="{{category.Name}}"> {{category.Name}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

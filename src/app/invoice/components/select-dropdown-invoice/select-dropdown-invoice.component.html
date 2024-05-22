@@ -1,0 +1,128 @@
+<div
+  style="width: 100%; height: 100%"
+  [ngClass]="toggle == true ? 'select-wrapper-bordered' : 'select-wrapper'"
+>
+  <div class="select">
+    <div class="selected-item" (click)="toggleOn()">
+      <div class="span-selected">
+        <div class="wrap-custom-name">
+          <input 
+          type="text" 
+          class="inputSearch wrap-custom-name" 
+          placeholder="{{ selected.CustomName }}" 
+          [(ngModel)]="filterText" 
+          [ngClass]="toggle == true ? 'select-wrapper-bordered' : 'select-wrapper'" 
+          [disabled]="this.disableSelect"
+          >
+          <!-- <p>{{ selected.CustomName }}</p> -->
+        </div>
+        <div class="arrow">
+          <app-toggle-on-svg
+            *ngIf="toggle"
+            class="toggle-on"
+            [width]="15"
+            [height]="8"
+            [color]=""
+          ></app-toggle-on-svg>
+          <app-toggle-off-svg
+            *ngIf="!toggle"
+            style="float: right"
+          ></app-toggle-off-svg>
+        </div>
+      </div>
+    </div>
+    <div  *ngIf="toggle" class="toogle-dropdown orange-scroll" >
+      <div class="" style="position: relative">
+        <!-- <div class="toggle-div" (click)="toggleOn()" >
+                </div> -->
+        <div class="box-shadow-top">
+          <ng-template #recursiveList let-projects>
+            <ng-container *ngFor="let project of projects; let i = index">
+              <div 
+                *ngIf="addLastToLastChild(project, projects, i)"
+                class="render-project-div"
+                [ngStyle]="{
+                  'margin-left': project.level * 4 + 'px',
+                  'border-left': '1px solid var(--border-color)',
+                  'background-color': project.level == 0 ? '#EAF2FF' : 'white',
+                  'border-left':
+                    project.level == 0
+                      ? 'none'
+                      : '1px solid var(--border-color)',
+                  'border-bottom':
+                    project.expanded && project.level == 0
+                      ? '2px solid var(--main-bg)'
+                      : ''
+                }"
+              >
+                <div
+                  class="arrow-wrapp-expanded"
+                  [ngStyle]="{
+                    visibility:
+                      project.activities?.length < 1 ? 'hidden' : 'visible'
+                  }"
+                  (click)="toggleProjectExpanded(project)"
+                >
+                  <app-toggle-on-svg
+                    *ngIf="project.expanded == true"
+                    [width]="9"
+                    [height]="6"
+                    [color]=""
+                  ></app-toggle-on-svg>
+                  <app-toggle-off-svg
+                    *ngIf="project.expanded == false"
+                    [width]="9"
+                    [height]="6"
+                    [color]=""
+                  ></app-toggle-off-svg>
+                </div>
+                <div class="project-customname"  (click)="isChecked(project, i)">{{ project.name }}</div>
+                <div style="position: relative" class="check-align">
+                  <input
+                   (click)="isChecked(project, i)"
+                    type="checkbox"
+                    class="checkbox-type"
+                    #checkProject
+                  />
+                  <app-checkout-svg
+                    *ngIf="!project.checked"
+                    [width]="18"
+                    [height]="18"
+                  ></app-checkout-svg>
+                  <app-checkin-svg
+                    *ngIf="project.checked"
+                    [width]="18"
+                    [height]="18"
+                    [color]="'FF7000'"
+                    [hatched]="'white'"
+                  ></app-checkin-svg>
+                </div>
+              </div>
+              <ng-container *ngIf="project.expanded">
+                <ng-container
+                  *ngTemplateOutlet="
+                    recursiveList;
+                    context: {
+                      $implicit: project.activities,
+                      parent_last: project.last
+                    }
+                  "
+                >
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-template>
+          <ng-container
+            *ngTemplateOutlet="recursiveList; context: { $implicit: projects }"
+          ></ng-container>
+        </div>
+        <div class="vertical-line-for-scroll"></div>
+      </div>
+    </div>
+    <div
+      (click)="toggleOff()"
+      class="toogleOfDiv"
+      [ngStyle]="{ visibility: toggle ? 'visible' : 'hidden' }"
+    ></div>
+  </div>
+</div>

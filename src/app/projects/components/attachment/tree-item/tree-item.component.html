@@ -1,0 +1,579 @@
+<div
+  [style.border-left]="getIndent()"
+  [ngClass]="isExpanded && lavel == 0 ? 'blue-background' : 'grey-background'"
+>
+  <div
+    [ngClass]="
+      isExpanded && lavel == 0
+        ? 'title-wrapper-without-border'
+        : 'title-wrapper'
+    "
+    class="main-wrapper"
+    [ngStyle]="getIndentGrid()"
+    (click)="openSwiper()"
+  >
+    <div class="item-name">
+      <div *ngIf="item.type === 'folder'" class="svg-arrow">
+        <div
+          *ngIf="isExpanded && !hasParams"
+          class="arrow-wrapper"
+          (click)="onToggleSvg($event)"
+        ></div>
+        <div
+          *ngIf="!isExpanded && !hasParams"
+          class="arrow-wrapper"
+          (click)="onToggleSvg($event)"
+        ></div>
+        <div
+          *ngIf="hasParams"
+          class="arrow-wrapper"
+          (click)="goBackOneFolder()"
+        ></div>
+        <svg
+          *ngIf="isExpanded && !hasParams"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="10"
+          height="8"
+          viewBox="0 0 10 8"
+        >
+          <defs>
+            <clipPath id="clip-path">
+              <rect
+                id="Rectangle_17817"
+                data-name="Rectangle 17817"
+                width="8"
+                height="10"
+                transform="translate(0 0)"
+                fill="none"
+              />
+            </clipPath>
+          </defs>
+          <g
+            id="Group_7837"
+            data-name="Group 7837"
+            transform="translate(831.26 -487.117) rotate(90)"
+          >
+            <g
+              id="Component_803_250"
+              data-name="Component 803 – 250"
+              transform="translate(487.117 821.26)"
+            >
+              <g
+                id="Group_7706"
+                data-name="Group 7706"
+                transform="translate(0 0)"
+                clip-path="url(#clip-path)"
+              >
+                <path
+                  id="Path_4846"
+                  data-name="Path 4846"
+                  d="M8.107,4.538.387.035A.257.257,0,0,0,0,.258V9.264a.257.257,0,0,0,.257.257.262.262,0,0,0,.13-.035l7.72-4.5a.258.258,0,0,0,0-.445"
+                  transform="translate(0 0)"
+                  fill="#858585"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+
+        <svg
+          *ngIf="!isExpanded && !hasParams"
+          (click)="onToggleSvg($event)"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="8"
+          height="10"
+          viewBox="0 0 8 10"
+        >
+          <defs>
+            <clipPath id="clip-path">
+              <rect
+                id="Rectangle_17817"
+                data-name="Rectangle 17817"
+                width="8"
+                height="10"
+                transform="translate(0 0)"
+                fill="none"
+              />
+            </clipPath>
+          </defs>
+          <g
+            id="Group_7839"
+            data-name="Group 7839"
+            transform="translate(-487.117 -821.26)"
+          >
+            <g
+              id="Component_803_251"
+              data-name="Component 803 – 251"
+              transform="translate(487.117 821.26)"
+            >
+              <g
+                id="Group_7706"
+                data-name="Group 7706"
+                transform="translate(0 0)"
+                clip-path="url(#clip-path)"
+              >
+                <path
+                  id="Path_4846"
+                  data-name="Path 4846"
+                  d="M8.107,4.538.387.035A.257.257,0,0,0,0,.258V9.264a.257.257,0,0,0,.257.257.262.262,0,0,0,.13-.035l7.72-4.5a.258.258,0,0,0,0-.445"
+                  transform="translate(0 0)"
+                  fill="#858585"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+
+        <svg
+          (click)="goBackOneFolder()"
+          *ngIf="hasParams"
+          class="back-svg"
+          style="rotate: 180deg"
+          id="Component_803_176"
+          data-name="Component 803 – 176"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="10.754"
+          height="13.442"
+          viewBox="0 0 10.754 13.442"
+        >
+          <defs>
+            <clipPath id="clip-path">
+              <rect
+                id="Rectangle_17817"
+                data-name="Rectangle 17817"
+                width="10.754"
+                height="13.442"
+                fill="none"
+              />
+            </clipPath>
+          </defs>
+          <g id="Group_7706" data-name="Group 7706" clip-path="url(#clip-path)">
+            <path
+              id="Path_4846"
+              data-name="Path 4846"
+              d="M10.9,6.1.52.047a.346.346,0,0,0-.52.3V12.453a.346.346,0,0,0,.346.346.352.352,0,0,0,.174-.047L10.9,6.7a.346.346,0,0,0,0-.6"
+              transform="translate(0 0)"
+              fill="#858585"
+            />
+          </g>
+        </svg>
+      </div>
+      <div *ngIf="item.type === 'folder'">
+        <svg
+          *ngIf="!isLoading"
+          id="Group_7877"
+          data-name="Group 7877"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="30"
+          height="25"
+          viewBox="0 0 30 25"
+        >
+          <defs>
+            <clipPath id="clip-path">
+              <path
+                id="Path_4854"
+                data-name="Path 4854"
+                d="M0,0H30V25H0Z"
+                fill="none"
+              />
+            </clipPath>
+            <clipPath id="clip-path-2">
+              <rect
+                id="Rectangle_17819"
+                data-name="Rectangle 17819"
+                width="30"
+                height="25"
+                fill="none"
+              />
+            </clipPath>
+            <clipPath id="clip-path-3">
+              <rect
+                id="Rectangle_17818"
+                data-name="Rectangle 17818"
+                width="29.949"
+                height="25"
+                fill="#a0c4fa"
+              />
+            </clipPath>
+          </defs>
+          <g
+            id="Mask_Group_2"
+            data-name="Mask Group 2"
+            clip-path="url(#clip-path)"
+          >
+            <g
+              id="Group_7733"
+              data-name="Group 7733"
+              transform="translate(0 0)"
+            >
+              <g
+                id="Group_7732"
+                data-name="Group 7732"
+                clip-path="url(#clip-path-2)"
+              >
+                <g
+                  id="Group_7731"
+                  data-name="Group 7731"
+                  transform="translate(0.051 0)"
+                  opacity="0.6"
+                >
+                  <g id="Group_7730" data-name="Group 7730">
+                    <g
+                      id="Group_7729"
+                      data-name="Group 7729"
+                      clip-path="url(#clip-path-3)"
+                    >
+                      <path
+                        id="Path_4852"
+                        data-name="Path 4852"
+                        d="M28.2,2.424,14.465,2.388,12.772.536a1.048,1.048,0,0,0-.9-.536H3.217A2.993,2.993,0,0,0,.077,3.066V23.029A1.907,1.907,0,0,0,1.9,25H28.2a1.907,1.907,0,0,0,1.823-1.971V4.394A1.907,1.907,0,0,0,28.2,2.424"
+                        transform="translate(-0.077)"
+                        fill="#a0c4fa"
+                      />
+                    </g>
+                  </g>
+                </g>
+                <path
+                  id="Path_4853"
+                  data-name="Path 4853"
+                  d="M28.126,6.915H1.823A1.892,1.892,0,0,0,0,8.859L.039,23.609a2.043,2.043,0,0,0,.144.755,1.944,1.944,0,0,0,.662.856,1.732,1.732,0,0,0,1.017.333h26.3a1.892,1.892,0,0,0,1.823-1.944L29.949,8.859a1.892,1.892,0,0,0-1.823-1.944"
+                  transform="translate(0 -1.939)"
+                  fill="#82a7e2"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+
+        <mat-spinner *ngIf="isLoading" [diameter]="30"></mat-spinner>
+      </div>
+
+      <ng-container *ngIf="item.type == 'file'">
+        <ng-container *ngIf="item.isNeededFormat">
+          <div class="click-on-preview">
+            <app-file-preview
+              style="position: relative"
+              *ngIf="
+                item.type === 'file' &&
+                (item.extension === 'PNG' ||
+                  item.extension === 'JPG' ||
+                  item.extension === 'JPEG')
+              "
+              [file]="item"
+              [canRemove]="true"
+              [imageModal]="true"
+              modalType="attachment"
+              [type]="'image'"
+              (openImage)="onOpenImage()"
+            ></app-file-preview>
+            <app-pdfjs-preview
+              *ngIf="item.type === 'file' && item.extension === 'PDF'"
+              style="cursor: pointer; position: relative; margin-top: 20px"
+              type="pdf"
+              [pdfUrls]="[item['file_path']]"
+              [deleted]=""
+              [canRemove]="true"
+              [index]="'0'"
+              [active]="'0'"
+              [svg_width]="32"
+              [svg_height]="22"
+              [canvas_width]="25"
+              [canvas_height]="17"
+              [borderRadius]="'0px 0px 0px 0px'"
+              [folder]="false"
+            >
+            </app-pdfjs-preview>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!item.isNeededFormat">
+          <div style="margin-right: 15px">
+            <svg
+              id="Component_802_70"
+              data-name="Component 802 – 70"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24.904"
+              height="28"
+              viewBox="0 0 24.904 37.844"
+            >
+              <path
+                id="Path_4844"
+                data-name="Path 4844"
+                d="M11.244,14.389l13.554,0L11.24.752Z"
+                transform="translate(-0.526 -0.125)"
+                fill="#82a7e2"
+              />
+              <path
+                id="Path_4845"
+                data-name="Path 4845"
+                d="M0,0V37.844H24.9V17.353l-17.264,0V0Z"
+                transform="translate(0 0)"
+                fill="#82a7e2"
+              />
+            </svg>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <div class="item-name-container" title="{{ item.name }}">
+        {{ item.name }}
+      </div>
+    </div>
+    <div class="item-download item-border" (click)="downloadFolder($event)">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="18"
+        height="15.832"
+        viewBox="0 0 18 15.832"
+      >
+        <defs>
+          <clipPath id="clip-path">
+            <rect
+              id="Rectangle_18004"
+              data-name="Rectangle 18004"
+              width="18"
+              height="15.832"
+              fill="none"
+            />
+          </clipPath>
+        </defs>
+        <g id="Group_8586" data-name="Group 8586" transform="translate(0 0)">
+          <g
+            id="Group_8582"
+            data-name="Group 8582"
+            transform="translate(0 0)"
+            clip-path="url(#clip-path)"
+          >
+            <path
+              id="Path_5127"
+              data-name="Path 5127"
+              d="M13.758,12.2a.446.446,0,0,0,.376.155.431.431,0,0,0,.352-.146l4.665-4.737a.538.538,0,0,0,.152-.33.488.488,0,0,0-.193-.356l-.273-.258-.011-.01a.566.566,0,0,0-.307-.118.6.6,0,0,0-.429.254c-2.052,2.136-2.9,3.069-3.3,3.53.012-1.456.012-4.359.012-9.7A.465.465,0,0,0,14.3,0h-.363c-.3,0-.482.2-.482.545,0,5.175,0,8.22.023,9.653-.409-.439-1.249-1.339-3.468-3.654a.452.452,0,0,0-.352-.161.465.465,0,0,0-.294.141L9.049,6.8a.446.446,0,0,0-.16.323.455.455,0,0,0,.16.308Z"
+              transform="translate(-5.104 0)"
+              fill="#858585"
+            />
+            <path
+              id="Path_5128"
+              data-name="Path 5128"
+              d="M16.587,24.209v4.066H1.37V24.209H0v5.523H18V24.209Z"
+              transform="translate(0 -13.9)"
+              fill="#858585"
+            />
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="item-description item-border">{{ item.comment }}</div>
+    <div class="item-extension item-border">{{ item.extension }}</div>
+    <div class="item-size item-border">
+      {{ item.fileSize > 0 ? (item.fileSize | fileSize) : "" }}
+    </div>
+    <div class="item-date item-border" *ngIf="!item.createdAt"></div>
+    <div class="item-date item-border" *ngIf="item.createdAt">
+      {{ item.createdAt }}
+    </div>
+    <div class="item-permission item-border">
+      <div class="item-permission-wrapper" (click)="onCompetence($event)"></div>
+      <div class="item-permission-folder" *ngIf="item.type == 'folder'">
+        <div class="eye-wrapper">
+          <div
+            class="red-circle"
+            *ngIf="item.permissions && item.permissionsNumber > 0"
+          >
+            {{ item.permissionsNumber }}
+          </div>
+          <svg
+            *ngIf="!userDetails.create_project_Attachment"
+            id="Group_8285"
+            data-name="Group 8285"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="17.726"
+            height="9.5"
+            viewBox="0 0 17.726 9.5"
+          >
+            <defs>
+              <clipPath id="clip-path">
+                <rect
+                  id="Rectangle_17979"
+                  data-name="Rectangle 17979"
+                  width="17.726"
+                  height="9.5"
+                  fill="none"
+                />
+              </clipPath>
+            </defs>
+            <g
+              id="Group_8284"
+              data-name="Group 8284"
+              clip-path="url(#clip-path)"
+            >
+              <path
+                id="Path_5094"
+                data-name="Path 5094"
+                d="M17.635,4.674A11.585,11.585,0,0,0,12.523.509C8.4-.963,4.143.938,1.11,3.906A1.291,1.291,0,0,0,.09,4.5.823.823,0,0,0,.1,5.255a1.351,1.351,0,0,0,1.116.592A13.2,13.2,0,0,0,8.473,9.432c3.762.45,6.909-1.372,9.165-4.37a.424.424,0,0,0,.089-.2.351.351,0,0,0-.091-.183M2,5.33a3.644,3.644,0,0,0-1.1-.5c1.041-.078,1.734-1.248,2.564-1.783A14.549,14.549,0,0,1,5.692,1.772a4.353,4.353,0,0,0-.881,3.894A4.226,4.226,0,0,0,6.128,7.92,11.183,11.183,0,0,1,2,5.33M9.2,8.2a3.581,3.581,0,1,1,3.581-3.581A3.581,3.581,0,0,1,9.2,8.2m3.072-.012-.438.127A4.485,4.485,0,0,0,13.65,3.766,4.315,4.315,0,0,0,12.433,1.45a10.922,10.922,0,0,1,4.232,3.319,9.191,9.191,0,0,1-4.388,3.419"
+                transform="translate(0 0)"
+                fill="#858585"
+              />
+              <path
+                id="Path_5095"
+                data-name="Path 5095"
+                d="M132.237,45.373a2.136,2.136,0,0,0-1,.247l.835,1.886-1.971-.293a2.16,2.16,0,1,0,2.135-1.841"
+                transform="translate(-123.032 -42.916)"
+                fill="#858585"
+              />
+            </g>
+          </svg>
+
+          <svg
+            *ngIf="userDetails.create_project_Attachment"
+            id="Component_844_98"
+            data-name="Component 844 – 98"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="17.726"
+            height="9.5"
+            viewBox="0 0 17.726 9.5"
+          >
+            <defs>
+              <clipPath id="clip-path">
+                <rect
+                  id="Rectangle_17979"
+                  data-name="Rectangle 17979"
+                  width="17.726"
+                  height="9.5"
+                  fill="none"
+                />
+              </clipPath>
+            </defs>
+            <g
+              id="Mask_Group_8284"
+              data-name="Mask Group 8284"
+              clip-path="url(#clip-path)"
+            >
+              <path
+                id="Path_5094"
+                data-name="Path 5094"
+                d="M17.635,4.674A11.585,11.585,0,0,0,12.523.509C8.4-.963,4.143.938,1.11,3.906A1.291,1.291,0,0,0,.09,4.5.823.823,0,0,0,.1,5.255a1.351,1.351,0,0,0,1.116.592A13.2,13.2,0,0,0,8.473,9.432c3.762.45,6.909-1.372,9.165-4.37a.424.424,0,0,0,.089-.2.351.351,0,0,0-.091-.183M2,5.33a3.644,3.644,0,0,0-1.1-.5c1.041-.078,1.734-1.248,2.564-1.783A14.549,14.549,0,0,1,5.692,1.772a4.353,4.353,0,0,0-.881,3.894A4.226,4.226,0,0,0,6.128,7.92,11.183,11.183,0,0,1,2,5.33M9.2,8.2a3.581,3.581,0,1,1,3.581-3.581A3.581,3.581,0,0,1,9.2,8.2m3.072-.012-.438.127A4.485,4.485,0,0,0,13.65,3.766,4.315,4.315,0,0,0,12.433,1.45a10.922,10.922,0,0,1,4.232,3.319,9.191,9.191,0,0,1-4.388,3.419"
+                transform="translate(0 0)"
+                fill="#02b94c"
+              />
+              <path
+                id="Path_5095"
+                data-name="Path 5095"
+                d="M132.237,45.373a2.136,2.136,0,0,0-1,.247l.835,1.886-1.971-.293a2.16,2.16,0,1,0,2.135-1.841"
+                transform="translate(-123.032 -42.916)"
+                fill="#02b94c"
+              />
+            </g>
+          </svg>
+        </div>
+
+        <div class="border-between-permissions"></div>
+        <svg
+          *ngIf="!userDetails.create_project_Attachment"
+          xmlns="http://www.w3.org/2000/svg"
+          width="11.5"
+          height="15.663"
+          viewBox="0 0 11.5 15.663"
+        >
+          <g
+            id="projects_kopia"
+            data-name="projects kopia"
+            transform="translate(-0.798 -1.087)"
+          >
+            <path
+              id="Path_630"
+              data-name="Path 630"
+              d="M32.754,18.908v-.029l-.367-.979a1.5,1.5,0,0,0-.583-.71l-1.435-.926a1.469,1.469,0,0,0-.9-.264l-1.048.073h-.034a.617.617,0,0,0-.4.25s-5.2,8.13-5.235,8.189l-.176.269a.387.387,0,0,0-.049.132,1.567,1.567,0,0,0-.127.367.95.95,0,0,1-.024.1s0,.024-.9,4.618v.044h0l-.2.979v.049a.451.451,0,0,0,.2.4l.2.127a.446.446,0,0,0,.24.069.392.392,0,0,0,.2-.049l.813-.593h.093l.279-.2L26.73,28.37a2.037,2.037,0,0,0,.568-.539l.612-.95a.2.2,0,0,0,.024-.044l4.741-7.41A.627.627,0,0,0,32.754,18.908Zm-.764.147-.867.059h-.029a.926.926,0,0,1-.451-.147l-1.435-.931a.979.979,0,0,1-.318-.353.069.069,0,0,0,0-.029l-.294-.8.872-.054h0a.911.911,0,0,1,.446.147l1.435.931a.882.882,0,0,1,.318.353v.029Zm-8.4,10.657h-.049a1.832,1.832,0,0,1-.627-.3,1.675,1.675,0,0,1-.553-.49c.171-.872.622-3.2.661-3.389a1.1,1.1,0,0,0,.024-.108.979.979,0,0,1,.088-.245l1.131-.1H24.3l.162.979a.132.132,0,0,0,0,.059.73.73,0,0,0,.74.49h.059l.979-.269h.029l.377,1.092a1.548,1.548,0,0,1-.3.264Z"
+              transform="translate(-20.481 -14.911)"
+              fill="#858585"
+            />
+          </g>
+        </svg>
+
+        <svg
+          (click)="onCompetence($event)"
+          *ngIf="userDetails.create_project_Attachment"
+          id="projects_kopia"
+          data-name="projects kopia"
+          xmlns="http://www.w3.org/2000/svg"
+          width="11.5"
+          height="15.663"
+          viewBox="0 0 11.5 15.663"
+        >
+          <path
+            id="Path_630"
+            data-name="Path 630"
+            d="M32.754,18.908v-.029l-.367-.979a1.5,1.5,0,0,0-.583-.71l-1.435-.926a1.469,1.469,0,0,0-.9-.264l-1.048.073h-.034a.617.617,0,0,0-.4.25s-5.2,8.13-5.235,8.189l-.176.269a.387.387,0,0,0-.049.132,1.567,1.567,0,0,0-.127.367.95.95,0,0,1-.024.1s0,.024-.9,4.618v.044h0l-.2.979v.049a.451.451,0,0,0,.2.4l.2.127a.446.446,0,0,0,.24.069.392.392,0,0,0,.2-.049l.813-.593h.093l.279-.2L26.73,28.37a2.037,2.037,0,0,0,.568-.539l.612-.95a.2.2,0,0,0,.024-.044l4.741-7.41A.627.627,0,0,0,32.754,18.908Zm-.764.147-.867.059h-.029a.926.926,0,0,1-.451-.147l-1.435-.931a.979.979,0,0,1-.318-.353.069.069,0,0,0,0-.029l-.294-.8.872-.054h0a.911.911,0,0,1,.446.147l1.435.931a.882.882,0,0,1,.318.353v.029Zm-8.4,10.657h-.049a1.832,1.832,0,0,1-.627-.3,1.675,1.675,0,0,1-.553-.49c.171-.872.622-3.2.661-3.389a1.1,1.1,0,0,0,.024-.108.979.979,0,0,1,.088-.245l1.131-.1H24.3l.162.979a.132.132,0,0,0,0,.059.73.73,0,0,0,.74.49h.059l.979-.269h.029l.377,1.092a1.548,1.548,0,0,1-.3.264Z"
+            transform="translate(-21.279 -15.998)"
+            fill="#02b94c"
+          />
+        </svg>
+      </div>
+
+      <div class="item-permission-file" *ngIf="item.type == 'file'">
+        <div class="border-between-permissions-file"></div>
+      </div>
+    </div>
+    <div class="item-remove item-border">
+      <div class="item-remove-wrapper" (click)="onRemove($event)"></div>
+      <svg
+        *ngIf="!removingFolderSpinner"
+        xmlns="http://www.w3.org/2000/svg"
+        width="10"
+        height="14.612"
+        viewBox="0 0 10 14.612"
+      >
+        <g id="Group_7857" data-name="Group 7857" transform="translate(0)">
+          <path
+            id="Path_800"
+            data-name="Path 800"
+            d="M31.964,16.408a.278.278,0,0,0-.26-.294h-2.7v-.7a.278.278,0,0,0-.26-.294H25.212a.278.278,0,0,0-.26.294v.7H22.233a.278.278,0,0,0-.26.294v.863h9.991Z"
+            transform="translate(-21.973 -15.119)"
+            fill="#858585"
+          />
+          <path
+            id="Path_801"
+            data-name="Path 801"
+            d="M21.973,23.209l1.222,11.4c.031.168.117.254.26.254h7.035c.144,0,.229-.086.26-.254l1.222-11.4Zm2.295,10.829-.846-8.58H24.55L25,34.038Zm3.25,0H26.332l-.167-8.58h1.5Zm2.063,0h-.735l.453-8.58h1.128Z"
+            transform="translate(-21.973 -20.256)"
+            fill="#858585"
+          />
+        </g>
+      </svg>
+      <mat-spinner *ngIf="removingFolderSpinner" [diameter]="15"></mat-spinner>
+    </div>
+  </div>
+  <div *ngIf="isExpanded">
+    <app-tree-item
+      *ngFor="let child of item.children"
+      [item]="child"
+      [lavel]="lavel + 1"
+    ></app-tree-item>
+  </div>
+</div>
+
+<ng-template #otherComponent>
+  <app-gallery
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper($event)"
+  >
+  </app-gallery>
+</ng-template>
+<ng-container *ngIf="isPDFViewer; else otherComponent">
+  <app-pdfjs-viewer
+    *ngIf="swiper.images.length"
+    [swiper]="swiper"
+    [canRemove]="false"
+    (removeImageEvent)="removeSwiperImage($event)"
+    (closeSwiperEvent)="closeSwiper($event)"
+  ></app-pdfjs-viewer>
+</ng-container>

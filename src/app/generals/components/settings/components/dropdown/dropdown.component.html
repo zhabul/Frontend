@@ -1,0 +1,25 @@
+<div class="dropdown-container">
+  <span>{{ dropdown.labelText | translate }}</span>
+  <div
+    class="dropdown"
+    [ngClass]="{ dropdown_open: dropdownToggle }"
+    (click)="openCloseDropdown()"
+  >
+    <p>{{ dropdown.selectedOption | translate }}</p>
+    <i class="material-icons arrow_down">
+      {{ dropdownToggle ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+    </i>
+  </div>
+  <div
+    class="dropdown-options-container orange-scroll-settings"
+    *ngIf="dropdownToggle"
+  >
+    <div
+      class="dropdown-option"
+      *ngFor="let option of dropdown.options"
+      (click)="selectOption(option)"
+    >
+      <p>{{ option | translate }}</p>
+    </div>
+  </div>
+</div>

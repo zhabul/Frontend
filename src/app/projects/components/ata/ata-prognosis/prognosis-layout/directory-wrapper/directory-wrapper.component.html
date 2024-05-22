@@ -1,0 +1,15 @@
+<div class="main-wrapper">
+  <div
+    class="button-wrapper"
+    [ngStyle]="{ 'margin-left': buttonLeftDistance + 'px' }"
+    (click)="isOpen = !isOpen"
+  >
+    <div class="name">{{ textInButton }}</div>
+    <div class="line"></div>
+  </div>
+  <div class="content-wrapper">
+    <ng-container *ngIf="isOpen">
+      <ng-content></ng-content>
+    </ng-container>
+  </div>
+</div>

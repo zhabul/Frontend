@@ -1,0 +1,78 @@
+.ata-content {
+  padding: 20px;
+}
+
+.nav-ata {
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+}
+
+.ata-status {
+  text-align: center;
+}
+
+.legend-ul {
+  list-style-type: none;
+}
+
+.btn-edit,
+.btn-delete {
+  cursor: pointer;
+}
+
+.btn-edit {
+  color: green;
+}
+
+.btn-delete {
+  color: red;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  justify-content: space-between;
+  width: 30%;
+}
+
+.button-group {
+  display: flex;
+}
+
+.message-wrapper {
+  background-color: #ececec;
+}
+
+.message-wrapper td {
+  border-top: 1px solid #96b1cc;
+}
+
+.table tbody tr td:nth-child(3) {
+  border-top: none !important;
+}
+
+.deviation-name {
+  display: flex;
+}
+
+.table-tab tr td {
+  border-top: 0px !important;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.3;
+}
+
+.progres-wrapper form {
+  padding: 20px;
+}
+
+.btn-position {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
